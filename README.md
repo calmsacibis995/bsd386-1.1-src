@@ -1,3 +1,2 @@
-# pjd-os-source
-
-This repository is deprecated. Find the source on pjd-os repository.
+#bsd386-1.1-src
+The source code of BSD/386 v1.1

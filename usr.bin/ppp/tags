@@ -1,0 +1,55 @@
+Connect	acu.c	/^Connect(dv)$/
+Mppp	ppp.c	/^main(ac, av)$/
+acuabort	acu.c	/^acuabort(s)$/
+acutype	acu.c	/^acutype(s)$/
+cour_abort	../tip/aculib/courier.c	/^cour_abort()$/
+cour_connect	../tip/aculib/courier.c	/^cour_connect()$/
+cour_dialer	../tip/aculib/courier.c	/^cour_dialer(num, acu)$/
+cour_disconnect	../tip/aculib/courier.c	/^cour_disconnect()$/
+cour_nap	../tip/aculib/courier.c	/^cour_nap()$/
+cour_napx	../tip/aculib/courier.c	/^cour_napx()$/
+cour_swallow	../tip/aculib/courier.c	/^cour_swallow(match)$/
+cour_write	../tip/aculib/courier.c	/^cour_write(fd, cp, n)$/
+coursync	../tip/aculib/courier.c	/^coursync()$/
+dead	hunt.c	/^dead()$/
+disconnect	acu.c	/^disconnect(reason)$/
+expalarm	ppp.c	/^expalarm()$/
+expect	ppp.c	/^expect(fd, str, timo)$/
+getsyscap	readsys.c	/^getsyscap(host, file)$/
+gobble	../tip/aculib/hayes.c	/^gobble(void) {$/
+goodbye	../tip/aculib/hayes.c	/^goodbye()$/
+hay_abort	../tip/aculib/hayes.c	/^hay_abort()$/
+hay_dialer	../tip/aculib/hayes.c	/^hay_dialer(phonenum, acu)$/
+hay_disconnect	../tip/aculib/hayes.c	/^hay_disconnect()$/
+hay_sync	../tip/aculib/hayes.c	/^hay_sync()$/
+hunt	hunt.c	/^hunt()$/
+ifconfig	ifconfig.c	/^ifconfig(ifname, arg)$/
+ifperror	ifconfig.c	/^ifperror(msg, ifname)$/
+lazycmd	../tip/aculib/hayes.c	/^lazycmd(cmd)$/
+log	log.c	/^log(fmt, a1, a2, a3)$/
+mask	../tip/aculib/courier.c	/^#define mask(s) (1<<((s)-1))$/
+min	../tip/aculib/hayes.c	/^#define	min(a,b)	((a < b) ? a : b)$/
+pppconfig	ifconfig.c	/^pppconfig(ifname)$/
+pppsetcmap	ifconfig.c	/^pppsetcmap(pio, arg)$/
+pppsetflags	ifconfig.c	/^pppsetflags(pio, arg)$/
+printable	ppp.c	/^printable(str)$/
+sendcmd	../tip/aculib/hayes.c	/^sendcmd(cmd)$/
+set_clocal	clocal.c	/^set_clocal(fd)$/
+set_hupcl	clocal.c	/^set_hupcl(fd)$/
+set_lparms	clocal.c	/^set_lparms(fd)$/
+setvec	../tip/aculib/courier.c	/^#define setvec(vec, a) \\$/
+showstr	../tip/aculib/hayes.c	/^showstr(str, len)$/
+sigALRM	../tip/aculib/hayes.c	/^sigALRM()$/
+status	../tip/aculib/hayes.c	/^status(fmt, va_alist)$/
+tdecode	termcap.c	/^tdecode(str, area)$/
+tgetflag	termcap.c	/^tgetflag(id)$/
+tgetnum	termcap.c	/^tgetnum(id)$/
+tgetstr	termcap.c	/^tgetstr(id, area)$/
+tnamatch	termcap.c	/^tnamatch(np)$/
+tnchktc	termcap.c	/^tnchktc(file)$/
+tskip	termcap.c	/^tskip(bp)$/
+uu_lock	../tip/uucplock.c	/^uu_lock(ttyname)$/
+uu_unlock	../tip/uucplock.c	/^uu_unlock(ttyname)$/
+verbose_read	../tip/aculib/courier.c	/^verbose_read()$/
+waitdrop	ifconfig.c	/^waitdrop(ifname)$/
+xtgetent	termcap.c	/^xtgetent(bp, name, termcap)$/

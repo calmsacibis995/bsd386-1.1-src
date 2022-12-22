@@ -1,0 +1,14 @@
+100	dim a[5,5], b[5,2], c[2,5]
+110	mat a = (5)
+120	mat a = (2) * a
+130	mat print a;
+140	for i = 1 to 5
+150		b[i,1] = 1+i
+160		b[i,2] = 6-i
+170	next i
+180	mat print b;
+190	mat c = trn(b)
+200	mat print c;
+210	mat a = b * c
+220	mat print a;
+230	end

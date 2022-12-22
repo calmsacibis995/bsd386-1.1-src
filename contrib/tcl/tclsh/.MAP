@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/tcl/tclsh
+F TAGS.;1                           	tags
+F TCLAPPIN.C;1                      	tclAppInit.c
+F TCLSH.1;1                         	tclsh.1

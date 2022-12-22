@@ -1,0 +1,80 @@
+i386/OBJ/init_main.o	standard
+i386/OBJ/kern_clock.o	standard
+i386/OBJ/kern_exit.o	standard
+i386/OBJ/kern_physio.o	standard
+i386/OBJ/kern_sig.o		standard
+i386/OBJ/kern_synch.o	standard
+i386/OBJ/subr_rmap.o	standard
+i386/OBJ/sys_generic.o	standard
+i386/OBJ/sys_process.o	standard
+i386/OBJ/tty.o		standard
+i386/OBJ/tty_subr.o		standard
+i386/OBJ/vfs_syscalls.o	standard
+i386/OBJ/ufs_bmap.o		standard
+i386/OBJ/ufs_disksubr.o	standard
+i386/OBJ/ufs_inode.o		standard
+i386/OBJ/ufs_vnops.o		standard
+i386/i386/autoconf.c	standard device-driver
+i386/i386/conf.c	standard
+i386/i386/cons.c	standard
+i386/i386/copy.s	standard
+i386/i386/dos_disksubr.c	standard
+i386/i386/exec_machdep.c	standard
+i386/i386/fpe_cmd.c	optional fpe
+i386/i386/fpe_fmt.c	optional fpe
+i386/i386/fpe_main.c	optional fpe
+i386/i386/fpe_s.s	optional fpe
+i386/i386/i386_param.c	standard
+i386/i386/kgdb_stub.c	optional kgdb
+i386/i386/kgdb_glue.c	optional kgdb
+kern/syscalls.c		optional kgdb
+i386/i386/in_cksum.c	optional inet
+i386/i386/machdep.c	standard config-dependent
+i386/i386/mem.c		standard
+i386/i386/pmap.c	standard
+i386/i386/process_machdep.c	standard
+i386/i386/random.s	optional multicast
+netns/ns_cksum.c	optional ns
+i386/i386/segments.c	standard
+i386/i386/sys_machdep.c	standard
+i386/i386/trap.c	standard
+i386/i386/vm_machdep.c	standard
+i386/isa/aha.c		optional aha device-driver
+i386/isa/clock.c	standard
+i386/isa/com.c		optional com device-driver
+i386/OBJ/digi.o		optional digi device-driver
+i386/isa/fd.c		optional fd device-driver
+i386/isa/if_ef.c	optional ef device-driver
+i386/isa/if_el.c	optional el device-driver
+i386/isa/if_eo.c	optional eo device-driver
+i386/isa/if_ep.c	optional ep device-driver
+i386/isa/if_ex.c	optional ex device-driver
+i386/isa/if_hpplus.c	optional hpp device-driver
+i386/OBJ/ms.o		optional ms device-driver
+i386/isa/if_ne.c	optional ne device-driver
+i386/OBJ/if_pe.o	optional pe device-driver
+i386/OBJ/if_petbl.o	optional pe device-driver
+i386/isa/bms.c		optional bms device-driver
+i386/isa/if_re.c	optional re device-driver
+i386/isa/if_rh.c	optional rh device-driver
+i386/isa/if_rn.c	optional rn device-driver
+i386/isa/if_tn.c	optional tn device-driver
+i386/isa/if_we.c	optional we device-driver
+i386/isa/isa.c		optional isa device-driver
+i386/isa/lms.c		optional lms device-driver
+i386/isa/lp.c		optional lp device-driver
+i386/isa/mcd.c		optional mcd device-driver
+i386/isa/midi.c		optional midi device-driver
+i386/isa/npx.c		optional npx device-driver
+i386/isa/pcaux.c	optional pcaux device-driver
+i386/isa/pccons.c	optional pccons device-driver
+i386/isa/rc.c		optional rc device-driver
+i386/isa/sb_driver.c	optional sb device-driver
+i386/isa/si.c		optional si device-driver
+i386/isa/vga.c		optional vga device-driver
+i386/isa/wd.c		optional wd device-driver
+i386/isa/wt.c		optional wt device-driver
+i386/OBJ/xir.o		optional xir device-driver
+i386/eisa/eisa.c	optional eisa
+i386/eisa/eaha.c	optional eaha device-driver
+thisisfor_in_proto.c	optional hy

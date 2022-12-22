@@ -1,0 +1,970 @@
+From ihnp4!sdcrdcf!lwall Sat Jan 31 10:42:41 1987
+Received: by mirror.TMC.COM (4.12/UUCP-Project/rel-1.0/08-20-86)
+	id AA22616; Sat, 31 Jan 87 10:41:49 est
+Received: by ihnp4.ATT.COM id AA16645; 31 Jan 87 07:18:03 CST (Sat)
+Received: by sdc.uucp (4.12/sdcrdcf)
+	id AA20106; Fri, 30 Jan 87 23:02:07 pst
+Date: Fri, 30 Jan 87 23:02:07 pst
+From: ihnp4!sdcrdcf!lwall (Larry Wall)
+Message-Id: <8701310702.AA20106@sdc.uucp>
+Subject: patch 2.0 patch #7
+Organization: System Development Corporation, Santa Monica
+Apparently-To: hplabs!seismo!mirror!source-archives
+Status: R
+
+System: patch version 2.0
+Patch #: 7
+Priority: LOW (MEDIUM if you're trying to install mangled patches)
+Subject: Some mangled patches result in misleading diagnostics.
+From: lwall@sdcrdcf.UUCP
+
+Description:
+	Certain kinds of mangled patches (namely ones in which the line
+	numbers are wrong) can give misleading error messages.  At best,
+	the line numbers (in the patch file) are wrong.  At worst, the
+	error message reads, "core dumped".  At least I hope that was
+	the worst.
+
+Repeat-By:
+	Take a new-style context diff, one which adds some lines, and edit
+	the replacement line numbers so that the maximim line number is one
+	less than it ought to be.  Run patch.  Watch it puke.
+
+	Make an old-style diff of the same patch.  Run patch.  Note the
+	uninformative error message with incorrect line numbers.
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,hplabs,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form (only left-justified)
+	it will greatly speed processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and LIST
+	is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+
+Index: patchlevel.h
+Prereq: 6
+1c1
+< #define PATCHLEVEL 6
+---
+> #define PATCHLEVEL 7
+ 
+Index: patch.c
+Prereq: 2.0.1.2
+*** patch.c.old	Fri Jan 30 22:48:49 1987
+*** patch.c	Fri Jan 30 22:49:04 1987
+***************
+*** 1,5
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+
+--- 1,5 -----
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+***************
+*** 9,14
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.2  86/11/21  09:39:15  lwall
+   * Fuzz factor caused offset of installed lines.
+   * 
+
+--- 9,18 -----
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.3  87/01/30  22:45:50  lwall
++  * Improved diagnostic on sync error.
++  * Moved do_ed_script() to pch.c.
++  * 
+   * Revision 2.0.1.2  86/11/21  09:39:15  lwall
+   * Fuzz factor caused offset of installed lines.
+   * 
+***************
+*** 88,94
+  LINENUM locate_hunk();
+  void abort_hunk();
+  void apply_hunk();
+- void do_ed_script();
+  void init_output();
+  void init_reject();
+  void copy_till();
+
+--- 92,97 -----
+  LINENUM locate_hunk();
+  void abort_hunk();
+  void apply_hunk();
+  void init_output();
+  void init_reject();
+  void copy_till();
+***************
+*** 584,592
+  	}
+  	else {
+  	    if (pch_char(new) != pch_char(old)) {
+! 		say3("Out-of-sync patch, lines %ld,%ld\n",
+! 		    pch_hunk_beg() + old - 1,
+! 		    pch_hunk_beg() + new - 1);
+  #ifdef DEBUGGING
+  		say3("oldchar = '%c', newchar = '%c'\n",
+  		    pch_char(old), pch_char(new));
+
+--- 587,595 -----
+  	}
+  	else {
+  	    if (pch_char(new) != pch_char(old)) {
+! 		say3("Out-of-sync patch, lines %ld,%ld--mangled text or line numbers, maybe?\n",
+! 		    pch_hunk_beg() + old,
+! 		    pch_hunk_beg() + new);
+  #ifdef DEBUGGING
+  		say3("oldchar = '%c', newchar = '%c'\n",
+  		    pch_char(old), pch_char(new));
+***************
+*** 646,713
+      if (R_do_defines && def_state != OUTSIDE) {
+  	fputs(end_defined, ofp);
+      }
+- }
+- 
+- /* Apply an ed script by feeding ed itself. */
+- 
+- void
+- do_ed_script()
+- {
+-     Reg1 char *t;
+-     Reg2 long beginning_of_this_line;
+-     Reg3 bool this_line_is_command = FALSE;
+-     Reg4 FILE *pipefp;
+-     FILE *popen();
+- 
+-     if (!skip_rest_of_patch) {
+- 	Unlink(TMPOUTNAME);
+- 	copy_file(filearg[0], TMPOUTNAME);
+- 	if (verbose)
+- 	    Sprintf(buf, "/bin/ed %s", TMPOUTNAME);
+- 	else
+- 	    Sprintf(buf, "/bin/ed - %s", TMPOUTNAME);
+- 	pipefp = popen(buf, "w");
+-     }
+-     for (;;) {
+- 	beginning_of_this_line = ftell(pfp);
+- 	if (pgets(buf, sizeof buf, pfp) == Nullch) {
+- 	    next_intuit_at(beginning_of_this_line);
+- 	    break;
+- 	}
+- 	for (t=buf; isdigit(*t) || *t == ','; t++) ;
+- 	this_line_is_command = (isdigit(*buf) &&
+- 	  (*t == 'd' || *t == 'c' || *t == 'a') );
+- 	if (this_line_is_command) {
+- 	    if (!skip_rest_of_patch)
+- 		fputs(buf, pipefp);
+- 	    if (*t != 'd') {
+- 		while (pgets(buf, sizeof buf, pfp) != Nullch) {
+- 		    if (!skip_rest_of_patch)
+- 			fputs(buf, pipefp);
+- 		    if (strEQ(buf, ".\n"))
+- 			break;
+- 		}
+- 	    }
+- 	}
+- 	else {
+- 	    next_intuit_at(beginning_of_this_line);
+- 	    break;
+- 	}
+-     }
+-     if (skip_rest_of_patch)
+- 	return;
+-     fprintf(pipefp, "w\n");
+-     fprintf(pipefp, "q\n");
+-     Fflush(pipefp);
+-     Pclose(pipefp);
+-     ignore_signals();
+-     if (move_file(TMPOUTNAME, outname) < 0) {
+- 	toutkeep = TRUE;
+- 	chmod(TMPOUTNAME, filemode);
+-     }
+-     else
+- 	chmod(outname, filemode);
+-     set_signals();
+  }
+  
+  /* Open the new file. */
+
+--- 649,654 -----
+      if (R_do_defines && def_state != OUTSIDE) {
+  	fputs(end_defined, ofp);
+      }
+  }
+  
+  /* Open the new file. */
+ 
+Index: pch.c
+Prereq: 2.0.1.4
+*** pch.c.old	Fri Jan 30 22:50:06 1987
+*** pch.c	Fri Jan 30 22:50:30 1987
+***************
+*** 1,4
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.4  87/01/05  16:59:53  lwall
+
+--- 1,4 -----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.5  87/01/30  22:47:42  lwall
+***************
+*** 1,6
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.4  87/01/05  16:59:53  lwall
+   * New-style context diffs caused double call to free().
+   * 
+
+--- 1,9 -----
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.5  87/01/30  22:47:42  lwall
++  * Improved responses to mangled patches.
++  * 
+   * Revision 2.0.1.4  87/01/05  16:59:53  lwall
+   * New-style context diffs caused double call to free().
+   * 
+***************
+*** 42,47
+  static int hunkmax = INITHUNKMAX;	/* size of above arrays to begin with */
+  static int p_indent;			/* indent to patch */
+  static LINENUM p_base;			/* where to intuit this time */
+  static LINENUM p_start;			/* where intuit found a patch */
+  static LINENUM p_efake = -1;		/* end of faked up lines--don't free */
+  static LINENUM p_bfake = -1;		/* beg of faked up lines */
+
+--- 45,51 -----
+  static int hunkmax = INITHUNKMAX;	/* size of above arrays to begin with */
+  static int p_indent;			/* indent to patch */
+  static LINENUM p_base;			/* where to intuit this time */
++ static LINENUM p_bline;			/* line # of p_base */
+  static LINENUM p_start;			/* where intuit found a patch */
+  static LINENUM p_sline;			/* and the line number for it */
+  static LINENUM p_hunk_beg;		/* line number of current hunk */
+***************
+*** 43,48
+  static int p_indent;			/* indent to patch */
+  static LINENUM p_base;			/* where to intuit this time */
+  static LINENUM p_start;			/* where intuit found a patch */
+  static LINENUM p_efake = -1;		/* end of faked up lines--don't free */
+  static LINENUM p_bfake = -1;		/* beg of faked up lines */
+  
+
+--- 47,54 -----
+  static LINENUM p_base;			/* where to intuit this time */
+  static LINENUM p_bline;			/* line # of p_base */
+  static LINENUM p_start;			/* where intuit found a patch */
++ static LINENUM p_sline;			/* and the line number for it */
++ static LINENUM p_hunk_beg;		/* line number of current hunk */
+  static LINENUM p_efake = -1;		/* end of faked up lines--don't free */
+  static LINENUM p_bfake = -1;		/* beg of faked up lines */
+  
+***************
+*** 80,86
+  	fatal2("patch file %s not found\n", filename);
+      Fstat(fileno(pfp), &filestat);
+      p_filesize = filestat.st_size;
+!     next_intuit_at(0L);			/* start at the beginning */
+      set_hunkmax();
+  }
+  
+
+--- 86,92 -----
+  	fatal2("patch file %s not found\n", filename);
+      Fstat(fileno(pfp), &filestat);
+      p_filesize = filestat.st_size;
+!     next_intuit_at(0L,1L);			/* start at the beginning */
+      set_hunkmax();
+  }
+  
+***************
+*** 155,161
+  	    "an ed script" );
+      if (p_indent && verbose)
+  	say3("(Patch is indented %d space%s.)\n", p_indent, p_indent==1?"":"s");
+!     skip_to(p_start);
+      while (filearg[0] == Nullch) {
+  	if (force) {
+  	    say1("No file to patch.  Skipping...\n");
+
+--- 161,167 -----
+  	    "an ed script" );
+      if (p_indent && verbose)
+  	say3("(Patch is indented %d space%s.)\n", p_indent, p_indent==1?"":"s");
+!     skip_to(p_start,p_sline);
+      while (filearg[0] == Nullch) {
+  	if (force) {
+  	    say1("No file to patch.  Skipping...\n");
+***************
+*** 192,197
+      Reg4 long this_line = 0;
+      Reg5 long previous_line;
+      Reg6 long first_command_line = -1;
+      Reg7 bool last_line_was_command = FALSE;
+      Reg8 bool this_is_a_command = FALSE;
+      Reg9 bool stars_last_line = FALSE;
+
+--- 198,204 -----
+      Reg4 long this_line = 0;
+      Reg5 long previous_line;
+      Reg6 long first_command_line = -1;
++     long fcl_line;
+      Reg7 bool last_line_was_command = FALSE;
+      Reg8 bool this_is_a_command = FALSE;
+      Reg9 bool stars_last_line = FALSE;
+***************
+*** 210,215
+  
+      ok_to_create_file = FALSE;
+      Fseek(pfp, p_base, 0);
+      for (;;) {
+  	previous_line = this_line;
+  	last_line_was_command = this_is_a_command;
+
+--- 217,223 -----
+  
+      ok_to_create_file = FALSE;
+      Fseek(pfp, p_base, 0);
++     p_input_line = p_bline - 1;
+      for (;;) {
+  	previous_line = this_line;
+  	last_line_was_command = this_is_a_command;
+***************
+*** 216,221
+  	stars_last_line = stars_this_line;
+  	this_line = ftell(pfp);
+  	indent = 0;
+  	if (fgets(buf, sizeof buf, pfp) == Nullch) {
+  	    if (first_command_line >= 0L) {
+  					/* nothing but deletes!? */
+
+--- 224,230 -----
+  	stars_last_line = stars_this_line;
+  	this_line = ftell(pfp);
+  	indent = 0;
++ 	p_input_line++;
+  	if (fgets(buf, sizeof buf, pfp) == Nullch) {
+  	    if (first_command_line >= 0L) {
+  					/* nothing but deletes!? */
+***************
+*** 220,225
+  	    if (first_command_line >= 0L) {
+  					/* nothing but deletes!? */
+  		p_start = first_command_line;
+  		retval = ED_DIFF;
+  		goto scan_exit;
+  	    }
+
+--- 229,235 -----
+  	    if (first_command_line >= 0L) {
+  					/* nothing but deletes!? */
+  		p_start = first_command_line;
++ 		p_sline = fcl_line;
+  		retval = ED_DIFF;
+  		goto scan_exit;
+  	    }
+***************
+*** 225,230
+  	    }
+  	    else {
+  		p_start = this_line;
+  		retval = 0;
+  		goto scan_exit;
+  	    }
+
+--- 235,241 -----
+  	    }
+  	    else {
+  		p_start = this_line;
++ 		p_sline = p_input_line;
+  		retval = 0;
+  		goto scan_exit;
+  	    }
+***************
+*** 240,245
+  	  (*t == 'd' || *t == 'c' || *t == 'a') );
+  	if (first_command_line < 0L && this_is_a_command) { 
+  	    first_command_line = this_line;
+  	    p_indent = indent;		/* assume this for now */
+  	}
+  	if (!stars_last_line && strnEQ(s, "*** ", 4))
+
+--- 251,257 -----
+  	  (*t == 'd' || *t == 'c' || *t == 'a') );
+  	if (first_command_line < 0L && this_is_a_command) { 
+  	    first_command_line = this_line;
++ 	    fcl_line = p_input_line;
+  	    p_indent = indent;		/* assume this for now */
+  	}
+  	if (!stars_last_line && strnEQ(s, "*** ", 4))
+***************
+*** 263,268
+  	  strEQ(s, ".\n") ) {
+  	    p_indent = indent;
+  	    p_start = first_command_line;
+  	    retval = ED_DIFF;
+  	    goto scan_exit;
+  	}
+
+--- 275,281 -----
+  	  strEQ(s, ".\n") ) {
+  	    p_indent = indent;
+  	    p_start = first_command_line;
++ 	    p_sline = fcl_line;
+  	    retval = ED_DIFF;
+  	    goto scan_exit;
+  	}
+***************
+*** 277,282
+  		s++;
+  	    p_indent = indent;
+  	    p_start = previous_line;
+  	    retval = (*(s-1) == '*' ? NEW_CONTEXT_DIFF : CONTEXT_DIFF);
+  	    goto scan_exit;
+  	}
+
+--- 290,296 -----
+  		s++;
+  	    p_indent = indent;
+  	    p_start = previous_line;
++ 	    p_sline = p_input_line - 1;
+  	    retval = (*(s-1) == '*' ? NEW_CONTEXT_DIFF : CONTEXT_DIFF);
+  	    goto scan_exit;
+  	}
+***************
+*** 284,289
+  	  last_line_was_command &&
+  	  (strnEQ(s, "< ", 2) || strnEQ(s, "> ", 2)) ) {
+  	    p_start = previous_line;
+  	    p_indent = indent;
+  	    retval = NORMAL_DIFF;
+  	    goto scan_exit;
+
+--- 298,304 -----
+  	  last_line_was_command &&
+  	  (strnEQ(s, "< ", 2) || strnEQ(s, "> ", 2)) ) {
+  	    p_start = previous_line;
++ 	    p_sline = p_input_line - 1;
+  	    p_indent = indent;
+  	    retval = NORMAL_DIFF;
+  	    goto scan_exit;
+***************
+*** 352,358
+  /* Remember where this patch ends so we know where to start up again. */
+  
+  void
+! next_intuit_at(file_pos)
+  long file_pos;
+  {
+      p_base = file_pos;
+
+--- 367,373 -----
+  /* Remember where this patch ends so we know where to start up again. */
+  
+  void
+! next_intuit_at(file_pos,file_line)
+  long file_pos;
+  long file_line;
+  {
+***************
+*** 354,359
+  void
+  next_intuit_at(file_pos)
+  long file_pos;
+  {
+      p_base = file_pos;
+  }
+
+--- 369,375 -----
+  void
+  next_intuit_at(file_pos,file_line)
+  long file_pos;
++ long file_line;
+  {
+      p_base = file_pos;
+      p_bline = file_line;
+***************
+*** 356,361
+  long file_pos;
+  {
+      p_base = file_pos;
+  }
+  
+  /* Basically a verbose fseek() to the actual diff listing. */
+
+--- 372,378 -----
+  long file_line;
+  {
+      p_base = file_pos;
++     p_bline = file_line;
+  }
+  
+  /* Basically a verbose fseek() to the actual diff listing. */
+***************
+*** 361,367
+  /* Basically a verbose fseek() to the actual diff listing. */
+  
+  void
+! skip_to(file_pos)
+  long file_pos;
+  {
+      char *ret;
+
+--- 378,384 -----
+  /* Basically a verbose fseek() to the actual diff listing. */
+  
+  void
+! skip_to(file_pos,file_line)
+  long file_pos;
+  long file_line;
+  {
+***************
+*** 363,368
+  void
+  skip_to(file_pos)
+  long file_pos;
+  {
+      char *ret;
+  
+
+--- 380,386 -----
+  void
+  skip_to(file_pos,file_line)
+  long file_pos;
++ long file_line;
+  {
+      char *ret;
+  
+***************
+*** 379,384
+      }
+      else
+  	Fseek(pfp, file_pos, 0);
+  }
+  
+  /* True if there is more of the current diff listing to process. */
+
+--- 397,403 -----
+      }
+      else
+  	Fseek(pfp, file_pos, 0);
++     p_input_line = file_line - 1;
+  }
+  
+  /* True if there is more of the current diff listing to process. */
+***************
+*** 419,424
+  					/* # of copiable lines in ptrn */
+  
+  	ret = pgets(buf, sizeof buf, pfp);
+  	if (ret == Nullch || strnNE(buf, "********", 8)) {
+  	    next_intuit_at(line_beginning);
+  	    return FALSE;
+
+--- 438,444 -----
+  					/* # of copiable lines in ptrn */
+  
+  	ret = pgets(buf, sizeof buf, pfp);
++ 	p_input_line++;
+  	if (ret == Nullch || strnNE(buf, "********", 8)) {
+  	    next_intuit_at(line_beginning,p_input_line);
+  	    return FALSE;
+***************
+*** 420,426
+  
+  	ret = pgets(buf, sizeof buf, pfp);
+  	if (ret == Nullch || strnNE(buf, "********", 8)) {
+! 	    next_intuit_at(line_beginning);
+  	    return FALSE;
+  	}
+  	p_context = 100;
+
+--- 440,446 -----
+  	ret = pgets(buf, sizeof buf, pfp);
+  	p_input_line++;
+  	if (ret == Nullch || strnNE(buf, "********", 8)) {
+! 	    next_intuit_at(line_beginning,p_input_line);
+  	    return FALSE;
+  	}
+  	p_context = 100;
+***************
+*** 424,429
+  	    return FALSE;
+  	}
+  	p_context = 100;
+  	while (p_end < p_max) {
+  	    line_beginning = ftell(pfp);
+  	    ret = pgets(buf, sizeof buf, pfp);
+
+--- 444,450 -----
+  	    return FALSE;
+  	}
+  	p_context = 100;
++ 	p_hunk_beg = p_input_line + 1;
+  	while (p_end < p_max) {
+  	    line_beginning = ftell(pfp);
+  	    ret = pgets(buf, sizeof buf, pfp);
+***************
+*** 427,432
+  	while (p_end < p_max) {
+  	    line_beginning = ftell(pfp);
+  	    ret = pgets(buf, sizeof buf, pfp);
+  	    if (ret == Nullch) {
+  		if (p_max - p_end < 4)
+  		    Strcpy(buf, "  \n");  /* assume blank lines got chopped */
+
+--- 448,454 -----
+  	while (p_end < p_max) {
+  	    line_beginning = ftell(pfp);
+  	    ret = pgets(buf, sizeof buf, pfp);
++ 	    p_input_line++;
+  	    if (ret == Nullch) {
+  		if (p_max - p_end < 4)
+  		    Strcpy(buf, "  \n");  /* assume blank lines got chopped */
+***************
+*** 438,444
+  		    fatal1("Unexpected end of file in patch.\n");
+  		}
+  	    }
+- 	    p_input_line++;
+  	    p_end++;
+  	    assert(p_end < hunkmax);
+  	    p_char[p_end] = *buf;
+
+--- 460,465 -----
+  		    fatal1("Unexpected end of file in patch.\n");
+  		}
+  	    }
+  	    p_end++;
+  	    assert(p_end < hunkmax);
+  	    p_char[p_end] = *buf;
+***************
+*** 491,498
+  		break;
+  	    case '-':
+  		if (buf[1] == '-') {
+! 		    if (p_end != p_ptrn_lines + 1 &&
+! 			p_end != p_ptrn_lines + 2) {
+  			if (p_end == 1) {
+  			    /* `old' lines were omitted - set up to fill */
+  			    /* them in from 'new' context lines. */
+
+--- 512,520 -----
+  		break;
+  	    case '-':
+  		if (buf[1] == '-') {
+! 		    if (repl_beginning ||
+! 			(p_end != p_ptrn_lines + 1 + (p_char[p_end-1] == '\n')))
+! 		    {
+  			if (p_end == 1) {
+  			    /* `old' lines were omitted - set up to fill */
+  			    /* them in from 'new' context lines. */
+***************
+*** 502,510
+  			    fillcnt = p_ptrn_lines;
+  			}
+  			else {
+! 			    if (repl_beginning && repl_could_be_missing){
+! 				repl_missing = TRUE;
+! 				goto hunk_done;
+  			    }
+  			    fatal3("Unexpected --- at line %ld: %s",
+  				p_input_line, buf);
+
+--- 524,537 -----
+  			    fillcnt = p_ptrn_lines;
+  			}
+  			else {
+! 			    if (repl_beginning) {
+! 				if (repl_could_be_missing){
+! 				    repl_missing = TRUE;
+! 				    goto hunk_done;
+! 				}
+! 				fatal3(
+! "Duplicate \"---\" at line %ld--check line numbers at line %ld.\n",
+! 				    p_input_line, p_hunk_beg + repl_beginning);
+  			    }
+  			    else {
+  				fatal4(
+***************
+*** 506,513
+  				repl_missing = TRUE;
+  				goto hunk_done;
+  			    }
+! 			    fatal3("Unexpected --- at line %ld: %s",
+! 				p_input_line, buf);
+  			}
+  		    }
+  		    repl_beginning = p_end;
+
+--- 533,546 -----
+  "Duplicate \"---\" at line %ld--check line numbers at line %ld.\n",
+  				    p_input_line, p_hunk_beg + repl_beginning);
+  			    }
+! 			    else {
+! 				fatal4(
+! "%s \"---\" at line %ld--check line numbers at line %ld.\n",
+! 				    (p_end <= p_ptrn_lines
+! 					? "Premature"
+! 					: "Overdue" ),
+! 				    p_input_line, p_hunk_beg);
+! 			    }
+  			}
+  		    }
+  		    repl_beginning = p_end;
+***************
+*** 649,655
+  	    p_bfake = filldst;		/* remember where not to free() */
+  	    p_efake = filldst + fillcnt - 1;
+  	    while (fillcnt-- > 0) {
+! 		while (p_char[fillsrc] != ' ')
+  		    fillsrc++;
+  		p_line[filldst] = p_line[fillsrc];
+  		p_char[filldst] = p_char[fillsrc];
+
+--- 682,688 -----
+  	    p_bfake = filldst;		/* remember where not to free() */
+  	    p_efake = filldst + fillcnt - 1;
+  	    while (fillcnt-- > 0) {
+! 		while (fillsrc <= p_end && p_char[fillsrc] != ' ')
+  		    fillsrc++;
+  		if (fillsrc > p_end)
+  		    fatal2("Replacement text or line numbers mangled in hunk at line %ld\n",
+***************
+*** 651,656
+  	    while (fillcnt-- > 0) {
+  		while (p_char[fillsrc] != ' ')
+  		    fillsrc++;
+  		p_line[filldst] = p_line[fillsrc];
+  		p_char[filldst] = p_char[fillsrc];
+  		p_len[filldst] = p_len[fillsrc];
+
+--- 684,692 -----
+  	    while (fillcnt-- > 0) {
+  		while (fillsrc <= p_end && p_char[fillsrc] != ' ')
+  		    fillsrc++;
++ 		if (fillsrc > p_end)
++ 		    fatal2("Replacement text or line numbers mangled in hunk at line %ld\n",
++ 			p_hunk_beg);
+  		p_line[filldst] = p_line[fillsrc];
+  		p_char[filldst] = p_char[fillsrc];
+  		p_len[filldst] = p_len[fillsrc];
+***************
+*** 678,684
+  	ret = pgets(buf, sizeof buf, pfp);
+  	p_input_line++;
+  	if (ret == Nullch || !isdigit(*buf)) {
+! 	    next_intuit_at(line_beginning);
+  	    return FALSE;
+  	}
+  	p_first = (LINENUM)atol(buf);
+
+--- 714,720 -----
+  	ret = pgets(buf, sizeof buf, pfp);
+  	p_input_line++;
+  	if (ret == Nullch || !isdigit(*buf)) {
+! 	    next_intuit_at(line_beginning,p_input_line);
+  	    return FALSE;
+  	}
+  	p_first = (LINENUM)atol(buf);
+***************
+*** 994,999
+  LINENUM
+  pch_hunk_beg()
+  {
+!     return p_input_line - p_end - 1;
+  }
+  
+
+--- 1030,1036 -----
+  LINENUM
+  pch_hunk_beg()
+  {
+!     return p_hunk_beg;
+  }
+  
+  /* Apply an ed script by feeding ed itself. */
+***************
+*** 997,999
+      return p_input_line - p_end - 1;
+  }
+  
+
+--- 1033,1098 -----
+      return p_hunk_beg;
+  }
+  
++ /* Apply an ed script by feeding ed itself. */
++ 
++ void
++ do_ed_script()
++ {
++     Reg1 char *t;
++     Reg2 long beginning_of_this_line;
++     Reg3 bool this_line_is_command = FALSE;
++     Reg4 FILE *pipefp;
++     FILE *popen();
++ 
++     if (!skip_rest_of_patch) {
++ 	Unlink(TMPOUTNAME);
++ 	copy_file(filearg[0], TMPOUTNAME);
++ 	if (verbose)
++ 	    Sprintf(buf, "/bin/ed %s", TMPOUTNAME);
++ 	else
++ 	    Sprintf(buf, "/bin/ed - %s", TMPOUTNAME);
++ 	pipefp = popen(buf, "w");
++     }
++     for (;;) {
++ 	beginning_of_this_line = ftell(pfp);
++ 	if (pgets(buf, sizeof buf, pfp) == Nullch) {
++ 	    next_intuit_at(beginning_of_this_line,p_input_line);
++ 	    break;
++ 	}
++ 	p_input_line++;
++ 	for (t=buf; isdigit(*t) || *t == ','; t++) ;
++ 	this_line_is_command = (isdigit(*buf) &&
++ 	  (*t == 'd' || *t == 'c' || *t == 'a') );
++ 	if (this_line_is_command) {
++ 	    if (!skip_rest_of_patch)
++ 		fputs(buf, pipefp);
++ 	    if (*t != 'd') {
++ 		while (pgets(buf, sizeof buf, pfp) != Nullch) {
++ 		    p_input_line++;
++ 		    if (!skip_rest_of_patch)
++ 			fputs(buf, pipefp);
++ 		    if (strEQ(buf, ".\n"))
++ 			break;
++ 		}
++ 	    }
++ 	}
++ 	else {
++ 	    next_intuit_at(beginning_of_this_line,p_input_line);
++ 	    break;
++ 	}
++     }
++     if (skip_rest_of_patch)
++ 	return;
++     fprintf(pipefp, "w\n");
++     fprintf(pipefp, "q\n");
++     Fflush(pipefp);
++     Pclose(pipefp);
++     ignore_signals();
++     if (move_file(TMPOUTNAME, outname) < 0) {
++ 	toutkeep = TRUE;
++ 	chmod(TMPOUTNAME, filemode);
++     }
++     else
++ 	chmod(outname, filemode);
++     set_signals();
++ }
+ 
+Index: pch.h
+Prereq: 2.0
+*** pch.h.old	Fri Jan 30 22:49:38 1987
+*** pch.h	Fri Jan 30 22:49:40 1987
+***************
+*** 1,4
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:39:57  lwall
+
+--- 1,4 -----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  87/01/30  22:47:16  lwall
+***************
+*** 1,6
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:39:57  lwall
+   * Baseline for netwide release.
+   * 
+
+--- 1,9 -----
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch7,v 1.2 1992/01/04 19:03:39 kolstad Exp $
+   *
+   * $Log: patch7,v $
+# Revision 1.2  1992/01/04  19:03:39  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.1  87/01/30  22:47:16  lwall
++  * Added do_ed_script().
++  * 
+   * Revision 2.0  86/09/17  15:39:57  lwall
+   * Baseline for netwide release.
+   * 
+***************
+*** 30,32
+  char pch_char();
+  char *pfetch();
+  char *pgets();
+
+--- 33,36 -----
+  char pch_char();
+  char *pfetch();
+  char *pgets();
++ void do_ed_script();
+

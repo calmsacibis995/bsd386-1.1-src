@@ -1,0 +1,24 @@
+GETCHR	playit.c	/^#define	GETCHR()	(--icnt < 0 ? getchr() : *iptr++)/
+Mhunt	hunt.c	/^main(ac, av)$/
+attack	otto.c	/^attack(rel_dir, itemp)$/
+broadcast_vec	hunt.c	/^broadcast_vec(s, vector)$/
+clear_eol	playit.c	/^clear_eol()$/
+clear_the_screen	playit.c	/^clear_the_screen()$/
+do_connect	connect.c	/^do_connect(name, team, enter_status)$/
+do_message	playit.c	/^do_message()$/
+duck	otto.c	/^duck(rel_dir)$/
+face_and_move_direction	otto.c	/^face_and_move_direction(rel_dir, distance)$/
+getchr	playit.c	/^getchr()$/
+go_for_ammo	otto.c	/^go_for_ammo(mine)$/
+list_drivers	hunt.c	/^list_drivers()$/
+look	otto.c	/^look(rel_dir, itemp)$/
+look_around	otto.c	/^look_around()$/
+otto	otto.c	/^otto(y, x, face)$/
+playit	playit.c	/^playit()$/
+put_ch	playit.c	/^put_ch(ch)$/
+put_str	playit.c	/^put_str(s)$/
+quit	playit.c	/^quit(old_status)$/
+redraw_screen	playit.c	/^redraw_screen()$/
+send_stuff	playit.c	/^send_stuff()$/
+stop_look	otto.c	/^stop_look(itemp, c, dist, side)$/
+wander	otto.c	/^wander()$/

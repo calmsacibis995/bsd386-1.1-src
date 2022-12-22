@@ -1,0 +1,134 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/xferstats.1m,v 1.1.1.1 1994/01/14 23:10:13 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH XFERSTATS 1M "August 30, 1993"
+.SH NAME
+xferstats \- summarize \s-1FlexFAX\s+1 transmission accounting statistics
+.SH SYNOPSIS
+.B bin/xferstats
+[
+.I \-send*
+] [
+.I \-csi*
+] [
+.I \-dest*
+] [
+.I \-speed
+] [
+.I \-format
+] [
+.I files
+]
+.SH DESCRIPTION
+.I xferstats
+is a command script that prints a summary of the
+.I FlexFAX
+accounting statistics for transmitted jobs.
+The statistics can be sorted according to one of several keys:
+.nf
+.sp .5
+.ta \w'\fB\-format\fP    'u
+\fB\-send*\fP	by sender's account name (default)
+\fB\-csi*\fP	by remote party's \s-1CSI\s+1
+\fB\-dest*\fP	by called phone number
+\fB\-speed\fP	by communication speed
+\fB\-format\fP	by communication data format
+.fi
+.PP
+Statistics are read from the file
+.B etc/xferlog
+in the spooling area, unless filenames are
+specified on the command line.
+.PP
+The following table is an example of the output from
+.I xferstats
+(using the default sort key):
+.sp .5
+.nf
+.ta \w'weissman@pianoforte.esd.sgi.com   'u +\w'Pages   'u +\w'15:03:58  'u +\w'Pg/min   'u +\w'Errs   'u +\w'TypRate   'u
+\fBDestination	Pages	Time	Pg/min	Errs	TypRate	TypData\fP
+alim@ali.asd.sgi.com	2	4:00	0.5	0	9600	1-D	MR
+alphonso@nematode.esd.sgi.com	5	3:00	1.7	5	9600	1-D	MR
+awhite@hoosac.corp.sgi.com	5	2:39	1.9	1	9600	2-D	MR
+efi@midnight.asd.sgi.com	34	38:11	0.9	6	9600	1-D	MR
+fredc@cowboy.mfg.sgi.com	291	2:49:11	1.7	58	9600	2-D	MR
+glusk@mechcad3.esd.sgi.com	8	4:27	1.8	7	9600	1-D	MR
+guest@flake.asd.sgi.com	17	47:44	0.4	51	9600	1-D	MR
+kku@chipper.corp.sgi.com	8	3:00	2.7	0	9600	1-D	MR
+mkk@imagine.corp.sgi.com	8	1:00	8.0	2	9600	2-D	MR
+moreton@skyline.asd.sgi.com	5	12:45	0.4	6	9600	1-D	MR
+nancyf@porsche.mfg.sgi.com	19	10:00	1.9	4	9600	1-D	MR
+paulh@ohayo.nsg.sgi.com	26	50:55	0.5	31	9600	2-D	MR
+paulh@tuba.asd.sgi.com	35	1:51:28	0.3	60	9600	1-D	MR
+root@cowboy.mfg.sgi.com	10	5:38	1.8	0	9600	1-D	MR
+root@tuba.asd.sgi.com	15	23:07	0.6	10	9600	2-D	MR
+rosa@rosa.corp.sgi.com	37	19:00	1.9	11	9600	1-D	MR
+sam@eucsun.corp.sgi.com	56	25:51	2.2	6	9600	2-D	MR
+sam@flake.asd.sgi.com	1307	15:03:58	1.4	356	9600	1-D	MR
+sam@oxford.chez.sgi.com	6	4:10	1.4	0	9600	2-D	MR
+seth@flake.asd.sgi.com	59	1:28:09	0.7	83	9600	2-D	MR
+subsonic@kenwood.asd.sgi.com	6	5:45	1.0	2	9600	1-D	MR
+weissman@pianoforte.esd.sgi.com	15	16:46	0.9	3	9600	2-D	MR
+--------------------------------------------------------------------------
+Total	1974	25:54:14	1.3	702
+.sp .5
+.fi
+The first column column shows the sort key value used (the sender's
+identity here, but otherwise the destination phone number,
+remote \s-1CSI\s+1, etc.).
+The
+.I Pages
+column is the total number of good pages transmitted.
+The
+.I time
+column shows the total amount of time spent transmitting.
+The
+.I Pg/min
+column displays the average transfer rate.
+The
+.I Errs
+column indicates how many errors were encountered while
+transmitting facsimile (note that this statistic can be
+misleading because it includes, for example, problems
+placing a call).
+The
+.I TypRate
+column displays the most common communication speed with which
+facsimile were transmitted.
+The
+.I TypData
+column shows the most common data format in which facsimile
+data were transmitted.
+.SH FILES
+.nf
+.ta \w'${SPOOL}    'u
+${SPOOL}	spooling area
+etc/xferlog	default file from which to read statistics
+.fi
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR recvstats (1M),
+.IR log (4F)

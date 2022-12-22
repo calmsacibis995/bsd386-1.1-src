@@ -1,0 +1,36 @@
+Mdvi.cc	dvi.cc	/^int main(int argc, char **argv)$/
+begin_page	dvi.cc	/^void dvi_printer::begin_page(int i)$/
+cur_point_size	dvi.cc	/^  max_h(0), max_v(0), pushed(0), line_thickness(-1/
+define_font	dvi.cc	/^void dvi_printer::define_font(int i)$/
+design_size	dvi.cc	/^: font(nm), checksum(0), design_size(0)$/
+do_special	dvi.cc	/^void dvi_printer::do_special(const char *s)$/
+draw	dvi.cc	/^void dvi_printer::draw(int code, int *p, int np, c/
+draw_dvi_printer	dvi.cc	/^draw_dvi_printer::~draw_dvi_printer()$/
+dvi_font	dvi.cc	/^dvi_font::~dvi_font()$/
+dvi_printer	dvi.cc	/^dvi_printer::~dvi_printer()$/
+end_of_line	dvi.cc	/^void dvi_printer::end_of_line()$/
+end_page	dvi.cc	/^void dvi_printer::end_page(int)$/
+fill	dvi.cc	/^: output_pen_size(-1), fill(FILL_MAX)$/
+fill_next	dvi.cc	/^void draw_dvi_printer::fill_next()$/
+handle_unknown_font_command	dvi.cc	/^void dvi_font::handle_unknown_font_command(const c/
+load_dvi_font	dvi.cc	/^dvi_font *dvi_font::load_dvi_font(const char *s)$/
+make_font	dvi.cc	/^font *dvi_printer::make_font(const char *nm)$/
+make_printer	dvi.cc	/^printer *make_printer()$/
+milliinches	dvi.cc	/^inline int milliinches(int n)$/
+moveto	dvi.cc	/^void dvi_printer::moveto(int h, int v)$/
+out1	dvi.cc	/^void dvi_printer::out1(int n)$/
+out2	dvi.cc	/^void dvi_printer::out2(int n)$/
+out3	dvi.cc	/^void dvi_printer::out3(int n)$/
+out4	dvi.cc	/^void dvi_printer::out4(int n)$/
+out_signed	dvi.cc	/^void dvi_printer::out_signed(unsigned char base, i/
+out_string	dvi.cc	/^void dvi_printer::out_string(const char *s)$/
+out_unsigned	dvi.cc	/^void dvi_printer::out_unsigned(unsigned char base,/
+possibly_begin_line	dvi.cc	/^void dvi_printer::possibly_begin_line()$/
+postamble	dvi.cc	/^void dvi_printer::postamble()$/
+preamble	dvi.cc	/^void dvi_printer::preamble()$/
+scale	dvi.cc	/^int scale(int x, int z)$/
+set_char	dvi.cc	/^void dvi_printer::set_char(int index, font *f, con/
+set_font	dvi.cc	/^void dvi_printer::set_font(int i)$/
+set_line_thickness	dvi.cc	/^void draw_dvi_printer::set_line_thickness(const en/
+special	dvi.cc	/^void dvi_printer::special(char *arg, const environ/
+usage	dvi.cc	/^static void usage()$/

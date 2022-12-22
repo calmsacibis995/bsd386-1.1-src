@@ -1,0 +1,57 @@
+Mafm2tfm	afm2tfm.c	/^main(argc, argv)$/
+assignchars	afm2tfm.c	/^assignchars() {$/
+buildtfm	afm2tfm.c	/^buildtfm() {$/
+checkligkern	afm2tfm.c	/^void checkligkern(s)$/
+checksum	afm2tfm.c	/^long checksum() {$/
+conspsfonts	afm2tfm.c	/^void conspsfonts() {$/
+error	afm2tfm.c	/^error(s)$/
+expect	afm2tfm.c	/^expect(s)$/
+findadobe	afm2tfm.c	/^findadobe(p)$/
+getligkerndefaults	afm2tfm.c	/^void getligkerndefaults() {$/
+getline	afm2tfm.c	/^getline() {$/
+gettoken	afm2tfm.c	/^char *gettoken() {$/
+handlechar	afm2tfm.c	/^handlechar() { \/* an input line beginning with C /
+handleconstruct	afm2tfm.c	/^handleconstruct() { \/* an input line beginning wi/
+handlekern	afm2tfm.c	/^handlekern() { \/* an input line beginning with KP/
+handlereencoding	afm2tfm.c	/^handlereencoding() {$/
+interest	afm2tfm.c	/^interest(s)$/
+makeaccentligs	afm2tfm.c	/^makeaccentligs() {$/
+makebcpl	afm2tfm.c	/^makebcpl(p, s, n)$/
+mincover	afm2tfm.c	/^mincover(what,d) \/* tells how many clusters resul/
+mymalloc	afm2tfm.c	/^mymalloc(len)$/
+newchar	afm2tfm.c	/^newchar() {$/
+newkern	afm2tfm.c	/^newkern() {$/
+newlig	afm2tfm.c	/^newlig() {$/
+newpcc	afm2tfm.c	/^newpcc() {$/
+newstring	afm2tfm.c	/^newstring(s)$/
+openfiles	afm2tfm.c	/^openfiles(argc, argv)$/
+paramfloat	afm2tfm.c	/^paramfloat() {$/
+paramnewstring	afm2tfm.c	/^paramnewstring() {$/
+paramnum	afm2tfm.c	/^paramnum() {$/
+paramstring	afm2tfm.c	/^paramstring() {$/
+readadobe	afm2tfm.c	/^readadobe() {$/
+readencoding	afm2tfm.c	/^struct encoding *readencoding(enc)$/
+remap	afm2tfm.c	/^remap(what, oldn, newn)$/
+revlist	afm2tfm.c	/^struct adobeinfo *revlist(p)$/
+rmkern	afm2tfm.c	/^void rmkern(s1, s2, ai)$/
+rmkernmatch	afm2tfm.c	/^struct kern *rmkernmatch(k, s)$/
+scale	afm2tfm.c	/^scale(what)$/
+texheight	afm2tfm.c	/^texheight(ai)$/
+transform	afm2tfm.c	/^transform(x,y)$/
+upmap	afm2tfm.c	/^upmap() { \/* Compute uppercase mapping, when maki/
+usage	afm2tfm.c	/^void usage(f)$/
+vchar	afm2tfm.c	/^char *vchar(c)$/
+vleft	afm2tfm.c	/^vleft()$/
+vlevnlout	afm2tfm.c	/^void vlevnlout() {$/
+vlevout	afm2tfm.c	/^void vlevout() {$/
+vout	afm2tfm.c	/^#define vout(s)  fprintf(vplout, s)$/
+voutln	afm2tfm.c	/^#define voutln(str) {fprintf(vplout,"%s\\n",str);v/
+voutln2	afm2tfm.c	/^#define voutln2(f,s) {fprintf(vplout,f,s);vlevnlou/
+voutln3	afm2tfm.c	/^#define voutln3(f,a,b) {fprintf(vplout,f,a,b);vlev/
+voutln4	afm2tfm.c	/^#define voutln4(f,a,b,c) {fprintf(vplout,f,a,b,c);/
+vright	afm2tfm.c	/^vright()$/
+write16	afm2tfm.c	/^write16(what)$/
+writearr	afm2tfm.c	/^writearr(p, n)$/
+writesarr	afm2tfm.c	/^writesarr(what, len)$/
+writetfm	afm2tfm.c	/^writetfm() {$/
+writevpl	afm2tfm.c	/^writevpl()$/

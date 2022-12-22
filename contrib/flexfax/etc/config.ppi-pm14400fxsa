@@ -1,0 +1,37 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.ppi-pm14400fxsa,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Config file for a Practical Peripherals PM14400FXSA
+# Class 2 modem w/ firmware revision 2.17 or newer.
+#
+# CONFIG: CLASS2: *PM14400FXSA*
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log server-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# machine's are already too loud
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class2		# use this to supply a hint
+ModemRate:		19200		# rate for DCE-DTE communication
+ModemFlowControl:	rtscts		# hardware flow control assumed
+ModemFlowControlCmd:	&K3		# set desired flow control method
+ModemSetupDTRCmd:	&D3		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+#GettyArgs:		"std.%s -"	# locked at receive rata (for SunOS)
+#GettyArgs:		"-h %l dx_%s"	# requires modem to auto-detect fax/data
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence
+#
+ModemSendFillOrder:	LSB2MSB		# as expected
+ModemRecvFillOrder:	MSB2LSB		# opposite of what makes sense
+#
+Class2RecvDataTrigger:	"\022"		# character sent to modem to start recv

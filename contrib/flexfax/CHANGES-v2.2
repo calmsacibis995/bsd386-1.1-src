@@ -1,0 +1,310 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/CHANGES-v2.2,v 1.1.1.1 1994/01/14 23:09:25 torek Exp $
+
+FlexFAX Software Release 2.2.0
+
+FlexFAX, Version 2.2.0 (changes since Release 2.1.0)
+----------------------------------------------------
+
+General changes:
+    o it is now possible to configure a default page size (e.g. ISO A4)
+      to use for outgoing facsimile; an external database of page sizes
+      makes it easy to define new page sizes and to alter the default;
+      programs that need a page size to be specified support a -s option
+      for doing this
+    o the default vertical resolution to use for outgoing facsimile is
+      now configurable at compile time through the configure script
+    o local dialing conventions are now specified in a ``dial string rules''
+      file that is read by the fax server; these rules define how to craft
+      canonical phone numbers from dialing strings and how to process a
+      user-supplied dial string before it is presented to the modem
+    o private information that must be specified in a dial string (e.g.
+      credit card access codes) can be hidden by setting up dial string
+      rules for the client applications
+    o the lptops utility used in 2.1.0 has been replaced by a new textfmt
+      program that is less general, but more integrated with the system
+    o the fax server can be commanded to answer an incoming call explicitly
+      as fax, data, or voice (though voice has no effect right now)
+    o support has been added to the server for two adaptive answering schemes
+      that are implemented entirely in the server; the first scheme causes
+      the server to answer a call first as fax and then as data; in the second
+      scheme the server rotates call answering among a set of techniques
+      (data, fax, voice); see the README file and the config(4F) manual page
+      for more information
+    o at(1) is no longer used for delayed submission and job timeout (the
+      server now handles these tasks internally)
+    o user notification by the server is now done through shell scripts
+    o users may now tag outgoing jobs with an arbitrary identification string
+      that is returned in any notification messages
+    o more job parameters can be altered after a job is submitted: time-to-send,
+      killtime, and max retries.
+
+    o a port to 4.4BSD has been added, consult port/4.4bsd/README
+    o a port to Linux has been added, consult port/linux/README
+    o a port to AIX 3.2.3 has been added, consult port/aix32/README
+    o a port to Ultrix 4.2a has been added, consult port/ultrix/README
+    o an unfinished port to HPUX 9.0 has been added, consult port/hpux/README
+
+    o support has been added for the US Robotics Courier Class 1 modem
+    o support has been added for the US Robotics Sportster Class 1 modem
+    o support has been added for the AT&T DataPort Class 1 modem (including
+      a workaround for a bug in the 1.22 firmware)
+    o support has been added for the PPI PM14400FXMT and PM14400FXSA modems
+    o support has been added for modems based on the Rockwell RCS32ACL
+
+    o Ghostscript 2.6.1 (w/ patches) is now the "approved" PD PostScript
+      interpreter to use with the software
+    o gcc 2.4.5 and libg++-2.4 are now the "approved" PD compiler suite to use
+    o a tree of contributed stuff that doesn't really belong in the mainstream
+      distribution has been started--check out the contrib area in the public
+      ftp area on the host sgi.com (sgi/fax/contrib)
+    o the flexfax mailing list (flexfax@sgi.com) is now managed automatically;
+      users should send mail to majordomo@whizzer.wpd.sgi.com (consult the
+      README or HOWTO files for full information)
+
+Changes in the "top of the tree":
+    o the MODEMS file talks about more modems
+    o the README file now identifies which modems are recommended for use
+    o configure now builds a port.h file to cover up missing external
+      declarations, variables, and #define macros
+    o client library information is now installed into configurable LIBDATA
+      and LIBEXEC areas; so that machine-independent data files can be shared
+      across multiple architectures
+
+Changes in the ghostscript support:
+    o several bugs in the tiffg3 driver have been corrected
+
+Changes in the port tree:
+    o new 4.4bsd, linux, aix32, and ultrix directories
+    o Tim Rylance's streams module for using Class 1 modems on Sun systems
+      is included (and faxd has been patched to use it if it is loaded into
+      the operating system)
+    o all top-level make files are now named Makefile.flexfax
+    o all gcc-based ports no longer reference -liberty
+    o generic/mkdepend has a workaround for systems with busted shells
+
+Changes to faxd:
+    o it is now permissible for 2D encoded data to be sent to a fax machine
+      that has not previously been called
+    o the fax machine information database has been extended to permit
+      individual machines to be ``disabled'' with any submitted jobs returned
+      to sender w/ a machine-specific rejection notice
+    o the ModemType configuration parameter is no longer treated as a hint;
+      the modem will not be probed as any other kind if the type is specified
+      to be ``Class1'', ``Class2'', or ``Everex''/``Abaton''; the old behaviour
+      can be obtained by not specifying a ModemType or by specifying the type
+      as ``Unknown''
+    o there are new configuration parameters for responding to explicit
+      requests to answer an incoming call as fax, data, or voice; there
+      are Modem*AnswerCmd parameters and ModemAnswer*Begin parameters for
+      forcing actions such as baud rate change on answer
+    o the total number of phone calls placed for an outgoing job can now be
+      controlled
+    o dial string handling is now defined by an external set of rules
+    o a workaround was added for systems where opening FIFO files read-only
+      causes problems (SCO ODT 2.0, AIX 3.2.3, Ultrix 4.2A)
+    o the notification done for received facsimile now contains all available
+      information (most importantly any error that occurred)
+    o the server now correctly handles renegotiation of session parameters
+      due to variations in the input data; it used to violate the T.30
+      protocol by requesting parameter renegotiation without notifying the
+      remote side through the end-of-page message
+    o the server now correctly identifies when a remote site has documents
+      available for polled retrieval (it previously always assumed there
+      were documents available)
+    o the server now invokes the bin/pollrcvd script to deliver each document
+      received during a poll
+    o the server now invokes the bin/faxrcvd script for each received facsimile
+    o the server now invokes the bin/notify script for user notification (such
+      as when a job is requeued)
+    o the server now records the remote CSI in the info/* files
+    o the data in the info directory is now partitioned strictly between
+      cached data (kept in the info directory) and static data (kept in the
+      new cinfo directory)
+    o it is now possible to configure a per-machine session tracing level
+      by creating an entry in the cinfo directory
+    o the session logging facility now supports the syslog-style %m format
+      for recording system call errors
+    o AT command strings may now include escape codes to force the server to
+      reconfigure the baud rate and/or flow control scheme at any time that
+      a configurable command is transmitted to a modem
+    o the baud rate hunting logic has been removed; host-modem communication
+      is now locked at a fixed baud rate (except when changed by escape codes)
+    o getty processes are now reaped immediately by catching SIGCLD instead
+      of polling for process exit
+    o support has been added for modems that send "FAX" or "DATA" before
+      "CONNECT" when answering an inbound call
+    o the server no longer loses memory when receiving facsimile
+    o the protection mode set by the server is now configurable
+    o the server automatically uses the zsunbuf stream i/o module on Sun
+      systems if it has been configured in the kernel
+    o a mistake in the calculation of the random backoff interval when
+      requeuing a job has been corrected
+    o the accounting information has been expanded
+
+    [Class 1]
+
+    o a bug has been fixed in the Class 1 driver for modems that have
+      different xmit and recv capabilities--the recv capabilities were
+      being used to decide the best signalling rate at which to xmit
+    o the Class 1 driver now accepts ASCII data in received TSI/CIG string
+    o the Class 1 driver receive frame abort logic has been extended to
+      support modems that do not respond well to the usual resynchronization
+      scheme
+    o the Class 1 driver timeout on receiving the initial identification
+      frames can now be configured separately for use with the adaptive answer
+      scheme implemented in the server
+    o the Class 1 driver no longer assumes that a "CONNECT" response to an
+      answer command implies a fax connection--instead the connection type
+      is selected according to the answering request
+    o a bug has been fixed in the Class 1 driver that caused spurious error
+      messages to be returned when answering an incoming call
+    o the Class 1 driver now properly formulates the min scanline time
+      parameter in the DCS for all times
+    o the Class 1 driver is now more careful to avoid looping if the remote
+      side prematurely drops carrier
+    o HDLC frame handling has been parameterized to deal with modems that
+      do not include the FCS bytes in received frames (e.g. the AT&T DataPort)
+    o a bug has been fixed in the Class 1 driver that caused a failure
+      message to be recorded for successfully received facsimile
+    o the Class 1 driver will no longer loop if the modem drops carrier w/o
+      notifying the host when waiting for DCN in Class1Modem::recvEnd (as
+      done by the USR Courier)
+    o a bug was fixed in the Class 1 driver's xmit protocol (a DIS response
+      to sending training was not correctly handled)
+    o the Class 1 driver now only tries to send training 3 times (per the spec)
+    o the Class 1 driver now correctly specifies 7200bps v.17 in the DCS
+
+    [Class 2]
+
+    o typos in the Class 2 error message table were fixed
+    o the Class 2 driver now ignores suprious modem status msgs when sending
+    o the Class 2 driver is now more careful about receiving invalid +FDCS
+      and +FDIS result strings from the modem
+    o the Class 2 driver now generates fully specified +FDCC and +FDIS commands
+      to workaround firmware bugs in some modems (defaulted parameters are
+      incorrectly treated as 0 on PPI modems and others)
+    o ZyXEL modems with rev 6.01 or newer firmware are now permitted to
+      send high res (196lpi) and 2D-encoded data
+    o PPI modems with rev 2.17 or older firmware are not permitted to send
+      high res (196lpi) or 2D-encoded data 'cuz of firmware problems
+
+Changes to faxaddmodem:
+    o a different algorithm is used for identifying Class 1 modems;
+      the product code returned by ATI0 is now used
+    o there no longer is a builtin notion of what modems have prototype
+      configuration files; config files are now searched for in the etc
+      subdirectory of the spooling area
+    o faxaddmodem is no longer is fooled by the installation of other
+      fax packages that have a similar /etc/services entry
+    o certain alternative locations for system files are now handled
+      transparently
+    o a better job is done identifying if Yellow Pages/NIS is in use
+    o the fax number no longer must be specified in a fixed format
+    o various portability problems have been worked around
+
+Changes to sendfax:
+    o has been rewritten to use a new SendFaxClient class that encapsulates
+      the real work done in submitting a job
+    o updated to handle different page sizes
+    o has a new -t option to set the number of times a job should be ``tried''
+      (i.e. the phone should be dialed)
+    o has a new -i option to specify a job identification tag
+    o a bug that caused fully qualified from addresses to not work has been
+      corrected
+    o local dial string rules may be applied to the user-specified dial
+      strings to create ``displayable'' phone numbers that do not include
+      private information such as credit card access codes
+
+Changes to faxalter:
+    o has a new -t option to specify the max number of tries
+    o has a new -k option to specify the killtime for a job
+
+Changes to faxcover:
+    o updated to handle different page sizes
+    o if a FAXCOVER environment variable is set, it's value is used as the
+      pathname of the template file
+
+Changes to faxmail:
+    o updated to handle different page sizes
+    o now looks for AFM files with a .afm suffix (for folks with
+      OpenWindows AFM files)
+    o a mailfax script for smail has been added
+
+Changes to fax2ps:
+    o no changes
+
+Changes to sgi2fax:
+    o updated to handle different page sizes
+
+Changes to faxstat:
+    o now uses the page size database to determine page size information
+      for facsimile in the receive queue
+
+Changes in the utility code:
+    o two bugs have been fixed in the FaxClient class's handling of the
+      GECOS field in the password file
+    o new classes were added for: accessing the page size database
+      (PageSize.c++), for sending facsimile (SendFaxClient.c++), and for
+      accessing the rule typing database used in converting documents for
+      transmission (TypeRules.c++)
+    o a new program, textfmt, replaces the lptops program
+    o a bug was fixed in the fxStr class where inserting into the start of
+      a null string caused problems
+    o a new %s escape was added to the typerules support for passing the
+      symbolic page size name to filter programs
+    o faxanswer now takes a -h option to specify how to answer an incoming
+      call (``fax'', ``data'', and ``voice'' strings are recognized)
+    o faxinfo now uses the page size database to print out page size names
+    o notify.sh has been renamed faxrcvd.sh and changed to take more
+      arguments and pass the additional information on to the FaxMaster user
+    o notify.sh is now the script invoked to send notification mail to a user
+    o rts.sh has been subsumed by notify.sh
+    o a new file, pagesizes, is a database of recognized page sizes
+    o a new file pollrcvd.sh is a command script invoked to deliver each
+      document received during a poll
+    o faxsubmit is no longer needed
+    o submit2at is no longer needed
+    o probemodem.sh is a new shell script that probes a modem and reports
+      responses to certain Class 1 and Class 2 commands; it is useful to
+      see how closely a modem conforms to the Class 1/2 specifications
+      that flexfax assumes
+    o xferstats.sh is a shell script for processing accounting information
+      for transmitted facsimile
+    o recvstats.sh is a shell script for processing accounting information
+      for received facsimile
+
+Changes to faxd.recv:
+    o the code that reads job description files is now more careful to
+      ignore corrupted or partially written files
+    o the main command parser was rewritten
+    o support was added for the alteration of more job parameters
+    o the root user is now treated like the fax user (i.e. it is permitted
+      to do privileged operations)
+
+Changes in the InterViews code:
+    o the Regexp class has been extended to provide access to the pattern
+      string
+    o the regexp code has been changed to recognize "\(\)" instead of "()"
+      for identifying substrings in matches
+    o the dispatcher code is now capable of waiting on the termination
+      (actually change in status) of one or more child processes
+
+Changes in the doc directory:
+    o the old fax.ps paper was purged 'cuz it generated too much confusion
+    o a list of commands for Telebit modems has been added
+
+Changes to the manual pages:
+    o flexfax(1) is a new page that gives an overview of the client apps
+    o pagesizes(4F) is a new page that describes the page size database
+    o dialrules(4F) is a new page that describes the dial string rules file
+    o textfmt(1) is a new page that describes the new text formatting program
+    o flexfax(4F) was renamed intro(4F) to avoid a name clash
+    o cinfo(4F) is a new page that descripts the control info directory
+    o pathnames in installed manual pages now reflect the local configuration
+    o dialtest(1M) is a new page for the dial string rules file test program
+    o notify(1M) is a new page that describes the bin/notify script
+    o faxrcvd(1M) is a new page that describes the bin/faxrcvd script
+    o pollrcvd(1M) is a new page that describes the bin/pollrcvd script
+    o transcript(1M) is a new page that describes the bin/transcript script
+    o recvstats(1M) is a new page that describes the bin/recvstats script
+    o xferstats(1M) is a new page that describes the bin/xferstats script

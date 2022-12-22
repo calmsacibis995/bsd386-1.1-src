@@ -1,0 +1,285 @@
+(Message inbox:26)
+Date:  Tue, 10 Jul 90 15:34:06 -0700
+From:  "Peter Bigot" <pab@cs.arizona.edu>
+Subject:  Re: Flex 2.3 on MSDOS
+To:  pab@cs.arizona.edu, vern@cs.cornell.edu
+
+>> I seem to have succeeded in porting Flex 2.3 to MS-DOS, using the Microsoft 
+C
+>> ...
+>
+>Are your changes with respect to the Makefile.Microsoft in the flex/MISC/
+>directory?  If so, yes, please send them so I can incorporate them for
+>the 2.4 release.
+ 
+Actually, they're a rewrite of the Makefile in flex/.  I've appended a copy of
+it, with assorted comments built in, to the end of this message.  Anybody who
+tries to build it will probably have to make some of the other changes I
+mentioned as well.
+ 
+If you'll let me know just before you release 2.4, I can do a final port and
+change list then.  I assume it isn't imminent.
+ 
+The MSC 6.0 register error is too complex to get rid of that easily.  For the
+moment, my scanners aren't time-critical, so I'll just keep #define'ing
+register; I don't want to have to remove the register storage class specifiers
+one-by-one until I find a permutation which works.
+ 
+By the way, this point:
+>- Changed arguments to allocate_array and reallocate_array to unsigned ints,
+>  and changed 16bit check to ((long)(element_size * size) > 0xFFFF), to handle
+>  allocations between 32768 and 65535.
+was wrong.  It handled the particular case I needed where the allocation was
+greater than 32768, but it won't catch actual overflow.  The correct
+comparison should be:
+        (((long) element_size * size) > 0xFFFFL)
+ 
+Peter
+--------------------------------------------------
+# make file for "flex" tool
+ 
+# @(#) $Header: /usr/fsys/odin/a/vern/flex/RCS/Makefile,v 2.9 90/05/26 17:28:44
+ vern Exp $ (LBL)
+ 
+# Modified Tuesday, July 10, 1990, at 4:16p
+# This version is compatible with Microsoft C 6.0 and its near-Unix
+# compatible make facility 'nmake'.  Lines beginning with #& do not have
+# application to MSDOS systems, and are ignored.
+# Some changes to various source files, documented in changes.dos, may
+# also need to be made.
+# You'll also need the flex.lnk file, a copy of which appears at the end of
+# this file.
+# When running bigtest, expect the -C, -Cf, and -CF tests to fail--there 
+# isn't enough memory to form the scanner tables.
+# Note: I used a ported version of Bison 1.11, renamed to yacc.  With luck,
+# this will soon be available for anonymous ftp from cs.arizona.edu.
+# 
+# Peter A. Bigot
+# pab@cs.arizona.edu
+ 
+# Porting considerations:
+#
+#    For System V Unix machines, add -DUSG to CFLAGS (if it's not
+#         automatically defined)
+#    For Vax/VMS, add "-DVMS -DUSG" to CFLAGS.
+#    For MS-DOS, add "-DMS_DOS -DUSG" to CFLAGS.  Create \tmp if not present.
+#         You will also want to rename flex.skel to something with a three
+#         character extension, change SKELETON_FILE below appropriately,
+#          See MSDOS.notes for more info.
+#    For Amiga, add "-DAMIGA -DUSG" to CFLAGS.
+#    For SCO Unix, add "-DSCO_UNIX" to CFLAGS.
+#
+#    For C compilers which don't know about "void", add -Dvoid=int to CFLAGS.
+#
+#    If your C compiler is ANSI standard but does not include the <stdlib.h>
+#    header file (some installations of gcc have this problem), then add
+#    -DDONT_HAVE_STDLIB_H to CFLAGS.
+#
+# By default, flex will be configured to generate 8-bit scanners only
+# if the -8 flag is given.  If you want it to always generate 8-bit
+# scanners, add "-DDEFAULT_CSIZE=256" to CFLAGS.  Note that doing
+# so will double the size of all uncompressed scanners.
+# 
+# If on your system you have trouble building flex due to 8-bit
+# character problems, remove the -8 from FLEX_FLAGS and the
+# "#define FLEX_8_BIT_CHARS" from the beginning of flexdef.h.
+ 
+ 
+# the first time around use "make first_flex"
+ 
+ 
+# Installation targeting.  Files will be installed under the tree rooted
+# at DESTDIR.  User commands will be installed in BINDIR, library files
+# in LIBDIR (which will be created if necessary), auxiliary files in
+# AUXDIR, manual pages will be installed in MANDIR with extension MANEXT.
+# Raw, unformatted troff source will be installed if INSTALLMAN=man, nroff
+# preformatted versions will be installed if INSTALLMAN=cat.
+DESTDIR = c:\\
+BINDIR = 
+LIBDIR = lib
+AUXDIR = lib
+#& MANDIR = /usr/man/manl
+#& MANEXT = l
+#& INSTALLMAN = man
+ 
+MAKE = nmake
+ 
+# .c.obj:
+#         $(CC) -c $(CFLAGS) $<
+ 
+SKELETON_FILE = $(DESTDIR)$(AUXDIR)\\flex.ske
+SKELFLAGS = -DDEFAULT_SKELETON_FILE=\"$(SKELETON_FILE)\"
+# Large memory model, initialized data larger than 16k gets its
+# own segment, set ANSI mode, define USG and MS_DOS.
+CFLAGS = -AL -Gt16384 -Za -DUSG -DMS_DOS
+LDFLAGS =
+ 
+COMPRESSION =
+FLEX_FLAGS = -ist8 -Sflex.ske
+# which "flex" to use to generate scan.c from scan.l
+FLEX = .\flex
+CC = cl
+ 
+#& AR = ar
+#& RANLIB = ranlib
+ 
+FLEXOBJS = \
+        ccl.obj \
+        dfa.obj \
+        ecs.obj \
+        gen.obj \
+        main.obj \
+        misc.obj \
+        nfa.obj \
+        parse.obj \
+        scan.obj \
+        sym.obj \
+        tblcmp.obj \
+        yylex.obj
+ 
+FLEX_C_SOURCES = \
+        ccl.c \
+        dfa.c \
+        ecs.c \
+        gen.c \
+        main.c \
+        misc.c \
+        nfa.c \
+        parse.c \
+        scan.c \
+        sym.c \
+        tblcmp.c \
+        yylex.c
+ 
+FLEX_LIB_OBJS = \
+        libmain.obj
+ 
+#& FLEXLIB = flexlib.a
+FLEXLIB = flexlib.lib
+ 
+all : flex.exe $(FLEXLIB)
+ 
+flex.exe : $(FLEXOBJS)
+        link @flex.lnk
+#        $(CC) $(CFLAGS) -Feflex $(LDFLAGS) $(FLEXOBJS)
+ 
+ 
+first_flex:
+        copy initscan.c scan.c
+        $(MAKE) $(MFLAGS) flex.exe
+ 
+parse.h parse.c : parse.y
+        yacc -d parse.y
+        del parse.c
+        del parse.h
+        ren y_tab.c parse.c
+        ren y_tab.h parse.h
+ 
+scan.c : scan.l
+        $(FLEX) $(FLEX_FLAGS) $(COMPRESSION) scan.l >scan.c
+ 
+scan.obj : scan.c parse.h flexdef.h
+ 
+main.obj : main.c flexdef.h
+        $(CC) $(CFLAGS) -c $(SKELFLAGS) main.c
+ 
+ccl.obj : ccl.c flexdef.h
+dfa.obj : dfa.c flexdef.h
+ecs.obj : ecs.c flexdef.h
+gen.obj : gen.c flexdef.h
+misc.obj : misc.c flexdef.h
+nfa.obj : nfa.c flexdef.h
+parse.obj : parse.c flexdef.h
+sym.obj : sym.c flexdef.h
+tblcmp.obj : tblcmp.c flexdef.h
+yylex.obj : yylex.c flexdef.h
+ 
+#& flex.man : flex.1
+#&         nroff -man flex.1 >flex.man
+ 
+$(FLEXLIB) : $(FLEX_LIB_OBJS)
+        lib flexlib -+libmain ;
+#&         $(AR) cru $(FLEXLIB) $(FLEX_LIB_OBJS)
+ 
+#& 
+#& lint : $(FLEX_C_SOURCES)
+#&         lint $(FLEX_C_SOURCES) > flex.lint
+#& 
+#& distrib :
+#&         mv scan.c initscan.c
+#&         chmod 444 initscan.c
+#&         $(MAKE) $(MFLAGS) clean
+#& 
+#& install: flex $(DESTDIR)$(LIBDIR) flex.skel install.$(INSTALLMAN) install-li
+b
+#&         install -s -m 755 flex $(DESTDIR)$(BINDIR)/flex
+#&         install -c -m 644 flex.skel $(SKELETON_FILE)
+#& 
+#& install-lib: $(DESTDIR)$(LIBDIR) $(FLEXLIB)
+#&         install -c -m 644 $(FLEXLIB) $(DESTDIR)$(LIBDIR)/libfl.a
+#&         $(RANLIB) $(DESTDIR)$(LIBDIR)/libfl.a
+#& 
+#& $(DESTDIR)$(LIBDIR):
+#&         mkdir $@
+#& 
+#& install.man: flex.1 flexdoc.1
+#&         install -c -m 644 flex.1 $(DESTDIR)$(MANDIR)/flex.$(MANEXT)
+#&         install -c -m 644 flexdoc.1 $(DESTDIR)$(MANDIR)/flexdoc.$(MANEXT)
+#& 
+#& install.cat: flex.1 flexdoc.1
+#&         nroff -h -man flex.1 > $(DESTDIR)$(MANDIR)/flex.$(MANEXT)
+#&         nroff -h -man flexdoc.1 > $(DESTDIR)$(MANDIR)/flexdoc.$(MANEXT)
+#&         chmod 644 $(DESTDIR)$(MANDIR)/flex.$(MANEXT)
+#&         chmod 644 $(DESTDIR)$(MANDIR)/flexdoc.$(MANEXT)
+#& 
+#& clean :
+#&         rm -f core errs flex *.obj parse.c *.lint parse.h flex.man tags \
+#&                 $(FLEXLIB)
+#& 
+#& tags :
+#&         ctags $(FLEX_C_SOURCES)
+#& 
+#& vms :        flex.man
+#&         $(MAKE) $(MFLAGS) distrib
+ 
+test : flex.exe
+#&         .\flex $(FLEX_FLAGS) $(COMPRESSION) scan.l | diff scan.c -
+        .\flex $(FLEX_FLAGS) $(COMPRESSION) scan.l > scan.res
+# Crude comparison; use diff or compare if you've got working versions.
+        comp scan.res scan.c
+ 
+bigtest :
+#& The two resident nmake's do not leave enough memory to complete -C, -Cf,
+#& or -CF.  But hey, give 'em a try.
+        del scan.c 
+        $(MAKE) COMPRESSION="-C" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-Ce" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-Cm" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-Cfe" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-CFe" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-Cf" test
+        del scan.c 
+        $(MAKE) COMPRESSION="-CF" test
+        del scan.c
+        $(MAKE)
+ 
+# --------------------
+# The contents of flex.lnk are:
+# ccl.obj+
+# dfa.obj+
+# ecs.obj+
+# gen.obj+
+# main.obj+
+# misc.obj+
+# nfa.obj+
+# parse.obj+
+# scan.obj+
+# sym.obj+
+# tblcmp.obj+
+# yylex.obj
+# flex.exe /exepack/farcall/noi/stack:0x3000 ;

@@ -1,0 +1,101 @@
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: floppy.4,v 1.2 1993/03/23 22:56:22 polk Exp $
+.Dd March 23, 1993
+.Dt FD 4 i386
+.Os
+.Sh NAME
+.Nm fd
+.Nd floppy disk driver
+.Sh SYNOPSIS
+.Cd "controller fdc0 at isa? port 0x3f0 drq 2"
+.Cd "disk fd0 at fdc0 drive 0"
+.Sh DESCRIPTION
+This is a driver for PC standard floppy disks.  It uses a block of 8
+I/O ports which must be aligned on an 8 port boundary.  The controller
+also uses one 8 bit DMA channel.  The hardware interrupt level is
+detected during autoconfiguration.
+.Pp
+The type of each drive must be specified
+correctly in the non-volatile CMOS memory area,
+using the BIOS
+.Sq setup
+feature.
+The
+.Sq setup
+feature is normally accessed by
+pressing the
+.Sq DEL
+or
+.Sq Delete
+key during memory testing at power-on time.
+.Pp
+The
+.Nm
+driver supports low and high density 5.25 and 3.5 inch drives.  The
+driver normally automatically detects the density of the media at open time.
+The density may be forced to a specific value by using an alternate minor
+device number.
+.Pp
+The encoding of the minor device number is similar to the encoding
+for hard disk devices with one addition.
+As with hard disks, the least-significant three bits of the minor device
+number specify a partition
+.Ns ( Sq a
+through
+.Sq h ) ,
+and the next two bits specify the drive number.
+The most-significant three bits of the eight-bit minor device number specify
+the drive and media type.
+A value of zero indicates the use of automatic density
+detection, defaulting to the drive's highest density.
+The density values depend both on the type of drive and the diskette
+type.
+The current density values are as follows, shown as the unshifted value
+for the field followed by the shifted number for the
+.Sq c
+partition of drive 0.
+The device names are the conventional names for the raw devices
+in the
+.Pa /dev
+directory.
+.Bl -column header valuex "360K 5.25XX" media "rfd[0-1]_1200_5.25"
+.Sy \&	value	drive type	media	device name
+	0/0-7	any	any	rfd[0-1][a-h]
+	1/34	360K 5.25	360K
+	2/66	1.2M 5.25	1.2M	rfd[0-1]_1200_5.25
+	3/98	720K 3.5	720K
+	4/130	1.44M 3.5	1.44M	rfd[0-1]_1440_3.5
+	5/162	1.2M 5.25	720K	rfd[0-1]_720_5.25
+	6/194	1.2M 5.25	360K	rfd[0-1]_360_5.25
+	7/226	1.44M 3.5	720K	rfd[0-1]_720_3.5
+.El
+.Pp
+The floppy disk driver provides both a block device interface
+and a raw device interface.
+The block device is used when mounting a file system on a floppy disk,
+and the raw device is used for all other purposes.
+Normally floppy disks are used without disk labels using the raw
+partition, for example
+.Pa /dev/rfd0c .
+However, if a disk label is present, it will be observed.
+.Pp
+Floppies may be formatted with the command
+.Xr fdformat 1 .
+.Sh FILES
+.Bl -tag -width /dev/rfd[0-1][a-h] -compact
+.It Pa /dev/fd[0-1][a-h]
+block files
+.It Pa /dev/rfd[0-1][a-h]
+raw files
+.El
+.Sh SEE ALSO
+.Xr fdformat 8 ,
+.Xr disklabel 8
+.Sh HISTORY
+The
+.Nm
+driver first appeared in Berkeley Networking-2.
+.Sh BUGS
+The current driver supports only one floppy disk controller and two drives.

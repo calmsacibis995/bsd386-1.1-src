@@ -1,0 +1,6 @@
+F BSDI_ROO.DIS;1                    	BSDI.root.dist
+F BSDI_USR.DIS;1                    	BSDI.usr.dist
+F BSDI_VAR.DIS;1                    	BSDI.var.dist
+F BSD_ROOT.DIS;1                    	BSD.root.dist
+F BSD_USR.DIS;1                     	BSD.usr.dist
+F BSD_VAR.DIS;1                     	BSD.var.dist

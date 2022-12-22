@@ -1,0 +1,5 @@
+F DOS2BSD.1;1                       	dos2bsd.1
+F DOS2BSD.C;1                       	dos2bsd.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/dos2bsd
+F TAGS.;1                           	tags

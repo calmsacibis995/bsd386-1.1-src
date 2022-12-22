@@ -1,0 +1,12 @@
+Mw	w.c	/^main(argc, argv)$/
+TESTAB	proc_compare.c	/^#define	TESTAB(a, b)	((a)<<1 | (b))$/
+attime	attime.c	/^attime(started)$/
+cmdpart	../../bin/ps/fmt.c	/^cmdpart(arg0)$/
+error	w.c	/^error(va_alist)$/
+fmt_argv	../../bin/ps/fmt.c	/^fmt_argv(argv, cmd, maxlen)$/
+isrun	proc_compare.c	/^#define isrun(p)	(((p)->p_stat == SRUN) || ((p)->p/
+proc_compare	proc_compare.c	/^proc_compare(p1, p2)$/
+prttime	attime.c	/^prttime(tim, tail)$/
+shquote	../../bin/ps/fmt.c	/^shquote(argv)$/
+ttystat	w.c	/^ttystat(line)$/
+usage	w.c	/^#define usage()	fprintf(stderr, "usage: %s: %s\\n"/

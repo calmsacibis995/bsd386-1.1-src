@@ -1,0 +1,5 @@
+F CMP.1;1                           	cmp.1
+F CMP.C;1                           	cmp.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/cmp
+F TAGS.;1                           	tags

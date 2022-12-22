@@ -1,0 +1,72 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: uname.3,v 1.1 1993/02/05 22:05:22 polk Exp $
+.\"
+.Dd January 23, 1993
+.Dt UNAME 3
+.Os
+.Sh NAME
+.Nm uname
+.Nd get system identification strings
+.Sh SYNOPSIS
+.Fd #include <sys/utsname.h>
+.Ft int
+.Fn uname "struct utsname *u"
+.Sh DESCRIPTION
+The
+.Fn uname
+function provides system information strings.
+The
+.Fa utsname
+structure contains a set of these strings:
+.Bd -literal -offset indent
+struct utsname {
+	char	nodename[];
+	char	sysname[];
+	char	release[];
+	char	version[];
+	char	machine[];
+};
+.Ed
+.Pp
+These fields contain the following information:
+.Bl -tag -width nodename
+.It Fa nodename
+The current hostname, similar to output from
+.Xr hostname 1 .
+.It Fa sysname
+The name of the operating system.
+.It Fa release
+The current release (typically numbers separated by dots).
+.It Fa version
+The current version (typically a number).
+.It Fa machine
+The architecture identifier, similar to
+output from
+.Xr machine 1 .
+.El
+.Sh RETURN VALUES
+The
+.Fn uname
+function returns a nonnegative value if
+it succeeds in getting system identifiers,
+otherwise it returns \-1 and sets
+.Fa errno
+appropriately.
+.Sh ERRORS
+The following error may be reported:
+.Bl -tag -width Er
+.It Bq Er EFAULT
+The buffer
+.Fa u
+was not a valid address.
+.El
+.Sh SEE ALSO
+.Xr gethostname 2
+.Sh STANDARDS
+The
+.Fn uname
+function conforms to
+.St -p1003.1-88 .

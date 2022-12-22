@@ -1,0 +1,1483 @@
+From bbn.com!bbn!mit-eddie!bloom-beacon!tut.cis.ohio-state.edu!mailrus!ames!elroy!devvax!lwall Sat Jun  4 20:08:55 EDT 1988
+Article 1010 of comp.sources.bugs:
+Path: bbn.com!bbn!mit-eddie!bloom-beacon!tut.cis.ohio-state.edu!mailrus!ames!elroy!devvax!lwall
+>From: lwall@devvax.JPL.NASA.GOV (Larry Wall)
+Newsgroups: comp.sources.bugs
+Subject: patch 2.0 patch #11
+Summary: This is an official patch for patch 2.0.  Please apply it.
+Message-ID: <2169@devvax.JPL.NASA.GOV>
+Date: 3 Jun 88 23:50:40 GMT
+Organization: Jet Propulsion Laboratory
+Lines: 1469
+
+System: patch version 2.0
+Patch #: 11
+Priority: same as patch 10
+Subject: patch 10 continued
+
+Description:
+	This is a new Configure.
+
+Fix:	Unlike most patches, this one contains an entire new Configure
+	script, which is shorter than the diffs.  Unshar this file in
+	your patch source directory.  Please make sure you've just applied
+	patch #10--this one doesn't check that patchlevel.h is correct.
+
+	After applying:
+		Configure	(or Configure -d)
+		make
+		make install
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	lwall@jpl-devvax.jpl.nasa.gov
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in Internet notation, and
+	LIST is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+
+	You can also get the patches via anonymous FTP from
+	jpl-devvax.jpl.nasa.gov (128.149.8.43).
+
+#!/bin/sh
+echo 'If this kit is complete, "End of kit" will echo at the end'
+echo Extracting Configure
+sed >Configure <<'!STUFFY!FUNK!' -e 's/X//'
+X#! /bin/sh
+X#
+X# If these # comments don't work, trim them.  Don't worry about any other
+X# shell scripts, Configure will trim # comments from them for you.
+X#
+X# (If you are trying to port this package to a machine without sh, I would
+X# suggest you cut out the prototypical config.h from the end of Configure
+X# and edit it to reflect your system.  Some packages may include samples
+X# of config.h for certain machines, so you might look for one of those.)
+X#
+X# $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch11,v 1.2 1992/01/04 19:03:21 kolstad Exp $
+X#
+X# Yes, you may rip this off to use in other distribution packages.
+X# (Note: this Configure script was generated automatically.  Rather than
+X# working with this copy of Configure, you may wish to get metaconfig.)
+X
+X: sanity checks
+XPATH='.:/bin:/usr/bin:/usr/local/bin:/usr/ucb:/usr/local:/usr/lbin:/etc'
+Xexport PATH || (echo "OOPS, this isn't sh.  Desperation time.  I will feed myself to sh."; sh $0; kill $$)
+X
+Xif test ! -t 0; then
+X    echo "Say 'sh Configure', not 'sh <Configure'"
+X    exit 1
+Xfi
+X
+X(alias) >/dev/null 2>&1 && \
+X    echo "(I see you are using the Korn shell.  Some ksh's blow up on Configure," && \
+X    echo "especially on exotic machines.  If yours does, try the Bourne shell instead.)"
+X
+Xif test ! -d ../UU; then
+X    if test ! -d UU; then
+X	mkdir UU
+X    fi
+X    cd UU
+Xfi
+X
+Xcase "$1" in
+X-d) shift; fastread='yes';;
+Xesac
+X
+Xd_eunice=''
+Xeunicefix=''
+Xdefine=''
+Xloclist=''
+Xexpr=''
+Xsed=''
+Xecho=''
+Xcat=''
+Xrm=''
+Xmv=''
+Xcp=''
+Xtail=''
+Xtr=''
+Xmkdir=''
+Xsort=''
+Xuniq=''
+Xgrep=''
+Xtrylist=''
+Xtest=''
+Xinews=''
+Xegrep=''
+Xmore=''
+Xpg=''
+XMcc=''
+Xvi=''
+Xmailx=''
+Xmail=''
+Xcpp=''
+XLog=''
+XHeader=''
+Xbin=''
+Xcc=''
+Xcontains=''
+Xcppstdin=''
+Xcppminus=''
+Xd_charsprf=''
+Xd_flexfnam=''
+Xd_index=''
+Xd_voidsig=''
+Xlibc=''
+Xmansrc=''
+Xmanext=''
+Xmodels=''
+Xsplit=''
+Xsmall=''
+Xmedium=''
+Xlarge=''
+Xhuge=''
+Xccflags=''
+Xldflags=''
+Xn=''
+Xc=''
+Xpackage=''
+Xregisters=''
+Xreg1=''
+Xreg2=''
+Xreg3=''
+Xreg4=''
+Xreg5=''
+Xreg6=''
+Xreg7=''
+Xreg8=''
+Xreg9=''
+Xreg10=''
+Xreg11=''
+Xreg12=''
+Xreg13=''
+Xreg14=''
+Xreg15=''
+Xreg16=''
+Xspitshell=''
+Xshsharp=''
+Xsharpbang=''
+Xstartsh=''
+Xvoidflags=''
+Xdefvoidused=''
+XCONFIG=''
+X
+X: set package name
+Xpackage=patch
+X
+Xecho " "
+Xecho "Beginning of configuration questions for $package kit."
+X: Eunice requires " " instead of "", can you believe it
+Xecho " "
+X
+Xdefine='define'
+Xundef='/*undef'
+Xlibpth='/usr/lib /usr/local/lib /lib'
+Xsmallmach='pdp11 i8086 z8000 i80286 iAPX286'
+Xrmlist='kit[1-9]isdone kit[1-9][0-9]isdone'
+Xtrap 'echo " "; rm -f $rmlist; exit 1' 1 2 3
+X
+X: We must find out about Eunice early
+Xeunicefix=':'
+Xif test -f /etc/unixtovms; then
+X    eunicefix=/etc/unixtovms
+Xfi
+Xif test -f /etc/unixtovms.exe; then
+X    eunicefix=/etc/unixtovms.exe
+Xfi
+X
+Xattrlist="mc68000 sun gcos unix ibm gimpel interdata tss os mert pyr"
+Xattrlist="$attrlist vax pdp11 i8086 z8000 u3b2 u3b5 u3b20 u3b200"
+Xattrlist="$attrlist ns32000 ns16000 iAPX286 mc300 mc500 mc700 sparc"
+Xattrlist="$attrlist nsc32000 sinix xenix venix posix ansi M_XENIX"
+Xattrlist="$attrlist $mc68k __STDC__"
+Xpth="/usr/ucb /bin /usr/bin /usr/local /usr/local/bin /usr/lbin /etc /usr/lib /lib"
+Xd_newshome="../../NeWS"
+Xdefvoidused=7
+X
+X: some greps do not return status, grrr.
+Xecho "grimblepritz" >grimble
+Xif grep blurfldyick grimble >/dev/null 2>&1 ; then
+X    contains=contains
+Xelif grep grimblepritz grimble >/dev/null 2>&1 ; then
+X    contains=grep
+Xelse
+X    contains=contains
+Xfi
+Xrm -f grimble
+X: the following should work in any shell
+Xcase "$contains" in
+Xcontains*)
+X    echo " "
+X    echo "AGH!  Grep doesn't return a status.  Attempting remedial action."
+X    cat >contains <<'EOSS'
+Xgrep "$1" "$2" >.greptmp && cat .greptmp && test -s .greptmp
+XEOSS
+Xchmod +x contains
+Xesac
+X
+X: first determine how to suppress newline on echo command
+Xecho "Checking echo to see how to suppress newlines..."
+X(echo "hi there\c" ; echo " ") >.echotmp
+Xif $contains c .echotmp >/dev/null 2>&1 ; then
+X    echo "...using -n."
+X    n='-n'
+X    c=''
+Xelse
+X    cat <<'EOM'
+X...using \c
+XEOM
+X    n=''
+X    c='\c'
+Xfi
+Xecho $n "Type carriage return to continue.  Your cursor should be here-->$c"
+Xread ans
+Xrm -f .echotmp
+X
+X: now set up to do reads with possible shell escape and default assignment
+Xcat <<EOSC >myread
+Xcase "\$fastread" in
+Xyes) ans=''; echo " " ;;
+X*) ans='!';;
+Xesac
+Xwhile expr "X\$ans" : "X!" >/dev/null; do
+X    read ans
+X    case "\$ans" in
+X    !)
+X	sh
+X	echo " "
+X	echo $n "\$rp $c"
+X	;;
+X    !*)
+X	set \`expr "X\$ans" : "X!\(.*\)\$"\`
+X	sh -c "\$*"
+X	echo " "
+X	echo $n "\$rp $c"
+X	;;
+X    esac
+Xdone
+Xrp='Your answer:'
+Xcase "\$ans" in
+X'') ans="\$dflt";;
+Xesac
+XEOSC
+X
+X: general instructions
+Xcat <<EOH
+X 
+XThis installation shell script will examine your system and ask you questions
+Xto determine how the $package package should be installed.  If you get stuck
+Xon a question, you may use a ! shell escape to start a subshell or execute
+Xa command.  Many of the questions will have default answers in square
+Xbrackets--typing carriage return will give you the default.
+X
+XOn some of the questions which ask for file or directory names you are
+Xallowed to use the ~name construct to specify the login directory belonging
+Xto "name", even if you don't have a shell which knows about that.  Questions
+Xwhere this is allowed will be marked "(~name ok)".
+X
+XEOH
+Xrp="[Type carriage return to continue]"
+Xecho $n "$rp $c"
+X. myread
+Xcat <<EOH
+X
+XMuch effort has been expended to ensure that this shell script will run
+Xon any Unix system.  If despite that it blows up on you, your best bet is
+Xto edit Configure and run it again. Also, let me (lwall@jpl-devvax.jpl.nasa.gov)
+Xknow how I blew it.  If you can't run Configure for some reason, you'll have
+Xto generate a config.sh file by hand.
+X
+XThis installation script affects things in two ways: 1) it may do direct
+Xvariable substitutions on some of the files included in this kit, and
+X2) it builds a config.h file for inclusion in C programs.  You may edit
+Xany of these files as the need arises after running this script.
+X
+XIf you make a mistake on a question, there is no easy way to back up to it
+Xcurrently.  The easiest thing to do is to edit config.sh and rerun all the
+XSH files.  Configure will offer to let you do this before it runs the SH files.
+X
+XEOH
+Xrp="[Type carriage return to continue]"
+Xecho $n "$rp $c"
+X. myread
+X
+X: get old answers, if there is a config file out there
+Xif test -f ../config.sh; then
+X    echo " "
+X    dflt=y
+X    rp="I see a config.sh file.  Did Configure make it on THIS system? [$dflt]"
+X    echo $n "$rp $c"
+X    . myread
+X    case "$ans" in
+X    n*) echo "OK, I'll ignore it.";;
+X    *)  echo "Fetching default answers from your old config.sh file..."
+X	tmp="$n"
+X	ans="$c"
+X        . ../config.sh
+X	n="$tmp"
+X	c="$ans"
+X	;;
+X    esac
+Xfi
+X
+X: find out where common programs are
+Xecho " "
+Xecho "Locating common programs..."
+Xcat <<EOSC >loc
+X$startsh
+Xcase \$# in
+X0) exit 1;;
+Xesac
+Xthing=\$1
+Xshift
+Xdflt=\$1
+Xshift
+Xfor dir in \$*; do
+X    case "\$thing" in
+X    .)
+X	if test -d \$dir/\$thing; then
+X	    echo \$dir
+X	    exit 0
+X	fi
+X	;;
+X    *)
+X	if test -f \$dir/\$thing; then
+X	    echo \$dir/\$thing
+X	    exit 0
+X	elif test -f \$dir/\$thing.exe; then
+X	    : on Eunice apparently
+X	    echo \$dir/\$thing
+X	    exit 0
+X	fi
+X	;;
+X    esac
+Xdone
+Xecho \$dflt
+Xexit 1
+XEOSC
+Xchmod +x loc
+X$eunicefix loc
+Xloclist="
+Xexpr
+Xsed
+Xecho
+Xcat
+Xrm
+Xtr
+Xgrep
+X"
+Xtrylist="
+Xtest
+XMcc
+Xcpp
+X"
+Xfor file in $loclist; do
+X    xxx=`loc $file $file $pth`
+X    eval $file=$xxx
+X    eval _$file=$xxx
+X    case "$xxx" in
+X    /*)
+X	echo $file is in $xxx.
+X	;;
+X    *)
+X	echo "I don't know where $file is.  I hope it's in everyone's PATH."
+X	;;
+X    esac
+Xdone
+Xecho " "
+Xecho "Don't worry if any of the following aren't found..."
+Xans=offhand
+Xfor file in $trylist; do
+X    xxx=`loc $file $file $pth`
+X    eval $file=$xxx
+X    eval _$file=$xxx
+X    case "$xxx" in
+X    /*)
+X	echo $file is in $xxx.
+X	;;
+X    *)
+X	echo "I don't see $file out there, $ans."
+X	ans=either
+X	;;
+X    esac
+Xdone
+Xcase "$egrep" in
+Xegrep)
+X    echo "Substituting grep for egrep."
+X    egrep=$grep
+X    ;;
+Xesac
+Xcase "$test" in
+Xtest)
+X    echo "Hopefully test is built into your sh."
+X    ;;
+X/bin/test)
+X    echo " "
+X    dflt=n
+X    rp="Is your "'"'"test"'"'" built into sh? [$dflt] (OK to guess)"
+X    echo $n "$rp $c"
+X    . myread
+X    case "$ans" in
+X    y*) test=test ;;
+X    esac
+X    ;;
+X*)
+X    test=test
+X    ;;
+Xesac
+Xcase "$echo" in
+Xecho)
+X    echo "Hopefully echo is built into your sh."
+X    ;;
+X/bin/echo)
+X    echo " "
+X    echo "Checking compatibility between /bin/echo and builtin echo (if any)..."
+X    $echo $n "hi there$c" >foo1
+X    echo $n "hi there$c" >foo2
+X    if cmp foo1 foo2 >/dev/null 2>&1; then
+X	echo "They are compatible.  In fact, they may be identical."
+X    else
+X	case "$n" in
+X	'-n') n='' c='\c' ans='\c' ;;
+X	*) n='-n' c='' ans='-n' ;;
+X	esac
+X	cat <<FOO
+XThey are not compatible!  You are probably running ksh on a non-USG system.
+XI'll have to use /bin/echo instead of the builtin, since Bourne shell doesn't
+Xhave echo built in and we may have to run some Bourne shell scripts.  That
+Xmeans I'll have to use $ans to suppress newlines now.  Life is ridiculous.
+X
+XFOO
+X	rp="Your cursor should be here-->"
+X	$echo $n "$rp$c"
+X	. myread
+X    fi
+X    $rm -f foo1 foo2
+X    ;;
+X*)
+X    : cross your fingers
+X    echo=echo
+X    ;;
+Xesac
+Xrmlist="$rmlist loc"
+X
+X: get list of predefined functions in a handy place
+Xecho " "
+Xif test -f /lib/libc.a; then
+X    echo "Your C library is in /lib/libc.a.  You're normal."
+X    libc=/lib/libc.a
+Xelse
+X    ans=`loc libc.a blurfl/dyick $libpth`
+X    if test ! -f $ans; then
+X	ans=`loc clib blurfl/dyick $libpth`
+X    fi
+X    if test ! -f $ans; then
+X	ans=`loc libc blurfl/dyick $libpth`
+X    fi
+X    if test -f $ans; then
+X	echo "Your C library is in $ans, of all places."
+X	libc=$ans
+X    else
+X	if test -f "$libc"; then
+X	    echo "Your C library is in $libc, like you said before."
+X	else
+X	    cat <<EOM
+X 
+XI can't seem to find your C library.  I've looked in the following places:
+X
+X	$libpth
+X
+XNone of these seems to contain your C library.  What is the full name
+XEOM
+X	    dflt=None
+X	    $echo $n "of your C library? $c"
+X	    rp='C library full name?'
+X	    . myread
+X	    libc="$ans"
+X	fi
+X    fi
+Xfi
+Xecho " "
+X$echo $n "Extracting names from $libc for later perusal...$c"
+Xnm $libc 2>/dev/null | sed -n -e 's/^.* T _//p' -e 's/^.* T //p' > libc.list
+Xif $contains '^printf$' libc.list >/dev/null 2>&1; then
+X    echo "done"
+Xelse
+X    nm $libc 2>/dev/null | sed -n -e 's/^.* D _//p' -e 's/^.* D //p' > libc.list
+X    if $contains '^printf$' libc.list >/dev/null 2>&1; then
+X	echo "done"
+X    else
+X	echo " "
+X	echo "nm didn't seem to work right."
+X	echo "Trying ar instead..."
+X	if ar t $libc | sed -e 's/\.o$//' > libc.list; then
+X	    echo "Ok."
+X	else
+X	    echo "That didn't work either.  Giving up."
+X	    exit 1
+X	fi
+X    fi
+Xfi
+Xrmlist="$rmlist libc.list"
+X
+X: make some quick guesses about what we are up against
+Xecho " "
+X$echo $n "Hmm...  $c"
+Xif $contains SIGTSTP /usr/include/signal.h >/dev/null 2>&1 ; then
+X    echo "Looks kind of like a BSD system, but we'll see..."
+X    echo exit 0 >bsd
+X    echo exit 1 >usg
+X    echo exit 1 >v7
+Xelif $contains '^fcntl$' libc.list >/dev/null 2>&1 ; then
+X    echo "Looks kind of like a USG system, but we'll see..."
+X    echo exit 1 >bsd
+X    echo exit 0 >usg
+X    echo exit 1 >v7
+Xelse
+X    echo "Looks kind of like a version 7 system, but we'll see..."
+X    echo exit 1 >bsd
+X    echo exit 1 >usg
+X    echo exit 0 >v7
+Xfi
+Xif $contains '^vmssystem$' libc.list >/dev/null 2>&1 ; then
+X    cat <<'EOI'
+XThere is, however, a strange, musty smell in the air that reminds me of
+Xsomething...hmm...yes...I've got it...there's a VMS nearby, or I'm a Blit.
+XEOI
+X    echo "exit 0" >eunice
+X    eunicefix=unixtovms
+X    d_eunice="$define"
+X: it so happens the Eunice I know will not run shell scripts in Unix format
+Xelse
+X    echo " "
+X    echo "Congratulations.  You aren't running Eunice."
+X    eunicefix=':'
+X    d_eunice="$undef"
+X    echo "exit 1" >eunice
+Xfi
+Xif test -f /xenix; then
+X    echo "Actually, this looks more like a XENIX system..."
+X    echo "exit 0" >xenix
+Xelse
+X    echo " "
+X    echo "It's not Xenix..."
+X    echo "exit 1" >xenix
+Xfi
+Xchmod +x xenix
+X$eunicefix xenix
+Xif test -f /venix; then
+X    echo "Actually, this looks more like a VENIX system..."
+X    echo "exit 0" >venix
+Xelse
+X    echo " "
+X    if xenix; then
+X	: null
+X    else
+X	echo "Nor is it Venix..."
+X    fi
+X    echo "exit 1" >venix
+Xfi
+Xchmod +x bsd usg v7 eunice venix
+X$eunicefix bsd usg v7 eunice venix
+Xrmlist="$rmlist bsd usg v7 eunice venix xenix"
+X
+X: see if sh knows # comments
+Xecho " "
+Xecho "Checking your sh to see if it knows about # comments..."
+Xif sh -c '#' >/dev/null 2>&1 ; then
+X    echo "Your sh handles # comments correctly."
+X    shsharp=true
+X    spitshell=cat
+X    echo " "
+X    echo "Okay, let's see if #! works on this system..."
+X    echo "#!/bin/echo hi" > try
+X    $eunicefix try
+X    chmod +x try
+X    try > today
+X    if $contains hi today >/dev/null 2>&1; then
+X	echo "It does."
+X	sharpbang='#!'
+X    else
+X	echo "#! /bin/echo hi" > try
+X	$eunicefix try
+X	chmod +x try
+X	try > today
+X	if test -s today; then
+X	    echo "It does."
+X	    sharpbang='#! '
+X	else
+X	    echo "It doesn't."
+X	    sharpbang=': use '
+X	fi
+X    fi
+Xelse
+X    echo "Your sh doesn't grok # comments--I will strip them later on."
+X    shsharp=false
+X    echo "exec grep -v '^#'" >spitshell
+X    chmod +x spitshell
+X    $eunicefix spitshell
+X    spitshell=`pwd`/spitshell
+X    echo "I presume that if # doesn't work, #! won't work either!"
+X    sharpbang=': use '
+Xfi
+X
+X: figure out how to guarantee sh startup
+Xecho " "
+Xecho "Checking out how to guarantee sh startup..."
+Xstartsh=$sharpbang'/bin/sh'
+Xecho "Let's see if '$startsh' works..."
+Xcat >try <<EOSS
+X$startsh
+Xset abc
+Xtest "$?abc" != 1
+XEOSS
+X
+Xchmod +x try
+X$eunicefix try
+Xif try; then
+X    echo "Yup, it does."
+Xelse
+X    echo "Nope.  You may have to fix up the shell scripts to make sure sh runs them."
+Xfi
+Xrm -f try today
+X
+X: see if sprintf is declared as int or pointer to char
+Xecho " "
+Xcat >.ucbsprf.c <<'EOF'
+Xmain() { char buf[10]; exit((unsigned long)sprintf(buf,"%s","foo") > 10L); }
+XEOF
+Xif cc .ucbsprf.c -o .ucbsprf >/dev/null 2>&1 && .ucbsprf; then
+X    echo "Your sprintf() returns (int)."
+X    d_charsprf="$undef"
+Xelse
+X    echo "Your sprintf() returns (char*)."
+X    d_charsprf="$define"
+Xfi
+X/bin/rm -f .ucbsprf.c .ucbsprf
+X
+X: see if we can have long filenames
+Xecho " "
+Xrm -f 123456789abcde
+Xif (echo hi >123456789abcdef) 2>/dev/null; then
+X    : not version 8
+X    if test -f 123456789abcde; then
+X	echo 'You cannot have filenames longer than 14 characters.  Sigh.'
+X	d_flexfnam="$undef"
+X    else
+X	echo 'You can have filenames longer than 14 characters.'
+X	d_flexfnam="$define"
+X    fi
+Xelse
+X    : version 8 probably
+X    echo "You can't have filenames longer than 14 chars.  V8 can't even think about them!"
+X    d_flexfnam="$undef"
+Xfi 
+X: index or strcpy
+Xecho " "
+Xcase "$d_index" in
+Xn) dflt=n;;
+X*) dflt=y;;
+Xesac
+Xif $contains '^index$' libc.list >/dev/null 2>&1 ; then
+X    if $contains '^strchr$' libc.list >/dev/null 2>&1 ; then
+X	echo "Your system has both index() and strchr().  Shall I use"
+X	rp="index() rather than strchr()? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	case "$ans" in
+X	    n*) d_index="$define" ;;
+X	    *)  d_index="$undef" ;;
+X	esac
+X    else
+X	d_index="$undef"
+X	echo "index() found."
+X    fi
+Xelse
+X    if $contains '^strchr$' libc.list >/dev/null 2>&1 ; then
+X	d_index="$define"
+X	echo "strchr() found."
+X    else
+X	echo "No index() or strchr() found!"
+X	d_index="$undef"
+X    fi
+Xfi
+X
+X: see if signal is declared as pointer to function returning int or void
+Xecho " "
+Xif $contains 'void.*signal' /usr/include/signal.h >/dev/null 2>&1 ; then
+X    echo "You have void (*signal())() instead of int."
+X    d_voidsig="$define"
+Xelse
+X    echo "You have int (*signal())() instead of void."
+X    d_voidsig="$undef"
+Xfi
+X
+X: check for void type
+Xecho " "
+X$cat <<EOM
+XChecking to see how well your C compiler groks the void type...
+X
+X  Support flag bits are:
+X    1: basic void declarations.
+X    2: arrays of pointers to functions returning void.
+X    4: operations between pointers to and addresses of void functions.
+X
+XEOM
+Xcase "$voidflags" in
+X'')
+X    $cat >try.c <<'EOCP'
+X#if TRY & 1
+Xvoid main() {
+X#else
+Xmain() {
+X#endif
+X	extern void *moo();
+X	void *(*goo)();
+X#if TRY & 2
+X	void (*foo[10])();
+X#endif
+X
+X#if TRY & 4
+X	if(*goo == moo) {
+X		exit(0);
+X	}
+X#endif
+X	exit(0);
+X}
+XEOCP
+X    if cc -S -DTRY=7 try.c >.out 2>&1 ; then
+X	voidflags=7
+X	echo "It appears to support void fully."
+X	if $contains warning .out >/dev/null 2>&1; then
+X	    echo "However, you might get some warnings that look like this:"
+X	    $cat .out
+X	fi
+X    else
+X	echo "Hmm, you compiler has some difficulty with void.  Checking further..."
+X	if cc -S -DTRY=1 try.c >/dev/null 2>&1 ; then
+X	    echo "It supports 1..."
+X	    if cc -S -DTRY=3 try.c >/dev/null 2>&1 ; then
+X		voidflags=3
+X		echo "And it supports 2 but not 4."
+X	    else
+X		echo "It doesn't support 2..."
+X		if cc -S -DTRY=3 try.c >/dev/null 2>&1 ; then
+X		    voidflags=5
+X		    echo "But it supports 4."
+X		else
+X		    voidflags=1
+X		    echo "And it doesn't support 4."
+X		fi
+X	    fi
+X	else
+X	    echo "There is no support at all for void."
+X	    voidflags=0
+X	fi
+X    fi
+Xesac
+Xdflt="$voidflags";
+Xrp="Your void support flags add up to what? [$dflt]"
+X$echo $n "$rp $c"
+X. myread
+Xvoidflags="$ans"
+X$rm -f try.* .out
+X
+X: see how we invoke the C preprocessor
+Xecho " "
+Xecho "Now, how can we feed standard input to your C preprocessor..."
+Xcat <<'EOT' >testcpp.c
+X#define ABC abc
+X#define XYZ xyz
+XABC.XYZ
+XEOT
+Xecho 'Maybe "'$cpp'" will work...'
+X$cpp <testcpp.c >testcpp.out 2>&1
+Xif $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X    echo "Yup, it does."
+X    cppstdin="$cpp"
+X    cppminus='';
+Xelse
+X    echo 'Nope, maybe "'$cpp' -" will work...'
+X    $cpp - <testcpp.c >testcpp.out 2>&1
+X    if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X	echo "Yup, it does."
+X	cppstdin="$cpp"
+X	cppminus='-';
+X    else
+X	echo 'No such luck...maybe "cc -E" will work...'
+X	cc -E <testcpp.c >testcpp.out 2>&1
+X	if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X	    echo "It works!"
+X	    cppstdin='cc -E'
+X	    cppminus='';
+X	else
+X	    echo 'Nixed again...maybe "cc -E -" will work...'
+X	    cc -E - <testcpp.c >testcpp.out 2>&1
+X	    if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X		echo "Hooray, it works!  I was beginning to wonder."
+X		cppstdin='cc -E'
+X		cppminus='-';
+X	    else
+X		echo 'Nope...maybe "cc -P" will work...'
+X		cc -P <testcpp.c >testcpp.out 2>&1
+X		if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X		    echo "Yup, that does."
+X		    cppstdin='cc -P'
+X		    cppminus='';
+X		else
+X		    echo 'Nope...maybe "cc -P -" will work...'
+X		    cc -P - <testcpp.c >testcpp.out 2>&1
+X		    if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X			echo "Yup, that does."
+X			cppstdin='cc -P'
+X			cppminus='-';
+X		    else
+X			echo 'Hmm...perhaps you already told me...'
+X			case "$cppstdin" in
+X			'') ;;
+X			*) $cppstdin $cppminus <testcpp.c >testcpp.out 2>&1;;
+X			esac
+X			if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X			    echo "Hooray, you did!  I was beginning to wonder."
+X			else
+X			    echo 'Uh-uh.  Time to get fancy...'
+X			    echo 'Trying (cat >/tmp/$$.c; cc -E /tmp/$$.c; rm /tmp/$$.c)'
+X			    cppstdin='(cat >/tmp/$$.c; cc -E /tmp/$$.c; rm /tmp/$$.c)'
+X			    cppminus='';
+X			    $cppstdin <testcpp.c >testcpp.out 2>&1
+X			    if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X				echo "Eureka!."
+X			    else
+X				dflt=blurfl
+X				$echo $n "No dice.  I can't find a C preprocessor.  Name one: $c"
+X				rp='Name a C preprocessor:'
+X				. myread
+X				cppstdin="$ans"
+X				$cppstdin <testcpp.c >testcpp.out 2>&1
+X				if $contains 'abc.xyz' testcpp.out >/dev/null 2>&1 ; then
+X				    echo "OK, that will do."
+X				else
+X				    echo "Sorry, I can't get that to work.  Go find one."
+X				    exit 1
+X				fi
+X			    fi
+X			fi
+X		    fi
+X		fi
+X	    fi
+X	fi
+X    fi
+Xfi
+Xrm -f testcpp.c testcpp.out
+X
+X: get C preprocessor symbols handy
+Xecho " "
+Xecho $attrlist | $tr '[ - ]' '[\012-\012]' >Cppsym.know
+X$cat <<EOSS >Cppsym
+X$startsh
+Xcase "\$1" in
+X-l) list=true
+X    shift
+X    ;;
+Xesac
+Xunknown=''
+Xcase "\$list\$#" in
+X1|2)
+X    for sym do
+X	if $contains "^\$1$" Cppsym.true >/dev/null 2>&1; then
+X	    exit 0
+X	elif $contains "^\$1$" Cppsym.know >/dev/null 2>&1; then
+X		:
+X	else
+X	    unknown="\$unknown \$sym"
+X	fi
+X    done
+X    set X \$unknown
+X    shift
+X    ;;
+Xesac
+Xcase \$# in
+X0) exit 1;;
+Xesac
+Xecho \$* | $tr '[ - ]' '[\012-\012]' | $sed -e 's/\(.*\)/\\
+X#ifdef \1\\
+Xexit 0; _ _ _ _\1\\	 \1\\
+X#endif\\
+X/' >/tmp/Cppsym\$\$
+Xecho exit 1 >>/tmp/Cppsym\$\$
+X$cppstdin $cppminus </tmp/Cppsym\$\$ >/tmp/Cppsym2\$\$
+Xcase "\$list" in
+Xtrue) awk 'NF > 5 {print substr(\$6,2,100)}' </tmp/Cppsym2\$\$ ;;
+X*)
+X    sh /tmp/Cppsym2\$\$
+X    status=\$?
+X    ;;
+Xesac
+X$rm -f /tmp/Cppsym\$\$ /tmp/Cppsym2\$\$
+Xexit \$status
+XEOSS
+Xchmod +x Cppsym
+X$eunicefix Cppsym
+Xecho "Your C preprocessor defines the following symbols:"
+XCppsym -l $attrlist >Cppsym.true
+Xcat Cppsym.true
+Xrmlist="$rmlist Cppsym Cppsym.know Cppsym.true"
+X
+X: see how many register declarations we want to use
+Xcase "$registers" in
+X'')
+X    if Cppsym vax; then
+X	dflt=6
+X    elif Cppsym sun mc68000; then
+X	dflt=10
+X    elif Cppsym pyr; then
+X	dflt=14
+X    elif Cppsym ns32000 ns16000; then
+X	dflt=5
+X    elif Cppsym $smallmach; then
+X	dflt=3
+X    else
+X	: if you have any other numbers for me, send them in
+X	dflt=6
+X    fi
+X    ;;
+X*)  dflt=$registers ;;
+Xesac
+Xcat <<EOM
+X 
+XDifferent C compilers on different machines pay attention to different
+Xnumbers of register declarations.  About how many register declarations in
+XEOM
+X$echo $n "each routine does your C compiler pay attention to? (OK to guess) [$dflt] $c"
+Xrp="# register declarations used? [$dflt]"
+X. myread
+Xregisters=$ans
+Xreg1=''
+Xawk "BEGIN { for (i=1; i<=16; i++) printf \"reg%d=''\n\", i}" </dev/null >.foo
+X. .foo
+Xawk "BEGIN { for (i=1; i<=$registers; i++) printf \"reg%d=register\n\", i}" \
+X	</dev/null >.foo
+X. .foo
+Xrm -f .foo
+X
+X: preserve RCS keywords in files with variable substitution, grrr
+XLog='$Log'
+XHeader='$Header'
+X
+X: set up shell script to do ~ expansion
+Xcat >filexp <<EOSS
+X$startsh
+X: expand filename
+Xcase "\$1" in
+X ~/*|~)
+X    echo \$1 | $sed "s|~|\${HOME-\$LOGDIR}|"
+X    ;;
+X ~*)
+X    if $test -f /bin/csh; then
+X	/bin/csh -f -c "glob \$1"
+X	echo ""
+X    else
+X	name=\`$expr x\$1 : '..\([^/]*\)'\`
+X	dir=\`$sed -n -e "/^\${name}:/{s/^[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:\([^:]*\).*"'\$'"/\1/" -e p -e q -e '}' </etc/passwd\`
+X	if $test ! -d "\$dir"; then
+X	    me=\`basename \$0\`
+X	    echo "\$me: can't locate home directory for: \$name" >&2
+X	    exit 1
+X	fi
+X	case "\$1" in
+X	*/*)
+X	    echo \$dir/\`$expr x\$1 : '..[^/]*/\(.*\)'\`
+X	    ;;
+X	*)
+X	    echo \$dir
+X	    ;;
+X	esac
+X    fi
+X    ;;
+X*)
+X    echo \$1
+X    ;;
+Xesac
+XEOSS
+Xchmod +x filexp
+X$eunicefix filexp
+X
+X: determine where public executables go
+Xcase "$bin" in
+X'')
+X    dflt=`loc . /bin /usr/local/bin /usr/lbin /usr/local /usr/bin`
+X    ;;
+X*)  dflt="$bin"
+X    ;;
+Xesac
+Xcont=true
+Xwhile $test "$cont" ; do
+X    echo " "
+X    rp="Where do you want to put the public executables? [$dflt]"
+X    $echo $n "$rp $c"
+X    . myread
+X    bin="$ans"
+X    bin=`filexp $bin`
+X    if test -d $bin; then
+X	cont=''
+X    else
+X	dflt=n
+X	rp="Directory $bin doesn't exist.  Use that name anyway? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	dflt=''
+X	case "$ans" in
+X	y*) cont='';;
+X	esac
+X    fi
+Xdone
+X
+X: determine where manual pages go
+Xcase "$mansrc" in
+X'')
+X    dflt=`loc . /usr/man/man1 /usr/man/mann /usr/man/local/man1 /usr/man/u_man/man1 /usr/man/man1`
+X    ;;
+X*)  dflt="$mansrc"
+X    ;;
+Xesac
+Xcont=true
+Xwhile $test "$cont" ; do
+X    echo " "
+X    rp="Where do the manual pages (source) go? [$dflt]"
+X    $echo $n "$rp $c"
+X    . myread
+X    mansrc=`filexp "$ans"`
+X    if test -d $mansrc; then
+X	cont=''
+X    else
+X	dflt=n
+X	rp="Directory $mansrc doesn't exist.  Use that name anyway? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	dflt=''
+X	case "$ans" in
+X	y*) cont='';;
+X	esac
+X    fi
+Xdone
+Xcase "$mansrc" in
+X*l)
+X    manext=l
+X    ;;
+X*n)
+X    manext=n
+X    ;;
+X*C)
+X    manext=C
+X    ;;
+X*)
+X    manext=1
+X    ;;
+Xesac
+X
+X: see what memory models we can support
+Xcase "$models" in
+X'')
+X    if Cppsym pdp11; then
+X	dflt='unsplit split'
+X    else
+X	ans=`loc . X /lib/small /lib/large /usr/lib/small /usr/lib/large /lib/medium /usr/lib/medium /lib/huge`
+X	case "$ans" in
+X	X) dflt='none';;
+X	*)  if $test -d /lib/small || $test -d /usr/lib/small; then
+X		dflt='small'
+X	    else
+X		dflt=''
+X	    fi
+X	    if $test -d /lib/medium || $test -d /usr/lib/medium; then
+X		dflt="$dflt medium"
+X	    fi
+X	    if $test -d /lib/large || $test -d /usr/lib/large; then
+X		dflt="$dflt large"
+X	    fi
+X	    if $test -d /lib/huge || $test -d /usr/lib/huge; then
+X		dflt="$dflt huge"
+X	    fi
+X	esac
+X    fi
+X    ;;
+X*)  dflt="$models" ;;
+Xesac
+X$cat <<EOM
+X 
+XSome systems have different model sizes.  On most systems they are called
+Xsmall, medium, large, and huge.  On the PDP11 they are called unsplit and
+Xsplit.  If your system doesn't support different memory models, say "none".
+XIf you wish to force everything to one memory model, say "none" here and
+Xput the appropriate flags later when it asks you for other cc and ld flags.
+XVenix systems may wish to put "none" and let the compiler figure things out.
+X(In the following question multiple model names should be space separated.)
+X
+XEOM
+Xrp="Which models are supported? [$dflt]"
+X$echo $n "$rp $c"
+X. myread
+Xmodels="$ans"
+X
+Xcase "$models" in
+Xnone)
+X    small=''
+X    medium=''
+X    large=''
+X    huge=''
+X    unsplit=''
+X    split=''
+X    ;;
+X*split)
+X    case "$split" in
+X    '') 
+X	if $contains '-i' $mansrc/ld.1 >/dev/null 2>&1 || \
+X	   $contains '-i' $mansrc/cc.1 >/dev/null 2>&1; then
+X	    dflt='-i'
+X	else
+X	    dflt='none'
+X	fi
+X	;;
+X    *) dflt="$split";;
+X    esac
+X    rp="What flag indicates separate I and D space? [$dflt]"
+X    $echo $n "$rp $c"
+X    . myread
+X    case "$ans" in
+X    none) ans='';;
+X    esac
+X    split="$ans"
+X    unsplit=''
+X    ;;
+X*large*|*small*|*medium*|*huge*)
+X    case "$model" in
+X    *large*)
+X	case "$large" in
+X	'') dflt='-Ml';;
+X	*) dflt="$large";;
+X	esac
+X	rp="What flag indicates large model? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	case "$ans" in
+X	none) ans='';
+X	esac
+X	large="$ans"
+X	;;
+X    *) large='';;
+X    esac
+X    case "$model" in
+X    *huge*)
+X	case "$huge" in
+X	'') dflt='-Mh';;
+X	*) dflt="$huge";;
+X	esac
+X	rp="What flag indicates huge model? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	case "$ans" in
+X	none) ans='';
+X	esac
+X	huge="$ans"
+X	;;
+X    *) huge="$large";;
+X    esac
+X    case "$model" in
+X    *medium*)
+X	case "$medium" in
+X	'') dflt='-Mm';;
+X	*) dflt="$medium";;
+X	esac
+X	rp="What flag indicates medium model? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	case "$ans" in
+X	none) ans='';
+X	esac
+X	medium="$ans"
+X	;;
+X    *) medium="$large";;
+X    esac
+X    case "$model" in
+X    *small*)
+X	case "$small" in
+X	'') dflt='none';;
+X	*) dflt="$small";;
+X	esac
+X	rp="What flag indicates small model? [$dflt]"
+X	$echo $n "$rp $c"
+X	. myread
+X	case "$ans" in
+X	none) ans='';
+X	esac
+X	small="$ans"
+X	;;
+X    *) small='';;
+X    esac
+X    ;;
+X*)
+X    echo "Unrecognized memory models--you may have to edit Makefile.SH"
+X    ;;
+Xesac
+X
+Xcase "$ccflags" in
+X'') dflt='none';;
+X*) dflt="$ccflags";;
+Xesac
+Xecho " "
+Xrp="Any additional cc flags? [$dflt]"
+X$echo $n "$rp $c"
+X. myread
+Xcase "$ans" in
+Xnone) ans='';
+Xesac
+Xccflags="$ans"
+X
+Xcase "$ldflags" in
+X'') if venix; then
+X	dflt='-i -z'
+X    else
+X	dflt='none'
+X    fi
+X    ;;
+X*) dflt="$ldflags";;
+Xesac
+Xecho " "
+Xrp="Any additional ld flags? [$dflt]"
+X$echo $n "$rp $c"
+X. myread
+Xcase "$ans" in
+Xnone) ans='';
+Xesac
+Xldflags="$ans"
+X
+X: see if we need a special compiler
+Xecho " "
+Xif usg; then
+X    case "$cc" in
+X    '')
+X	case "$Mcc" in
+X	/*) dflt='Mcc'
+X	    ;;
+X	*)
+X	    case "$large" in
+X	    -M*)
+X		dflt='cc'
+X		;;
+X	    *)
+X		if $contains '\-M' $mansrc/cc.1 >/dev/null 2>&1 ; then
+X		    dflt='cc -M'
+X		else
+X		    dflt='cc'
+X		fi
+X		;;
+X	    esac
+X	    ;;
+X	esac
+X	;;
+X    *)  dflt="$cc";;
+X    esac
+X    $cat <<'EOM'
+X 
+XOn some systems the default C compiler will not resolve multiple global
+Xreferences that happen to have the same name.  On some such systems the
+X"Mcc" command may be used to force these to be resolved.  On other systems
+Xa "cc -M" command is required.  (Note that the -M flag on other systems
+Xindicates a memory model to use!)  What command will force resolution on
+XEOM
+X    $echo $n "this system? [$dflt] $c"
+X    rp="Command to resolve multiple refs? [$dflt]"
+X    . myread
+X    cc="$ans"
+Xelse
+X    echo "Not a USG system--assuming cc can resolve multiple definitions."
+X    cc=cc
+Xfi
+X
+Xecho " "
+Xecho "End of configuration questions."
+Xecho " "
+X
+X: create config.sh file
+Xecho " "
+Xif test -d ../UU; then
+X    cd ..
+Xfi
+Xecho "Creating config.sh..."
+X$spitshell <<EOT >config.sh
+X$startsh
+X# config.sh
+X# This file was produced by running the Configure script.
+X
+Xd_eunice='$d_eunice'
+Xeunicefix='$eunicefix'
+Xdefine='$define'
+Xloclist='$loclist'
+Xexpr='$expr'
+Xsed='$sed'
+Xecho='$echo'
+Xcat='$cat'
+Xrm='$rm'
+Xmv='$mv'
+Xcp='$cp'
+Xtail='$tail'
+Xtr='$tr'
+Xmkdir='$mkdir'
+Xsort='$sort'
+Xuniq='$uniq'
+Xgrep='$grep'
+Xtrylist='$trylist'
+Xtest='$test'
+Xinews='$inews'
+Xegrep='$egrep'
+Xmore='$more'
+Xpg='$pg'
+XMcc='$Mcc'
+Xvi='$vi'
+Xmailx='$mailx'
+Xmail='$mail'
+Xcpp='$cpp'
+XLog='$Log'
+XHeader='$Header'
+Xbin='$bin'
+Xcc='$cc'
+Xcontains='$contains'
+Xcppstdin='$cppstdin'
+Xcppminus='$cppminus'
+Xd_charsprf='$d_charsprf'
+Xd_flexfnam='$d_flexfnam'
+Xd_index='$d_index'
+Xd_voidsig='$d_voidsig'
+Xlibc='$libc'
+Xmansrc='$mansrc'
+Xmanext='$manext'
+Xmodels='$models'
+Xsplit='$split'
+Xsmall='$small'
+Xmedium='$medium'
+Xlarge='$large'
+Xhuge='$huge'
+Xccflags='$ccflags'
+Xldflags='$ldflags'
+Xn='$n'
+Xc='$c'
+Xpackage='$package'
+Xregisters='$registers'
+Xreg1='$reg1'
+Xreg2='$reg2'
+Xreg3='$reg3'
+Xreg4='$reg4'
+Xreg5='$reg5'
+Xreg6='$reg6'
+Xreg7='$reg7'
+Xreg8='$reg8'
+Xreg9='$reg9'
+Xreg10='$reg10'
+Xreg11='$reg11'
+Xreg12='$reg12'
+Xreg13='$reg13'
+Xreg14='$reg14'
+Xreg15='$reg15'
+Xreg16='$reg16'
+Xspitshell='$spitshell'
+Xshsharp='$shsharp'
+Xsharpbang='$sharpbang'
+Xstartsh='$startsh'
+Xvoidflags='$voidflags'
+Xdefvoidused='$defvoidused'
+XCONFIG=true
+XEOT
+X 
+XCONFIG=true
+X
+Xecho " "
+Xdflt=''
+Xfastread=''
+Xecho "If you didn't make any mistakes, then just type a carriage return here."
+Xrp="If you need to edit config.sh, do it as a shell escape here:"
+X$echo $n "$rp $c"
+X. UU/myread
+Xcase "$ans" in
+X'') ;;
+X*) : in case they cannot read
+X    eval $ans;;
+Xesac
+X. ./config.sh
+X
+Xecho " "
+Xecho "Doing variable substitutions on .SH files..."
+Xset x `awk '{print $1}' <MANIFEST | $grep '\.SH'`
+Xshift
+Xcase $# in
+X0) set x *.SH; shift;;
+Xesac
+Xif test ! -f $1; then
+X    shift
+Xfi
+Xfor file in $*; do
+X    case "$file" in
+X    */*)
+X	dir=`$expr X$file : 'X\(.*\)/'`
+X	file=`$expr X$file : 'X.*/\(.*\)'`
+X	(cd $dir && . $file)
+X	;;
+X    *)
+X	. $file
+X	;;
+X    esac
+Xdone
+Xif test -f config.h.SH; then
+X    if test ! -f config.h; then
+X	: oops, they left it out of MANIFEST, probably, so do it anyway.
+X	. config.h.SH
+X    fi
+Xfi
+X
+Xif $contains '^depend:' Makefile >/dev/null 2>&1; then
+X    dflt=n
+X    $cat <<EOM
+X
+XNow you need to generate make dependencies by running "make depend".
+XYou might prefer to run it in background: "make depend > makedepend.out &"
+XIt can take a while, so you might not want to run it right now.
+X
+XEOM
+X    rp="Run make depend now? [$dflt]"
+X    $echo $n "$rp $c"
+X    . UU/myread
+X    case "$ans" in
+X    y*) make depend
+X	echo "Now you must run a make."
+X	;;
+X    *)  echo "You must run 'make depend' then 'make'."
+X	;;
+X    esac
+Xelif test -f Makefile; then
+X    echo " "
+X    echo "Now you must run a make."
+Xelse
+X    echo "Done."
+Xfi
+X
+X$rm -f kit*isdone
+Xcd UU && $rm -f $rmlist
+X: end of Configure
+!STUFFY!FUNK!
+echo Extracting patchlevel.h
+sed >patchlevel.h <<'!STUFFY!FUNK!' -e 's/X//'
+X#define PATCHLEVEL 11
+!STUFFY!FUNK!
+echo ""
+echo "End of kit"
+: I do not append .signature, but someone might mail this.
+exit
+
+

@@ -1,0 +1,97 @@
+This patch (bash-1.13.cwru.patch.5) fixes the following problems:
+
+1.  The Makefile in the documentation subdirectory will install the
+    manual pages and info file. [documentation/Makefile]
+
+2.  The alloca emulation now works for Crays. [lib/malloc/alloca.c]
+
+3.  A couple of problems related to completion of filenames that are
+    quoted or need quoting were fixed.  Specifically, quoted filenames
+    may now be completed, and tilde expansion is performed before
+    double quotes are added to a completed filename, since double
+    quotes inhibit tilde expansion. [lib/readline/complete.c]
+
+    (Beware: the quote stripping code is encapsulated in a function
+    that could be a lot smarter.)
+
+4.  More targets and definitions were added to cpp-Makefile to bring
+    it closer to the Gnu coding standard. [cpp-Makefile]
+
+5.  `endian.h' has been renamed to `bash-endian.h', and is only
+    built and included if HAVE_WAIT_H is undefined.
+    [cpp-Makefile, jobs.h]
+
+6.  The `fc' builtin option parsing was corrected to allow arguments
+    like `-2', which are not options but history command specifiers.
+    [builtins/fc.def]
+
+7.  A problem with `*' characters being written when fc was re-executing
+    commands has been fixed. [builtins/fc.def]
+
+8.  Some portability problems were fixed. [general.h, getcwd.h,
+    jobs.c, siglist.c, signames.c, test.c, trap.h, variables.c,
+    lib/readline/parens.c, lib/readline/vi_keymap.c]
+
+9.  A bug was fixed that caused the variable holding the file
+    descriptor bash was using to read a script to be set to the wrong
+    value was fixed. [jobs.c, nojobs.c]
+
+10. Some machine descriptions were fixed up (SunOS, SCO, ISC, aixpc,
+    hpux, drs6000, Cray, M88100), and additions were made to others (sgi).
+    [machines.h]
+
+11. A bug was fixed that caused memory leaks with here documents.
+    [make_cmd.c]
+
+12. Fixes were made to support/mksysdefs that allow for a list of include
+    directories in which to search for system header files.  This
+    allowed the removal of some system-specific code. [support/mksysdefs]
+
+13. A bug was fixed that caused the type builtin to think everything was
+    a shell builtin. [parse.y]
+
+14. A bug was fixed that caused lines to be joined inappropriately if
+    history substitution failed or returned a null string. [parse.y]
+
+15. `&&' and `||' were added to the list of tokens that do not need to
+    be followed by a semicolon when joining history lines. [parse.y]
+
+16. The read builtin was made Posix.2 compliant (and sh compatible) by
+    fixing it to preserve separators in the input line when assigning
+    the variables from the command line. [builtins/read.def]
+
+17. The shell looks for `POSIX_PEDANTIC' as well as `POSIXLY_CORRECT'
+    on startup. [shell.c]
+
+18. Some portability fixes were made to `issock', which tests for an
+    invocation by rshd, the function was renamed to `isnetconn', and
+    it's now used by default. [shell.c]
+
+19. A bug was fixed that caused bash to reset the wrong signals when
+    creating a child. [shell.c]
+
+20. A bug that caused incorrect handling of quoted whitespace at the
+    end of a word while doing variable expansion was fixed. [subst.c]
+
+21. The core dumps caused by expressions like ${*:?} were fixed. [subst.c]
+
+22. The help text for the test builtin was corrected. [builtins/test.def]
+
+23. The `type' builtin should no longer report directories as executables.
+    [builtins/type.def]
+
+24. The find_variable family of functions now searches the temporary env
+    for all commands in a `.' script (var=value . abc). [variables.c]
+
+25. The default vi mode keymaps were fixed up. [lib/readline/vi_keymap.c]
+
+26. The vi-mode insert-last-argument function now inserts a space before
+    the last argument, as Posix.2 specifies. [lib/readline/vi_mode.c]
+
+27. lib/readline/vi_mode.c now includes <sys/types.h> and should compile
+    successfully on all systems. [lib/readline/vi_mode.c]
+
+28. Problems with the vi-mode `d[Ww]' and `y[Ww]' commands were fixed.
+    [lib/readline/vi_mode.c]
+
+To apply, cd to the bash source directory and type `patch -p0 < patch-file'.

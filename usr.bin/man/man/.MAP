@@ -1,0 +1,10 @@
+F CONFIG.C;1                        	config.c
+F CONFIG.H;1                        	config.h
+F MAKEFILE.;1                       	Makefile
+F MAN.1;1                           	man.1
+F MAN.C;1                           	man.c
+F MAN_CONF.5;1                      	man.conf.5
+F MAN_CONF.;1                       	man.conf
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/man/man
+F PATHNAME.H;1                      	pathnames.h
+F TAGS.;1                           	tags

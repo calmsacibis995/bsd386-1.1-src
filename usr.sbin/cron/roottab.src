@@ -1,0 +1,15 @@
+# /etc/crontab.src - root's crontab for Vixie's cron
+# PROVIDED AS AN EXAMPLE ONLY
+#
+SHELL=/bin/sh
+PATH=/etc:/bin:/usr/bin:/usr/ucb:/usr/local/bin
+MAILTO=paul
+HOME=/var/adm
+#
+#minute	hour	mday	month	wday	command
+#
+0/10	*	*	*	*	/etc/dmesg - >> messages
+0/15	* 	*	*	*	/usr/lib/atrun
+37	4	*	*	*	./cronrun-day > cronout-day 2>&1
+43	4	*	*	Sun	./cronrun-wk  > cronout-wk  2>&1
+51	4	1	*	*	./cronrun-mon > cronout-mon 2>&1

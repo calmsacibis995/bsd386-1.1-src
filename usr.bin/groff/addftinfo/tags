@@ -1,0 +1,6 @@
+HASH	guess.cc	/^#define HASH(c1, c2) (((unsigned char)(c1) << 8) |/
+Maddftinfo.cc	addftinfo.cc	/^int main(int argc, char **argv)$/
+convert_font	addftinfo.cc	/^static void convert_font(const font_params &param,/
+get_line	addftinfo.cc	/^static int get_line(FILE *fp, string *p)$/
+guess	guess.cc	/^void guess(const char *s, const font_params &param/
+usage	addftinfo.cc	/^static void usage()$/

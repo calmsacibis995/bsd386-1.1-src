@@ -1,0 +1,168 @@
+ADD_STATE	dfa.c	/^#define ADD_STATE(state) \\$/
+CHECK_ACCEPT	dfa.c	/^#define CHECK_ACCEPT(state) \\$/
+CHECK_REJECT	scan.c	/^#define CHECK_REJECT(str) \\$/
+CHECK_YYMORE	scan.c	/^#define CHECK_YYMORE(str) \\$/
+GEN_PREFIX	main.c	/^#define GEN_PREFIX(name) printf( "#define yy%s %s%/
+IS_MARKED	dfa.c	/^#define IS_MARKED(state) (trans1[state] < 0)$/
+MARK_STATE	dfa.c	/^#define MARK_STATE(state) \\$/
+Mmain	main.c	/^int main( argc, argv )$/
+PUT_BACK_STRING	scan.c	/^#define PUT_BACK_STRING(str, start) \\$/
+PUT_ON_STACK	dfa.c	/^#define PUT_ON_STACK(state) \\$/
+STACK_STATE	dfa.c	/^#define STACK_STATE(state) \\$/
+UNMARK_STATE	dfa.c	/^#define UNMARK_STATE(state) \\$/
+YY_FATAL_ERROR	scan.c	/^#define YY_FATAL_ERROR(msg) yy_fatal_error( msg )$/
+YY_INPUT	scan.c	/^#define YY_INPUT(buf,result,max_size) \\$/
+YY_PROTO	scan.c	/^#define YY_PROTO(proto) proto$/
+YY_SC_TO_UI	scan.c	/^#define YY_SC_TO_UI(c) ((unsigned int) (unsigned c/
+YY_STATE_EOF	scan.c	/^#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + st/
+add_accept	nfa.c	/^void add_accept( mach, accepting_number )$/
+add_action	misc.c	/^void add_action( new_text )$/
+addsym	sym.c	/^int addsym( sym, str_def, int_def, table, table_si/
+all_lower	misc.c	/^int all_lower( str )$/
+all_upper	misc.c	/^int all_upper( str )$/
+allocate_array	misc.c	/^void *allocate_array( size, element_size )$/
+bldtbl	tblcmp.c	/^void bldtbl( state, statenum, totaltrans, comstate/
+bubble	misc.c	/^void bubble( v, n )$/
+build_eof_action	parse.c	/^void build_eof_action()$/
+ccl2ecl	ecs.c	/^void ccl2ecl()$/
+ccladd	ccl.c	/^void ccladd( cclp, ch )$/
+cclinit	ccl.c	/^int cclinit()$/
+cclinstal	sym.c	/^void cclinstal( ccltxt, cclnum )$/
+ccllookup	sym.c	/^int ccllookup( ccltxt )$/
+cclnegate	ccl.c	/^void cclnegate( cclp )$/
+check_char	misc.c	/^void check_char( c )$/
+check_for_backing_up	dfa.c	/^void check_for_backing_up( ds, state )$/
+check_trailing_context	dfa.c	/^void check_trailing_context( nfa_states, num_state/
+clower	misc.c	/^Char clower( c )$/
+cmptmps	tblcmp.c	/^void cmptmps()$/
+copy_string	misc.c	/^char *copy_string( str )$/
+copy_unsigned_string	misc.c	/^Char *copy_unsigned_string( str )$/
+copysingl	nfa.c	/^int copysingl( singl, num )$/
+cre8ecs	ecs.c	/^int cre8ecs( fwd, bck, num )$/
+cshell	misc.c	/^void cshell( v, n, special_case_0 )$/
+dataend	misc.c	/^void dataend()$/
+dataflush	misc.c	/^void dataflush()$/
+do_indent	gen.c	/^void do_indent()$/
+dump_associated_rules	dfa.c	/^void dump_associated_rules( file, ds )$/
+dump_transitions	dfa.c	/^void dump_transitions( file, state )$/
+dumpnfa	nfa.c	/^void dumpnfa( state1 )$/
+dupmachine	nfa.c	/^int dupmachine( mach )$/
+epsclosure	dfa.c	/^int *epsclosure( t, ns_addr, accset, nacc_addr, hv/
+expand_nxt_chk	tblcmp.c	/^void expand_nxt_chk()$/
+find_table_space	tblcmp.c	/^int find_table_space( state, numtrans )$/
+findsym	sym.c	/^struct hash_entry *findsym( sym, table, table_size/
+finish_rule	nfa.c	/^void finish_rule( mach, variable_trail_rule, headc/
+flex_alloc	scan.c	/^void *flex_alloc( size )$/
+flex_free	scan.c	/^void flex_free( ptr )$/
+flex_realloc	scan.c	/^void *flex_realloc( ptr, size )$/
+flexend	main.c	/^void flexend( exit_status )$/
+flexerror	misc.c	/^void flexerror( msg )$/
+flexfatal	misc.c	/^void flexfatal( msg )$/
+flexinit	main.c	/^void flexinit( argc, argv )$/
+format_pinpoint_message	parse.c	/^void format_pinpoint_message( msg, arg )$/
+format_synerr	parse.c	/^void format_synerr( msg, arg )$/
+gen_NUL_trans	gen.c	/^void gen_NUL_trans()$/
+gen_backing_up	gen.c	/^void gen_backing_up()$/
+gen_bu_action	gen.c	/^void gen_bu_action()$/
+gen_find_action	gen.c	/^void gen_find_action()$/
+gen_next_compressed_state	gen.c	/^void gen_next_compressed_state( char_map )$/
+gen_next_match	gen.c	/^void gen_next_match()$/
+gen_next_state	gen.c	/^void gen_next_state( worry_about_NULs )$/
+gen_start_state	gen.c	/^void gen_start_state()$/
+genctbl	gen.c	/^void genctbl()$/
+genecs	gen.c	/^void genecs()$/
+genftbl	gen.c	/^void genftbl()$/
+gentabs	gen.c	/^void gentabs()$/
+hashfunct	sym.c	/^int hashfunct( str, hash_size )$/
+htoi	misc.c	/^int htoi( str )$/
+increase_max_dfas	dfa.c	/^void increase_max_dfas()$/
+indent_down	gen.c	/^#define indent_down() (--indent_level)$/
+indent_put2s	gen.c	/^void indent_put2s( fmt, arg )$/
+indent_puts	gen.c	/^void indent_puts( str )$/
+indent_up	gen.c	/^#define indent_up() (++indent_level)$/
+inittbl	tblcmp.c	/^void inittbl()$/
+is_hex_digit	misc.c	/^int is_hex_digit( ch )$/
+lerrif	misc.c	/^void lerrif( msg, arg )$/
+lerrsf	misc.c	/^void lerrsf( msg, arg )$/
+line_directive_out	misc.c	/^void line_directive_out( output_file )$/
+line_pinpoint	parse.c	/^void line_pinpoint( str, line )$/
+line_warning	parse.c	/^void line_warning( str, line )$/
+link_machines	nfa.c	/^int link_machines( first, last )$/
+list_character_set	ccl.c	/^void list_character_set( file, cset )$/
+make_tables	gen.c	/^void make_tables()$/
+mark_beginning_as_normal	nfa.c	/^void mark_beginning_as_normal( mach )$/
+mark_defs1	misc.c	/^void mark_defs1()$/
+mark_prolog	misc.c	/^void mark_prolog()$/
+mk1tbl	tblcmp.c	/^void mk1tbl( state, sym, onenxt, onedef )$/
+mk2data	misc.c	/^void mk2data( value )$/
+mkbranch	nfa.c	/^int mkbranch( first, second )$/
+mkclos	nfa.c	/^int mkclos( state )$/
+mkdata	misc.c	/^void mkdata( value )$/
+mkdeftbl	tblcmp.c	/^void mkdeftbl()$/
+mkeccl	ecs.c	/^void mkeccl( ccls, lenccl, fwd, bck, llsiz, NUL_ma/
+mkechar	ecs.c	/^void mkechar( tch, fwd, bck )$/
+mkentry	tblcmp.c	/^void mkentry( state, numchars, statenum, deflink, /
+mkopt	nfa.c	/^int mkopt( mach )$/
+mkor	nfa.c	/^int mkor( first, second )$/
+mkposcl	nfa.c	/^int mkposcl( state )$/
+mkprot	tblcmp.c	/^void mkprot( state, statenum, comstate )$/
+mkrep	nfa.c	/^int mkrep( mach, lb, ub )$/
+mkstate	nfa.c	/^int mkstate( sym )$/
+mktemplate	tblcmp.c	/^void mktemplate( state, statenum, comstate )$/
+mkxtion	nfa.c	/^void mkxtion( statefrom, stateto )$/
+mv2front	tblcmp.c	/^void mv2front( qelm )$/
+myctoi	misc.c	/^int myctoi( array )$/
+myesc	misc.c	/^Char myesc( array )$/
+ndinstal	sym.c	/^void ndinstal( name, definition )$/
+ndlookup	sym.c	/^Char *ndlookup( nd )$/
+new_rule	nfa.c	/^void new_rule()$/
+ntod	dfa.c	/^void ntod()$/
+otoi	misc.c	/^int otoi( str )$/
+pinpoint_message	parse.c	/^void pinpoint_message( str )$/
+place_state	tblcmp.c	/^void place_state( state, statenum, transnum )$/
+readable_form	misc.c	/^char *readable_form( c )$/
+readin	main.c	/^void readin()$/
+reallocate_array	misc.c	/^void *reallocate_array( array, size, element_size /
+scextend	sym.c	/^void scextend()$/
+scinstal	sym.c	/^void scinstal( str, xcluflg )$/
+sclookup	sym.c	/^int sclookup( str )$/
+set_indent	gen.c	/^#define set_indent(indent_val) indent_level = inde/
+set_input_file	scan.c	/^void set_input_file( file )$/
+set_up_initial_allocations	main.c	/^void set_up_initial_allocations()$/
+skelout	misc.c	/^void skelout()$/
+snstods	dfa.c	/^int snstods( sns, numstates, accset, nacc, hashval/
+stack1	tblcmp.c	/^void stack1( statenum, sym, nextstate, deflink )$/
+symfollowset	dfa.c	/^int symfollowset( ds, dsize, transsym, nset )$/
+sympartition	dfa.c	/^void sympartition( ds, numstates, symlist, duplist/
+synerr	parse.c	/^void synerr( str )$/
+tbldiff	tblcmp.c	/^int tbldiff( state, pr, ext )$/
+transition_struct_out	misc.c	/^void transition_struct_out( element_v, element_n )/
+unput	scan.c	/^#define unput(c) yyunput( c, yytext_ptr )$/
+usage	main.c	/^void usage()$/
+warn	parse.c	/^void warn( str )$/
+yy_create_buffer	scan.c	/^YY_BUFFER_STATE yy_create_buffer( file, size )$/
+yy_delete_buffer	scan.c	/^void yy_delete_buffer( b )$/
+yy_fatal_error	scan.c	/^static void yy_fatal_error( msg )$/
+yy_flex_alloc	scan.c	/^static void *yy_flex_alloc( size )$/
+yy_flex_free	scan.c	/^static void yy_flex_free( ptr )$/
+yy_flex_realloc	scan.c	/^static void *yy_flex_realloc( ptr, size )$/
+yy_flex_strcpy	scan.c	/^static void yy_flex_strcpy( s1, s2 )$/
+yy_flex_xmalloc	misc.c	/^void *yy_flex_xmalloc( size )$/
+yy_get_next_buffer	scan.c	/^static int yy_get_next_buffer()$/
+yy_get_previous_state	scan.c	/^static yy_state_type yy_get_previous_state()$/
+yy_init_buffer	scan.c	/^void yy_init_buffer( b, file )$/
+yy_pop_state	scan.c	/^static void yy_pop_state()$/
+yy_push_state	scan.c	/^static void yy_push_state( new_state )$/
+yy_switch_to_buffer	scan.c	/^void yy_switch_to_buffer( new_buffer )$/
+yy_top_state	scan.c	/^static int yy_top_state()$/
+yy_try_NUL_trans	scan.c	/^static yy_state_type yy_try_NUL_trans( yy_current_/
+yyerror	parse.c	/^void yyerror( msg )$/
+yyless	scan.c	/^#define yyless(n) \\$/
+yylex	yylex.c	/^int yylex()$/
+yymore	scan.c	/^#define yymore() yymore_used_but_not_detected$/
+yyparse	parse.c	/^yyparse()$/
+yyrestart	scan.c	/^void yyrestart( input_file )$/
+yyterminate	scan.c	/^#define yyterminate() return YY_NULL$/
+yyunput	scan.c	/^static void yyunput( c, yy_bp )$/
+yywrap	scan.c	/^int yywrap()$/
+zero_out	misc.c	/^void zero_out( region_ptr, size_in_bytes )$/

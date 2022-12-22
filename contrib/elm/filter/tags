@@ -1,0 +1,57 @@
+FAIL	regexp.c	/^#define	FAIL(m)	{ regerror(m); return(NULL); }$/
+ISMULT	regexp.c	/^#define	ISMULT(c)	((c) == '*' || (c) == '+' || (c)/
+Mfilter	filter.c	/^main(argc, argv)$/
+NEXT	regexp.c	/^#define	NEXT(p)	(((*((p)+1)&0377)<<8) + (*((p)+2)&/
+OP	regexp.c	/^#define	OP(p)	(*(p))$/
+OPERAND	regexp.c	/^#define	OPERAND(p)	((p) + 3)$/
+Release_the_file	lock.c	/^Release_the_file(flock_fd)$/
+UCHARAT	regexp.c	/^#define	UCHARAT(p)	((int)*(unsigned char *)(p))$/
+action_from_ruleset	rules.c	/^action_from_ruleset()$/
+actionname	rules.c	/^char *actionname(n)$/
+compare	rules.c	/^compare(line, relop, cond)$/
+contains	utils.c	/^contains(str, pat)$/
+date_n_user	audit.c	/^date_n_user()$/
+emergency_local_delivery	actions.c	/^emergency_local_delivery()$/
+execute	actions.c	/^execute(command)$/
+expand_filename	utils.c	/^expand_filename(filename)$/
+expand_macros	rules.c	/^expand_macros(word, buffer, line, display)$/
+get_filter_rules	parse.c	/^get_filter_rules()$/
+get_the_time	rules.c	/^#define get_the_time()	if (!gotten_time) { 		  \\$/
+grow	parse.c	/^grow(ptr, oldsize, incr)$/
+itoa	utils.c	/^char *itoa(i, two_digit)$/
+leave	utils.c	/^leave(reason)$/
+lock	lock.c	/^lock()$/
+lockfile	lock.c	/^static char *lockfile=(char*)0;$/
+log_msg	utils.c	/^log_msg(what)$/
+lowercase	utils.c	/^lowercase(string)$/
+mail_message	actions.c	/^mail_message(address)$/
+matches	rules.c	/^matches(str, relation, cond)$/
+print_rules	rules.c	/^print_rules()$/
+reg	regexp.c	/^reg(paren, flagp)$/
+regatom	regexp.c	/^regatom(flagp)$/
+regbranch	regexp.c	/^regbranch(flagp)$/
+regc	regexp.c	/^regc(b)$/
+regcomp	regexp.c	/^regcomp(exp)$/
+regdump	regexp.c	/^regdump(r)$/
+regerror	rules.c	/^regerror(s)$/
+regexec	regexp.c	/^regexec(prog, string)$/
+reginsert	regexp.c	/^reginsert(op, opnd)$/
+regmatch	regexp.c	/^regmatch(prog)$/
+regnext	regexp.c	/^regnext(p)$/
+regnode	regexp.c	/^regnode(op)$/
+regoptail	regexp.c	/^regoptail(p, val)$/
+regpiece	regexp.c	/^regpiece(flagp)$/
+regprop	regexp.c	/^regprop(op)$/
+regrepeat	regexp.c	/^regrepeat(p)$/
+regtail	regexp.c	/^regtail(p, val)$/
+regtry	regexp.c	/^regtry(prog, string)$/
+save_embedded_address	filter.c	/^save_embedded_address(buffer, fieldname)$/
+save_from	filter.c	/^save_from(buffer)$/
+save_message	actions.c	/^save_message(foldername)$/
+save_sender	filter.c	/^save_sender(buffer)$/
+save_subject	filter.c	/^save_subject(buffer)$/
+save_to	filter.c	/^save_to(buffer)$/
+save_to_folder	actions.c	/^save_to_folder(foldername,filter_pid)$/
+show_summary	summarize.c	/^show_summary()$/
+unlock	lock.c	/^unlock()$/
+whatname	rules.c	/^char *whatname(n)$/

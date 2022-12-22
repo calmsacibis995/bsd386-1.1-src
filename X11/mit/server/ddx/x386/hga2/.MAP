@@ -1,0 +1,5 @@
+F CONFHGA2.GZ;1                     	confhga2.sh.gz
+D DRIVERS                           	drivers
+D HGA                               	hga
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MFB_MAPP                          	mfb.mapped

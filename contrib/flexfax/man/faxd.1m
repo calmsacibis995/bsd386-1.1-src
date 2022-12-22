@@ -1,0 +1,121 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxd.1m,v 1.1.1.1 1994/01/14 23:10:10 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXD 1M "October 1, 1993"
+.SH NAME
+faxd \- facsimile server
+.SH SYNOPSIS
+.B ${USRETC}/faxd
+[
+.B \-1
+] [
+.B \-d
+] [
+.B \-q
+.I queue-dir
+] [
+.B \-g
+.I getty-speed
+] [
+.B \-i
+.I requeue-interval
+]
+.B \-m
+.I device
+.SH DESCRIPTION
+.I Faxd
+is the central processing agent of the
+.I FlexFAX
+facsimile service.
+One
+.I faxd
+process is started for each facsimile modem on a machine,
+typically by
+.IR init (1M).
+.I Faxd
+listens to its facsimile modem for phone calls
+and to two
+.SM FIFO
+files on which it accepts command directives.
+.SH OPTIONS
+The
+.B \-m
+option must be used to specify the terminal device that the
+facsimile modem is attached to.
+.PP
+The
+.B \-q
+option can be used to specify a spooling area in which
+to operate other than
+.IR ${SPOOL} .
+.PP
+The
+.B \-i
+option can be used to specify the interval, in seconds,
+that a job should be held between transmission attempts.
+By default, this interval is 15*60 seconds (i.e. 15 minutes).
+.PP
+The
+.B \-g
+option can be used to indicate that
+.I faxd
+should act like the
+.IR getty (1M)
+program if it receives a phone call from a data modem.
+The
+.I getty-speed
+parameter is a label to a speed and tty definitions file;
+see the
+.I getty
+manual page for details.
+If this option is not specified and the server is not
+configured to support incoming data connections,
+incoming data connections will be rejected.
+.PP
+The
+.B \-d
+stops
+.I faxd
+from detaching itself from the terminal; this is useful
+for debugging.
+.PP
+The
+.B \-1
+option causes
+.I faxd
+to generate only 1D-encoded facsimile when sending.
+.SH FILES
+Consult
+.IR intro (4F)
+for a complete discussion of the structure and
+content of the spooling area.
+.SH BUGS
+There is no way to abort an incoming facsimile.
+The queue manager desparately needs a rewrite.
+.SH "SEE ALSO"
+.IR getty (1M),
+.IR intro (4F),
+.IR config (4F)

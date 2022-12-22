@@ -1,0 +1,8 @@
+F COLOR.LPR;1                       	color.lpro
+F CROP.LPR;1                        	crop.lpro
+F FINCLUDE.LPR;1                    	finclude.lpro
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/dvips/prologues/prologues
+F SPECIAL.LPR;1                     	special.lpro
+F TEXPS.LPR;1                       	texps.lpro
+F TEX_LPRO.;1                       	tex.lpro

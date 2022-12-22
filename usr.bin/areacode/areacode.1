@@ -1,0 +1,62 @@
+.\"
+.\"	BSDI	$Id: areacode.1,v 1.1.1.1 1994/01/13 20:50:28 polk Exp $
+.\"
+.Dd January 4, 1993
+.Os
+.Dt AREACODE 1
+.Sh NAME
+.Nm areacode 
+\- North American and world area-code and place matcher
+.Sh SYNOPSIS
+.Nm areacode
+.Ar pattern ...
+.Sh DESCRIPTION
+Given
+.Xr egrep 1 
+patterns,
+.Nm areacode
+searches the tables of North American and world telephone codes
+for matches to its arguments.  When the match occurs in the 
+North American database, output is of the form:
+.Bd -literal -offset indent
+.Em area-code Em state ( Em abbrev ) Em city
+.Ed
+.Pp
+When the match is located in the international database, output
+is of the form:
+.sp
+.D1 Em country-code Em city-code Em country Em city
+.Pp
+Keywords with spaces in them should be quoted: 
+.sp
+.Dl $ areacode Qq "new york"
+.Pp
+.Nm areacode 
+is not case-sensitive reading its input.  The output is sorted 
+by country and city name.
+.Sh EXAMPLES
+.Lp
+To find the area codes for New York, simply type:
+.Dl $ areacode Qq "new york"
+.Lp
+To find the region/cities associated with area code 708, type:
+.Dl $ areacode 708
+.Lp
+Gabon Africa? 
+.Dl $ areacode Gabon
+.Lp
+North & South Carolina?
+.Dl $ areacode carolina
+.Sh FILES
+.Bl -tag -compact -width /usr/share/misc/inter.phone
+.It Pa /usr/share/misc/na.phone
+North American telephone codes.
+.It Pa /usr/share/misc/inter.phone
+International telephone codes.
+.El
+.Sh AUTHOR
+.Pp
+Jeff Polk (polk@BSDI.COM)
+.Pp
+Other versions were inspired by Dan_Jacobson@ATT.COM who was inspired
+by Alexander Dupuy (dupuy@cs.columbia.edu).

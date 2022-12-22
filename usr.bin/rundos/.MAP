@@ -1,0 +1,8 @@
+D DEBUG                             	debug
+D KERNEL                            	kernel
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+F README.;1                         	README
+F ROMBIOS.;1                        	rombios
+D ROMBIOS_                          	rombios_source
+D RUNDOS                            	rundos

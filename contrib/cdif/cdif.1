@@ -1,0 +1,192 @@
+.de XX
+.ds XX \\$4\ (v\\$3)
+..
+.XX Id: cdif,v 1.8 1992/12/28 11:49:23 utashiro Exp
+.TH CDIF 1 \*(XX
+.SH NAME
+cdif \- word context diff
+.SH SYNOPSIS
+.nr ww \w'\fBcdif\fP\ '
+.in +\n(wwu
+.ta \n(wwu
+.ti -\n(wwu
+\fBcdif\fP	\c
+[-B] [-v] [-n] [-A #] [-C #] [-D #] [-[bwcu]]
+\fIfile1\fP \fIfile2\fP
+.br
+.ti -\n(wwu
+\fBcdif\fP	\c
+[-rcs] [-q] [-r\fIrev1\fP [-r\fIrev2\fP]] [\fIcdif options\fP] \fIfile\fP
+.br
+.ti -\n(wwu
+\fBcdif\fP	\c
+[\fIcdif options\fP] [\fIdiff-output-file\fP]
+.SH DESCRIPTION
+.I Cdif
+is a post-processor of the Unix \fIdiff\fP command.  It
+highlights deleted, changed and added words based on word
+context.  Highlighting is usually done by using different
+style font and the output looks like this:
+.nf
+
+	1c1
+	< highlights \fBdeleted\fP and \fIchanged\fP and words
+	---
+	> highlights and \fImodified\fP and \fBadded\fP words
+
+.fi
+.PP
+Appended and deleted lines are not effected at all.
+.PP
+You may want to compare character-by-character rather than
+word-by-word.  Option \-B option can be used for that
+purpose and the output looks like:
+.nf
+
+	1c1
+	< $opts = '\fBcu\fPbdvqnB\fIA\fP:\fIC\fP:\fID\fP:';
+	---
+	> $opts = 'bdvqn\fBxy\fPB\fIP\fP:\fIQ\fP:\fIR\fP:';
+
+.fi
+.PP
+If the standard output is a terminal, \fIcdif\fP uses
+termcap to highlights words.  It uses \fImd\fP and \fIme\fP
+(bold or bright) sequence for changed words and \fIso\fP and
+\fIse\fP (standout) sequence for deleted and added part.
+.PP
+If the standard output is not a terminal, it uses nroff
+style overstriking to highlight them.  You won't be able to
+tell the difference on normal screen but using pager command
+like \fImore\fP or \fIless\fP, or printing to appropriate
+printer will make them visible.
+.PP
+If only one file is specified, \fIcdif\fP reads that file
+(stdin if no file) as a output from diff command.  Lines
+those don't look like diff output are simply ignored and
+printed same as input.  So you can use \fIcdif\fP from
+\fIrn\fP(1) like `|cdif'.
+.SH OPTIONS
+.IP \-B
+Compare the data character-by-character context.
+.IP \-v
+Force to use video effect even if the output is not a
+terminal.
+.IP \-n
+Force not to use video effect even if the output is a
+terminal.
+.IP "\-[ACD] \fIeffect\fP"
+Specify the effect to use for added, changed and deleted
+words respectively.  Special effects are:
+.nf
+
+	vso: video standout
+	vul: video underline
+	vbd: video bold
+	bd: nroff style overstrike
+	ul: nroff style underline
+
+.fi
+.IP
+If specified effect doesn't match to any of special words,
+the sequence is used to highlighting string.  Start and end
+string are separated by comma.  So command:
+.nf
+
+	cdif -D'<,>' -C'[,]' -A'{,}'
+
+.fi
+produces following output.
+.nf
+
+	1c1
+	< highlights <deleted >and [changed] and words
+	---
+	> highlights and [modified] and{ added} words
+
+.fi
+.IP "\-I \fIstring\fP"
+Specify the string to be shown at the inserted or deleted
+point.  Normally the point at where new text is inserted
+or old text is deleted is not indicated in the output.  \-I
+option specifies the string which is to be shown at the
+insertion point.  For example, command
+.nf
+
+	cdif -D'<,>' -C'[,]' -A'{,}' -I'|'
+
+.fi
+produces the output like below.
+.nf
+
+	1c1
+	< highlights <deleted >and [changed] and| words
+	---
+	> highlights |and [modified] and{ added} words
+
+.fi
+Following four options are used to specify how this string
+is printed in the output.
+.RS
+.IP \-ib
+Makes the string overstruck.
+.IP \-iu
+Put the string under the line.  According to the sequence of
+Teletype model 37, the string is enclosed by ESC-9 and ESC-8
+sequences.
+.IP \-ix
+Put the string at the exact point.  The string is enclosed
+by non-standard ESC-6 sequences which indecate to move the
+printing point half-character backward.  Currently this
+sequence is understood only by my perl version of a2ps.  See
+RELATED COMMANDS.
+.RE
+.IP ""
+Special strings \fIvbar\fP, \fIVBAR\fP, \fIcaret\fP,
+\fICARET\fP are prepared for shortcut.  `\fIvbar\fP' means
+putting the vertical bar (|) at the exact insertion point.
+`\fIcaret\fP' means putting the caret mark (^) under the
+exact inserntion point.  Uppercase chacacter makes them
+overstruck.
+.IP "\-diff=\fIcommand\fP"
+Specify the diff command to use.
+.IP "\-rcs, \-r\fIrev\fP"
+Use rcsdiff instead of normal diff.  Option \-rcs is not
+required when \-r\fIrev\fP is supplied.
+.IP "\-b, \-w, \-c, \-u"
+Passed through to the back-end diff command.  \fICdif\fP can
+process the output from context diff (\-c) and unified diff
+(\-u) if those are available.
+.SH RELATED COMMANDS
+.IP a2ps
+is a command which converts ascii text to postscript
+program.  C version was originally posted to usenet by
+miguel@imag.imag.fr (Miguel Santana).  I reimplemented it by
+perl and enhanced to use different font family for
+overstruck and underlined characters.  This is a convenient
+tool to print the output from cdif to postscript printer.
+.IP sdif
+is a System V's sdiff clone written in perl.  It also can
+handle overstruck and underlined character, and has \-cdif
+option to use \fIcdif\fP instead of normal diff.
+.IP termfix
+is a program to change termcap capability of current
+terminal temporarily.  Recent more and less uses \fImd\fP
+and \fIme\fP capability to display overstruck character if
+available.  Sometimes we want to use standout rather than
+bolding.  Termfix allows to cancel \fImd\fP and \fImd\fP
+capability only for the invoking command by ``md@'' option.
+.PP
+All of these programs can be ftp'ed from sra.co.jp
+(133.137.4.3) by anonymous ftp from the directory
+~ftp/pub/lang/perl/sra-scripts.
+.SH AUTHOR
+Kazumasa Utashiro <utashiro@sra.co.jp>
+.br
+Software Research Associates, Inc., Japan
+.SH "SEE ALSO"
+perl(1), diff(1), sdif(1), a2ps(1), termfix(1)
+.SH BUGS
+\fICdif\fP is naturally slow because it uses normal diff
+command as a back-end processor to compare words.
+.ex

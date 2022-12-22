@@ -1,0 +1,39 @@
+IsAnyLower	rz.c	/^IsAnyLower(s)$/
+Mrz	rz.c	/^main(argc, argv)$/
+TERM_COREDUMP	rz.c	/^#define TERM_COREDUMP(status)	(((status) & 0x80) !/
+TERM_SIGNAL	rz.c	/^#define	TERM_SIGNAL(status)	((status) & 0x7F)$/
+TERM_VALUE	rz.c	/^#define TERM_VALUE(status)	((status) >> 8)$/
+ackbibi	rz.c	/^ackbibi()$/
+alrm	rz.c	/^alrm()$/
+bibi	rz.c	/^bibi(n)$/
+bttyout	rz.c	/^bttyout(c)$/
+canit	rz.c	/^canit()$/
+checkpath	rz.c	/^checkpath(name)$/
+chkinvok	rz.c	/^chkinvok(s)$/
+closeit	rz.c	/^closeit()$/
+exec2	rz.c	/^exec2(s)$/
+flushmo	rz.c	/^flushmo() {}$/
+getfree	rz.c	/^long getfree()$/
+make_dirs	rz.c	/^make_dirs(pathname)$/
+mkdir	rz.c	/^mkdir(dpath, dmode)$/
+procheader	rz.c	/^procheader(name)$/
+purgeline	rz.c	/^purgeline()$/
+putsec	rz.c	/^putsec(buf, n)$/
+readline	rz.c	/^readline(timeout)$/
+report	rz.c	/^report(sct)$/
+rzfile	rz.c	/^rzfile()$/
+rzfiles	rz.c	/^rzfiles()$/
+sendline	rz.c	/^sendline(c)$/
+substr	rz.c	/^substr(s, t)$/
+sys2	rz.c	/^sys2(s)$/
+tryz	rz.c	/^tryz()$/
+uncaps	rz.c	/^uncaps(s)$/
+usage	rz.c	/^usage()$/
+vfile	rz.c	/^vfile(f, a, b, c)$/
+wcgetsec	rz.c	/^wcgetsec(rxbuf, maxtime)$/
+wcreceive	rz.c	/^wcreceive(argc, argp)$/
+wcrx	rz.c	/^wcrx()$/
+wcrxpn	rz.c	/^wcrxpn(rpn)$/
+xsendline	rz.c	/^#define xsendline(c) sendline(c)$/
+zmputs	rz.c	/^zmputs(s)$/
+zperr	rz.c	/^zperr(s,p,u)$/

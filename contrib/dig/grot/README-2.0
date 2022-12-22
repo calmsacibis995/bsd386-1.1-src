@@ -1,0 +1,159 @@
+
+/*
+** Distributed with 'dig' version 2.0 from University of Southern
+** California Information Sciences Institute (USC-ISI). 9/1/90
+*/
+
+   Distribution history:
+     o  Version 2.0	    public distribution     9/1/90
+     o  Version 2.0.beta    private distribution    5/9/90
+     o  Version 1.1.beta    private distribution  10/26/89
+     o  Revised version 1.0 public distribution    4/15/89
+          to include file: dig.1
+     o  Version 1.0         public distribution    3/29/89
+
+
+Greetings.
+
+You are the proud owner of 'dig' Version 2.0; a command-line tool
+for querying Domain Name System servers.  With proper care and
+treatment, you will be able to enjoy your digger for many years
+to come.
+
+For those familiar with version 1.0, among the additions and
+modifications you'll find:
+
+   o support for zone transfer queries/responses
+   o convenient form for address lookups (i.e. "dig -x 129.1.1.2")
+   o coredump on large pkt problem fixed
+   o man pages reformatted
+   o various bugs fixes
+   o several minor changes to output format
+
+
+The files in this distribution are:
+
+Makefile                netdb.h                 res_mkquery.c
+Makefile.resolv@        options.c               res_query.c
+README-2.0              param.h                 res_send.c
+dig.1                   pflag.h                 resolv.h
+dig.c                   qtime.c                 sethostent.c
+gethostnamadr.c         qtime.h                 strcasecmp.c
+herror.c                res.h                   subr.c
+hfiles.h                res_comp.c              subr.h
+list.c                  res_debug.c
+nameser.h               res_init.c
+
+
+
+COMPILING DIG
+=============
+
+As is, 'dig' currently compiles without modification in several
+sun3, sparc, vax, microvax, & RT environments.   When initially
+attempting other environments, several #include files were found
+to be non-existent and/or misplaced on the various systems.  These
+files (arpa/nameser.h, sys/param.h, netdb.h, resolv.h) have been
+included with this distribution and are included in 'dig' through the
+#define statements in the file "hfiles.h".  If 'dig' or the resolver
+library does not compile "as-is" (or if you want to include your more
+up to date files) you can simply change the #define's in "hfiles.h".
+
+
+If problems arise when porting to other architectures, often the
+only problem is that your machine is not among those listed in the
+#if defined() statements in the definition of the HEADER structure
+in the file "nameser.h".  Including your own nameser.h file (see note
+above) or defining your machine as appropriate should take care of
+this.
+
+Dig may be compiled with you own resolver library (if it was compiled
+-DDEBUG), but expect the following changes:
+
+	o RTT and packet count stats are not printed
+	o different output format (closer to nslookup)
+	o print options are meaningless
+
+If you are going to compile using your own resolver you must set the
+"-DRESLOCAL" flag (the Makefile also understands "make dig.local").
+
+
+Dig will also work in environments that are not currently running
+the Domain Name System. This may be useful while bringing up the
+system. However, this may require slight adjustments or impose
+certain constraints ... from the man pages:
+
+	(NOTE: If the server to query is specified by its domain
+	name, this name will be resolved using the domain name system
+	resolver. If your system does not support DNS, you may *have*
+	specify a dot-notation address. Alternatively, if there is
+	a server at your disposal somewhere, all that is required
+	is that /etc/resolv.conf be present and indicate where the
+	default name servers reside, so that server_name itself can
+	be resolved. See man resolver(5) for /etc/resolv.conf
+	information. Also, the user may set the environment variable
+	LOCALRES to name a file which is to be used instead of 
+	/etc/resolv.conf. If this variable is not set or the file
+	is not readable then /etc/resolv.conf will be used.)
+
+
+If you prefer, 'dig' has already been compiled for the sun3, vax, and
+sparc architectures, and are also available via anonymous ftp from
+venera.isi.edu in files:
+			   pub/dig-obj.sparc.tar.Z
+			   pub/dig-obj.vax.tar.Z
+			   pub/dig-obj.sun3.tar.Z
+
+In each of the above files you will find the appropriate resolver
+library (libresolv.a) and an object version of `dig`.
+
+Thanks go to the many folks with comments and suggestions
+about earlier versions.  Particular thanks to Andrew Cherenson
+(arc@sgi.com) for finding and fixing several details (including
+revamping of the man page).
+
+Comments and suggestions (gripes & bug reports ;^) are welcome.
+
+Steve Hotz (hotz@isi.edu)
+Paul Mockapetris (pvm@isi.edu)
+
+
+ADDENDUM:
+
+MODIFICATION HISTORY
+====================
+
+ **    dig - domain internet groper                                **
+ **                                                                **
+ **           Version 2.0 (9/1/90)                                 **
+ **               o renamed difftime() difftv() to avoid           **
+ **                 clash with ANSI C                              **
+ **               o fixed incorrect # args to strcmp,gettimeofday  **
+ **               o incorrect length specified to strncmp          **
+ **               o fixed broken -sticky -envsa -envset functions  **
+ **               o print options/flags redefined & modified       **
+ **               o Error code printed if axfr fails	           **
+ **               o man page reformatted                           **
+ **                                                                **
+ **           Version 2.0.beta (5/9/90)                            **
+ **               o output format modified - helpful to `doc`      **
+ **               o minor cleanup                                  **
+ **               o released to beta testers                       **
+ **                                                                **
+ **           Version 1.1.beta (10/26/89)                          **
+ **               o hanging zone transer (when REFUSED) fixed      **
+ **               o trailing dot added to domain names in RDATA    **
+ **               o ISI internal release                           **
+ **                                                                **
+ **           Version 1.0.tmp  (8/27/89)                           **
+ **               o Error in prnttime() fixed                      **
+ **               o no longer dumps core on large pkts             **
+ **               o zone transfer (axfr) added                     **
+ **               o -x added for inverse queries                   **
+ **                               (i.e. "dig -x 128.9.0.32")       **
+ **               o give address of default server                 **
+ **               o accept broadcast to server @255.255.255.255    **
+ **                                                                **
+ **           Version 1.0  (3/27/89)                               **
+ **               o original release                               **
+

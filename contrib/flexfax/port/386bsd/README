@@ -1,0 +1,58 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/386bsd/README,v 1.1.1.1 1994/01/14 23:10:27 torek Exp $
+
+Start of README
+---------------
+
+The port to 386bsd is still far from perfect, but at least it is
+possible to send and receive faxes. If you have problems with it
+(other than described below) or have fixes to it I would appreciate if
+you e-mail me
+
+	Jonas Olsson
+	ljo@po.cwru.edu
+
+Here's some of tricks to get it running
+----------------------------------------
+
+This has been tested on 386BSD using gcc-2.4.5. If you compile it with
+gcc-2.3.3 look at the gcc fix in the sun directory.
+
+The only make that works with the makefiles is GNU make-3.63 and
+newer, with standard /usr/bin/make (from distribution) you will get
+nowhere.  Also with GNU make-3.62 you will have problems with
+incdepend targets.
+
+I used the libg++-2.4 library and ghostscript-2.6.1.
+
+The distribution /bin/sh does not handle many of the scripts, install
+bash as /bin/bash.
+
+The distribution expr does not handle the faxaddmodem script, replace
+with expr from GNU shellutils.
+
+The distribution sed does not handle the faxaddmodem script, replace
+/usr/bin/sed with GNU sed.
+
+There is no ed in standard distribution, you can get good ed
+from netcom.com:pub/alm.
+
+I think I had problems with /bin/test, a new BSD version is available
+from ftp.uu.net:/packages/bsd-sources/bin/test. With this version
+there are no problems (the problems might be very hard to detect,
+so you better just get the new sources and drop them in to
+/usr/src/bin/test, do ./mkops in that directory before recompiling.
+
+The kernel needs to be recompiled with "options FIFO" in the config
+file. Before running config on your new config file you have to
+remove fifo.h and all *.o files in your compile directory, the cause
+of the troubles is not known in detail... At the time of of patchkit
+2.1 there are also bugs in the fifo routines in the kernel, look at
+the news archives at sunvis.rtpnc.epa.gov for FIFO related articles.
+
+The include file /usr/include/stdio.h has a bug. It uses an inline
+function __sgetc() that should be compiled only when:
+#if defined(__GNUC__) && defined(__STDC__) && !defined(__STRICT_ANSI__)
+now the __STRICT_ANSI__ part is missing.
+
+I have successfully sent and received faxes with my Supra FAXmodem
+v32bis.

@@ -1,0 +1,88 @@
+# RE_SID: @(%)/tmp_mnt/vol/dosnfs/shades_SCCS/unix/pcnfsd/v2/src/SCCS/s.Makefile.sunos.403c 1.1 93/01/29 17:50:26 SMI
+#
+#       @(#)Makefile.sunos.403c	1.1     1/29/93
+#
+# Makefile for rpc.pcnfsd for SunOS 4.1 or similar
+#
+
+
+all: sunos.403c/rpc.pcnfsd sunos.403c/clnt.pcnfsd
+
+SVR_OBJS=  \
+	sunos.403c/pcnfsd_svc.o \
+	sunos.403c/pcnfsd_xdr.o \
+	sunos.403c/pcnfsd_v1.o \
+	sunos.403c/pcnfsd_v2.o \
+	sunos.403c/pcnfsd_misc.o \
+	sunos.403c/pcnfsd_cache.o \
+	sunos.403c/pcnfsd_print.o
+
+SVR_SRCS=  \
+	pcnfsd_svc.c \
+	pcnfsd_xdr.c \
+	pcnfsd_v1.c \
+	pcnfsd_v2.c \
+	pcnfsd_misc.c \
+	pcnfsd_cache.c \
+	pcnfsd_print.c
+
+TST_OBJS= \
+	sunos.403c/pcnfsd_clnt.o \
+	sunos.403c/pcnfsd_test.o \
+	sunos.403c/pcnfsd_xdr.o
+
+TST_SRCS= \
+	pcnfsd_clnt.c \
+	pcnfsd_test.c \
+	pcnfsd_xdr.c
+
+HDRS= pcnfsd.h common.h
+
+LINTFLAGS= -hbax
+# uncomment as appropriate for debugging
+CFLAGS = -DOSVER_SUNOS41
+#CFLAGS = -g -DDEBUG -DOSVER_SUNOS403C
+LIBS= -lrpcsvc
+LFLAGS = 
+
+sunos.403c/rpc.pcnfsd: $(SVR_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(SVR_OBJS) $(LIBS)
+
+sunos.403c/pcnfsd_svc.o: $(HDRS) pcnfsd_svc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_svc.c
+
+sunos.403c/pcnfsd_xdr.o: $(HDRS) pcnfsd_xdr.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_xdr.c
+
+sunos.403c/pcnfsd_v1.o: $(HDRS) pcnfsd_v1.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v1.c
+
+sunos.403c/pcnfsd_v2.o: $(HDRS) pcnfsd_v2.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v2.c
+
+sunos.403c/pcnfsd_misc.o: $(HDRS) pcnfsd_misc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_misc.c
+
+sunos.403c/pcnfsd_cache.o: $(HDRS) pcnfsd_cache.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_cache.c
+
+sunos.403c/pcnfsd_print.o: $(HDRS) pcnfsd_print.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_print.c
+
+
+sunos.403c/clnt.pcnfsd: $(TST_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(TST_OBJS) $(LIBS)
+
+sunos.403c/pcnfsd_clnt.o: $(HDRS) pcnfsd_clnt.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_clnt.c
+
+sunos.403c/pcnfsd_test.o: $(HDRS) pcnfsd_test.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_test.c
+
+
+lint: $(SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(SVR_SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(TST_SRCS)
+
+clean:
+	rm -rf sunos.403c

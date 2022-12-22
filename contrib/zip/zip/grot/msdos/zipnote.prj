@@ -1,0 +1,6 @@
+zipnote.c	(zip.h ziperr.h tailor.h)
+zipfile.c	(zip.h ziperr.h tailor.h)
+zipup.c		(zip.h ziperr.h tailor.h)
+fileio.c	(zip.h ziperr.h tailor.h)
+globals.c	(zip.h ziperr.h tailor.h)
+util.c		(zip.h ziperr.h tailor.h)

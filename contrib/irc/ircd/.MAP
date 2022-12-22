@@ -1,0 +1,25 @@
+F CHANNEL.C;1                       	channel.c
+F CHKCONF.C;1                       	chkconf.c
+F CLASS.C;1                         	class.c
+D GROT                              	grot
+F HASH.C;1                          	hash.c
+F IRCD.8;1                          	ircd.8
+F IRCD.C;1                          	ircd.c
+F LIST.C;1                          	list.c
+F LIST2.C;1                         	list2.c
+F MAKEFILE.;1                       	Makefile
+F NOTE.C;1                          	note.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/irc/ircd
+F RES.C;1                           	res.c
+F S_AUTH.C;1                        	s_auth.c
+F S_BSD.C;1                         	s_bsd.c
+F S_CONF.C;1                        	s_conf.c
+F S_DEBUG.C;1                       	s_debug.c
+F S_ERR.C;1                         	s_err.c
+F S_MISC.C;1                        	s_misc.c
+F S_NUMERI.C;1                      	s_numeric.c
+F S_SERV.C;1                        	s_serv.c
+F S_USER.C;1                        	s_user.c
+F TAGS.;1                           	tags
+F VERSION.C;1                       	version.c
+F WHOWAS.C;1                        	whowas.c

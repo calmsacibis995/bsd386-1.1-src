@@ -1,0 +1,15 @@
+D BM_3D                             	bm-3d
+D BM_PLAIN                          	bm-plain
+F COPYRIGH.GZ;1                     	COPYRIGHT.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MAKEFILE.GZ;1                     	Makefile.std.gz
+F PATCHLEV.GZ;1                     	patchlevel.h.gz
+F PLAYING_.GZ;1                     	playing.c.gz
+F README.GZ;1                       	README.gz
+F REVISION.GZ;1                     	Revisions.gz
+F TETRIS_C.GZ;1                     	tetris.c.gz
+F TETRIS_H.GZ;1                     	tetris.h.gz
+F TETRIS_M.GZ;1                     	tetris.man.gz
+F TICON_XB.GZ;1                     	ticon.xbm.gz
+F UTILS_C.GZ;1                      	utils.c.gz
+D X11                               	X11

@@ -1,0 +1,67 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.intel-400e,v 1.1.1.1 1994/01/14 23:09:38 torek Exp $
+#
+# Configuration for using the Class 1 command interface with an
+# Intel SatisFAXtion 400e modem.  Modems with firmware revision
+# U10,U20-28F001BX-5.00 are known to work.
+#
+# RTS/CTS flow control is used.  The following profile was used:
+#
+# ACTIVE PROFILE:
+# B0 E1 L2 M0 T Q0 V1 X4 Y0 &C1 &D3 &G0 &L0 &P0 &Q0 &R0 &S0 &X0 &Y0
+# \A3 %A013 \C0 %C1 %E1 \G0 \J0 \K5 \N3 \Q3 \T00 \V2 \X0 -J1 "H3 "S0 "O250
+# S00:000 S01:000 S02:043 S03:013 S04:010 S05:008 S06:002 S07:030
+# S08:002 S09:006 S10:014 S11:070 S12:050 S18:000 S25:005 S26:001 S31:000
+#
+# CONFIG: CLASS1: XXXX: Manufacturer=Intel Model=400e
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log session-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# audible confirmation
+RingsBeforeAnswer:	1		# answer on first ring
+#
+# Modem-related stuff: should reflect modem command interface
+# and hardware connection/cabling (e.g. flow control).
+#
+ModemType:		Class1		# use this to supply a hint
+ModemRate:		38400		# rate for DCE-DTE communication
+ModemFlowControl:	rtscts		# RTS/CTS flow control
+ModemFlowControlCmd:	\Q3		# set desired flow control method
+ModemSetupDTRCmd:	&D2		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+ModemSetupAACmd:	+FCLASS=0
+#
+ModemResultCodesCmd:	Q0		# enable result codes
+#
+#GettyArgs:		"-h %l dx_%s"	# NB: enable this for dialins (SGI)
+#GettyArgs:		"std.%s -"	# NB: enable this for dialins (SunOS)
+#
+ModemDialCmd:		+FCLASS=1DT%s	# T for tone dialing
+#
+# A shorter than normal timer is required for incoming calls to
+# avoid timing out most data callers when using adaptive answer.
+#
+Class1RecvIdentTimer:	15000		# shorter timer for incoming ID
+AdaptiveAnswer:		yes		# alternate fax/data answer on error
+ModemAnswerCmd:		+FCLASS=1A	# "generic" answer (counter 0 idle)
+#
+# HACK:  Make sure the phone is on on-hook before answering in data mode.
+# This allows a crude adaptive answer capability by taking advantage of
+# the fact that, in the US at least, the phone company won't drop the
+# caller for ten seconds.
+#
+ModemAnswerDataCmd:	H+FCLASS=0A	# data answer
+ModemAnswerFaxCmd:	+FCLASS=1A	# fax answer
+#
+ModemMfrQueryCmd:	!Intel
+ModemModelQueryCmd:	!SatisFAXtion 400e
+ModemRevQueryCmd:	I3

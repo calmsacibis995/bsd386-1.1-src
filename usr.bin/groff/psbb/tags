@@ -1,0 +1,3 @@
+Mpsbb	psbb.c	/^int main(argc, argv)$/
+do_file	psbb.c	/^const char *do_file(fp, bb)$/
+parse_bounding_box	psbb.c	/^int parse_bounding_box(p, bb)$/

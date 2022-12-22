@@ -1,0 +1,13 @@
+F AUDISPOS.GZ;1                     	AuDispose.c.gz
+F AUFILENA.GZ;1                     	AuFileName.c.gz
+F AUGETADD.GZ;1                     	AuGetAddr.c.gz
+F AUGETBES.GZ;1                     	AuGetBest.c.gz
+F AULOCK_C.GZ;1                     	AuLock.c.gz
+F AUREAD_C.GZ;1                     	AuRead.c.gz
+F AUTEST_C.GZ;1                     	Autest.c.gz
+F AUUNLOCK.GZ;1                     	AuUnlock.c.gz
+F AUWRITE_.GZ;1                     	AuWrite.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F README.GZ;1                       	README.gz
+F XAUTH_H.GZ;1                      	Xauth.h.gz
+F XAU_MAN.GZ;1                      	Xau.man.gz

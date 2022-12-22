@@ -1,0 +1,9 @@
+F COPYING.GZ;1                      	COPYING.gz
+D DOC                               	doc
+D FONTS                             	fonts
+D GS                                	gs
+F MAKEFIL0.GZ;1                     	Makefile.gz
+F MAKEFIL1.GZ;1                     	Makefile.inc.gz
+F NEWS.GZ;1                         	NEWS.gz
+D PSFILES                           	psfiles
+F README.GZ;1                       	README.gz

@@ -1,0 +1,10 @@
+F BITDOMAI.C;1                      	bitdomain.c
+F CONVERTI.CON;1                    	converting.sun.configs
+F EXPN.PL;1                         	expn.pl
+F MAIL_LOC.LIN;1                    	mail.local.linux
+F MH_PATCH.;1                       	mh.patch
+F MMUEGEL.;1                        	mmuegel
+F OLDBIND_.C;1                      	oldbind.compat.c
+F RCPT_STR.;1                       	rcpt-streaming
+F README.;1                         	README
+D XLA                               	xla

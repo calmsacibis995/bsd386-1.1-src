@@ -1,0 +1,6 @@
+F ETAGS_C.GZ;1                      	etags.c.gz
+F ETAGS_V0.GZ;1                     	etags-vmslib.c.gz
+F ETAGS_V1.GZ;1                     	etags.vms.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/emacs/etc/etags
+F TAGS.GZ;1                         	tags.gz

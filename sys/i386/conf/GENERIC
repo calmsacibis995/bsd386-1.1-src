@@ -1,0 +1,321 @@
+# BSDI $Id: GENERIC,v 1.27 1994/01/30 07:44:07 karels Exp $
+#
+# BSDI ISA 386/486 generic kernel
+#
+machine		"i386"
+cpu		"i386"
+ident		GENERIC
+timezone	0			# use GMT in hardware clock
+maxusers	10
+
+# generic options
+options		KTRACE			# syscall tracing
+options		"COMPAT_43"		# required for now
+
+# hardware-related options
+options		FPE			# floating point emulation
+options		SCSI
+options		EISA
+# options	KBD=US			# US keyboard
+# options	CAPSLOCK_CONTROL	# caps lock becomes control
+
+# network options
+options		INET			# Internet: TCP/IP
+# options	GATEWAY			# IP routing
+# options	NS			# XNS
+# options	ISO			# ISO/OSI network
+# options	PPP			# Point-to-Point Protocol
+# options	CISCO_HDLC		# HDLC over sync serial
+options		MULTICAST		# IP Multicast
+# options	MROUTING		# Multicast agent forwarding multicast
+
+# The GWSCREEN option requires two files (net/gwscren.c and
+# netinet/ip_screen.c) that are not included in BSD/386,
+# but are available by anonymous FTP.
+# options	GWSCREEN		# requires pseudo-device gwscreen
+
+# filesystem options
+options		NFS			# Network File System
+options		MFS			# Memory File System
+options		"ISO9660"		# ISO 9660 CD-ROM file system
+options		MSDOSFS			# MS-DOS file system
+options		QUOTA			# file system quotas
+options		FIFO			# POSIX fifo devices
+
+# debugging options
+# options	DEBUG			# extensive kernel checking
+options		DIAGNOSTIC		# standard kernel checks
+# options	"COMCONSOLE=0"		# serial console unit
+# options	KGDB			# cross-system kernel debugger
+# options	"KGDBDEV=0x801"		# kgdb device, tty01
+
+# Note: "swap generic" should be used only in a GENERIC kernel
+# with all of the disk drivers included.
+# Other systems should use something like one of the following:
+# config	bsd	root on wd0a swap on wd0b and wd2b
+# config	bsd	root on sd0a swap on sd0b and sd1b
+config		bsd	swap generic
+
+# ISA bus (or EISA)
+controller	isa0
+
+# Console
+device		pccons0	at isa? port "IO_KBD"
+#device		pcaux0	at isa? port "IO_KBD" irq 12
+
+# COM ports
+device		com0	at isa? port "IO_COM1"
+device		com1	at isa? port "IO_COM2"
+#device		com2	at isa? port "IO_COM3"
+#device		com3	at isa? port "IO_COM4"
+
+# AST-style 4-port MUX (AST-4, MU-440, etc)
+# Flags are 0xL0PPP for line number L and interrupt multiplexor port PPP
+# for each line.  The multiplexor port is 7 higher than the last port's
+# base address.  Here, lines 0-3 on a 4-port card starting at port 0x2a0,
+# with interrupt multiplexor port at 0x2bf.
+#device          com2    at isa? port 0x2a0 flags 0x002bf
+#device          com3    at isa? port 0x2a8 flags 0x102bf
+#device          com4    at isa? port 0x2b0 flags 0x202bf
+#device          com5    at isa? port 0x2b8 flags 0x302bf
+
+# USENET II serial board
+# Flags are 0xLGPPP for line number L and interrupt group G.
+# The multiplexor port field PPP is set to 0 because interrupts
+# are enabled differently than the AST.
+# Note, port 100 conflicts with some 3Com Ethernet card's auto-enable.
+#device          com4    at isa? port 0x120 flags 0x01000
+#device          com5    at isa? port 0x128 flags 0x11000
+#device          com6    at isa? port 0x130 flags 0x21000
+#device          com7    at isa? port 0x138 flags 0x31000
+
+# SDL Communications RISCom/8 8-port Async Mux
+#device		rc0	at isa? port 0x220
+
+# Maxpeed Intelligent Serial Controllers
+#
+#	SS-4/2, SS-4PLUS and SS-8/2 go on 8k boundaries.
+#	SS-16/2 goes on a 16k boundary.
+#
+#	In the version 1.3 of the driver the low flag bit turns on
+#	input speedups when the tty is in raw mode.  This has been
+#	tested with UUCP and SLIP but if it gives you problems it
+#	can be disabled by clearing the bit -- either here or via
+#	msconfig(8).
+#
+#	The rest of the flags enable compatibility with pre-D7 (SS-8/2)
+#	or D-X2 (SS-4PLUS) ROMs.  See ms(4) for details.
+#
+#device		ms0 at isa? iomem 0xd4000 iosiz 8192 flags 0x0001
+#device		ms1 at isa? iomem 0xd6000 iosiz 8192 flags 0x0001
+#device		ms2 at isa? iomem 0xd8000 iosiz 8192 flags 0x0001
+#device		ms3 at isa? iomem 0xda000 iosiz 8192 flags 0x0001
+#device		ms4 at isa? iomem 0xdc000 iosiz 8192 flags 0x0001
+#device		ms5 at isa? iomem 0xde000 iosiz 8192 flags 0x0001
+#device		ms6 at isa? iomem 0xe0000 iosiz 8192 flags 0x0001
+#device		ms7 at isa? iomem 0xe2000 iosiz 8192 flags 0x0001
+
+# DigiBoard PC/4e, PC/8e, PC/16e, PC/8i terminal multiplexor
+# Use "flags 0x0001" to switch DSR and DCD for RJ-45 connectors.
+#device		digi0 at isa? port 0x220 iomem 0xd0000 iosiz 65536 flags 0x0001
+
+# Specialix SLXOS 8-32 port terminal multiplexor
+#device		si0 at isa? iomem 0x0d8000 iosiz 65536
+
+# parallel printer port
+# set flags to 0 for CRLF expansion, 1 for raw
+# lp2 is LPT1 on PS/2 (MicroChannel), monochrome display adapter port,
+# and some laptops.  IRQ cannot be shared, thus only one of lp0 and lp2
+# will configure with irq 7 in this configuration.
+device		lp0	at isa? port 0x378 flags 1 irq 7
+#device		lp1	at isa? port 0x278 flags 1
+device		lp2	at isa? port 0x3BC flags 1 irq 7
+
+# Xircom Pocket Ethernet 2 on LPT1 (aka lp0)
+# Unit numbers correspond to lp unit numbers,
+# and must follow the lp ports in the config file.
+device		pe0	at isa? port 0		# on lp0
+#device		pe1	at isa? port 0		# on lp1
+device		pe2	at isa? port 0		# on lp2
+
+# Xircom Pocket Ethernet 3 on LPT1 (aka lp0)
+# Unit numbers correspond to lp unit numbers,
+# and must follow the lp ports in the config file.
+# Only one of these devices may be used currently.
+device		xir0	at isa? port 0		# on lp0
+#device		xir1	at isa? port 0		# on lp1
+device		xir2	at isa? port 0		# on lp2
+
+# MPU-401/compatible MIDI controller
+#device		midi0	at isa? port 0x300
+
+# SoundBlaster Pro
+#device		sb0	at isa? port 0x220 irq 7 drq 1
+
+# Floppy drives
+controller	fdc0	at isa? port "IO_FD1" drq 2
+disk		fd0	at fdc0 drive 0
+disk		fd1	at fdc0 drive 1
+
+# IDE/ESDI/RLL/ST-506 Hard drives
+controller	wdc0	at isa? port "IO_WD1"
+disk		wd0	at wdc0 drive 0
+disk		wd1	at wdc0 drive 1
+controller	wdc1	at isa? port "IO_WD2"
+disk		wd2	at wdc1 drive 0
+disk		wd3	at wdc1 drive 1
+
+# Mitsumi CD-ROM
+#	0x300 <= port <= 0x3fc,  port%4 == 0
+#	on the 8 bit card:
+#		irq = none, 3, 5 or 9
+#		drq = none, 1 or 3 (drq ? defaults to 3)
+#	on the 16 bit card
+#		irq = none, 3, 5, 9, 10 or 11
+#		drq = none, 5, 6 or 7 (drq ? defaults to 6)
+device		mcd0	at isa? port 0x334 irq 9 drq ?
+device		mcd0	at isa? port 0x340 irq 9 drq ?
+
+# QIC-02 tape
+device wt0 at isa? port 0x300 drq 1
+
+# Numeric coprocessor (387 or on-board 486)
+device		npx0	at isa? port "IO_NPX"
+
+# VGA display adapter (only needed for X)
+device		vga0	at isa? port "IO_VGA" iomem 0xa0000 iosiz 65536
+
+# Microsoft BusMouse driver (works with ATI Ultra busmouse)
+device		bms0	at isa? port 0x23c irq 5
+
+# Logitec Bus Mouse, same location as bms0 (works with ATI Ultra Pro mouse)
+device		lms0	at isa? port 0x23c irq 5
+
+# Adaptec 1542B SCSI controller and possible st/sd devices
+controller	aha0	at isa? port 0x330 drq 5
+controller	tg0	at aha0
+controller	tg1	at aha0
+controller	tg2	at aha0
+controller	tg3	at aha0
+controller	tg4	at aha0
+controller	tg5	at aha0
+controller	tg6	at aha0
+disk		sd0	at tg? targetbase 0
+disk		sd1	at tg? targetbase 1
+disk		sd2	at tg? targetbase 2
+disk		sd3	at tg? targetbase 3
+disk		sd4	at tg? targetbase 4
+disk		sd5	at tg? targetbase 5
+disk		sd6	at tg? targetbase 6
+tape		st0	at tg? targetbase 0
+tape		st1	at tg? targetbase 1
+tape		st2	at tg? targetbase 2
+tape		st3	at tg? targetbase 3
+tape		st4	at tg? targetbase 4
+tape		st5	at tg? targetbase 5
+tape		st6	at tg? targetbase 6
+
+# Novell NE-1000/NE-2000 Ethernet adapter
+# Several of these conflict with other devices,
+# so these are listed after aha, mcd and lp/pe.
+# 32 ports are used.
+device	ne0 at isa? port 0x320
+device	ne0 at isa? port 0x340
+device	ne0 at isa? port 0x360
+
+# 3COM 3C501 Ethernet adaptor
+device	eo0 at isa? port 0x320
+
+# 3COM EtherLink Plus 3C505 Ethernet adaptor
+device	ep0 at isa? port 0x240
+device	ep0 at isa? port 0x320
+
+# SDL Communications RISCom/N1 HDLC serial card
+# requires options PPP and/or CISCO_HDLC
+#device	rn0 at isa? port 0x220 iomem 0xe0000 iosiz 65536
+
+# SDL Communications RISCom/H2 HDLC serial card
+# requires options PPP and/or CISCO_HDLC
+#device rh0 at isa? port 0x240 drq 6
+
+# TNIC-1500 Ether from South Coast Computing Services, +1 713 661 3301.
+device tn0 at isa? port 0x320 drq 3
+device tn0 at isa? port 0x340 drq 3
+device tn0 at isa? port 0x360 drq 3
+device tn0 at isa? port 0x300 drq 3
+
+# HP EtherTwist PC LAN Adapter/16 Plus:
+#	HP 27247B PC LAN Adapter/16 TP Plus [AUI/UTP]
+#	HP 27252A PC LAN Adapter/16 TL Plus [AUI/BNC]
+# device hpp0 at isa? port 0x2c0 iomem 0xc8000 iosiz 2048
+# device hpp0 at isa? port 0x300 iomem 0xc8000 iosiz 2048
+
+# Allied Telesis RE2000/AT-1700 series Ethernet adapter driver
+# device re0 at isa? port 0x240
+# device re0 at isa? port 0x260
+# device re0 at isa? port 0x280
+# device re0 at isa? port 0x2a0
+# device re0 at isa? port 0x300
+# device re0 at isa? port 0x320
+# device re0 at isa? port 0x340
+# device re0 at isa? port 0x380
+
+
+
+# Devices that can select their own IRQ or other parameters
+# are placed last so that other devices get first choice.
+
+# Western Digital/SMC family of ethernet adapters, plus 3COM 3C503
+# first, Western Digital/SMC addresses; check for 16 KB memory by default
+device we0 at isa? port 0x280 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x2A0 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x2C0 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x2E0 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x300 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x320 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x340 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x360 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x380 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x3A0 iomem 0xd0000 iosiz 16384
+# 0x3C0 is not usable with color pccons
+#device we0 at isa? port 0x3C0 iomem 0xd0000 iosiz 16384
+device we0 at isa? port 0x3E0 iomem 0xd0000 iosiz 16384
+
+# 3C503 addresses; memory address obtained from jumpers
+device we0 at isa? port 0x280
+device we0 at isa? port 0x2A0
+device we0 at isa? port 0x2E0
+device we0 at isa? port 0x300
+device we0 at isa? port 0x310
+device we0 at isa? port 0x330
+device we0 at isa? port 0x350
+
+# 3COM EtherLink III 3C509 Ethernet adaptor; port is set from kernel config
+# also uses port 0x100 to set the specified port
+device	ef0 at isa? port 0x250
+
+# 3COM 3C507 Ethernet adaptor
+# also uses port 0x100 to set the specified port
+device	el0 at isa? port 0x310 iomem 0xd0000 iosiz 65536
+
+# Intel EtherExpress 16 Ethernet adaptor
+device	ex0 at isa? port 0x260
+
+# Adaptec 1742A SCSI controller and possible st/sd devices
+controller	eaha0	at isa?
+controller	tg0	at eaha0
+controller	tg1	at eaha0
+controller	tg2	at eaha0
+controller	tg3	at eaha0
+controller	tg4	at eaha0
+controller	tg5	at eaha0
+controller	tg6	at eaha0
+
+pseudo-device	loop
+pseudo-device	pty
+pseudo-device	ether
+pseudo-device	sl	1
+#pseudo-device	appp	4		# requires options PPP
+pseudo-device	log
+pseudo-device	bpfilter 10
+#pseudo-device	gwscreen		# requires option GWSCREEN

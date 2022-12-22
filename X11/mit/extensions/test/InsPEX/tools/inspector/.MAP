@@ -1,0 +1,10 @@
+D BIN                               	bin
+F IMAGELI0.GZ;1                     	imagelib.c.gz
+F IMAGELI1.GZ;1                     	imagelib.h.gz
+F INSPECTO.GZ;1                     	inspector.c.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F PORTABLE.GZ;1                     	portable.h.gz
+F TOOLKIT0.GZ;1                     	toolkitaw.c.gz
+F TOOLKIT1.GZ;1                     	toolkitaw.h.gz
+F TOOLKIT2.GZ;1                     	toolkit.c.gz
+F TOOLKIT3.GZ;1                     	toolkit.h.gz

@@ -1,0 +1,509 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/flexfax.1,v 1.1.1.1 1994/01/14 23:10:11 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.ds Ps P\s-1OST\s+1S\s-1CRIPT\s+1
+.TH FLEXFAX 1 "September 22, 1993"
+.SH NAME
+FlexFAX \- introduction to 
+.I FlexFAX
+client applications and usage
+.SH SYNOPSIS
+.B sendfax
+.RI [ options ]
+.RI [ files .\|.\|.]
+.br
+.B faxstat
+.RI [ options ]
+.br
+.B faxrm
+.RI [ options ]
+.br
+.B faxalter
+.RI [ options ]
+.IR jobid .\|.\|.
+.br
+.B fax2ps
+.RI [ options ]
+.RI [ files .\|.\|.]
+.SH DESCRIPTION
+.I FlexFAX
+is a facsimile system for 
+.SM UNIX\c
+\(tm systems.
+Among the features of
+.I FlexFAX
+are:
+.IP 1) 4
+.I FlexFAX
+runs as a network service; this means
+a faxmodem may be effectively shared by a large number of users.
+.IP 2) 4
+.I FlexFAX
+can be configured to work with a wide variety of fax modems
+on a wide variety of systems.
+.IP 3) 4
+Access to the system can be restricted by the administrator
+to selected hosts and/or users.
+.IP 4) 4
+Transmission requests may be processed immediately (default)
+or queued for processing at a later time,
+in the manner of the
+.IR at (1)
+command.
+.IP 5) 4
+Remote facsimile machines may be polled to retrieve
+publicly available documents.
+.IP 6) 4
+\*(Ps\(tm and
+.SM TIFF
+Class F documents are passed directly to the fax server for transmission;
+the system attempts to convert other file formats to either \*(Ps or
+.SM TIFF
+through the use of an extensible file typing and conversion facility.
+In normal operation
+.SM ASCII\c
+-text,
+.IR troff (1)
+output,
+and
+Silicon Graphics images are automatically converted.
+Additional file formats can be added; see
+.IR typerules (4F).
+.IP 7) 4
+The
+.IR faxcover (1)
+program can be automatically invoked to
+create a cover page for each facsimile,
+using information deduced by the
+.IR sendfax
+command.
+Alternatively, users may supply their own cover pages using
+their preferred tools.
+.IP 8) 4
+Facsimile are normally imaged in a system-default page size
+(usually letter-size pages, 8.5" by 11", for sites in North America).
+Alternate page sizes can be specified with a
+.B \-s
+option to all
+.I FlexFAX
+programs.
+Well known page sizes include:
+.SM "ISO A3,"
+.SM "ISO A4,"
+.SM "ISO A5,"
+.SM "ISO A6,"
+.SM "ISO B4,"
+North American Letter,
+American Legal,
+American Ledger,
+American Executive,
+Japanese Letter,
+and
+Japanese Legal.
+Note that it may not be permissible to image into the
+full page area; the guaranteed reproduceable area for a page is 
+typically smaller.
+Also, note that while arbitrary page sizes can be specified,
+only a limited number of page dimensions are supported by the
+Group 3 facsimile protocol.
+Thus if an odd-size facsimile is submitted for transmission
+it may not be possible to determine if it can be sent
+until the fax server establishes communication
+with the remote facsimile machine.
+.IP 9) 4
+Facsimile can be sent at low
+resolution (98 lines/inch) or
+medium resolution (196 lines/inch)\(emoften
+called
+.IR "fine mode" .
+Documents with mixed resolution pages
+are handled correctly.
+.IP 10) 4
+Users are notified by electronic mail if a job can not be
+transmitted.
+It is also possible to receive notification by mail when
+a job has been completed successfully and each time that
+the job is requeued for retransmission.
+Any untransmitted documents are returned to the sender
+by electronic mail in a form suitable for resubmission.
+.PP
+The
+.I FlexFAX
+software is divided into two packages: software used on client
+machines and software used on machines where one or more fax
+modems reside.
+Client software includes:
+.IP \(bu 3
+.IR sendfax ,
+a program to submit outgoing facsimile;
+.IP \(bu 3
+.IR faxstat ,
+a program obtain status information
+about facsimile servers and jobs;
+.IP \(bu 3
+.IR faxrm ,
+a program to remove queued jobs;
+.IP \(bu 3
+.IR faxalter ,
+a program to change parameters of queued jobs; and
+.IP \(bu 3
+.IR fax2ps ,
+a program that converts facsimile documents to \*(Ps so that they
+may be viewed with a \*(Ps previewer or printed on a \*(Ps printer.
+.PP
+Many systems also support submission of outgoing
+facsimile by electronic mail and/or graphical interfaces to the
+.I sendfax
+program.
+Such facilities are site-dependent; consult local documentation for
+more information.
+.SH "GETTING STARTED"
+To use the
+.I FlexFAX
+client software on your machine you need to either load the appropriate
+software on your machine, or you need to locate a machine that
+already has the client software installed and setup symbolic links to
+the appropriate directories.
+If you choose the latter, then beware that you need links to three
+directories: the directory where client applications reside,
+.IR ${BIN} ,
+the directory where the client application database files reside,
+.IR ${LIBDATA} ,
+and the directory where document conversion programs reside,
+.I ${LIBEXEC}
+(the last two directories may be the same on your system).
+.PP
+Once the software is setup on your machine you need to locate a
+host that has a facsimile server that you can use.
+The host, and possibly the modem on the host, should be defined
+in your environment in the
+.B FAXSERVER
+variable.
+For example, for 
+.I csh
+users,
+.IP
+\fCsetenv FAXSERVER flake.asd\fP
+.LP
+or for
+.I ksh
+or
+.I sh
+users,
+.IP
+\fCFAXSERVER=flake.asd; export FAXSERVER\fP
+.LP
+If there are multiple modems on your server then you may be
+assigned to use a specific modem.
+For example, if you are to use the modem attached to the 
+.I ttym2
+port on the server machine, then the
+.B FAXSERVER
+variable should be setup as
+.IP
+\fCFAXSERVER=ttym2@flake.asd; export FAXSERVER\fP
+.LP
+Note also, that before you can submit outgoing facsimile jobs
+the administrator for the facsimile server may need to register
+your identity in an access control list.
+You will encounter the message
+``\fIYour host does not have permission to use the fax server\fP''
+if access is controlled to your server and you are not properly
+registered.
+.SH "DIAL STRINGS"
+A dial string specifies how to dial the telephone in order to
+reach a destination facsimile machine.
+.I FlexFAX
+permits arbitrary strings to be passed to the facsimile server
+so that users can specify credit card information, 
+.SM PBX
+routing information, etc.
+Non-numeric characters can be included for readability;
+anything that must be stripped will be removed by the server
+before the dialing string is passed to the fax modem.
+Private information such as credit card access codes are
+withheld from status messages and publicly accessible log files
+(with proper configuration).
+Facsimile servers also automatically insert any leading dialing
+prefixing strings that are required to place outgoing phone calls;
+e.g. dialing ``\fC\&9\fR'' to get an outside line.
+Additionally, if a phone number is fully specified with the
+international direct dialing digits (\c
+.SM IDDD\c
+), then any
+prefixing long distance or international dialing codes
+that are required to place the call will be inserted
+in the dial string by the server.
+For example, ``\fC\+31.77.594.131\fP'' is a phone number in
+the Netherlands; it would be converted to ``\fC\&0113177594131\fP''
+if the call is placed in the United States.
+The number ``\fC\+14159657824\fP'' is a phone number in California;
+if this number is called from within the 415 area code in the
+United States, then the server would automatically convert this
+to ``\fC\&9657824\fP'' because in the San Francisco Bay Area, local phone
+calls must not include the area code and long distance prefixing
+code.
+.PP
+The general rule in crafting dial strings is to specify
+exactly what you would dial on your telephone; and,
+in addition, the actual phone number can be specified in a
+location-independent manner by using the 
+.SM IDD
+syntax of ``\fC\+country-code local-part\fP''.
+.SH "COVER PAGES"
+The
+.I sendfax
+program can automatically generate a cover page for each outgoing
+facsimile.
+Such cover pages are actually created by the
+.IR faxcover (1)
+program by using information that is deduced by
+.I sendfax
+and information that is supplied on the command line invocation of
+.IR sendfax .
+Users may also request that
+.I sendfax
+not supply a cover page and then provide their own cover page
+as part of the data that is to be transmitted.
+.PP
+Automatically-generated cover pages may include the following
+information:
+.RS
+.IP \(bu 3
+the sender's name, affiliation, geographic location, fax number,
+and voice telephone number;
+.IP \(bu 3
+the recipient's name, affiliation, geographic location, fax number,
+and voice telephone number;
+.IP \(bu 3
+text explaining what this fax is ``regarding'';
+.IP \(bu 3
+text commentary;
+.IP \(bu 3
+the local date and time that the job was submitted;
+.IP \(bu 3
+the number of pages to be transmitted.
+.RE
+.LP
+Certain of this information is currently obtained from a user's
+personal facsimile database file; 
+.BR ~/.faxdb .
+Note that this file is deprecated; it is described here only
+because it is still supported for compatiblity with
+older versions of the software.
+.PP
+The 
+.B .faxdb
+file is an
+.SM ASCII
+file with entries of the form
+.IP
+\fIkeyword\fP \fB:\fP \fIvalue\fP
+.LP
+where
+.I keyword
+includes:
+.RS
+.TP 14
+.B Name
+a name associated with destination fax machine;
+.TP 14
+.B Company
+a company name;
+.TP 14
+.B Location
+in-company locational information, e.g. a building#;
+.TP 14
+.B FAX-Number
+phone number of fax machine;
+.TP 14
+.B Voice-Number
+voice telephone number.
+.RE
+.PP
+Data is free format.
+Whitespace (blank, tab, newline) can be
+freely interspersed with tokens.
+If tokens include whitespace, they
+must be encloseed in quote marks (``"'').
+The ``#'' character introduces a comment\(emeverything to the end of
+the line is discarded.
+.PP
+Entries are collected into aggregate records by enclosing them in ``[]''.
+Records can be nested to create a hierarchy that that supports the
+inheritance of information\(emunspecified information is
+inherited from parent aggregate records.
+.PP
+For example, a sample file might be:
+.sp .5
+.nf
+.in +.5i
+\fC[   Company:	"Silicon Graphics, Inc."
+    Location:	"Mountain View, California"
+    [ Name: "Sam Leff\&ler"	FAX-Number: +1.415.965.7824 ]
+]\fP
+.fi
+.in -.5i
+.LP
+which could be extended to include another person at Silicon Graphics
+with the following:
+.sp .5
+.nf
+.in +.5i
+\fC[   Company:	"Silicon Graphics, Inc."
+    Location:	"Mountain View, California"
+    [ Name: "Sam Leff\&ler"	FAX-Number: +1.415.965.7824 ]
+    [ Name: "Paul Haeberli"	FAX-Number: +1.415.965.7824 ]
+]\fP
+.in -.5i
+.fi
+.PP
+Experience indicates that the hierarchical nature of this database
+format makes it difficult to maintain with automated mechanisms.
+As a result it is being replaced by other, more straightforward
+databases that are managed by programs that front-end the
+.I sendfax
+program.
+.SH "RECEIVED FACSIMILE"
+Incoming facsimile are received by facsimile servers and deposited
+in a receive queue directory on the server machine.
+Depending on the server's configuration, files in this directory
+may or may not be readable by normal users.
+The
+.I faxstat
+program can be used to view the contents of the receive queue
+directory:
+.sp .5
+.nf
+.in +.5i
+\fCflake% faxstat -r
+Server on localhost:ttym2 for +1.415.965.7824: Running and idle.
+
+Sender         Received At           Pages Quality 
++15105268781   13:04 1993:05:14   1 NA-LET normal  
+               18:03 1993:05:12   1        fine    
+               12:29 1993:05:12   1        fine    
++15105268781   11:16 1993:05:12   5        normal  
++15105268781   14:12 1993:05:11   4 NA-LET normal  
++15105268781   14:02 1993:05:11   4 NA-LET fine    
++15105268781   13:43 1993:05:11   4        normal  \fP
+.in -.5i
+.fi
+.LP
+Consult the 
+.I faxstat
+manual page for a more detailed description of this information.
+.PP
+Received facsimile are stored as
+.SM TIFF
+Class F files.
+These files are bilevel images that are encoded using the
+.SM "CCITT T.4"
+encoding algorithm.
+The
+.IR fax2ps (1)
+program can be used to view and print these files.
+A file can be viewed by converting it to \*(Ps and then
+viewing it with a suitable \*(Ps previewing program, such
+as
+.IR xpsview (1)
+(Adobe's Display PostScript-based viewer),
+.IR ghostview (1)
+(a public domain previewer),
+or image viewer programs such as
+.IR xv (1)
+(shareware and/or public domain),
+.IR xtiff (1)
+(a program included in the public domain
+.SM TIFF
+software distribution), or, on Silicon Graphics machines,
+.IR faxview (1).
+Consult your local resources to figure out what tools are available
+for viewing and printing received facsimile.
+.SH EXAMPLES
+This section gives several examples of command line usage;
+consult the manual pages for the individual commands for
+information on the options and program operation.
+.PP
+The following command queues the file
+.I zall.ps
+for transmission to John Doe at the number (123)456-7890 using fine mode;
+the server will attempt to send it at 4:30 A.M.:
+.IP
+\fCsendfax -a "0430" -d "John Doe@123.456.7890" -m zall.ps\fP
+.PP
+The following command generates a one-page facsimile that
+is just a cover page:
+.sp .5
+.nf
+.in +.5i
+\fCfaxcover -t "John Doe" -n "(123)456-7890" 
+    -c "Sorry John, I forgot the meeting..." |
+    sendfax -n -d "(123)456-7890"\fP
+.in -.5i
+.fi
+.LP
+(note that the line was broken into several lines solely for presentation.)
+.PP
+The following command displays the status of the facsimile
+server and any jobs queued for transmission:
+.IP
+\fCfaxstat -a\fP
+.PP
+The following command displays the status of the facsimile
+server and any documents waiting in the receive queue on the
+server machine:
+.IP
+\fCfaxstat -r\fP
+.SH FILES
+.ta \w'${LIBDATA}/faxcover.ps        'u
+.nf
+${BIN}/sendfax	for sending facsimile
+${BIN}/faxalter	for altering queued jobs
+${BIN}/faxcover	for generating cover sheets
+${BIN}/faxrm	for removing queued jobs
+${BIN}/faxstat	for facsimile server status
+${LIBEXEC}/sgi2fax	\s-1SGI\s+1 image file converter
+${LIBEXEC}/textfmt	\s-1ASCII\s+1 text converter
+${LIBDATA}/typerules	file type and conversion rules
+${LIBDATA}/pagesizes	page size database
+${LIBDATA}/faxcover.ps	prototype cover page
+${LIBDATA}/dialrules	optional client dialstring rules
+/usr/tmp/sndfaxXXXXXX	temporary files
+.fi
+.SH "SEE ALSO"
+.IR at (1),
+.IR faxalter (1),
+.IR faxcover (1),
+.IR faxmail (1),
+.IR faxrm (1),
+.IR faxstat (1),
+.IR sgi2fax (1),
+.IR faxd (1),
+.IR intro (4F),
+.IR dialrules (4F),
+.IR pagesizes (4F),
+.IR typerules (4F)

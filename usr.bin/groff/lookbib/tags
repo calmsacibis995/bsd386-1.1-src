@@ -1,0 +1,2 @@
+Mlookbib.cc	lookbib.cc	/^main(int argc, char **argv)$/
+usage	lookbib.cc	/^static void usage()$/

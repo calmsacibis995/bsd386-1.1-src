@@ -1,0 +1,51 @@
+Mmain	main.c	/^main(argc, argv)$/
+a	a.c	/^a(inputt, errnum)$/
+add_line	add_line.c	/^add_line(p, len)$/
+address_check	address.c	/^address_check(one, two)$/
+address_conv	address.c	/^address_conv(tempp, inputt, errnum)$/
+bang	bang.c	/^bang(inputt, errnum)$/
+c	c.c	/^c(inputt, errnum)$/
+cmd_loop	main.c	/^cmd_loop(inputt, errnum)$/
+d	d.c	/^d(inputt, errnum)$/
+d_add	d.c	/^d_add(top_d, bottom_d)$/
+d_do	d.c	/^d_do()$/
+dig_num_conv	address.c	/^dig_num_conv(inputt, errnum)$/
+do_hup	edhup.c	/^do_hup()$/
+e	e.c	/^e(inputt, errnum)$/
+e2	e.c	/^e2(inputt, errnum)$/
+ed_exit	main.c	/^ed_exit(err)$/
+edwrite	w.c	/^edwrite(fp, begi, fini)$/
+equal	equal.c	/^equal(inputt, errnum)$/
+f	f.c	/^f(inputt, errnum)$/
+filename	filename.c	/^filename(inputt, errnum)$/
+find_line	g.c	/^find_line(dot)$/
+g	g.c	/^g(inputt, errnum)$/
+get_mark	k.c	/^get_mark(inputt, errnum)$/
+get_pattern	get_pattern.c	/^get_pattern(delim, inputt, errnum, flag)$/
+i	i.c	/^i(inputt, errnum)$/
+input_lines	input_lines.c	/^input_lines(fp, errnum)$/
+j	j.c	/^j(inputt, errnum)$/
+ku_chk	k.c	/^ku_chk(begi, fini, val)$/
+l	l.c	/^l(inputt, errnum)$/
+line_number	line_number.c	/^line_number(line_addr)$/
+m	m.c	/^m(inputt, errnum)$/
+num_to_address	address.c	/^num_to_address(num, errnum)$/
+p	p.c	/^p(inputt, errnum, flag)$/
+q	q.c	/^q(inputt, errnum)$/
+r	r.c	/^r(inputt, errnum)$/
+rol	rol.c	/^rol(inputt, errnum)$/
+s	sub.c	/^s(inputt, errnum)$/
+search	search.c	/^search(inputt, errnum)$/
+search_r	search.c	/^search_r(inputt, errnum)$/
+set_mark	k.c	/^set_mark(inputt, errnum)$/
+sighup_handler	main.c	/^sighup_handler(signo)$/
+sigint_handler	main.c	/^sigint_handler(signo)$/
+t	t.c	/^t(inputt, errnum)$/
+u	u.c	/^u(inputt, errnum)$/
+u_add_stk	u.c	/^u_add_stk(in)$/
+u_clr_stk	u.c	/^u_clr_stk()$/
+u_pop_n_swap	u.c	/^u_pop_n_swap(in)$/
+undo	u.c	/^undo()$/
+w	w.c	/^w(inputt, errnum)$/
+w_cmd_l_file	g.c	/^w_cmd_l_file(fp, inputt, errnum)$/
+z	z.c	/^z(inputt, errnum)$/

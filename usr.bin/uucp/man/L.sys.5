@@ -1,0 +1,610 @@
+.\"
+.V= $Id: L.sys.5,v 1.4 1994/01/31 01:26:29 donn Exp $
+.\"
+.ds S1 L.SYS
+.ds S2 \fIL.sys\fP
+.ds S3 \fIL.sys\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.TH \*(S1 5 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+L.sys \- UUCP remote host description file
+.SH DESCRIPTION
+The
+\*(S3
+file is consulted by the \*(S5 daemon
+.IR uucico (8C)
+for information on remote systems.
+\*(S2
+includes the system name, appropriate times to call, phone numbers, and a
+login and password for the remote system.
+\*(S2
+is thus a privileged file, owned by the \*(S5 Administrator;
+it is accessible only to the Administrator and to the superuser.
+.PP
+Each line in
+\*(S3
+describes one connection to one remote host, and has the form:
+.PP
+.RS 4
+.nf
+System  Times  Caller  Class  Device/Phone_Number  [Expect  Send]  ...
+.fi
+.RE
+.PP
+Fields can be separated by any number of blanks or tabs. Lines beginning
+with a `#' character are comments; long lines can be continued by appending
+a `\\' character to the end of the line.
+.PP
+The first five fields
+.RI ( System
+through
+.IR Device/Phone_Number )
+specify the hardware mechanism that is necessary to make a connection
+to a remote host, such as a modem or network.
+.I Uucico
+searches from the top down through
+\*(S3
+to find the desired
+.IR System ;
+it then opens the
+.IR L-devices (5)
+file and searches for the first available device with the same
+.IR Caller ,
+.IR Class ,
+and (possibly)
+.IR Device .
+(``Available'' means that the device is ready and not being used
+for something else.)
+.I Uucico
+attempts a connection using that device; if
+the connection cannot be made (for example, a
+dialer gets a busy signal),
+.I uucico
+tries the next available device. If this also fails, it returns to
+\*(S3
+to look for another line for the same
+.IR System .
+If none is found,
+.I uucico
+gives up.
+.PP
+.I System
+is the hostname of the remote system.
+Every machine with which this system communicates via \*(S5 should be listed,
+regardless of who calls whom.
+Systems not listed in
+\*(S3
+will not be permitted a connection.
+The local hostname should
+.B not
+appear here for security reasons.
+.PP
+.I Times
+is a comma-separated list of the times of the day and week that
+calls are permitted to this
+.IR System .
+.I Times
+is most commonly used
+to restrict long distance telephone calls to those times when
+rates are lower.
+List items are constructed as:
+.PP
+.RS 4
+.nf
+\fIkeyword\fPhhmm\fB-\fPhhmm\fB/\fP\fIgrade\fP\fB;\fP\fIretry_time\fP\fB$\fP\fIprotocols\fP\fB@\fP\fIpkt_size\fP\fB*\fP\fIwindows\fP\fB!\fP\fIdebug\fP
+.fi
+.RE
+.PP
+.I Keyword
+is required, and must be one of:
+.RS 2
+.TP "\w'\fBNonPeak\fPX'u"
+.B Any
+Any time, any day of the week.
+.TP
+.B Wk
+Any weekday. In addition,
+.BR Mo ,
+.BR Tu ,
+.BR We ,
+.BR Th ,
+.BR Fr ,
+.BR Sa ,
+and
+.B Su
+can be used for Monday through Sunday, respectively.
+.TP
+.B Evening
+When evening telephone rates are in effect, from 1700 to 0800 Monday
+through Friday, and all day Saturday and Sunday.
+.B Evening
+is the same as
+.BR Wk1700-0800,Sa,Su .
+.TP
+.B Night
+When nighttime telephone rates are in effect, from 2300 to 0800 Monday
+through Friday, all day Saturday, and from 2300 to 1700 Sunday.
+.B Night
+is the same as
+.BR Any2300-0800,Sa,Su0800-1700 .
+.TP
+.B NonPeak
+This is a slight modification of
+.BR Evening .
+It matches when the USA X.25 carriers have their lower rate period. This
+is 1800 to 0700 Monday through Friday, and all day Saturday and Sunday.
+.B NonPeak
+is the same as
+.BR Any1800-0700,Sa,Su .
+.TP
+.B Polled
+Never call; calling into this
+.I System
+is forbidden or impossible.
+This is intended for polled connections, where the
+remote system calls into the local machine periodically.
+This is necessary when one of the machines is lacking
+either dial-in or dial-out modems.
+.RE
+.PP
+The optional
+.I hhmm-hhmm
+subfield provides a time range that modifies the keyword.
+.I hhmm
+refers to
+.I hours
+and
+.I minutes
+in 24-hour time (from 0000 to 2359).
+The time range is permitted to "wrap" around midnight, and will behave in
+the obvious way. It is invalid to follow the
+.BR Evening ,
+.BR NonPeak ,
+and
+.B Night
+keywords with a time range.
+.PP
+The other time fields are optional:
+.RS 2
+.TP "\w'\fB;\fP\fIretry_time\fPX'u"
+.BI ! [k]debug
+Sets the debugging level to
+.I debug.
+The optional `k' arranges to keep a time-stamped audit file.
+NB: this overrides remote debuuging,
+so \fB!0\fP can be used to prevent debugging being set remotely.
+.TP
+.BI / grade
+.I Grade
+is a single
+character denoting the
+.I grade
+of the connection, from
+.B 0
+to
+.BR 9 ,
+.B A
+to
+.BR Z ,
+or
+.B a
+to
+.BR z .
+This specifies that only requests of grade
+.I grade
+or better will be transferred during this time.
+(The grade of a request or job is specified when it is queued by
+.I uucp
+or
+.IR uux .)
+By convention, mail is sent at grade
+.BR C ,
+news is sent at grade
+.BR d ,
+and uucp copies are sent at grade
+.BR n .
+Unfortunately, some sites do not follow these conventions, so it is
+not 100% reliable.
+.TP
+.BI ; retry_time
+This specifies the time, in minutes, before a failed connection may be
+tried again.
+(This restriction is in addition to any constraints imposed by the rest of the
+.I Time
+field.)
+By default, the retry time starts at 10 minutes and gradually increases
+at each failure, until after 26 tries
+.I uucico
+gives up completely (MAX RETRIES). If the retry time is too small,
+.I uucico
+may run into MAX RETRIES too soon.
+.TP
+.BI $ protocols
+A list of protocol character names to be used at this time.
+(Presumably a sub-set of those available).
+.TP
+.BI @ pkt_size
+The packet size to be used on this circuit
+[g-protocol default 64].
+.TP
+.BI * windows
+The number of packet windows to be used on this circuit
+[g-protocol default 7].
+.RE
+.PP
+.I Caller
+is the type of device used:
+.RS 2
+.TP "\w'\fBMICOM\fPX'u"
+.B ACU
+Automatic call unit or auto-dialing modem such as the Hayes
+Smartmodem 1200 or Novation ``Smart Cat''. See
+.I L-devices
+for a list of supported modems.
+.TP
+.B DIR
+Direct connect; hardwired line (usually RS-232) to a remote system.
+.TP
+.B MICOM
+Micom Terminal Switch.
+.TP
+.B PAD
+X.25 PAD connection.
+.TP
+.B SYTEK
+Sytek high-speed dedicated modem port connection.
+.TP
+.B TCP
+Berkeley TCP/IP or 3Com UNET connection. These are mutually exclusive.
+TCP ports do
+.B not
+need entries in
+.I L-devices
+since all the necessary information is contained in
+.IR L.sys .
+If several alternate ports or network connections should be tried,
+use multiple
+\*(S3
+entries.
+.TP
+.B SLAVE
+This indicates that this entry applies to
+.I uucico
+when invoked in
+.I slave
+mode to receive a call.
+The
+.I class
+and
+.I device
+fields can be used to match particular speeds and devices.
+The
+.I time
+field can be used to restrict the grade of messages sent after turn-around to
+.I master
+mode, etc.
+.RE
+.PP
+.I Class
+is usually the speed (baud) of the device, typically 300, 1200, or
+2400 for ACU devices and 9600 for direct lines.
+Valid values are device dependent, and are specified in the
+.I L\-devices
+file.
+.PP
+On some devices, the baud may be preceded by a
+non-numeric prefix.  This is used in
+.IR L\-devices
+to distinguish among devices that have identical
+.I Caller
+and baud, but yet are distinctly different. For example, 1200
+could refer to all Bell 212-compatible modems, V1200 to
+Racal-Vadic modems, and C1200 to CCITT modems, all at 1200 baud.
+.PP
+On TCP connections,
+.I Class
+is the port number (an integer number) or a port name from
+.I /etc/services
+that is used to make the connection. For standard Berkeley TCP/IP,
+\*(S5 normally uses port number 540.
+.PP
+.I Device/Phone_Number
+varies based on the
+.I Caller
+field.  For ACU devices, this is the phone number to dial.
+The number may include: digits
+.B 0
+through
+.BR 9 ;
+.B #
+and
+.B *
+for dialing those symbols on tone telephone lines;
+.B -
+(hyphen) to pause for a moment, typically two to four seconds;
+.B =
+(equal sign) to wait for a second dial tone (implemented as a pause on
+many modems). Other characters are modem dependent; generally
+standard telephone punctuation characters (such as the slash and
+parentheses) are ignored, although
+.I uucico
+does not guarantee this.
+.PP
+The phone number can be preceded by an alphabetic
+string; the string is indexed and converted through the
+.IR "L\-dialcodes" (5)
+file.
+.PP
+For DIR devices, the
+.I Device/Phone_Number
+field contains the name of the device in
+.I /dev
+that is used to make the connection. There must be a corresponding
+line in
+.I L\-devices
+with identical
+.IR Caller ,
+.IR Class ,
+and
+.I Device
+fields.
+.PP
+For TCP and other network devices,
+.I Device/Phone_Number
+holds the true network name of the remote system, which may be different
+from its \*(S5 name (although one would hope not).
+.PP
+.I Expect
+and
+.I Send
+refer to an arbitrarily long set of strings that
+alternately specify what to
+.I expect
+and what to
+.I send
+to login to the remote system once a physical connection has
+been established.  A complete set of expect/send strings is referred
+to as an
+.IR "expect/send script" .
+The same syntax is used in the
+.I L\-devices
+file to interact with the dialer prior to making a connection; there
+it is referred to as a
+.IR "chat script" .
+The complete format for one
+.I expect/send
+pair is:
+.PP
+.RS 4
+.nf
+\fIexpect\fP\fB-\fP\fItimeout\fP\fB-\fP\fIsend\fP\fB-\fP\fIexpect\fP\fB-\fP\fItimeout   send\fP
+.fi
+.RE
+.PP
+.I Expect
+and
+.I Send
+are character strings.
+.I Expect
+is compared against incoming text from the remote host;
+.I send
+is sent back when
+.I expect
+is matched.  By default, the
+.I send
+is followed by a `\er' (carriage return). If the
+.I expect
+string is not matched within
+.I timeout
+seconds (default 45), then it is assumed that the match failed.
+The `\fIexpect\fP\fB-\fP\fIsend\fP\fB-\fP\fIexpect\fP' notation
+provides a limited loop mechanism; if the first
+.I expect
+string fails to match, then the
+.I send
+string between the hyphens is transmitted, and
+.I uucico
+waits for the second
+.I expect
+string. This can be repeated indefinitely. When the last
+.I expect
+string fails,
+.I uucico
+hangs up and logs that the connection failed.
+.PP
+The timeout can (optionally) be specified by appending the parameter
+`\fB~\fP\fInn\fP' to the expect string, when \fInn\fR is the timeout
+time in seconds.
+.PP
+Backslash escapes that may be imbedded in the
+.I expect
+or
+.I send
+strings include:
+.PP
+.RS 2
+.PD 0
+.TP "\w'\fB\exxx\fPXX'u"
+.BI \eb
+Generate a 3/10 second BREAK.
+.TP
+.BI \eb n
+Where \fIn\fP is a single-digit number;
+generate an \fIn\fP/10 second BREAK.
+.TP
+.BI \ec
+Suppress the \er at the end of a \fIsend\fP string.
+.TP
+.BI \ed
+Delay; pause for 1 second.
+(\fISend\fR only.)
+.TP
+.BI \er
+Carriage Return.
+.TP
+.BI \es
+Space.
+.TP
+.BI \en
+Newline.
+.TP
+.BI \exxx
+Where \fIxxx\fP is an octal constant;
+denotes the corresponding ASCII character.
+.PD
+.RE
+.PP
+As a special case, an empty pair of double-quotes \fB""\fP in the
+.I expect
+string is interpreted as ``expect nothing''; that is, transmit
+the
+.I send
+string regardless of what is received. Empty double-quotes
+in the
+.I send
+string cause a lone `\er' (carriage return) to be sent.
+.PP
+One of the following keywords may be substituted for the
+.I send
+string:
+.PP
+.RS 2
+.PD 0
+.TP "\w'\s-1PAUSE\s0\fIn\fPXX'u"
+\s-1BREAK\s0
+Generate a 3/10 second \s-1BREAK\s0.
+.TP
+\s-1BREAK\s0\fIn\fP
+Generate an \fIn\fP/10 second \s-1BREAK\s0.
+.TP
+\s-1CR\s0
+Send a Carriage Return (same as "").
+.TP
+\s-1EOT\s0
+Send an End-Of-Transmission character, \s-1ASCII\s0 \e004.
+.TP
+\s-1\s0
+Note that this will cause most hosts to hang up.
+.TP
+\s-1NL\s0
+Send a Newline.
+.TP
+\s-1PAUSE\s0
+Pause for 3 seconds.
+.TP
+\s-1PAUSE\s0\fIn\fP
+Pause for \fIn\fR seconds.
+.TP
+\s-1P_ODD\s0
+Use odd parity on future send strings.
+.TP
+\s-1P_ONE\s0
+Use parity one on future send strings.
+.TP
+\s-1P_EVEN\s0
+Use even parity on future send strings. (Default)
+.TP
+\s-1P_ZERO\s0
+Use parity zero on future send strings.
+.TP
+\s-1P_HWFLOW_ON\s0
+Use RTS/CTS flow control in this session.  Note that this depends on
+a non-RS232 interpretation of the RTS pin, where it means "ready to
+recieve" rather than "request to send".  Telebit modems, among others,
+support this nonstandard interpretation.
+.TP
+\s-1P_HWFLOW_OFF\s0
+Turn off P_HWFLOW_ON.
+.TP
+\s-1P_MDMBUF_ON\s0
+Use modem-control (usually DCD/DTR) flow control in this session.
+.TP
+\s-1P_MDMBUF_OFF\s0
+Turn off P_MDMBUF_ON.
+.TP
+\s-1P_RTSCTS_ON\s0
+Use RTS/CTS handshaking in the way RS232 intended it to be used, which
+is to say, assert RTS and wait for CTS.
+.TP
+\s-1P_RTSCTS_OFF\s0
+Turn off P_RTSCTS_ON.
+.TP
+\s-1P_CLOCAL_ON\s0
+Ignore modem control signals.  You should do this before you expect or send
+any strings, if the line does not assert ``data carrier detect'' (\s-1DCD\s0).
+.TP
+\s-1P_CLOCAL_OFF\s0
+Respond to modem control signals (the default).  If you use P_CLOCAL_ON early
+in the chat script, and at a later point you have a reasonable expectation that
+``data carrier detect'' (\s-1DCD\s0) will have been asserted, you can and
+should turn \s-1CLOCAL\s0 back on so that
+.I uucico
+can detect a hangup if it occurs.
+.PD
+.RE
+.PP
+Finally, if the
+.I expect
+string consists of the keyword
+.BR ABORT ,
+then the string following is used to arm an abort trap. If that string
+is subsequently received any time prior to the completion of the entire
+.I expect/send
+script, then
+.I uucico
+will abort, just as if the
+script had timed out. This is useful for trapping error messages from
+port selectors or front-end processors such as ``Host Unavailable'' or
+``System is Down.''
+.PP
+For example:
+.PP
+.RS 4
+.ft CW
+.nf
+""  ""  ogin:--ogin:  nuucp  ssword:  ufeedme
+.fi
+.ft
+.RE
+.PP
+This is executed as, ``When the remote system answers,
+.I expect
+nothing.
+.I Send
+a carriage return.
+.I Expect
+the remote to transmit the string `ogin:'. If it doesn't
+within 45 seconds, send another carriage return.  When it finally does,
+.I send
+it the string `nuucp'.  Then
+.I expect
+the string `ssword:'; when that is received,
+.I send
+`ufeedme'.''
+.SH FILES
+/etc/uucp/L.sys
+.SH SEE ALSO
+.BR uucp (1),
+.BR uux (1),
+.BR L-devices (5),
+.BR services (5),
+.BR uucico (8)
+.SH BUGS
+`\s-1ABORT\s0' in the send/expect script is expressed
+.IR backwards ,
+that is, it should be written `\c
+.I expect
+.BR \s-1ABORT\s0 '
+but instead it is `\c
+.B \s-1ABORT\s0
+.IR expect '.
+.PP
+Several of the backslash escapes in the send/expect strings are confusing
+and/or different from those used by AT&T and Honey-Danber \*(S5.
+For example, `\eb' requests
+a \s-1BREAK\s0, while practically everywhere else `\eb' means backspace.
+`\et' for tab and `\ef' for formfeed are not implemented.
+`\es' is a kludge; it would be more sensible to be able to delimit strings
+with quotation marks.

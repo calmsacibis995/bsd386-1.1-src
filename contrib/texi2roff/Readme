@@ -1,0 +1,104 @@
+texi2roff - Texinfo to nroff/troff translator
+
+Copyright 1988, 1989, 1990  Beverly A. Erlebacher  (see copyright file)
+
+Notes for Release 2
+-------------------
+Thanks to everyone who wrote to me reporting new commands, problems or
+just sending friendly thank you notes!  Special thanks to Len Tower and
+Bob Chassel at FSF for providing "inside info" on occasion, to David
+MacKenzie for interesting and useful correspondence and to James Clark
+(author of groff) for some extremely clever and knowledgable suggestions.
+
+Thanks also to Norman Wilson, Henry Spencer, Ian Darwin and Geoff Collyer
+for advising or commiserating with me about peculiarities of troff.
+
+Special thanks to Rayan Zachariassen for conning me into writing
+texi2roff in the first place.  By distributing and supporting this
+program I've come to feel part of a very interesting global community.
+
+New Features in Release 2
+-------------------------
++  several dozen additional commands are supported, including the ones
+   in the new elisp manual. 
++  tables of contents are generated. 
++  index entries are emitted and a script to generate indices is provided. 
++  file inclusion is supported (@include command)
++  appendices are "numbered" with letters. 
++  a font stack solves most nested font change problems
++  bug fixes, some prettier formatting, and somewhat tighter code.
+
+Problems in Release 2
+---------------------
+Texinfo remains a moving target.  I've given up trying to track all the
+subtleties and little elegances of formatting and am just trying to
+provide you with manuals that are convenient to read.  The new @def
+series of commands are particularly difficult to emulate - I've tried
+to make them readable although the formatting is sometimes unaesthetic.
+
+Please report any problems or "unrecognised command" messages to me. 
+I usually don't know that a new manual with new commands is out there
+unless someone tells me about it.
+
+Several people complained about the line \input texinfo appearing on
+the title page.  This is the directive to TeX to load the Texinfo
+macros.  If it bothers you, delete it from the input file, or pipe the
+input through sed. e.g.:
+
+	sed '/\\input texinfo/d' | texi2roff ....
+
+Going with the Flow - Onward into the Future - Self Help Guide
+--------------------------------------------------------------
+It's quite easy to add new commands yourself.  Find a command that is
+syntactically similar to the new one and add the new command to the
+tables in a similar way.  This assumes you can figure out what the new
+command is supposed to be doing! texi2roff is table-driven, and the *.c
+files total less than 850 lines.  I added the new commands to this release
+without changing any of the .c files - I only modified translate.c for
+the two newly supported command types INDEX and INCLUDE. These commands
+were formerly discarded. If you add new commands yourself, please report
+them to me anyway so other people can benefit.
+
+Usefulness
+----------
+I almost never print anything.  I find texi2roff useful for browsing
+GNU documentation in a pipeline texi2roff | nroff | pager.  I like to
+use the program 'less' for a pager since it allows string searches and
+scrolls both backward and forward.  I'm mentioning this here because
+this use seems not to occur to people - some are surprised and pleased
+when I tell them about it.
+
+There will soon be a standalone info file reader available from FSF.
+In the interim texi2roff can be used this way.
+
+Portability
+-----------
+Texi2roff was tested on a variety of machines and environments.  It
+even runs under ms-dos!  There is a -DBSD directive in the program
+which only controls which string header to #include and which of
+strchr() or index() is used.
+
+Please report any portability (and other) problems you encounter.
+
+I'd like to thank the beta testers of version 1.0 and the new ones of
+version 2.0: Jim Ingram, Marty, Richard Murphey, Scott Garfinkle and
+especially Bob Willcox.  Had this small group of the many I sent source
+to not responded, I would have had to conclude that texi2roff was
+either incomprehensible or perfect.
+
+Texinfo, LaTeX, TeX, troff, texi2roff...
+----------------------------------------
+Texi2roff translates Texinfo documents, *NOT* TeX or LaTeX documents.
+Not all GNU documentation uses Texinfo, although most of the recent
+material does.  Texinfo commands all start with @ while LaTeX and TeX
+commands start with \.  Several people have asked me whether programs
+exist to convert TeX and LaTeX documents to troff.  I don't know of
+any.  If I were to write one, I think I would first write a customised
+macro package for troff that a texi2roff-like program would translate to.
+
+If someone would like to collaborate on such a project, please contact me.
+
+Beverly Erlebacher      ...uunet!utai!erlebach  erlebach@cs.toronto.edu
+8 Roblocke Ave.
+Toronto, Ontario, Canada  M6G 3R7
+

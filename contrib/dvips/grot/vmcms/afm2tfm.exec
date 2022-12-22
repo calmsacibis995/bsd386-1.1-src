@@ -1,0 +1,55 @@
+/* AFM2TFM.: runs AFM2TFM ---------------------------------------------*/
+/*                                        Alessio Guglielmi 11/17/1991 */
+/*                                        ALESSIO @IPISNSIB.BITNET     */
+/*                                        version 1.1                  */
+/*                                        Revised by J. Hafner         */
+/*                                        (hafner@almaden.bitnet)      */
+/* required file(s): Edclink  Loadlib                                  */
+/*                   Ibmlib   Txtlib                                   */
+/* format:                                                             */
+/*  +------------+--------------------------------------------------+  */
+/*  | AFM2TFM    | fontname options                                 |  */
+/*  +------------+--------------------------------------------------+  */
+/* note: See the DVIPS manual for the correct syntax.                  */
+/*---------------------------------------------------------------------*/
+Address COMMAND
+Parse Arg args
+If args="" | args="?" Then Signal show_header
+
+/* get current status of library settings */
+
+'QUERY TXTLIB (STACK'
+if queued() ^= 1 then signal Bug
+pull Mode Eq_sign Txtlibs
+if Txtlibs = 'NONE' then Txtlibs = ''
+
+'QUERY LOADLIB (STACK'
+pull Mode Eq_sign Loadlibs
+if Loadlibs = 'NONE' then Loadlibs = ''
+
+'DROPBUF';
+
+/* Establish environment for afm2tfm */
+
+'GLOBAL TXTLIB IBMLIB'
+'GLOBAL LOADLIB EDCLINK'
+
+/* run the program */
+'AFM2TFM' args
+
+/* Restore old libraries */
+
+'GLOBAL TXTLIB' Txtlibs
+'GLOBAL LOADLIB' Loadlibs
+
+Exit Rc
+
+show_header:
+   index=1
+   line=Sourceline(index)
+   Do While Substr(line,1,2)="/*"
+      Say line
+      index=index+1
+      line=Sourceline(index)
+      End
+   Exit

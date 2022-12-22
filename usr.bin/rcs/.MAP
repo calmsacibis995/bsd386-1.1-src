@@ -1,0 +1,17 @@
+D CI                                	ci
+D CO                                	co
+F COPYING.;1                        	COPYING
+D DOC                               	doc
+D GROT                              	grot
+D IDENT                             	ident
+D LIB                               	lib
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.GNU;1                    	Makefile.gnu
+D MERGE                             	merge
+D RCS                               	rcs
+D RCSCLEAN                          	rcsclean
+D RCSDIFF                           	rcsdiff
+D RCSFREEZ                          	rcsfreeze
+D RCSMERGE                          	rcsmerge
+F README.GNU;1                      	README.gnu
+D RLOG                              	rlog

@@ -1,0 +1,76 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.class2,v 1.1.1.1 1994/01/14 23:09:38 torek Exp $
+#
+# Generic Class 2 modem configuration.
+#
+# EDIT THIS CONFIGURATION TO REFLECT YOUR SETUP
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log server-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# machine's are already too loud
+RingsBeforeAnswer:	1		# answer on first ring
+#
+# Modem-related stuff: should reflect modem command interface
+# and hardware connection/cabling (e.g. flow control).
+#
+ModemType:		Class2		# use this to supply a hint
+ModemRate:		19200		# max rate for DCE-DTE communication
+ModemFlow:		xonxoff		# XON/XOFF flow control assumed
+ModemSetupDTRCmd:	&D2		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+#GettyArgs:		"-h %l dx_%s"	# requires modem to auto-detect fax/data
+#
+# We normally append the "@" symbol to the dial string so that
+# the modem will wait 5 seconds before attempting to connect
+# and return result codes that distinguish between no carrier
+# and no answer.  This makes it possible to avoid problems with
+# repeatedly dialing a number that doesn't have a fax machine
+# (kudos to Stuart Lynne for this trick.)
+#
+# NB: If you need to prefix phone numbers to get through a PBX,
+#     put it in the ModemDialCmd; e.g. "DT9%s@".
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence
+#
+# Other possible configuration stuff.  The default strings are
+# shown below.  Only those that are different from the defaults
+# need to be included in the configuration file.
+#
+ModemResetCmds:		""		# stuff to do when modem is reset
+ModemAnswerCmd:		"A"		# use this to answer phone
+ModemFlowControlCmd:	&K4		# set desired flow control method
+ModemNoAutoAnswerCmd:	S0=0		# disable auto-answer
+#
+# Set modem speaker volume commands: OFF QUIET LOW MEDIUM HIGH.
+# Note that we both turn the speaker on/off and set volume.
+#
+ModemSetVolumeCmd:	"M0 L0M1 L1M1 L2M1 L3M1"
+ModemEchoOffCmd:	E0		# disable command echo
+ModemVerboseResultsCmd:	V1		# enable verbose command results
+ModemResultCodesCmd:	Q0		# enable result codes
+ModemOnHookCmd:		H0		# place phone on hook (hangup)
+ModemSoftResetCmd:	Z		# do soft reset of modem
+ModemWaitTimeCmd:	S7=30		# wait 30 seconds for carrier
+ModemCommaPauseTimeCmd:	S8=2		# comma pause time is 2 seconds
+ModemRecvFillOrder:	LSB2MSB		# bit order of received facsimile
+ModemSendFillOrder:	LSB2MSB		# bit order modem expects for transmit
+#
+# Configuration parameters for Class 2 modems.
+#
+Class2BORCmd:		BOR=0		# bit order for phase B/C/D (direct)
+#
+# If Class2RecvDataTrigger is not set, then it is selected according
+# the modem model and manufacturer.  ZyXEL and Rockwell RC32ACL-based
+# modems use DC2.  All others are assumed to use DC1.
+#
+Class2RecvDataTrigger:	""		# character sent to modem to start recv
+Class2XmitWaitForXON:	no		# if true, wait for XON before send

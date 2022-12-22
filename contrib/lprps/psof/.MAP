@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/lprps/psof
+F PSOF.8;1                          	psof.8
+F PSOF.C;1                          	psof.c
+F TAGS.;1                           	tags

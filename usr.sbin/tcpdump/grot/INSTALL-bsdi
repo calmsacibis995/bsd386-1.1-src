@@ -1,0 +1,63 @@
+(1) backup original files
+
+	# mv /sys/net/bpf.c /sys/net/bpf.c.dist
+	# mv /sys/net/bpf.h /sys/net/bpf.h.dist
+	# mv /sys/net/bpf_filter.c /sys/net/bpf_filter.c.dist
+	# mv /sys/net/bpfdesc.h /sys/net/bpfdesc.h.dist
+	# mv /sys/net/slcompress.c /sys/net/slcompress.c.dist
+	# mv /sys/net/slcompress.h /sys/net/slcompress.h.dist
+	# mv /usr/include/net/bpf_filter.c /usr/include/net/bpf_filter.c.dist
+	# mv /usr/include/net/bpfdesc.h /usr/include/net/bpfdesc.h.dist
+	# mv /usr/include/net/slcompress.h /usr/include/net/slcompress.h.dist
+	# mv /usr/include/net/if_slvar.h /usr/include/net/if_slvar.h.dist
+
+(2) copy new files into /sys/net and /usr/include/net
+
+	# cp tcpdump-2.1.1/bpf/net/bpf.c /sys/net
+	# cp tcpdump-2.1.1/bpf/net/bpf.h /sys/net
+	# cp tcpdump-2.1.1/bpf/net/bpf.h /usr/include/net
+	# cp tcpdump-2.1.1/bpf/net/bpf_filter.c /sys/net
+	# cp tcpdump-2.1.1/bpf/net/bpfdesc.h /sys/net
+	# cp tcpdump-2.1.1/bpf/net/bpfdesc.h /usr/include/net
+	# cp slip/slip.h /sys/net
+	# cp slip/slip.h /usr/include/net
+	# cp slip/slcompress.c /sys/net
+	# cp slip/slcompress.h /sys/net
+	# cp slip/slcompress.h /usr/include/net
+
+(3) patch to /sys/net/if_loop.c
+
+	# patch -d /sys/net < tcpdump-2.2.1/bpf/net/if_loop.c-bsdreno-patch
+
+(4) patch to /sys/net/if_sl.c and /sys/net/if_slvar.h
+
+	# patch -d /sys/net < slip/slip.patch
+	# cp /sys/if_slvar.h /usr/include/net
+
+(5) rebuild kernel and reboot
+
+	# cd /sys/i386/conf
+	# config YOUR-CONFIG
+	# cd /sys/compile/YOUR-CONFIG
+	# make depend
+	# make
+	# cp /bsd /bsd.bak
+	# cp bsd /
+	# sync;sync;sync;sync
+	# reboot
+
+(6) make tcpdump-2.1.1 and install
+
+	# cd tcpdump-2.1.1
+	# make
+	# make install
+
+Now you can monitoring loopback interface(lo0) and slip interface(sl0).
+
+Enjoy!
+
+-- toku --
+
+Yoshitaka Tokugawa              Internet: toku@dit.co.jp
+dit Co., Ltd.                   Yamada Bldg. 4F, 2-11-10 Iidabashi
+Phone +813-3239-7240            Chiyoda-ku, Tokyo, 102 Japan

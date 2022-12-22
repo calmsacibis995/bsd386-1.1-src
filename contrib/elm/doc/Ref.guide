@@ -1,0 +1,2533 @@
+.\" @(#)Id: Ref.guide,v 5.30 1993/09/19 23:43:35 syd Exp 
+.\"
+.\"  Reference guide to the Elm mail system.
+.\"  format with
+.\"      troff tmac.n Ref.guide > Ref.format
+.\"
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"
+.\"  $Log: Ref.guide,v $
+# Revision 1.2  1994/01/14  00:51:07  cp
+# 2.4.23
+#
+.\" Revision 5.30  1993/09/19  23:43:35  syd
+.\" Conform textencoding addition to style standard.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.29  1993/08/23  02:53:52  syd
+.\" Added some documentation for textencoding variable.
+.\" From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+.\"
+.\" Revision 5.28  1993/08/10  21:25:09  syd
+.\" Correct typo and use hard spaces within quotes in *clear-weed-list* note.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.27  1993/08/03  18:56:24  syd
+.\" Added text about how the weedout list works w.r.t From: and From_
+.\" From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+.\"
+.\" Revision 5.26  1993/07/20  02:43:05  syd
+.\" [ Patch description ]
+.\" Update the example elmrc and move a couple out of order variable
+.\" descriptions.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.25  1993/05/14  03:56:39  syd
+.\" Moved the new numeric variables to the Numeric Variables section and
+.\" applied the quoting/highlight policy to them.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.24  1993/05/08  20:08:43  syd
+.\" add sleepmsg parameter
+.\"
+.\" Revision 5.23  1993/05/08  20:00:22  syd
+.\" fix mail added >From lines
+.\" From: Syd
+.\"
+.\" Revision 5.22  1993/05/08  18:56:16  syd
+.\" created a new elmrc variable named "readmsginc".  This specifies an
+.\" increment by which the message count is updated.  If this variable is
+.\" set to, say, 25, then the message count will only be updated every 25
+.\" messages, displaying 0, 25, 50, 75, and so forth.  The default value
+.\" of 1 will cause Elm to behave exactly as it currently does in PL21.
+.\" From: Eric Peterson <epeterso@encore.com>
+.\"
+.\" Revision 5.21  1993/04/12  03:15:41  syd
+.\" These patches makes 'T' (since it was free) do a Tag and Move command in the
+.\" index and alias page, and in the builtin pager.
+.\" In the alias help in src/alias.c, there is a tolower done on the character
+.\" one wants help for.  This is clearly wrong.
+.\" From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+.\"
+.\" Revision 5.20  1993/04/12  01:44:20  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.19  1993/01/27  20:57:47  syd
+.\" Corrections to PL21 Alpha docs and consistent punctuation use in help files.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.18  1993/01/20  04:01:07  syd
+.\" Adds a new integer parameter builtinlines.
+.\" if (builtinlines < 0) and (the length of the message < LINES on
+.\"       screen + builtinlines) use internal.
+.\" if (builtinlines > 0) and (length of message < builtinlines)
+.\" 	use internal pager.
+.\" if (builtinlines = 0) or none of the above conditions hold, use the
+.\" external pager if defined.
+.\" From: "John P. Rouillard" <rouilj@ra.cs.umb.edu>
+.\"
+.\" Revision 5.17  1993/01/19  04:52:19  syd
+.\" 	add c)hange alias command to alias helpfile
+.\" 	if a deleted alias is changed, undelete it.  Also added the 'N'
+.\" flag to changed aliases to help remind the user.  Documented it.
+.\" Note:  if they mark the alias for deletion AFTER making the change it
+.\" WILL be deleted. (and marked accordingly)
+.\" 	modified alias mode title string to indicate when a resync was
+.\" needed.
+.\" 	allow editing alias file when none exist.
+.\" 	Now aliases are check for illegal characters (and WS) and
+.\" addresses are check for illegal WS when they are being entered.  If
+.\" anything illegal is found and message is printed and they keep entering
+.\" the item until they get it right.
+.\" 	I fixed a couple of places where int should be long to match
+.\" the declared type of alias_rec.length
+.\" From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+.\"
+.\" Revision 5.16  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.15  1992/12/20  05:22:13  syd
+.\" Fix formatting and typograpical problems
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.14  1992/12/20  05:06:19  syd
+.\" Here are the doc changes for my additions to the alias system and
+.\" the new switches to listalias.
+.\" From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+.\"
+.\" Revision 5.13  1992/12/12  01:27:41  syd
+.\" Make verb and pronoun agree.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.12  1992/12/07  02:41:21  syd
+.\" This implements the use of SIGUSR1 and SIGUSR2 as discussed on the
+.\" mailing list recently, and adds them to the documentation.
+.\" From: scs@lokkur.dexter.mi.us (Steve Simmons)
+.\"
+.\" Revision 5.11  1992/11/07  19:37:21  syd
+.\" Enhanced printing support.  Added "-I" to readmsg to
+.\" suppress spurious diagnostic messages.
+.\" From: chip@chinacat.unicom.com (Chip Rosenthal)
+.\"
+.\" Revision 5.10  1992/11/07  16:31:15  syd
+.\" another typo (2.4.6 Ref.guide)
+.\" From: David.W.Tamkin@gagme.chi.il.us (David W. Tamkin)
+.\"
+.\" Revision 5.9  1992/10/30  20:56:37  syd
+.\" Things I found in doc/Ref.guide looking over patches 4 & 5:
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.8  1992/10/24  13:53:16  syd
+.\" I think all these are typos
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.7  1992/10/24  13:44:41  syd
+.\" There is now an additional elmrc option "displaycharset", which
+.\" sets the charset supported on your terminal. This is to prevent
+.\" elm from calling out to metamail too often.
+.\" Plus a slight documentation update for MIME composition (added examples)
+.\" From: Klaus Steinberger <Klaus.Steinberger@Physik.Uni-Muenchen.DE>
+.\"
+.\" Revision 5.6  1992/10/24  13:25:41  syd
+.\" In our global elm.rc I keep the four options as below
+.\"
+.\" 	confirmappend = OFF	Don't confirm every append to any file.
+.\" 	confirmcreate = ON	Confirm creation of every new file.
+.\" 	confirmfiles = ON	Confirm append to non folder files though.
+.\" 	confirmfolders = ON	In case someone does not want to be asked
+.\" 				every time when creating a new file try
+.\" 				to confirm creation of folders though.
+.\" From: Jukka Ukkonen <ukkonen@csc.fi>
+.\"
+.\" Revision 5.5  1992/10/17  22:58:57  syd
+.\" patch to make elm use (or in my case, not use) termcap/terminfo ti/te.
+.\" From: Graham Hudspith <gwh@inmos.co.uk>
+.\"
+.\" Revision 5.4  1992/10/17  22:01:01  syd
+.\" corrected typos
+.\" From: David.W.Tamkin@gagme.chi.il.us (David W. Tamkin)
+.\"
+.\" Revision 5.3  1992/10/11  01:33:36  syd
+.\" fixed a bug in the .lp macro in doc/tmac.n.  The lp macros is always
+.\" called with a unit specified for the second argument, however, the
+.\" macro added a "n" unit specifier to that argument.  The following patch
+.\" fixes this problem.
+.\"
+.\" The various .guide books use the troff .tl macro liberally, but often the
+.\" extra ' characters needed at the end of the lines to explicitly specify
+.\" the trailing nulls fields were left off.  The following patch fixes the
+.\" erroneous lines.
+.\" From: Larry Philps <larryp@sco.COM>
+.\"
+.\" Revision 5.2  1992/10/04  01:15:43  syd
+.\" Emphasize that hostdomain, hostname and hostfullname must all be specified
+.\" if one is specified in elmrc file.
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.\"
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 0
+.lg 0
+.nf
+.na
+.rs
+.za
+.sv |3.0i
+.ce 99
+.ps 20
+.ss 18
+.vs 12
+\f3The Elm Reference Guide\f1
+.sp 4
+.ps 12
+.ss 14
+.vs 14
+\f2A comprehensive list of all commands,
+options and such to the \f3Elm\fP mail system\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp |9.0i
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.fi
+.ad
+.bp 1
+.sv 5v
+.ce 99
+.ps 14
+.vs 16
+\f3The Elm Reference Guide\f1
+.ds h0 "Elm Reference Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+.hn 1 Introduction
+
+There are many parts to a complex software system and \f3The Elm
+Mail System\f1
+is no different.  This document describes fully all the options
+available in the mailer, including the command line options,
+the commands (in considerably more detail than
+in \f2The Elm Users Guide\f1) and
+the \f2.elm/elmrc\f1 file.
+
+To be more explicit, this document covers:
+a discussion of
+the \f2.elm/elmrc\f1 file,
+command line options of Elm,
+outgoing mail processing,
+responses of various commands,
+mail archive folders,
+the Alias system,
+system aliases etc,
+more on the Elm utilities,
+and a section for expert mail users.
+
+Without any further ado, then, let's get this show on the road!!
+.sp
+.ne 8	\" footnote for UNIX forces text to next page but leaves footnote & hdr
+.hn 1 "The .elm/elmrc File"
+
+Elm, like lots of other software on the
+.ux
+system, has the ability to automatically read
+in a configuration file at each invocation.  The file must be
+called \f2elmrc\f1 and reside in the \f2.elm\f1 directory located
+in your home directory.  It can have any of the entries below, in any order.
+If you are missing any entries, or if you don't have an \f2.elm/elmrc\f1
+file, the default values (listed below for each option) or those values specified
+by your systems administrator in a system wide \f2elm.rc\f1 file are used.
+Note that those options below designated with \*q*\*u can be altered
+using Elm via the options screen, while those designated with a
+\*q+\*u can be placed
+on the options screen using the \f3configoptions\f1 variable.
+Also note that when you save a new \f2.elm/elmrc\f1 file via the \*q>\*u command
+of the options
+screen, it is (re)created including only those options that you
+have changed via your original \f2.elm/elmrc\f1 file or via the options screen.
+
+The format for each line of the \f2.elm/elmrc\f1 file is:
+.sp
+.nf
+.ft CW
+.zf
+.ti +.5i
+variable = value\f1
+.fi
+.sp
+.ne 8
+.hu String Variables
+
+.lp aliassortby* 1.0i
+You can have your alias display sorted by any of the following ways:
+.si 1.5i
+.lp alias 10n
+Sorts according to \f2aliasname\f1 for each address.
+.lp name 10n
+Sorts according to \f2username\f1 for each address.
+.lp text 10n
+Presents the aliases in the order found in the
+\f2aliases.text\f1 file.
+.ei
+.in 1.0i	\" ei doesn't restore margin
+.sp
+Each of these fields can also optionally be prepended with the
+sequence \*Qreverse\-\*U to reverse the order of the sort.  This doesn't
+imply anything about the order of the message in the \f2aliases.text\f1
+file itself and affects only their order on the display screen.  The
+default is \f2name\f1 order.
+
+.lp alteditor+ 1.0i
+The editor to use when mailing to a message that already includes text,
+as the builtin editor cannot handle that situation.  Messages that
+already include text are forwarded messages and replies where the
+original message is included in the reply.  This value is not needed
+if the \f3editor\f1 variable is not set to \*Qbuiltin\*U.
+
+.lp alternatives 1.0i
+This is a list of other machine/username combinations
+that you receive mail from (forwarded).  This is used
+when the \f2group reply\f1 feature is invoked to ensure that
+you don't send yourself a copy of the outbound message.
+The default is a list of no alternatives.
+
+.lp attribution 1.0i
+When you \f3forward\f1 a message or \f3reply\f1 to it, you can
+optionally attribute the quoted text to its original author.
+Defining the attribution string here allows you to indicate the
+form that the attribution should take.  The sequence \*Q%s\*U in the
+attribution is replaced by the name of the original author.
+Examples are:
+.sp
+.nf
+.in 1.5i
+.ft CW
+.zf
+attribution = According to %s:
+attribution = %s writes:
+.ft 1
+.in 0
+.fi
+
+.lp calendar* 1.0i
+This is used in conjunction with the \*q<\*u \f2scan message for
+calendar entries\f1 command, as the file to append any found
+calendar entries to.  The default is \f2calendar\f1 in your home directory.
+
+.lp charset 1.0i
+This is the character set used for messages with a
+\*QContent-Type: text/plain\*U header.
+The default depends on your site's installation, but is usually
+US-ASCII. \f3charset\f1 is only recognized if MIME
+(Multipurpose Internet Mail Extension)
+support is configured. You could set \f3charset\f1 to your preferred
+national character set, but be aware that there is currently no way
+to change it online. Also you must be aware that Elm probably needs
+\f2metamail\f1 to display messages with \f3charset\f1=US-ASCII if you change
+\f3charset\f1. Elm tries to know which character set could display US-ASCII
+too, but its list of compatible character sets is probably not complete.
+
+.lp compatcharsets 1.0i
+This is the list of character sets which are more or less a superset
+of US-ASCII. This enables Elm to display messages with \f3charset\f1=US-ASCII
+with the builtin pager, or your preferred pager, instead of calling
+\f2metamail\f1. \f3compatcharsets\f1 is only recognized if MIME support
+is configured. The ISO-8859-X character sets are defaulted.
+
+.lp configoptions 1.0i
+This is a list of letters that indicate which of the run-time
+configurable options you desire placed on the options screen (see
+section 7, \f3Commands\f1, for the \f3options\f1 command).  There
+are 22 run-time configurable options, but only room for 15 on a
+24-line screen.  The default list is \f2^_cdefsopyv_am_un\f1.  Two
+additional characters can be specified for formatting.  Those are \*q_\*u, which
+adds a blank line, and \*q^\*u, which places the title message on that line
+instead of the bottom of the screen.  The
+letters \*qi\*u, \*qq\*u, and \*qx\*u are reserved for \*Qreturn to
+index\*U, \*Qquit\*U,
+and \*Qexit\*U, respectively, and are not listed as part of the
+\f3configoptions\f1
+list.  The options controlled by each letter are:
+.sp
+.in 1.5i
+.ta 0.5i
+a	A)rrow cursor \f2(arrow)\f1
+.br
+b	B)order on copy \f2(prefix)\f1
+.br
+c	C)alendar file \f2(calendar)\f1
+.br
+d	D)isplay mail using \f2(pager)\f1
+.br
+e	E)ditor (primary) \f2(editor)\f1
+.br
+f	F)older directory \f2(maildir)\f1
+.br
+h	H)old sent message \f2(copy)\f1
+.br
+j	J) reply editor \f2(alteditor)\f1
+.br
+k	K) pause after pager \f2(promptafter)\f1
+.br
+l	A(l)ias Sorting \f2(aliassortby)\f1
+.br
+m	M)enu display \f2(menu)\f1
+.br
+n	N)ames only \f2(names)\f1
+.br
+o	O)utbound mail saved \f2(sentmail)\f1
+.br
+p	P)rint mail using \f2(print)\f1
+.br
+r	R)eply copies msg \f2(autocopy)\f1
+.br
+s	S)orting criteria \f2(sortby)\f1
+.br
+t	T)ext editor (~e) \f2(easyeditor)\f1
+.br
+u	U)ser level \f2(userlevel)\f1
+.br
+v	V)isual Editor (~v) \f2(visualeditor)\f1
+.br
+w	W)ant Cc: prompt \f2(askcc)\f1
+.br
+y	Y)our full name \f2(fullname)\f1
+.br
+z	Z) signature dashes \f2(sigdashes)\f1
+
+.lp displaycharset 1.0i
+This is the character set which is supported by your terminal.
+The default depends on your site's installation but is usually
+US-ASCII. For sites with
+.xw
+support, ISO-8859-1
+is a reasonable default.
+
+.lp easyeditor+ 1.0i
+The editor to be used by the \*Q~e\*U escape within the builtin editor.
+The default value is the value of the configuration variable \f2emacs_editor\f1
+(see \f2The Elm Configuration Guide\f1).
+
+.lp editor* 1.0i
+The editor to use when typing in new mail.  If you select
+\*Qnone\*U or \*Qbuiltin\*U you'll get a Berkeley Mail style
+interface for all mail that doesn't already have text
+in the buffer (e.g. a reply, mail with a \*Qsignature\*U, etc.)
+There are two possible formats for it, either a command that
+can have a filename appended to it before being
+executed, or a string that contains the metasequence \*Q%s\*U
+which is replaced by the name of the file before being
+executed.  Examples of each are:
+
+.nf
+.in 1.5i
+.ft CW
+.zf
+editor = emacs \-nw
+editor = emacs \-nw %s \-f text-mode \-f turn-on-auto-fill
+.ft 1
+.in 1.0i
+.fi
+
+The default is to use the value of $EDITOR in your
+current environment, and if not set, an editor selected by
+the person who configured Elm for your system.
+
+.lp escape 1.0i
+The character used with the builtin editor (see \f3editor\f1 above)
+to escape from text entry to input a command.
+When a line begins with this character, the builtin editor interprets it
+as a command rather than as text to add.
+The default is \*q~\*u (tilde).
+
+.lp fullname* 1.0i
+This is the name the mailer uses in messages
+you send.  It is highly recommended that you use your
+full name and nothing strange or unusual, as that can
+appear extremely rude to people receiving your mail.
+The default is to use the \*Qgcos\*U field from the \f2/etc/passwd\f1 file
+on systems that use this field to store full names, and to use the contents
+of the \f2.\|fullname\f1 file in your home directory on other systems.
+
+.lp hostdomain 1.0i
+This is the domain name of your system.
+This variable is only valid in the system-wide \f2elm.rc\f1 file.
+It is only necessary if the value returned by
+the \f2getdomainname\f1 system call is incorrect for your mail use or
+if that system call is unavailable on your system.
+If this variable is specified, then the \f3hostfullname\f1 variable must
+also be specified.
+
+.lp hostfullname 1.0i
+This is the \*Qfully qualified domain name\*U of your system.
+This variable is only valid in the system-wide \f2elm.rc\f1 file.
+It is only necessary if the value returned by the \f2getdomainname\f1 and
+\f2gethostname\f1 system calls are incorrect for your mail use or if those
+system calls are unavailable on your system.  It is required if either
+the \f3hostdomain\f1 or the \f3hostname\f1 variables are used within the
+system-wide \f2elm.rc\f1 file.
+
+.lp hostname 1.0i
+This is the local node-name of your system.
+This variable is only valid in the system wide \f2elm.rc\f1 file.
+It is only necessary if the value returned by
+the \f2gethostname\f1 system call is incorrect for your mail use or if
+that system call is unavailable on your system.
+If this variable is specified, then the \f3hostfullname\f1 variable must
+also be specified.
+
+.lp localsignature 1.0i
+See \f3signature\f1.
+
+.lp maildir* 1.0i
+This is your folder directory.
+When you specify a folder name beginning with the \*q=\*u metacharacter,\s-2\u1\d\s0
+.fn
+1. Note that \*q%\*u and \*q+\*u are synonymous with \*q=\*u throughout Elm.
+.ef
+it stands for this directory name.  That is,
+if you save a message to folder \f2=stuff\f1
+the \*q=\*u is expanded to the current value of \f3maildir\f1.
+The default is the directory \f2Mail\fP in your home directory.
+
+.lp pager* 1.0i
+This is the program to be used to display messages.  You can
+specify \*Qbuiltin\*U or the name of any standard pager.  If you
+use \*Qbuiltin+\*U, each screenfull of displayed message is
+\*Qpaged\*U from the top of your screen with a title line,
+while \*Qbuiltin\*U simply \*Qscrolls up\*U subsequent screenfulls once
+it has \*Qpaged\*U the first screenfull.
+The default is to use the value of $PAGER in your
+current environment, and if not set, a pager selected by
+the person who configured Elm for your system, quite likely
+\*Qbuiltin+\*U.
+
+.lp precedences 1.0i
+Some mail transports look at a \*QPrecedence\*U header in outbound
+mail messages to determine how to deliver the message.  The Elm header
+editing menu allows you to place a precedence on your mail messages.
+By default, Elm allows any value to be specified as the message
+precedence.  This option may be used to restrict the allowed precedences
+to a particular list.  For example, you might say:
+
+.nf
+.in 1.5i
+.ft CW
+.zf
+precedences = special-delivery air-mail first-class bulk junk
+.ft 1
+.in 1.0i
+.fi
+
+Exactly what precedences your mail transport supports and what they
+do (if anything at all!) will vary from site to site.
+
+The distinction between the \*QPrecedence\*U and \*QPriority\*U headers
+is subtle:  the precedence tells the mail system how to handle the
+message and the priority tells the recipient how important the message
+is.  Although these are quite different things, they are often related.
+This option will also allow you to associate message priorities with
+precedences.  For example, you might say:
+
+.nf
+.in 1.5i
+.ft CW
+.zf
+precedences = special-delivery:urgent air-mail:urgent first-class bulk junk
+.ft 1
+.in 1.0i
+.fi
+
+In this example, if you select an \*Qair-mail\*U precedence then the
+message priority defaults to \*Qurgent\*U.  If you select a
+\*Qfirst-class\*U precedence then no special priority is implied.  The
+priorities given in this field are used only if you have not already
+assigned a priority to your message, and even if one is assigned via
+\f3precedences\f1 you can always go back and change it.
+
+.lp prefix+ 1.0i
+When you \f3reply\f1 to a message or \f3forward\f1 a message to another person,
+you can optionally include the original message.  Defining the
+prefix value here allows you to indicate what the prefix of
+each included line should be.  The default is \*Q>\ \*U (specified as
+\*Q>_\*U \(em underscore is interpreted as space) and is
+standard in the
+.ux
+community.
+
+.lp print* 1.0i
+This is the command used for printing mail messages.  There are two
+possible formats for the command, depending on whether or not the command
+contains the sequence \*Q%s\*U.  In the first form the mail message(s) to
+be printed are piped to the specified command.  An example of this
+form is:
+.sp
+.in 1.5i
+.ft CW
+.zf
+print = print \-formfeed
+.ft 1
+.in 1.0i
+.sp
+In the second form the mail message(s) to be printed are dumped into
+a temporary file, and a \*Q%s\*U in the command string is replaced with
+the name of the temporary file.  An example of this form is:
+.sp
+.in 1.5i
+.ft CW
+.zf
+print = pr %s | lpr
+.ft 1
+.in 1.0i
+.sp
+Another significant difference between the two forms is that in the
+second form all output from the command is discarded, but in the first
+form all output is displayed on the terminal.  For
+example, if you wish to use the \*Qpass-through\*U feature to print on
+the \*Qaux\*U port of a terminal, you must use the first form.  The second
+form is provided for backward compatibility with old versions of Elm.
+It is depreciated and might be removed in a future release.  The
+default is set by the person who configured Elm for your system.
+
+.lp receivedmail 1.0i
+This is the folder to which incoming mail is saved after you've read it.
+When you answer \f2no\f1 to \*QKeep unread messages in
+your incoming mailbox?\*U or \f2yes\f1 to \*QStore read
+messages in your \*Qreceived\*U folder?\*U, this is where the messages go.
+The default is \*Q=received\*U, that is,
+a folder called \f2received\f1 in your \f3maildir\f1 directory.
+
+.lp remotesignature 1.0i
+See \f3signature\f1.
+
+.lp sentmail* 1.0i
+This is the folder to which a copy of outgoing mail is automatically
+saved.  This is only done if the \f3copy\f1 boolean variable is set
+ON.  Also note that if the \f3savename\f1 boolean variable is enabled
+then this folder may be ignored since the program may save to a folder
+that has the same name as the login of the person you're sending to.
+Whether or not a copy is saved, and to what folder, can be changed just
+prior to sending a message (see the \f3copy\f1 command of the mail
+command sub-menu in section 7, \f3Commands\f1).  The default is
+\*Q=sent\*U, that is, a folder called \f2sent\f1 in your \f3maildir\f1
+directory.
+
+.lp shell 1.0i
+This defines the shell to use when doing \*q!\*u escapes and
+such.  The default is to use the value of $SHELL in your
+current environment, and if not set, a shell selected by
+the person who configured Elm for your system.
+Note that the \*q!\*u escape is optional and may not be enabled in your
+version of Elm.
+
+.lp signature 1.0i
+This defines the file that is automatically appended to all
+outbound mail before the editor is invoked.  Furthermore,
+if you'd like a different signature file for \*Qlocal\*U
+mail and \*Qremote\*U mail (remote being via other hosts),
+you can alternatively define two variables, \f3localsignature\f1
+and \f3remotesignature\f1, to have the same functionality.
+The default is to not have signatures appended to your messages.
+
+.lp sortby* 1.0i
+You can have your folder sorted in any of the following ways:
+.si 1.5i
+.lp from 10n
+Sorts according to whom each message is \f2from\f1.
+.lp lines 10n
+Sorts \f2shortest\f1 to \f2longest\f1 by message.
+.lp mailbox 10n
+Leaves the messages in the order found in the folder.
+.lp received 10n
+Sorts \f2least recently received\f1 to \f2most recently received\f1.
+.lp sent 10n
+Sorts \f2least recently sent\f1 to \f2most recently sent\f1.
+.lp status 10n
+Sorts by \f2priority\f1, \f2action\f1, \f2new\f1, \f2tagged\f1, then
+\f2deleted\f1.
+.lp subject 10n
+Sorts according to the \f2subject\f1 of each message.
+.ei
+.in 1.0i	\" ei doesn't restore margin
+.sp
+Each of these fields can optionally be prepended with the
+sequence \*Qreverse\-\*U to reverse the order of the sort.  This doesn't
+imply anything about the order of the messages in the folder
+itself and affects only their order on the index screen.  The
+default is \f2mailbox\f1 order.
+
+.lp textencoding 1.0i
+This is the value for the
+\*QContent-Transfer-Encoding:\*U header,
+which is used to tell MIME
+(Multipurpose Internet Mail Extension) capable mail readers how they
+should decode your mail.
+The default depends on your site's installation, but is usually
+\f27bit\f1. Other possible values are \f28bit\f1, \f2base64\f1 or
+\f2quoted-printable\f1 (see RFC1341 for details).
+\f27bit\f1 and \f28bit\f1 implies no encoding.
+.sp
+Note that Elm doesn't look at this value; it is just placed in your
+outgoing mail headers.
+If you put \f2base64\f1 or \f2quoted-printable\f1 as the value,
+Elm will NOT turn your message into a \f2base64\f1/\f2quoted-printable\f1
+encoded message.  You will have to do that
+yourself with whatever means are available in your MIME capable mail reader.
+Metamail, for instance, has a program called mimencode that you can use.
+
+.lp tmpdir 1.0i
+Use this if you want to define your own directory for the temporary
+file Elm creates while running.  This is only necessary if using the
+system temporary directory could cause problems, such as when not all
+NFS clients mount the common temporary directory, or when the temporary
+directory is prone to being cleared periodically.  The default entry
+of the system temporary directory is normally OK.
+
+.lp visualeditor+ 1.0i
+The editor to be used by the \*Q~v\*U escape within the builtin editor.
+The default value is the value of the configuration variable \f2vi_editor\f1
+(see \f2The Elm Configuration Guide\f1).
+
+.lp weedout 1.0i
+When specifying this option, you can list headers that
+you \f2don't\f1 want to see when you are displaying a message.
+This list can continue for as many lines as desired, as
+long as the continued lines all have leading indentation.
+All headers in this entry append to the default weedout list.
+There are two special header flags. The first, \*Q*clear-weed-list*\*U,
+clears the default list.  The second, \*Q*end-of-user-headers*\*U,
+terminates the entry, in case the following lines look like they
+might be more headers for the list.
+The default \f3weedout\f1 list includes the following header strings:
+.sp
+.in 1.5i
+.ft CW
+.zf
+.nf
+\&>From
+\&Apparently-To:
+\&Content-Length
+\&Content-Transfer-Encoding
+\&Content-Type:
+\&From
+\&In-Reply-To:
+\&MIME-Version
+\&Message-Id:
+\&Newsgroups:
+\&Received:
+\&References:
+\&Status:
+\&X-Mailer:
+.ft 1
+.fi
+.sp
+.in 1.0i
+Note that the \*QFrom\*U entry weeds out both \*QFrom:\*U and the
+\*QFrom\ \*U headers. If you just want to weed out \*QFrom\ \*U, for example,
+put a \*Q*clear-weed-list*\*U at the start of the list followed by \*QFrom_\*U
+or \*QFrom\ \*U.
+.in 0
+.ne 8
+.hu Numeric Variables
+
+.lp bounceback 1.0i
+This is a hop count threshold value and allows you to
+set up the mailer so that when you send mail more than
+\f2n\f1 machines away, it'll automatically include a
+\*QCc:\*U to you through the remote machine.  In practice
+this should be very rarely used.  Note that this refuses to
+bounce mail off an Internet address.  The default is to
+have it set to zero, which disables the function.
+
+.lp builtinlines 1.0i
+This is used to determine if the builtin pager should be used on some
+messages even if you would usually use an external pager program.
+There are two ways of determining whether the builtin pager should be
+used. If you want any message that is shorter than \f2n\f1 lines to
+use the internal pager, set this variable to \f2n\f1.  If you want the
+builtin pager to be used if the message is \f2m\f1 lines shorter than
+the number of lines on your screen, set this variable to \f2\-m\f1.
+Setting this variable to zero will result in the message always being
+sent through your external pager.  This variable is used only if
+the pager is not set to the builtin pager.  The default is \-3.
+
+.lp readmsginc 1.0i
+This variable modifies the display of the message \*QReading in
+\f2foldername\f1, message: #\*U, which is displayed when reading a new
+folder.  The message count is normally updated as
+each message in the folder is read.  If you are on a slow terminal and are
+reading a folder with a large number of messages, the time it takes to
+redraw the message count can significantly exceed the time it takes to
+simply read the folder.
+.sp
+The \f3readmsginc\f1 variable controls the frequency with which the
+message count is updated.  If this parameter is set to 50, the message
+count will be updated after every 50 messages (i.e., at 50, 100, 150,
+and so forth).  The default value for this parameter is 1.  If a value
+of less than 1 is specified for this parameter, the value is ignored,
+and the default value is used instead.
+
+.lp sleepmsg 1.0i
+This variable modifies the time Elm waits after displaying a transient
+message before erasing it and continuing.  It can be set to zero to
+suppress the wait entirely.  It is in units of whole seconds.
+
+.lp timeout 1.0i
+On more advanced systems, it's nice to start up the
+mailer in a window and let it sit in background
+until new mail arrives (see \f2wnewmail\f1 for
+another window based program), at which point
+it can be brought up to the forefront of the system
+and read.  In this case, it would be quite convenient
+to have the mailer internally resynchronize every
+so often.  This option specifies the number of seconds that this occurs.
+.sp
+This is also useful for non-windowing terminals.  For example, you can
+leave Elm running at night (I usually do) and when you
+come in in the morning it'll be all ready to read your mail!
+.sp
+The default is a 300 second (5 minute) timeout period.
+
+.lp userlevel* 1.0i
+This is what the program uses to determine the relative level of
+sophistication of the user.  The values are \*q0\*u for a new user (the
+default), \*q1\*u for someone familiar with Elm,
+and \*q2\*u for experts.  Some advanced features are hidden from novice
+users, while experts get less verbose prompt messages.
+The default is \*q0\*u.
+.br
+.ne 8
+.hu Boolean Variables
+
+The value assigned to boolean variables can be \*QON\*U or \*QOFF\*U only.
+
+.lp alwaysdelete 1.0i
+Set ON to set the default answer to the \*QDelete messages?\*U prompt
+to \f2yes\f1 (see the \f3quit\f1 command in section 7, \f3Commands\f1,
+and the \f3ask\f1 variable below). This default answer also applies to
+deletions from the alias system.  The default for \f3alwaysdelete\f1 is
+OFF.
+
+.lp alwayskeep 1.0i
+Set ON to set the default answer to the \*QKeep unread mail in incoming
+mailbox?\*U prompt to \f2yes\f1.  However, if you set \f3alwaysstore\f1
+OFF or answer \f2no\fP to the \*QStore read mail in \*Qreceived\*U
+folder?\*U prompt, it is presumed that you also want to keep your
+unread mail in the incoming mailbox, so the value of \f3alwayskeep\f1
+is ignored in those cases. See the \f3quit\f1 command in section 7,
+\f3Commands\f1, and the \f3ask\f1 and \f3alwaysstore\f1 variables
+below for more details.  The default for \f3alwayskeep\f1 is ON.
+
+.lp alwaysstore 1.0i
+Set ON to set the default answer to the \*QStore read mail in
+\*Qreceived\*U folder?\*U prompt to \f2yes\f1 (see the \f3quit\f1
+command in section 7, \f3Commands\f1, and the \f3ask\f1 variable
+below).  The default for \f3alwaysstore\f1 is OFF.
+
+.lp arrow* 1.0i
+Sometimes you are forced to use a slow or \*Qdumb\*U terminal.  Set ON
+to make the current message pointer the \*Q\->\*U sequence rather than
+the inverse bar.  Note that this is overridden by the \*Q\-a\*U command
+line option (see section 3, \f3Command Line Options\f1).  The default
+is OFF.
+
+.lp ask 1.0i
+Set OFF to tell Elm that you'd rather not be asked \*QDelete
+messages?\*U and such each time you quit, resynchronize, change
+folders, or return from the alias system, but that it should just use
+the values of \f3alwaysdelete\f1, \f3alwaysstore\f1, and
+\f3alwayskeep\f1 without prompting.  Note that when you quit \f3Elm\fP,
+if you use \*qQ\*u instead of \*qq\*u, you will never be questioned,
+regardless of how you have \f3ask\f1 set.  See the \f3quit\f1 commands
+in section 7, \f3Commands\f1, and the \f3alwaysdelete\f1,
+\f3alwayskeep\f1, and \f3alwaysstore\f1 variables above for more
+details.  The default for \f3ask\f1 is ON.
+
+.lp askcc+ 1.0i
+Set OFF to allow sending mail without being presented the \*QCopies
+to:\*U prompt for each message. This still allows you to explicitly
+include addresses in the \*QCc:\*U list via either the header editor or
+\*Q~c\*U in the builtin editor (see section 8, \f3Using Elm with
+\*Qeditor = none\*U\f1).  The default is ON.
+
+.lp autocopy+ 1.0i
+Set ON for Elm to automatically copy the text of each message
+replied to into the edit buffer.  Otherwise you will be prompted as to
+whether you want the message included in your reply. See the
+\f3prefix\f1 variable under \f3String Variables\f1 in section 2 for how
+copied text is marked.  The default for \f3autocopy\f1 is OFF.
+
+.lp confirmappend 1.0i
+Set ON to make Elm ask for permission
+to append messages to the end of any file that already exists.
+Whether the file is a mail folder in the user's mail directory
+or an ordinary file makes no difference.
+The default is OFF.
+
+.lp confirmcreate 1.0i
+Set ON to make Elm ask for permission before it creates
+a new file to store messages in.
+It makes no difference whether the new file would be a mail
+folder in the user's mail directory or an ordinary file.
+The default is OFF.
+
+.lp confirmfiles 1.0i
+This allows you to have some last resort control over Elm when a
+message would be appended (by copy, save, or auto-cc) to an existing
+file which is not a folder in your mail directory (see the
+\f3maildir\f1 variable under \f3String Variables\f1 in section 2).  Set ON
+to make Elm ask for permission to append a message to the end of
+an ordinary file, otherwise it silently adds the message to the end of
+the specified file whether it is a folder or not.  The default is OFF.
+
+.lp confirmfolders 1.0i
+Set ON to make Elm ask before creating new mail folders in your
+mail directory (see the \f3maildir\f1 variable under \f3String
+Variables\f1 in section 2), otherwise it silently creates new mail folders
+whenever a copy of a message is going to be stored in a folder that
+does not already exist.  See the \f3copy\f1, \f3savename\f1, and
+\f3forcename\f1 variables below for additional information about
+copying messages.  The default for \f3confirmfolders\f1 is OFF.
+
+.lp copy+ 1.0i
+Set ON to have silent copies made of all outgoing mail.  Where the copy
+of the message is saved is determined by the \f3maildir\f1 and
+\f3sentmail\f1 string variables and the \f3savename\f1 and
+\f3forcename\f1 boolean variables.  Whether a copy is saved and to
+which folder can also be set prior to sending a message \(em see the
+\f3copy\f1 command of the mail command sub-menu in section 7,
+\f3Commands\f1, for details.  The default for \f3copy\f1 is OFF.
+
+.lp forcename 1.0i
+Set ON to force creation of folders for copies of outbound mail by the
+recipient name.  For complete details of how to enable automatic
+copying of outbound messages, see the \f3copy\f1 and \f3savename\f1
+boolean variables.  The default is OFF.
+
+.lp forms 1.0i
+Set ON to enable the generation of \*Qforms\*U type messages.  See the
+\f2Elm Forms Mode Guide\f1 for further information about mail forms.
+
+.lp keepempty 1.0i
+The mail system has a habit of deleting folders when you've removed
+everything from them.  Set ON to preserve empty folders as zero-length
+files.  Note that this option does not apply to your incoming mailbox.
+The default is OFF.
+
+.lp keypad 1.0i
+Set ON to indicate that you have an HP terminal and want the
+\f2<NEXT>\f1, \f2<PREV>\f1, \f2<HOME>\f1 and \f2<SHIFT-HOME>\f1 keys enabled.
+The default is OFF.
+
+.lp menu* 1.0i
+Set OFF to inhibit the menu display on all screen displays within
+Elm.  Note that this is overridden by the \*Q\-m\*U command line
+option (see section 3, \f3Command Line Options\f1).  The default is
+ON.
+
+.lp metoo 1.0i
+Set ON to get a copy of mail you send to a mailing list you are on,
+otherwise you do not get a copy of such messages.  The default is OFF.
+
+.lp movepage 1.0i
+Set ON to enable commands that move through the folder by pages (see
+the \*q+\*u, \*q\-\*u, \f2<right>\f1, and \f2<left>\f1 keys in section
+7, \f3Commands\f1) to move the current message pointer to the top of
+that page of messages.  Set OFF to not alter the current message
+pointer location when moving through pages.  The default is OFF.
+
+.lp names* 1.0i
+Set OFF to display the primary recipients' addresses on your screen
+with their full names when you send a message.  Set ON to display only
+the full names.  The default is ON.
+
+.lp noheader 1.0i
+Set ON to not include the headers of messages when copying a message
+into the edit buffer for replying or forwarding (see the \f3autocopy\f1
+variable above).  The default is ON.
+
+.lp pointnew 1.0i
+Set ON to cause the current message pointer to point to the first new
+message in your incoming mailbox when started, instead of at message #1
+of the index.  This has no effect for other folders since they are not
+expected to have \*Qnew\*U mail.  The default is ON.
+
+.lp promptafter+ 1.0i
+Set ON to display a command prompt rather than the index screen when
+exiting from an external pager.  This variable has no effect on the
+builtin pager.  See the \f3pager\f1 variable under \f3String Variables\f1
+in section 2 to specify which pager to use to read messages.
+
+If your external pager immediately exits when it reaches the end of the
+message, you should set \f3promptafter\f1 ON so that the last screen of
+the displayed message is not immediately replaced by the index screen.
+If your external pager doesn't exit until you command it to, you have a
+choice.  If you usually want to see the index screen before issuing a
+command, setting this variable OFF eliminates the extra keystroke
+needed to return to the index screen.  If you usually don't need to see
+the index screen before issuing the next command, setting it ON allows
+you to enter your next command without waiting for the index screen to
+be redrawn.  The default is ON.
+
+.lp resolve 1.0i
+Set ON to move the current message pointer to the next message on the
+index when a mail message is \*Qdealt with\*U through deleting,
+undeleting, saving, forwarding, etc. or set OFF to leave the current
+message pointer unchanged.  The default is ON.
+
+.lp savename 1.0i
+One of the problems with electronic mail systems is that one tends to
+get very large, one-dimensional (flat) files that contain lots of
+completely unrelated mail.  Elm can use a more intelligent
+algorithm:  for incoming mail, when you \f3save\f1 or \f3copy\f1 it
+(see section 7, \f3Commands\f1), the default folder is the login name
+of the person who sent you the message (changed by pressing anything
+other than \f2<return>\f1 of course).  Similarly, when sending mail,
+instead of just blindly saving it to the \f3sentmail\f1 folder,
+Elm can save it to a folder that is the login name of the
+recipient of the mail.\s-2\u2\d\s0
+.fn
+2. When sending to a group, it's saved to the login name of the first
+person in the list only.
+.ef
+Set \f3savename\f1 ON to enable this algorithm.
+
+If \f3forcename\f1 is OFF (see above), the copy is saved to that folder
+only if the folder already exists.  In practice, this means that
+important people that you communicate with (those that you tend to save
+mail from) have folders that are actually \f2a recorded log of the
+discussion in both directions\f1 and others (random mailings) are all
+stuffed in the \f3sentmail\f1 folder for easy perusal and removal (see
+the \f3sentmail\f1 variable under \f3String Variables\f1 in section
+2).  If you always want to save copies of outgoing messages in separate
+folders by recipient login name, you'll want to set \f3forcename\f1
+ON.
+
+The default for \f3savename\f1 is ON.
+
+.lp sigdashes+ 1.0i
+Set ON to tell Elm that you wish to follow the
+convention of prefixing your signature with \*Q\f2newline dash dash
+blank newline\f1\*U.  This is placed in your message before your
+signature file (see the \f3signature\f1, \f3localsignature\f1, and
+\f3remotesignature\f1 variables under \f3String Variables\f1 in section 2).
+If OFF, the signature file, if any, is placed at
+the end of the message without any prefix.  The default is ON.
+
+.lp softkeys 1.0i
+Set ON to tell Elm that you have an HP terminal with the
+HP 2622 function key protocol and that you'd like to have the function
+keys available while in the program.  The default is OFF.
+
+.lp titles 1.0i
+Set ON to have the first line of a message titled with:
+.sp
+.ft CW
+.zf
+.ps 9
+.nf
+.tl '           Message \f2N/M\fP from \f2username\fP''\f2date\fP at \f2time\f1      '
+.fi
+.ps 10
+.ft 1
+.sp
+where all the information is extracted from the message.
+This is especially useful if you weed out all the headers of each
+message with a large \f3weedout\f1 list (see the \f3weedout\f1 variable
+under \f3String Variables\f1 in section 2).
+The default is ON.
+
+.lp usetite 1.0i
+Set ON to enable use of the \f2termcap/terminfo\f1
+\f3ti/te\f1 capabilities.
+Many terminal emulators require it (not the least of which is the
+OpenLook \f2cmdtool\f1).
+Some terminal emulators clear the screen on \f3te\f1 (some \f2xterm\f1s).
+Set OFF to disable use of \f3ti/te\f1.
+Note that this is overridden by the \*Q\-t\*U command line option
+(see section 3, \f3Command Line Options\f1).  The default is ON.
+
+.lp weed 1.0i
+Set ON to have Elm \*Qweed out\*U certain headers from displayed
+messages, that is, not display them.  The \f3weedout\f1 variable under
+\f3String Variables\f1 in section 2 allows you to custom define the set of
+headers you would like to not have displayed while reading messages.
+The default for the \f3weed\f1 variable is ON.
+.in 0
+.sp
+.sp
+For a better idea of how this all works, here's a sample \f2.elm/elmrc\f1
+file.  While looking through it, notice that you can have lots of
+comments and blank lines for readability and that you can also use
+\*Qshell variables\*U and the \*q~\*u (tilde) metacharacter for your home
+directory, and they are expanded accordingly when read in by the
+mailer.  Note that this was automatically saved by the Elm
+program on the fly from the options screen.
+.sp
+.ft CW
+.zf
+.nf
+  #
+  # .elm/elmrc \- options file for the ELM mail system
+  #
+  # Saved automatically by ELM 2.4 for Elm Development Group
+  #
+
+  # For yes/no settings with ?, ON means yes, OFF means no
+
+  # where to save calendar entries
+  calendar = ~/.Agenda
+
+  # what editor to use ("none" means simulate Berkeley Mail)
+  # \'%s\' can be used as the temporary filename for the outgoing message
+  editor = none
+
+  # the character to use in the builtin editor for entering commands
+  escape = ~
+
+  # the full user name for outbound mail
+  fullname = Elm Development Group
+
+  # where to save received messages to, default file is "=received"
+  receivedmail = $HOME/Mail/received
+
+  # where to save my mail to, default directory is "Mail"
+  maildir = /users/elmdev/Mail
+
+  #directory to hold my temporary files to avoid NFS cross mount problems
+  tmpdir = /users/elmdev/Mail/tmp
+
+  # program to use for displaying messages (\'builtin\' is recommended)
+  pager = builtin
+
+  # prefix sequence for indenting included message text in outgoing messages...
+  prefix = >_
+
+  # how to print a message (\'%s\' is the filename)
+  print = lpr \-Plw2 %s
+
+  # attribution string for replies (\'%s\' is the author of original message)
+  attribution = According to %s:
+
+  # where to save copies of outgoing mail to, default file is "=sent"
+  sentmail = /users/elmdev/Mail/mail.sent
+
+  # the shell to use for shell escapes
+  shell = /bin/csh
+
+  # local ".signature" file to append to appropriate messages...
+  localsignature = localsig
+
+  # remote ".signature" file to append to appropriate messages...
+  remotesignature =  remotesig
+
+  # do we want dashes above signatures? (News 2.11 compatibility and convention)
+  sigdashes = ON
+
+  # how to sort folders, "Reverse Sent" by default
+  sortby = Reverse\-Received
+
+  # should the default be to delete messages we\'ve marked for deletion?
+  alwaysdelete = ON
+
+  # should the default be to store read messages to the "received" folder?
+  alwaysstore = ON
+
+  # should the default be to keep unread messages in the incoming mailbox?
+  alwayskeep = ON
+
+  # should we use the "\->" rather than the inverse video bar?
+  arrow = OFF
+
+  # should the message disposition questions be displayed (ON) or
+  # auto\-answered (OFF) with the default answers when we resync or change folders?
+  ask = ON
+
+  # would you like to be asked for Carbon\-Copies information each msg?
+  askcc = ON
+
+  # automatically copy message being replied to into buffer?
+  autocopy = OFF
+
+  # threshold for bouncing copies of remote uucp messages...
+  # zero = disable function.
+  bounceback = 0
+
+  # save a copy of all outbound messages?
+  copy = ON
+
+  # do we want to be able to mail out AT&T Mail Forms?
+  forms = OFF
+
+  # should we keep folders from which all messages are deleted?
+  keepempty = OFF
+
+  # we\'re running on an HP terminal and want HOME, PREV, NEXT, etc...
+  keypad = OFF
+
+  # should we display the three\-line \'mini\' menu?
+  menu = ON
+
+  # would you like a copy of a message you send to an alias you are on?
+  metoo = OFF
+
+  # when using the page commands (+ \- <NEXT> <PREV>) change the current
+  # message pointer...?
+  movepage = ON
+
+  # just show the names when expanding aliases?
+  names = ON
+
+  # when messages are copied into the outbound buffer, don\'t include headers?
+  noheader = ON
+
+  # start up by pointing to the first new message received, if possible?
+  pointnew = ON
+
+  # prompt for a command after the external pager exits?
+  promptafter = ON
+
+  # emulate the mailx message increment mode (only increment after something
+  # has been \'done\' to a message, either saved or deleted, as opposed to
+  # simply each time something is touched)?
+  resolve = ON
+
+  # save messages, incoming and outbound, by login name of sender/recipient?
+  savename = ON
+
+  # save outbound messages by login name of sender/recipient even if the
+  # associated folder doesn\'t already exist?
+  forcename = OFF
+
+  # are we running on an HP terminal and want HOME, PREV, NEXT, etc...?
+  # (this implies "keypad=ON" too)
+  softkeys = OFF
+
+  # set the main prompt timeout for resynching...
+  timeout = 60
+
+  # display message title when displaying pages of message?
+  titles = ON
+
+  # are we good at it?  0=beginner, 1=intermediate, 2+ = expert!
+  userlevel = 2
+
+  # enable the weedout list to be read?
+  weed = ON
+
+  # what headers I DON\'T want to see, ever.
+  weedout = "Path:" "Via:" "Sent:" "Date" "Status:" "Original" "Phase"
+	  "Subject:" "Fruit" "Sun" "Lat" "Buzzword" "Return" "Posted"
+	  "Telephone" "Postal\-Address" "Origin" "X\-Sent\-By\-Nmail\-V" "Resent"
+	  "X\-Location" "Source" "Mood" "Neuron" "Libido" "To:" "X\-Mailer:"
+	  "Full\-Name:" "X\-HPMAIL" "Cc:" "cc:" "Mmdf" "Network\-" "Really\-"
+	  "Sender:" "Post" "Message\-" "Relay\-" "Article\-" "Lines:"
+	  "Approved:" "Xref:" "Organization:" 	"*end\-of\-user\-headers*"
+
+  # alternative addresses that I could receive mail from (usually a
+  # forwarding mailbox) and don\'t want to have listed...
+  alternatives = dsidev!elmdev  dsirel!elmdev  elmdev@dsidev  elmdev%dsidev
+
+  # list of delivery precedences allowed, or empty to allow anything
+  # precedence may be followed by optional ":priority" specification
+  precedences = special\-delivery:urgent air\-mail:urgent first\-class bulk junk
+
+  # name of Character Set used with MIME text/plain Content\-type
+  # US\-ASCII is default. Be aware that if you use a national charset
+  # elm probably needs metamail to display US\-ASCII. Elm tries to
+  # know if that charset could display US\-ASCII too, but the list
+  # of us\-ascii compatible charsets is not yet complete
+  charset=US\-ASCII
+
+  # name of Character Set which the display supports. This is independent
+  # of the above "charset".
+  displaycharset=US\-ASCII
+
+  # list of Character Sets, which are more or less a superset of US\-ASCII
+  # so we know that we can display messages with charset=US\-ASCII without
+  # help of metamail
+  compatcharsets = ISO\-8859\-1 ISO\-8859\-2 ISO\-8859\-3 ISO\-8859\-4 ISO\-8859\-5 ISO\-8859\-6 ISO\-8859\-7 ISO\-8859\-8 ISO\-8859\-9
+
+  # would you like to use termcap/terminfo ti/te entries?
+  usetite = ON
+
+  # Value by which message count is incremented while reading a new mailbox.
+  # Setting this value to a number larger than one will speed up the time it
+  # takes to read a large mailbox when using a slow terminal.
+  readmsginc = 5
+
+  # time in seconds which Elm will wait after displaying a transient message
+  # and before erasing it.  Can be 0 or positive integer.
+  sleepmsg = 2
+.fi
+.br
+.ne 5
+.sp 2
+.hn 1 Command Line Options
+
+There are a number of command line options to the Elm
+program, with only one that needs to be remembered: \*Q\-?\*Uor \*Q\-h\*U
+for help.
+
+The options are:
+
+.lp \h'24p'\-a 66p
+This allows you to have the \*Q\->\*U arrow pointer
+rather than the inverse bar.  This can also be set in
+the \f2.elm/elmrc\f1
+file with the boolean variable \f3arrow\f1.
+
+.lp \h'24p'\-c 66p
+Check only.  This is useful for expanding aliases
+without sending any mail.  The invocation is similar to
+invoking Elm in send-only mode:
+.sp
+.ft CW
+.zf
+.ti 1.5i
+elm \-c\f2  list-of-aliases\f1
+
+.lp "\h'24p'\-d \f2n\f1" 66p
+Set debug level to \f2n\f1.  Useful for debugging the Elm
+program, this option will create a file in your home
+directory called \f2ELM:debug.info\f1 containing
+a running log of what is going on with
+the program.  Level \f2n\f1 can be 1 through 11,
+where the higher numbers generate more output.
+This option might be disabled by the the person who configured
+Elm for your system.
+
+.lp "\h'24p'\-f \f2folder\f1" 66p
+Read the specified folder rather than the default incoming mailbox.
+Note that you can use the same metacharacters (e.g. \*q=\*u) as when
+you \f2change folders\f1 from within the program.  You can also use the
+same abbreviatory symbols (\*q!\*u, \*q>\*u and \*q<\*u),
+but remember to \*Qsingle quote\*U them
+in case they have special meaning in the shell you use.
+
+.lp "\h'24p'\-h or \-?" 66p
+Help message.  Gives a short list of all these options and exits.
+
+.lp "\h'24p'\-i \f2file\f1" 66p
+Include a prepared file in the edit buffer before sending.
+This facilitates using Elm with other programs
+that interface with mail (like news readers, for example).  There
+is an example of how to set up the \f2rn\f1 news reading program to
+use Elm in \f2The Elm Users Guide\f1.  The file specified is
+copied into the temporary file just before the signature file.
+
+.lp \h'24p'\-k 66p
+Keypad enable. This option lets the Elm program
+know that you're on an HP terminal, and it can then interpret
+the <PREV>, <NEXT> and <HOME>/<SHIFT>-<HOME> keys accordingly.  If you
+are not on an HP terminal, it is recommended that you do
+NOT use this option. See also the \f3keypad\f1 variable,
+described under \f3Boolean Variables\f1 in section 2.
+
+.lp \h'24p'\-K 66p
+Keypad + softkeys enable.  The Elm mailer can
+use the HP softkeys as an alternative form of
+input.  If you specify this option be sure that you're on
+an HP terminal that can accept the standard 2622 terminal
+escape sequences! See also the \f3softkeys\f1 variable,
+described under \f3Boolean Variables\f1 in section 2.
+
+.lp \h'24p'\-m 66p
+Inhibit display of the 3-line menu when using the mailer.  This,
+of course, gives you three more message headers per page instead.
+See also the \f3menu\f1 variable, described under \f3Boolean
+Variables\f1 in section 2.
+
+.lp "\h'24p'\-s \f2subject\f1" 66p
+In send-only and batch mode, this is how to indicate the subject of the
+resulting message.  Please see the section on \f3Non-Interactive
+Uses of Elm\f1 in \f2The Elm Users Guide\f1 for more information.
+
+.lp \h'24p'\-t 66p
+Disable use of the \f2termcap/terminfo\f1 \f3ti/te\f1 capabilities.
+Many terminal emulators require it (not the least of which is the
+OpenLook \f2cmdtool\f1).
+Some terminal emulators clear the screen on \f3te\f1 (some \f2xterm\f1s).
+See also the \f3usetite\f1 variable, described under \f3Boolean
+Variables\f1 in section 2.
+
+.lp \h'24p'\-z 66p
+This causes Elm not to start if you don't
+have any mail, but instead to display the message \*QYou have no
+mail.\*U   This emulates the behavior of programs
+like \f2Berkeley Mail\f1.
+
+.in 0
+All the above options default to reasonable values, so there is
+usually no need to use them.  Furthermore, the most used options
+are available through the \f2.elm/elmrc\f1 file, described in section 2.
+.br
+.ne 5
+.sp
+.hn 1 Multi-Media Capabilities of Elm
+
+Elm optionally provides you with some Multi-Media features, which
+are compliant
+to the MIME (Multipurpose Internet Mail Extension) IETF draft.
+
+If the support is compiled into Elm, on the receiving side
+Elm accesses Metamail from Nathaniel Borenstein of
+Bellcore.  If you receive a MIME compliant message, Elm calls
+Metamail automatically to display the message. Metamail
+asks you if you want to display each part of the message
+and uses the display programs available at your site. This
+is controlled through the \f2mailcap\f1 file.
+
+On the sending side, there is a simple mechanism integrated in Elm
+to compose MIME compliant messages. If you have one or more key lines
+of the form
+
+.ft CW
+.zf
+.ti .5i
+[\&include \f2file contenttype/subtype encoding\f1]
+.ft 1
+
+in the message body, at each
+of these key lines, a file is included, and becomes a part
+of the message. The text lines before, between and after the \f2include\f1
+lines go into extra message parts of type \f2text\f1.
+
+As an example, say you want to include the file \f2foo.gif\f1 into your message,
+which is a GIF image, and you want to use \f2base64\f1 encoding, use the
+following line:
+
+.ft CW
+.zf
+.ti .5i
+[\&include foo.gif image/gif base64]
+.ft 1
+
+Or you want to include a text file which contains plain ASCII:
+
+.ft CW
+.zf
+.ti .5i
+[\&include foo.txt text/plain]
+.ft 1
+
+The \f2encoding\f1 parameter is optional and the default is \f27bit\f1.
+
+Refer to RFC1341 for valid \f2contenttype/subtype\f1 and \f2encoding\f1
+parameter values.
+.br
+.ne 5
+.sp
+.hn 1 Special Outgoing Mail Processing
+
+There are a few extra features that Elm offers on
+outgoing mail that are worthy of mention.
+
+The first, and probably the most exciting feature,\s-2\u3\d\s0 is the
+.fn
+3. Unfortunately, at many non-US sites, it's quite probable that
+you won't be able to use this feature since you won't have
+the \f2crypt()\f1 library available due to licensing restrictions.
+.ef
+ability to send \f2encrypted\f1 mail! To do this is
+extremely simple:  you need merely to have two key lines
+
+.ft CW
+.zf
+.ti .5i
+[\&encode]
+.ft 1
+.br
+and
+.ft CW
+.zf
+.ti .5i
+[\&clear]
+.ft 1
+
+in the message body.
+
+.ne 15
+Consider the following outgoing message:
+.sp
+.nf
+.ps 9
+.in .5i
+.ft CW
+.zf
+Joe,
+Remember that talk we had about Amy?  Well, I talked to my manager
+about it and he said...
+uhh...better encrypt this...the usual \`key\'...
+[\&encode]
+He said that Amy was having family problems and that it had been
+affecting her work.
+Given this, I went and talked to her, and told her I was sorry for
+getting angry.  She said that she understood.
+We\'re friends again!!
+[\&clear]
+Exciting stuff, eh?
+\h'3i'Mike
+.ps 10
+.ft 1
+.in 0
+.fi
+.sp
+While this is obviously quite readable while being typed into
+the editor, as soon as the message is confirmed as wanting
+to be sent, the Elm mailer prompts with:
+.sp
+.nf
+.ft CW
+.zf
+.ps 9
+.ti .5i
+Enter encryption key: @
+.ps 10
+.ft 1
+.fi
+.sp
+and accepts a key (a series of 8 or less characters) without
+echoing them to the screen.  After entry, it will ask for the
+same key again to confirm it, then *\f2poof\f1* it will encrypt and
+send the mail.
+
+If you have the \f3copy\f1 option enabled, the program will save
+your copy of the message encrypted too.  (This is to ensure
+the privacy and security of your mail archive, too.)
+
+If the mailer doesn't ask for the encryption key, it's because
+you don't have the \f2[\&encode]\f1 entered as the first 8 characters
+of the line.  It MUST be so for this to work!!
+
+On the other end, a person receiving this mail (they must also
+be using Elm to receive it, since this mailer has a
+unique encryption program) will be reading the
+message and then suddenly be prompted:
+.sp
+.nf
+.ft CW
+.zf
+.ps 9
+.ti .5i
+Enter decryption key: @
+.ft 1
+.ps 10
+.fi
+.sp
+and will again be asked to re-enter it to confirm.
+The program will then on-the-fly decrypt the mail
+and display each line as it is decoded.  The \f2[\&clear]\f1
+line signifies that the block to encrypt is done.
+
+Note that it is not possible currently to \f3pipe\f1 or \f3print\f1
+encrypted mail.
+.sp 2
+The other feature on outgoing mail is the ability to
+specify what section of the message you want to have
+archived (assuming \f3copy\f1 is enabled) and what section
+you don't.  This is most useful for sending out source
+file listings and so on.
+
+To indicate the end of the section that should be
+saved in the archive, you need merely to have the key line
+.sp
+.nf
+.ft CW
+.zf
+.ti .5i
+[\&nosave]
+.ft 1
+or
+.ft CW
+.zf
+.ti .5i
+[\&no save]
+.ft 1
+.fi
+.sp
+appear by itself on a line.  This key line is removed from
+the outgoing mail, and indicates the last line of
+the message to be saved.
+Other than this, the saved mail is identical to the outgoing mail.
+.br
+.ne 5
+.sp
+.hn 1 Customized header lines
+
+The mailer provides a facility for including customized
+header lines in the messages you send.
+If you have an \f2.elm/elmheaders\f1 file,
+the mailer will include its contents
+immediately after the regular headers of all outbound  mail.
+The mailer supports use of the backquote convention in this file
+to run commands and substitute the commands' output for the backquoted
+text.
+Here's a typical \f2.elm/elmheaders\f1 file:
+.sp
+.ft CW
+.zf
+.nf
+  Organization: Hewlett-Packard Laboratories
+  Phone: (415)-555-1234
+  Operating-System: \`uname -srv\`
+.fi
+.ft 1
+.sp
+These lines will be inserted after all other header lines in the message.
+.br
+.ne 5
+.sp
+.hn 1 Commands
+.sp
+
+This section discusses each command in the Elm
+program in more detail than above, including the
+prompts the user can expect upon executing the
+command, the meaning of different options, etc.
+
+.lp \h'24p'? 66p
+Help.  This command used once puts you in the \f2help\f1
+mode, where any key you press results in a one-line description
+of the key.  Pressing \*q?\*u again at this point produces a
+summary listing each command available.
+Pressing \*q.\*u (period) leaves the help mode and returns you to the
+command level.
+
+.lp \h'24p'<space> 66p
+Display the current message.
+<space> is useful for reading through a mail folder.
+When issued from the index screen,
+it displays the first screen of the current message.
+When issued while in the builtin pager,
+it pages through the message to the end.
+When issued at the end of a message
+(with either the builtin pager or an external pager),
+it displays the first screen of the next message not marked for deletion.
+
+.lp \h'24p'<return> 66p
+Display the current message.
+<return> behaves somewhat differently from <space>.
+When issued while in the builtin pager,
+it scrolls the current message forward one line,
+and then when issued at the end of a message
+(with either the builtin pager or an external pager),
+it redisplays the first screen of the the \f2current\fP message.
+The latter is useful in case you have issued a non-pager
+command while in the builtin pager and want to restart the display
+of the current message.
+
+.lp \h'24p'! 66p
+Shell.  This allows you to send a command to the shell without
+leaving the program.  Note that it is possible that the person who
+installed Elm on your system disabled this feature.
+
+.lp \h'24p'| 66p
+Pipe.  This command allows you to pipe the current message
+or the set of \f2tagged\f1 messages
+through other filters as you desire.  The shell used for
+the entire command is either the one specified in
+your \f2.elm/elmrc\f1 file, or the default shell (see the \f3shell\f1
+variable under \f3String Variables\f1 in section 2).
+
+.lp \h'24p'\/ 66p
+Pattern match.  This command, at the command level, allows the
+user to search through all the \f2from\f1 and \f2subject\f1 lines of
+the current folder starting at the current message and
+continuing through the end.  If the first character of the
+pattern is a \*q/\*u, then Elm tries to match the
+specified pattern against \f2any\f1 line in the folder.  Again,
+this works from the current message through the
+end.  Both searches are case insensitive.
+
+.lp "\h'24p'\- or <left>" 66p
+Display the previous page of the message index.
+
+.lp "\h'24p'+ or <right>" 66p
+Display the next page of the message index.
+
+.lp \h'24p'<number><return> 66p
+Specify new current message.  When you type in any digit, Elm
+prompts \*QSet current to : \f2n\f1\*U, where \f2n\f1 is
+the digit entered.  Continue entering the full number
+and terminate with <return>.  Note that changing the
+current message to a message not on the
+current page of headers results in a new page
+being displayed.
+
+.lp \h'24p'< 66p
+Scan message for calendar entries.  A rather novel feature of
+the Elm mailer is the ability to automatically incorporate
+calendar/agenda information from a mail message into the user's
+calendar file.  This is done quite simply; any line that has
+the pattern
+
+.ti +.5i
+\-> \f2calendar entry\f1
+
+is automatically added to the user's \f3calendar\f1 file
+when the \*q<\*u command is used
+(see the \f3calendar\f1 variable under \f3String Variables\f1 in section 2).
+.sp
+For example, let's say we had a message with the text:
+
+.ft CW
+.zf
+.ps 9
+.ti +.5i
+Regardless of that meeting, here\'s the seminar stuff:
+.br
+.ti +.5i
+\-> 8/03 3:00pm: AI Seminar with Ira Goldstein of HP Labs
+.ft 1
+.ps 10
+
+then using the \*q<\*u command would add the line:
+
+.ft CW
+.zf
+.ps 9
+.ti +.5i
+8/03 3:00pm: AI Seminar with Ira Goldstein of HP Labs
+.ps 10
+.ft 1
+
+to the user's \f3calendar\f1 file.
+
+.lp \h'24p'a 66p
+Alias.  The alias system is a way by which more complex mail addresses
+can be shortened for the mail user.  For example:
+.sp
+.nf
+.ps 9
+.ft CW
+.zf
+.ti +.5i
+joe, bleu   =  Joe Bleu  =   joe@hpfcla.SSO.HP.COM
+.ft 1
+.ps 10
+.fi
+.sp
+which allows mail to \*Qjoe\*U or \*Qbleu\*U with the system expanding
+the address properly.  Obviously, this saves having to remember
+complex addresses.  A more detailed discussion can
+be found in either the section entitled \f2The Alias System\f1 in
+this document or \f2The Elm Alias System Users Guide\f1.
+
+.lp \h'24p'b 66p
+Bounce mail.  This \*Qremails\*U mail to someone else in such a
+way as to make the return address the original sender rather
+than you.  The \f3forward\f1 command is similar, but it makes
+the return address \f2you\f1 rather than the original sender.
+
+.lp \h'24p'C 66p
+Copy to folder.  This command copies the current message or set of
+tagged messages to
+a folder.  If there is anything in the folder currently the
+message is appended to the end, otherwise the folder is created
+containing only the newly copied messages.  The prompt for this command
+is \*QCopy to folder: \*U.  A response of <return> cancels the command
+and returns the user to the command prompt.  The usual filename
+metacharacters are available, too.  That is, this command expands filenames
+with \*q~\*u (tilde) to your home directory and \*q=\*u to your
+\f3maildir\f1 directory, if defined.  This command also allows you to
+use \*q>\*u for your \f3receivedmail\f1 folder,
+\*q<\*u for your \f3sentmail\f1 folder,
+\*q.\*u for the last folder you saved or copied a message to
+and \*Q@alias\*U for the default folder for \*Qalias\*U.
+If you use a shell wildcard in the file or folder name, you are
+given a list of all files or folders which match the wildcard.
+Elm uses your shell to find the names, so whatever wildcards you are
+used to will work.
+Finally, you can also enter \*q?\*u at the prompt
+to get detailed help.
+
+.lp \h'24p'c 66p
+Change folder.  Specifying this command allows the user to change
+the folder that is currently being read.  This is intended
+for perusal and reply to previously archived messages.
+The prompt is \*QName of new folder: \*U and entering <return>
+cancels the operation, while entering a filename causes the program
+to read that file as the new folder,
+if possible.  This command expands filenames
+with \*q~\*u (tilde) to your home directory and \*q=\*u to your
+\f3maildir\f1 directory, if defined.  This command also allows you to
+use \*q!\*u as an abbreviation for you incoming mailbox,
+\*q>\*u for your \f3receivedmail\f1 folder,
+\*q<\*u for your \f3sentmail\f1 folder,
+\*q.\*u for the last folder you saved or copied a message to
+and \*Q@alias\*U for the default folder for \*Qalias\*U.
+If you use a shell wildcard in the file or folder name, you are
+given a list of all files or folders which match the wildcard.
+Elm uses your shell to find the names, so whatever wildcards you are
+used to will work.
+Finally, you can also enter \*q?\*u at the prompt
+to get detailed help.
+
+.lp "\h'24p'd, u" 66p
+Delete and undelete.  Neither of these two commands have any prompts
+and indicate their action by either adding a \*qD\*u to the current
+message index entry (indicating deletion pending) or removing
+the \*qD\*u (indicating that the message isn't set for deletion).
+
+.lp \h'24p'<control>-D 66p
+This command allows you to easily mark for deletion all messages
+that have a specific pattern.  After \f3<control>-D\f1 is pressed,
+Elm prompts for the string to match in
+either the \f2from\f1 or \f2subject\f1 lines of
+the messages.
+
+.lp \h'24p'<control>-U 66p
+This is the direct opposite command to the \f3<control>-D\f1 command
+\(em all messages
+that match the specified pattern have any mark for deletion
+removed by this command.
+
+.lp \h'24p'e 66p
+Edit mailbox.  This allows you to modify the current mail file at
+a single keystroke.  This is mostly useful for editing messages
+before saving them.  Modifying headers should be done with extreme
+caution, as they contain routing information and other vital stuff
+for full functionality.  This command may be disabled by whoever
+configured your Elm installation.
+
+.lp \h'24p'f 66p
+Forward.  Allows the user to forward the current message to another user.
+This copies the message into the edit buffer and allows the user to add
+their own message too.  The prompt is \*QForward to:\*U and will expand an alias
+if entered.  See also \f3bounce\f1, above.
+
+Elm will ask you if you want to edit the message before sending it.  If you
+answer \f2yes\f1, Elm will prepend your prefix string to each line of the
+message, and let you edit the result.  If you do not want the prefix string
+on each line, answer \f2no\f1; you will have another chance to edit the message
+when you get to the \*Qsend\*U menu.  See the \f3prefix\f1 variable
+under \f3String Variables\f1 in section 2.
+
+.lp \h'24p'g 66p
+Group reply.  Identical to \f3reply\f1 below, except that the
+response is mailed to \f2all recipients\f1 of the original
+message except yourself. See the \f3alternatives\f1
+variable under \f3String Variables\f1 in section 2.
+
+.lp \h'24p'h 66p
+Display the current message with all headers intact.
+When you display a message with other commands,
+certain header lines are formatted and others discarded according
+to the \f3weedlist\fP variable, described under \f3String
+Variables\f1 in section 2.
+
+.lp \h'24p'i 66p
+Return to the index screen,
+when issued in the builtin pager or at the end of a message with
+either the builtin pager or an external pager.
+
+.lp "\h'24p'j or <down>, k or <up>" 66p
+These four keys work similarly to what they would do in \f2vi\f1 or
+any of the other (precious few) screen oriented
+programs.  The \f3j\f1 and \f3<down>\f1 keys move
+the current message pointer down to the next message skipping
+over any marked deleted (going to
+the next page if necessary) and the \f3k\f1 and \f3<up>\f1 keys move
+the current
+message pointer back to the previous message skipping
+over any marked deleted (also changing pages if necessary).
+
+.lp "\h'24p'J, K" 66p
+These two keys work similarly to their lower case counterparts,
+except that they don't skip over deleted messages.
+
+.lp \h'24p'l 66p
+Limit.  This feature allows you to specify a subset of the existing
+messages to be dealt with.  For example, let's say we had a folder with
+four hundred messages in it, with only four or five different subjects.  We
+could then limit what we're dealing with by using the \f3limit\f1
+command.  Pressing \f3l\f1 would result in the prompt:
+.sp
+.nf
+.ft CW
+.zf
+.ti +.5i
+Criteria:
+.ft 1
+.fi
+.sp
+to which we could answer
+\*Qsubject \f2string\f1\*U,
+\*Qfrom \f2string\f1\*U or
+\*Qto \f2string\f1\*U.  In our example, we could use
+\*Qsubject programming\*U
+as a criterion for selection.  Once we've limited our selections,
+the screen is rewritten with just the selected messages
+and the top line changes to have a message like:
+.sp
+.nf
+.ft CW
+.zf
+.ps 9
+.tl ''\0\0\0\0\0Folder is "=elm" with 92 shown out of 124 [Elm 2.4]''
+.ps 10
+.ft 1
+.fi
+.sp
+We can further limit selections by using the \f3limit\f1 option
+repeatedly to enter further criteria.
+
+To clear all the criteria and get back to the \*Qregular\*U display, simply
+enter \*Qall\*U as the limiting criteria.  It should be noted that the
+selection based on \*Qto\*U isn't fully implemented for this version, so
+it is recommended that users stay with \*Qsubject\*U and \*Qfrom\*U as the
+basis for their criteria.
+
+.lp \h'24p'm 66p
+Mail.  Send mail to a specified user.  The prompt associated
+with this command is \*QSend mail to: \*U.  Entering an alias name results
+in the full address being rewritten in parenthesis immediately.  This
+prompt is followed by \*QSubject: \*U which allows the user to title their
+note.  The final prompt is \*QCopies to: \*U, which allows other people
+specified to receive \*Qcarbon copies\*U of the message, but see the
+\f3askcc\f1 variable under \f3Boolean Variables\f1 in section 2.  Upon
+entering all three items the
+editor is invoked and the message can be composed.
+
+.lp \h'24p'n 66p
+Next message that is not marked for deletion.
+Useful for displaying successive messages in a folder.
+When issued from the index screen, it displays the current message,
+and when issued while in the builtin pager or at the end of a message
+(with either the builtin pager or an external pager),
+it displays the first screen of the next message not marked for deletion.
+
+.lp \h'24p'o 66p
+Options.  This full-screen display allows you to alter the settings
+of a number of parameters, including the current sorting method,
+the method of printing files, the calendar file, the save file, and
+so on.  It's self-documenting (where have you heard \f2that\f1
+before?) so isn't explained in too much detail here.  See the
+\f3configoptions\f1 variable under \f3String Variables\f1 in section 2.
+
+.lp \h'24p'p 66p
+Print.  This allows you to print out the current
+message or the tagged messages to a previously defined printer.  See
+the \f3print\f1 variable under \f3String Variables\f1 in section 2.
+
+.lp \h'24p'q 66p
+Quit.  If you in the pager, you are returned to the index screen. If you are
+at the index screen, Elm quits altogether.  However, if you have the
+\f3ask\fP variable set ON, Elm first prompts you for the disposition of the
+messages in the current folder.  If any messages are marked for deletion, it
+asks if you want them deleted.  If the current folder is your incoming
+mailbox, you are also asked if read messages should be stored in your
+\f3receivedmail\f1 folder,
+and if unread messages should be kept in the incoming mailbox.
+The default answers to these questions are set by the \f2.elm/elmrc\f1
+variables \f3alwaysdelete\f1, \f3alwaysstore\f1, and \f3alwayskeep\f1
+(see \f3Boolean Variables\f1 in section 2).
+However, if you elect to not store your read messages (i.e. keep them)
+it is presumed you want to keep your unread messages, too.
+
+.lp \h'24p'Q 66p
+Quick quit.  This behaves similar to the \f3quit\f1 command except that
+you are never prompted for answers to the message disposition questions.
+Elm disposes of messages according to the values you
+have set for \f3alwaysdelete\f1, \f3alwaysstore\f1, and \f3alwayskeep\f1
+in your \f2.elm/elmrc\f1 file (see \f3Boolean Variables\f1 in section 2).
+
+.lp \h'24p'r 66p
+Reply.  Reply to the sender of the current message.  If
+the \f3autocopy\f1 variable is set to OFF in your \f2.elm/elmrc\f1 file,
+Elm prompts \*QCopy message? (y/n)\*U, to which you can specify
+whether or not a copy of the source message is to be copied into the edit
+buffer.  If copied in, all lines from the message are
+prepended with the \f3prefix\f1 character sequence specified in
+your \f2.elm/elmrc\f1 file (see \f3String Variables\f1 in section 2).
+
+.lp \h'24p's 66p
+Save to folder.  This command is like the \f3copy\f1 command, except
+that the saved messages are marked for deletion and, if you are
+saving just the current message, the current message pointer is
+incremented afterwards (see the \f3resolve\f1 variable under \f3Boolean
+Variables\f1 in section 2).  This command expands folder names
+with \*q~\*u (tilde) to your home directory and \*q=\*u to your
+\f3maildir\f1 directory, if defined.  This command also allows you to
+use \*q>\*u for your \f3receivedmail\f1 folder,
+\*q<\*u for your \f3sentmail\f1 folder (see \f3String Variables\f1 in
+section 2),
+\*q.\*u (period) for the last folder you saved or copied a message to
+and \*Q@alias\*U for the default folder for \*Qalias\*U.
+
+.lp \h'24p't 66p
+Tag.
+.fn
+4. Currently only \f3copy\f1, \f3pipe\f1, \f3print\f1, and \f3save\f1
+support this.
+.ef
+Tag the current message for a later operation.\s-2\u4\d\s0
+
+.lp \h'24p'T 66p
+Tag and move to next undeleted message.
+This command is like the `Tag' command but also increments the current message
+pointer to the next undeleted message.
+
+.lp \h'24p'<control>-T 66p
+Tag all messages containing the specified pattern.  Since \f2tagging\f1
+messages can occur on screens other than the one being viewed,
+Elm first checks to see if any messages are currently
+\f2tagged\f1 and ask you if you'd like to remove those tags.  After
+that, it will, similar to the \f3<control>-D\f1 command, prompt for
+a pattern to match and then mark all messages that contain
+the (case insensitive) pattern in either the \f2from\f1 or \f2subject\f1
+lines.
+
+.lp \h'24p'x 66p
+Exit.  This leaves Elm and discards any changes to the mailbox.
+If changes are pending (such as messages marked for deletion) you are
+asked to confirm discarding the changes.  If confirmed, no
+messages are deleted and the status of all messages is unchanged.  That is,
+any messages that were new will remain new instead of being noted as old,
+and any messages that were read for the first time
+will be again noted as unread.
+
+.lp \h'24p'X 66p
+Exit immediately.  This leaves Elm in the quickest possible manner
+without even prompting about discarding the changes to the mailbox.
+No messages are deleted and the status of all messages is unchanged.  That is,
+any messages that were new will remain new instead of being noted as old,
+and any messages that were read for the first time
+will be again noted as unread.
+
+.in 0
+.sp
+When you are about to send a message with the \f3forward\f1, \f3mail\f1,
+or \f3reply\f1 commands (see above), a small menu of the following
+options appears:
+
+.lp \h'24p'c 66p
+Specify the folder for saving a copy of the message.
+This allows you to override the
+\f3copy\f1, \f3forcename\f1 and \f3savename\f1 variables
+from your \f2.elm/elmrc\f1 file (see \f3Boolean Variables\f1 in
+section 2).  It prompts you for the name
+of the folder where a copy of the outgoing message is to be saved.  The
+default displayed is taken from those three \f2.elm/elmrc\f1
+options and can be changed.  This command also allows you to
+use \*q>\*u for your \f3receivedmail\f1 folder
+and \*q<\*u for your \f3sentmail\f1 folder (see \f3String Variables\f1
+in section 2),
+and \*q=?\*u to mean \*Qconditionally save by name\*U
+and \*q=\*u to mean \*Qunconditionally save by name\*U.
+Since you could next enter
+the \f3edit headers\f1 command and change the recipients
+of your message, the name of the folder under the
+two \*Qsave by name\*U options is not established until you enter the \f3send\f1
+command.
+If you use a shell wildcard in the file or folder name, you are
+given a list of all files or folders which match the wildcard.
+Elm uses your shell to find the names, so whatever wildcards you are
+used to will work.
+You can also enter \*q?\*u at the prompt
+to get help about saving.
+
+.lp \h'24p'e 66p
+Edit message (or form).  Entering this command allows you to edit
+the text of your message or form.
+
+.lp \h'24p'f 66p
+Forget.  This gets you out of sending a message you started. If you are
+in send-only mode, the message is saved to the file \f2Canceled.mail\f1
+in your home directory.  Otherwise
+it can be restored at the next \f3forward\f1, \f3mail\f1,
+or \f3reply\f1 command during the current session of Elm After
+issuing one of those commands you will be prompted with \*QRecall last
+kept message?\*U
+
+.lp \h'24p'h 66p
+Edit headers.  This puts you into the \f2header editing mode\f1, whereby
+you can edit any of the various headers of your message.  Like
+the options screen, it's self-documenting, so it isn't explained in too much
+detail here.
+
+.lp \h'24p'i 66p
+Run \f2ispell\f1 (or some other configured spelling correction program).
+The outgoing message is run through an interactive spelling correction program
+if one is available.  The default spelling program is the GNU \f2ispell\f1 program
+unless changed by the person who installed Elm on your system.
+
+.lp \h'24p'm 66p
+Make form.  This converts the message you have edited into a form.  See
+the \f3forms\f1 variable under \f3Boolean Variables\f1 in section 2 and
+\f2The Elm Forms Mode Guide\f1 for more details.
+
+.lp \h'24p's 66p
+Send.  This sends the message as is without any further ado.
+.in 0
+.br
+.ne 5
+.sp
+.hn 1 "Using Elm with \*Qeditor = none\*U"
+.sp
+The Elm program also supports a builtin editor for simple message
+composition that is very (very) similar to the simple line
+editor available from the \f2Berkeley Mail\f1 system.
+
+To access it, you need merely to specify \*Q\f3editor=none\f1\*U in
+your \f2.elm/elmrc\f1 file.
+With that, any messages to be composed
+that don't already have text in the buffer (e.g. no reply with
+the text included, etc.), will use this editor.
+.sp
+From the builtin editor, the following options are available for use.
+Each command here is prefixed with a \*q~\*u (tilde).
+You can specify a different \*Qescape\*U character in your \f2.elm/elmrc\f1 file,
+if you desire (see the \f3escape\f1 variable under \f3String
+Variables\f1 in section 2).
+.sp
+
+.lp \h'16p'~? .5i
+Print a brief help menu.
+
+.lp \h'16p'~b .5i
+Change the Blind-Carbon-Copy list.
+
+.lp \h'16p'~c .5i
+Change the Carbon-Copy list.
+
+.lp \h'16p'~e .5i
+Invoke the \f3easyeditor\f1 editor on the message, if possible
+(see the \f3easyeditor\f1 variable under \f3String Variables\f1 in
+section 2).
+
+.lp \h'16p'~f .5i
+Add the specified message or current message.
+
+.lp \h'16p'~h .5i
+Change all the available headers (To, Cc, Bcc, and Subject).
+
+.lp \h'16p'~m .5i
+Same as \f3~f\f1, but with the current \f3prefix\f1 (see the
+\f3prefix\f1 variable under \f3String Variables\f1 in section 2).
+
+.lp \h'16p'~o .5i
+Invoke a user specified editor on the message.
+
+.lp \h'16p'~p .5i
+Print out, on the screen, the message as typed in so far.
+
+.lp \h'16p'~r .5i
+Include (read in) the contents of the specified file.
+
+.lp \h'16p'~s .5i
+Change the Subject line.
+
+.lp \h'16p'~t .5i
+Change the To list.
+
+.lp \h'16p'~v .5i
+Invoke the \f2vi\f1 visual editor on the message.
+
+.lp \h'16p'~< .5i
+Execute the specified
+.ux
+command, entering the output
+of the command into the editor buffer upon completion.
+For example, \*Q~< who\*U includes the output of
+the \f2who\f1 command in your message.
+
+.lp \h'16p'~! .5i
+Execute a
+.ux
+command if one is given (as in \*Q~!ls\*U) or
+give the user a shell, either from the \f3shell\f1 variable setting in
+the \f2.elm/elmrc\f1 file or the default (see the \f3shell\f1 variable
+under \f3String Variables\f1 in section 2).
+
+.lp \h'16p'~~ .5i
+Add a line prefixed by a single \*q~\*u character.
+.in 0
+.sp
+A useful note is that the \f3~f\f1 and \f3~m\f1 commands invoke the \f2readmsg\f1
+command, so you can pass parameters along too.  For example, if we
+wanted to include a message from Joe, without any headers, but with each
+line prefixed, we could use:
+.sp
+.nf
+.ft CW
+.zf
+.ti .5i
+\&~m \-n Joe
+.ft 1
+.fi
+.sp
+to accomplish the task.
+
+To learn more about how they work, try 'em!
+.br
+.ne 5
+.sp
+.hn 1 The Alias System
+.sp
+As mentioned previously, there exists in the Elm
+system a set of aliases that associate
+an arbitrary word (such as a persons name) to a complex address or group.
+The advantages are readily apparent; rather than
+remembering an address of the form:
+.sp
+.nf
+.ps 9
+.ft CW
+.zf
+.ti .5i
+host1!host2! ... !hostN!user
+.ft 1
+.ps 10
+.fi
+.sp
+the user merely has to remember a single word.
+
+Two alias tables are available for a each
+user within Elm,
+namely the system alias file and the user's alias file.  The
+system alias file is created and maintained (by the system administrator)
+by editing the file name defined for \f2SYSTEM_ALIASES\f1 in the
+\f2sysdefs.h\f1 file (see \f2The Elm Configuration Guide\f1) and as described
+in the documentation with the \f2newalias\f1 command,
+then running the \f2newalias\f1 program.
+
+An individual user can also have an alias file which works
+in conjunction with the system aliases.  To do this, one
+merely needs to enter the alias menu system and create aliases with
+the \f3a\f1 (\f3alias current message\f1) or \f3n\f1
+(\f3make new alias\f1) commands.
+Alternatively, the user can peruse the documentation for the \f2newalias\f1
+command and create a file as indicated therein.  After
+executing the program, the aliases are available
+for use from within Elm.
+.sp
+Please refer to \f2The Elm Alias Users Guide\f1 for complete details.
+.sp 2
+Within Elm,
+however, the alias system acts as an entirely different program, with
+its own display, own commands, and own mini-menu.  The aliases are
+presented in a
+list similar to the index screen with the following menu:
+.sp
+.sd
+.nf
+.ps 9
+.ft CW
+.zf
+.ce 3
+Alias commands:  ?=help, <n>=set current to n, /=search pattern
+a)lias current message, c)hange, d)elete, e)dit aliases.text, f)ully expand,
+l)imit display, m)ail, n)ew alias, r)eturn, t)ag, u)ndelete, or e(x)it
+.sp
+Alias: @
+.sp
+.ps 10
+.ft 1
+.ed
+.fi
+
+The commands are:
+
+.lp \h'16p'? .5i
+Help.  This command used once puts you in the \f2help\f1
+mode, where any key you press will result in a one-line description
+of the key.  Pressing \*q?\*u again at this point produces a
+summary listing each command available.
+Pressing \*q.\*u (period) leaves the help mode and returns you to the
+alias command prompt.
+
+.lp "\h'16p'<space> or <return> or v" .5i
+Display the current alias address.  The alias address is displayed below
+the alias menu.  This command allows you to verify the address for a
+person or the contents of a group alias.
+
+.lp \h'16p'$ .5i
+Resynchronize the alias text file (\f2$HOME/.elm/aliases.text\f1) and
+alias database by rebuilding the database from the text file by running
+\f2newalias\f1.  Aliases marked for deletion are removed, tagged aliases
+are untagged, and new and changed aliases are recognized.  The alias
+screen is updated to reflect these changes.
+
+.lp \h'16p'\/ .5i
+Pattern match.  This command allows the
+user to search through all the \f2alias\f1 and \f2username\f1
+entries in the alias list
+starting at the current alias and
+continuing through the end.
+If the first character of the
+pattern is a \*q/\*u, then Elm also includes the \f2comment\f1
+and the fully expanded \f2address\f1 fields in the search.
+The search is case insensitive.  This allows the user to find a
+specific alias in the situation where there are a large number of
+aliases.
+
+.lp \h'16p'a .5i
+Alias current message.
+This allows the user to create an alias that has the
+return address of the current message as the address field of
+the alias.  It prompts for a unique alias name.  If the alias
+name is not unique, you will be asked if you wish to replace
+the existing alias.  For further
+information, please see \f2The Elm Alias System Users Guide\f1.
+
+.lp \h'16p'c .5i
+Change current alias.  This will prompt for changes to the current
+names and address.  If other aliases are tagged you will be asked if you
+want to create a group alias from the tagged aliases.  The original
+alias is replaced with the new information in
+your individual alias file (\f2$HOME/.elm/aliases.text\f1) and
+then added to the database (at the next alias resync).  Aliases
+that have been changed are marked with an \*qN\*u (for new) until
+the database is updated.
+
+.lp "\h'16p'd, u" .5i
+Delete or undelete an alias.
+This allows the user to mark an alias for deletion in the same fashion
+as on the index screen.  The deletions are not
+actually made until the user returns to the main menu with the \f3r\f1,
+\f3q\f1, or \f3i\f1 commands or resyncs
+the display with the \f3$\f1 command.  Deletions on system aliases are not
+allowed.  These commands (plus the \f3<control>-D\f1
+and \f3<control>-U\f1 versions) behave identically to their index screen
+counterparts (see section 7, \f3Commands\f1).
+
+.lp \h'16p'e .5i
+Edit the \f2.elm/aliases.text\f1 file.  The user alias file is edited
+using the editor defined in the \f3editor\f1 variable in your
+\f2\&.elm/elmrc\f1 file (see \f3String Variables\f1 in section 2).
+\f2newalias\f1 is run after the edit.
+
+.lp \h'16p'f .5i
+Display fully expanded alias.  The currently selected
+alias is fully expanded and displayed to the user.  This is most useful when
+working with group aliases.
+
+.lp \h'16p'l .5i
+Limit the display.  You can limit the display by alias type (person/group
+or user/system) or by search pattern on name or alias.  Otherwise, this
+works exactly like the limit command on the index screen.
+
+.lp \h'16p'm .5i
+Send mail to the current alias.  The user is prompted to compose a new
+mail message to be sent to the
+person or group specified by the selected alias.  If aliases are
+tagged the message is mailed to the person(s) and/or group(s)
+specified by the tagged aliases.  Tags are cleared after mailing the
+message.
+
+.lp \h'16p'n .5i
+Make a new user alias.  This prompts for a unique alias name and
+then for an address.  If the alias
+name is not unique, you are asked if you wish to replace
+the existing alias.  If aliases are tagged you are asked if you
+want to create a group alias from the tagged aliases.
+The information provided is added
+to your individual alias file (\f2$HOME/.elm/aliases.text\f1) and
+then added to the database at the next alias resync.
+
+.lp "\h'16p'r or q or i" .5i
+Return.  Return to the index screen of the Elm program.  Any pending
+deletions are processed and newalias is run to update the database.  New
+additions are handled at this time as well.
+
+.lp "\h'16p'R or Q or I" .5i
+Quick return.  This behaves like the \*qr\*u command except that you are never
+prompted for answers to alias disposition questions.
+Elm disposes of aliases according to the value
+set for the \f3alwaysdelete\f1 variable
+in your \f2.elm/elmrc\f1 file (see \f3Boolean Variables\f1 in
+section 2).
+
+.lp \h'16p't .5i
+Tag.
+Tag the current alias for a later operation.\s-2\u5\d\s0
+.fn
+5. Currently only \f3mail\f1, \f3change\f1, and \f2n3w alias\f1 support this.
+.ef
+This command (plus the \f3<control>-T\f1
+version) behaves identically to its index screen
+counterpart (see section 7, \f3Commands\f1).
+
+.lp \h'16p'x .5i
+Exit alias menu.  Exits the alias menu without processing any
+deletions.  Aliases marked for deletion are unmarked and
+\f2newalias\f1 is not run, even if alias additions have been made.
+.in 0
+.sp
+Additionally, the movement keys (\*qj\*u, \*qk\*u, \*q+\*u, \*q\-\*u,
+etc.) work in the same fashion as on the index screen (see section 7,
+\f3Commands\f1).
+.br
+.ne 5
+.sp
+.hn 1 Elm and Signals
+
+Elm can handle several standard
+.ux
+\f2signals\fR to do
+some special processing.
+Signals are interrupt messages sent from one program to
+another.  No detailed messages are sent, but a properly configured
+program (such as Elm) can watch for and handle these signals.
+
+In particular, Elm watches for the following signals
+and takes these actions:
+.lp ALRM .5i
+This is the alarm clock signal or time warning.
+Elm uses this to wake itself up periodically and check for
+new mail.
+.lp HUP .5i
+This is the hangup notice.
+It means that the terminal/modem/whatever which you have been using
+with Elm has become detached from the system where Elm
+was running.
+When Elm gets this signal, it aborts all the pending operations
+and exits, leaving your mailbox unchanged.
+.lp USR1 .5i
+This is the first user-defined signal.
+When Elm gets this signal, it receives any pending mail,
+performs all the pending operations (deletes), and exits
+leaving all unread mail marked as new.
+This is the same as giving both the \f3$\f1 and \f3X\f1 commands.
+.lp USR2 .5i
+This is the second user-defined signal.
+When Elm gets this signal, it receives any pending mail,
+performs all the pending operations (deletes), and exits,
+leaving all unread mail marked as old.
+This is the same as giving both the \f3$\f1 and \f3Q\f1 commands.
+.in 0
+.sp
+You would only use these signals yourself under the most unusual
+circumstances.  For example, suppose you were using \f3Elm\fR
+to read mail on \f2host_1\fR.  You have many messages, most of
+which have been read and filed (and therefore deleted), or simply
+deleted.  You have not yet resynchronized your mailbox (\f3$\f1
+command).  Now you go to lunch.
+On your return, you're stopped at the door and told to take care
+of an emergency.  You go to another part of the building, and want
+to read your mail to see what the emergency is \(em but you can't,
+because Elm is still running at your desk.
+
+What you really want is one of the scenarios given in the
+description of \f2HUP\f1, \f2USR1\f1 or \f2USR2\f1.
+Use your local \f2ps\f1 command to find out what the \f2process number\f1
+of your Elm session is.  Then give the command
+.sp
+.nf
+.ft CW
+.zf
+.ti .5i
+kill \-\f2XXX process_number\f1
+.fi
+.sp
+where \f2XXX\f1 is either \*QHUP\*U, \*QUSR1\*U or \*QUSR2\*U and
+\f2process_number\f1 is the process number for your remote Elm session.
+Your remote session will terminate with the actions noted above.
+.br
+.ne 5
+.sp
+.hn 1 Expert Mail Users and Debugging the Mailer
+
+There are some additional facilities available in the Elm
+mailer for those people who are knowledgeable about
+mail protocols, or trying to debug/track down a problem.
+
+The \f3h\f1 (\f3display with headers\f1) command at the command prompt
+displays the current message ignoring the current
+setting of the \f3weed\f1 variable (see \f3Boolean Variables\f1 in
+section 2).  This is most useful
+for answering questions of the form \*QI wonder what
+this guy put in his header?\*U and such.  This command
+does not show up on the mini-menu because it is somewhat
+esoteric, but it does appear on the help screen.
+
+The \f3@\f1 command at the command prompt
+outputs a screen of debugging information,
+including the number of lines and
+offsets of each of the messages in the current mailbox.
+
+The \f3#\f1 command at the command prompt
+displays the entire stored \*Qrecord structure\*U for
+the current message.
+
+The \f3%\f1 command
+displays the full computed return address of the
+current message.
+
+Starting up Elm with the \f3\-d\f1 (debug) option (see section 3,
+\f3Command Line Options\f1) creates a file called
+\f2ELM:debug.info\f1 in your home directory which contains a wealth of useful
+information (to me, at least!) to aid in tracking down
+what errors are occurring and why.
+
+If there are any problems with Elm,  please try
+to recreate the error with the debug option enabled
+and set to the highest level (11) before sending defect reports my way.
+
+One final note: all error names reported by the program
+are documented in the \f2AT&T System V Interface Definition Reference
+Manual\f1 in \f3errno\f1(2).

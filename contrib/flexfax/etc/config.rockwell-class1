@@ -1,0 +1,38 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.rockwell-class1,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for a Rockwell-based Class 1 modem.
+#    Hayes Optima 24+Fax96	firmware TR00-J260-001 XXX or newer
+#    SupraFAX v.32bis		firmware V1.200-C or newer
+#    Twincom 144/DF		firmware revision V1.200 or newer
+# (and others)
+#
+# Note that XON/XOFF flow control must be used.
+#
+# CONFIG: CLASS1: 999: Manufacturer=ROCKWELL Model=RC144AC
+# CONFIG: CLASS1: 998: Manufacturer=ROCKWELL Model=RC96AC
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class1		# use class 1 interface
+ModemRate:		19200		# locked for fax sending
+ModemFlowControl:	xonxoff
+ModemFlowControlCmd:	&K4		# software flow control
+ModemSetupDTRCmd:	&D3		# DTR off causes modem to reset
+ModemSetupDCDCmd:	&C0		# DCD always on
+ModemMfrQueryCmd:	!Rockwell	# no way to query modem
+ModemModelQueryCmd:	I0		# product code
+ModemRevQueryCmd:	I3		# firmware revision info
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence

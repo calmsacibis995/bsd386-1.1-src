@@ -1,0 +1,72 @@
+.nr H1 4
+.H 1 "Known Problems and Workarounds"
+This section describes known problems and limitations in the current
+release of the software.
+The following list is approximately sorted in order of most important
+to least important to correct.
+.AL 1 +5
+.LI
+The management of outbound jobs does not handle multiple modems well.
+In particular, multiple jobs to the same destination are serialized 
+(which may be incorrect if the remote site is capable of accepting
+multiple simultaneous calls).
+There are also issues with regard to the timely scheduling of jobs
+in an environment with multiple fax modems.
+.LI
+The server does not provide status when it is busy doing PostScript
+conversion operations.
+.LI
+The server does not do copy quality checking of received facsimile data.
+.LI
+There is no support for the interruption of a receive operation.
+.LI
+The server does not do a good job of handling ``short pages''; it
+should calculate the actual filled region of each page and transmit
+only the imaged area if the receiving facsimile machine is capable
+of receiving variable length pages.
+.LI
+There is a race condition in the server where a user may request that
+a job be removed/aborted may not be executed even though the user
+is told that the job has been aborted and removed from the queue.
+This problem only occurs if the request arrives simultaneously with
+the recognition of a failed dial attempt.
+.LI
+The server permits PostScript conversion operations to run indefinitely;
+there should be a timeout.
+.LI
+The server does not gracefully handle the situation where the locally
+cached facsimile machine capabilities cause a document to be prepared
+for submission that is unacceptable to the destination machine (this
+can occur if machines are swapped at the remote end).
+The server should automatically disconnect and reformat the documents
+in this case;
+instead the server returns the original documents to the sender.
+.LI
+There is no support for submitting documents that are to be
+retrieved by polling.
+.LI
+The server does not generate ad-hoc cover pages when a transmission
+is continued after an error.
+.LI
+There is no support for time-of-day restrictions on when calls may be placed.
+.LI
+There is no support for restricting which phone numbers can be dialed.
+.LI
+The \s-1TSI\s+1 checking facility should support a ``narrowing''
+mechanism whereby specific \s-1TSI\s+1 can be rejected.
+.LI
+There are some nuisance problems in the Class 1 modem driver related
+to cleanly shutting down after an error.
+.LI
+It is desirable to support ``tag lines'': lines of text at the top of
+each outgoing page that specify a local identification, the time and date,
+and the page number.
+.LI
+There is no mechanism for changing the order of outbound jobs in the queue.
+.LI
+The \s-1USR\s+1 Courier and Sportster modems return the same product
+identification code but use different configuration files.
+This causes problems with the auto-detection scheme used by
+the \f2faxaddmodem\fP script.
+Users must manually setup a prototype configuration file for Sportster modems.
+.LE

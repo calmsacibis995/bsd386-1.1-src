@@ -1,0 +1,17 @@
+F C.GZ;1                            	C.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F JA_JP_J0.GZ;1                     	ja_JP.jis7.gz
+F JA_JP_J1.GZ;1                     	ja_JP.jis8.gz
+F JA_JP_MS.GZ;1                     	ja_JP.mscode.gz
+F JA_JP_PJ.GZ;1                     	ja_JP.pjis.gz
+F JA_JP_UJ.GZ;1                     	ja_JP.ujis.gz
+F KO_KR_EU.GZ;1                     	ko_KR.euc.gz
+D LOCAL_IM                          	local_im_tbl
+F LT_LN_B0.GZ;1                     	lt_LN.bit7.gz
+F LT_LN_B1.GZ;1                     	lt_LN.bit8.gz
+F NLS_ALIA.GZ;1                     	nls.alias.gz
+F NLS_DIR.GZ;1                      	nls.dir.gz
+F README.GZ;1                       	README.gz
+F WR_WR_CT.GZ;1                     	wr_WR.ct.gz
+F ZH_CN_UG.GZ;1                     	zh_CN.ugb.gz
+F ZH_TW_BI.GZ;1                     	zh_TW.big5.gz

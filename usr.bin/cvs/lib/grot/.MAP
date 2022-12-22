@@ -1,0 +1,9 @@
+F ALLOCA.C;1                        	alloca.c
+F DUP2.C;1                          	dup2.c
+F FTRUNCAT.C;1                      	ftruncate.c
+F GETWD.C;1                         	getwd.c
+F HOSTNAME.C;1                      	hostname.c
+F MAKEFILE.IN;1                     	Makefile.in
+F MKDIR.C;1                         	mkdir.c
+F RENAME.C;1                        	rename.c
+F STRDUP.C;1                        	strdup.c

@@ -1,0 +1,31 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ MANIFEST                   1	This shipping list
+ Makefile                   1	Control file for Unix make program
+ README                     1	Acknowledgements, installation notes
+ config.h                   1	Default configuration file
+ config.sVr3                1	Configuration for SystemV Releases 3.1 and 3.2
+ config.x386                1	configuration for Xenix on a 386
+ dir.amiga                  2	A partial Amiga readdir package
+ dir.msdos                  2	An MS-DOS readdir package
+ findsrc.c                  2	Find source files, based on filename
+ findsrc.man                1	Manual page for findsrc
+ glue.c                     1	Glue that so unshar uses my /bin/sh parser
+ lcwd.c                     1	Routines to find current directory
+ lexec.c                    1	Fork, exec, system, signal, etc., routines
+ lfiles.c                   1	File size and type routines
+ lhost.c                    1	Find our machine name
+ llib.c                     1	Stuff that should be in your C library
+ lmem.c                     1	Memory allocator, uses calloc
+ luser.c                    1	Get user's name
+ makekit.c                  2	Partition files into reasonable-sized kits
+ makekit.man                2	Manual page for makekit
+ parser.c                   3	Interpreter for shell archives
+ patchlevel.h               1	Mistake recorder
+ shar.c                     2	Create script to create files
+ shar.h                     1	Header file, used by everyone
+ shar.man                   1	Manual page for makekit
+ shell.c                    1	Main routine for my shell interpreter
+ shell.man                  1	Manual page for shell
+ unshar.c                   2	Strip news, notes, mail headers from shar's
+ unshar.man                 1	Manual page for unshar

@@ -1,0 +1,15 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F OMRON88K.GZ;1                     	omron88kBm.c.gz
+F OMRONDTB.GZ;1                     	omronDtBm.c.gz
+F OMRONFB_.GZ;1                     	omronFb.h.gz
+F OMRONFSB.GZ;1                     	omronFsBm.c.gz
+F OMRONINI.GZ;1                     	omronInit.c.gz
+F OMRONIO_.GZ;1                     	omronIo.c.gz
+F OMRONKB0.GZ;1                     	omronKbd.c.gz
+F OMRONKB1.GZ;1                     	omronKbd.h.gz
+F OMRONKMA.GZ;1                     	omronKMap.c.gz
+F OMRONMO0.GZ;1                     	omronMouse.c.gz
+F OMRONMO1.GZ;1                     	omronMouse.h.gz
+F OMRONUTI.GZ;1                     	omronUtils.c.gz
+F OMRON_H.GZ;1                      	omron.h.gz
+F README.GZ;1                       	README.gz

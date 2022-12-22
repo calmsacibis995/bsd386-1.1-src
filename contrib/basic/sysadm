@@ -1,0 +1,41 @@
+From sysadmin!bjorn@uunet.UU.NET Thu Sep 28 14:28:29 1989
+Received: from uunet.uu.net by prisma.COM (4.0/4.7)
+	id AA22605; Thu, 28 Sep 89 14:28:19 MDT
+Received: from sysadmin.UUCP by uunet.uu.net (5.61/1.14) with UUCP 
+	id AA21372; Thu, 28 Sep 89 13:27:37 -0400
+Received: by sysadmin.sysadmin.com (/\=-/\ Smail3.1.17.5 #17.4)
+	id <m0gA3vY-0000gwC@sysadmin.sysadmin.com>; Thu, 28 Sep 89 09:48 PDT
+Message-Id: <m0gA3vY-0000gwC@sysadmin.sysadmin.com>
+From: bjorn@sysadmin.com (Bjorn Satdeva)
+Subject: Welcome to the sysadm list
+To: kolstad@prisma.com
+Date: Thu, 28 Sep 89 9:48:12 PDT
+X-Mailer: ELM [version 2.2 PL3]
+Status: RO
+
+Welcome to the Unix System Administration maling list.  The purpose of
+the list is to discuss issues of system administrations for larger sites
+(more than 100 users on one or more machines).  The list is moderated.
+
+This is the address I have for you:
+
+	kolstad@prisma.com
+
+
+Please send your contributions to
+
+	sysadm-list@sysadmin.com
+
+Administrivia, like additions to or deletions from the list, should 
+be sent to 
+
+	sysadm-request@sysadmin.com
+
+
+Please do not allow your mail software to generate automatic replies, 
+e.g. vacation notices, which are sent to the list or me.
+
+Bjorn Satedeva
+List administrator
+sysadm-list@sysadmin.com or bjorn@sysadmin.com
+

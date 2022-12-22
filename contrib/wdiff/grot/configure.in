@@ -1,0 +1,42 @@
+dnl Process this file with autoconf to produce a configure script.
+dnl
+AC_INIT(wdiff.c)
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROGRAMS_CHECK(DIFF, gnudiff diffgnu gdiff)
+if test "$DIFF" = gdiff; then
+  # Carefully avoid gdiff for X as found on SGI systems.
+  DISPLAY= gdiff /dev/null /dev/null > /dev/null 2>&1 || DIFF=
+fi
+test -n "$DIFF" || DIFF=diff
+AC_PROGRAMS_CHECK(PAGER, less more)
+
+echo checking for Xenix
+AC_PROGRAM_EGREP(yes,
+[#if defined(M_XENIX) && !defined(M_UNIX)
+  yes
+#endif
+], XENIX=1)
+if test -n "$XENIX"; then
+  LIBS="$LIBS -ltermlib"
+else
+  LIBS="$LIBS -ltermcap"
+fi
+
+echo checking for malloc library
+# Irix requires -lmalloc for some unknown reason.
+if test -r /usr/lib/libmalloc.a; then
+  LIBS="$LIBS -lmalloc"
+fi
+
+AC_ISC_POSIX
+AC_CONST
+FP_PROTOTYPES
+AC_STDC_HEADERS
+AC_UNISTD_H
+AC_HAVE_HEADERS(string.h termcap.h)
+AC_RETSIGTYPE
+AC_HAVE_FUNCS(tputs)
+AC_REPLACE_FUNCS(strstr)
+AC_ALLOCA
+AC_OUTPUT(Makefile)

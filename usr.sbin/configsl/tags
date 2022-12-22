@@ -1,0 +1,4 @@
+Mconfigsl	configsl.c	/^main(argc, argv)$/
+getinfo	configsl.c	/^getinfo()$/
+query	configsl.c	/^query(prompt, deflt, nonnull)$/
+writeinfo	configsl.c	/^writeinfo()$/

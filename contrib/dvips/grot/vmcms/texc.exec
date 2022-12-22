@@ -1,0 +1,122 @@
+/* This is a Rexx exec that replaces texc.script in the dvips package for
+   VM/CMS.  Written by J. Hafner (hafner@almaden.ibm.com), 2/12/92.   */
+ 
+parse upper source . . execfn execft execfm .
+parse arg ifn ift ofn oft .
+ 
+default_ifn = 'TEX';  default_ofn = 'TEXC'
+ 
+default_ift = 'LPRO'; ifm = '*';
+default_oft = 'LPRO'; ofm = 'A1';
+ 
+if ifn = '?' then signal tell
+ 
+if ifn = '' then ifn = default_ifn
+if ift = '' then ift = default_ift
+if ofn = '' then ofn = default_ofn
+if oft = '' then oft = default_oft
+ 
+address 'COMMAND'
+ 
+'IOX STATE' ifn ift ifm '! . . fm nrecs lrecl recfm . . . rw'
+if rc^=0 then signal input_state_error
+ 
+'IOX STATE' ofn oft ofm
+if rc=0 then do
+   say execfn': Output File' ofn oft ofm 'already exists.'
+   say execfn': Will overwrite with new version.'
+   "ERASE "ofn oft ofm
+   end
+else if rc^=28 then signal output_state_error
+ 
+'MAKEBUF'; lev = rc;
+ 
+outputon = 1
+stripcomment = 0
+ 
+do i=1 to nrecs
+  'IOX READ' ifn ift ifm 'NOC' i '! * line'
+  if rc ^= 0 then leave
+  parse var line comment text
+  if ( comment = "%" & delword(text,5) = "begin code for uncompressed" ) then do
+    outputon = 0
+    stripcomment = 0
+    end
+  if (comment = "%" & delword(text,5) = "% here's the alternate" ) then do
+    stripcomment = 1
+    outputon = 1
+    end
+/*
+  say 'line='line
+  say 'stripcomment='stripcomment' ; comment='comment
+  say 'outputon='outputon' ; textbegins ='delword(text,5)
+  say
+*/
+  if ( outputon == 1 & stripcomment == 1 ) then
+    'IOX WRITE' ofn oft ofm 'F=V L='lrecl' NOC 0 ! text'
+  else if ( outputon = 1 & stripcomment == 0 ) then
+    'IOX WRITE' ofn oft ofm 'F=V L='lrecl' NOC 0 ! line'
+  if (comment = "%" & delword(text,7) = "% end of code for unpacking" ) then do
+    stripcomment = 0
+    outputon = 1
+    end
+end i
+'DROPBUF' lev
+'FINIS' ifn ift ifm
+ 
+exit
+ 
+tell:
+'VMFCLEAR'
+call tellermark; /*
+Command is: 'execfn' <ifn <ift <ofn <oft>>>>
+ 
+This program is part of the VM/CMS version of DVIPS, a TeX dvi to
+PostScript driver written by Tom Rokicki.  It is used in the MAKE
+procedure to build the TEXC.LPRO file from the TEX.LPRO file.  This is
+then followed by SQEEZE to remove the comment lines and pack the files
+tighter.
+ 
+It reads the input file and deletes all the lines between and
+including
+   % begin code for uncompressed fonts only
+and
+   % end code for uncompressed fonts only
+Then it strips the leading % comment symbol from all the succeeding
+lines up to and including the line
+   % % end of code for unpacking compressed fonts
+ 
+Note filemode are not required in the input and output files.
+ 
+The defaults:
+ifn: 'default_ifn'      ift: 'default_ift'    ifm: *
+ofn: 'default_ofn'     oft: 'default_oft'    ofm: A1
+ 
+*/; call teller
+ 
+tellermark:
+  mark=sigl; return
+ 
+teller:
+  Do i=mark+1 to sigl-1
+    Interpret "Say" "'"Sourceline(i)"'"; End; Return
+ 
+input_state_error:
+  if      rc = 28 then say execfn': Input File' ifn ift ifm 'does not exist.'
+  else if rc = 38 then say execfn': Disk' ifm 'not accessed.'
+  else                 say execfn': Error reading 'ifn ift ifm'.'
+  exit rc
+ 
+output_state_error:
+  if rc = 38 then say execfn': Disk' ofm 'not accessed.'
+  else            say execfn': Error writing to 'ofn oft ofm'.'
+  exit rc
+ 
+error:
+say "line " sigl
+say sourceline(sigl)
+exit rc;
+ 
+NOVALUE: /* Report undefined variable and exit */
+say "Undefined variable referenced on line" sigl "of" execfn execft execfm
+exit unit_exit

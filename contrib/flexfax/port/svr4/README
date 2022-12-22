@@ -1,0 +1,90 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/svr4/README,v 1.1.1.1 1994/01/14 23:10:19 torek Exp $
+
+This directory contains the files needed to build FlexFAX 2.1.0 on an
+Intel 386/486 PC under USL UNIX System V Release 4 using gcc 2.3.3 and
+libg++2.3.  The original work was done by Andrew Ford.  More recently
+Marc Boucher has completed the port.
+
+Notes:
+
+1) Comments in the config files ought to suggest the following non-standard
+entry for "/etc/ttydefs" (ttymon's equivalent of "gettydefs"):
+
+ff_38400: 38400 sane cs8 -parenb -clocal hupcl erase ^h kill ^u : 38400 sane cs8 -parenb -clocal hupcl erase ^h kill ^u ::ff_38400
+
+and GettyArgs: of "-g -h -t 60 -l ff_%s".
+
+2) faxd/UUCPLock.c++ can fail to compile due to invalid old-style K&R
+declarations of static functions in some versions of <sys/mkdev.h>
+which it includes.  If this happens, copy /usr/include/sys/mkdev.h to
+port/svr4/sys and apply mkdev.patch (found in this directory), or the
+equivalent editing, to create a version of mkdev.h that will work.
+
+	Sam
+
+(From an early note from Andrew Ford who did the initial porting work...)
+
+System Details
+
+I have been using a 386 PC running Consensys UNIX System V Release
+4.2.  The kernel has the Streams Async Solution serial driver
+installed, but is otherwise straight out of the box.  (I've only had
+it just over a week so I'm still finding out things).
+
+
+Compiler Version
+
+I used GNU C and C++ version 2.3.3 and libg++ 2.3.  The GCC-PATCH
+mentioned in the sun port is not needed for 2.3.3 -- the patch has
+already been applied in the distributed sources.
+
+libg++ must be compiled without the -g flag since there are problems
+generating DWARF debugging output with g++ 2.3.3.
+
+
+Include files
+
+The standard header file <sys/byteorder.h> declares static functions to
+map various functions, however these function only have K&R
+declarations, which are illegal with C++.  byteorder.h is provided by
+gcc so it is included here.
+
+A number of standard header files (syslog.h, termios.h and utmp.h) do
+not have 'extern "C"' linkage directive required by C++.  I have
+provided this in the files in the port directory and included the
+system's version of the file using either the GNU C++ #include_next
+directive or specifying the full path name to locate it.
+
+
+Missing and Incorrect Code
+
+flock is used in a number of places however SVR4 does not implement
+the flock() library function.  An implementation that maps flock() to
+fcntl() in a static function is provided in flock.h in the port
+directory.
+
+A number of function prototypes were slightly wrong.
+
+
+Andrew Ford 	Munich, 15.02.93
+
+Changes for System V Release 4
+
+Header files
+
+flock.h:	SVR4 does not implement the flock() library function.  This
+		implementation maps flock() to fcntl() in a static function.
+
+paths.h:	defines various paths -- copied from the sun port.
+
+syslog.h:
+termios.h:
+utmp.h:		these three header files do not have the 'extern "C"' linkage
+		directive required by C++.  We provide it here and include the
+		system's version of the file using either the GNU C++ 
+		#include_next directive or the full path name to locate it.
+
+Scripts
+
+install.sh:	provides an emulation of the SGI install procedure (based on
+		the version in ../sun

@@ -1,0 +1,17 @@
+F BUG_REPO.;1                       	bug-report
+F CHANGELO.;1                       	ChangeLog
+F CHANGES.JRM;1                     	Changes.jrm
+F CHANGES.MLJ;1                     	Changes.mlj
+F CHANGES.PC;1                      	Changes.pc
+D ETC                               	etc
+F INSTALL.;1                        	INSTALL
+F MACHINES.;1                       	MACHINES
+F MAKEFILE.;1                       	Makefile
+F MANIFEST.;1                       	MANIFEST
+F PATCHDAT.;1                       	PATCHDATES
+F README.;1                         	README
+F README.JRM;1                      	ReadMe.jrm
+F README.SJG;1                      	ReadMe.sjg
+F README.VIM;1                      	ReadMe.vimode
+D SH                                	sh
+D STD                               	std

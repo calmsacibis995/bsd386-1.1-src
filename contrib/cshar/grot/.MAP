@@ -1,0 +1,9 @@
+F CONFIG.SVR;1                      	config.sVr3
+F CONFIG.X38;1                      	config.x386
+F DIR_AMIG.;1                       	dir.amiga
+F DIR_MSDO.;1                       	dir.msdos
+F MAKEFILE.;1                       	Makefile
+F MANIFEST.;1                       	MANIFEST
+F README.;1                         	README
+F SHELL.C;1                         	shell.c
+F SHELL.MAN;1                       	shell.man

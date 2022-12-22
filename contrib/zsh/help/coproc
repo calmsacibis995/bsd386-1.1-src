@@ -1,0 +1,4 @@
+     If a pipeline is preceded by coproc, it  is  executed  as  a
+     coprocess;  a two-way pipe is established between it and the
+     parent shell.  The shell can  read  from  or  write  to  the
+     coprocess by means of the >&p and <&p redirection operators.

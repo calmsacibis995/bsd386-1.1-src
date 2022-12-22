@@ -1,0 +1,6 @@
+F BIOS_V4M.GZ;1                     	bios_V4mmap.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F SYSV_INI.GZ;1                     	sysv_init.c.gz
+F SYSV_IO_.GZ;1                     	sysv_io.c.gz
+F SYSV_VID.GZ;1                     	sysv_video.c.gz
+F XQUEUE_C.GZ;1                     	xqueue.c.gz

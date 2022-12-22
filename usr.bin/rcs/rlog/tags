@@ -1,0 +1,22 @@
+checkrevpair	rlog.c	/^checkrevpair(num1,num2)$/
+cleanup	rlog.c	/^cleanup()$/
+exiterr	rlog.c	/^exiterr()$/
+extdate	rlog.c	/^extdate(root)$/
+extractdelta	rlog.c	/^extractdelta(pdelta)$/
+exttree	rlog.c	/^exttree(root)$/
+getauthor	rlog.c	/^getauthor(argv)$/
+getdatepair	rlog.c	/^getdatepair(argv)$/
+getlocker	rlog.c	/^getlocker(argv)$/
+getnumericrev	rlog.c	/^getnumericrev()$/
+getrevpairs	rlog.c	/^getrevpairs(argv)$/
+getscript	rlog.c	/^getscript(Delta)$/
+getstate	rlog.c	/^getstate(argv)$/
+mainProg	rlog.c	/^mainProg(rlogId, "rlog", "$Id: rlog.c,v 1.1.1.1 19/
+putabranch	rlog.c	/^putabranch(root)$/
+putadelta	rlog.c	/^putadelta(node,editscript,trunk)$/
+putforest	rlog.c	/^putforest(branchroot)$/
+putree	rlog.c	/^putree(root)$/
+putrunk	rlog.c	/^putrunk()$/
+readdeltalog	rlog.c	/^readdeltalog()$/
+recentdate	rlog.c	/^recentdate(root, pd)$/
+trunclocks	rlog.c	/^trunclocks()$/

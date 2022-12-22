@@ -1,0 +1,84 @@
+.\" Copyright (c) 1992,1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: st.4,v 1.2 1993/03/23 22:56:14 polk Exp $
+.Dd March 23, 1993
+.Os
+.Dt ST 4
+.Sh NAME
+.Nm st
+.Nd machine-independent SCSI tape driver
+.Sh SYNOPSIS
+.Cd "options SCSI"
+.Cd "tape st0 at tg? targetbase 0"
+.Sh DESCRIPTION
+The
+.Nm st
+driver for tape drives on the Small Computer System Interface
+(ANSI X3.131-1992) bus is a machine-independent generic device
+which employs machine-dependent drivers for individual host adapters
+to send commands to manipulate tapes.
+The
+.Nm st
+driver takes care of opening the tape device,
+locking out other users and serializing I/O;
+generating the correct read and write Command Descriptor Blocks,
+and handling specialized tape commands such as space forward,
+write filemarks or rewind;
+detecting errors and reporting them in a standard
+way to the user's terminal;
+and probing for logical units on SCSI targets
+and classifying them according to their type.
+The driver supports alternate tape densities on QIC drives
+by encoding the SCSI tape density in the high 5 bits
+of the minor device number.
+The driver supports the standard
+.Xr mt 1
+tape motion commands.
+.Sh FILES
+.Bl -tag -width /dev/nrst[0-3] -compact
+.It Pa /dev/rst[0-3]
+auto-rewind tape devices
+.It Pa /dev/nrst[0-3]
+no-rewind tape devices
+.It Pa /dev/rq11st0
+force QIC-11 tape format
+.It Pa /dev/rq150st0
+force QIC-150 tape format
+.It Pa /dev/rf8mm0
+force fixed-length record 8mm tape format
+.El
+.Sh SEE ALSO
+.Xr mt 1
+.Sh HISTORY
+Written by Donn Seeley of BSDI for BSD/386 0.3.
+.Sh BUGS
+Cooked tape doesn't work.
+.Pp
+Many SCSI-1 tapes don't support the SCSI
+.Sq mode select
+command, which the driver uses to select tape density.
+The driver currently assumes that most tapes do support this feature;
+this assumption may not be wise,
+and it will break any tape that does not support it
+and that isn't listed specifically in the driver.
+Currently all Sankyo tapes and some Wangtek tapes
+are assumed not to support mode selection.
+.Pp
+Most SCSI-1 tapes can't report tape position.
+The Archive Viper 150 supports a read physical record number command
+which gives somewhat different results from the SCSI-2 read position command.
+.Pp
+The default record mode on 8mm tape is variable-length records;
+the specific SCSI 8mm densities are used to select fixed-length records.
+This is a gross hack which will go away when
+.Va dev_t
+fields are widened.
+For this reason,
+there isn't any way to select EXB-8200 density on an EXB-8500.
+.Pp
+The
+.Ar status
+feature of
+.Xr mt 1
+is not very useful with SCSI tapes at this time.

@@ -1,0 +1,81 @@
+WRITE2	k_standard.c	/^#define	WRITE2(u,v)	fputs(u, stderr)$/
+__ieee754_acos	e_acos.c	/^	double __ieee754_acos(x)$/
+__ieee754_acosh	e_acosh.c	/^	double __ieee754_acosh(x)$/
+__ieee754_asin	e_asin.c	/^	double __ieee754_asin(x)$/
+__ieee754_atan2	e_atan2.c	/^	double __ieee754_atan2(y,x)$/
+__ieee754_atanh	e_atanh.c	/^	double __ieee754_atanh(x)$/
+__ieee754_cosh	e_cosh.c	/^	double __ieee754_cosh(x)$/
+__ieee754_exp	e_exp.c	/^	double __ieee754_exp(x)	\/* default IEEE double e/
+__ieee754_fmod	e_fmod.c	/^	double __ieee754_fmod(x,y)$/
+__ieee754_gamma	e_gamma.c	/^	double __ieee754_gamma(x)$/
+__ieee754_gamma_r	e_gamma_r.c	/^	double __ieee754_gamma_r(x,signgamp)$/
+__ieee754_hypot	e_hypot.c	/^	double __ieee754_hypot(x,y)$/
+__ieee754_j0	e_j0.c	/^	double __ieee754_j0(x) $/
+__ieee754_j1	e_j1.c	/^	double __ieee754_j1(x) $/
+__ieee754_jn	e_jn.c	/^	double __ieee754_jn(n,x)$/
+__ieee754_lgamma	e_lgamma.c	/^	double __ieee754_lgamma(x)$/
+__ieee754_lgamma_r	e_lgamma_r.c	/^	double __ieee754_lgamma_r(x,signgamp)$/
+__ieee754_log	e_log.c	/^	double __ieee754_log(x)$/
+__ieee754_log10	e_log10.c	/^	double __ieee754_log10(x)$/
+__ieee754_pow	e_pow.c	/^	double __ieee754_pow(x,y)$/
+__ieee754_remainder	e_remainder.c	/^	double __ieee754_remainder(x,p)$/
+__ieee754_scalb	e_scalb.c	/^	double __ieee754_scalb(x,fn)$/
+__ieee754_sinh	e_sinh.c	/^	double __ieee754_sinh(x)$/
+__ieee754_sqrt	e_sqrt.c	/^	double __ieee754_sqrt(x)$/
+__ieee754_y0	e_j0.c	/^	double __ieee754_y0(x) $/
+__ieee754_yn	e_jn.c	/^	double __ieee754_yn(n,x) $/
+__kernel_cos	k_cos.c	/^	double __kernel_cos(x, y)$/
+__kernel_sin	k_sin.c	/^	double __kernel_sin(x, y, iy)$/
+__kernel_standard	k_standard.c	/^	double __kernel_standard(x,y,type) $/
+__kernel_tan	k_tan.c	/^	double __kernel_tan(x, y, iy)$/
+acos	w_acos.c	/^	double acos(x)			\/* wrapper acos *\/$/
+acosh	w_acosh.c	/^	double acosh(x)			\/* wrapper acosh *\/$/
+asin	w_asin.c	/^	double asin(x)			\/* wrapper asin *\/$/
+asinh	s_asinh.c	/^	double asinh(x)$/
+atan2	w_atan2.c	/^	double atan2(y,x)			\/* wrapper atan2 *\/$/
+atanh	w_atanh.c	/^	double atanh(x)			\/* wrapper atanh *\/$/
+cbrt	s_cbrt.c	/^	double cbrt(x) $/
+ceil	s_ceil.c	/^	double ceil(x)$/
+copysign	s_copysign.c	/^	double copysign(x,y)$/
+cos	s_cos.c	/^	double cos(x)$/
+cosh	w_cosh.c	/^	double cosh(x)			\/* wrapper cosh *\/$/
+erf	s_erf.c	/^	double erf(x) $/
+erfc	s_erf.c	/^	double erfc(x) $/
+exp	w_exp.c	/^	double exp(x)			\/* wrapper exp *\/$/
+expm1	s_expm1.c	/^	double expm1(x)$/
+fabs	s_fabs.c	/^	double fabs(x)$/
+finite	s_finite.c	/^	int finite(x)$/
+floor	s_floor.c	/^	double floor(x)$/
+fmod	w_fmod.c	/^	double fmod(x,y)		\/* wrapper fmod *\/$/
+frexp	s_frexp.c	/^	double frexp(x, eptr)$/
+gamma	w_gamma.c	/^	double gamma(x)$/
+gamma_r	w_gamma_r.c	/^	double gamma_r(x,signgamp)              \/* wrapp/
+hypot	w_hypot.c	/^	double hypot(x,y)		\/* wrapper hypot *\/$/
+ilogb	s_ilogb.c	/^	int ilogb(x)$/
+j0	w_j0.c	/^	double j0(x)			\/* wrapper j0 *\/$/
+j1	w_j1.c	/^	double j1(x)			\/* wrapper j1 *\/$/
+jn	w_jn.c	/^	double jn(n,x)			\/* wrapper jn *\/$/
+ldexp	s_ldexp.c	/^	double ldexp(value, exp)$/
+lgamma	w_lgamma.c	/^	double lgamma(x)$/
+lgamma_r	w_lgamma_r.c	/^	double lgamma_r(x,signgamp)              \/* wrap/
+log	w_log.c	/^	double log(x)			\/* wrapper log *\/$/
+log10	w_log10.c	/^	double log10(x)			\/* wrapper log10 *\/$/
+log1p	s_log1p.c	/^	double log1p(x)$/
+logb	s_logb.c	/^	double logb(x)$/
+matherr	s_matherr.c	/^	int matherr(x)$/
+modf	s_modf.c	/^	double modf(x, iptr)$/
+nextafter	s_nextafter.c	/^	double nextafter(x,y)$/
+pow	w_pow.c	/^	double pow(x,y)			\/* wrapper pow *\/$/
+remainder	w_remainder.c	/^	double remainder(x,y)			\/* wrapper remainder *\//
+rint	s_rint.c	/^	double rint(x)$/
+scalbn	s_scalbn.c	/^	double scalbn (x,n)$/
+significand	s_significand.c	/^	double significand(x)$/
+sin	s_sin.c	/^	double sin(x)$/
+sin_pi	e_lgamma_r.c	/^	static double sin_pi(x)$/
+sinh	w_sinh.c	/^	double sinh(x)			\/* wrapper sinh *\/$/
+sqrt	w_sqrt.c	/^	double sqrt(x)			\/* wrapper sqrt *\/$/
+tan	s_tan.c	/^	double tan(x)$/
+tanh	s_tanh.c	/^	double tanh(x)$/
+y0	w_j0.c	/^	double y0(x)			\/* wrapper y0 *\/$/
+y1	w_j1.c	/^	double y1(x)			\/* wrapper y1 *\/$/
+yn	w_jn.c	/^	double yn(n,x)			\/* wrapper yn *\/$/

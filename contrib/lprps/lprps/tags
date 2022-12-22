@@ -1,0 +1,36 @@
+Mlprps	lprps.c	/^int main(argc, argv)$/
+blocking_write	lprps.c	/^void blocking_write(s, n)$/
+debug_tty	lprps.c	/^void debug_tty()$/
+do_accounting	lprps.c	/^void do_accounting()$/
+do_exit	lprps.c	/^void do_exit(exit_code)$/
+error	lprps.c	/^void error(s, a1, a2)$/
+flush_output	lprps.c	/^void flush_output()$/
+get_end_pagecount	lprps.c	/^void get_end_pagecount()$/
+get_start_pagecount	lprps.c	/^void get_start_pagecount()$/
+get_status	lprps.c	/^void get_status()$/
+handle_interrupt	lprps.c	/^void handle_interrupt()$/
+handle_printer_error	lprps.c	/^void handle_printer_error(s)$/
+handle_timeout	lprps.c	/^void handle_timeout()$/
+init_tty	lprps.c	/^void init_tty()$/
+ioflush	lprps.c	/^void ioflush()$/
+message_char	lprps.c	/^void message_char(c)$/
+open_mailfp	lprps.c	/^void open_mailfp()$/
+output_char	lprps.c	/^void output_char(c)$/
+print_status_file	lprps.c	/^void print_status_file(s, a1, a2)$/
+printer_flushing	lprps.c	/^void printer_flushing()$/
+process_input_char	lprps.c	/^void process_input_char(c)$/
+process_message	lprps.c	/^void process_message()$/
+process_some_input	lprps.c	/^void process_some_input()$/
+read_status_file	lprps.c	/^void read_status_file()$/
+restore_status_file	lprps.c	/^void restore_status_file()$/
+send_file	lprps.c	/^void send_file()$/
+set_blocking	lprps.c	/^void set_blocking()$/
+set_interrupt_flag	lprps.c	/^void set_interrupt_flag()$/
+set_non_blocking	lprps.c	/^void set_non_blocking()$/
+set_timeout_flag	lprps.c	/^void set_timeout_flag()$/
+strsignal	lprps.c	/^char *strsignal(n)$/
+sys_error	lprps.c	/^void sys_error(s, a1, a2)$/
+usage	lprps.c	/^#define usage() error("invalid arguments")    $/
+user_char	lprps.c	/^void user_char(c)$/
+write_status_file	lprps.c	/^void write_status_file(s)$/
+xmalloc	lprps.c	/^char *xmalloc(n)$/

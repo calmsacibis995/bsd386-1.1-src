@@ -1,0 +1,42 @@
+BellOff	termout.c	/^BellOff()$/
+ConnectScreen	termout.c	/^ConnectScreen()$/
+CorrectTerminalCursor	termout.c	/^#define CorrectTerminalCursor() ((TransparentClock/
+DoARefresh	termout.c	/^DoARefresh()$/
+DoAttribute	termout.c	/^#define	DoAttribute(a) 	    if (IsHighlightedAttr(/
+DoAttributes	termout.c	/^#define	DoAttributes(x) \\$/
+DoTerminalOutput	termout.c	/^DoTerminalOutput()$/
+FD_CLR	system.c	/^#define	FD_CLR(n, p)	((p)->fds_bits[0] &= ~(1<<(n)/
+FD_ISSET	system.c	/^#define	FD_ISSET(n, p)	((p)->fds_bits[0] & (1<<(n)/
+FD_SET	system.c	/^#define	FD_SET(n, p)	((p)->fds_bits[0] |= (1<<(n))/
+FD_ZERO	system.c	/^#define FD_ZERO(p)	((p)->fds_bits[0] = 0)$/
+FastScreen	termout.c	/^FastScreen()$/
+GoAway	termout.c	/^GoAway(from, where)$/
+InitTerminal	termout.c	/^InitTerminal()$/
+LocalClearScreen	termout.c	/^LocalClearScreen()$/
+OurExitString	termout.c	/^OurExitString(string, value)$/
+RefreshScreen	termout.c	/^RefreshScreen()$/
+RingBell	termout.c	/^RingBell(s)$/
+ScreenOIA	termout.c	/^ScreenOIA(oia)$/
+SlowScreen	termout.c	/^SlowScreen()$/
+StopScreen	termout.c	/^StopScreen(doNewLine)$/
+TransOut	termout.c	/^TransOut(buffer, count, kind, control)$/
+TransStop	termout.c	/^TransStop()$/
+WhereTermAttrByte	termout.c	/^WhereTermAttrByte(p)$/
+aborttc	termout.c	/^aborttc()$/
+access_api	system.c	/^access_api(location, length, copyin)$/
+child_died	system.c	/^child_died(code)$/
+doassociate	system.c	/^doassociate()$/
+doconnect	system.c	/^doconnect()$/
+doreject	system.c	/^doreject(message)$/
+freestorage	system.c	/^freestorage()$/
+getstorage	system.c	/^getstorage(address, length, copyin)$/
+init_screen	termout.c	/^init_screen()$/
+kill_connection	system.c	/^kill_connection()$/
+movetothem	system.c	/^movetothem(es, di, local, length)$/
+movetous	system.c	/^movetous(local, es, di, length)$/
+nextstore	system.c	/^nextstore()$/
+nl	termout.c	/^#define nl()	 (_tty.sg_flags |= CRMOD,_pfast = _ra/
+nonl	termout.c	/^#define nonl()	 (_tty.sg_flags &= ~CRMOD, _pfast =/
+shell	system.c	/^shell(argc,argv)$/
+shell_continue	system.c	/^shell_continue()$/
+unaccess_api	system.c	/^unaccess_api(location, local, length, copyout)$/

@@ -1,0 +1,16 @@
+F FBITBLT_.GZ;1                     	fBitBlt.s.gz
+F FFILLSET.GZ;1                     	fFillSet.s.gz
+F FFILL_S.GZ;1                      	fFill.s.gz
+F FLINEBRE.GZ;1                     	fLineBres.s.gz
+F FLINEH_S.GZ;1                     	fLineH.s.gz
+F FLINEV_S.GZ;1                     	fLineV.s.gz
+F GBANKS_C.GZ;1                     	gBanks.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F SPEEDUPB.GZ;1                     	SpeedUpBlt.c.gz
+F SUBITBL0.GZ;1                     	suBitBlt.s.gz
+F SUBITBL1.GZ;1                     	suBitBlt2.s.gz
+F SUBOX_S.GZ;1                      	suBox.s.gz
+F SULINE_S.GZ;1                     	suLine.s.gz
+F SUVHLINE.GZ;1                     	suVHLine.s.gz
+F VGABITBL.GZ;1                     	vgaBitBlt.c.gz
+F VGAFASM_.GZ;1                     	vgaFasm.h.gz

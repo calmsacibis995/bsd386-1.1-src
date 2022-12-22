@@ -1,0 +1,20 @@
+      if list
+      then list
+      [ elif list ; then list ] ...
+      [ else list ]
+      fi   The if list is executed, and, if it returns a zero
+	   exit  status,  the  then list is executed.  Other-
+	   wise, the elif list is executed and, if its  value
+	   is  zero, the then list is executed.  If each elif
+	   list returns nonzero, the else list is executed.
+
+      if ( list ) sublist
+	   A short form of if.
+
+      if ( list ) {
+      list
+      } elif ( list ) {
+      list
+      } ... else {
+      list
+      }    An alternate form of if.

@@ -1,0 +1,7 @@
+Mmacvert	macvert.c	/^main(argc, argv)$/
+int_fmt	macvert.c	/^int_fmt(i)$/
+mac_io	macvert.c	/^mac_io(fcn, ptr, nbytes)$/
+ntohl	macvert.c	/^ntohl(x)$/
+output_new_definition	macvert.c	/^output_new_definition(name, body, bodylen)$/
+pr_putc	macvert.c	/^pr_putc(c)$/
+read_and_write_macros	macvert.c	/^read_and_write_macros(filein)$/

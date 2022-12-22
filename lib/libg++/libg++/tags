@@ -1,0 +1,138 @@
+Bug	../D/libio/floatconv.c	/^#define Bug(x) {fprintf(stderr, "%s\\n", x); exit(/
+DEF_STDFILE	../D/libio/stdfiles.c	/^#define DEF_STDFILE(NAME, FD, CHAIN, FLAGS) \\$/
+FILEBUF_LITERAL	../D/libio/stdfiles.c	/^#define FILEBUF_LITERAL(CHAIN, FLAGS, FD) \\$/
+Infinite	../D/libio/floatconv.c	/^#define Infinite(x) (word0(x) == 0x7ff00000) \/* s/
+LEN	../D/libio/strops.c	/^#define LEN(fp) (((_IO_strfile*)(fp))->_s._len)$/
+PADN	../D/libio/outfloat.c	/^#define PADN(fill, n) \\$/
+PAD_0	../D/libio/iovfprintf.c	/^#define PAD_0(howmany) if (_IO_padn(fp, '0', howma/
+PAD_SP	../D/libio/iovfprintf.c	/^#define PAD_SP(howmany) if (_IO_padn(fp, ' ', howm/
+PRINT	../D/libio/iovfprintf.c	/^#define	PRINT(ptr, len) \\$/
+PUT	../D/libio/outfloat.c	/^#define PUT(x) do {if (_IO_putc(x, sb) < 0) goto e/
+PUTN	../D/libio/outfloat.c	/^#define PUTN(p, n) \\$/
+SARG	../D/libio/iovfprintf.c	/^#define	SARG() \\$/
+Sign_Extend	../D/libio/floatconv.c	/^#define Sign_Extend(a,b) if (b < 0) a |= 0xffff000/
+Storeinc	../D/libio/floatconv.c	/^#define Storeinc(a,b,c) (((unsigned short *)a)[1] /
+UARG	../D/libio/iovfprintf.c	/^#define	UARG() \\$/
+_IO_adjust_column	../D/libio/genops.c	/^_IO_adjust_column(start, line, count)$/
+_IO_close	../D/libio/ioprims.c	/^_IO_close (fildes)$/
+_IO_default_doallocate	../D/libio/genops.c	/^_IO_default_doallocate(fp)$/
+_IO_default_finish	../D/libio/genops.c	/^void _IO_default_finish (fp)$/
+_IO_default_pbackfail	../D/libio/genops.c	/^_IO_default_pbackfail(fp, c)$/
+_IO_default_read	../D/libio/genops.c	/^_IO_default_read(fp, data, n)$/
+_IO_default_seek	../D/libio/genops.c	/^_IO_default_seek(fp, offset, dir)$/
+_IO_default_seekoff	../D/libio/genops.c	/^_IO_default_seekoff(fp, offset, mode)$/
+_IO_default_seekpos	../D/libio/genops.c	/^_IO_default_seekpos(fp, pos, mode)$/
+_IO_default_setbuf	../D/libio/genops.c	/^_IO_default_setbuf(fp, p, len)$/
+_IO_default_stat	../D/libio/genops.c	/^_IO_default_stat(fp, st)$/
+_IO_default_sync	../D/libio/genops.c	/^_IO_default_sync (fp)$/
+_IO_default_underflow	../D/libio/genops.c	/^_IO_default_underflow (fp)$/
+_IO_default_write	../D/libio/genops.c	/^_IO_default_write(fp, data, n)$/
+_IO_default_xsgetn	../D/libio/genops.c	/^_IO_default_xsgetn(fp, data, n)$/
+_IO_default_xsputn	../D/libio/genops.c	/^_IO_default_xsputn(f, data, n)$/
+_IO_do_write	../D/libio/fileops.c	/^_IO_do_write(fp, data, to_do)$/
+_IO_doallocbuf	../D/libio/genops.c	/^_IO_doallocbuf(fp)$/
+_IO_fclose	../D/libio/iofclose.c	/^_IO_fclose(fp)$/
+_IO_fdopen	../D/libio/iofdopen.c	/^_IO_fdopen (fd, mode)$/
+_IO_fflush	../D/libio/iofflush.c	/^_IO_fflush(fp)$/
+_IO_fgetpos	../D/libio/iofgetpos.c	/^_IO_fgetpos(fp, posp)$/
+_IO_fgets	../D/libio/iofgets.c	/^_IO_fgets(buf, n, fp)$/
+_IO_file_attach	../D/libio/fileops.c	/^_IO_file_attach(fp, fd)$/
+_IO_file_close	../D/libio/fileops.c	/^_IO_file_close(fp)$/
+_IO_file_close_it	../D/libio/fileops.c	/^_IO_file_close_it(fp)$/
+_IO_file_doallocate	../D/libio/filedoalloc.c	/^_IO_file_doallocate(fp)$/
+_IO_file_finish	../D/libio/fileops.c	/^_IO_file_finish(fp)$/
+_IO_file_fopen	../D/libio/fileops.c	/^_IO_file_fopen(fp, filename, mode)$/
+_IO_file_init	../D/libio/fileops.c	/^_IO_file_init(fp)$/
+_IO_file_overflow	../D/libio/fileops.c	/^int _IO_file_overflow (f, ch)$/
+_IO_file_read	../D/libio/fileops.c	/^_IO_file_read(fp, buf, size)$/
+_IO_file_seek	../D/libio/fileops.c	/^_IO_file_seek(fp, offset, dir)$/
+_IO_file_seekoff	../D/libio/fileops.c	/^_IO_file_seekoff(fp, offset, mode)$/
+_IO_file_setbuf	../D/libio/fileops.c	/^_IO_file_setbuf(fp, p, len)$/
+_IO_file_stat	../D/libio/fileops.c	/^_IO_file_stat(fp, st)$/
+_IO_file_sync	../D/libio/fileops.c	/^_IO_file_sync(fp)$/
+_IO_file_underflow	../D/libio/fileops.c	/^_IO_file_underflow(fp)$/
+_IO_file_write	../D/libio/fileops.c	/^_IO_file_write(f, data, n)$/
+_IO_file_xsputn	../D/libio/fileops.c	/^_IO_file_xsputn(f, data, n)$/
+_IO_flush_all	../D/libio/genops.c	/^_IO_flush_all()$/
+_IO_flush_all_linebuffered	../D/libio/genops.c	/^_IO_flush_all_linebuffered()$/
+_IO_fopen	../D/libio/iofopen.c	/^_IO_fopen (filename, mode)$/
+_IO_fread	../D/libio/iofread.c	/^_IO_fread(buf, size, count, fp)$/
+_IO_free_backup_area	../D/libio/genops.c	/^_IO_free_backup_area(fp)$/
+_IO_fsetpos	../D/libio/iofsetpos.c	/^_IO_fsetpos(fp, posp)$/
+_IO_fstat	../D/libio/ioprims.c	/^_IO_fstat (fildes, buf)$/
+_IO_ftell	../D/libio/ioftell.c	/^_IO_ftell(fp)$/
+_IO_fwrite	../D/libio/iofwrite.c	/^_IO_fwrite(buf, size, count, fp)$/
+_IO_get_column	../D/libio/genops.c	/^_IO_get_column(fp)$/
+_IO_getline	../D/libio/iogetline.c	/^_IO_getline(fp, buf, n, delim, extract_delim)$/
+_IO_gets	../D/libio/iogets.c	/^_IO_gets(buf)$/
+_IO_helper_overflow	../D/libio/iovfprintf.c	/^_IO_helper_overflow (fp, c)$/
+_IO_ignore	../D/libio/ioignore.c	/^_IO_ignore(fp, n)$/
+_IO_init	../D/libio/genops.c	/^_IO_init(fp, flags)$/
+_IO_init_marker	../D/libio/genops.c	/^void _IO_init_marker(marker, fp)$/
+_IO_least_marker	../D/libio/genops.c	/^_IO_least_marker(fp)$/
+_IO_link_in	../D/libio/genops.c	/^void _IO_link_in(fp)$/
+_IO_lseek	../D/libio/ioprims.c	/^_IO_lseek (fildes, offset, whence)$/
+_IO_marker_delta	../D/libio/genops.c	/^_IO_marker_delta(mark)$/
+_IO_marker_difference	../D/libio/genops.c	/^_IO_marker_difference(mark1, mark2)$/
+_IO_nobackup_pbackfail	../D/libio/genops.c	/^_IO_nobackup_pbackfail(fp, c)$/
+_IO_outfloat	../D/libio/outfloat.c	/^int _IO_outfloat(value, sb, type, width, precision/
+_IO_padn	../D/libio/iopadn.c	/^_IO_padn(fp, pad, count)$/
+_IO_perror	../D/libio/ioperror.c	/^_IO_perror (s)$/
+_IO_popen	../D/libio/iopopen.c	/^_IO_popen(command, mode)$/
+_IO_proc_close	../D/libio/iopopen.c	/^_IO_proc_close(fp)$/
+_IO_proc_open	../D/libio/iopopen.c	/^_IO_proc_open(fp, command, mode)$/
+_IO_puts	../D/libio/ioputs.c	/^_IO_puts(str)$/
+_IO_read	../D/libio/ioprims.c	/^_IO_read (fildes, buf, nbyte)$/
+_IO_remove_marker	../D/libio/genops.c	/^_IO_remove_marker (marker)$/
+_IO_seekmark	../D/libio/genops.c	/^int _IO_seekmark(fp, mark, delta)$/
+_IO_seekoff	../D/libio/ioseekoff.c	/^_IO_seekoff(fp, offset, flags)$/
+_IO_seekpos	../D/libio/ioseekpos.c	/^_IO_seekpos(fp, pos, flags)$/
+_IO_set_column	../D/libio/genops.c	/^_IO_set_column(fp, c)$/
+_IO_setb	../D/libio/genops.c	/^_IO_setb(f, b, eb, a)$/
+_IO_setbuffer	../D/libio/iosetbuffer.c	/^_IO_setbuffer(fp, buf, size)$/
+_IO_setvbuf	../D/libio/iosetvbuf.c	/^_IO_setvbuf(fp, buf, mode, size)$/
+_IO_sgetn	../D/libio/genops.c	/^_IO_sgetn(fp, data, n)$/
+_IO_sputbackc	../D/libio/genops.c	/^_IO_sputbackc(fp, c) \/* ungetc(c, fp) *\/$/
+_IO_str_count	../D/libio/strops.c	/^_IO_str_count (fp)$/
+_IO_str_finish	../D/libio/strops.c	/^_IO_str_finish(fp)$/
+_IO_str_init_readonly	../D/libio/strops.c	/^_IO_str_init_readonly (fp, ptr, size)$/
+_IO_str_init_static	../D/libio/strops.c	/^_IO_str_init_static (fp, ptr, size, pstart)$/
+_IO_str_overflow	../D/libio/strops.c	/^int _IO_str_overflow (fp, c)$/
+_IO_str_pbackfail	../D/libio/strops.c	/^_IO_str_pbackfail(fp, c)$/
+_IO_str_seekoff	../D/libio/strops.c	/^_IO_str_seekoff(fp, offset, mode)$/
+_IO_str_underflow	../D/libio/strops.c	/^_IO_str_underflow (fp)$/
+_IO_strerror	../D/libio/iostrerror.c	/^_IO_strerror(errnum)$/
+_IO_sungetc	../D/libio/genops.c	/^_IO_sungetc(fp)$/
+_IO_switch_to_backup_area	../D/libio/genops.c	/^_IO_switch_to_backup_area(fp)$/
+_IO_switch_to_get_mode	../D/libio/genops.c	/^_IO_switch_to_get_mode(fp)$/
+_IO_switch_to_main_get_area	../D/libio/genops.c	/^_IO_switch_to_main_get_area(fp)$/
+_IO_switch_to_put_mode	../D/libio/genops.c	/^_IO_switch_to_put_mode(fp)$/
+_IO_sync	../D/libio/genops.c	/^_IO_sync(fp)$/
+_IO_un_link	../D/libio/genops.c	/^void _IO_un_link(fp)$/
+_IO_ungetc	../D/libio/ioungetc.c	/^_IO_ungetc(c, fp)$/
+_IO_unsave_markers	../D/libio/genops.c	/^void _IO_unsave_markers(fp)$/
+_IO_vfprintf	../D/libio/iovfprintf.c	/^_IO_vfprintf(fp, fmt0, ap)$/
+_IO_vfscanf	../D/libio/iovfscanf.c	/^_IO_vfscanf(fp, fmt0, ap, errp)$/
+_IO_vsprintf	../D/libio/iovsprintf.c	/^_IO_vsprintf (string, format, args)$/
+_IO_vsscanf	../D/libio/iovsscanf.c	/^_IO_vsscanf (string, format, args)$/
+_IO_write	../D/libio/ioprims.c	/^_IO_write (fildes, buf, nbyte)$/
+__cvt_double	../D/libio/iovfprintf.c	/^int __cvt_double(double number, register int prec,/
+__overflow	../D/libio/genops.c	/^int  __overflow(f, ch)$/
+__sccl	../D/libio/iovfscanf.c	/^static const u_char *__sccl(tab, fmt)$/
+__underflow	../D/libio/genops.c	/^__underflow(fp)$/
+exponent	../D/libio/iovfprintf.c	/^static char *exponent(register char *p, register i/
+gettim	../D/libg++/src/timer.c	/^void sys$gettim(unsigned int*) asm("sys$gettim");$/
+helper_vfprintf	../D/libio/iovfprintf.c	/^helper_vfprintf(fp, fmt0, ap)$/
+is_digit	../D/libio/iovfprintf.c	/^#define is_digit(c)	((unsigned)to_digit(c) <= 9)$/
+return_elapsed_time	../D/libg++/src/timer.c	/^return_elapsed_time(Last_Time)$/
+round	../D/libio/iovfprintf.c	/^static char * round(double fract, int *exp,$/
+rounded_product	../D/libio/floatconv.c	/^#define rounded_product(a,b) a = rnd_prod(a, b)$/
+rounded_quotient	../D/libio/floatconv.c	/^#define rounded_quotient(a,b) a = rnd_quot(a, b)$/
+setword0	../D/libio/floatconv.c	/^#define setword0(D,X) (_temp.d = D, _temp.x[HIWORD/
+start_timer	../D/libg++/src/timer.c	/^start_timer()$/
+test_endianness	../D/libio/floatconv.c	/^static void test_endianness()$/
+to_char	../D/libio/iovfprintf.c	/^#define	to_char(n)	((n) + '0')$/
+to_digit	../D/libio/iovfprintf.c	/^#define	to_digit(c)	((c) - '0')$/
+void	../D/libio/cleanup.c	/^typedef void (*voidfunc) _PARAMS((void));$/
+word0	../D/libio/floatconv.c	/^#define word0(x) ((unsigned long *)&x)[HIWORD]$/
+word1	../D/libio/floatconv.c	/^#define word1(x) ((unsigned long *)&x)[LOWORD]$/

@@ -1,0 +1,14 @@
+D CF                                	cf
+F CHANGES_.;1                       	CHANGES-R5-R8
+D CONTRIB                           	contrib
+D DOC                               	doc
+F FAQ.;1                            	FAQ
+F KNOWNBUG.;1                       	KNOWNBUGS
+D MAILSTAT                          	mailstats
+F MAKEFILE.;1                       	Makefile
+D MAKEMAP                           	makemap
+D PRALIASE                          	praliases
+F READ_ME.;1                        	READ_ME
+F RELEASE_.;1                       	RELEASE_NOTES
+D SRC                               	src
+D TEST                              	test

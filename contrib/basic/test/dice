@@ -1,0 +1,31 @@
+
+ 10 rem calculate the odds on a pair of dice -- see old craps program
+ 20 rem written by     henry d. shapiro
+ 30 rem                cs 150  sec 007
+ 40 rem                10/19/81
+ 50
+ 60 rem variable dictionary
+ 70 rem   p(12) - number of times various values have come up
+ 80 rem   r     - result of a roll
+ 90 rem   i     - roll we are on (and service loop control variable)
+100
+110 dim p(12)
+120 for i=1 to 12
+130   p(i)=0
+140 next i
+150 for i=1 to 1000
+160   let r=int(6*rnd)+1  +  int(6*rnd)+1
+170   let p(r)=p(r)+1
+180 next i
+190 print 'the probabilities of each value coming up on a roll of the di ce'
+200 for i=2 to 12
+210   print i
+220 next i
+230 rem write out the carriage return
+240 print
+250 for i=2 to 12
+260   print p(i)/1000
+270 next i
+280 rem write out the carriage return
+290 print
+320 end

@@ -1,0 +1,18 @@
+     ulimit [ -HSacdfmnt ] [ limit ]
+          Set or display a resource limit.  The  value  of  limit
+          can  be  a  number  in  the unit specified below or the
+          value unlimited.  The H and S flags specify whether the
+          hard  limit or the soft limit for the given resource is
+          set.
+          -a   Lists all of the current resource limits.
+          -c   The number of 512-byte blocks on the size of  core
+               dumps.
+          -d   The number of K-bytes on the size of the data seg-
+               ment.
+          -f   The number of 512-byte blocks on the size of files
+               written.
+          -m   The number of K-bytes  on  the  size  of  physical
+               memory.
+          -n   The number of file descriptors.
+          -s   The number of K-bytes on the size of the stack.
+          -t   The number of CPU seconds to be used.

@@ -1,0 +1,13 @@
+D BFD                               	bfd
+D GDB                               	gdb
+D GLOB                              	glob
+D GROT                              	grot
+D INCLUDE                           	include
+D LIBIBERT                          	libiberty
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.GNU;1                    	Makefile.gnu
+F MAKEFILE.IN;1                     	Makefile.in
+D MMALLOC                           	mmalloc
+D READLINE                          	readline
+F README.CYG;1                      	README.cygnus
+F README.LBL;1                      	README.LBL

@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# This script takes the file of index entries emitted to stderr by
+# troff when processing the output of texi2roff -i and creates up
+# to 6 indices (concept, function, keystroke, program, data type,
+# variable) as troff input.  If there are no entries for a particular
+# type of index, it won't be generated.
+
+# Run the output of this script through nroff or troff with one of
+# -me, -mm or -ms.  The macros are necessary to provide pagination.
+
+# Credit for the creative use of tbl to a posting by jpr@dasys1.
+# The tricky part with sed protects index entries beginning with
+# characters that make troff drop lines and preserves sort order
+# for index entries containing typesetting commands.
+
+FILE="$*"
+
+sed -n "s/^../&\\\\\\&/p" $FILE \
+| sed "
+	s/.*/&~+~&/
+	:repeat
+	s/\\\\f[BIR]\(.*~+~\)/\1/
+	s/\\\\f(CW\(.*~+~\)/\1/
+	t repeat
+" | sort -fd | sed -e 's/.*~+~//' -e 's/[0-9][0-9]*$/	&/'\
+| awk '
+	BEGIN	{
+		titles["c"] = "Concept Index"
+		titles["f"] = "Function Index"
+		titles["k"] = "Keystroke Index"
+		titles["p"] = "Program Index"
+		titles["t"] = "Data Type Index"
+		titles["v"] = "Variable Index"
+		print ".nf"
+	}
+	{
+		if ($1 != prev) {
+			if (prev != "")
+				print ".TE"
+			print ".bp"
+			print ".TS"; print "c s"; print "l r."
+			print titles[$1]
+			print ""
+			prev = $1
+		}
+		print substr($0, 3, length($0)-2)
+	}
+	END {
+		if (prev != "")
+			print ".TE"
+	} '  | tbl
+

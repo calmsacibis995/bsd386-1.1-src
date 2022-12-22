@@ -1,0 +1,16 @@
+#!/bin/csh -f
+# @(#) $Header: /bsdi/MASTER/BSDI_OS/usr.sbin/tcpdump/grot/mdtype,v 1.1.1.1 1993/03/08 17:46:15 polk Exp $ (LBL)
+#
+# Determine machine type.
+#
+set mach="UNKNOWN"
+if ( -f /bin/arch ) set mach=`/bin/arch`
+if ($mach == "UNKNOWN") then
+	set temp=`machine`
+	if ($temp != "") set mach=$temp
+endif
+# Hack, hack...
+if ($mach == "sparc") set mach=sun4
+echo $mach
+if ($mach == "UNKNOWN") exit 1
+exit 0

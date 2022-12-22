@@ -1,0 +1,11 @@
+F COMPILE_.C;1                      	compile_et.c
+F ERROR_ME.C;1                      	error_message.c
+F ERROR_TA.H;1                      	error_table.h
+F ERROR_TA.Y;1                      	error_table.y
+F ET_LEX_L.L;1                      	et_lex.lex.l
+F ET_NAME.C;1                       	et_name.c
+F INIT_ET.C;1                       	init_et.c
+F MAKEFILE.;1                       	Makefile
+F MIT_SIPB.H;1                      	mit-sipb-copyright.h
+F PERROR.C;1                        	perror.c
+D TEST                              	test

@@ -1,0 +1,13 @@
+F CMDS.C;1                          	cmds.c
+F CMDTAB.C;1                        	cmdtab.c
+F DOMACRO.C;1                       	domacro.c
+F FTP.1;1                           	ftp.1
+F FTP.C;1                           	ftp.c
+F FTP_VAR.H;1                       	ftp_var.h
+F GLOB.C;1                          	glob.c
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/ftp
+F PATHNAME.H;1                      	pathnames.h
+F RUSERPAS.C;1                      	ruserpass.c
+F TAGS.;1                           	tags

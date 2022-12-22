@@ -1,0 +1,398 @@
+.nr H1 1
+.H 1 "Installation Information"
+.\"
+.\"	Developer
+.\"
+This chapter lists supplemental information to 
+the \f2IRIS Software Installation Guide.\f1
+The information listed here is product-specific;
+use it with the Installation Guide to install 
+this product.
+.H 2 "\*(FF Subsystems"
+..\"
+.\" Each subsystem should be described in enough detail so that
+.\" users can decide whether or not they need to install it.
+.\" Hints such as "You need to install this subsystem if you want to use
+.\" Visual System Administration Tools" or "This subsystem is useful only
+.\" if you want to display Kanji characters" would be nice. For subsystems
+.\" such as eoe2.sw.4Dwm that are important if you have graphics, but not 
+.\" important for servers and aren't marked required in the spec file (inst 
+.\" doesn't show + and doesn't require their installation), be sure to make
+.\" this very clear in the description or in a separate list.
+.\"
+The \*(FF software includes these subsystems:
+.VL 30
+.LI "\f2flexfax.sw.client\f1"
+Software for sending facsimile and
+querying the status of \*(FF servers.
+.LI "\f2flexfax.man.client\f1"
+Manual pages for client programs.
+.LI "\f2flexfax.sw.server\f1"
+Software for running a \*(FF server.
+.LI "\f2flexfax.man.readme\f1"
+Basic information about the system, including setup and maintenance.
+.LI "\f2flexfax.man.server\f1"
+Manual pages for the server software.
+.LI "\f2flexfax.man.relnotes\f1"
+Release notes (this document)
+.LI "\f2flexfax.man.doc\f1"
+Miscellaneous supporting documentation, including
+information about the Class 1 and Class 2 host-modem
+programming interfaces.
+.LE
+.H 2 "\*(FF Subsystem Disk Space Requirements"
+.\"
+.\" The size of each subsystem should be listed so that users get an idea
+.\" of the disk space requirements before they get into inst.
+.\"
+This section lists the subsystems (and their sizes) of the \*(FF option.
+.P
+Those marked ``default'' are the default subsystems.
+If you are installing this option for the first time,
+these are the subsystems that are installed if you
+use the ``go'' menu item.
+To install a different set of subsystems, use 
+the ``install,'' ``remove,'' ``keep,'' and ``step'' commands 
+in \f2inst\f1 to customize the list of subsystems to be
+installed, then select the ``go'' menu item.
+.VL 7
+.LI "\f6Note:\f1"
+The listed subsystem sizes are approximate. 
+Refer to the 
+\f2IRIS Software Installation Guide\f1
+for information on finding exact sizes.
+.LE
+.ps 9
+.vs 11
+.TS
+tab(:);
+lw(2.75i):lw(1.5i)
+lw(2.75i):lw(1.5i)
+lIw(2.75i):nw(1.5i).
+\f6Subsystem Name:Subsystem Size
+:\f6(kilobytes)\f1
+.ps 10
+.vs 12
+.sp 0.3
+flexfax.sw.client:\f11786
+.br
+\f1(default)\fP
+.sp 0.3
+flexfax.sw.server:\f12464
+.sp 0.3
+flexfax.man.client:\f138
+.br
+\f1(default)\fP
+.sp 0.3
+flexfax.man.server:\f181
+.sp 0.3
+flexfax.man.readme:\f146
+.br
+\f1(default)\fP
+.sp 0.3
+flexfax.man.relnotes:\f121
+.br
+\f1(default)\fP
+.sp 0.3
+flexfax.man.doc:\f181
+.TE
+.ps 11
+.vs 13
+.H 2 "Installation Method"
+All of the subsystems for \*(FF can be installed using IRIX.
+You do not need to use the miniroot. Refer to the \f2IRIS Software 
+Installation Guide\f1 for complete installation instructions.
+.ps 10
+.vs 12
+.H 2 "Prerequisites"
+.\"
+.\" Delete this section if it does not apply.
+.\"
+.\" Every prerequisite of every subsystem should be listed whether it's in
+.\" spec file or not. Be sure to include specific release numbers when
+.\" the prerequisite is a subsystem in a different product.  If there are
+.\" many prerequisites, you might want to list them in a table. 
+.\"
+.\" Examples of prerequisite information are:
+.\"
+If you want to install flexfax.sw.server, you must also install
+dps_eoe.sw.dps and dps_eoe.sw.dpsfonts.
+.\" If you want to install a.b.c, release n.0 or later of x.y.z must be
+.\" installed.
+Your workstation must be running at least release 4D1-4.0.1 in order to
+use version 2.2 of this software.
+.\"
+.H 2 "Configuration Files"
+.\"
+.\" Delete this section if it does not apply.
+.\"
+.\" List the configuration files in your product.  Tell what their purpose
+.\" is and give users some idea of how and why they might want to modify them.
+.\" You should also discuss each of the changes made in each of the 
+.\" configuration files for this release to make the process of merging
+.\" local changes with SGI changes easier for users.
+.\"
+.fp 4 HD
+This section lists installed files that can be edited to contain
+site-specific changes.
+Please see the server manual pages for complete details.
+.P
+The following configuration files determine if one or more
+facsimile server processes are started during system initialization.
+The facsimile system is enabled if the configuration flag
+in the \f2/etc/config\fP directory is in the ``on'' state.
+Use the \f2chkconfig\fP(1M) command to turn a flag on or off.
+.VL 10
+.LI "\f2/etc/config/fax\fP"
+Start a \f2faxd\fP(1M) process for each configured modem.
+.LE
+.P
+Change the following files to reflect your site's setup:
+.VL 10
+.LI "\f2/usr/spool/fax/etc/config.\fPfoo"
+The configuration file for the /dev/\f2foo\fP modem device.
+This file contains information such as the phone number associated
+with the modem, and whether or not the server should permit
+incoming data connections.
+Consult \f2faxaddmodem\fP(1M) and
+\f2config\fP(4F) for complete information.
+.LI "\f2/usr/spool/fax/\s-1FIFO\s+1.\fPfoo"
+This is a \s-1FIFO\s+1 special file that must exist for each modem device
+attached to a host.
+The file is normally create with mode 600 and owned by user ``uucp''.
+The system startup script will create a fax server process for
+each device that has both a configuration file and a \s-1FIFO\s+1
+special device file.
+The installation procedure for a server uses the
+\f2faxaddmodem\fP(1M) script to setup this file and
+the configuration file.
+.LE
+.P
+The following files may be modified to suit site-specific needs:
+.VL 10
+.LI "\f2/usr/local/lib/fax/typerules\fP"
+A set of rules that specify how to convert a file submitted for
+transmission to a format supported by the facsimile server (PostScript
+or \s-1TIFF/F\s+1).
+Consult \f2typerules\fP(4F) for a description of this file.
+.LI "\f2/usr/local/lib/fax/faxcover.ps\fP"
+A stylized PostScript document that is used
+when creating cover pages for outgoing facsimile.
+See the \f2faxcover\fP(1) program for details on the format.
+.LI "\f2/usr/spool/fax/bin/notify\fP"
+The shell script that is used by the server to notify users
+of job status changes.
+The default script sends electronic mail to the user that submitted the job.
+.LI "\f2/usr/spool/fax/bin/faxrcvd\fP"
+The shell script that is invoked by the server when a facsimile
+is received.
+The default script sends electronic mail to the ``FaxMaster'' user.
+.LI "\f2/usr/spool/fax/bin/pollrcvd\fP"
+The shell script that is invoked by the server when a facsimile
+is received due to a poll operation.
+The default script delivers the facsimile by electronic mail.
+.LI "\f2/usr/spool/fax/bin/ps2fax\fP"
+The shell script that is used by the server to convert a PostScript document
+to a \s-1TIFF\s+1 document for transmission.
+The default script invokes a Display PostScript-based imaging program.
+This file is usually a link to either \f2/usr/spool/fax/bin/ps2fax.dps\fP
+or \f2/usr/spool/fax/bin/ps2fax.gs\fP.
+.LE
+.H 2 "Other Installation Information"
+[\fBIf you are unfamiliar with the terminology used in the following
+description, refer to the document
+\f2/usr/local/doc/flexfax/modems-faq\fP.\f1]
+.P
+Note that you need a fax modem to use this software.
+Fax modems are not the same as data modems,
+though many of contemporary fax modems also
+function well as data modems.
+The modems listed in the introduction 
+are known to work with this release (though some perform
+better than others).
+This software tries to support any facsimile modem
+that provides either the
+Telecommunications Industry Associate (TIA)
+Standards Proposal No. 2388-A of August 30, 1991\(emso called
+``\f2Class 2-style\fP modems''\(emor the
+Telecommunications Industry Associate (TIA)
+Standard 578 of October 22, 1990\(emso called
+``\f2Class 1-style\fP modems''.
+.P
+With the executables installed and the appropriate system configuration
+information setup, the modem must be prepared for use:
+.P
+First.  Make sure that your modem works.  One can not say this enough.
+If you can not use cu, tip, uucp, or some similar program
+to communicate with your modem, do not
+try to configure the modem for use with \*(FF.  This means in
+particular that you should verify that you have a working cable between
+your host and modem and that this cable is suitable for use.  That is,
+that the cable has the relevant signals for doing hardware flow control
+if that is necessary and that it passes the \s-1DCD\s+1 and \s-1DTR\s+1 signals
+appropriately.  On Silicon Graphics
+Indigo systems you \fBcan not use a Macintosh cable
+to connect your modem\fP.  Once again, repeat after me, ``\fByou can not use a
+Macintosh cable to connect your modem to a Silicon Graphics Indigo\fP.''
+It may look like it works, but the moment that you try to use hardware flow control
+(i.e. \s-1RTS/CTS\s+1) the data will be garbled and you will encounter
+problems.  Consult the \f2serial\fP(7) manual page for an
+explanation of how to wire up modem cables.  Note also that
+the tty port name selected for a modem must reflect whether
+hardware or software (\s-1XON/XOFF\s+1) flow control is to be used\(emttyf*
+devices use \s-1RTS/CTS\s+1 flow control and ttym* devices use \s-1XON/XOFF\s+1 flow
+control.  The rules to use for selecting a flow control method are:
+.BL
+.LI
+If you have a Class 1 modem, then you can use either hardware or
+software flow control, but beware of using hardware flow control
+as the Class 1 specification only requires vendors to support
+software flow control (and some of the Class 1 modems tried so far
+do not support hardware flow control).
+.LI
+If you have a Class 2 modem, then you can use either hardware or
+software flow control, but if you are going to communicate with the
+modem faster than 9600 baud then you should probably use hardware
+flow control.
+.LI
+If you have an Abaton 24/96 modem, then you must use software flow
+control (the driver does not support hardware flow control).
+.LE
+.P
+There are gotchas that you can expect to run into on most any system
+when trying to interface to the system's serial port handling.  Consult
+Chapter 6 of this document and the manual pages.
+.P
+With the executables installed and your modem happily connected to the
+host with a proper cable, you can add modems with the \f2faxaddmodem\fP shell
+script.  This is an interactive script that walks you through the
+configuration and installation of a new or existing modem.  Note that
+even if you have a previous version of this software installed you
+should run the faxaddmodem script to update the configuration
+information for your modems.  Below is a sample session.  Typed input
+appears \f8emboldened\fP with single carriage return characters indicated
+by ``\f8<\s-1CR\s+1>\fP''; all other material is
+printed by faxaddmodem.  Note that if your modem is configured to
+communicate to the host at fixed baud rate, then you should use the
+\-s option; for example ``\-s 38400'' to communicate at 38.4KB.
+.sp
+.nf
+.ft 7
+# \f8faxaddmodem\fP
+Verifying your system is setup properly for fax service...
+
+You do not appear to have a fax user in the password file.
+The fax software needs this to work properly, add it [yes]? \f8<\s-1CR\s+1>\fP
+Added user "fax" to /etc/passwd.
+
+Adding fax user to "/etc/passwd.sgi".
+
+There does not appear to be an entry for the fax service either in
+the yellow pages database or in the /etc/services file;
+should an entry be added to /etc/services [yes]? \f8<\s-1CR\s+1>\fP
+
+There is no entry for the fax service in "/usr/etc/inetd.conf";
+should one be added [yes]? \f8<\s-1CR\s+1>\fP
+Poking inetd so that it re-reads the configuration file.
+
+There does not appear to be an entry for the FaxMaster either in
+the yellow pages database or in the /usr/lib/aliases file;
+should an entry be added to /usr/lib/aliases [yes]? \f8<\s-1CR\s+1>\fP
+Users to receive fax-related mail [sam]?  \f8<\s-1CR\s+1>\fP
+Rebuilding /usr/lib/aliases database.
+31 aliases, longest 75 bytes, 701 bytes total
+
+Done verifying system setup.
+
+Serial port that modem is connected to []? \fBttyf2\fP
+
+Ok, time to setup a configuration file for the modem.  The manual
+page config(4F) may be useful during this process.  Also be aware
+that at any time you can safely interrupt this procedure.
+
+No existing configuration, let's do this from scratch.
+
+Phone number of fax modem []? \fB+1.415.965.7824\fP
+Area code []? \fB415\fP
+Country code [1]?  \f8<\s-1CR\s+1>\fP
+Long distance dialing prefix [1]? \f8<\s-1CR\s+1>\fP
+International dialing prefix [011]? \f8<\s-1CR\s+1>\fP
+Tracing during normal server operation [1]? \f8<\s-1CR\s+1>\fP
+Tracing during send and receive sessions [11]? \f8<\s-1CR\s+1>\fP
+Protection mode for received facsimile [0600]? \f8<\s-1CR\s+1>\fP
+Rings to wait before answering [1]? \f8<\s-1CR\s+1>\fP
+Modem speaker volume [off]? \f8<\s-1CR\s+1>\fP
+
+The server configuration parameters are:
+
+FAXNumber:              +1.415.965.7824
+AreaCode                415
+CountryCode             1
+LongDistancePrefix:     1
+InternationalPrefix:    011
+ServerTracing:          1
+SessionTracing:         11
+RecvFileMode:           0600
+RingsBeforeAnswer:      1
+SpeakerVolume:          off
+
+Are these ok [yes]? \fBn\fP
+Phone number of fax modem [+1.415.965.7824]? \f8<\s-1CR\s+1>\fP
+Area code [415]? \f8<\s-1CR\s+1>\fP
+Country code [1]? \f8<\s-1CR\s+1>\fP
+Long distance dialing prefix [1]?  \f8<\s-1CR\s+1>\fP
+International dialing prefix [011]?  \f8<\s-1CR\s+1>\fP
+Tracing during normal server operation [1]?  \f8<\s-1CR\s+1>\fP
+Tracing during send and receive sessions [11]? \fB3\fP
+Protection mode for received facsimile [0600]? \f8<\s-1CR\s+1>\fP
+Rings to wait before answering [1]? \f8<\s-1CR\s+1>\fP
+Modem speaker volume [off]? \f8<\s-1CR\s+1>\fP
+
+The server configuration parameters are:
+
+FAXNumber:              +1.415.965.7824
+AreaCode                415
+CountryCode             1
+LongDistancePrefix:     1
+InternationalPrefix:    011
+ServerTracing:          1
+SessionTracing:         3
+RecvFileMode:           0600
+RingsBeforeAnswer:      1
+SpeakerVolume:          off
+
+Are these ok [yes]? \f8<\s-1CR\s+1>\fP
+
+Now we are going to probe the tty port to figure out the type
+of modem that is attached.  This takes a few seconds, so be patient.
+Note that if you do not have the modem cabled to the port, or the
+modem is turned off, this may hang (just go and cable up the modem
+or turn it on, or whatever).
+
+Hmm, this looks like a Class 2 modem.
+Modem manufacturer is "ZyXEL".
+Modem model is "U1496E  V 5.02 M".
+
+Using prototype ZyXEL configuration file...
+Creating new configuration file "/usr/spool/fax/etc/config.ttyf2".
+Creating "/usr/spool/fax/FIFO.ttyf2" in the spooling directory.
+Done setting up the modem configuration.
+
+Startup a facsimile server for this modem [yes] \f8<\s-1CR\s+1>\fP
+/usr/etc/faxd -m /dev/ttyf2&
+# 
+.fi
+.ft 1
+.P
+That's all there is to it (or at least all there \fIshould\fP be to it)!
+You can also run faxaddmodem at a later time if you want to reconfigure
+your modem.
+.P
+Beware that when the fax server process runs it normally keeps the
+modem in a state suitable for sending and receiving facsimile.  This
+may have implications for data communication programs such as tip, cu,
+and uucp.  For example, if a Class 2 modem is being used, it may be
+necessary to force the modem into Class 0 (for data communication) when
+placing a call--e.g \s-1AT+FCLASS=0DT\s+1<phone number>.  Alternatively, you
+can fiddle with the configuration parameters and keep the modem setup
+for data use when the server is not actively using the modem.

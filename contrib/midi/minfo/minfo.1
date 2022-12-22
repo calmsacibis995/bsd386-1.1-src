@@ -1,0 +1,38 @@
+.TH MINFO 1 "5 August 1992"
+.SH NAME
+minfo \- Prints out information in a Standard MIDI Format (SMF) file as readable text
+.SH SYNOPSIS
+.B minfo
+[
+.RB - T
+track-list
+]
+[
+midi-file ...
+]
+.SH DESCRIPTION
+Used without arguments,
+.B minfo
+reads standard
+.SM MIDI
+format [
+.SM SMF
+] files from stdin,
+and print to stdout all information in the files
+as human readable text.
+If one or more midi-files are specified on the command line,
+they are used in place of stdin.
+.SH OPTIONS
+.TP
+.RB - T
+In conjunction with its argument, this option specifies which
+tracks should be read from the
+.SM SMF
+files.
+The track-list should be a list of non-negative integers separated
+by either `-'s or `,'s.
+Commas denote individual tracks, while hyphen denote an inclusive
+range of tracks.
+The default is to use all tracks in all files.
+.SH "SEE ALSO"
+.BR smf (5)

@@ -1,0 +1,3 @@
+Mvreset	vreset.c	/^main()$/
+inb	vreset.c	/^inb(short port)$/
+outb	vreset.c	/^outb(short port, char val)$/

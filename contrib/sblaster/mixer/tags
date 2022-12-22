@@ -1,0 +1,17 @@
+IOCTL	mixer.c	/^#define IOCTL(cmd, arg)	\\$/
+Mgetopt	../cdsp/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../cdsp/getopt1.c	/^main (argc, argv)$/
+Mmixer	mixer.c	/^main (int argc , char *argv[])$/
+PRINT	mixer.c	/^#define PRINT(x)	do { if (!quiet) printf x; } whil/
+_getopt_internal	../cdsp/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+exchange	../cdsp/getopt.c	/^exchange (argv)$/
+getopt	../cdsp/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../cdsp/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../cdsp/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+my_bcopy	../cdsp/getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	../cdsp/getopt.c	/^my_index (string, chr)$/
+set_filt	mixer.c	/^set_filt (char *arg, int io)$/
+set_filter_level	mixer.c	/^set_filter_level (char *arg)$/
+set_source	mixer.c	/^set_source (char *arg)$/
+show_mixer_settings	mixer.c	/^show_mixer_settings (void)$/
+show_stereo_vol	mixer.c	/^void show_stereo_vol (char *name, struct stereo_vo/

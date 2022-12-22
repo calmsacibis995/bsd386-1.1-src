@@ -1,0 +1,16 @@
+F DEFS.;1                           	defs
+F FLOCK.H;1                         	flock.h
+F INSTALL.SH;1                      	install.sh
+F LIMITS.H;1                        	limits.h
+F LOCKNAME.C;1                      	lockname.c
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.FLE;1                    	Makefile.flexfax
+F MKDEV.PAT;1                       	mkdev.patch
+F PATHS.H;1                         	paths.h
+F README.;1                         	README
+F SIGNAL.H;1                        	signal.h
+D SYS                               	sys
+F SYSLOG.H;1                        	syslog.h
+F TERMIOS.H;1                       	termios.h
+F ULIMIT.H;1                        	ulimit.h
+F UTMP.H;1                          	utmp.h

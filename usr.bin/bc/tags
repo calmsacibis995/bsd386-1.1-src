@@ -1,0 +1,121 @@
+Mmain	main.c	/^main (argc, argv)$/
+YY_FATAL_ERROR	scan.c	/^#define YY_FATAL_ERROR(msg) yy_fatal_error( msg )$/
+YY_INPUT	scan.c	/^#define YY_INPUT(buf,result,max_size) \\$/
+YY_PROTO	scan.c	/^#define YY_PROTO(proto) proto$/
+YY_SC_TO_UI	scan.c	/^#define YY_SC_TO_UI(c) ((unsigned int) (unsigned c/
+YY_STATE_EOF	scan.c	/^#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + st/
+_do_add	number.c	/^_do_add (n1, n2)$/
+_do_compare	number.c	/^_do_compare (n1, n2, use_sign, ignore_last)$/
+_do_sub	number.c	/^_do_sub (n1, n2)$/
+_one_mult	number.c	/^_one_mult (num, size, digit, result)$/
+_rm_leading_zeros	number.c	/^_rm_leading_zeros (num)$/
+addbyte	load.c	/^addbyte (byte)$/
+arg_str	util.c	/^arg_str (args, commas)$/
+assign	execute.c	/^assign (c_code)$/
+auto_var	storage.c	/^auto_var (name)$/
+bc_add	number.c	/^bc_add ( n1, n2, result)$/
+bc_compare	number.c	/^bc_compare (n1, n2)$/
+bc_divide	number.c	/^bc_divide (n1, n2, quot, scale)$/
+bc_malloc	util.c	/^bc_malloc (size)$/
+bc_modulo	number.c	/^bc_modulo (num1, num2, result, scale)$/
+bc_multiply	number.c	/^bc_multiply (n1, n2, prod, scale)$/
+bc_raise	number.c	/^bc_raise (num1, num2, result, scale)$/
+bc_sqrt	number.c	/^bc_sqrt (num, scale)$/
+bc_sub	number.c	/^bc_sub ( n1, n2, result)$/
+byte	execute.c	/^byte (pc)$/
+check_params	util.c	/^check_params ( params, autos )$/
+check_stack	storage.c	/^check_stack (depth)$/
+clear_func	storage.c	/^clear_func (func)$/
+copy_num	number.c	/^copy_num (num)$/
+decr_array	storage.c	/^decr_array (var_name)$/
+decr_var	storage.c	/^decr_var (var_name)$/
+def_label	load.c	/^def_label (lab)$/
+execute	execute.c	/^execute ()$/
+find_id	util.c	/^find_id (tree, id)$/
+fpop	storage.c	/^fpop()$/
+fpush	storage.c	/^fpush (val)$/
+free_a_tree	storage.c	/^free_a_tree ( root, depth )$/
+free_args	util.c	/^free_args (args)$/
+free_num	number.c	/^free_num (num)$/
+generate	util.c	/^generate (str)$/
+get_array_num	storage.c	/^get_array_num (var_index, index)$/
+get_var	storage.c	/^get_var (var_name)$/
+incr_array	storage.c	/^incr_array (var_name)$/
+incr_var	storage.c	/^incr_var (var_name)$/
+init_gen	util.c	/^init_gen ()$/
+init_load	load.c	/^init_load ()$/
+init_num	number.c	/^init_num (num)$/
+init_numbers	number.c	/^init_numbers ()$/
+init_storage	storage.c	/^init_storage ()$/
+init_tree	util.c	/^init_tree()$/
+input_char	execute.c	/^input_char ()$/
+insert_id_rec	util.c	/^int insert_id_rec (root, new_id)$/
+int2num	number.c	/^int2num (num, val)$/
+is_neg	number.c	/^is_neg (num)$/
+is_zero	number.c	/^is_zero (num)$/
+limits	util.c	/^limits()$/
+load_array	storage.c	/^load_array (var_name)$/
+load_code	load.c	/^load_code (code)$/
+load_var	storage.c	/^load_var (var_name)$/
+long_val	load.c	/^long_val (str)$/
+lookup	util.c	/^lookup (name, namekind)$/
+make_arg_str	util.c	/^make_arg_str (args, len, commas)$/
+more_arrays	storage.c	/^more_arrays ()$/
+more_functions	storage.c	/^more_functions (VOID)$/
+more_variables	storage.c	/^more_variables ()$/
+new_num	number.c	/^new_num (length, scale)$/
+new_yy_file	main.c	/^new_yy_file (file)$/
+nextarg	util.c	/^nextarg (args, val)$/
+num2long	number.c	/^num2long (num)$/
+num2str	number.c	/^*num2str (num)$/
+open_new_file	main.c	/^open_new_file ()$/
+out_char	util.c	/^out_char (ch)$/
+out_long	number.c	/^out_long (val, size, space, out_char)$/
+out_num	number.c	/^out_num (num, o_base, out_char)$/
+out_of_memory	util.c	/^out_of_memory()$/
+p_n	number.c	/^p_n (num)$/
+p_v	number.c	/^p_v (name, num, len)$/
+pop	storage.c	/^pop ()$/
+pop_vars	storage.c	/^pop_vars (list)$/
+process_params	storage.c	/^process_params (pc, func)$/
+prog_char	execute.c	/^prog_char ()$/
+push_b10_const	execute.c	/^push_b10_const (pc)$/
+push_constant	execute.c	/^push_constant (in_char, conv_base)$/
+push_copy	storage.c	/^push_copy (num)$/
+push_num	storage.c	/^push_num (num)$/
+rt_error	util.c	/^rt_error (mesg)$/
+rt_warn	util.c	/^rt_warn (mesg)$/
+run_code	util.c	/^run_code()$/
+stop_execution	execute.c	/^stop_execution (sig)$/
+store_array	storage.c	/^store_array (var_name)$/
+store_var	storage.c	/^store_var (var_name)$/
+str2num	number.c	/^str2num (num, str, scale)$/
+strcopyof	util.c	/^strcopyof (str)$/
+unput	scan.c	/^#define unput(c) yyunput( c, yytext_ptr )$/
+use_quit	main.c	/^use_quit (sig)$/
+warn	util.c	/^warn (mesg)$/
+warranty	util.c	/^warranty(prefix)$/
+welcome	util.c	/^welcome()$/
+yy_create_buffer	scan.c	/^YY_BUFFER_STATE yy_create_buffer( file, size )$/
+yy_delete_buffer	scan.c	/^void yy_delete_buffer( b )$/
+yy_fatal_error	scan.c	/^static void yy_fatal_error( msg )$/
+yy_flex_alloc	scan.c	/^static void *yy_flex_alloc( size )$/
+yy_flex_free	scan.c	/^static void yy_flex_free( ptr )$/
+yy_flex_realloc	scan.c	/^static void *yy_flex_realloc( ptr, size )$/
+yy_flex_strcpy	scan.c	/^static void yy_flex_strcpy( s1, s2 )$/
+yy_get_next_buffer	scan.c	/^static int yy_get_next_buffer()$/
+yy_get_previous_state	scan.c	/^static yy_state_type yy_get_previous_state()$/
+yy_init_buffer	scan.c	/^void yy_init_buffer( b, file )$/
+yy_pop_state	scan.c	/^static void yy_pop_state()$/
+yy_push_state	scan.c	/^static void yy_push_state( new_state )$/
+yy_switch_to_buffer	scan.c	/^void yy_switch_to_buffer( new_buffer )$/
+yy_top_state	scan.c	/^static int yy_top_state()$/
+yy_try_NUL_trans	scan.c	/^static yy_state_type yy_try_NUL_trans( yy_current_/
+yyerror	util.c	/^yyerror (str)$/
+yyless	scan.c	/^#define yyless(n) \\$/
+yymore	scan.c	/^#define yymore() yymore_used_but_not_detected$/
+yyparse	bc.c	/^yyparse()$/
+yyrestart	scan.c	/^void yyrestart( input_file )$/
+yyterminate	scan.c	/^#define yyterminate() return YY_NULL$/
+yyunput	scan.c	/^static void yyunput( c, yy_bp )$/
+yywrap	scan.c	/^yywrap()$/

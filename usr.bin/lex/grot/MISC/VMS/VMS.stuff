@@ -1,0 +1,62 @@
+(Message inbox:115)
+Date:  Tue, 20 Nov 90 14:45 EDT
+From:  Stu McGraw <SYSMAN%hilbert@gte.com>
+Subject:  Flex bug and fix
+To:  vern@cs.cornell.edu
+X-Vms-To:  IN%"vern@cs.cornell.edu"
+
+Hi Vern,
+
+	I just installed (on VMS) the new version of flex (2.3.6) that 
+was posted to usenet recently.  Thanks!  You did a terrific job!  I've
+been using an older version but really needed the eight-bit support.
+
+I did come across a minor bug though.  On VMS, when you do a "flex -pv 
+foo" and foo doesn't exist, you get an access violation (due to deref-
+rencing a null pointer) when flexend() tries to print statistics, some 
+of which (e.g the starting time) have not been initialized yet.  I fixed
+this in my version by setting a boolean at the end of flexinit() and 
+only doing the printstats stuff if it is set (on the theory that this
+is more reliable than trying to maintain the ordering of everything
+or checking each pointer for null individually.)
+
+I also added a VMS-style command line interface (like the one bison 
+has) that you might want to include in future versions.  I don't know 
+how interested you are in providing VMS suppport (probably not very!) 
+so I packaged it so that changes to your code are minimal (a few lines 
+changed in main.c along with the bug fix mentioned above, and a few new 
+VMS specific files).  The VMS files could be segregated in ./MISC or a 
+./VMS subdirectory.  The VMS command line change in main.c is #ifdef'd
+so that it can be compiled for that or for the original unix-style 
+interface.
+
+I reworked the VMS makefile so that one can build flex with either the 
+unix-style command line interface (as it is now) or with the VMS-style 
+command line interface by selecting a few defines.  I also have a VMS 
+help file entry derived from flex.man (after many hours of editing!).
+
+Finally, a request for a minor change for future distributions.  Would
+it be possible to include in the package pre-formatted versions of 
+flex.1 and flexdoc.1 (flex.man and flexdoc.man)?  Your makefile has 
+a target ("vms") to make flex.man.  If this was a dependent of "distrib" 
+rather than the other way around this would happen automatically.  Of 
+course, then these files would also be included in the distribution for 
+unix sites but the unix makefile could include "rm *.man" in some target 
+involved in building flex to get rid of them.  Also, when formatting the 
+man pages for VMS, piping the nroff output through "col -b" removes the 
+back-spaces, at least on our Ultrix system here, and makes the files much
+more useful on non-unix systems.  I would have made these changes to the 
+makefile myself and provided a diff for you but I'm not a very expert 
+unix user and you I'm sure have a much better chance of doing it right!
+
+If your interested, I'll be happy to send you this stuff.  I shouldn't
+require much effort on your part -- a small context diff for main.c, 
+everthing else can just be dumped in a flex subdirectory.  It includes 
+copeious (sorry about the spelling) documentation.
+
+Thanks again,
+							-- Stu
+--
+Stuart McGraw           sjm0@gte.com
+GTE Labs, Waltham MA    mcgraw@hilbert.gte.com
+(617) 466-2525          {hsuc6,harvard}!bunny!hilbert.gte.com!mcgraw

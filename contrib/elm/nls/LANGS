@@ -1,0 +1,5 @@
+# LANGS file
+
+C/C/C			/usr/local/nls/msg/C
+english/us/ascii	/usr/local/nls/msg/english
+french/canada/8859	/usr/local/nls/msg/french

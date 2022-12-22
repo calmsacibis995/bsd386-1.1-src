@@ -1,0 +1,12 @@
+D A2P                               	a2p
+F ARTISTIC.;1                       	Artistic
+F COPYING.;1                        	Copying
+D FIND2PER                          	find2perl
+D GROT                              	grot
+D H2PH                              	h2ph
+D LIB                               	lib
+F MAKEFILE.;1                       	Makefile
+D PERL                              	perl
+D S2P                               	s2p
+D SUIDPERL                          	suidperl
+D TAINTPER                          	taintperl

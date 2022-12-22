@@ -1,0 +1,1 @@
+#define NPCAUX 0

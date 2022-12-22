@@ -1,0 +1,17 @@
+F ANSWER.C;1                        	answer.c
+F AREPDAEM.C;1                      	arepdaem.c
+F AUTOREPL.C;1                      	autoreply.c
+F CHECKALI.;1                       	checkalias
+F ELMALIAS.C;1                      	elmalias.c
+F FASTMAIL.C;1                      	fastmail.c
+F FROM.C;1                          	from.c
+F LISTALIA.;1                       	listalias
+F MAILRC.AWK;1                      	mailrc.awk
+F MAKEFILE.;1                       	Makefile
+F MESSAGES.;1                       	messages
+F NEWALIAS.C;1                      	newalias.c
+F NEWMAIL.C;1                       	newmail.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/elm/utils
+F PRINTMAI.;1                       	printmail
+F PRLONG.C;1                        	prlong.c
+F READMSG.C;1                       	readmsg.c

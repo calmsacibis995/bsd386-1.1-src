@@ -1,0 +1,228 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/sendq.4f,v 1.1.1.1 1994/01/14 23:10:13 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH SENDQ 4F "September 22, 1993"
+.SH NAME
+sendq/q* \- 
+.I FlexFAX
+facsimile transmission job description
+.SH DESCRIPTION
+Files in the
+.B sendq
+directory specify facsimile transmission job requests.
+These files are usually created by
+.IR faxd.recv (1M),
+when submitting a job on behalf of
+.IR sendfax (1).
+.PP
+Job description files are 
+.SM ASCII
+files with lines of the form
+.sp .5
+.ti +0.5i
+\fBtag\fP: \fIvalue\fP
+.sp .5
+where a \fItag\fP is one of the identifiers described below
+and a \fIvalue\fP is either a string or number.
+If a line
+.I begins
+with the ``#'' character, it is ignored.
+String values start at the first non-blank character
+after the ``:'' and continue to the end of the line.
+Numeric values are either decimal integers or floating point numbers.
+.PP
+The following table lists the possible tags and the required
+type of the associated value.
+.sp .5
+.in +0.5i
+.ta \w'pagelength    'u +\w'integer    'u
+.nf
+\fBTag	Type	Description\fP
+dirnum	integer	directory offset of current page being sent
+jobtag	string	user-specified job identifier
+killtime	integer	time to give up trying to send facsimile
+mailaddr	string	email address of sender
+maxdials	integer	max number of times to dial
+modem	string	outgoing modem to use
+notify	string	email notification specification
+npages	integer	number of pages transmitted
+ntries	integer	number of attempts to send current page
+ndials	integer	number of consecutive failed attempts to place call
+number	string	dialstring to use in placing call
+external	string	external form of dialstring
+pagehandling	string	page analysis information
+pagelength	float	facsimile page length (millimeters)
+pagewidth	integer	facsimile page width (millimeters)
+poll	string	polling request
+postscript	string	postscript document specification
+resolution	float	vertical resolution of facsimile
+sender	string	identity of sender
+sendjob	string	\fIat\fP\|(1) job identifier for delayed send job
+status	string	job status
+tiff	string	\s-2TIFF\s0 document specification
+totdials	integer	total number of phone calls
+tts	integer	time to send facsimile
+.fi
+.in -0.5i
+.SH "PARAMETERS"
+.TP 10
+.B dirnum
+The directory offset (starting at 0) of the current page
+to be sent.
+.TP 10
+.B external
+The external form of the dialstring.
+This string is used instead of the dialstring in any status
+and log messages.
+Clients can protect private information such as access codes
+that must be placed in dialstrings by supplying a
+``cleansed'' version of the dialstring.
+.TP 10
+.B jobtag
+A user-specified string that is intended for identification purposes.
+If this string is defined, it is returned to the user in notification
+messages.
+.TP 10
+.B killtime
+The time to kill this job, expressed in seconds
+since 00:00:00 GMT, January 1, 1970.
+.TP 10
+.B mailaddr
+The electronic mail address to which notification
+messages should be directed.
+.TP 10
+.B maxdials
+The maximum number of times the server should dial the phone.
+If the job cannot be completed in this number of calls, it is terminated.
+.TP 10
+.B modem
+The outgoing modem to use to send the facsimile, or ``any''
+if 
+.I any
+modem can be used.
+.TP 10
+.B notify
+A specification of whether the sender wants
+notification: whenever the job is requeued after
+a failed attempt to transmit (``\c
+.IR "when requeued" ''),
+when the job is completed (``\c
+.IR "when done" ''),
+or not at all (``\c
+.IR "none" '').
+.TP 10
+.B npages
+The number of pages in the facsimile, including
+the cover page, that have been successfully transmitted.
+.TP 10
+.B ntries
+The number of unsucessful
+attempts that have been made to transmit
+the current page.
+.TP 10
+.B ndials
+The number of consecutive unsucessful
+attempts to establish carrier with the
+the destination facsimile machine.
+.TP 10
+.B number
+The dialstring to use to call the destination facsimile machine.
+.TP 10
+.B pagehandling
+A string used by the facsimile server during transmission.
+The string has one character for each page to be transmitted.
+``M'' indicates there is another page to follow and that the page
+requires different T.30 session parameters be negotiated (an
+.SM EOM
+code is to be transmitted).
+``S'' indicates there is another page to follow, but the page
+uses the same session parameters (an
+.SM MPS.
+code is to be transmitted).
+``P'' indicates this is the last page to be transmitted (an
+.SM EOP
+code is to be transmitted).
+.TP 10
+.B pagelength
+The desired page length in millimeters.
+.TP 10
+.B pagewidth
+The desired page width in millimeters.
+.TP 10
+.B poll
+The value is a Caller Identification String (\s-2CIS\s+2)
+to use in making a polling request.
+.TP 10
+.B postscript
+The value is a pathname to a file containing a
+PostScript\(tm document to send.
+Files must be owned by the 
+.IR "fax user" .
+Pathnames must be relative to the top of the
+.I FlexFAX
+spooling directory and not include ``..''.
+.TP 10
+.B resolution
+The desired vertical resolution in lines per inch.
+This value should be either 98 or 196.
+.TP 10
+.B sender
+The ``full name'' of the sender of the facsimile.
+.TP 10
+.B sendjob
+The identifier returned by
+.IR at (1)
+for the job that is to do a delayed submission
+(if any).
+.TP 10
+.B status
+Status information about the current state of the job.
+Typically this is the reason why the last attempt to
+send the facsimile failed.
+.TP 10
+.B tiff
+The value is a pathname to a file containing a
+.SM TIFF
+Class F document to send.
+Files must be owned by the 
+.IR "fax user" .
+Pathnames must be relative to the top of the
+.I FlexFAX
+spooling directory and not include ``..''.
+.TP 10
+.B totdials
+The total number of times the server has dialed the phone.
+.TP 10
+.B tts
+The time to send the facsimile.
+If this value is non-zero, it is number of seconds
+since 00:00:00 GMT, January 1, 1970.
+Otherwise, a value of 0 is interpreted to mean
+transmit immediately.
+.SH "SEE ALSO"
+.IR sendfax (1),
+.IR faxd (1M),
+.IR faxd.recv (1M)

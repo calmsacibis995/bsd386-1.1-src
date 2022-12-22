@@ -1,0 +1,100 @@
+rpagk   AvantGarde-Book
+rpagko  AvantGarde-BookOblique
+rpagd   AvantGarde-Demi
+rpagdo  AvantGarde-DemiOblique
+rpbkd   Bookman-Demi
+rpbkdi  Bookman-DemiItalic
+rpbkl   Bookman-Light
+rpbkli  Bookman-LightItalic
+rpcrb   Courier-Bold
+rpcrbo  Courier-BoldOblique
+rpcrro  Courier-Oblique
+rpcrr   Courier
+rphvb   Helvetica-Bold
+rphvbo  Helvetica-BoldOblique
+rphvbrn Helvetica-Bold ".82 ExtendFont"
+rphvbon Helvetica-BoldOblique ".82 ExtendFont"
+rphvron Helvetica-Oblique ".82 ExtendFont"
+rphvrrn Helvetica ".82 ExtendFont"
+rphvro  Helvetica-Oblique
+rphvr   Helvetica
+rpncb   NewCenturySchlbk-Bold
+rpncbi  NewCenturySchlbk-BoldItalic
+rpncri  NewCenturySchlbk-Italic
+rpncr   NewCenturySchlbk-Roman
+rpplb   Palatino-Bold
+rpplbi  Palatino-BoldItalic
+rpplbu  Palatino-Bold "-.1763 SlantFont"
+rpplrc	Palatino-Roman
+rpplrrn Palatino-Roman ".82 ExtendFont"
+rpplrre Palatino-Roman "1.2 ExtendFont"
+rpplri  Palatino-Italic
+rpplro  Palatino-Roman ".167 SlantFont"
+rpplr   Palatino-Roman
+rpplru  Palatino-Roman "-.1763 SlantFont"
+rpsyr   Symbol
+psyr    Symbol
+rpsyro  Symbol ".167 SlantFont"
+psyro   Symbol ".167 SlantFont"
+rptmb   Times-Bold
+rptmbi  Times-BoldItalic
+rptmrrn Times-Roman ".8 ExtendFont"
+rptmrre Times-Roman "1.2 ExtendFont"
+rptmri  Times-Italic
+rptmro  Times-Roman ".167 SlantFont"
+rptmr   Times-Roman
+rpzcmi  ZapfChancery-MediumItalic
+rpzdr   ZapfDingbats
+pzdr	ZapfDingbats
+rhlcdb	 LucidaBright-Demi	 <hlcdb.pfa
+rhlcdbi	 LucidaBright-DemiItalic <hlcdbi.pfa
+rhlcrb	 LucidaBright-Regular	 <hlcrb.pfa
+rhlcrbi	 LucidaBright-Italic	 <hlcrbi.pfa
+rhlcrbm1 LucidaBrightMathX1	 <hlcrbm1.pfa
+rhlcrbm2 LucidaBrightMathX2	 <hlcrbm2.pfa
+rhlcrbsh LucidaBrightShapes	 <hlcrbsh.pfa
+rhlcrbw	 LucidaBrightCalligraphy <hlcrbw.pfa
+rhlcrbxa LucidaBrightXtra	 <hlcrbxa.pfa
+rplcb	 Lucida-Bold		 <plcb.pfa
+rplcbb	 LucidaBrightBold 	 <plcbb.pfa
+rplcbi	 Lucida-BoldItalic 	 <plcbi.pfa
+rplcbis	 LucidaSans-BoldItalic 	 <plcbis.pfa
+rplcbs	 LucidaSans-Bold 	 <plcbs.pfa
+rplcr	 Lucida			 <plcr.pfa
+rplcrb	 LucidaBrightNormal 	 <plcrb.pfa
+rplcrbi	 LucidaBrightItalic 	 <plcrbi.pfa
+rplcri	 Lucida-Italic 		 <plcri.pfa
+rplcris	 LucidaSans-Italic 	 <plcris.pfa
+rplcrm	 LucidaMath-Italic 	 <plcrm.pfa
+rplcro	 Lucida			 <plcr.pfa	".167 SlantFont"
+rplcrs	 LucidaSans 		 <plcrs.pfa
+rplcrst	 LucidaSansTypNormal 	 <plcrst.pfa
+rplcrv	 LucidaMath-Extension 	 <plcrv.pfa
+rplcry	 LucidaMath-Symbol 	 <plcry.pfa
+rfbdr	 Bodoni-Normal		 <fbdr.pfa
+rpadr	 Garamond-Normal	 <padr.pfa
+rpadri	 Garamond-Medium-Italic  <padri.pfa
+rputr	 Utopia-Regular		 <putr.pfa
+rputri	 Utopia-Italic		 <putri.pfa
+rputb	 Utopia-Bold		 <putb.pfa
+rputbi	 Utopia-BoldItalic	 <putbi.pfa
+rbchr	 CharterBT-Roman	 <bchr.pfb
+rbchri	 CharterBT-Italic	 <bchri.pfb
+rbchb	 CharterBT-Bold		 <bchb.pfb
+rbchbi	 CharterBT-BoldItalic	 <bchbi.pfb
+rcggr	 CgGarthGraphic		 <cggr.pfa
+rcggri	 CgGarthGraphicIt	 <cggri.pfa
+rcggb	 CgGarthGraphicBd	 <cggb.pfa
+rcggbi	 CgGarthGraphicBdIt	 <cggbi.pfa
+rcshr	 CgShannon		 <cshr.pfa
+rcshro	 CgShannonOb		 <cshro.pfa
+rcshb	 CgShannonBd		 <cshb.pfa
+rcshx	 CgShannonExBd	 	 <cshx.pfa
+rfbsr	 BeckaScript		 <fbsr.pfa
+rfngr	 News-Gothic-Normal	 <fngr.pfa
+rfngb	 News-Gothic-Bold	 <fngb.pfa
+rfoprrt	 Optima-Thin		 <foprrt.pfa
+rfpgrrt	 Peignot-Thin		 <fpgrrt.pfa
+rfpglrt	 PEIGNOT-LIGHT-Thin	 <fpglrt.pfa
+rfplrrt	 Palatino-Thin		 <fplrrt.pfa	
+ggmr26D  Garamond-Roman-26d	 <ggmr26D.gsf

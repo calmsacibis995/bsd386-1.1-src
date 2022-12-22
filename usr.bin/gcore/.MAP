@@ -1,0 +1,11 @@
+F GCORE.1;1                         	gcore.1
+F GCORE.C;1                         	gcore.c
+F MAKEFILE.;1                       	Makefile
+F MD_HP300.C;1                      	md-hp300.c
+F MD_I386.C;1                       	md-i386.c
+F MD_NOP.C;1                        	md-nop.c
+F MD_SPARC.C;1                      	md-sparc.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/gcore
+F TAGS.;1                           	tags
+F UTIL.C;1                          	util.c
+F UTIL.H;1                          	util.h

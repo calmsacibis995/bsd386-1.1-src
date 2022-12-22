@@ -1,0 +1,2400 @@
+
+
+                      What You Need to Know about Modems
+
+
+May 31, 1992
+Version 1.1
+=============================================================================
+
+Copyright (c) 1991-92 Patrick Chen.  All rights reserved.
+
+DISTRIBUTION NOTICE:  This document may be distributed by electronic bulletin 
+boards and commercial on-line services.  This document may not be edited or 
+changed in any way for redistribution.
+
+This article is Part One of a three-part book/report entitled "The Joy of
+Telecomputing."  As a plain ASCII file, it cannot contain any of the 
+illustrations and graphic elements provided in the printed version.  For 
+further information about "The Joy of Telecomputing," see Appendix C to G.
+
+This article should be useful to anyone interested in high-speed modems (or 
+2400-bps modems with MNP5 or V.42bis).   Most modems mentioned in this article 
+are external units.  These modems can be used on any microcomputer system, be 
+it a PC, a Macintosh or an Amiga.  Although only certain communication 
+programs are used as examples, the discussions about setting up software apply 
+to packages not covered herein.
+
+It is assumed that the reader knows the basics about going online.  For 
+example, we would not discuss how to connect an external modem to your 
+computer, nor would we explain what 8-N-1 means.  This file is in the IBM 
+ASCII format.  Each line ends with a linefeed and a carriage return.  If you 
+use a Macintosh, open the file with a text editor and get rid of the 
+linefeeds.  (I recommend McSink, a shareware text editor widely available.  
+Just launch McSink and open the file, then choose the Convert menu and select 
+Strip Linefeeds.)
+
+To print this document, use a 10-pitch (12 characters per inch) mono-spaced 
+font, such as Courier.
+
+Every effort has been made to supply current and accurate information. 
+However, information contained herein is subject to change without notice and 
+should not be construed as a commitment by the author who assumes no 
+responsibilities for any errors that may appear.
+
+Trademarks:  The author has attempted throughout this document to distinguish 
+proprietary trademarks from descriptive terms by following the capitalization 
+style used by the manufacturer.
+
+=============================================================================
+
+CONTENTS
+
+I.      Introduction
+
+II.     Modulation Protocols
+
+        1.      2400-bps modems
+
+        2.      High-speed modems
+                a.      V.32
+                b.      V.32bis
+                c.      US Robotics HST
+                d.      Telebit PEP & Turbo PEP
+                e.      Hayes Express 96
+                f.      CompuCom CSP
+                g.      Other proprietary protocols
+
+        3.      Things to come
+                a.      V.fast
+                b.      ISDN
+
+III.    Error Control Protocols
+
+        1.      V.42 and MNP4
+        2.      V.42 and MNP4 can provide error-free connections
+        3.      V.42 and MNP4 can improve throughput
+        4.      Are MNP 4 and V.42 useful?
+
+IV.     Data Compression Protocols
+
+        1.      MNP5 and V.42bis
+        2.      Are MNP5 and V.42bis useful?
+        3.      Compression by software vs. MNP5/V.42bis
+        4.      Local flow control and data buffering
+        5.      Macintosh and high-speed modems
+        6.      PC and UART
+        7.      Hayes ESP
+
+V.      About Fax Modems
+
+        1.      Protocols
+                a.      Group 3
+                b.      V.27ter
+                c.      V.29
+                d.      V.17
+                e.      CAS
+                f.      Class 1 & Class 2
+
+        2.      How useful is a fax modem?
+
+VI.     Profiles of High-speed modems
+
+        1.      ATI 9600etc/e
+        2.      CompuCom SpeedModems
+        3.      Hayes modems
+        4.      Intel modems
+        5.      Microcom modem
+        6.      Practical Peripherals modems
+        7.      Prometheus modems
+        8.      Supra modem
+        9.      Telebit modems
+        10.     US Robotics modems
+        11.     Zoom Modems
+        12.     Things to come
+
+VII.    Buying a High-speed Modem
+
+        1.      Should you pay extra for a V.32bis modem?
+        2.      Should you buy a modem with a proprietary modulation protocol?
+        3.      Should you buy a 2400-bps modem with V.42bis?
+        4.      Beware of the ads
+
+VIII.   Setting Up Software to Work with High-speed Modems
+
+        1.      The proper software setup
+        2.      Does your software initialize the modem properly?
+        3.      Does your software configure itself to match the modem settings?
+        4.      Why you may need to change the initialization string
+        5.      Editing the initialization string
+        6.      Match software settings to the modem settings
+                a.      Speed setting
+                b.      Hardware flow control
+                c.      Dialing time-out value
+
+IX.     Configuring Popular Communications Software to Work with High-speed 
+        Modems
+
+        1.      Procomm 2.0
+        2.      Telix
+        3.      Qmodem
+        4.      HyperAccess 5
+        5.      Crosstalk for Windows
+        6.      MicroPhone II (for Macintosh)
+        7.      White Knight (for Macintosh)
+        8.      ZTerm (for Macintosh)
+
+X.      Other Settings for Your Communications Software
+
+        1.      Telephone number
+        2.      Dial string:  ATDT
+        3.      8-N-1 or 7-E-1 (data bits - parity - stop bits)
+        4.      Half vs. full duplex:   local echo
+        5.      Terminal emulation
+        6.      Communications port
+        7.      File transfer protocols
+                a.      ASCII
+                b.      Xmodem
+                c.      Xmodem-1K
+                d.      Ymodem
+                e.      Ymodem-g
+                f.      Zmodem
+                g.      Kermit
+                h.      Which file transfer protocol should you use?
+
+Appendix A:  Resources
+Appendix B:  How to reach the author
+Appendix C:  What's "The Joy of Telecomputing"
+Appendix D:  What's in "Life beyond CompuServe"
+Appendix E:  What's in "Is AT&T the right choice?"
+Appendix F:  Updates, bulletins, and tutorial articles
+Appendix G:  How to order "The Joy of Telecomputing"
+
+=============================================================================
+
+I.      Introduction
+
+Buying and using a modem used to be relatively easy. Not so long ago, almost 
+all modems were 1200- or 2400-bps units and they were all compatible with the 
+Hayes Smartmodems (although some were more Hayes-compatible than others). How 
+time have changed.
+
+Today, modems not only run faster, they are also loaded with features like 
+error control and data compression. Suddenly, you are confronted with all the 
+buzzwords: V.32, V.32bis, V.42, V.42bis, MNP5, LAP-M, etc. What do they mean? 
+And what do they mean to you?
+
+To make the most of a high-speed modem, you need to understand three different 
+kinds of protocols and the relationships among them. They are the modulation 
+protocols, error control protocols and data compression protocols.
+
+
+II.     Modulation Protocols
+
+Modem stands for MOdulator/DEModulator. A modem converts digital signals 
+generated by the computer into analog signals which can be transmitted over a 
+telephone line and transforms incoming analog signals into their digital 
+equivalents.
+
+The specific techniques used to encode the digital bits into analog signals 
+are called modulation protocols. The various modulation protocols define the 
+exact methods of encoding and the data transfer speed. In fact, you cannot 
+have a modem without modulation protocols. A modem typically supports more 
+than one modulation protocols.
+
+The raw speed (the speed without data compression) of a modem is determined by 
+the modulation protocols. High-speed modems are modems that feature modulation 
+protocols at 9600 bps or higher. A 2400-bps modem with data compression that 
+can theoretically yield a 9600-bps throughput is not a high-speed modem.
+
+"CCITT" is a French acronym for the International Telegraph and Telephone 
+Consultative Committee. CCITT, a United Nations agency, is an international 
+telecommunications standards committee that makes recommendations on a broad 
+range of subjects concerning data communications.
+
+II.1.   2400-bps Modems
+
+A 2400-bps Hayes-compatible modem typically supports the following modulation 
+protocols:
+
+        Bell 103                (300 bps U.S. Standard)
+        Bell 212A               (1200 bps U.S. Standard)
+        CCITT V.22              (1200 bps standard outside the U.S.)
+        CCITT V.22bis           (2400 bps International Standard)
+
+Some 2400-bps modems also support the following protocols:
+
+        CCITT V.21              (300 bps standard outside the U.S.)
+        CCITT V.23              (1200/75 and 75/1200 bps, used in Europe)
+
+In the past, most 2400-bps modems did not support any error correction or data 
+compression protocols. Recently, however, many modem manufacturers have 
+introduced 2400-bps modems with extra features like data compression, error 
+correction and fax capability.
+
+II.2.   High-speed Modems
+
+There are two standard modulation protocols for  high-speed modems: V.32 and 
+V.32bis. Both are standards established by the CCITT.
+
+II.2.a. V.32
+
+This is the standard for 9600 (and 4800) bps modems. CCITT V.32 is adopted by 
+the CCITT in 1984. But the market has not taken off until recently. V.32 
+modems used to cost more than modems using proprietary modulation protocols 
+(Hayes introduced the Smartmodem 9600, a V.32 modem, in 1988 with a $1999 
+price tag). But it is no longer true. At present, street prices for most V.32 
+modem are below $500. Every modem manufacturer is making V.32 modems now. 
+Packet-switching networks like Sprintnet (Telenet) and CompuServe are also 
+starting to support V.32 modems. Companies that make modems with proprietary 
+modulation protocols are making modems with "dual standard." U.S. Robotics, 
+Telebit, Hayes and CompuCom all have modems that support V.32 and their own 
+proprietary protocols.
+
+II.2.b. V.32bis
+
+V.32bis, established in early 1991, is the CCITT standard for 14400-bps 
+modems. A V.32bis modem also can fall back to 12000, 9600, 7200 and 4800 bps. 
+V.32bis is downwardly compatible with V.32.
+
+Unlike 2400-bps modems where a single modulation protocol (V.22bis) is 
+supported by all modem makers, there are several proprietary modulation 
+protocols used by modems from different manufacturers. Two notable examples 
+are the U.S.Robotics HST and the Telebit PEP.
+
+In the past three months, U.S. Robotics, Telebit and Motorola Codex have 
+introduced new modems using proprietary protocols that yield better throughput 
+than V.32bis modems.
+
+II.2.c. U.S. Robotics HST
+
+Until the recent surge of V.32 modems, the U.S. Robotics HST (High Speed 
+Technology) was the de facto standard in the PC-based BBS community. U.S. 
+Robotics introduced the Courier HST modem in 1986 and pioneered the market for 
+high-speed modems in the IBM PC environment. The immense popularity of the HST 
+modems was partly due to the generous discount program U.S. Robotics offered 
+to the BBS Sysops (SYStem OPerators). Many modem manufacturers have 
+implemented similar Sysop discount programs, but most BBS sysops remain loyal 
+to the U.S. Robotics modems.
+
+The original Courier HST modem ran at 9600 bps. U.S. Robotics later (in 1989) 
+improved the speed of the Courier HST to 14400 bps. In March 1992, U.S. 
+Robotics further enhanced HST to 16800 bps (which yields an effective 
+throughput around 2000 cps with compressed files). Don't be surprised to see a 
+U.S. Robotics modem with a 19200-bps HST mode in the near future.
+
+Although U.S. Robotics remains committed to the HST modems, there are now 
+three different high-speed Courier modems available: the Courier HST (which 
+only supports the HST protocol), the Courier V.32bis (which only supports 
+V.32bis) and the Courier HST Dual Standard (which supports both the HST and 
+the V.32bis protocols).
+
+II.2.d. Telebit PEP and Turbo PEP
+
+Telebit introduced the TrailBlazer in 1985 that employed a proprietary 
+modulation protocol called PEP (Packetized Ensemble Protocol). While the 
+Courier HST is popular among BBS, Telebit modems dominate the UNIX UUCP and 
+Usenet communities. (Usenet, UUCP and the Internet are discussed in Part II).
+
+The TrailBlazer Plus owes its success partly to its builtin support for the 
+UUCP g-protocol, thus allowing efficient and  flawless UUCP session. PEP also 
+performs well even with noisy telephone lines. The actual throughput is around 
+14400 bps. The TrailBlazer Plus has an installed base of more than 120,000 
+units.
+
+Telebit also introduced a cheaper (and slower) PEP modem, the T1000, in 1988.
+
+Like U.S. Robotics, Telebit recently announced Turbo PEP which has an 
+effective data tranfer throughput of 2300 cps (with compressed files). The 
+Telebit WorldBlazer is a dual-mode modem which supports both V.32bis and Turbo 
+PEP.
+
+II.2.e. Hayes Express 96
+
+Hayes entered the high-speed modem arena in 1987 with the introduction of the 
+V-series Smartmodem 9600. The modem used a proprietary modulation protocol 
+called Express 96 (also known as Hayes "Ping Pong" protocol). The V-series 
+modems have not been as successful as the U.S. Robotics or the Telebit modems.
+
+II.2.f. CompuCom CSP
+
+While every modem manufacturer was jumping on the V.32 bandwagon, CompuCom 
+bucked the trend and came out with the SpeedModem Champ in early 1991. It's a 
+9600 bps modem with a proprietary modulation protocol called CSP (CompuCom 
+Speed Protocol). The SpeedModem Champ was the only modem with a proprietary 
+protocol that costs less than a generic V.32 modem. (The internal SpeedModem 
+Champ was priced at $169. An external version was $199.) Hundreds of PC-based 
+bulletin board systems have installed the SpeedModem Champ. The Champ also 
+works as a Hayes-compatible 2400-bps modem with MNP2-MNP4 error control and 
+MNP5 data compression. (Unfortunately, CompuCom went out of business 
+recently.)
+
+II.2.g. Other proprietary modulation protocols
+
+There are modems using other proprietary modulation protocols. For example, 
+Motorola Codex (a subsidiary of Motorola Inc.) just announced the 326XFast 
+Series of modems. Although you may see those modems referred to as "V.fast", 
+they use a proprietary protocol. (It could take another 18 months for CCITT to 
+finalize the V.fast standard.) Motorola Codex is promising a free ROM upgrade 
+when the V.fast standard is established.
+
+Two modems can establish a connection only when they share a common modulation 
+protocol. To connect at high speed, two modems have to support the same high-
+speed modulation protocol. Therefore, a modem with a proprietary modulation 
+protocol can only establish a high-speed connection with another modem from 
+the same manufacturer. A U.S. Robotics HST modem can only establish a high-
+speed connection (at 9600 or 14400 bps) with another HST or an USR Dual 
+Standard modem. A Courier HST modem cannot establish a high-speed connection 
+with a Courier V.32bis modem. They can only connect at 2400 bps. (All high-
+speed modems in the market support the CCITT V.22bis modulation protocol).
+
+On the other hand, two V.32 modems can talk to each other at 9600 bps. They do 
+not have to be from the same manufacturer. Two V.32bis modems can talk to each 
+other at 14400 bps. A V.32 modem can talk to a V.32bis modem at 9600 bps.
+
+II.3.   Things to come
+
+A V.32bis modem may seem fast comparing to a standard 2400 bps modem. But  
+there are applications that will require even faster modems to be really 
+usable.
+
+II.3.a. V.fast
+
+CCITT is working on a new modem standard, dubbed V.fast. If all goes well, the 
+next modem standard can materialize before the end of 1993. A V.fast modem is 
+expected to reach a raw speed of 19,200-24,000 bps over standard dial-up 
+telephone lines. (By the way, V.fast will probably be known as "V.34" when 
+it's finalized.)
+
+II.3.b. ISDN
+
+In a couple of years we may not need modems at all. Integrated Services 
+Digital Network (ISDN) has been coming for years. When will ISDN really become 
+available for the rest of us? It depends on your local telephone company. It 
+is estimated that by the end of 1994 about half the telephone connections in 
+the U.S. will has access to it. With ISDN, you won't need a modem since no 
+modulation or demodulation will be necessary. You will need an ISDN adapter 
+instead.
+
+An ISDN line carries three digital channels: two "B" channels that carry 
+various kinds of data at 64,000 bps and a "D" channel at 16,000 bps that can 
+carry control signals or serve as a third data channel.
+A single ISDN channel can transfer uncompressed data bidirectionally at 64,000 
+bps. Combine that with a data compression scheme and you will be able to 
+transfer data at hundreds of kilobits per second.
+
+Eventually, ISDN will provide widely available, low-cost digital 
+communications for voice and data communication. Until ISDN is firmly in 
+place, high-speed modems will be with us for a while.
+
+
+III.    Error Control Protocols
+
+Besides high-speed modulation protocols, all current models of high-speed 
+modems also support error control and data compression protocols.
+
+III.1.  V.42 and MNP4
+
+There are two standards for error control (error-correcting, error correction) 
+protocols: MNP 4 and V.42. The Microcom Networking Protocol, MNP, is developed 
+by Microcom. MNP2 to MNP4 are error correction protocols. MNP5 is a data 
+compression protocol. V.42 is established by CCITT. V.42 actually incorporates 
+two error control schemes. V.42 uses LAP-M (Link Access Procedure for Modems) 
+as the primary scheme and includes MNP4 as the alternate scheme. Therefore, a 
+V.42 modem will be able to establish an error-controlled connection with a 
+modem that only supports MNP 4.
+
+A modem that uses a proprietary modulation protocol may also use a non-
+standard error control protocol. For example, Hayes V-series Smartmodem 9600 
+supports an error control protocol called LAP-B. CompuCom's SpeedModem Champ 
+also uses a non-standard error control protocol.
+
+III.2.  V.42 & MNP4 can provide errorfree connections
+
+Modems without error control protocols, such as most 2400-bps Hayes-compatible 
+modems, cannot provide error-free  data communications. The noise and other 
+phone line anomalies are beyond the capabilities of any standard modem to 
+deliver error- free data.
+
+V.42 (and MNP 2-4) copes with the phone line impairments by filtering out the 
+line noise and automatically retransmitting corrupted data. If you have used a 
+standard Hayes-compatible modem, you probably notice some garbled characters 
+(like "@8d_\nw`[ce") show up on your screen from time to time. When two modems 
+establish an error-controlled connection, they are said to have a reliable 
+link and are capable of filtering out those garbled characters caused by the 
+line noise. Notice that the line noise is still there, it just does not show 
+up on your screen or the screen on the remote system.
+
+The filtering process used by V.42 (and MNP 2-4) is similar to the error 
+correction scheme used by file transfer protocols (such as Xmodem). The two 
+modems use a sophisticated algorithm to make sure that the data received match 
+with the data sent. If there is a discrepancy, the data is resent.
+
+What is the difference between error control protocols (such as V.42) and file 
+transfer protocols (such as Xmodem)?
+
+For one thing, file transfer protocols provide error detection and correction 
+only during file transfers. File transfer protocols do not provide any error 
+control when you are reading e-mail messages or chatting with other people 
+online. In other words, an error control protocol is "on" all the time during 
+your online session and file transfer protocols are "on" only some of the 
+times, namely when you are sending or receiving files.
+
+Even though an error control protocol is "on" all the time, we still need file 
+transfer protocols when two modems establish a reliable link. A modem works 
+with bit streams, timing and tones. It does not understand what a file is. 
+When you download or upload a file, your communications software needs to take 
+care of the details related to the file: the filename, file size, etc. This is 
+handled by the file transfer protocol which does more than error-checking.
+
+Some file transfer protocols, most notably Ymodem-g and Imodem, are developed 
+to handle file transfer without performing any error-checking. The idea of 
+using a protocol like Ymodem-g is to eliminate the redundancy - thus improve 
+the transfer speed. Ymodem-g and Imodem should only be used with modems that 
+provide built-in error control protocols. These file transfer protocols do not 
+provide any error-detection or recovery capability. If a problem occurs during 
+the file transfer, the transfer session will be aborted.
+
+Protocols like Ymodem-g or Imodem depend on the modems to provide assurance 
+for the integrity of data being transferred. However, you should know that a 
+reliable link between two modems does not provide absolute guarantee for the 
+data integrity during file transfer. When you call a remote computer, there 
+are really three links involved in the process. Besides the link between the 
+two modems, there are still one link between your computer and your modem and 
+another link between the remote modem and the remote computer. When two modems 
+make a reliable connection using V.42 or MNP 4, only the data integrity 
+between the two modems is  ensured. It is still possible for errors to occur 
+at either end between the serial port and the modem (in the cable) or in the 
+computer itself. (Fortunately, such errors are rare.)
+
+For extra protection, you may still want to use a file transfer protocol  such 
+as Zmodem which also performs error checking even if you have a reliable link 
+with the remote system. There is a common misconception that Ymodem-g is much 
+faster than other file transfer protocols. Although Ymodem-g is significantly 
+faster than Ymodem, it offers little over Zmodem. Zmodem has proven to be 
+extremely efficient. (See benchmark below)
+
+        Filename        Ymodem          Ymodem-g        Zmodem
+        --------------------------------------------------------
+        the-wave.txt    1527 cps        3261 cps        3296 cps
+        dayrpt.arc       761 cps        1042 cps        1025 cps
+        dayrpt.wks      1244 cps        2314 cps        2337 cps
+        sunset.arc       745 cps         987 cps         965 cps
+        sunset.pic      1297 cps        2594 cps        2588 cps
+        text109k.arc     814 cps        1089 cps        1064 cps
+        text109k.txt    1351 cps        2812 cps        2885 cps
+
+Note:   The seven test files used throughout this article are available on the 
+Hayes BBS (800-874-2937). It is an excellent source for information about 
+Hayes products. The BBS also provides a database for thousands of BBS in the 
+U.S. Best of all, it is free.
+
+Unless noted otherwise, the results are obtained by using the following:
+
+Computer: Mac SE with Mobius Two Page Display with 68030 accelerator 
+Modem: ATI 9600etc/e (the modem is set as V.32 with V.42bis enabled) 
+Operating System: System 7.0 
+Communication Software: ZTerm (Comm port set to 38400 bps) 
+File Transfer Protocol: Zmodem
+
+All results are reported by ZTerm. (I use several communication programs on 
+both IBM PC and Mac. All of them show the average throughput while file 
+transfer is in progress, but ZTerm actually produces a report after the 
+transfer is completed).
+
+III.3.  V.42 & MNP4 can improve throughput
+
+The other benefit of V.42 (or MNP4) is that it can improve throughput. Before 
+sending the data to a remote system, a modem with V.42 (or MNP 4) assembles 
+the data into packets and during that process it is able to reduce the size of 
+the data by stripping out the start and stop bits.
+
+A character typically takes up 1 start bit, 8 data bits and 1 stop bit for a 
+total of 10 bits. When two modems establish a reliable link using V.42 or MNP 
+4, the sending modem strips the start and stop bits (which subtracts 20% of 
+the data) and sends the data to the other end. The receiving modem then 
+reinserts the start and stop bits and pass the data to the remote computer.
+
+Therefore, even without compressing the data you can expect to see as much as 
+1150 characters per second on a 9600 bps connection. (Although the modem 
+subtracts 20% of the data, the speed increase is less than 20% due to the 
+overhead incurred by the error control protocol.) Here are the test results 
+obtained by downlaoding the same file (1) without any error control protocol, 
+(2) with MNP4, and (3) with V.42. No data compression protocol is used.
+
+        Filename        No EC           MNP4            V.42
+        --------------------------------------------------------
+        the-wave.txt    935 cps         1151 cps        1128 cps
+        dayrpt.arc      863 cps         1023 cps        1002 cps
+        dayrpt.wks      898 cps         1071 cps        1052 cps
+        sunset.arc      838 cps          971 cps         953 cps
+        sunset.pic      903 cps         1080 cps        1065 cps
+        text109k.arc    908 cps         1085 cps        1064 cps
+        text109k.txt    937 cps         1150 cps        1127 cps
+
+
+III.4.  Are MNP4 and V.42 useful?
+
+Absolutely. Anyone that has ever used a standard modem can appreciate the 
+benefit of an error-free connection. And the increase in data throughput, 
+though modest, is nothing to sneeze at.
+
+
+IV.     Data Compression Protocols
+
+Besides error control protocols, all current high-speed modems also support 
+data compression protocols. That means the sending modem will compress the 
+data on-the-fly and the receiving modem will decompress the data to its 
+original form.
+
+IV.1.   MNP5 and V.42bis
+
+There are two standards for data compression protocols, MNP5 and CCITT 
+V.42bis. Some modems also use proprietary data compression protocols.
+
+A modem cannot support data compression without utilizing an error control 
+protocol, although it is possible to have a modem that only supports an error 
+control protocol but not any data compression protocol. A MNP5 modem requires 
+MNP 4 error control protocol and a V.42bis modem requires V.42 error control 
+protocol.
+
+Also note that although V.42 include MNP4, V.42bis does not include MNP5. 
+However, virtually all high-speed modems that support CCITT V.42bis also 
+incorporate MNP5.
+
+The maximum compression ratio that a MNP5 modem can achieve is 2:1. That is to 
+say, a 9600 bps MNP5 modem can transfer data up to 19200 bps. The maximum 
+compression ratio for a V.42bis modem is 4:1. That is why all those V.32 modem 
+manufacturers claim that their modems provide throughput up to 38400 bps.
+
+There are some 2400-bps modems advertised as having MNP5 but are not real MNP5 
+modems. These modems do not have MNP5 implemented in the modems themselves, 
+but rather depend on the communications software (e.g. Bitcom Deluxe) to do 
+the tricks. Besides being slower than the real MNP5 modems, these modems will 
+not provide an error-free connection unless you use the accompanying software. 
+If you buy one of these modems and decide to use your own software (e.g. 
+Procomm Plus), you have to treat the modem as a plain vanilla 2400-bps modem.
+
+IV.2.   Are MNP5 and V.42bis useful?
+
+Don't be fooled by the claim. It is extremely rare, if ever, that you will be 
+able to transfer files at 38400 bps. In fact, V.42bis and MNP5 are not very 
+useful when you are downloading files from online services. Why?
+
+How well the modem compression works depends on what kind of  files are being 
+transferred. In general, you will be able to achieve twice the speed for 
+transferring a standard text file (like the one you are reading right now). 
+Decreasing by 50% means that you can double the throughput on the line so that 
+a 9600 bps modem can effectively transmit 19200 bps.
+
+However, V.42bis and MNP5 modem cannot compress a file which is already 
+compressed by software. In the case of MNP5, it will even try to compress a 
+precompressed file and actually expand it, thus slow down the file transfer! 
+Here are the test results obtained by downloading the three compressed files 
+using (1) MNP4 without data compression, (2) MNP5, (3) V.42 without data 
+compression, and (4) V.42bis.
+
+        Filename        MNP4        MNP5        V.42            V.42bis
+        ----------------------------------------------------------------
+        dayrpt.arc      1023 cps    946 cps     1002 cps        1010 cps
+        sunset.arc       971 cps    935 cps      953 cps         950 cps
+        text109k.arc    1085 cps    988 cps     1064 cps        1053 cps
+
+If you have ever downloaded files from a BBS or online service, you know that 
+almost all files are in a compressed format. Therefore, you should only expect 
+to see an actual throughput between 950 to 1100 cps even if your V.32/V.42bis 
+modem is supposed to offer throughput "up to" 38400 bps.
+
+Most PC files are in the ZIP format. Macintosh files are typically in the .SIT 
+(Stuffit) or .CPT (Compact Pro) format. Amiga files are usually in the ZOO, 
+ARC or LZH format. Note that GIF files are also in a compressed format.
+
+IV.3.   Compression Software vs. MNP5/V.42bis
+
+There are several reasons why compression software programs (such as PKZIP or 
+Stuffit) are superior to MNP5 or V.42bis.
+
+1. Compressed files save disk storage space.
+
+2. Compression software programs are more versatile. Most of them allow you to 
+group several files in a compressed file archive to ensure that all the 
+related files get transferred at the same time.
+
+3. Software compression is more efficient than on-the-fly modem compression. 
+In the case of a small file, this may not make much difference. But the 
+difference can be significant when you are transferring large files.
+
+        Filename        Size            Time            Throughput
+        ----------------------------------------------------------
+        the-wave.txt    143579 bytes    43 seconds      3296 cps
+        dayrpt.arc        8423 bytes     8 seconds      1010 cps
+        dayrpt.wks       19712 bytes     8 seconds      2337 cps
+        sunset.arc        5084 bytes     5 seconds       950 cps
+        sunset.pic       16391 bytes     6 seconds      2643 cps
+        text109k.arc    29775 bytes     28 seconds      1053 cps
+        text109k.txt    111386 bytes    39 seconds      2822 cps
+
+As we can see from the test results, it is about 30% faster to transfer the 
+compressed file text109k.arc than to download the text file with V.42bis.
+
+Hayes BBS does not provide a compressed version for the file the-wave.txt. 
+Using PKZIP (for PC) and Stuffit (for Macintosh), we obtain the following 
+results:
+
+        the-wave.zip:           6812 bytes (PKZIP)
+        the-wave.sit:           6081 bytes (Stuffit)
+
+Assuming a transfer speed of 1000 cps, the compressed file can be downloaded 
+in 7 seconds. That's six times faster than downloading the text file with 
+V.42bis!
+
+Here is another example. One of my  local BBS has a Macintosh TIFF file 
+(206,432 bytes) which can be downloaded in 56 seconds (with an effective 
+throughput of 3745cps) with a V.32/V.42bis modem.
+
+The result may seem impressive at first. However, the file can be compressed 
+to 6065 bytes (with Compact Pro) or 7385 bytes (with Stuffit). Assuming a 
+transfer speed of 1000 cps, it would only take 68 seconds to transfer. Again, 
+it is seven to nine times faster than downloading the file with V.42bis.
+
+On-the-fly modem compression does have one advantage. It is more convenient. 
+You can send a file without compressing it first and the recipient does not 
+need to decompress the file.
+
+IV.4.   Local Flow Control and Data Buffering
+
+To get the most from a modem with data compression, you'll want to send data 
+from your PC to the modem as quickly as possible. If the modem is idle and 
+waiting for the computer to send data, you are not getting the maximum 
+performance from the modem.
+
+For example, you have a V.32/V.42bis modem and you want to send a text file to 
+a remote system which also has a V.32/V.42bis modem. Let's assume the modem is 
+able to send the file at 20000 bps using V.42bis. If your computer is sending 
+data to your modem at 9600 bps, your modem will have to stop and wait to 
+receive data from your computer.
+
+To get the maximum performance, you want to set the computer to send data to 
+the modem at 38400 bps (the maximum a V.32/V.42bis modem can achieve). Since 
+the modem can only send the file to the other modem at 20000 bps, it will 
+never have to wait.
+
+Here are the test results for downloading the text file thewave.txt by setting 
+the communication port at different speeds (usually referred to as "DTE 
+speed"):
+
+the-wave.txt:    946 cps        (modem port speed 9600 bps)
+                1885 cps        (modem port speed 19200 bps)
+                3296 cps        (modem port speed 38400 bps)
+
+However, there is a new problem. Since your computer is sending data faster 
+than the modem can handle, there needs to be some ways for the modem to ask 
+the computer to stop sending data. Otherwise, data loss is sure to occur. This 
+is where local flow control comes into play.
+
+A high-speed modem typically supports two kinds of local flow  control: 
+hardware handshaking (CTS/RTS) and software handshaking (XON/XOFF). Of the 
+two, hardware flow control is the preferred method.
+We have mentioned earlier that there are three links involved when you are 
+connected to a remote system:
+
+1. The link between your computer and your modem
+2. The link between the modems
+3. The link between the remote modem and the remote computer
+
+Local flow control is used for the first and third links. Notice that the 
+first link may not use the same kind of flow control as the third link.
+
+Hardware flow control (or hardware handshaking) works by altering voltage 
+levels on the RTS (Request To Send) and CTS (Clear To Send) signal lines at 
+the RS232 serial interface between the modem and the computer.
+
+CTS is used by the modem on the sending end of a transmission. When the local 
+modem is ready to receive data, it sends the CTS signal to the local computer 
+and the computer starts transferring data. If the modem is unable to accept 
+the data as fast as it is received from the computer, the modem will disable 
+the CTS to inform the computer that the modem buffer is almost full (A high-
+speed modem typically contains a small amount of RAM which is used to provide 
+data buffers). The computer will then suspend data transfer. Once the local 
+modem has emptied its buffer by transmitting data to the remote modem, it will 
+enable CTS again.
+
+RTS is used by the computer on the receiving end of a transmission. When the 
+computer cannot accept data at the rate at which the modem is passing data, it 
+will disable RTS. The computer enables RTS again when it is ready to resume 
+receiving data from the modem.
+
+Software flow control (or software handshaking) is achieved by embedding 
+control character in the data stream. XON and XOFF are the most commonly used 
+control characters. XON is also known as ControlQ or DC3 (ASCII 19) while XOFF 
+is known as ControlS or DC1 (ASCII 17).
+
+The use of XON and XOFF during data transfer can create problems when a binary 
+file contain the ControlS (^S) character as a legitimate part of the data. Do 
+not use this method if ^S and ^Q are part of the transmitted data.
+
+IV.5.   Macintosh & High-speed Modems
+
+If you use a Macintosh with a high-speed modem, you will need a special modem 
+cable that is wired correctly to support hardware handshaking. You can order 
+the cable from most mailorder companies that sell high-speed modems. I got 
+mine from Maya Computer (800-541-2318) for $10 (plus $2.50 for shipping & 
+handling).
+
+Unfortunately, the cable did not work with my SE. The cable is good since it 
+worked fine on a Mac IIsi. It just refused to work on my SE. I was 
+disappointed but not surprised. After all, my SE is equipped with a 25 Mhz 
+68030 accelerator. (Well, it is actually both an accelerator and a video 
+adapter for a 19 inch dualpage monitor.) Since I will never want to run my SE 
+without the accelerator, I have no choice but to use software handshaking.
+
+IV.6.   PC & UART
+
+Your PC's serial port has a UART (Universal Asynchronous Receiver/Transmitter) 
+chip to control the input/output. The XT usually has an 8250 UART, the AT 
+usually has a 16450 UART. If you are running Windows, Desqview, OS/2 or any 
+other multitasking environment, you should upgrade your UART with the 16550 
+(if your PC does not already have one). The 16550 is standard in most IBM PS/2 
+and many 386based computers. The 16550 UART has a 16 bytes FIFO (first in, 
+first out) buffer that helps to prevent degradation when several programs are 
+running at the same time.
+
+If you use an external modem, the UART is in your computer (either on the 
+motherboard or on an I/O card that has the serial port). If you use an 
+internal modem, the UART is on the modem. (Both internal modems from Practical 
+Peripherals and Zoom use the 16550 UART. The Twincom 96/42 uses a 16450. The 
+CompuCom SpeedModem Champ, due to its unique design, does not use a standard 
+UART.)
+
+Even if you have a 16550 UART, the communication software that you use will 
+need to support it. Fortunately, the most recent versions of popular 
+communications programs are all designed to support the 16550 UART.
+
+IV.7.   Hayes ESP (Enhanced Serial Port)
+
+ Hayes makes an adapter called Enhanced Serial Port (ESP) that has two serial 
+ports complete with an onboard coprocessor. The ESP can save your PC's CPU 
+from having to manage the work load. If a 16550 UART is not good enough for 
+you, the ESP may be the only answer.
+
+
+V.      About Fax Modems
+
+Since fax machines are essential business tools today, it has become a trend 
+for modem vendors to add fax capability to their products.
+
+A fax machine is made up of a scanner, printer and fax modem. The sending fax 
+machine scans a sheet of paper and convert its image into a code for 
+transmission over the telephone line. The receiving machine reconverts the 
+codes and prints a facsimile of the original. (However, some fax modems can 
+send and receive fax, while others can only send but not receive fax.)
+
+V.1.    Protocols
+
+Here are some terms you'll need to know about fax modems:
+
+V.1.a.  Group 3
+
+Group 3 is the international standard for communication between two fax 
+devices (fax machines or fax boards). Fax machines have evolved over the past 
+20 years. Groups 1 and 2 fax machines transmit a single page at six and three 
+minutes respectively and were used throughout the 1970s. Group 3 transmits one 
+page in as little as 20 seconds (at 9600 bps). Group 3 resolution is 203x98 
+dpi in standard mode and 203x196 dpi in fine mode. Virtually all fax machines 
+sold in the market today are Group 3 units.
+
+V.1.b.  V.27ter
+
+V.27ter is the modulation scheme used in Group 3 Facsimile for image transfer 
+at 2400 and 4800 bps.
+
+V.1.c.  V.29
+
+V.29 is the modulation scheme used in Group 3 Facsimile for image transfer 
+over dial-up lines at 9600 and 7200 bps.
+
+V.1.d.  V.17
+
+V.17 is a new CCITT standard. It's the modulation technique for  use in 
+extended Group 3 Facsimile that allows 12000- and 14400-bps fax transmission.
+
+V.1.e.  CAS
+
+CAS (Communications Application Specification) is a communications protocol 
+developed by Intel and DCA (the software company know for Crosstalk) for a 
+combination fax and modem board that allows personal computer users to 
+exchange data more easily with fax machines. CAS was introduced in 1988. It 
+has been supported in many applications software (e.g. WordPerfect).
+
+V.1.f.  Class 1 & Class 2
+
+In the past, no standard existed for a microcomputer to deal with a fax board. 
+As a result, the software for a particular fax board won't work with another 
+fax board from a different manufacturer. (Although CAS has been moderately 
+successfully, it hasn't become the industry standard.) The Electronic 
+Industries Association/Telecommunications Industry Association (EIA/TIA) has 
+been developing new standards (Class 1 & Class 2) for microcomputers to 
+communicate with fax modems. As a result, you can buy a software program that 
+will work with Class 1 (or Class 2) fax modems from different manufacturers.
+
+The Class 1 standard provides minimal hardware support for sending a fax from 
+a microcomputer, while Class 2 adds over 40 AT-command set instructions and 
+places more functionality into the modem.
+
+Note that the Class 2 standard is not expected to be finalized until August, 
+1992. In fact, most "Class 2" fax modems in the market today are based an 
+obsolete draft. (It has become epidemic for computer vendors to announce 
+products that are supposed to meet a standard while the standard doesn't even 
+exist yet.)
+
+V.2.    How useful is a fax modem?
+
+A fax modem may not be as useful as you'd think. (Personally, I don't find fax 
+modems to be useful or reliable. But I know people who can't do without their 
+fax modems.) Fax modems are good for sending, but not receiving fax. You may 
+still need (or want) a fax machine even if you have a fax modem.
+
+Fax machines are easy to use. Fax modems are not. Anyone that knows how to use 
+a phone can learn to use a fax machine within a few minutes. A fax machine 
+will work no matter what kind of computer you have. It also doesn't matter 
+what operating system or environment you are running on your computer.
+
+To use a fax modem, you may need to use a (sometimes more than one) software 
+program. I use DOS, Windows, and OS/2 on my PC. The DOS software for the fax 
+board is clumsy and hard to use, the Windows software is easy but unbearably 
+slow. (A two-page resume took about 10 minutes to send with the fax board. I 
+can print it out and send it with a fax machine in less than 3 minutes.) And 
+the machine locked up many times while I tried do something else. (If you use 
+Microsoft Windows, you should know that unrecoverable application errors are 
+not gone. They are called general protection faults in Windows 3.1)
+
+If you need to fax a printed document, you'll need to have a scanner to get it 
+into your computer. To print out a fax received by your fax modem, you'd need 
+a printer. Also,  your computer needs to be on to receive fax.
+
+However, there are several advantages for using a fax modem (if you can live 
+with its shortcomings):
+
+1. You won't have a paper jam if you're faxing a multi-page document.
+
+2. The software for fax boards are more flexible and versatile. A fax board 
+can be a life-saver if you regularly fax the same document to several people.
+
+3. You don't have to print out the document you want to fax if it's generated 
+with your computer. And the quality is better.
+
+It's worth noting that many documents that are faxed should be sent by e-mail. 
+(A high-tech employment agency recently asked me to fax my resume and then had 
+it re-typed into the computer. I suggested that I sent the resume by e-mail, 
+but they didn't use e-mail.)
+
+VI.     Profiles of High-speed Modems
+
+Here are profiles of some high-speed modems. The list is not comprehensive, 
+nor is it intended to be. Unless noted otherwise, the street price quoted are 
+from PC Connection (800-243-8088) in PC Magazine (5/26/92). PC Connection 
+generally does not offer the lowest price, but the service is excellent. I 
+have dealt with PC Connection and MacConnection (800-800-4444) for years and 
+have yet to be disappointed with their services.
+
+Unless noted otherwise, a V.32/V.42bis modem supports V.32, MNP2-5, 
+V.42/V.42bis. And a V.32bis/V.42bis modem supports V.32bis, MNP 2-5, 
+V.42/V.42bis. Some units also support MNP 10 which is developed to overcome 
+the hostile environment (such as celullar phone lines).
+
+Some of the units mentioned here are fax modems.
+
+VI.1.   ATI 9600etc/e
+
+ATI Technologies is well known for their video adapters. But they also make a 
+V.32/V.42bis external modem. It is a generic high-speed modem that works well. 
+PC Connection is selling the ATI 9600etc/e at $369.
+
+I have been using an ATI 9600etc/e for more than a year now and I am very 
+pleased with it. I will not hesitate to recommend it to anyone.
+
+There are two things I really like about the ATI modem:
+
+* It has a slide volume control on the outside so you can easily  adjust the 
+volume by hand.
+
+* It has factory settings for three different modes: V.32 only, V.32 with 
+MNP5, V.32 with V.42bis. It is very convenient if you need to initialize the 
+modem in different ways.
+
+VI.2.   CompuCom SpeedModems
+
+As we mentioned earlier, CompuCom SpeedModem Champ offered a lowcost 
+alternative to PC users. CompuCom also made modems that implemented the V.32 
+and V.32bis protocols in addition to its proprietary protocol. Since CompuCom 
+is no longer in business, it's probably not a good idea to purchase a CompuCom 
+modem now.
+
+VI.2.a. Champ
+
+The SpeedModem Champ is a 9600 bps high-speed modem with CompuCom's 
+proprietary CSP modulation protocol. It is introduced in early 1991. The 
+CompuCom Champ is supported by hundreds of BBS in the U.S., including 
+heavyweights such as EXEC-PC and Channel 1.
+
+VI.2.b. Storm
+
+The SpeedModem Storm is a dual-mode modem. It supports both CSP and 
+V.32/V.42bis.
+
+VI.2.c. Star
+The SpeedModem Star is also a dualmode modem. It supports both CSP and 
+V.32bis/V.42bis.
+
+VI.3.   Hayes Modems
+
+Hayes used to be the leader in the modem market. The Hayes SmartModem 1200 and 
+2400 have been the industry standards for many years. However, Hayes has not 
+been as successful in the high-speed modem market.
+
+VI.3.a. V-series Smartmodem 9600
+
+Introduced in 1987, this is a high-speed modem that supports the proprietary 
+Hayes Express 96 modulation protocol. The V-series Smartmodem 9600 is still 
+available from various mail order vendors. There is also an internal unit 
+called V-series Smartmodem 9600B.
+
+VI.3.b. Smartmodem 9600
+
+Introduced in 1988, the Smartmodem 9600 is a V.32 modem. It does not support 
+any error control or data compression protocol. Don't confuse this unit with 
+the V-series Smartmodem 9600.
+
+VI.3.c. Ultra 96
+
+Ultra 96 is a dual-mode modem from Hayes. Introduced in 1990, the Ultra 96 
+supports both V.32/V.42bis and the Hayes Express 96 modulation protocol. Ultra 
+96 has many unique features that are not needed if you are calling BBS or 
+online services. The current street price is $669.
+
+VI.3.d. Ultra 144
+
+Ultra 144 is a dual-mode modem that supports both V.32bis/V.42bis and the 
+Hayes Express 96 protocol. The current street price is $799.
+
+VI.3.e. Optima 96
+
+Optima 96 is a plain vanilla V.32/V.42bis modem. This is Hayes' answer to the 
+"generic" V.32/V.42bis modem. The current street price is $389.
+
+VI.3.f. Optima 144
+
+Optima 144 is a plain vanilla V.32bis/V.42bis modem. This is Hayes' answer to 
+the "generic" V.32bis/V.42bis modem.
+
+VI.4.   Intel Modems
+
+Besides the 80x86 CPU, Intel also makes many peripherals for the IBM PC. The 
+Intel modems are solid products that perform well. The new SatisFAXtion 400 
+and 400e are priced aggressively to compete with the low-cost units offered by 
+other vendors.
+
+VI.4.a. 9600EX
+
+The 9600EX is a V.32/V.42bis modem.
+
+VI.4.b. 14.4EX
+
+The 14.4EX is a V.32bis/V.42bis modem. PC Connection is selling the 9600EX for 
+$469 and the 14.4EX for $549.
+
+VI.4.C. SatisFAXtion 400 and 400e
+
+Intel's original SatisFAXtion is arguably the best fax modem in the PC market. 
+Intel recently introduced two V.32bis/V.42bis fax modems - the SatisFAXtion 
+400 and 400e. The SatisFAXtion 400 is an internal unit for IBM microcomputers. 
+It carries a list price of $499. The SatisFAXtion 400e is an external unit 
+(with a list price of $549).
+
+Both the SatisFAXtion 400 and 400e support Group3/Class 2/CAS fax at 14400 
+bps.
+
+VI.5.   Microcom modem
+
+Microcom is a major modem manufacturer. However, Microcom products are not 
+normally sold through retail stores or mail order companies.
+
+MicroPorte 4232bis
+
+As the name suggests, the MicroPorte 4232bis is a V.32bis/V.42bis modem. It 
+also supports MNP 10. The MicroPorte 4232bis is a pocket modem (the unit 
+measured 4.5x2.75x1.5 inches). The MicroPorte 4232bis lists for $899.
+
+VI.6.   Practical Peripherals Modems
+
+Practical Peripherals has been making Hayes-compatible modems for many years 
+(it's owned by Hayes, by the way). The Practical Peripherals modems are 
+compatible with the Hayes Ultra modems. Since the Hayes Ultra modems are 
+supported by most communications software, you wouldn't need to worry about 
+configuring the software to work with the Practical Peripherals modems.
+
+VI.6.a. PM9600SA and PM9600
+
+The PM9600SA is a V.32/V.42bis modem. It is designed to be compatible with the 
+Hayes Ultra 96. That means you can tell your communications software that you 
+have a Hayes Ultra 96. However, the PM9600SA only responds to a subset of the 
+commands supported by the Hayes Ultra 96. Any commands specific to the Hayes 
+Ultra 96 that are not implemented in the PM9600SA will be ignored.
+
+Some early PM9600SA units have quite a few problems connecting to other V.32 
+modems. (Make sure you send in the warranty card.) Practical Peripheral has 
+since sent out several ROM upgrades and the current shipping units seem to be 
+working fine.
+
+Practical Peripherals also makes an internal modem that features a 16550 UART. 
+You can get the PM9600SA for $289 and the internal PM9600 for $275. Both 
+PM9600SA and PM9600 now come with a lifetime guarantee.
+
+VI.6.b. PM14400FXSA and PM14400FX
+
+The PM14400FXSA ($399) is an external V.32bis/V.42bis modem. PM14400FX ($359) 
+is an internal unit. (Both of them come with a lifetime guarantee.) The modems 
+come with QuickLink II. I'm currently testing a PM14400FX. It seems to work 
+O.K. (However, the speaker died after a week of usage.)
+
+The PM14400FXSA and PM14400FX support Group 3/Class 1 fax at 9600 bps.
+
+VI.7.   Prometheus Modems
+
+Prometheus modems are available from many Macintosh mail order companies. 
+Until recently, Prometheus is the only manufacturer that makes high-speed 
+modems with fax capability.
+
+VI.7.a. Promodem 9600 Plus
+
+Promodem 9600 Plus is a V.32/V.42bis modem. It can also send and receive Group 
+III fax at 9600 bps.
+
+VI.7.b. Promodem Ultima and Ultima Home Office
+
+Prometheus Ultima is a V.32bis/V.42bis fax modem. It can also send and receive 
+Group III fax at 9600 bps. The Ultima Home Office adds voice capability. PC 
+Connection sells the Ultima Home Office (internal) for $489. MacConnection 
+sells the Ultima Home Office (external) for $489.
+
+VI.8.   Supra Modem
+
+Although Supra is not be a household name, it's a major vendor in the market 
+for Commodore Amiga.
+
+SupraFaxModem V.32bis
+
+Supra announced the SupraFaxModem V.32bis at the Fall Comdex last year. With a 
+suggested list price of $399 (without software), the SupraFaxModem became one 
+of the most anticipated product in the past 6 months. However, Supra did not 
+ship the product on schedule. The SupraFaxModem was supposed to ship in 
+January but was delayed until March. There were also some problems with the 
+early units. If you're buying the SupraFaxModem, I'd recommend you purchase it 
+from a vendor that offers a money-back guarantee. (This recommendation applies 
+to all the inexpensive V.32bis modems.)
+
+The SupraFaxModem V.32bis supports Group 3/Class2 fax.
+
+VI.9.   Telebit Modems
+
+Telebit makes several modems. The prices quoted for the Telebit modems are 
+their new list prices.
+
+VI.9.a. TrailBlazer Plus
+
+$849. Introduced in 1985, the Trailblazer has been the de facto standard in 
+the UNIX UUCP and Usenet communities. With the new pricing, you should 
+consider the T2500 or the T3000 instead of the TrailBlazer Plus if you need to 
+connect to a Telebit PEP modem.
+
+VI.9.b. T1000
+
+Introduced in 1988, the T1000 is the little brother of the TrailBlazer Plus. 
+The T1000 supports PEP at a slower speed. The actual throughput is about 9600 
+cps. The current list price is $699. Unlike the TrailBlazer Plus, the T1000 
+does not have callback or password security.
+
+VI.9.c. T2500
+
+$949. Introduced in 1989 when V.32 modems started to enter the market, the 
+T2500 supports both V.32/V.42bis and PEP. The maximum throughput is 19,200 bps 
+due to the limitation imposed by the older Rockwell chipset used.
+
+VI.9.d. T1600
+
+$699. The T1600 is a V.32/V.42bis modem introduced  in 1991. It provides 
+builtin support for UUCP and offers password and callback security.
+
+VI.9.e. T3000
+
+$949. This is a V.32bis/V.42bis modem. If you need PEP, you can upgrade the 
+T3000 to a WorldBlazer (see below).
+
+VI.9.f. QBlazer
+
+$599. QBlazer is the first portable V.32/V.42bis modem (2.3"x2.4"x2.4"). It 
+works with a 9-volt battery for about two hours.
+
+VI.9.g. WorldBlazer
+
+This is the latest and greatest Telebit modem. The WorldBlazer is a dual-mode 
+modem that is equipped with Turbo PEP and V.32bis/V.42bis. If you already own 
+a Telebit modem, you can purchase a WorldBlazer (for $549) through Telebit's 
+Loyalty Pays Again program until June 30, 1992.
+
+Note that T1600, T2500, T3000, and the WorldBlazer all offer the following 
+features:
+
+* Built-in support for UNIX UUCP, Xmodem, Ymodem, Kermit file transfer 
+protocols 
+* Two types of dial-access security: password security and call-back security 
+* Remote management and diagnostics
+
+VI.10.  U.S. Robotics Modems
+
+U.S. Robotics has been extremely successful with its high-speed modems. Here 
+are its current offerings:
+
+VI.10.a.        Courier HST
+
+This is the modem that made U.S. Robotics the king of PC-based BBS 
+communities. Unless you are only going to communicate with other USR HST 
+modems, it is probably not a good idea to purchase this unit. The street price 
+for a Courier HST is $550-$600.
+
+VI.10.b.        Courier V.32bis
+
+Introduced in 1990, this is a V.32bis/V.42bis modem. It does not support HST. 
+The current street price for a Courier V.32bis is $530-$570.
+
+VI.10.c.        Courier HST Dual Standard
+
+This unit is introduced in 1990. If you need to connect to HST modems and also 
+want to be able to talk to other V.32/V.32bis modems, this is the modem to 
+buy. Its current street price is around $800. The street price for a HST Dual 
+Standard is $800. (Note that earlier HST Dual Standard modems only support 
+V.32 and not V.32bis.) The HST Dual Standard is considered by many BBS users 
+as the best modem money can buy. In March 1992, U.S. Robotics shipped a 
+Courier Dual Standard with a 16800-bps HST mode.
+
+The only reservation I have about the Courier modems is their size. The 
+external Courier modems are rather bulky: 8.3" wide, 12.65" deep, 1.57" tall. 
+I would not want to carry one of these with me when I travel. Incidentally, 
+the new Courier Dual Standard is substantially trimmer in size.
+
+VI.10.d.        Sportster 9600 V.42bis
+
+This unit is introduced in 1991. The Sportster  9600 is an entry level 
+V.32/V.42bis modem from U.S. Robotics. The list price is $645 for the external 
+version. ($595 for the Internal version).
+
+VI.10.e.        WorldPort 9600 V.32
+
+The WorldPort 9600 is a portable pocket modem. Originally made by Touchbase 
+Systems, the WorldPort 9600 is a V.32/MNP5 modem. It does not support 
+V.42/V.42bis. The WorldPort 9600 works with a 9-volt battery. The list price 
+is $699.
+
+V.11.   Zoom Modems
+
+Zoom Telephonics has been making Hayes-compatible modems for quite some times 
+now. I have used many Zoom modems in the past and they have proven to be 
+reliable and inexpensive.
+
+VI.11.a.        V.32 Turbo
+
+Zoom has been making Hayes-compatible modems for a long time. The V.32 Turbo 
+is their entry into the high-speed modem arena. The V.32 Turbo is a 
+V.32/V.42bis with a 12000 bps turbo mode which is compatible with a V.32bis 
+modem at 12000 bps. Zoom also makes an internal version of the V.32 Turbo that 
+features a 16550 UART. PC Connection sells the the internal model for $329.
+
+VI.11.b.        VFX V.32bis and VFP V.32bis
+
+VFX V.32bis is an external V.32bis/V.42bis modem (list price $449). The 
+internal version is called VFP V.32bis ($399). Both come with MTEZ (which 
+includes ExpressFax) for IBM PC. Zoom also offers a Macintosh version that 
+comes with QuickLink II ($449). MacConnection is selling the VFX V.32bis for 
+$299.
+
+The Zoom VFX V.32bis and VFP V.32bis support Group3/Class 2 fax.
+
+VI.12.  Things to come
+
+Almost every modem manufacturer makes at least one V.32/V.42bis modem and a 
+V.32bis/V.42bis modem now. The price for V.32 and V.32bis modems will continue 
+to drop. In the past few months, the price difference between V.32/V.42bis and 
+V.32bis/V.42bis modems is diminishing.
+
+Many new modems introduced in the past few months also offer fax capability. 
+You can expect modem manufacturers to include fax capability as a standard 
+feature in their products if they haven't done so already.
+
+VII.    Buying a High-speed Modem
+
+V.32 and V.32bis modems are clearly the standards of high-speed modems today. 
+You should buy a V.32 or a V.32bis modem unless
+
+1. Your application requires a high-speed modem with a proprietary modulation 
+protocol. In this case, you should consider a dual-mode modem that support 
+both the proprietary protocol and V.32 (or V.32bis).
+
+2. You cannot afford a V.32 modem.
+
+VII.1.  Should you pay extra for a V.32bis modem?
+
+A V.32bis modem costs substantially more than a V.32 modem just a few months 
+ago. However, the price difference bewteen a V.32bis and a V.32 modem (from 
+the same manufacturer) are diminishing. If you're thinking about buying a 
+high-speed modem, you should probably look for a V.32bis modem.
+
+Assuming the remote system support V.32bis, a V.32bis modem will  pay for 
+itself rather quickly if you are placing long distance calls to the remote 
+system. However, if you are using some packet-switching networks to reach the 
+remote system by calling a local number. A V.32bis modem will be wasted since 
+none of the packet-switching networks currently support V.32bis. In fact, they 
+are just starting to offer 9600 bps access service. Part III of "The Joy of 
+Telecomputing" provides a comprehensive discussion of the issues involved.
+
+VII.2.  Should you buy a modem with a proprietary protocol?
+
+It is generally not a good idea to purchase a modem which only supports a 
+proprietary modulation protocol. You should consider getting a modem that 
+supports dual modulation protocols (USR Courier Dual Standard, Telebit 
+WorldBlazer, Hayes Ultra) if (i) you have to connect to a modem that uses a 
+proprietary modulation protocol, or (ii) you need to have better throughput 
+than a V.32bis modem can offer.
+
+VII.3.  Should you buy a 2400-bps modem with V.42bis?
+
+If you are thinking of purchasing a 2400 bps modem with V.42bis data 
+compression, think again.
+
+We have mentioned earlier that V.42bis and MNP5 are useless for downloading 
+compressed files. There is one more reason why a 2400 bps with V.42bis is 
+generally not useful when you are calling commercial online services or BBS.
+
+Online services and BBS usually have separate phone numbers for 2400-bps and 
+high-speed modems. Most of them do not support V.42bis on their 2400-bps 
+lines. Therefore, you won't be able to make a connection with V.42bis if you 
+call their 2400-bps modem lines.
+
+Couldn't you call their 9600 bps lines? Well, not really. Commercial online 
+services, as well as many bulletin board systems, typically do not allow you 
+to call their high-speed modem lines with a 2400-bps modem. You won't be able 
+to make a connection even if you try.
+
+VII.4.  Beware of the Ads
+
+Current V.32 modems typically support MNP 2-5 and V.42/V.42bis. However, there 
+are still some earlier models of V.32 modems in the market which
+
+1. may not support any error control or data compression protocol (Hayes 
+Smartmodem 9600).
+2. may support MNP 2-5 but not V.42/V.42bis.
+3. may support proprietary data compression protocol (Microcom MNP9).
+4. may support V.42 but not V.42bis (Prometheus).
+
+When a modem is said to offer a 38400 bps speed (or throughput), it may mean 
+that
+
+1. it is a V.32 or V.32bis modem with V.42bis
+2. it is a V.32 modem with proprietary data compression protocol (some 
+Microcom modems)
+3. it is a high-speed modem with proprietary modulation protocol and V.42bis 
+(U.S. Robotics Courier HST)
+4. it is a high-speed modem with proprietary modulation protocol and 
+proprietary data compression protocol (CompuCom Champ)
+
+An ad that says "USR modem, 38400 bps throughput, V.42bis" does not tell us 
+anything except that the modem is made by U.S. Robotics. It could be any one 
+of the three Courier modems. It could even be a Sportster 9600.
+
+When a modem is said to offer a 9600 bps speed (or throughput), it may mean 
+several things:
+
+1. it is a V.32 modem
+2. it is a high-speed modem using proprietary modulation protocol (Hayes 
+   V-series Smartmodem 9600, Telebit 1000, etc).
+3. it is a 2400 bps modem with V.42bis data compression.
+4. it is a 2400 bps modem with 9600 bps fax 
+5. it is a 2400 bps modem both V.42bis and fax.
+
+
+VIII.   Setting Up Software To Work With High-speed Modems
+
+Getting a high-speed modem is only half the battle. You will need to get it to 
+work with your communications program. Most communications programs still come 
+with settings configured for standard 2400-bps modems.
+
+Since all 2400- bps modems are Hayes-compatible, it is relatively easy to set 
+up the software. You simply install the software as if you had a Hayes modem. 
+The software usually will work flawlessly. And you don't really have to worry 
+about things like the initialization string.
+
+Getting a high-speed modem to work with your software is a different story. 
+There is no longer a Hayes standard that everyone follows. Here are some of 
+the reasons why you need to know how to configure your high-speed modem to 
+work with your communications program.
+
+First, your high-speed modem may not be supported by your software.
+
+Secondly, even if your software supports your high-speed modem, the software 
+may not be set up properly.
+
+Finally, even if your software is set up properly, the settings may not work 
+all the times.
+
+VIII.1. The Proper Software Setup
+
+When we say that the software is set up properly, we mean that
+
+1. the modem is initialized properly by the communications software, and 
+2. the settings of your software match those of the modem
+
+What is the proper way to initialize a high-speed modem? In general, your 
+modem needs to be initialized to:
+
+1. Enable V.42bis Data Compression
+2. Enable hardware flow control
+3. Handle the DTR and CD signals properly (by adding &C1&D2 to the modem 
+   initialization string)
+
+We'll use the ATI 9600etc/e modem as an example for our discussions below. The 
+initialization string described here is for the ATI modem only. Refer to your 
+modem manual for the equivalent initialization string for your modem.
+
+The ATI modem is supported by two popular communications programs: Qmodem and 
+HyperAccess 5. Qmodem initializes the modem and also configures itself to use 
+hardware flow control. HyperAccess 5 also initializes the modem properly, 
+however it does not configure itself to use hardware flow control.
+
+All modems come with default settings preconfigured from the factory. Many 
+V.32 high-speed modems are preset to use V.42bis and hardware flow control 
+when they are turned on. This optimal configuration enables the modem to 
+automatically negotiate a connection with either another V.32 modem supporting 
+V.42bis or  MNP protocols (or even a standard modem).
+
+Interestingly enough, not all high-speed modems are configured this way. The 
+ATI 9600 etc/e modem, for example, is preset to use V.32 without error control 
+or data compression at poweron. (Why? Good question.)
+
+As a result, your communications program needs to issue the appropriate 
+initialization string (AT&F2) to set up the ATI modem to use V.32 with V.42bis 
+and hardware flow control.
+
+There is another change required. And it has to do with the parameters 
+controlling how the modem deals with two of the RS232 signals: DTR (Data 
+Terminal Ready) and CD (Carrier Detect).
+
+CD is a signal generated by the modem which is used to indicate its connection 
+status. DTR is a signal generated by your computer. DTR is used to enable the 
+modem to accept commands from your communications program, it is also used by 
+most modems to determine when to disconnect a call.
+
+The factory default setting for DTR tells the modem to ignore change in DTR 
+(&D0), and the setting for CD forces CD always on (&C0). These specific 
+settings are required by some dedicated dumb terminals in order to communicate 
+with the modem. (Virtually all modems use &C0&D0 as the default setting.) 
+However, these settings will often cause problems when hanging up the phone 
+lines or produce an error message which says the modem is online when it is 
+not.
+
+Most communications software programs expect the modem to follow DTR and 
+expects CD to follow carrier. "&C1&D2" sets the parameters for the modem to 
+handle the DTR and CD signals as expected by most communications programs. 
+(However, if you use a Mac, you should use "&C1&D0".)
+
+Therefore, the proper initialization string to use for the ATI modem should be 
+"AT&F2&C1&D2" if you have a PC, and "AT&F2&C1&D0" if you have a Macintosh.
+
+VIII.2. Does Your Software Initialize the Modem Properly?
+
+Let's take a look at the initialization strings used by Qmodem and HyperAccess 
+5 for the ATI 9600etc/e modem. 
+
+HyperAccess 5 use the following initialization string
+
+        AT&F2E1V1L0Q0W2X4&C1&D2S11=55
+
+This string is longer than the one we suggest. But does it do more? Actually 
+it doesn't. Many of the commands in the string are redundant or not necessary. 
+Only AT&F2&C1&D2 are crucial.
+
+Four of the commands E1, V1, Q0 and X4  are redundant since they are 
+duplications of the factory default settings. (Check your modem manual to find 
+out what they mean. Since you would most likely need to read it sooner or 
+later, you might as well get started now.)
+
+L0 does not apply to the ATI modem. L0 normally is used to set modem speaker 
+volume to the lowest level. However, the ATI 9600etc/e modem does not respond 
+to the L0 command. Unlike most modems, the ATI modem has a slide volume 
+control on the right side for adjusting the volume level.
+
+The other two commands (W2 and S11=55) are not redundant, but they are not 
+necessary.
+
+W2 sets the modem to report Negotiation result codes in single line format 
+instead of the default three line format (W1).
+
+        Three line format:              Single line format:
+        -------------------------------------------------
+        CARRIER 9600                    CONNECT 9600/LAP-M
+        PROTOCOL: LAP-M
+        CONNECT 38400
+
+
+S11=55 (default is 95) sets the modem to dial at a faster speed than the 
+factory setting.
+
+Despite the fact that its initialization string contains some redundant 
+commands, HyperAccess 5 does properly initialize the ATI modem.
+
+Although HyperAccess 5 will initialize the modem with the string every time 
+you dial a remote system, the program does not change the factory default 
+settings for the ATI modem (which is V.32 without error control or data 
+compression). Every time you turn the modem off and back on, the modem will 
+revert to its factory defaults.
+
+Unlike HyperAccess 5 (and other communications programs), Qmodem does it in a 
+different way. It actually replaces the old factory default setting (AT&F) of 
+the ATI modem with a new default configuration (AT&F2&C1&D2).
+
+When you first install Qmodem to work with an ATI 9600 etc/e modem, the 
+program sends the following two strings to the modem (make sure the modem is 
+connected to your PC and is turned on):
+
+        AT&F2^M AT&C1&D2&W^M
+
+The first string sets the modem as V.32 with V.42bis enabled, hardware flow 
+control enabled (among other things). Note that ^M is equivalent to sending a 
+Carriage Return to the modem.
+
+The second string changes the factory settings of the CD and DTR (&C0&D0) and 
+then write (&W) all the new active configuration settings to the nonvolatile 
+memory of the modem. The new settings are now stored by the modem and become 
+the new default configuration when the modem is powered on (or when it 
+received the ATZ command).
+
+Thus, Qmodem simply sends the initialization string "ATZ^M" (which resets the 
+modem to its default state, now AT&F2&C1&D2) to the modem whenever you load 
+the program.
+
+Although the two programs use different techniques, the result is the same. 
+The modem is initialized as V.32/V.42bis with hardware flow control enabled, 
+which is normally the optimum setting.
+
+VIII.3. Does Your Software Configure Itself to Match the Modem Settings?
+
+Besides sending the right initialization string to the modem, the 
+communications software will also need to match the modem setting. 
+Specifically, the communications software should also use hardware flow 
+control since the modem is initialized with hardware flow control enabled.
+
+One would expect that when a software initializes the modem to use hardware 
+flow control, the software itself would also use hardware flow control. But it 
+is not always true. As we mentioned earlier, HyperAccess 5 initializes the 
+modem with hardware flow control enabled, but expect you to change the flow 
+control settings in each individual dialing entry.
+
+VIII.4. Why You May Need to Change the Initialization String
+
+In general, the string AT&F2&C1&D2 should work without any problem. But there 
+is no guarantee that it will  always work. When it does not work, you'll 
+normally need to change the initialization string to solve the problems.
+
+Here are a few reasons why the initialization string used by your 
+communications program may not work:
+
+1. The settings need adjustments to work with the system you are calling.
+
+Case 1: When I called the Hayes BBS, the modem would abort and failed to make 
+a connection. It turned out that the default setting (30 seconds) of the S7 
+register is not long enough for the ATI modem to make a connection with the 
+Hayes Ultra modem on the other end.
+
+Solution: To establish a connection to the Hayes BBS, I need to add "S7=60" to 
+the modem initialization string and also change the setting in the 
+communications software to wait 60 seconds for a connection.
+
+By initializing the modem with the string AT&F2&C1&D2S7=60, I was able to 
+connect without any problem. (The default setting for the S7 register is not 
+universal, the Hayes Ultra and Practical Peripheral use 50 seconds as the 
+default value.) Note that there is nothing special about the number 60. In my 
+particular case, any number larger than 45 will work.
+
+Case 2: When I call a system that uses the Telebit T1600 modems, I cannot make 
+a connection if the ATI modem is set to use V.42bis or MNP5. The ATI modem 
+will only connect reliably when it is set to use MNP4.
+
+Solution: To connect successfully, I have to set up the modem as V.32 with 
+MNP4 by sending the string AT&F1&U0 to the ATI modem. (AT&F1 sets the ATI 
+modem as V.32 with MNP5, &U0 turns off data compression.)
+
+2. Your communication software may not be compatible with the setting.
+
+For example, America Online implemented an errorcorrecting scheme in the 
+software (both the PC and the Mac versions) which is not compatible with the 
+modem's error correction protocol.
+
+Solution: To use America Online, you need to turn off error control on the 
+modem. AT&F configures the ATI modem as V.32 without error control.
+
+3. Your computer hardware may not work with the setting. As I mention earlier, 
+you need a properly wired cable for the Mac to use hardware flow control. If 
+you do not have the right cable or if your Mac simply won't work with the 
+cable, you will need to use software flow control. (&K4 tells the ATI modem to 
+use software flow control.)
+
+Solution: To use the ATI modem in V.32/V.42bis mode with my Mac, I need to 
+disable hardware flow control and use XON/XOFF software flow control instead. 
+The initialization string AT&F2&K4&C1&D2S7=60 sets up the modem properly 
+(again, S7=60 is for calling the Hayes BBS).
+
+4. You may need to change the setting to achieve better performance. It is 
+advisable that you turn off MNP5 while downloading precompressed files from a 
+remote system that has a MNP5 modem. You can initialize the ATI modem to turn 
+off MNP5 data compression with the string AT&F1&U0.
+
+Again, the initialization string used here is for the ATI modem only. If you 
+use a different modem, you would need to check with the modem manual to find 
+out the equivalent commands to use.
+
+VIII.5. Editing the Initialization String
+
+If the initialization string provided by your software does not work (or if 
+your software does not support your modem at all), you'll need to edit the 
+initialization string in your communications program.
+
+The modem initialization string consists of a series of commands (called the 
+AT commands). They can be divided into three groups:
+
+1. A capital character followed by a digit. For example, M1.
+2. An ampersand & and a capital character followed by a digit. For example, 
+   &M1. Note that M1 is different from &M1.
+3. Sr=n where "r" is the number of the register to be changed and "n" is the 
+   new value that is being assigned. For example, S7=60.
+
+There are some other characters that may also appear in the modem 
+initialization string. These characters normally should not be changed.
+
+AT      tells the modem that modem commands follow.
+
+Z       resets the modem to default state
+
+~       makes your software pause for half a second. You can use 
+        more than one ~ in a row. For example, ~~~~ tells the
+        software to pause two seconds.
+
+^M      sends the terminating Carriage Return character to the 
+        modem. This is a control code that most communication 
+        software translate as a "carriage return."
+
+Let's assume that the appropriate initialization string to use is 
+AT&F2&C1&D2S7=60 (for the ATI modem). You'll need to replace this string with 
+the one provided by your communications software.
+
+If your software does not support your modem, you can install the program by 
+telling it that you have a Hayes modem.  After the installation, you'll simply 
+edit the initialization string with the appropriate one. Please make sure you 
+do not delete any ~ or ^M.
+
+Here are some examples,
+
+1. To change the string provided by Procomm Plus
+        ATE1 S7=60 S11=60 V1 X1 Q0 S0=0^M
+
+Use the string
+        AT&F2&C1&D2S7=60^M
+
+2. To edit the string used by Telix
+        ATZ^M~~~AT S7=45 S0=0 V1 X4^M
+
+change it to
+        ATZ^M~~~AT&F2&C1&D2S7=60^M
+
+3. To replace the initialization string provided by ZTerm (Macintosh)
+        ATE1M1 V1^M
+
+use the following string
+        AT&F2&C1&D2S7=60^M
+
+VIII.6. Match Software Settings to the Modem Settings
+
+Besides using the right initialization string, you also need to make sure that 
+the settings in your communications program match those of the modem.
+
+VIII.6.a.       Speed setting
+
+If you have a modem that supports data compression. You want to make sure that 
+the speed setting for the entries in your dialing directory is the maximum 
+throughput. Here are the general rules of thumb:
+
+For a V.32bis/V.42bis modem, set speed to 38400 or 57600 bps (check your modem 
+manual). For a V.32/V.42bis modem, set speed to 38400 bps. For a V.32/MNP5 
+modem, set speed to 19200 bps. For a V.22bis/V.42bis modem, set speed to 9600 
+bps. For a V.22bis/MNP5 modem, set speed to 4800 bps.
+
+Note: Your computer may not be fast enough to work reliably at 38400 or 57600 
+bps. Also, the communications programs you use may not support speed higher 
+than 19200 bps.
+
+VIII.6.b.       Hardware flow control
+
+Note that you will need to configure your software to use hardware handshaking 
+if the modem is initialized to use hardware flow control.
+
+VIII.6.c.       Dialing Timeout Value
+
+Independent from your modem setting, your software may also impose a limit on 
+how long it will wait for a connection. If you initialize the modem with the 
+command S7=60, you'll need to change the timeout value used by your software 
+to 60 seconds accordingly.
+
+IX.     Configuring Popular Communications Software
+
+Below are brief instructions for configuring some popular communications 
+programs to work with a high-speed modem. The particular initialization string 
+is for the ATI 9600etc/e modem. It is assumed that the appropriate 
+initialization string to use is "AT&F2&C1&D2S7=60" if you are using a PC. (Use 
+"AT&F2&C1&D0S7=60" if you have a Macintosh.)
+
+Make sure you save the changes you make.
+
+IX.1.   Procomm Plus 2.0
+
+To change the modem initialization string: (Global, i.e. it works with every 
+dialing entry)
+
+1. Load Procomm, press Alt-S
+2. Select Modem Options
+3. Select Modem Commands
+4. Press A
+5. Change the initialization string to 
+        AT&F2&C1&D2S7=60^M
+
+To set the software to wait 60 seconds for connection: (Global)
+
+1. Load Procomm, press Alt-S
+2. Select Modem Options
+3. Select General Options
+4. Press A
+5. Type 60 and press Return
+
+To enable hardware flow control: (Global)
+
+1. Load Procomm, press Alt-S
+2. Select Terminal Options
+3. Press D (hardware flow control)
+4. Press Space Bar to toggle, press Return to accept
+5. Press C (software flow control)
+6. Press Space Bar to toggle, press Return to accept
+
+IX.2.   Telix
+
+To change the modem initialization string: (Global)
+
+1. Press Alt-O
+2. Select Modem and dialing
+3. Select A (Init String)
+4. Change the initialization string to 
+        ATZ^M~~~AT&F2&C1&D2S7=60^M
+
+To set the software to wait 60 seconds for connection: (Global)
+
+1. Press Alt-O
+2. Select Modem and dialing
+3. Select K (Dial time) and enter 60 press Return
+
+To enable hardware flow control (Global)
+
+1. Press Alt-O
+2. Select Terminal options
+3. Press J (XON/XOFF software flow control)
+4. Select Off
+5. Select K (CTS/RTS hardware flow control)
+6. Select On
+7. Press ESC to exit
+
+IX.3.   Qmodem
+
+To change the modem initialization string: (Global)
+
+1. Press Alt-N
+2. Press M to select Modem menu
+3. Select Modem Commands
+4. Press Return
+5. Change the initialization string to
+        AT&F2&C1&D2S7=60^M
+
+To set the software to wait 60 seconds for connection: (Global)
+
+1. Press Alt-N
+2. Press M to select Modem menu and Press Return to select Communication 
+   Parameters
+3. Press H to select Timeout delay
+4. Type 60 and press Return
+5. ESC to exit
+
+To enable hardware flow control: (Global)
+
+1. Press Alt-N
+2. Select Toggles
+3. Press Return to toggle XON/XOFF flow
+4. Select CTS/RTS flow
+5. Press Return to toggle
+6. ESC
+7. ESC
+8. Press E for Exit
+9. Save Changes
+
+IX.4.   HyperAccess 5
+
+Note: HyperAccess 5 supports the ATI 9600etc/e. However, HyperAccess 5 does 
+not let you edit the initialization string directly. You can add additional 
+setup commands to change the modem settings for each individual dialing entry.
+
+To change the modem initialization string: (Individual, i.e. it works only 
+with the particular dialing entry)
+
+1. Select Define system settings from the Main menu
+2. Select Modify
+3. Use cursor to select the system to modify and press Enter
+4. Select Hardware from the System settings menu
+5. Select Modem
+6. Select Additional modem setup commands
+7. Type S7=60
+8. Press ESC twice to go back the Main menu
+
+To set the software to wait 60 seconds for connection: 
+
+N/A
+
+To enable hardware flow control: (Individual)
+
+1. Select Define system settings from the Main menu
+2. Select Modify
+3. Use cursor to select the system to modify and press Enter
+4. Select Hardware from the System settings menu
+5. Make sure that Data terminal ready signal is output on DTR, delete RTS if 
+   it is listed
+6. Select Communications port
+7. Select Incoming hardware handshaking and type CTS
+8. Select Outgoing hardware handshaking and type RTS
+
+IX.5.   Crosstalk for Windows
+
+To change the modem initialization string: (Global)
+
+1. Pull down Setup menu and select Modem...
+2. Select Custom and click on Settings
+3. Change the initialization string to 
+        ^M~AT&F2&C1&D2S7=60^M
+4. Click OK
+
+To set the software to wait 60 seconds for connection: (Individual)
+
+1. Pull down File menu and select Open a phone book entry
+2. Open the phone book entry
+3. Pull down Setup menu and select Session
+4. Click on More
+5. Change the value in Allow xx seconds for the host to answer
+
+To enable hardware flow control: (Individual)
+
+1. Pull down File menu and select Open a phone book entry
+2. Open the phone book entry
+3. Pull down Setup menu and select Device
+4. Click on RTS/CTS and click OK
+
+IX.6.   MicroPhone II (Mac)
+
+To change the modem initialization string: (Individual)
+
+1. Choose Settings Menu
+2. Select Communications
+3. Choose V.32 Standard from the Modem Driver list box
+4. Click OK
+5. Hold down the Command key and choose Scripts menu
+6. Select Modify Script
+7. Click the Modem Scripts button
+8. Double-click on Modem_Init
+9. Double-click on the first line that says
+        Set Variable * mcmd from Expression "'AT....'"
+10. Change the initialization string in the lower right box to
+        'AT&F2&C1&D2S7=60^M'
+11. Double-click on the second line that says
+        Set Variable * mcmd from Expression "'AT....'"
+12. Change the initialization string in the lower right box to
+        'AT&F2&C1&D0S7=60^M'
+13. Click OK
+14. Press the Option key and choose the File menu
+15. Select Save Modem Driver (If you want to save the driver under a new name, 
+    select Save Modem Driver As... in the File Menu. Name the new driver, and 
+    save it into the Modem Folder.)
+
+To set the software to wait 60 seconds for connection: 
+
+N/A
+
+To enable hardware flow control: (Individual)
+
+1. Pull down Settings Menu
+2. Select Communications
+3. Click on the Hardware Handshake box
+
+IX.7.   White Knight (Mac)
+
+To change the modem initialization string: (Global)
+
+1. Choose Local Menu and select Serial Port
+2. Choose Modem Init Command to 
+        AT&F2&C1&D0S7=60
+
+To set the software to wait 60 seconds for connection: (Global)
+
+1. Choose Service Menu and select Dial or Redial Number
+2. Change the value in Wait for Answer up to XX seconds to 60
+
+To enable hardware flow control: (Global)
+
+1. Choose Local Menu and select Serial Port
+2. Check Use Hardware Handshake
+
+IX.8.   ZTerm 0.85 (Mac)
+
+To change the modem initialization string: (Global)
+
+1. Choose Settings Menu and select Modem
+2. Change Init String to 
+        AT&F2&C1&D0S7=60^M
+
+To set the software to wait 60 seconds for connection: (Global)
+
+1. Choose Settings Menu and select Modem
+2. Edit Dial Timeout
+
+To enable hardware flow control: (Individual)
+
+1. Choose Settings Menu and Select Flow Control
+2. Uncheck Xon-Xoff Receive
+3. Uncheck Xon-Xoff Send
+4. Check HW Handshake
+
+X.      Other Settings for Your Communications Software
+
+X.1.    Telephone Number
+
+Online services use different phone numbers for different kinds of modems. To 
+get the best throughput, make sure  you dial the right phone number. Note that 
+many bulletin board systems do not allow calling their high-speed modem lines 
+with 2400 bps modems. You would be disconnected.
+
+For example:
+
+EXEC-PC, the largest BBS in the United States, has the following telephone 
+numbers:
+
+#1: Standard 2400 bps modems                            414-789-4210 
+#2: US Robotics HST 9600 MNP5                           414-789-4337
+#3: US Robotics HST 14400                               414-789-4352
+#4: Boca BocaModem V.32bis/V.42bis                      414-789-4360
+#5: CompuCom Speedmodem 9600 MNP modems                 414-789-4450
+#6: Hayes 9600B Vseries modems, NON-V.32                414-789-4315
+
+If you have a 9600 bps HST modem, call #2.
+If you have a 14400 bps HST modem, call #3. You can also call #2 but you won't 
+be able to get the best throughput.
+If you have a V.32 modem, call #4.
+If you have a V.32bis modem, call #4.
+If you have a CompuCom SpeedModem Champ, call #5
+If you have a CompuCom SpeedModem Storm, call #4 (V.32), #5 (CSP)
+If you have a CompuCom SpeedModem Star, call #4 (V.32bis), you can also call 
+#5 (CSP) but you can only connect at 9600 bps.
+If you have a Hayes Vseries Smartmodem 9600 (or 9600B) modem, call #6.
+
+X.2.    Dial String: ATDT
+
+You don't have to change the dialing string unless you use a PBX system or 
+have call waiting service.
+
+X.2.a.  PBX
+
+If you have to dial the digit 9 to obtain an outside line, Use 
+ATDT9,<<number>>. The comma (,) instructs the modem to pause two seconds. This 
+allows enough time for the dial tone to occur before the modem dials. You can 
+use as many commas as you like.
+
+X.2.b.  Call Waiting
+
+Call waiting service will disrupt modem sessions. If your telephone company 
+supports the ability to disable call waiting, use the dial string 
+ATDT*70,<<number>> (make sure you add the comma ,) instead of just 
+ATDT<<number>>.
+
+        ATDT*70,1234567
+
+Also, adding 1170 after the ATDP dial command can be used to disable 
+callwaiting on some pulsedialing phone systems. Check with your phone company 
+to see if these features are supported.
+
+X.3.    8-N-1 or 7-E-1 (data bits, parity, stop bits)
+
+In general, set the parameters to 8-N-1. If you are calling a commercial 
+online service (such as GEnie), you may need to set the parameters to 7-E-1.
+
+X.4.    Half vs. Full Duplex
+
+The only popular online service that uses half duplex is GEnie.
+
+X.5.    Terminal Emulation
+
+If you are using an IBM compatible, choose IBM PC or ANSI. Otherwise, try 
+VT102, VT100, VT52, TTY.
+
+X.6.    Comm Port
+
+For your computer to talk to your modem, you need to tell the software where 
+to find the modem. If you use a PC with an external modem, you need to specify 
+which serial port the modem is connected to. If you have an internal modem, 
+you need to configure the modem and tell the software which COM port the modem 
+is configured for.
+
+If you use a Macintosh, specify whether your modem is connected to the modem 
+port or the printer port.
+
+X.7.    File Transfer Protocols
+
+Errors that occur during file transfer are automatically detected and 
+corrected by file transfer protocols. If a block of data is received 
+incorrectly, the receiving system sends a message to the sending system and 
+requests the retransmission. This process is automatic. When errors occur 
+during file transfer, the communication program shows an error in the file 
+transfer status window.
+
+X.7.a.  ASCII
+
+This is designed to work with ASCII text files only. Notice that you do not 
+have to use this protocol when transferring text files. The ASCII protocol is 
+useful for uploading a text file when you are composing e-mail online.
+
+X.7.b.  Xmodem
+
+Xmodem is one of the most widely used file transfer protocols. The original 
+Xmodem protocol uses 128-byte packets and a simple "checksum" method of error 
+detection. A later enhancement, XmodemCRC, uses a more secure Cyclic 
+Redundancy Check (CRC) method for error detection. Xmodem protocol always 
+attempts to use CRC first. If the sender does not acknowledge the requests for 
+CRC, the receiver shifts to the checksum mode and continues its request for 
+transmission.
+
+X.7.c.  Xmodem-1K
+
+Xmodem-1K is essentially Xmodem CRC with 1K (1024 byte) packets. On some 
+systems and bulletin boards it may also be referred to as Ymodem. Some 
+communication software programs, most notably Procomm Plus 1.x, also list 
+Xmodem-1K as Ymodem. Procomm Plus 2.0 no longer refers to Xmodem-1K as Ymodem.
+
+X.7.d.  Ymodem
+
+Ymodem is essentially Xmodem-1K that allows multiple batch file transfer. On 
+some systems it is listed as Ymodem Batch.
+
+X.7.e.  Ymodem-g
+
+Ymodem-g is a variant of Ymodem. It is designed to be used with modems that 
+support error control. This protocol does not provide software error 
+correction or recovery, but expects the modem to provide the service. It is a 
+streaming protocol that sends and receives 1K packets in a continuous stream 
+until instructed to stop. It does not wait for positive acknowledgement after 
+each block is sent, but rather sends blocks in rapid succession. If any block 
+is unsuccessfully transferred, the entire transfer is canceled.
+
+X.7.f.  Zmodem
+
+This is generally the best protocol to use if the electronic service you are 
+calling supports it. Zmodem has two significant features: it is extremely 
+efficient and it provides crash recovery.
+
+Like Ymodem-g, Zmodem does not wait for positive acknowledgement after each 
+block is sent, but rather sends blocks in rapid succession. If a Zmodem 
+transfer is canceled or interrupted for any reason, the transfer can be 
+resurrected later and the previously transferred information need not be 
+resent.
+
+X.7.g.  Kermit
+
+Kermit was developed at Columbia University. It was designed to facilitate the 
+exchange of data among very different types of computers (mainly minicomputers 
+and mainframes). You probably will not need to use Kermit unless you are 
+calling a minicomputer or mainframe at an educational institution.
+
+X.7.h.  Which file transfer protocol should you use?
+
+In general, I recommend Zmodem. If Zmodem is not supported by the system you 
+are calling, use Ymodem-g. (If you are connecting to a UNIX system in a 
+university, you may have to use Kermit or Xmodem to transfer files.)
+
+Here are the test results obtained by downloading the files using various file 
+transfer protocols. The number before the parentheses is the transfer speed 
+(in cps) and the number in the parentheses is the time elapsed (in seconds).
+
+Filename        Xmodem     Xmodem1K     Ymodem     Ymodem-g     Zmodem
+-------------------------------------------------------------------------
+the-wave.txt    429(334)   1508(95)     1527(94)   3261(44)     3296(43)
+dayrpt.arc      314(26)     758(11)      761(11)   1042(8)      1025(8)
+dayrpt.wks      415(47)    1252(15)     1244(15)   2314(8)      2337(8)
+sunset.arc      337(15)     771(6)       745(6)     987(5)       965(5)
+sunset.pic      399(41)    1337(12)     1297(12)   2594(6)      2588(6)
+text109k.arc    343(86)     817(36)      814(36)   1089(27)     1064(27)
+text109k.txt    410(271)   1379(80)     1351(82)   2812(39)     2885(38)
+
+
+=============================================================================
+
+Appendix A:     Resources
+
+1. Modem Manufacturers
+
+Here is a list of selected modem manufacturers.
+
+Manufacturer            Information     Tech Support     Support BBS
+-------------------------------------------------------------------------
+ATI Technologies        (416) 756-0718  (416) 756-0711  (416) 756-4591
+Cardinal                (800) 233-0187  (717) 293-3124  (717) 293-3074
+Compucom                (800) 228-6648  (415) 499-7600  (415) 499-7711
+Hayes                   (404) 441-1617  (404) 441-1617  (800) 874-2937
+Image Comm.             (201) 935-8880  (201) 935-8880  n/a
+Intel                   (800) 538-3373  (503) 629-7000  (503) 645-6275
+Microcom                (800) 822-8224  (617) 551-1313  (617) 551-1655
+MultiTech               (800) 328-9717  (800) 328-9717  (612) 785-9875
+Practical Peripherals   (800) 442-4774  (805) 496-7707  (805) 496-4445
+Prometheus              (800) 477-3473  (503) 624-0571  (503) 691-5199
+Supra                   (800) 727-8772  (503) 967-2440  (503) 967-2444
+Telebit                 (800) 835-3248  (800) 835-3248  n/a
+U.S. Robotics           (800) 342-5877  (800) 982-5151  (708) 982-5092
+Zoom                    (800) 666-6191  (617) 423-1076  (617) 451-5284
+
+
+2. Support BBS for Software
+
+Here are the support BBS for popular communications software.
+
+Software                                                Support BBS
+-----------------------------------------------------------------------
+Procomm Plus (Datastorm Technologies, Inc.)             (314) 875-0523
+Telix (Exis Inc.)                                       (416) 439-9399
+Qmodem (The Forbin Project, Inc.)                       (319) 233-6157
+HyperAccess 5 (Hilgraeve Inc.)                          (313) 243-5915
+Crosstalk for Windows (DCA)                             (404) 740-8428
+MicroPhone II (Software Ventures)                       (415) 849-1912
+ZTerm (David Alverson)           via CompuServe, GEnie, America Online
+
+
+=============================================================================
+
+Appendix B.     How to reach the author
+
+     If you have any comments or suggestions, I'll love to hear from you. 
+     You can reach me in many ways:
+
+     America Online:         Pat Chen
+
+     CompuServe:             70754,3162
+
+     GEnie:                  p.chen2
+
+     Internet:               70754.3162@compuserve.com
+                             pchen@world.std.com
+
+     MCI Mail:               445-6669
+
+     U.S. Mail:              Patrick Chen
+                             P.O. Box 5325
+                             Irvine, CA 92716
+                             USA
+
+==============================================================================
+
+Appendix C: What is "The Joy of Telecomputing"?
+
+     "The Joy of Telecomputing" is a 200-page, three-part book/report 
+     consisting of the following articles: "What you need to know about
+     modems,""Life beyond CompuServe" and "Is AT&T the right choice?"
+
+     Going online has become a way of life for many computer users. It is
+     undeniably fascinating, fulfilling and fun. But there is also a down side
+     to it: the cost can be prohibitive. I have yet to meet an avid modem user
+     who didn't wish that he could afford to be online longer.
+
+     To get the most mileage from your online dollars, you need to know the
+     answers to the following three questions:
+
+     *  What is the right modem to use?
+     *  What online services are available and how do they compare?
+     *  What is the most cost-effective way to reach those services?
+
+     These are not isolated questions. The answers to these questions will help
+     you decide what online systems are right for you.
+
+     "The Joy of Telecomputing" is a practical guide to the online world.
+     Its goal is to help you get the most from telecomputing. The goal is not
+     to tell you that so-and-so is the best for you, but to present you with
+     enough information so that you will be able to determine what is right for
+     you.
+
+     The discussions in "The Joy of Telecomputing" are devoted to the following
+     online activities: file transfer (downloading shareware, exchanging files
+     with colleagues or friends), electronic mail, conferences (forums,
+     newsgroups, SIGs). You won't find discussions on stock quotes, shopping
+     malls, online databases, etc.
+
+     The online world is constantly changing and it will remain one of the
+     hottest growing area in microcomputing for many years to come. "The Joy of
+     Telecomputing" is an ongoing project. It is being constantly updated to
+     provide you the information you need on a timely basis.
+
+
+=============================================================================
+
+Appendix D: What's in "Life Beyond CompuServe"?
+
+     Part II of "The Joy of Telecomputing" provides a comprehensive survey of
+     the online world. It covers the three major groups of online systems:
+
+     * Commercial online services (America Online, BIX, CompuServe, DELPHI,
+       GEnie, MCI Mail, Prodigy, etc).
+     * BBS (including discussions on FidoNet, RIME, etc)
+     * The Internet (including discussions on UUCP, Usenet, Bitnet, etc).
+
+
+     1. Commercial Online Services
+
+     In general, commercial online services do not offer good
+     price/performance, though some of them excel in certain areas (such as
+     e-mail). We'll look at the major commercial online services (CompuServe,
+     GEnie, Prodigy, etc.) and see what they offer and what they are good
+     for. Major topics covered are:
+
+     * What are the major commercial online services?
+     * How much do they cost?
+     * How can you access those services?
+     * What do they offer? How do they compare with each other?
+     * How do they compare with BBS?
+
+
+     2. The World of BBS
+
+     It is estimated that more than 30,000 bulletin boards exist in the
+     United States. If you live in a metropolitan area, you'll probably find
+     hundreds of BBS that are local. Most BBS operate as a hobby by their
+     owners and without charge to their users. There are many BBS that have
+     members all over the United States (and the world).
+
+     The world of BBS has become a phenomenon. BBS are no longer isolated
+     systems. Fidonet, the network linking thousands of BBS around the world,
+     allows users on one BBS to communicate with those on other BBS.
+     Recently, with gateways to the UUCP network, many BBS has allowed their
+     members to exchange e-mail with users of the Internet and to participate
+     in Usenet newsgroups.
+
+     We'll cover the following topics:
+
+     * How many BBS are there? How do they compare?
+     * How much does it cost to become a member?
+     * What are the limitations?
+     * How to find BBS numbers?
+     * Which BBS offers the latest and greatest files for PC users?
+       Macintosh users? Amiga users?
+     * Which BBS are good for chatting? Which are good for conferences?
+     * What is Fidonet? How does it work? What does it offer?
+     * How to join Fidonet as a node?
+     * How to become a point on Fidonet?
+     * How to send e-mail from Fidonet to Internet (and from Internet to
+       Fidonet)?
+     * What is RIME?
+     * What are the major BBS software available?
+     * How to use BBS effectively?
+     * What software tools you need and where to find them?
+     * BBS Etiquette
+     * Why ZTerm is the best program to use for calling BBS? (For Macintosh
+       users only)
+     * What are MacBinary files? How to download a Macintosh file to a PC?
+       How to download a PC file to a Macintosh? (For Mac users or people
+       who use both Mac and PC.)
+
+
+     3. Internet
+     
+     Internet is a global computer network linking hundreds of thousands of
+     computers (mainly UNIX computers) at universities, research institutions
+     and government agencies. Internet is unsurpassed for e-mail and
+     conferences (called newsgroups in the UNIX world). It is also an
+     invaluable resource for free software. Some major topics covered are:
+
+     * What is Internet
+     * What is UUCP? What is Usenet? What is Bitnet?
+     * What can you do on the Internet
+     * How to send e-mail on the Internet?
+     * How to send e-mail from Internet to CompuServe, MCI Mail, Fidonet
+       (and vice versa)?
+     * How to send binary files?
+     * What newsgroups are available?
+     * How to participate in a newsgroup?
+     * Etiquette
+     * What is FTP?
+     * What is Anonymous FTP?
+     * How to use FTP?
+     * What are the FTP sites available?
+     * How to find the files you need?
+     * What is telnet?
+     * What can you do with telnet? (Read "The Cuckoo's Egg" by Cliff Stoll
+       for a first-hand account on how a German hacker use telnet to break
+       into computers on Internet.)
+     * How to use telnet?
+     * How can you get an Internet account?
+     * What services are available? What kind of access level do they offer?
+     * How much do they cost?
+     * How to transfer files from a UNIX host to your personal computer?
+     * What are uuencode and uudecode?
+     * What are compress, tar and shar?
+
+=============================================================================
+
+Appendix E: What's in "Is AT&T The Right Choice?"
+
+     Part III of "The Joy of Telecomputing" provides detailed discussions on 
+     the various ways you can reach a remote system (i.e., a system which is 
+     not local to you). What is the most cost-effective way to reach those
+     systems?
+
+     There are generally two options you have to reach a remote system:
+
+     1. You can place a distance call using AT&T, MCI, etc.
+     2. You can reach the system via some packet-switching networks by
+        dialing a local number (the system you are calling may already have a
+        deal with a packet-switching network and charge you accordingly, or
+        you may subscribe to one of the packet-switching networks yourself).
+ 
+     (If you are trying to reach a remote Internet host, you have one more 
+     option. You can log in to a local host on the Internet and then use telnet
+     to access the remote host.)
+
+     However, packet-switching networks differ widely in what they offer, how
+     much they charge, and how well they perform. We'll look at some of the
+     services available (PC Pursuit, Connect-USA, Accu*Link, Tymnet,
+     REDI-Access, etc.).
+
+     * How many ways can you reach a remote system? What are the pros and
+       cons?
+     * What are packet-switching networks?
+     * How do they work?
+     * What services are available?
+     * What do they offer?
+     * What kinds of modems do they support?
+     * What are the differences in performance among different
+       packet-switching network?
+     * How much do they cost?
+     * Are packet-switching networks cost-effective?
+
+
+=============================================================================
+
+Appendix F: Updates, bulletins, and tutorial articles
+
+     "The Joy of Telecomputing" will be updated on a regular basis. If you
+     order the book, you'll receive future updates automatically and free of
+     charge as long as you have an e-mail address that can be reached from the
+     Internet. Note that you don't need to have an account on an Internet host.
+     If you are using an online service that have an Internet gateway (e.g.
+     CompuServe, MCI Mail, America Online), you can receive e-mail from the
+     Internet.
+
+     In addition to the quarterly update, you'll also receive bulletins from
+     time to time. To receive the updates and bulletins, please send your 
+     e-mail address to  joy-tel@world.std.com with a subject line of
+     "subscribe" (please include your name and/or company name in the body of 
+     the message).
+
+     Besides updates and bulletins, there will be tutorial articles available.
+     If you are new to the Internet, for example, you may need some 
+     hand-holding in learning to use the UNIX mail, elm, rn, etc. These 
+     articles should be available by the end of June. Unlike the updates and
+     bulletins, these articles won't be sent automatically. To get a list of 
+     the articles, please send e-mail to joy-tel@world.std.com with a subject
+     line of "tutorials". You'll recive the list and the instruction for
+     requesting the articles you want (if there is a topic that you'll like to
+     have an article written, please send e-mail to pchen@world.std.com).
+
+     For those of you that don't have an e-mail address reachable from the
+     Internet, I'm planning to set up a BBS in the future (hopefully before the
+     end of 1992). You'll be notified when the BBS is available.
+
+
+=============================================================================
+
+Appendix G: How to order "The Joy of Telecomputing"
+
+     30-Day Money-Back Guarantee:  If you are not satisfied with your purchase
+     of "The Joy of Telecomputing," return it in resalable condition with all
+     the original packaging within the guarantee period for a refund check.
+     Shipping cost is not refundable.
+
+     To order a printed copy of "The Joy of Telecomputing," send a check or
+     money order to the following address:
+
+          Patrick Chen
+          PO Box 5325
+          Irvine CA  92716
+          USA
+
+
+          "The Joy of Telecomputing"                              $19.95
+          Shipping and Handling (see below)                       $_____
+          California residents please add 7.75% tax ($1.55)       $_____
+
+                                                     Total        $_____
+
+     Note: Shipping and handling fee is $5 within the United States; $10 to
+     Canada, Mexico, Puerto Rico, and Central America; $15 to Europe, 
+     Australia, and Asia. Please allow 2-4 weeks for delivery.
+
+     Non-US residents:  please send checks or money orders drawn on US Banks in
+     US Funds.
+
+     There is no need to fill out the order form if you are sending a check 
+     with your name and address printed on it.
+
+
+     Name:
+     _______________________________________________________________________
+     Address:
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+
+     E-mail Address:
+
+     CompuServe: ____________________ America Online: _____________________
+
+     MCI Mail: ______________________ Genie: ______________________________
+
+     Internet: ____________________________________________________________
+
+
+     Comments/Suggestions:
+        
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+     _______________________________________________________________________
+
+

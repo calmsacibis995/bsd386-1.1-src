@@ -1,0 +1,35 @@
+Fri Nov 26 13:26:35 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	Bunch of little changes, many from H.J. Lu <hjl@nynexst.com>.
+	* feof.c, setbuf.c, vprintf.c, vcanf.c:  #include <stdio.h>,
+	for error checking.
+	* fileno.c:  #include libioP.h, not just libio.h.
+	* fputc.c:  Fix typo.
+	* fseek.c, rewind.c:  Use #include "...", not <...> ,for local files.
+	* getc.c, getchar.c, putc.c, putchar.c:  New files, providing
+	non-macro versions of the standard macros.
+	* getw.c, putw.c, setfileno.c, setlinebuf.c:  New files.
+	* Makefile.in (STDIO_OBJECTS):  Add new files.
+	* vfscanf.c:  Add missing new 4th arg to _IO_vfscanf call.
+
+Thu Oct 14 16:12:07 1993  Karen Christiansen  (karen@deneb.cygnus.com)
+
+	* configure.in: changed mv to mv -f
+
+Mon Oct  4 17:29:23 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* configure.in (stdio_renames):  Add fgetpos, fsetpos, gets,
+	perror, setbuffer, ungetc.
+	* clearerr.c, ferror.c, fgetc.c, fileno.c, fputc.c, freopen.c,
+	fseek.c, popen.c, rewind.c, setbuf.c:  New files.
+	* Makefile.in (STDIO_OBJECTS):  Add new files.
+	* stdio.h:  Use _IO_XXX instead of _G_XXX many places.
+	#include <libio.h> instead of <_stdio.h>, to get useful defs.
+
+Fri Aug 20 00:28:28 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* feof.c, vprintf.c, vscanf.c:  Converted stub functions.
+	* configure.in (stdio_renamed):  Removed feof.
+	Added sprintf sscanf vsscanf.
+	* ChangeLog.old:  Copy of old libg++/iostream/stdio/ChangeLog.
+

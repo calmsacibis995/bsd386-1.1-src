@@ -1,0 +1,13 @@
+F FAXSTAT.C__;1                     	faxstat.c++
+F FAXSTATC.C__;1                    	FaxStatClient.c++
+F FAXSTATC.H;1                      	FaxStatClient.h
+F MAKEDEPE.;1                       	Makedepend
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/flexfax/faxstat
+F RECVSTAT.C__;1                    	RecvStatus.c++
+F RECVSTAT.H;1                      	RecvStatus.h
+F SENDSTAT.C__;1                    	SendStatus.c++
+F SENDSTAT.H;1                      	SendStatus.h
+F SERVERST.C__;1                    	ServerStatus.c++
+F SERVERST.H;1                      	ServerStatus.h
+F TAGS.;1                           	tags

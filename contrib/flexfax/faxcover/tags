@@ -1,0 +1,3 @@
+cover	faxcover.c++	/^faxCoverApp::faxCoverApp() : cover(FAX_COVER)$/
+faxCoverApp	faxcover.c++	/^faxCoverApp::~faxCoverApp()$/
+initialize	faxcover.c++	/^faxCoverApp::initialize(int argc, char** argv)$/

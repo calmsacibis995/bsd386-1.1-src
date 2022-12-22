@@ -1,0 +1,17 @@
+     compctl [ -cfhovbCD ] [ -k name ] [ arg ... ]
+          Control the editor's completion behavior  when  one  of
+          arg  is the current command.  With the -D flag, control
+          default completion behavior for commands  not  assigned
+          any  special behavior; with -C, control completion when
+          there is no current  command.   The  remaining  options
+          specify  the type of command arguments to look for dur-
+          ing completion.  For example,  compctl  -hf  rlogin  is
+          equivalent to hostcmds=(rlogin).
+          -c   Expect command names.
+          -f   Expect filenames and filesystem paths.
+          -h   Expect hostnames taken from the $hosts variable.
+          -o   Expect option names.
+          -v   Expect variable names.
+          -b   Expect key binding names.
+          -k name
+               Expect names taken from the elements of $name.

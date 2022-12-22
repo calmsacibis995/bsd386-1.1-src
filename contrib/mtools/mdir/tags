@@ -1,0 +1,6 @@
+Mmdir	mdir.c	/^main(argc, argv)$/
+conv_date	mdir.c	/^conv_date(date_high, date_low)$/
+conv_time	mdir.c	/^conv_time(time_high, time_low)$/
+dir_flush	mdir.c	/^dir_flush()$/
+disk_flush	mdir.c	/^disk_flush()$/
+getfree	mdir.c	/^getfree()$/

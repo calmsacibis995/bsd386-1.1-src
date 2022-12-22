@@ -1,0 +1,5 @@
+SHELL=/bin/sh
+0,15,30,45 * * * * root /usr/bin/at
+0 2 * * *	root /bin/sh /etc/daily 2>&1 | tee /var/log/daily.out | mail -s "daily output" root
+30 3 * * 6	root /bin/sh /etc/weekly 2>&1 | tee /var/log/weekly.out | mail -s "weekly output" root
+30 5 1 * *	root /bin/sh /etc/monthly 2>&1 | tee /var/log/monthly.out | mail -s "monthly output" root

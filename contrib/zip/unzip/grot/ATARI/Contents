@@ -1,0 +1,26 @@
+Contents of the ATARI sub-archive for UnZip 4.1:
+
+  Contents     this file
+  AtariST.pat  patches to UnZip 4.1 for Atari ST
+  Makefile.st  Mark Williams makefile for Turbo C compiler
+  makeit       simple command script to make UnZip
+  README.src   notes from Martin Schulz on his patches
+  tc.cfg       Turbo C general configuration file for UnZip (binary)
+  unzip.lnk    referred to as "TLINK.OPT" in notes??
+  unzip.prj    Turbo C project file for UnZip
+
+All material in this sub-archive was provided by Martin Schulz.
+Unfortunately, his patches against v4.1 arrived just as v4.2 was 
+released as a final "feature-freeze" beta, too late to incorporate.
+Since the files for UnZip have changed considerably between ver-
+sions--in particular, unzip.c, extract.c and file_io.c--the patches
+provided here will fail miserably.  We will, however, see what we
+can do to incorporate most of them before v5.0.
+
+The non-Atari patches mentioned in Martin's readme file are not
+included here.  Both the Unix blanks patch and the symbolic links
+patches are no longer necessary (actually, there is a bug in the
+existing symbolic links code--it won't do compressed links properly
+--but this is a rare problem); the optimization patch is on hold
+but will probably be incorporated in v5.0 as well, assuming it
+doesn't break any other systems.

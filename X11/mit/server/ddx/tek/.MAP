@@ -1,0 +1,11 @@
+F DEBUG_H.GZ;1                      	debug.h.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F KEYMAP_X.GZ;1                     	keymap_xtl.c.gz
+F KEYNAMES.GZ;1                     	keynames_xtl.h.gz
+F PEGEVENT.GZ;1                     	pegEvent.c.gz
+F PEGINIT_.GZ;1                     	pegInit.c.gz
+F PEGIO_C.GZ;1                      	pegIo.c.gz
+F PEGKBD_C.GZ;1                     	pegKbd.c.gz
+F PEG_H.GZ;1                        	peg.h.gz
+F SVC68K_S.GZ;1                     	svc68k.s.gz
+F SVC_H.GZ;1                        	svc.h.gz

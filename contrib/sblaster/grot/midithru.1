@@ -1,0 +1,22 @@
+.TH midithru 1 "12 June 1992"
+.IX midithru
+.SH NAME
+.PP
+midithru \- efficiently pass data from MIDI-IN to MIDI-OUT
+
+.SH SYNOPSIS
+.PP
+\f3midithru\f1
+
+.SH DESCRIPTION
+.PP
+
+This program simply passes data from the MIDI input port to the MIDI
+output port, since the Sound Blaster has no MIDI-thru connector.
+Unlike \f2filt\f1(1), \f2midithru\f1 performs buffered reads and does
+not modify the data at all.
+
+.SH SEE ALSO
+filt(1)
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

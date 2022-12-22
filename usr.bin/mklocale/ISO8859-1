@@ -1,0 +1,57 @@
+#	BSDI $Id: ISO8859-1,v 1.1 1994/02/01 17:53:00 donn Exp $
+#
+# LC_CTYPE information for ISO8859-1.
+# It uses the "NONE" encoding so that the extended codes are simply
+# a single byte with the 8th bit set.
+# I am not completely sure if all the things I called punctuation
+# should be, or if they should be called special instead.  The
+# important part is clearly the alpha and printable stuff, which
+# looks right to me.
+#
+ENCODING	"NONE"
+
+#
+# C Locale part
+#
+ALPHA		'A' - 'Z' 'a' - 'z'
+CONTROL		0x00 - 0x1f 0x7f
+DIGIT		'0' - '9'
+GRAPH		0x21 - 0x7e
+LOWER		'a' - 'z'
+PUNCT		0x21 - 0x2f 0x3a - 0x40 0x5b - 0x60 0x7b - 0x7e
+SPACE		0x09 - 0x0d 0x20
+UPPER		'A' - 'Z'
+XDIGIT		'a' - 'f' 'A' - 'F'
+BLANK		' ' '\t'
+PRINT		0x20 - 0x7e
+SWIDTH1		0x20 - 0x7e
+
+MAPLOWER       	<'A' - 'Z' : 'a'>
+MAPLOWER       	<'a' - 'z' : 'a'>
+MAPUPPER       	<'A' - 'Z' : 'A'>
+MAPUPPER       	<'a' - 'z' : 'A'>
+TODIGIT       	<'0' - '9' : 0>
+TODIGIT       	<'A' - 'F' : 10>
+TODIGIT       	<'a' - 'f' : 10>
+#
+# The stuff above 0x80
+#
+ALPHA		0xc0 - 0xd6 0xd8 - 0xf6 0xf8 - 0xff
+GRAPH		0xa1 - 0xff
+LOWER		0xe0 - 0xf6 0xf8 - 0xff
+PUNCT		0xa1 - 0xbf 0xd7 0xf7
+SPACE		0xa0
+UPPER		0xc0 - 0xd6 0xd8 - 0xdf
+BLANK		0xa0
+PRINT		0xa0 - 0xff
+SWIDTH1		0xa0 - 0xff
+
+MAPLOWER	< 0xc0 - 0xd6 : 0xe0 >
+MAPLOWER	< 0xd8 - 0xdf : 0xf8 >
+MAPLOWER	< 0xe0 - 0xf6 : 0xe0 >
+MAPLOWER	< 0xf8 - 0xff : 0xf8 >
+
+MAPUPPER	< 0xc0 - 0xd6 : 0xc0 >
+MAPUPPER	< 0xd8 - 0xdf : 0xd8 >
+MAPUPPER	< 0xe0 - 0xf6 : 0xc0 >
+MAPUPPER	< 0xf8 - 0xff : 0xd8 >

@@ -1,0 +1,6 @@
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/pfbtops
+F PFBTOPS.C;1                       	pfbtops.c
+F PFBTOPS.MAN;1                     	pfbtops.man
+F TAGS.;1                           	tags

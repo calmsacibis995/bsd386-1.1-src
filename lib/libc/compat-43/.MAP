@@ -1,0 +1,12 @@
+F CREAT.2;1                         	creat.2
+F CREAT.C;1                         	creat.c
+F GETWD.C;1                         	getwd.c
+F KILLPG.2;1                        	killpg.2
+F KILLPG.C;1                        	killpg.c
+F MAKEFILE.INC;1                    	Makefile.inc
+F SETPGRP.C;1                       	setpgrp.c
+F SIGBLOCK.2;1                      	sigblock.2
+F SIGCOMPA.C;1                      	sigcompat.c
+F SIGPAUSE.2;1                      	sigpause.2
+F SIGSETMA.2;1                      	sigsetmask.2
+F SIGVEC.2;1                        	sigvec.2

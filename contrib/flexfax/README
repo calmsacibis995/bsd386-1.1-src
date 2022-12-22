@@ -1,0 +1,1039 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/README,v 1.1.1.1 1994/01/14 23:09:25 torek Exp $
+
+FlexFAX, Release 2.2.1
+----------------------
+
+Copyright (c) 1988, 1989, 1990, 1991, 1992, 1993 Sam Leffler
+Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+
+    Permission to use, copy, modify, distribute, and sell this software and 
+    its documentation for any purpose is hereby granted without fee, provided
+    that (i) the above copyright notices and this permission notice appear in
+    all copies of the software and related documentation, and (ii) the names of
+    Sam Leffler and Silicon Graphics may not be used in any advertising or
+    publicity relating to the software without the specific, prior written
+    permission of Sam Leffler and Silicon Graphics.
+
+    THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+    WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+    IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+    ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+    OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+    WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+    LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+    OF THIS SOFTWARE.
+
+
+
+About the System
+----------------
+This is a reasonably full-function facsimile service for UNIX systems.
+Facsimile can be sent from any machine on a network and received
+facsimile are stored in a receiving area and may be automatically
+delivered by mail and/or printed.  The system also supports the sharing
+of modems by data communication applications that honor the "uucp
+locking protocol".  These applications typically include cu, uucp, and
+slip.  When possible, the system automatically invokes the getty
+program for incoming data communication calls.
+
+Operationally, one facsimile server process exists for each fax modem
+hooked to a serial port.  Client software spools outgoing facsimile
+that are handled by the server processes.  Received facsimile are
+stored in a receive queue area and may be automatically delivered by
+mail and/or printed.  Servers are heavily parameterized through
+per-server configuration files and through auxiliary shell scripts that
+do system-related operations (e.g. processing received facsimile,
+converting PostScript to bitmap images for transmission).
+
+The server requires a PostScript to facsimile imaging utility for
+useful operation (otherwise, only pre-imaged facsimile may be
+transmitted.)  A Display PostScript-based imager is provided for IRIX
+4.x-based systems.  For other systems, a Ghostscript-based version can
+be built from the GNU sources.
+
+
+Modems
+------
+Note that you need a fax modem to use this software.  Fax modems are
+not the same as data modems though many contemporary fax modems also
+support data communication.  Numerous modems are known to work:
+
+Manufacturer	Model			Notes	Class	 Firmware Rev
+------------	-----			-----	-----	 ------------
+Abaton		InterFax 24/96			 	 unavailable
+AT&T Paradyne	DataPort 14.4		 +	1	 >= C01.22.00
+Boca Research	M1440E				2	 >= V1.270
+Boca Research	M1440E/RC32ACL		 @	2	 V1.000
+CPI		ViVa 14.4/FAX			2	 V1.10 172-502402-013
+Dallas Fax	<something>			2	 not recommended
+Digicom		Scout+			 +	1	 >= 2A19/2931
+Dynalink (?)	Dynalink 1414VE			2	 CBS-03
+Everex		EverFax 24/96D			2	 >= 901231
+Hayes		Optima 144   			1	 unknown
+Hayes		Optima 2400+Fax96   		2	 >= TR00-J260-001 XXX
+Intel		SatisFAXtion 400e		1	 >= U20-28F001BX-5.00
+Logicode	Quicktel Xeba 14.4		2	 V0.500 TR14-Jxxx-001
+Multi-Tech	MT1432BA, MT224BA	 *,+	2	 >= 0307 I
+Multi-Tech	MT1432BG			2	 0109A
+Nuvo		Voyager 96424PFX		1	 AF-C2500-E0
+PPI		PM14400FXMT, PM14400FXSA	2	 >= 2.17
+Supra		SupraFAX v.32bis		1,2	 >= V1.200-C
+Supra		SupraFAX v.32bis/RC32ACL @	2	 >= V1.000
+Telebit		T3000, WorldBlazer		2	 >= LA7.01
+Twincom		144/DF				2	 >= V1.200
+USRobotics	Courier				1	 Sup4.1/DSP11
+USRobotics	Sportster			1	 Sup4.1/DSP10
+Zoom		VFX				1,2	 V2.00
+Zero One Net.	ZyXEL U1496E, U1496E+, U1496S	2	 >= 5.01
+
+Notes:
+
+* There are apparently many variants of the MT1432BA, the following
+  models are known to work: MT1432BA, MT1432BA/A, MT1432MK, MT1432PCS.
+@ /RC32ACL refers to second-generation products made with the Rockwell
+  RC32ACL part and different firmware.
++ Modem is recommended for use with this software.
+
+Class 1 means the modem supports the TIA/EIA-578 "Class 1" specification.
+Class 2 means the modem supports the TIA/EIA-592 draft SP-2388-A of
+August 30, 1991.  The Abaton modem uses a proprietary interface that is
+neither Class 1 or Class 2.  SEE THE SECTION "Class 1 Support" FOR
+IMPORTANT INFO ON CLASS 1 SUPPORT
+
+The software has been tested with the modems and firmware that are
+listed.  You may find that other modems that claim to conform to the
+Class 1 and Class 2 specifications also work (but I make no promises).
+Earlier revisions of firmware for the above modems may work, but once
+again no promises.  Consult the file MODEMS for known bugs and gotchas
+in the above modems.  Firmware for ZyXEL modems can be retrieved by
+mail-server request (more information can be found in the doc
+directory).
+
+
+How to tell which version you have
+----------------------------------
+This software is version 2.2.1.  If you have source code, the precise
+version is given in the file named VERSION that is located at the top
+of the source tree and the alpha number is given in the file
+dist/flexfax.alpha.  If you have a binary installation for a Silicon
+Graphics machine, the version can be printed out with the versions(1)
+command.  If you have need to refer to this specific software, you
+should identify it as:
+
+    FlexFAX <version> (alpha <alpha>)
+
+where <version> is whatever you get from "cat VERSION" and <alpha> is
+what you get from "cat dist/flexfax.alpha"; or, on an SGI machine,
+<version> and <alpha> are displayed in "versions -n flexfax.sw"; for
+example:
+
+   Name                 Version   Description
+
+I  flexfax             732914093  FlexFAX Facsimile Software, Version 2.1.0
+I  flexfax.sw          100600074  FlexFAX Software
+I  flexfax.sw.client   100600074  FlexFAX Client Software
+I  flexfax.sw.server   100600074  FlexFAX Server Software
+
+<version> = 2.1.0 and <alpha> = 74 (the right few digits in the Version
+column).
+
+
+About the Distribution
+----------------------
+The executables in the binary version of this distribution are from a
+Silicon Graphics IRIX 4.0.5H system (compiled with the 2.1 release of
+the AT&T C++ compiler and Version 3.10 of the ANSI C compiler).  These
+binaries should run on any SGI 4D processor (though pre-4.0 os versions
+may not work).  The PostScript imaging engine does, however, require
+that you have the Display PostScript execution environment (dps_eoe)
+installed on the machine where the fax server runs.  Client machines do
+not need dps_eoe as all PostScript imaging is done at the server.  It
+is also possible to setup the binary executables to use a
+Ghostscript-based imager instead of the Display PostScript-based one,
+but that requires the Ghostscript driver included only in the source
+distribution.
+
+
+About the Source Code
+---------------------
+All the source code in this system is provided except the small bit
+of code used to build the Display PostScript-based imager (this code
+is useless unless you have a developers agreement with Adobe for
+Display PostScript).
+
+The system is written almost entirely in C++.  I use the AT&T 2.1 and
+3.0 compilers, as supported by SGI.  GNU gcc 2.3.3 and later have been
+successfully used to build this software on all systems.
+
+The system assumes a POSIX-style system interface and support for the
+select system call.  If your system does not support tcgetattr,
+tcsetattr, etc., then you will need to write some emulation routines.
+If your system does not support select, then you will have a lot of
+work to do.
+
+The Class 1 modem driver requires sub-second timer facilities and a
+minimum latency interface to serial input.  The server uses the
+BSD-style setitimer calls for the timer support and system-specific
+calls to enable low latency input from serial ports.  If your system
+does not support the BSD timer calls, then the server will fall back to
+using the alarm system call that only has 1 second granularity (and the
+driver is unlikely to work reliably).  If your system buffers serial
+input and does not provide a mechanism for defeating this, then the
+Class 1 driver will likely not work well.  See the section below for
+more specifics about the Class 1 support.
+
+There is getty-related support in the fax server process that must be
+configured according to your platform.  When the fax server accepts an
+incoming data connection it configures the port and execs the system
+getty program.  There are two interfaces: System V-style and BSD-style.
+Only one of the two classes may be included in the server; the one that
+is appropriate to your system should be specified in the SYSGETTY
+definition in the defs files.  If your system is one of those supported
+by the configure script, this is automatically done when the software
+is configured for compilation.
+
+The system depends on the InterViews software distribution and on the
+public domain TIFF library that I also distribute separately.  Only the
+*parts* of each system that are used by the fax software are included
+in this source code.  Both distributions in their entirety are freely
+available by public FTP on the Internet.  Information on obtaining each
+is included below.
+
+
+Before Building The System From Source Code
+-------------------------------------------
+Before you build the software you *MAY* need to obtain certain other
+software distributions.  All the software packages described here
+are available by public ftp from a variety of Internet hosts.
+
+o gcc
+
+You need a C++ compiler to build this system.  gcc version 2.3.3 has
+been successfully used to build this code on several systems.  Other
+versions of gcc may work, but I make no promises.  Beware that versions
+before 2.3.3 do not accept the new(memory) syntax and so compiling will
+generate many warning messages.  These can be safely ignored.  Note
+also that gcc often requires that you have the bison parser generator
+installed on your machine.  If you do not have bison and you need gcc,
+do not forget to retrieve both at the same time!  When installing gcc
+beware of the make install-fixincludes step.  On some systems and/or
+with some versions of gcc, this software may not compile properly if
+the include files are wrong (function prototypes that would normally
+cause casts to be done may be missing).
+
+Finally, note port/generic/GCC-PATCH.  This patch reduces the memory
+used to compile the large state tables that are part of the file
+libtiff/tif_fax3.c.  Without this patch you may not be able to compile
+tif_fax3.c on machines with limited memory, or compiling the file may
+take a very long time (30 minutes or more).
+
+o C++ runtime libraries
+
+The AT&T compiler product includes everything that you need in the
+libC.a runtime library.  When using GNU gcc you will also need the
+libg++ distribution.  Testing was done with libg++2.3, but newer
+versions also work (and are usually required with newer versions of
+gcc).
+
+o ghostscript
+
+If you are not on an SGI machine, then you will need the Ghostscript
+PostScript interpreter software to build a PostScript imaging engine
+for use by the facsimile server.  Version 2.6.1 is known work, though
+you should be certain to apply patches 1-4.  If you do not apply the
+patches you will run into a bug in the clipping code that is tickled
+by the faxcover program.
+
+o gmake
+
+The make files are extensive and work untouched with the system make
+under IRIX and SunOS.  If your make does not understand them, then you
+should be able to use the GNU make (gmake) instead.  If you decide to
+use gmake, be sure to get version 3.63 or newer; otherwise you will
+encounter many problems (especially with the incdepend target).
+
+o gawk
+
+Several of the shell scripts included in this software make use of
+awk.  These uses are reasonably simple, but may not work with older
+versions of awk.  If you encounter problems, in particular with the
+notify or rts (Return To Sender) shell scripts, try the GNU awk.
+
+o sed
+
+Several of the shell scripts included in this software make use of
+sed.  Certain systems are known to have versions of sed that do not
+handle the shell scripts (e.g. sed on BSDI 1.0 dumps core on
+expressions in the configure shell script).  If you encounter problems,
+the latest GNU sed should be substituted.
+
+o /bin/test
+
+The software configuration shell script (configure) and the modem
+configuration shell script (etc/faxaddmodem.sh) make heavy use of
+the test program.  On some systems the /bin/test program does not
+support options such as -c (test if a file is a character special
+device).  Source for a contemporary, public domain, test program
+is available by public ftp from ftp.uu.net.
+
+o Adobe Font Metric (AFM) files
+
+The textfmt and faxmail utilities use Adobe Font Metric files in doing
+page layout.  Ideally the font metrics should reflect the fonts that
+are used to image the PostScript.  However, if your PostScript
+interpreter does not include font metric files you can retrieve a set
+separately from this distribution: the archive afm.tar.Z on sgi.com (in
+the same directory that this software is located) contains font metric
+files for the most common fonts.
+
+o ps2fax binary for IRIX systems
+
+The Display PostScript-based imager for SGI systems is included in the
+binary inst'able images provided on sgi.com.  If you choose to work
+from the source code on an SGI system you will want a copy of the ps2fax
+program: it is available separately on sgi.com as the archive dps.tar.Z
+in the same directory that this software is located.  Note that this
+is a binary executable for IRIX 4.0.X systems and requires that you
+have the dps_eoe software package installed.
+
+
+Building The System From Source Code
+------------------------------------
+To build the software you first need to run the configure shell script
+in this directory.  At present the following configurations are known:
+
+aix32	 AIX 3.2.3 extended on a RS/6000 model 580
+bsdi	 BSD/386 1.0 w/ GNU gcc 2.3.3
+4.4bsd	 4.4BSD w/ GNU gcc 2.3.3 (incomplete)
+freebsd	 FreeBSD on an Intel 486 w/ GNU gcc
+hpux	 HP-UX 9.x on an HP 9000/700 (not yet ready)
+linux	 Linux 99p9 on an Intel 386 using gcc 2.3.3
+sco	 SCO ODT 2.0 (incomplete)
+sgi	 Silicon Graphics 4D machines w/ AT&T C++ compiler
+solaris2 Solaris 2.x on a Sun4 with GNU gcc 2.3.3
+sun	 Sun3/Sun4 w/ SunOS 4.1.X and GNU gcc 2.3.3
+svr4	 System V Release 4 on an Intel x86 w/ GNU gcc 2.3.3
+386bsd	 386bsd 0.1 on an Intel 486 w/ GNU gcc 2.3.3+patches
+ultrix	 Ultrix 4.2A w/ GNU gcc 2.4.5
+
+Systems that are marked (incomplete) compile properly and can be used
+to send and receive facsimile, but may have known problems or may be
+lacking some utilities such as the faxaddmodem installation script.
+Systems that are marked (not yet ready) are in preparation, but not
+yet organized for distribution.
+
+It is also be possible to use the GNU tools on the SGI machine and
+the AT&T compiler on the other systems.  To configure and build the
+software do:
+
+% configure [target]	# e.g. configure sgi
+
+where target is one of the above system types and, optionally, a
+compiler: sgi, sgi-gcc, sgi-cc.  If no target is given, configure will
+try to deduce your system using uname(1).  The software is setup with
+several important definitions that are tailored at configuration time
+according to the host and local conventions:
+
+Directory for applications:	/usr/spool/fax
+Directory for lib data files	/usr/local/lib/fax
+Directory for lib executables:	/usr/local/lib/fax
+Directory for servers:		/usr/etc
+Directory for manual pages:	/usr/catman/local
+Directory for documentation:	/usr/local/doc/flexfax
+Directory for spooling:		/usr/spool/fax		
+Type of uucp lock files:	ascii
+Mode for uucp lock files:	0444
+Directory for uucp lock files:	/usr/spool/locks
+Type of PostScript imager:	gs
+PostScript imager program:	/usr/local/bin/gs
+Default page size:		North American Letter
+Default vertical res (lpi):	98
+Directory for font metrics:	/usr/local/lib/afm
+Location of sendmail program:	/usr/lib/sendmail
+
+If you want these to be other than the default settings, then you
+should follow the prompts given by the configure script.  Once things
+are to your liking, do:
+
+    % make
+
+On unsupported configurations, you will want to examine the files in
+the directory port/<machine> (e.g. port/sun for a Sun) and also decide
+on a scheme for doing the PostScript imaging.  If no port/<machine>
+directory is present for your machine, then the software has not been
+ported to your platform and you will need to do some work.
+
+In general, the software is designed such that the following should
+be ``make-able'' in each directory:
+
+make [all]		build stuff
+make depend		build dependency information
+make install		build&install stuff
+make clean		remove .o files and cruft, but not executables
+make clobber		remove everything that can be recreated
+
+
+Building Ghostscript 2.6.x with the TIFF Driver
+-----------------------------------------------
+If you are not using the DPS imager on an SGI machine, then you need to
+build a version of Ghostscript that includes the tiffg3 driver provided
+with Ghostscript.  (Actually, you may find that gs/gdevtiff.c is a newer
+version of this driver.  If so, you should be able to just replace the
+distributed gdevtiff.c with the newer one in the gs directory.)
+
+To setup Ghostscript you need to create a Makefile (follow the
+Ghostscript documentation), add "tiffg3.dev" to the list of configured
+devices, and then build a new binary that includes the driver.  Don't
+forget to install Ghostscript and it's associated materials.  Beware
+that on machines with dynamic shared libraries (e.g. SunOS), if you
+link ghostscript with the X11 device driver and use shared X11
+libraries that are not in a standard location, then you may need to
+augment the util/ps2fax.gs.sh script with something of the form:
+
+LD_LIBRARY_PATH=/usr/local/R5/lib:/usr/openwin/lib
+export LD_LIBRARY_PATH
+
+
+Installation (source distribution)
+----------------------------------
+The source distribution comes in a compressed tar file.  To extract the
+software do something like:
+
+    % mkdir fax; cd fax
+    % zcat <somewhere>/v2.2.src.tar.Z | tar xf -
+
+(uncompress and extract individual files in current directory).  To
+build and install executables from the sources look first for any file
+port/<target>/README that has target-specific information (e.g.
+port/sun/README has information about a patch to apply to GNU gcc).
+Then, do the following:
+
+    % ./configure <target>		# see above
+    % make
+    % su
+    # make install
+
+(of course if your system is not directly supported, you will have more
+work than this to do.)
+
+
+Installation (binary distribution)
+----------------------------------
+The binary distribution comes as a tar file that contains images for
+use with the standard Silicon Graphics installation program inst(1).
+To unpack the inst images do something like:
+
+    % mkdir dist; cd dist
+    % tar xf <somewhere>/v2.2.inst.tar
+
+Next, run inst to install the appropriate pieces that you want.  The
+key documentation from the source distribution is included in the
+subsystem flexfax.man.readme.  When this subsystem is installed the
+README file and other useful pieces of information are placed in the
+directory /usr/local/doc/flexfax.  Otherwise the software is broken
+into two areas: flexfax.client.* for software needed on client machines,
+and flexfax.server.* for software needed on a machine where a fax
+modem is located.  To unpack and install the client portion:
+
+    % mkdir dist; cd dist
+    % tar xf ../v2.2.inst.tar
+    % cd ..; inst -f dist/flexfax
+    ...
+    inst> go
+
+(Note, the dist subdirectory is because some versions of inst fail if
+the files are in the current directory.)  Note that server binaries are
+not installed by default, so to get them also you need to do:
+
+    % inst -f flexfax
+    ...
+    inst> install flexfax.server.*
+    inst> go
+
+Remember that to install a server on a Silicon Graphics machine, you
+need to have already installed the Display PostScript execution
+environment product (dps_eoe).  Otherwise, the fax server will not be
+able to convert PostScript to facsimile for transmission.
+
+
+Modem Setup and Configuration
+-----------------------------
+With the executables installed and the appropriate system configuration
+information setup, prepare the modem for use:
+
+First.  Make sure that your modem works.  I can not say this enough.
+If you can not use cu, tip, uucp, or whatever with your modem, do not
+try to configure it for use with the facsimile software.  This means in
+particular that you should verify that you have a working cable between
+your host and modem and that this cable is suitable for use.  That is,
+that the cable has the relevant signals for doing hardware flow control
+if that is necessary and that it passes the DCD and DTR signals
+appropriately.  On SGI Indigo systems you CAN NOT USE A MACINTOSH CABLE
+TO CONNECT YOUR MODEM.  Once again, repeat after me, YOU CAN NOT USE A
+MACINTOSH CABLE TO CONNECT YOUR MODEM TO AN SGI INDIGO.  It may look
+like it works, but the moment that you try to use hardware flow control
+(i.e. RTS/CTS) the data will be garbled and you will encounter
+problems.  On an SGI system, consult the serial(7) manual page for an
+explanation of how to wire up modem cables.  Note also that for SGI
+systems the tty port name selected for a modem must reflect whether
+hardware or software (XON/XOFF) flow control is to be used--ttyf*
+devices use RTS/CTS flow control and ttym* devices use XON/XOFF flow
+control.  The rules to use for selecting which flow control method
+are:
+
+o if you have a Class 1 modem, then you can use either hardware or
+  software flow control, but beware of using hardware flow control
+  as the Class 1 specification only requires vendors to support
+  software flow control (and most of the Class 1 modems tried so far
+  do not support hardware flow control)
+o if you have a Class 2 modem, then you can use either hardware or
+  software flow control, but if you are going to communicate with the
+  modem faster than 9600 baud then you should probably use hardware
+  flow control
+o if you have an Abaton 24/96 modem, then you must use software flow
+  control (the driver does not support hardware flow control)
+
+On Suns do not use RTS/CTS flow control with the on-board serial ports
+built around the Zilog Z8530 chip.  Also beware of Sun's port locking
+mechanism that uses pairs of minor devices to interlock access to the
+same tty port--there is no direct support in the system for this
+because this scheme requires that a modem auto-answer incoming calls
+(something that does not work well with many fax modems)--most folks
+use /dev/cu* for communicating with modems.
+
+There are gotchas that you can expect to run into on most any system
+when trying to interface to the system's serial port handling.  Consult
+the MODEMS file, the manual pages and, where applicable, the README
+files in the port/<machine> directory for your system.
+
+With the executables installed and your modem happily connected to the
+host with a proper cable, you can add modems with the faxaddmodem shell
+script.  This is an interactive script that walks you through the
+configuration and installation of a new or existing modem.  Note that
+even if you have a previous version of this software installed you
+should run the faxaddmodem script to update the configuration
+information for your modems.  Below is a sample session.  Typed input
+appears to the right of a "?" or "#" prompt; all other material is
+printed by faxaddmodem.  Note that if your modem is configured to
+communicate to the host at fixed baud rate, then you should use the -s
+option--consult the faxaddmodem manual page for details.
+
+    # faxaddmodem
+    Verifying your system is setup properly for fax service...
+
+    You do not appear to have a fax user in the password file.
+    The fax software needs this to work properly, add it [yes]?
+    Added user "fax" to /etc/passwd.
+
+    Adding fax user to "/etc/passwd.sgi".
+
+    There does not appear to be an entry for the fax service either in
+    the yellow pages database or in the /etc/services file;
+    should an entry be added to /etc/services [yes]?
+
+    There is no entry for the fax service in "/usr/etc/inetd.conf";
+    should one be added [yes]?
+    Poking inetd so that it re-reads the configuration file.
+
+    There does not appear to be an entry for the FaxMaster either in
+    the yellow pages database or in the /usr/lib/aliases file;
+    should an entry be added to /usr/lib/aliases [yes]?
+    Users to receive fax-related mail [sam]? 
+    Rebuilding /usr/lib/aliases database.
+    31 aliases, longest 75 bytes, 701 bytes total
+
+    Done verifying system setup.
+
+    Serial port that modem is connected to []? ttyf2
+
+    Ok, time to setup a configuration file for the modem.  The manual
+    page config(4F) may be useful during this process.  Also be aware
+    that at any time you can safely interrupt this procedure.
+
+    No existing configuration, let's do this from scratch.
+
+    Phone number of fax modem []? +1.415.965.7824
+    Area code []? 415
+    Country code [1]? 
+    Long distance dialing prefix [1]?
+    International dialing prefix [011]?
+    Tracing during normal server operation [1]?
+    Tracing during send and receive sessions [11]?
+    Protection mode for received facsimile [0600]?
+    Rings to wait before answering [1]?
+    Modem speaker volume [off]?
+
+    The server configuration parameters are:
+
+    FAXNumber:              +1.415.965.7824
+    AreaCode                415
+    CountryCode             1
+    LongDistancePrefix:     1
+    InternationalPrefix:    011
+    ServerTracing:          1
+    SessionTracing:         11
+    RecvFileMode:           0600
+    RingsBeforeAnswer:      1
+    SpeakerVolume:          off
+
+    Are these ok [yes]? n
+    Phone number of fax modem [+1.415.965.7824]?
+    Area code [415]?
+    Country code [1]?
+    Long distance dialing prefix [1]? 
+    International dialing prefix [011]? 
+    Tracing during normal server operation [1]? 
+    Tracing during send and receive sessions [11]? 3
+    Protection mode for received facsimile [0600]?
+    Rings to wait before answering [1]?
+    Modem speaker volume [off]?
+
+    The server configuration parameters are:
+
+    FAXNumber:              +1.415.965.7824
+    AreaCode                415
+    CountryCode             1
+    LongDistancePrefix:     1
+    InternationalPrefix:    011
+    ServerTracing:          1
+    SessionTracing:         3
+    RecvFileMode:           0600
+    RingsBeforeAnswer:      1
+    SpeakerVolume:          off
+
+    Are these ok [yes]?
+
+    Now we are going to probe the tty port to figure out the type
+    of modem that is attached.  This takes a few seconds, so be patient.
+    Note that if you do not have the modem cabled to the port, or the
+    modem is turned off, this may hang (just go and cable up the modem
+    or turn it on, or whatever).
+
+    Hmm, this looks like a Class 2 modem.
+    Modem manufacturer is "ZyXEL".
+    Modem model is "U1496E  V 5.02 M".
+
+    Using prototype ZyXEL configuration file...
+    Creating new configuration file "/usr/spool/fax/etc/config.ttyf2".
+    Creating "/usr/spool/fax/FIFO.ttyf2" in the spooling directory.
+    Done setting up the modem configuration.
+
+    Startup a facsimile server for this modem [yes]
+    /usr/etc/faxd -m /dev/ttyf2&
+    # 
+
+That's all there is to it (or at least all there *should* be to it)!
+You can also run faxaddmodem at a later time if you want to reconfigure
+your modem.
+
+Beware that when the fax server process runs it normally keeps the
+modem in a state suitable for sending and receiving facsimile.  This
+may have implications for data communication programs such as tip, cu,
+and uucp.  For example, if a Class 2 modem is being used, it may be
+necessary to force the modem into Class 0 (for data communication) when
+placing a call--e.g AT+FCLASS=0DT<phone number>.  Alternatively, you
+can fiddle with the configuration parameters and keep the modem setup
+for data use when the server is not actively using the modem.
+
+
+Class 1 Modem Support (Caveat Emptor)
+-------------------------------------
+The system includes a driver for modems that support the EIA-578 "Class
+1" programming interface.  These modems export a very low level interface
+that requires that the CCITT Recommendation T.30 facsimile communication
+protocol be implemented almost entirely in the host.  Robust support for
+this protocol places two requirements on the host system:
+
+o low latency for serial line input
+o near realtime response
+
+In a UNIX environment both these requirements can be problematic.  In
+particular, many UNIX systems increase the latency for data received on
+a serial port in order to reduce system overhead.  That is, input data
+are typically held in a low level device driver for some period of time
+before they are passed to the user so that bursts of input data can be
+delivered to the user together.  This behaviour is known to occur under
+the Silicon Graphics IRIX and SunOS 4.1.x operating systems; it may
+also occur under other systems.  It is important for the proper
+operation of the Class 1 driver that input data be delivered to the
+facsimile server as quickly as possible.  This may require making a
+non-standard call of some sort to the operating system.  For SGI
+systems this call is automatically done.  For SunOS systems it appears
+that the only way to minimize the input latency is to create a stream
+i/o module that accesses an internal interface (see the comments in the
+routine setInputBuffering in faxd/FaxServer.c++ and the directory
+port/sun/zsundev that contains source for a kernel streams module).
+
+The response time requirements are important for insuring that T.30
+protocol messages are received in a timely fashion.  On a loaded
+system the protocol process may be preempted by other activities and
+not be run fast enough to satisfy the protocol timing requirements.
+This can usually be guarded against by assigning the facsimile process
+a high scheduling priority.  Unfortunately most UNIX systems do not
+provide support for such facilities and so even if it is possible to
+receive serial line input with the minimum of delay, protocol timing
+requirements may not be met because of delays in scheduling the
+execution of the fax server process.  For this reason the facsimile
+server process attempts to raise its scheduling priority while it is
+actively sending or receiving facsimile.  At other times, such as when
+it is doing queue management operations, it runs at a normal priority.
+On Silicon Graphics systems the ``high priority'' is a nondegrading
+scheduling priority that is above the priorities of the normal system
+processes.  On other systems the server currently always runs at the
+same (normal) scheduling priority.  For more details consult the
+setProcessPriority routine in faxd/FaxServer.c++.
+
+In summary, if you want to use a Class 1 modem with this software and
+your system does not provide support for low latency serial line input
+you are likely to have troubles.  If your system does not provide a
+mechanism for raising process scheduling priority (note that this is
+not the same as the UNIX ``nice'' parameter), then you may see problems
+when the server is under load.  Exactly how much load will cause trouble
+is dependent on the system configuration and processing power.
+
+
+Operation
+---------
+In normal operation configured facsimile servers should be started when
+the system is booted and stay around so long as the system is running.
+On SGI systems the normal installation process sets up the appropriate
+configuration information for servers to be started up by init.  On
+other systems you will need to arrange for this yourself (typically by
+editing /etc/rc.local or similar).  If you need to start a server by
+hand, consult the faxd(1M) manual page and the shell script etc/faxd
+that is used on SGI systems.
+
+Incoming facsimile are placed in the recvq subdirectory of the spooling
+area and probably will need to be cleaned up periodically.  Likewise
+there is logging information in the log subdirectory and accounting
+information in the etc subdirectory of the spooling area that may need
+some attention (scripts similar to those used for maintaining sendmail
+and uucp logs and queues should probably be run out of cron).  If you
+want to do accounting check out the shell scripts util/xferstats.sh and
+util/recvstats.sh for a basic attack on how to process the etc/xferlog
+accounting file maintained for facsimile transmissions and receptions.
+Otherwise the only matter to be concerned with is the support for data
+connections.  If your modems are capable of differentiating data
+connections from facsimile connections the fax server can invoke a
+getty process and permit incoming data connections.  Alternatively, if
+your modem does not support an adaptive answer facility, but it is a
+Class 1 modem, the server may be able to do adaptive answering in
+software.  In any event, beware that if you enable data connections you
+should take the normal precautions you would take when there are dialup
+ports on your machine.  Specifically, make sure that you have
+passwords, appropriate file protections, and proper configuration of
+uucp or similar.
+
+If you encounter problems with sending or receiving facsimile you can
+enable copious tracing information by editing the configuration
+file(s).  Consult the section on Troubleshooting and the config(4F) and
+log(4F) manual pages.
+
+
+Adaptive-answering Strategies
+-----------------------------
+If your modem supports a good adaptive answering facility, then it
+should be enabled with the ModemSetupAACmd and the server system will
+automatically service fax or data calls as appropriate.
+
+If your modem does not support adaptive-answering (i.e. distinguishing
+data from fax), then you have several options.  In all cases sending
+facsimile is supported without problems.  If you have a Class 1 modem,
+then you can request that the server employ a simple adaptive answering
+strategy whereby incoming calls are first answered as if they are for a
+fax machine and, if that fails, then answered as if they are for a data
+modem.  This facility is enabled by specifying something like:
+
+    AdaptiveAnswer:	yes		# enable adaptive answer
+    ModemAnswerCmd:	+FCLASS=1;A	# default is to answer as fax
+    ModemAnswerDataCmd:	H+FCLASS=0;A	# hangup and answer as data
+    Class1RecvIdentTimer: 10000		# timeout fax answer in 10 secs
+
+in the configuration file.   The above lines cause the fax server to do
+the following in response to an incoming phone call:
+
+    1. Issue "AT+FCLASS=1;A" to answer the phone call in Class 1;
+       i.e. as a fax machine (issuing CNG tones).
+    2. Send TSI and DIS frames as required by the fax protocol.
+    3. Wait for DCS from the caller (if it is a fax machine).
+    4. Timeout waiting for DCS in 10 seconds (or whatever is specified
+       for Class1RecvIdentTimer).
+    5. Issue "ATH+FCLASS=0;A" to hangup and then re-answer the phone
+       in Class 0; i.e. as a data modem.
+
+This technique assumes many things about the capabilities of the modem
+and the local telephony service and may not work for all Class 1 modems
+or for all locales.
+
+A second facility supported by the fax server in lieu of adaptive
+answering is a ``rotary of answering techniques''.  The general idea is
+that a list of alternative ways to answer the phone is supplied and the
+server will rotate through the list until it finds one that works.  For
+example, one might specify something like:
+
+    AnswerRotary: "fax data"
+
+which would instruct the server to answer incoming calls as if they
+were from a fax machine until a call was received from something other
+than a fax machine, in which case it would then answer subsequent calls
+as a data modem until a non-data call was received (in which case it
+would go back to fax).  The rotary list can have up to three items,
+with items being selected from one of: fax, data, voice, and any
+(answer a call of an unknown type).  The voice answering request is
+reserved for future development.  Finally, in conjunction with the
+rotary answer facility there is an AnswerBias parameter that can be
+used to specify an index into the rotary list to use after
+*successfull* calls.  In the above example, this parameter can be used,
+to force calls to always be answered first as data by specifying:
+
+    AnswerRotary: "fax data"
+    AnswerBias:	  1
+
+
+Non-adaptive-answering Strategies
+---------------------------------
+If you want to always process incoming calls as fax connections, then
+you do not need to do anything; this is the normal setup.  If you want
+to always process incoming calls as data connections, then you should
+setup your modem configuration so that the ModemAnswerCmd parameter in
+the configuration file causes the phone to be answered strictly as a
+data modem.  For example, if you have a Class 1 or Class 2 modem, the
+following should do this:
+
+    ModemAnswerCmd:	+FCLASS=0;A
+
+(this sets the modem into class 0 and then answers the phone).  Another
+possibility that you might opt for (especially if your modem is on a
+phone line shared with a telephone) is to disable automatic answering
+of the phone by setting the RingsBeforeAnswer parameter to zero:
+
+    RingsBeforeAnswer:	0
+
+and then use the faxanswer program to explicitly request that the fax
+server pick up the phone.  Note that by using the -h option to faxanswer
+you can control whether the fax server answers a phone call as fax,
+or data (answering as voice is also supported for compatibility with
+future work).
+
+
+Troubleshooting
+---------------
+There are several components of this system: client applications
+(sendfax, faxstat, faxrm, etc.), the job submission process
+(faxd.recv), and the facsimile/modem server (faxd).  If you have
+trouble setting up this software, first check out the manual pages.
+All client applications support a -v option to enable various levels of
+debugging.  It is possible with one or more -v options to trace the
+protocol between the application and the faxd.recv process on the
+server machine.  faxd.recv has a -d option that enables tracing of the
+protocol it receives and its general operation.
+
+faxd has many tracing controls described in the config(4F) manual
+page.  faxd tracing information is controlled by two configuration
+parameters: ServerTracing and SessionTracing.  ServerTracing controls
+tracing during the time the server is NOT engaged in conversation with
+another fax machine.  SessionTracing controls tracing during the time
+the server is engaged in conversation with another fax machine.  Server
+tracing information is captured via syslog(3).  This means that to
+capture the tracing you must setup the appropriate configuration
+information for the syslogd process.  In particular, make sure that you
+capture *.info, *.debug, and *.err.  Session tracing is stored in files
+in the log subdirectory in the spooling tree.  Consult log(4F) for more
+information.  Normal installation of this software will enable
+sufficient session tracing to debug communication problems.  Unexpected
+problems may require you to alter either or both of the ServerTracing
+and SessionTracing parameters.
+
+When tracking down a problem, be sure to work your way from the client
+application through faxd.recv and into the faxd process.  When debugging
+modem-related problems, only enable the tracing that you really need.
+Enabling all tracing can affect the operation of the server by altering
+the timing of operations.  The default configuration files come with
+SessionTracing set to 11 which is a reasonably good setting (i.e. a lot
+of information is provided, but the load on the server should not keep
+it from operating properly).  Beware of tracing timer operations and
+modem i/o; these trace flags are only useful if you are trying to debug
+a problem specifically related to a timer not going off, or a problem
+where data appears to be corrupted.  Also, when capturing a trace for
+the purpose of submitting a bug report, the less extraneous information
+that you include, the easier it is for people to help understand the
+problem.  A good way to capture a transcript of a problem is to use the
+transcript shell script in the bin directory of the spooling area.  For
+example,
+
+    % cd /usr/spool/fax
+    % bin/transcript 2241 14159657824
+
+where "2241" here is the process id of the faxd process and
+"14159657824" is the canonical phone number associated with the problem
+(i.e. the destination if an outgoing call or the local number if an
+incoming call).  Note that transcript will only present the trace
+associated with the last session, so you need to run it immediately
+after the problem occurs (or else extract the session by hand).
+
+
+Mail to FAX Gateway
+-------------------
+It is easy to setup a mail to fax gateway facility with the tools
+included in this distribution and some simple additions to your
+sendmail configuration file (other mailers should hopefully a be
+workable).  Consult the file faxmail/README for directions on a scheme
+that I've used successfully.  Thanks to Eric Allman for the sendmail
+configuration hack.
+
+
+Contributed Software
+--------------------
+You should be able to find contributions from FlexFAX users in the
+contrib subdirectory of the public ftp area where you found this
+software (or look in sgi/fax/contrib on the host sgi.com).  New
+contributions are welcome, so long as their author's identity is
+clearly marked (so that folks don't ask me questions about stuff
+that I know nothing).
+
+
+Acknowledgements
+----------------
+This software is more than 4 years old and is the product of many
+folks' work.  Robin Schaufler did the original scheme for delayed
+submission and worked on the client-server protocol.  More recently,
+the following people have helped either by testing or by contributing
+fixes and/or improvements:
+
+Pete Bentley	Marc Boucher	 Brent Chapman	   Tom Corson
+Alan Crosswell	Greg Ferguson	 Steve Fine	   Andrew Ford
+Wolfgang Henke	Bert Hooyman	 Dirk Husemann	   Brian Katzung
+Masao Kitano	Carsten Koch	 John T Kohl	   Rickard Linck
+Rick Lyons	Tom Lislegaard	 Rob MacKinnon	   Kevin McManamon
+Les Mikesell	Bill Morrow	 Jonas Olsson      Dave Packer
+Damon Permezel	David Pike	 Amir Plivatsky    Andy Rabagliati
+Eric Rescorla	Marshall Rose	 Daniel Rosenblatt Tim Rylance
+Brent Townshend	Peter White	 David Vrona
+
+(and surely others).  Also, a special thanks to Ed McCreight for
+helping me understand the stuff "between the lines" that's necessary to
+make a working Class 1 driver.
+
+
+Final words (where to send bugs)
+--------------------------------
+There is documentation!  There is GOBS of documentation.  When in doubt
+read the manual pages.  There are manual pages for all the programs and
+manual pages for all the files and directories that you may be curious
+about.  Of course there is also source code for everything, but this
+should (hopefully) not be needed.  If you want to learn how the server
+and spooling system work, start first with flexfax(4F).
+
+A mailing list for users of this software is located on sgi.com.
+If you want to join this mailing list or have a list-related request
+such as getting your name removed from it, send your request to
+
+    majordomo@whizzer.wpd.sgi.com
+
+For example, to subscribe, send the line "subscribe flexfax" in
+the body of your message.  The line "help" will return a list of
+the commands understood by the mailing list management software.
+
+If you have not previously done so, please fill out the survey form in
+the file SURVEY and post it to flexfax-survey@whizzer.wpd.sgi.com (the
+form is setup as an MH form file to simplify this procedure).
+
+Submissions to the mailing list (including bug reports) should be
+directed to:
+
+    flexfax@sgi.com
+
+Note that the mailing list has many people on it.  Please take this
+into consideration when posting notes to it; i.e. avoid posting large
+trace logs and the such.  Also, when corresponding about this software
+please always specify what version you have (see above), what system
+you're running on, and, if the problem is specific to your modem,
+identify the modem and firmware revision.
+
+
+Use and Copyright
+-----------------
+Silicon Graphics has seen fit to allow me to give this work away.  It
+is free.  There is no support or guarantee of any sort as to its
+operations, correctness, or whatever.  If you do anything useful with
+all or parts of it you need to honor the copyright notices.   I would
+also be interested in knowing about it and, hopefully, be acknowledged.
+
+	Sam Leffler	(sam@sgi.com)
+
+
+InterViews Information (from Mark Linton: linton@sgi.com)
+---------------------------------------------------------
+InterViews 3.1 is now available via anonymous ftp
+from "interviews.stanford.edu" (IP address 36.22.0.175).
+The distribution is in a compressed tar file named "pub/3.1.tar.Z"
+(about 3.8Mb).  The distribution is also ftp-able from sgi.com
+in "graphics/interviews/3.1.tar.Z".
+
+The README file in the top-level directory contains information
+about how to build InterViews.  The PostScript file iv/src/man/refman/cover.ps
+contains general information about 3.1, including a brief
+discussion of differences from 3.0.
+
+Please send problems to interviews-bugs@interviews.stanford.edu.
+
+      Mark
+
+
+TIFF Information (from Sam Leffler: sam@sgi.com)
+------------------------------------------------
+How To Obtain This Software (in case all you get is this file)
+
+The software is available for public ftp on
+    sgi.com			graphics/tiff/v3.2beta.tar.Z
+	(192.48.153.1)
+
+For example,
+    ftp -n sgi.com
+    ....
+    user anonymous
+    ... <type in password>
+    cd graphics/tiff
+    binary
+    get v3.2beta.tar.Z
+
+The software comes in a compressed tar file.  To extract the
+information:
+    zcat v3.2beta.tar.Z | tar xf -
+(uncompress and extract individual files in current directory).
+
+The file 3.2.patch in the above ftp directories is a shell
+script that should be applied to the 3.2beta source code.
+
+There is also a companion compressed tar file, v3.0pics.tar.Z
+that has sample TIFF image files.  These are mostly useful in
+testing the software if/when you port it to an unsupported system.
+
+TIFF Mailing List
+-----------------
+A mailing list for users of this software is located on sgi.com.
+If you want to join this mailing list or have a list-related request
+such as getting your name removed from it, send a request to
+
+    majordomo@whizzer.wpd.sgi.com
+
+For example, to subscribe, send the line "subscribe tiff" in
+the body of your message.  The line "help" will return a list of
+the commands understood by the mailing list management software.
+
+Submissions (including bug reports) should be directed to:
+
+    tiff@sgi.com
+
+When corresponding about this software please always specify what
+version you have, what system you're running on.
+
+
+
+Ghostscript Information
+-----------------------
+Ghostscript and its fonts can be found at many public ftp sites around
+the Internet.  One good location for obtaining the 2.6 version is
+ftp.cs.wisc.edu:/pub/X/ghostscript*2.6*.

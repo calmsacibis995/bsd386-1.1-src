@@ -1,0 +1,16 @@
+F AP_DEBUG.GZ;1                     	ap.debug.gz
+F ATHOMECO.GZ;1                     	athomecomps.gz
+F BOMBCOMP.GZ;1                     	bombcomps.gz
+F COMPONEN.GZ;1                     	components.gz
+F DISTCOMP.GZ;1                     	distcomps.gz
+F DP_DEBUG.GZ;1                     	dp.debug.gz
+F FIXCOMPS.GZ;1                     	fixcomps.gz
+F FORWCOMP.GZ;1                     	forwcomps.gz
+F MHL_FORM.GZ;1                     	mhl.format.gz
+F MHL_FORW.GZ;1                     	mhl.forward.gz
+F MHL_MSGI.GZ;1                     	mhl.msgid.gz
+F MHL_RCVT.GZ;1                     	mhl.rcvtty.gz
+F MHL_REPL.GZ;1                     	mhl.repl.gz
+F OKCOMPS.GZ;1                      	okcomps.gz
+F THXCOMPS.GZ;1                     	thxcomps.gz
+F WORKCOMP.GZ;1                     	workcomps.gz

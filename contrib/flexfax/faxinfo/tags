@@ -1,0 +1,3 @@
+Mfaxinfo	faxinfo.c	/^main(int argc, char** argv)$/
+isFAXImage	faxinfo.c	/^isFAXImage(TIFF* tif)$/
+sanitize	faxinfo.c	/^sanitize(char* dst, const char* src, u_int maxlen)/

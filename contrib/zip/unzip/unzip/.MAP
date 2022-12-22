@@ -1,0 +1,17 @@
+F ENVARGS.C;1                       	envargs.c
+F EXPLODE.C;1                       	explode.c
+F EXTRACT.C;1                       	extract.c
+F FILE_IO.C;1                       	file_io.c
+F INFLATE.C;1                       	inflate.c
+F MAKEFILE.;1                       	Makefile
+F MAPNAME.C;1                       	mapname.c
+F MATCH.C;1                         	match.c
+F MISC.C;1                          	misc.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/zip/unzip/unzip
+F TAGS.;1                           	tags
+F UNREDUCE.C;1                      	unreduce.c
+F UNSHRINK.C;1                      	unshrink.c
+F UNZIP.1;1                         	unzip.1
+F UNZIP.C;1                         	unzip.c
+F UNZIP.H;1                         	unzip.h
+F ZIP.H;1                           	zip.h

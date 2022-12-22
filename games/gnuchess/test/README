@@ -1,0 +1,14 @@
+This directory contains test data for gnuchess:
+each file lists who is to move and the correct move.
+
+test[1-16] - 16 test cases from D. Levy "How Computers Play Chess"
+testall	- file to run above tests 'cat testall| gnuchessr'
+
+winatchess.tar.Z - 300 tactical positions from Reinfeld's "Win at Chess"
+
+bratko-kopec.tar.Z - Bratko-Kopec test suite of 12 tactical and 12 lever problems.
+
+gnutest.tar.Z - Bednorz-Thoennissen-2450-Test from the magazine  'Computer Schach und Spiele'.
+gnutest.run - file to run above test 'cat gnutest.run | gnuchessr'
+
+other - interesting test positions.

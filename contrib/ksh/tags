@@ -1,0 +1,407 @@
+Backword	vi.c	/^Backword(argcnt)$/
+CTRL	emacs.c	/^#define	CTRL(x)		((x) == '?' ? 0x7F : (x) & 0x1F)	/
+Ctrl	vi.c	/^#define Ctrl(c)		(c&0x1f)$/
+ERR	getopts.c	/^#define ERR(S, C)	shellf("%s%c\\n", (S), (C))$/
+Endword	vi.c	/^Endword(argcnt)$/
+Forwword	vi.c	/^Forwword(argcnt)$/
+Isalnum	vi.c	/^#define Isalnum(x) (isalnum(x) || (x == '_'))$/
+Malloc	alloc.c	/^main(int argc, char **argv) {$/
+Mmain	main.c	/^main(argc, argv, envp)$/
+SIG_HDLR	sigact.c	/^  SIG_HDLR (*handler) __P((int));$/
+STREQ	var.c	/^#define STREQ(a, b) ((*a) == (*b) && strcmp((a), (/
+S_ISDIR	emacs.c	/^#define S_ISDIR(mode)	(((mode) & S_IFMT) == S_IFDI/
+S_ISREG	emacs.c	/^#define S_ISREG(mode)	(((mode) & S_IFMT) == S_IFRE/
+UNCTRL	emacs.c	/^#define	UNCTRL(x)	((x) == 0x7F ? '?' : (x) | 0x40)/
+add_stash	emacs.c	/^add_stash(dirnam, name)$/
+aerror	alloc.c	/^void aerror(Area *ap, const char *msg) {$/
+aexpr	c_test.c	/^aexpr(n)$/
+afree	alloc.c	/^afree(ptr, ap)$/
+afreeall	alloc.c	/^afreeall(ap)$/
+ainit	alloc.c	/^ainit(ap)$/
+alloc	alloc.c	/^alloc(size, ap)$/
+alt_count	eval.c	/^alt_count(cp)$/
+alt_expand	eval.c	/^alt_expand(cp, wp, f)$/
+alt_scan	eval.c	/^alt_scan(cpp, dpp, endc, bal)$/
+andor	syn.c	/^andor()$/
+aresize	alloc.c	/^aresize(ptr, size, ap)$/
+asn	expr.c	/^asn()$/
+backword	vi.c	/^backword(argcnt)$/
+block	syn.c	/^block(type, t1, t2, wp)$/
+bracktype	vi.c	/^bracktype(ch)$/
+builtin	exec.c	/^builtin(name, func)$/
+c_alias	c_ksh.c	/^c_alias(wp)$/
+c_bind	c_ksh.c	/^c_bind(wp)$/
+c_brkcont	c_sh.c	/^c_brkcont(wp)$/
+c_builtin	c_sh.c	/^c_builtin(wp)$/
+c_cd	c_ksh.c	/^c_cd(wp)$/
+c_dot	c_sh.c	/^c_dot(wp)$/
+c_eval	c_sh.c	/^c_eval(wp)$/
+c_exec	c_sh.c	/^c_exec(wp)$/
+c_exit	c_sh.c	/^c_exit(wp)$/
+c_fc	history.c	/^c_fc(wp)$/
+c_fgbg	c_ksh.c	/^c_fgbg(wp)$/
+c_getopts	getopts.c	/^c_getopts(wp)$/
+c_hash	c_ksh.c	/^c_hash(wp)$/
+c_jobs	c_ksh.c	/^c_jobs(wp)$/
+c_kill	c_ksh.c	/^c_kill(wp)$/
+c_label	c_sh.c	/^c_label(wp)$/
+c_let	c_ksh.c	/^c_let(wp)$/
+c_list	syn.c	/^c_list()$/
+c_print	c_ksh.c	/^c_print(wp)$/
+c_read	c_sh.c	/^c_read(wp)$/
+c_return	c_sh.c	/^c_return(wp)$/
+c_set	c_sh.c	/^c_set(wp)$/
+c_shift	c_sh.c	/^c_shift(wp)$/
+c_test	c_test.c	/^c_test(wp)$/
+c_times	c_sh.c	/^c_times(wp)$/
+c_trap	c_sh.c	/^c_trap(wp)$/
+c_typeset	c_ksh.c	/^c_typeset(wp)$/
+c_ulimit	c_sh.c	/^c_ulimit(wp)$/
+c_umask	c_sh.c	/^c_umask(wp)$/
+c_unalias	c_ksh.c	/^c_unalias(wp)$/
+c_unset	c_sh.c	/^c_unset(wp)$/
+c_wait	c_sh.c	/^c_wait(wp)$/
+c_whence	c_ksh.c	/^c_whence(wp)$/
+caselist	syn.c	/^caselist()$/
+casepart	syn.c	/^casepart()$/
+cclass	misc.c	/^cclass(p, sub)$/
+checkpoint	trace.c	/^checkpoint(fmt)$/
+cleanpath	misc.c	/^cleanpath(pwd, dir, clean)$/
+cleartraps	trap.c	/^cleartraps()$/
+clocktos	c_sh.c	/^clocktos(t)$/
+comexec	exec.c	/^comexec(t, vp, ap, flags)$/
+command	main.c	/^command(comm)$/
+compile	syn.c	/^compile(s)$/
+compl_command	emacs.c	/^compl_command(type)$/
+compl_dec	emacs.c	/^static void compl_dec(type) { 	char	*cp; 	cp = xcp/
+compl_file	emacs.c	/^compl_file(type)$/
+comsub	eval.c	/^comsub(xp, cp)$/
+debunk	eval.c	/^debunk(cp)$/
+define	exec.c	/^define(name, t)$/
+del_range	vi.c	/^del_range(a, b)$/
+display	vi.c	/^display(wb1, wb2, leftside)$/
+do_selectargs	exec.c	/^do_selectargs(ap, secondtime)$/
+do_ulimit	do_ulimit.c	/^do_ulimit(a1, a2)$/
+dogroup	syn.c	/^dogroup(onlydone)$/
+domove	vi.c	/^domove(argcnt, cmd, sub)$/
+e0	expr.c	/^e0()$/
+e2	expr.c	/^e2()$/
+e3	expr.c	/^e3()$/
+e5	expr.c	/^e5()$/
+e6	expr.c	/^e6()$/
+echo	exec.c	/^echo(vp, ap)$/
+ed_mov_opt	vi.c	/^ed_mov_opt(col, wb)$/
+edit_init	vi.c	/^edit_init()$/
+edit_reset	vi.c	/^edit_reset(buf, len)$/
+elsepart	syn.c	/^elsepart()$/
+endword	vi.c	/^endword(argcnt)$/
+equalf	c_test.c	/^equalf (f1, f2)$/
+error	main.c	/^error()$/
+errorf	io.c	/^errorf(const char *fmt, ...) {$/
+eval	eval.c	/^eval(ap, f)$/
+evalerr	expr.c	/^evalerr(err)$/
+evalonestr	eval.c	/^evalonestr(cp, f)$/
+evalstr	eval.c	/^evalstr(cp, f)$/
+evaluate	expr.c	/^evaluate(expr)$/
+exchild	jobs.c	/^exchild(t, flags)$/
+execute	exec.c	/^execute(t, flags)$/
+expand	eval.c	/^expand(cp, wp, f)$/
+export	var.c	/^export(vp, val)$/
+fd_clexec	exec.c	/^fd_clexec(fd)$/
+filstat	c_test.c	/^filstat(nm, mode)$/
+findch	vi.c	/^findch(ch, cnt, forw, incl)$/
+findcom	exec.c	/^findcom(name, insert)$/
+findhist	history.c	/^findhist(start, fwd, str)$/
+flushcom	exec.c	/^flushcom(all)$/
+forwword	vi.c	/^forwword(argcnt)$/
+fptreef	tree.c	/^fptreef(FILE *f, char *fmt, ...)$/
+fzotc	io.c	/^fzotc(c, f)$/
+getch	vi.c	/^getch()$/
+gethere	lex.c	/^gethere()$/
+getn	misc.c	/^getn(as)$/
+getopt	getopts.c	/^getopt(argc, argv, opts)$/
+getoptions	misc.c	/^getoptions()$/
+getpgid	jobs.c	/^#define	getpgid(p)	getpgrp()$/
+getsc	lex.c	/^#define	getsc()	((*source->str != 0) ? *source->st/
+getsc_	lex.c	/^getsc_()$/
+getspec	var.c	/^getspec(vp)$/
+gettrap	trap.c	/^gettrap(name)$/
+glob	eval.c	/^glob(cp, wp)$/
+global	var.c	/^global(n)$/
+globit	eval.c	/^globit(ds, dp, sp, wp, check)$/
+globstr	vi.c	/^char **globstr(stuff)$/
+gmatch	misc.c	/^gmatch(s, p)$/
+grabhist	vi.c	/^grabhist(save, n)$/
+grabsearch	vi.c	/^grabsearch(save, start, fwd, pat)$/
+hash	table.c	/^hash(n)$/
+herein	exec.c	/^herein(hname, sub)$/
+histN	history.c	/^histN()$/
+hist_count_lines	history.c	/^hist_count_lines(base, bytes)$/
+hist_finish	history.c	/^hist_finish()$/
+hist_init	history.c	/^hist_init(s)$/
+hist_open	history.c	/^hist_open(mode)$/
+hist_shrink	history.c	/^hist_shrink(oldbase, oldbytes)$/
+hist_skip_back	history.c	/^hist_skip_back(base, bytes, no)$/
+histbackup	history.c	/^histbackup()$/
+histget	history.c	/^histget(str)$/
+histinsert	history.c	/^histinsert(s, lno, line)$/
+histload	history.c	/^histload(s, base, bytes)$/
+histnum	history.c	/^histnum(n)$/
+histpos	history.c	/^histpos()$/
+histrpl	history.c	/^histrpl(s, pat, rep, global)$/
+histsave	history.c	/^histsave(cmd)$/
+homedir	eval.c	/^homedir(name)$/
+ignoresig	trap.c	/^ignoresig(i)$/
+import	var.c	/^import(thing)$/
+include	main.c	/^include(name)$/
+init_clexec	exec.c	/^init_clexec()$/
+init_editmode	edit.c	/^init_editmode()$/
+init_histvec	history.c	/^init_histvec()$/
+initctypes	misc.c	/^initctypes()$/
+intval	var.c	/^intval(vp)$/
+intvar	expr.c	/^intvar(vp)$/
+iosetup	exec.c	/^iosetup(iop)$/
+isassign	var.c	/^isassign(s)$/
+isbad	vi.c	/^#define isbad(c)	(classify[c]&B_)$/
+iscfs	emacs.c	/^#define	iscfs(c)	(c == ' ' || c == '\\t')	\/* Sepa/
+iscmd	vi.c	/^#define iscmd(c)	(classify[c]&(M_|E_|C_|U_))$/
+isextend	vi.c	/^#define isextend(c)	(classify[c]&E_)$/
+islong	vi.c	/^#define islong(c)	(classify[c]&X_)$/
+ismeta	vi.c	/^#define ismeta(c)	(classify[c]&O_)$/
+ismfs	emacs.c	/^#define	ismfs(c)	(!(isalnum(c)|| c == '$'))  \/* S/
+ismove	vi.c	/^#define ismove(c)	(classify[c]&M_)$/
+issp	vi.c	/^#define issp(c)		(isspace((c)) || (c) == '\\n')$/
+issrch	vi.c	/^#define issrch(c)	(classify[c]&S_)$/
+isundoable	vi.c	/^#define isundoable(c)	(!(classify[c]&U_))$/
+j_change	jobs.c	/^j_change()$/
+j_exit	jobs.c	/^j_exit()$/
+j_init	jobs.c	/^j_init()$/
+j_jobs	jobs.c	/^j_jobs()$/
+j_kill	jobs.c	/^j_kill(job, sig)$/
+j_lookup	jobs.c	/^j_lookup(cp)$/
+j_newjob	jobs.c	/^j_newjob()$/
+j_notify	jobs.c	/^j_notify()$/
+j_print	jobs.c	/^j_print(j)$/
+j_reap	jobs.c	/^j_reap()$/
+j_resume	jobs.c	/^j_resume(job, bg)$/
+j_search	jobs.c	/^j_search(job)$/
+j_stopped	jobs.c	/^j_stopped()$/
+j_waitj	jobs.c	/^j_waitj(aj, intr)$/
+keywords	syn.c	/^keywords()$/
+killpg	jobs.c	/^#define	killpg(p, s)	kill(-(p), s)$/
+leave	main.c	/^leave(rv)$/
+list_stash	emacs.c	/^list_stash()$/
+local	var.c	/^local(n)$/
+maddmsg	mail.c	/^maddmsg( mbp )$/
+makenv	var.c	/^makenv()$/
+mballoc	mail.c	/^mballoc(p, m)$/
+mbset	mail.c	/^mbset(p)$/
+mcheck	mail.c	/^mcheck()$/
+mprint	mail.c	/^mprint()$/
+mpset	mail.c	/^mpset(mptoparse)$/
+munset	mail.c	/^munset(mlist)$/
+musthave	syn.c	/^musthave(c, cf)$/
+nested	syn.c	/^nested(type, mark)$/
+newblock	var.c	/^newblock()$/
+newcol	vi.c	/^newcol(ch, col)$/
+newenv	main.c	/^newenv(type)$/
+newerf	c_test.c	/^newerf (f1, f2)$/
+newtp	syn.c	/^newtp(type)$/
+nexpr	c_test.c	/^nexpr(n)$/
+nextstate	vi.c	/^nextstate(ch)$/
+oexpr	c_test.c	/^oexpr(n)$/
+olderf	c_test.c	/^olderf (f1, f2)$/
+option	misc.c	/^option(n)$/
+outofwin	vi.c	/^outofwin()$/
+phash	table.c	/^phash(s) char *s; {$/
+pioact	tree.c	/^pioact(f, iop)$/
+pipeline	syn.c	/^pipeline(cf)$/
+popblock	var.c	/^popblock()$/
+pprompt	lex.c	/^pprompt(cp)$/
+pr_menu	exec.c	/^pr_menu(ap, usestored)$/
+primary	c_test.c	/^primary(n)$/
+printoptions	misc.c	/^printoptions()$/
+promptlen	edit.c	/^promptlen(cp)$/
+ptree	tree.c	/^ptree(t, f)$/
+pushs	lex.c	/^pushs(type)$/
+putbuf	vi.c	/^putbuf(buf, len, repl)$/
+qsort1	misc.c	/^qsort1(base, lim, f)$/
+qsortp	misc.c	/^qsortp(base, n, f)$/
+quitenv	main.c	/^quitenv()$/
+readhere	lex.c	/^readhere(iop)$/
+reclaim	main.c	/^reclaim()$/
+redo_insert	vi.c	/^redo_insert(count)$/
+redraw_line	vi.c	/^redraw_line()$/
+refresh	vi.c	/^refresh(leftside)$/
+remove	main.c	/^#define remove(x)	unlink(x)$/
+resetopts	getopts.c	/^resetopts ()$/
+restore_cbuf	vi.c	/^restore_cbuf()$/
+restoresigs	trap.c	/^restoresigs()$/
+rewindow	vi.c	/^rewindow()$/
+runtrap	trap.c	/^runtrap(p)$/
+runtraps	trap.c	/^runtraps()$/
+save_cbuf	vi.c	/^save_cbuf()$/
+scriptexec	exec.c	/^scriptexec(tp, ap)$/
+search	exec.c	/^search(name, path, mode)$/
+selread	exec.c	/^selread()$/
+set_TraceLev	main.c	/^set_TraceLev(sig)$/
+set_editmode	edit.c	/^set_editmode(ed)$/
+setctypes	misc.c	/^setctypes(s, t)$/
+sethistfile	history.c	/^sethistfile(name)$/
+sethistsize	history.c	/^sethistsize(n)$/
+setint	var.c	/^setint(vq, n)$/
+setpgid	jobs.c	/^#define	setpgid(p, pg)	setpgrp(p, pg)$/
+setsig	c_sh.c	/^setsig(p, f)$/
+setspec	var.c	/^setspec(vp)$/
+setstr	var.c	/^setstr(vq, s)$/
+shcomexec	exec.c	/^shcomexec(wp)$/
+shell	main.c	/^shell(s)$/
+sigaction	sigact.c	/^sigaction(sig, act, oact)$/
+sigaddset	sigact.c	/^sigaddset(mask, sig)$/
+sigdelset	sigact.c	/^sigdelset(mask, sig)$/
+sigemptyset	sigact.c	/^sigemptyset(mask)$/
+sigfillset	sigact.c	/^sigfillset(mask)$/
+sigismember	sigact.c	/^sigismember(mask, sig)$/
+sigpending	sigact.c	/^sigpending(set)$/
+sigprocmask	sigact.c	/^sigprocmask(how, set, oset)$/
+sigsuspend	sigact.c	/^sigsuspend(mask)$/
+special	var.c	/^special(name)$/
+sprinkle	history.c	/^sprinkle(fd)$/
+strerror	misc.c	/^strerror(i)$/
+strint	var.c	/^strint(vq, vp)$/
+stripblanks	vi.c	/^stripblanks()$/
+strmatch	emacs.c	/^strmatch(s1, s2)$/
+strsave	misc.c	/^strsave(s, ap)$/
+strval	var.c	/^strval(vp)$/
+substitute	eval.c	/^substitute(cp, f)$/
+swap2	misc.c	/^#define	swap2(a, b)	{\\$/
+swap3	misc.c	/^#define	swap3(a, b, c)	{\\$/
+synio	syn.c	/^synio(cf)$/
+syntax	c_test.c	/^syntax(op, msg)$/
+t_lex	c_test.c	/^t_lex(s)$/
+tcsetpgrp	jobs.c	/^#define	tcsetpgrp(fd,p)	ioctl(fd, TIOCSPGRP, &(p))/
+tdelete	table.c	/^tdelete(p)$/
+tempvar	expr.c	/^tempvar()$/
+tenter	table.c	/^tenter(tp, n, h)$/
+texpand	table.c	/^texpand(tp, nsize)$/
+thenpart	syn.c	/^thenpart()$/
+tilde	eval.c	/^tilde(acp)$/
+timex	c_sh.c	/^timex(t, f)$/
+tinit	table.c	/^tinit(tp, ap)$/
+tnamecmp	table.c	/^tnamecmp(p1, p2)$/
+tnext	table.c	/^tnext()$/
+token	expr.c	/^token()$/
+tpeek	syn.c	/^#define	tpeek(cf) \\$/
+tputC	tree.c	/^tputC(c, f)$/
+tputS	tree.c	/^tputS(wp, f)$/
+tputc	tree.c	/^tputc(c, f)$/
+trapsig	trap.c	/^trapsig(i)$/
+trimsub	eval.c	/^trimsub(str, pat, how)$/
+tsearch	table.c	/^tsearch(tp, n, h)$/
+tsort	table.c	/^tsort(tp)$/
+twalk	table.c	/^twalk(tp)$/
+typeset	var.c	/^typeset(var, set, clr)$/
+ulton	misc.c	/^ulton(n, base)$/
+ungetsc	lex.c	/^#define	ungetsc() (source->str--)$/
+unset	var.c	/^unset(vp)$/
+unwind	main.c	/^unwind()$/
+varsub	eval.c	/^varsub(xp, sp, stype)$/
+vi_cmd	vi.c	/^vi_cmd(argcnt, cmd)$/
+vi_hook	vi.c	/^vi_hook(ch)$/
+vi_init	vi.c	/^vi_init()$/
+vi_insert	vi.c	/^vi_insert(ch)$/
+vi_reset	vi.c	/^vi_reset(buf, len)$/
+waitfor	jobs.c	/^waitfor(job)$/
+waitlast	jobs.c	/^waitlast()$/
+wordlist	syn.c	/^wordlist()$/
+writehistfile	history.c	/^writehistfile(lno, cmd)$/
+x_abort	emacs.c	/^x_abort(c) {$/
+x_adjust	edit.c	/^x_adjust()$/
+x_beg_hist	emacs.c	/^static int x_beg_hist(c) {x_load_hist(history); re/
+x_bind	emacs.c	/^x_bind(a1, a2, macro)$/
+x_bs	emacs.c	/^x_bs(c)  {$/
+x_bword	emacs.c	/^x_bword()  {$/
+x_comp_comm	emacs.c	/^x_comp_comm(c)  {$/
+x_comp_file	emacs.c	/^x_comp_file(c)   {$/
+x_comp_list	emacs.c	/^x_comp_list(c)   {$/
+x_complete	emacs.c	/^x_complete(c)  {$/
+x_copy_arg	emacs.c	/^x_copy_arg(c)	{$/
+x_debug_info	edit.c	/^x_debug_info()$/
+x_del_back	emacs.c	/^x_del_back(c)  {$/
+x_del_bword	emacs.c	/^x_del_bword(c)  {$/
+x_del_char	emacs.c	/^x_del_char(c)  {$/
+x_del_fword	emacs.c	/^x_del_fword(c)  {$/
+x_del_line	emacs.c	/^x_del_line(c)  {$/
+x_delete	emacs.c	/^x_delete(nc)$/
+x_draw_line	emacs.c	/^x_draw_line(c)$/
+x_emacs	emacs.c	/^x_emacs(buf, len)$/
+x_emacs_keys	emacs.c	/^x_emacs_keys(erase, kill, werase, intr, quit)$/
+x_end_hist	emacs.c	/^static int x_end_hist(c) {x_load_hist(histptr); re/
+x_end_of_text	emacs.c	/^x_end_of_text(c)  {$/
+x_enumerate	emacs.c	/^x_enumerate(c)  {$/
+x_eot_del	emacs.c	/^x_eot_del(c)$/
+x_error	emacs.c	/^x_error(c) {$/
+x_flush	edit.c	/^x_flush()$/
+x_fold_case	emacs.c	/^x_fold_case(c)$/
+x_fword	emacs.c	/^x_fword()  {$/
+x_game_of_life	emacs.c	/^x_game_of_life(c)  {$/
+x_getc	edit.c	/^x_getc()$/
+x_goto	emacs.c	/^x_goto(cp)$/
+x_init	edit.c	/^x_init()$/
+x_init_emacs	emacs.c	/^x_init_emacs()$/
+x_ins	emacs.c	/^x_ins(cp)$/
+x_ins_string	emacs.c	/^x_ins_string(c)$/
+x_insert	emacs.c	/^x_insert(c)  {$/
+x_kill	emacs.c	/^x_kill(c)  {$/
+x_kill_region	emacs.c	/^x_kill_region(c) {$/
+x_lastcp	emacs.c	/^x_lastcp()$/
+x_list_comm	emacs.c	/^x_list_comm(c)  {$/
+x_list_file	emacs.c	/^x_list_file(c)  {$/
+x_literal	emacs.c	/^x_literal(c)  {$/
+x_load_hist	emacs.c	/^x_load_hist(hp)$/
+x_mapin	emacs.c	/^x_mapin(cp)$/
+x_mapout	emacs.c	/^x_mapout(c)$/
+x_match	emacs.c	/^x_match(str, pat)$/
+x_meta1	emacs.c	/^x_meta1(c)  {$/
+x_meta2	emacs.c	/^x_meta2(c)  {$/
+x_meta_yank	emacs.c	/^x_meta_yank(c)  {$/
+x_mode	edit.c	/^x_mode(onoff)$/
+x_mv_back	emacs.c	/^x_mv_back(c)  {$/
+x_mv_begin	emacs.c	/^x_mv_begin(c)  {$/
+x_mv_bword	emacs.c	/^x_mv_bword(c)  {$/
+x_mv_end	emacs.c	/^x_mv_end(c)  {$/
+x_mv_forw	emacs.c	/^x_mv_forw(c)  {$/
+x_mv_fword	emacs.c	/^x_mv_fword(c)  {$/
+x_newline	emacs.c	/^x_newline(c)  {$/
+x_next_com	emacs.c	/^static int x_next_com(c) {x_load_hist(x_histp+1); /
+x_nl_next_com	emacs.c	/^x_nl_next_com(c)$/
+x_noop	emacs.c	/^x_noop(c) {$/
+x_prev_com	emacs.c	/^static int x_prev_com(c) {x_load_hist(x_histp-1); /
+x_prev_histword	emacs.c	/^x_prev_histword()$/
+x_print	emacs.c	/^x_print(prefix, key)$/
+x_push	emacs.c	/^x_push(nchars)  {$/
+x_putc	edit.c	/^x_putc(c)$/
+x_puts	edit.c	/^x_puts(s)$/
+x_read	edit.c	/^x_read(fd, buf, len)$/
+x_redraw	emacs.c	/^x_redraw(limit)$/
+x_search	emacs.c	/^x_search(pat, offset)$/
+x_search_char	emacs.c	/^x_search_char(c)$/
+x_search_hist	emacs.c	/^x_search_hist(c)$/
+x_set_arg	emacs.c	/^x_set_arg(c)$/
+x_set_mark	emacs.c	/^x_set_mark(c) {$/
+x_size	emacs.c	/^x_size(c)  {$/
+x_size_str	emacs.c	/^x_size_str(cp)$/
+x_stuff	emacs.c	/^x_stuff(c)$/
+x_stuffreset	emacs.c	/^x_stuffreset(c)$/
+x_transpose	emacs.c	/^x_transpose(c)  {$/
+x_vi	vi.c	/^x_vi(buf, len)$/
+x_xchg_point_mark	emacs.c	/^x_xchg_point_mark(c) {$/
+x_yank	emacs.c	/^x_yank(c)  {$/
+x_zotc	emacs.c	/^x_zotc(c)$/
+x_zots	emacs.c	/^x_zots(str)$/
+xstrcmp	misc.c	/^xstrcmp(p1, p2)$/
+yank_range	vi.c	/^yank_range(a, b)$/
+yyerror	lex.c	/^yyerror(msg)$/
+yylex	lex.c	/^yylex(cf)$/
+yyparse	syn.c	/^yyparse()$/
+zzerr	syn.c	/^zzerr()$/

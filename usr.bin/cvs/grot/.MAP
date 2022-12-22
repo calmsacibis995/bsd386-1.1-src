@@ -1,0 +1,4 @@
+F CONFIGUR.;1                       	configure
+F INSTALL.;1                        	INSTALL
+F MAKEFILE.IN;1                     	Makefile.in
+D MAN                               	man

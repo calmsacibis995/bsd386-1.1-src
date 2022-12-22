@@ -1,0 +1,142 @@
+_bfd_dummy_core_file_failing_command	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_bfd_dummy_core_file_failing_command,\(ignore_abfd\),/
+_bfd_dummy_core_file_failing_signal	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_bfd_dummy_core_file_failing_signal,\(ignore_abfd\),/
+_bfd_dummy_core_file_matches_executable_p	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_bfd_dummy_core_file_matches_executable_p,\(ignore_core_bfd, ignore_exec_bfd\),/
+_bfd_dummy_new_section_hook	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_bfd_dummy_new_section_hook,\(ignore, ignore_newsect\),/
+_bfd_dummy_target	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_bfd_dummy_target,\(ignore_abfd\),/
+_do_getb16	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_getb16,\(addr\),/
+_do_getb32	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_getb32,\(addr\),/
+_do_getb64	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_getb64,\(addr\),/
+_do_getl16	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_getl16,\(addr\),/
+_do_getl64	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_getl64,\(addr\),/
+_do_putb16	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putb16,\(data, addr\),/
+_do_putb32	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putb32,\(data, addr\),/
+_do_putb64	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putb64,\(data, addr\),/
+_do_putl16	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putl16,\(data, addr\),/
+_do_putl32	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putl32,\(data, addr\),/
+_do_putl64	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(_do_putl64,\(data, addr\),/
+aout_32_canonicalize_reloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,canonicalize_reloc\),\(abfd, section, relptr, symbols\),/
+aout_32_ext_reloc_type_lookup	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,ext_reloc_type_lookup\),\(arch, code\),/
+aout_32_find_nearest_line	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,find_nearest_line\),\(abfd,/
+aout_32_get_lineno	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,get_lineno\),\(ignore_abfd, ignore_symbol\),/
+aout_32_get_reloc_upper_bound	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,get_reloc_upper_bound\),\(abfd, asect\),/
+aout_32_get_symtab	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,get_symtab\),\(abfd, location\),/
+aout_32_get_symtab_upper_bound	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,get_symtab_upper_bound\),\(abfd\),/
+aout_32_machine_type	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,machine_type\),\(arch, machine\),/
+aout_32_make_empty_symbol	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,make_empty_symbol\),\(abfd\),/
+aout_32_mkobject	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,mkobject\),\(abfd\),/
+aout_32_new_section_hook	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,new_section_hook\),\(abfd, newsect\),/
+aout_32_print_symbol	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,print_symbol\),\(ignore_abfd, afile, symbol, how\),/
+aout_32_set_arch_mach	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,set_arch_mach\),\(abfd, arch, machine\),/
+aout_32_set_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^  DEFUN\(NAME\(aout,set_section_contents\),\(abfd, section, location, offset, count\),/
+aout_32_sizeof_headers	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,sizeof_headers\),\(abfd, execable\),/
+aout_32_slurp_reloc_table	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,slurp_reloc_table\),\(abfd, asect, symbols\),/
+aout_32_slurp_symbol_table	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,slurp_symbol_table\),\(abfd\),/
+aout_32_some_aout_object_p	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,some_aout_object_p\),\(abfd, execp, callback_to_real_object_p\),/
+aout_32_squirt_out_relocs	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,squirt_out_relocs\),\(abfd, section\),/
+aout_32_swap_exec_header_in	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_exec_header_in\),\(abfd, raw_bytes, execp\),/
+aout_32_swap_exec_header_out	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_exec_header_out\),\(abfd, execp, raw_bytes\),/
+aout_32_swap_ext_reloc_in	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_ext_reloc_in\), \(abfd, bytes, cache_ptr, symbols\),/
+aout_32_swap_ext_reloc_out	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_ext_reloc_out\),\(abfd, g, natptr\),/
+aout_32_swap_std_reloc_in	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_std_reloc_in\), \(abfd, bytes, cache_ptr, symbols\),/
+aout_32_swap_std_reloc_out	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,swap_std_reloc_out\),\(abfd, g, natptr\),/
+aout_32_write_syms	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(NAME\(aout,write_syms\),\(abfd\),/
+aout_stab_name	/usr/src/usr.bin/gdb-4.5.lbl/bfd/stab-syms.c	/^DEFUN\(aout_stab_name,\(code\),/
+bfd_0	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_0,\(ignore\),/
+bfd_0u	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_0u,\(ignore\),/
+bfd_add_to_string_table	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_add_to_string_table,\(table, new_string, table_length, free_ptr\),/
+bfd_alloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(PTR bfd_alloc, \(abfd, size\),/
+bfd_alloc_by_size_t	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_alloc_by_size_t,\(abfd, size\),/
+bfd_alloc_finish	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(PTR bfd_alloc_finish,\(abfd\),/
+bfd_alloc_grow	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(void bfd_alloc_grow,\(abfd, ptr, size\),/
+bfd_alloc_size	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_alloc_size,\(abfd\),/
+bfd_ar_hdr_from_filesystem	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_ar_hdr_from_filesystem, \(abfd,filename\),/
+bfd_arch_bits_per_address	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^unsigned int DEFUN\(bfd_arch_bits_per_address, \(abfd\), bfd \*abfd\)/
+bfd_arch_bits_per_byte	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^unsigned int DEFUN\(bfd_arch_bits_per_byte, \(abfd\), bfd \*abfd\)/
+bfd_arch_get_compatible	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_arch_get_compatible,\(abfd, bbfd\),/
+bfd_arch_init	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN_VOID\(bfd_arch_init\)/
+bfd_arch_linkin	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^void DEFUN\(bfd_arch_linkin,\(ptr\),/
+bfd_cache_close	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(bfd_cache_close,\(abfd\),/
+bfd_cache_delete	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(bfd_cache_delete,\(abfd\),/
+bfd_cache_init	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(bfd_cache_init,\(abfd\),/
+bfd_cache_lookup_worker	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(bfd_cache_lookup_worker,\(abfd\),/
+bfd_canonicalize_reloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_canonicalize_reloc,\(abfd, asect, location, symbols\),/
+bfd_check_format	/usr/src/usr.bin/gdb-4.5.lbl/bfd/format.c	/^DEFUN\(bfd_check_format,\(abfd, format\),/
+bfd_check_init	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfdinit.c	/^void DEFUN_VOID\(bfd_check_init\)/
+bfd_close	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_close,\(abfd\),/
+bfd_close_all_done	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_close_all_done,\(abfd\),/
+bfd_core_file_failing_command	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfdcore.c	/^DEFUN\(bfd_core_file_failing_command,\(abfd\),/
+bfd_create	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_create,\(filename, template\),/
+bfd_decode_symclass	/usr/src/usr.bin/gdb-4.5.lbl/bfd/syms.c	/^DEFUN\(bfd_decode_symclass,\(symbol\),/
+bfd_default_compatible	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_default_compatible,\(a,b\),/
+bfd_default_reloc_type_lookup	/usr/src/usr.bin/gdb-4.5.lbl/bfd/reloc.c	/^DEFUN\(bfd_default_reloc_type_lookup,\(arch,  code\),/
+bfd_default_scan	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_default_scan,\(info, string\),/
+bfd_default_set_arch_mach	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^boolean DEFUN\(bfd_default_set_arch_mach,\(abfd, arch, mach\),/
+bfd_false	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_false ,\(ignore\),/
+bfd_fdopenr	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_fdopenr,\(filename, target, fd\),/
+bfd_find_target	/usr/src/usr.bin/gdb-4.5.lbl/bfd/targets.c	/^DEFUN\(bfd_find_target,\(target_name, abfd\),/
+bfd_format_string	/usr/src/usr.bin/gdb-4.5.lbl/bfd/format.c	/^DEFUN\(bfd_format_string,\(format\),/
+bfd_generic_get_relocated_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/reloc.c	/^DEFUN\(bfd_generic_get_relocated_section_contents,\(abfd, seclet\),/
+bfd_generic_get_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_generic_get_section_contents, \(abfd, section, location, offset, count\),/
+bfd_generic_relax_section	/usr/src/usr.bin/gdb-4.5.lbl/bfd/reloc.c	/^DEFUN\(bfd_generic_relax_section,\(abfd, section, symbols\),/
+bfd_generic_set_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_generic_set_section_contents, \(abfd, section, location, offset, count\),/
+bfd_get_arch	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^enum bfd_architecture DEFUN\(bfd_get_arch, \(abfd\), bfd \*abfd\)/
+bfd_get_arch_info	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_get_arch_info,\(abfd\),/
+bfd_get_elt_at_index	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_get_elt_at_index,\(abfd, index\),/
+bfd_get_mach	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_get_mach, \(abfd\), bfd \*abfd\)/
+bfd_get_next_mapent	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_get_next_mapent,\(abfd, prev, entry\),/
+bfd_get_reloc_upper_bound	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_get_reloc_upper_bound,\(abfd, asect\),/
+bfd_get_section_by_name	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_get_section_by_name,\(abfd, name\),/
+bfd_get_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_get_section_contents,\(abfd, section, location, offset, count\),/
+bfd_i386_arch	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cpu-i386.c	/^void DEFUN_VOID\(bfd_i386_arch\)/
+bfd_init	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfdinit.c	/^void DEFUN_VOID\(bfd_init\)/
+bfd_lookup_arch	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_lookup_arch,\(arch, machine\),/
+bfd_make_section	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_make_section,\(abfd, name\),/
+bfd_make_section_old_way	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_make_section_old_way,\(abfd, name\),/
+bfd_map_over_sections	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_map_over_sections,\(abfd, operation, user_storage\),/
+bfd_nonrepresentable_section	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_nonrepresentable_section,\(abfd, name\),/
+bfd_nullvoidptr	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_nullvoidptr,\(ignore\),/
+bfd_open_file	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(bfd_open_file, \(abfd\),/
+bfd_openr	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_openr, \(filename, target\),/
+bfd_openr_next_archived_file	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_openr_next_archived_file,\(archive, last_file\),/
+bfd_openw	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(bfd_openw,\(filename, target\),/
+bfd_perform_relocation	/usr/src/usr.bin/gdb-4.5.lbl/bfd/reloc.c	/^DEFUN\(bfd_perform_relocation,\(abfd,/
+bfd_perror	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_perror,\(message\),/
+bfd_print_symbol_vandf	/usr/src/usr.bin/gdb-4.5.lbl/bfd/syms.c	/^DEFUN\(bfd_print_symbol_vandf,\(file, symbol\),/
+bfd_printable_arch_mach	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_printable_arch_mach,\(arch, machine\),/
+bfd_printable_name	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_printable_name, \(abfd\),/
+bfd_read	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_read,\(ptr, size, nitems, abfd\),/
+bfd_realloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(PTR bfd_realloc,\(abfd, old, size\),/
+bfd_reloc_is_dangerous	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_reloc_is_dangerous,\(relent, seclet\),/
+bfd_reloc_type_lookup	/usr/src/usr.bin/gdb-4.5.lbl/bfd/reloc.c	/^DEFUN\(bfd_reloc_type_lookup,\(arch, code\),/
+bfd_reloc_value_truncated	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_reloc_value_truncated,\(relent, seclet\),/
+bfd_scan_arch	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^DEFUN\(bfd_scan_arch,\(string\),/
+bfd_section_init	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN_VOID\(bfd_section_init\)/
+bfd_seek	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_seek,\(abfd, position, direction\),/
+bfd_set_arch_info	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archures.c	/^void DEFUN\(bfd_set_arch_info,\(abfd, arg\),/
+bfd_set_archive_head	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_set_archive_head,\(output_archive, new_head\),/
+bfd_set_format	/usr/src/usr.bin/gdb-4.5.lbl/bfd/format.c	/^DEFUN\(bfd_set_format,\(abfd, format\),/
+bfd_set_section_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_set_section_contents,\(abfd, section, location, offset, count\),/
+bfd_set_section_flags	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_set_section_flags,\(abfd, section, flags\),/
+bfd_set_section_size	/usr/src/usr.bin/gdb-4.5.lbl/bfd/section.c	/^DEFUN\(bfd_set_section_size,\(abfd, ptr, val\),/
+bfd_special_undocumented_glue	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(bfd_special_undocumented_glue, \(abfd, filename\),/
+bfd_target_list	/usr/src/usr.bin/gdb-4.5.lbl/bfd/targets.c	/^DEFUN_VOID\(bfd_target_list\)/
+bfd_tell	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_tell,\(abfd\),/
+bfd_true	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_true,\(ignore\),/
+bfd_undefined_symbol	/usr/src/usr.bin/gdb-4.5.lbl/bfd/bfd.c	/^DEFUN\(bfd_undefined_symbol,\(relent, seclet\),/
+bfd_void	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_void,\(ignore\),/
+bfd_write	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_write,\(ptr, size, nitems, abfd\),/
+bfd_write_bigendian_4byte_int	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(bfd_write_bigendian_4byte_int,\(abfd, i\),/
+bfd_xmalloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(PTR bfd_xmalloc,\(size\),/
+bfd_zalloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/opncls.c	/^DEFUN\(PTR bfd_zalloc,\(abfd, size\),/
+bsdaout_callback	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aout-target.h	/^DEFUN\(MY\(callback\),\(abfd\),/
+bsdaout_mkobject	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aout-target.h	/^DEFUN\(MY\(mkobject\),\(abfd\),/
+bsdaout_object_p	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aout-target.h	/^DEFUN\(MY\(object_p\),\(abfd\),/
+bsdaout_write_object_contents	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aout-target.h	/^DEFUN\(MY\(write_object_contents\),\(abfd\),/
+close_one	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN_VOID\(close_one\)/
+insert	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(insert,\(x,y\),/
+normalize	/usr/src/usr.bin/gdb-4.5.lbl/bfd/archive.c	/^DEFUN\(normalize,\(file\),/
+real_read	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^int DEFUN\(real_read,\(where, a,b, file\),/
+snip	/usr/src/usr.bin/gdb-4.5.lbl/bfd/cache.c	/^DEFUN\(snip,\(abfd\),/
+translate_from_native_sym_flags	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(translate_from_native_sym_flags,\(sym_pointer, cache_ptr, abfd\),/
+translate_to_native_sym_flags	/usr/src/usr.bin/gdb-4.5.lbl/bfd/aoutx.h	/^DEFUN\(translate_to_native_sym_flags,\(sym_pointer, cache_ptr, abfd\),/
+zalloc	/usr/src/usr.bin/gdb-4.5.lbl/bfd/libbfd.c	/^DEFUN\(zalloc,\(size\),/

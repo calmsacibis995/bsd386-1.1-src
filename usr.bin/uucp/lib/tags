@@ -1,0 +1,149 @@
+CallBack	CheckUserPath.c	/^CallBack($/
+ChNodeDir	ChNodeDir.c	/^ChNodeDir($/
+CheckDirs	CheckDirs.c	/^CheckDirs(name)$/
+CheckFieldTime	SysFile.c	/^CheckFieldTime($/
+CheckSysTime	SysFile.c	/^CheckSysTime($/
+CheckUserPath	CheckUserPath.c	/^CheckUserPath($/
+Checkeuid	Checkeuid.c	/^Checkeuid()$/
+CopyFdToFd	CopyFdToFd.c	/^CopyFdToFd(ifd, ifile, ofd, ofile, sizep)$/
+CopyFdToFile	CopyFdToFd.c	/^CopyFdToFile(ifd, ifile, ofile, sizep)$/
+CopyFileToFd	CopyFdToFd.c	/^CopyFileToFd(ifile, ofd, ofile, sizep)$/
+CopyFileToFile	CopyFdToFd.c	/^CopyFileToFile(ifile, ofile)$/
+Create	Create.c	/^Create($/
+CreateA	Create.c	/^CreateA($/
+CreateN	Create.c	/^CreateN($/
+CreateR	Create.c	/^CreateR($/
+CreateWf	CreateWf.c	/^CreateWf(path)$/
+DecodeNum	DecodeNum.c	/^DecodeNum(name, length)$/
+EchoArgs	EchoArgs.c	/^EchoArgs(argc, argv)$/
+EncodeNum	EncodeNum.c	/^EncodeNum(name, number, length)$/
+ErrnoStr	SysWarn.c	/^ErrnoStr(en)$/
+Error	Error.c	/^Error(va_alist)$/
+ErrorLog	Log.c	/^ErrorLog(va_alist)$/
+ErrorLogN	Log.c	/^ErrorLogN(va_alist)$/
+ErrorLogV	Log.c	/^ErrorLogV(err, vp)$/
+ErrorTty	Error.c	/^ErrorTty(fdp)$/
+ExClose	Execute.c	/^ExClose($/
+ExIgnSigs	Execute.c	/^ExIgnSigs()$/
+ExPath	Execute.c	/^ExPath($/
+ExShell	Execute.c	/^ExShell($/
+Execute	Execute.c	/^Execute($/
+Exit	Execute.c	/^Exit($/
+ExpFn	ExpFn.c	/^ExpFn($/
+ExpandArgs	ExpandArgs.c	/^ExpandArgs($/
+ExpandString	ExpandString.c	/^ExpandString(string, size)$/
+FSFree	FSFree.c	/^FSFree(file, space)$/
+Fatal	Fatal.c	/^Fatal(va_alist)$/
+FindFile	FindFile.c	/^FindFile($/
+FindFlush	FindFile.c	/^FindFlush()$/
+FindSlaveGrade	SysFile.c	/^FindSlaveGrade($/
+FindSysEntry	FindSysEntry.c	/^FindSysEntry($/
+Free	FastMalloc.c	/^Free($/
+FreeStr	FreeStr.c	/^FreeStr(cpp)$/
+GetLine	GetLine.c	/^GetLine(bufp)$/
+GetNetUid	GetNetUid.c	/^GetNetUid()$/
+GetParams	InitParams.c	/^GetParams($/
+GetSysNode	ScanSys.c	/^GetSysNode($/
+GetUid	GetUser.c	/^GetUid(uidp, name, path)$/
+GetUser	GetUser.c	/^GetUser(uidp, name, path)$/
+HashName	HashName.c	/^HashName($/
+ISODateTimeStr	ISO_time.c	/^ISODateTimeStr($/
+InitParams	InitParams.c	/^InitParams()$/
+InitVC	ValidChars.c	/^InitVC()$/
+Link	Create.c	/^Link($/
+LoadSys	LoadSys.c	/^LoadSys($/
+Log	Log.c	/^Log(va_alist)$/
+LogClose	Log.c	/^LogClose()$/
+LogFd	Log.c	/^LogFd()$/
+LogOpen	Log.c	/^LogOpen(name)$/
+LogS	Log.c	/^LogS(fd)$/
+LogStats	Log.c	/^LogStats(va_alist)$/
+LogVF	Log.c	/^LogVF(fd, vp)$/
+LogVS	Log.c	/^LogVS(fd, vp)$/
+LookupSys	LoadSys.c	/^LookupSys($/
+Mail	Mail.c	/^Mail($/
+MakeErrFile	MakeErrFile.c	/^MakeErrFile(fdp)$/
+Malloc	FastMalloc.c	/^Malloc($/
+Malloc0	FastMalloc.c	/^Malloc0($/
+MesgN	MesgN.c	/^MesgN(va_alist)$/
+MesgV	MesgV.c	/^MesgV(err, vp)$/
+MkDirs	MkDirs.c	/^MkDirs(path, uid, gid)$/
+Move	Create.c	/^Move($/
+MoveCp	MoveCp.c	/^MoveCp(name1, name2)$/
+MoveN	Create.c	/^MoveN($/
+NewCount	WfName.c	/^NewCount()$/
+NextArg	NextArg.c	/^NextArg(str, res)$/
+NodeName	NodeName.c	/^NodeName()$/
+Print_MS	FastMalloc.c	/^Print_MS($/
+QueueCmd	QueueCmd.c	/^QueueCmd(va_alist)$/
+ReadFd	ReadFile.c	/^ReadFd(fd)$/
+ReadFile	ReadFile.c	/^ReadFile(file)$/
+ResetErrTty	Error.c	/^ResetErrTty()$/
+RestoreUid	SetNetUid.c	/^RestoreUid()$/
+ScanSys	ScanSys.c	/^ScanSys($/
+SetDirsUid	MkDirs.c	/^SetDirsUid()$/
+SetNameProg	NameProg.c	/^void SetNameProg(int argc, char **argv, char **env/
+SetNetUid	SetNetUid.c	/^SetNetUid()$/
+SetTimes	SetTimes.c	/^SetTimes()$/
+Set_ALTDIRS	InitParams.c	/^Set_ALTDIRS()$/
+Set_SPOOLDIR	InitParams.c	/^Set_SPOOLDIR($/
+SetupUsers	CheckUserPath.c	/^SetupUsers()$/
+SplitArgs	SplitArgs.c	/^SplitArgs($/
+SplitSpace	SplitSpace.c	/^SplitSpace($/
+SplitSysName	SplitSysName.c	/^SplitSysName(name, sys, rest)$/
+StdError	Error.c	/^StdError()$/
+StripEnv	StripEnv.c	/^StripEnv($/
+SysError	SysWarn.c	/^SysError(va_alist)$/
+SysRetry	SysWarn.c	/^SysRetry($/
+SysWarn	SysWarn.c	/^SysWarn(va_alist)$/
+TraceSys	LoadSys.c	/^TraceSys($/
+UUCPDateTimeStr	UUCP_time.c	/^UUCPDateTimeStr(ts, string)$/
+UniqueWf	CreateWf.c	/^UniqueWf($/
+UnlinkAllWf	CreateWf.c	/^UnlinkAllWf()$/
+Uucico	Uucico.c	/^Uucico($/
+Uusched	Uusched.c	/^Uusched()$/
+Uuxqt	Uuxqt.c	/^Uuxqt($/
+Warn	Warn.c	/^Warn(va_alist)$/
+WfFree	CreateWf.c	/^WfFree()$/
+WfName	WfName.c	/^WfName($/
+WfPath	CreateWf.c	/^WfPath($/
+WriteCmds	QueueCmd.c	/^WriteCmds()$/
+_Debug	Debug.c	/^_Debug(va_alist)$/
+_Trace	Trace.c	/^_Trace(va_alist)$/
+_dummy_Malloc	FastMalloc.c	/^static int _dummy_Malloc(){}$/
+buffer	QueueCmd.c	/^buffer(vp, bufp)$/
+calloc	FastMalloc.c	/^calloc($/
+check_date	SysFile.c	/^check_date($/
+check_time	SysFile.c	/^check_time($/
+cmp_id	InitParams.c	/^cmp_id($/
+convert	InitParams.c	/^convert($/
+english	strings.c	/^#define	english(S)	S$/
+f_any	SysFile.c	/^f_any(Tact *dp, struct tm *tp, bool *ok)$/
+f_day	SysFile.c	/^f_day(Tact *dp, struct tm *tp, bool *ok)$/
+f_eve	SysFile.c	/^f_eve(Tact *dp, struct tm *tp, bool *ok)$/
+f_night	SysFile.c	/^f_night(Tact *dp, struct tm *tp, bool *ok)$/
+f_nonpk	SysFile.c	/^f_nonpk(Tact *dp, struct tm *tp, bool *ok)$/
+f_poll	SysFile.c	/^f_poll(Tact *dp, struct tm *tp, bool *ok)$/
+f_wk	SysFile.c	/^f_wk(Tact *dp, struct tm *tp, bool *ok)$/
+fix_PRED	InitParams.c	/^fix_PRED($/
+free	FastMalloc.c	/^free($/
+getPARAMSFILE	InitParams.c	/^getPARAMSFILE(PassVal val, Pointer ptr, char * str/
+get_def	InitParams.c	/^get_def($/
+inet_ntoa	inet_ntoa.c	/^inet_ntoa($/
+insert	LoadSys.c	/^insert($/
+listbuild	FindFile.c	/^listbuild($/
+listcmp	FindFile.c	/^listcmp($/
+lookup	InitParams.c	/^lookup($/
+malloc	FastMalloc.c	/^malloc($/
+newfiles	FindFile.c	/^newfiles($/
+pw_policy	GetUser.c	/^pw_policy(pw, uidp, name, path)$/
+realloc	FastMalloc.c	/^realloc($/
+selecta	ExpandArgs.c	/^selecta($/
+selectp	ExpandArgs.c	/^selectp($/
+selectx	ExpandArgs.c	/^selectx($/
+setproctitle	NameProg.c	/^setproctitle(va_alist)$/
+skipquote	InitParams.c	/^skipquote($/
+splitvec	InitParams.c	/^splitvec($/
+stripquote	InitParams.c	/^stripquote($/
+sys_common	SysWarn.c	/^sys_common(type, en, vp)$/
+time_cmp	SysFile.c	/^time_cmp($/

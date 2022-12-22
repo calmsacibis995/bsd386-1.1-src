@@ -1,0 +1,11 @@
+F ALLOCA.C;1                        	alloca.c
+D ATARI                             	Atari
+F DEBFLEX.AWK;1                     	debflex.awk
+D FASTWC                            	fastwc
+F FLEX.TEX;1                        	flex.texinfo
+D MSDOS                             	MSDOS
+D MVS                               	MVS
+F README.;1                         	README
+F TESTXXLE.L;1                      	testxxLexer.l
+D THINK_C                           	Think-C
+D VMS                               	VMS

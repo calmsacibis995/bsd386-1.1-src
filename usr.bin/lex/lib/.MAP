@@ -1,0 +1,5 @@
+F LIBMAIN.C;1                       	libmain.c
+F LIBYYWRA.C;1                      	libyywrap.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/lex/lib
+F TAGS.;1                           	tags

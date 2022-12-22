@@ -1,0 +1,11 @@
+F COLOR_BG.GZ;1                     	color.bg.sampl.gz
+F COLOR_FG.GZ;1                     	color.fg.sampl.gz
+F ENTRY_MA.GZ;1                     	entry_make.gz
+F LXTERM.GZ;1                       	Lxterm.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F MAKEWIN_.GZ;1                     	makewin.proto.gz
+F MANIFEST.GZ;1                     	MANIFEST.gz
+F README.GZ;1                       	README.gz
+F VTWMRC_P.GZ;1                     	vtwmrc.proto.gz
+F XLOCALTE.GZ;1                     	xLocalTerm.gz
+F _KSHRC.GZ;1                       	.kshrc.gz

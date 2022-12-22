@@ -1,0 +1,18 @@
+      select name [ in word ... ]
+      do list
+      done Print the set of words, each preceded by a number.
+	   If  the  in  word  is  omitted, use the positional
+	   parameters.  The PROMPT3 prompt is printed  and  a
+	   line  is  read  from standard input.  If this line
+	   consists of the number of one of the listed words,
+	   then  the  parameter  name  is  set  to  the  word
+	   corresponding to this number.   If  this  line  is
+	   empty,  the selection list is printed again.  Oth-
+	   erwise, the value of the parameter name is set  to
+	   null.  The contents of the line read from standard
+	   input is saved in the parameter  REPLY.   list  is
+	   executed  for each selection until a break or end-
+	   of-file is encountered.
+
+      select name [ in word ] ; sublist
+	   A short form of select.

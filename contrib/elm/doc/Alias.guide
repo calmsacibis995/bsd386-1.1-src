@@ -1,0 +1,388 @@
+.\" @(#)Id: Alias.guide,v 5.7 1993/07/20 03:02:11 syd Exp 
+.\"
+.\"  A guide to the ELM alias system and so on.
+.\"  format with:
+.\"      tbl Alias.guide | troff tmac.n - > Alias.format'
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  $Log: Alias.guide,v $
+# Revision 1.2  1994/01/14  00:50:57  cp
+# 2.4.23
+#
+.\" Revision 5.7  1993/07/20  03:02:11  syd
+.\" drop useless reference to Elm address validation
+.\" From: Syd
+.\"
+.\" Revision 5.6  1993/07/20  02:16:26  syd
+.\" Explain that newalias for global takes -g argument
+.\" From: Syd via request from Manfred Ebery
+.\"
+.\" Revision 5.5  1993/04/12  01:45:22  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.4  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.3  1992/12/20  05:06:19  syd
+.\" Here are the doc changes for my additions to the alias system and
+.\" the new switches to listalias.
+.\" From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+.\"
+.\" Revision 5.2  1992/10/17  22:01:01  syd
+.\" corrected typos
+.\" From: David.W.Tamkin@gagme.chi.il.us (David W. Tamkin)
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.\"
+.tm Have we been run through "tbl" first?? I hope so!
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 0
+.lg 0
+.nf
+.na
+.rs
+.za
+.sp |3.0i
+.ce 99
+.ps 20
+.ss 18
+.vs 12
+\f3The Elm Alias System Users Guide\f1
+.sp 4
+.ps 12
+.ss 14
+.vs 14
+\f2What aliases are and how to use them
+in the \f3Elm\fP mail system\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp |9.0i
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.fi
+.ad
+.bp 1
+.sv 5v
+.ps 14
+.ss 12
+.vs 16
+\f3The Elm Alias System Users Guide\f1
+.ds h0 "Alias Users Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+This document is intended as a supplement to the \f2Elm Users Guide\f1
+and is only of interest to those users desiring more knowledge
+about how aliases work and how to create strange and exciting
+aliases for their systems (okay, so maybe it's not \f2that\f1 exciting!)
+.sp
+This document is broken up into the following sections;
+user aliases,
+group aliases,
+system aliases,
+editing and installing new aliases,
+general warnings and other chit-chat.
+.sp
+.hn 1 User Aliases
+
+The simplest type of aliases in the Elm system are individual
+user aliases.  These are made up of three parts;
+
+.nf
+	\f2aliasname list\f1  =  \f2username\f1  =  \f2address\f1
+.fi
+
+Where the \f2aliasname list\f1 is either a single aliasname\s-1\u1\d\s0
+.fn
+1. Aliasnames can be any combination of letters, numbers, hyphens (\*q\-\*u),
+periods (\*q.\*u), or underscores (\*q_\*u).  Letter case is not significant,
+that is, \*QFRED\*U, \*QFred\*U, and \*Qfred\*U are identical.
+.ef
+or a list of aliasnames separated by commas.  Aliasnames are case insensitive and will be
+converted to all lower case by the alias system.
+.sp
+\f2Username\f1 is used to indicate the full \*Qreal name\*U of the user.  For
+example, if you had an alias for \*Qtaylor\*U to get to me, the
+\f2username\f1 field would contain \*QDave Taylor\*U or
+perhaps \*QDave Taylor at HP\*U
+or some other permutation.  The
+name can optionally be entered in the format of \*QTaylor; Dave\*U.  When
+this is done, the alias system can sort aliases on a last name basis
+for presentation on the alias menu within Elm.
+Elm uses this information to add the user's full name to the addresses of
+outbound mail to get more readable addresses.  No
+matter which format a name is entered, Elm displays it
+and puts it in mail headers the way you would expect (i.e., \*QDave Taylor\*U).
+.sp
+\f2Address\f1 is either the user's full electronic mail address or, if
+your system uses a smart mailer, the minimum address needed to specify
+the destination.  For example, say my smart mailer
+contained information on how to get to machine \*Qhp-sdd\*U and I wanted
+to have an address for my friend Ken there \(em I could have his address
+specified as simply \*Qken@hp-sdd\*U (or alternatively \*Qhp-sdd!ken\*U since
+the two are functionally equivalent).
+.sp
+Let's get on to some examples, shall we?
+.sp
+Consider this excerpt from my own \f2.elm/aliases.text\f1 file;
+
+.nf
+.ft CW
+.zf
+.in .5i
+.ta \w'frank,minjarez 'u \w'frank,minjarez = Frank Minjarez 'u
+# Mail aliases for Dave Taylor
+# Friends from UCSD
+addie	= Addie Silva	= addie@hp-sdd.SDD.HP.COM
+frank,minjarez	= Frank Minjarez	= Minjarez.Verify@dockmaster.ddn.mil
+pizzini	= Ken Pizzini	= hplabs!ucbvax!ucdavis!pai!ken
+george	= Burdell; George P., Famous GT Guy	= gburdell@matd.gatech.edu
+.ft 1
+
+.in 0
+.fi
+Note that the alias for Frank Minjarez has two \f2aliasnames\f1 associated
+with it, \f2frank\f1 and \f2minjarez\f1.
+Also notice that the first and second aliases
+use the Internet style naming convention of \f2user@machine\f1
+whereas the third uses the \f2uucp\f1 notation of \f2machine!user\f1.
+The fourth alias illustrates two features for the \f2username\f1
+field.  An individual's name can be entered in the form of
+\f2lastname; firstname, comment\f1 which allows the alias system to be able
+to sort alias names on a last name basis.  Additionally, any
+text after the comma is treated as a comment.  It is stored in
+the alias file and displayed on the alias menu but will not
+appear in the comment field (between the parentheses) in the header
+of a message.  This allows you to enter useful notes about an
+individual that you would not otherwise want to include in the
+\f3To:\f1 header of a mail message.
+.sp
+For the most part, the notational format is transparent within the
+alias file \(em the only time it \f2does\f1 make a difference
+is if you have to specify more than the machine that the user is
+receiving mail on (as in the third example above).
+.sp
+Suffice to say that if you must specify any sort of uucp route
+that you should use the uucp notation as much as possible to ensure
+that the system expands the correct machine name.  Similarly, if
+you're bouncing mail through different Internet sites (to
+get to a foreign system, as in the example below) you should use the
+notation that system expects, e.g.:
+
+.ft CW
+.zf
+.ti .5i
+listserv%byuadmin.BITNET@rugters.edu
+.ft 1
+.sp
+.hn 1 Group Aliases
+
+After the confusion of user aliases, group aliases are even more
+fun!  For the most part the notation is very similar:
+
+.nf
+.ti .5i
+\f2aliasname list\f1   =   \f2groupname\f1   =   \f2address list\f1
+.fi
+
+Where \f2aliasname list\f1 and \f2groupname\f1 are exactly equivalent
+to the corresponding fields in user aliases.
+.sp
+The interesting part is the \f2address list\f1 field; this
+field is actually in the same notation as the aliasname list (i.e.,
+a list of addresses separated by commas),
+so it's really quite easy to create.
+It's best to illustrate by example:
+
+.ft CW
+.zf
+.nf
+.in .5i
+friends, mypals = The Gang of Six = joe, larry, mary, joanna,
+\h'\w'friends, mypals = The Gang of Six = 'u'nancy, michael
+.ft 1
+.in 0
+.fi
+
+Notice that you can continue onto as many lines as you'd like so
+long as each additional line starts with either a \f2<space>\f1 or a
+\f2<tab>\f1 character.
+.sp
+At times it may be desirable to send a message to everyone in
+the group except one or two people.  This can be accomplished by
+adding the individuals' actual IDs to the \f3To:\f1 list, preceded
+by a minus sign (\*q\-\*u).  For example, if you were having a surprise
+party for \f2nancy\f1 from the above group and you wanted to discuss the
+details with the others, you could mail the message to:
+
+.ft CW
+.zf
+.nf
+.in .5i
+friends \-nancy
+.ft 1
+.in 0
+.fi
+
+Unlike in prior versions of Elm, group alias addresses need not
+be \f2previously defined aliases\f1 or valid mail addresses on
+the current machine.  Any valid delivery address, local user, or
+prior user or group alias may now be part of a group alias
+\f2address list\f1.
+.sp
+.hn 1 System Aliases
+
+System aliases are functionally equivalent to the individual Elm
+alias lists each Elm user has (both user aliases and group aliases)
+but are \f2read only\f1 for everyone but the Elm administrator.  The
+format of the file is identical to the users' files, and the only difference is
+that this file is expected to be located in the directory that contains
+the \f3system_hash_file\f1 and \f3system_data_file\f1 files (see the
+\f2Elm Configuration Guide\f1 for more details on these variables).
+.sp
+Simply create the system alias file in the specified directory
+as you would a normal alias file, and install it using the newalias
+command with the -g option (see the following section for more details
+on that).  Voila!!
+.sp
+.hn 1 Editing and Installing New Aliases
+
+To install new aliases, you need merely to create, or modify,
+the file \f2$HOME/.elm/aliases.text\f1 until you're
+satisfied with it and it meets the requirements discussed above.
+You can then try to install it with the command:
+
+.ti .5i
+$ \f3newalias\f1
+
+which either reports the number of aliases installed
+or the errors encountered trying to parse and store the
+given alias list.
+.sp
+Note that blank lines are no problem and that comments are not only
+allowed but actually encouraged, and must have \*q#\*u as the first
+character of each comment line.
+.sp
+.hn 1 Other Stuff not Covered Yet
+
+Probably the biggest question you have in your mind right now
+is \*QBut how the heck does this relate to my existing \f2Berkeley Mail\f1
+aliases and the lower-level \f2sendmail\f1 alias system?\*U  Well,
+rest assured that if you \f2really\f1 want to have
+your aliases down in the transport you can.  No problem.
+.sp
+And for those ex-\f2Berkeley Mail\f1 fans, you can translate your
+aliases into the format that Elm wants by running them
+through the \f2awk\f1 script listed in the appendix.
+.sp
+Finally, if you have any problems or questions, try looking in
+the \f2newalias\f1 manual entry.
+.bp
+.ce 99
+\f3Appendix One
+An \f2awk\fP Script for Translating Aliases
+from a Berkeley Mail \f2.mailrc\fP File
+to an Elm \f2.elm/aliases.text\fP File\f1
+.ce 0
+.sp
+.nf
+
+.ta .5i
+.ft CW
+.zf
+BEGIN { print "# Elm .elm/aliases.text file, from a .mailrc file..."
+	print ""
+	}
+next_line == 1 {
+	next_line = 0;
+	group = ""
+	for (i = 1; i <= NF; i++) {
+	  if (i == NF && $i == "\\\\") sep = ""
+	  else                       sep = ", "
+	  if ($i == "\\\\") {
+	    group = sprintf("%s,", group)
+	    next_line = 1;
+	  }
+	  else if (length(group) > 0)
+	    group = sprintf("%s%s%s", group, sep, $i);
+	  else
+	    group = $i;
+	  }
+	  print "\\t" group
+	}
+$1 ~ /[Aa]lias | [Gg]roup/ {
+	if ( NF == 3)
+	  print $2 " = user alias = " $3;
+	else {
+	  group = ""
+	  for (i = 3; i <= NF; i++) {
+	    if (i == NF && $i == "\\\\") sep = ""
+	    else        sep = ", "
+	    if ($i == "\\\\") {
+	      group = sprintf("%s,", group)
+	      next_line = 1;
+	    }
+	    else if (length(group) > 0)
+	      group = sprintf("%s%s%s", group, sep, $i);
+	    else
+	      group = $i;
+	    }
+	    print $2 " = group alias = " group;
+	  }
+	}
+
+.ft 1
+.fi
+Note: this script is contained in the release as \f2utils/mailrc.awk\f1.

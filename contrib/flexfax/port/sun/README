@@ -1,0 +1,72 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/sun/README,v 1.1.1.1 1994/01/14 23:10:15 torek Exp $
+
+This directory contains the files needed to build this software on a
+Sun under SunOS 4.1.1 using gcc 2.2.2, or later.  Note, however, that
+due to a bug, the stock 2.2.2 or 2.3.1 distribution will work ONLY if
+you apply the patch found in the file GCC-PATCH to the file cp-search.c
+in the gcc source directory.  Once you done that and rebuilt gcc, you
+can then build and install FlexFAX by following the directions in the
+top level README file.
+
+The enclosed note describes why you can not use RTS/CTS flow control
+with modems attached to the on-board serial ports.
+
+	Sam
+
+
+
+Date: Sat, 17 Apr 93 16:47:45 EDT
+From: bst%tt@CAM.ORG (Brent Townshend)
+Message-Id: <9304172047.AA00639@tt.UUCP>
+To: flexfax@sgi.sgi.com
+Subject: Sun RTS/CTS problems summarized.
+Cc: bst%tt@CAM.ORG
+
+
+I'd like to recap the current status of the SUN RTS/CTS flow control
+problems, and see if anyone has anything further to add.  Perhaps
+these problems should go noted in a README file in the port/sun
+directory.  I'm running SunOS 4.1.1 with a U1496E+ with 6.00 ROMS and
+FlexFAX beta 97. Here is the problem as I see it:
+
+The Sun driver for the Sparcstation on-board zs serial port
+behaves somewhat differently than one may expect.  If hardware
+flow control is requested by the host and carrier detect is
+not asserted by the modem then data from the modem to the Sun
+is discarded.  Note that data from the host to the modem works
+fine under these conditions.  Once carrier detect is asserted,
+RTS/CTS works as expected.  The problem is that when flexfax
+awaits responses from its 'AT' commands, the replies are thrown
+away by the OS since Carrier Detect is not present.
+
+One would think that the recent changes to FlexFAX in regards
+to setting the CLOCAL bit would fix this problem.  However, it
+appears that the CLOCAL bit is having no effect.
+
+As mentioned by Steven Grimm, and further verified by looking
+at the data sheets, the problem arises from the Zilog Z8530
+chip used for serial communications.  On that chip there is
+a single control bit which turns on automatic RTS/CTS handling.
+This same bit turns the CD input into a receiver enable.  Thus
+if the hardware is set for RTS/CTS flow control, then input
+is discarded whenever CD is inactive.  This explains why the
+OS can't do what we'd like when CLOCAL is set.
+
+One fix for this is to set the modem to always assert CD using
+AT&C0.  However, this will cause problems in disconnecting after
+a call is finished.  Another fix is to use XON/XOFF flow control,
+but effective RTS/CTS would be better, especially for data connections.
+
+I believe the only way we are going to get around this problem is
+if FlexFAX would allow independent flow-control selection for setup,
+data transfer, and FAX transfer.  This would also help out handling
+for modems like the ZyXEL which always do Xon/Xoff flow control
+when sending faxes.
+
+-Brent
+
+--------------------------------------------------------------------
+Brent Townshend			Internet: bst%tt@cam.org
+Townshend Computer Tools	    UUCP: ...!uunet!cam.org!tt!bst
+230 Sherbrooke St E. #502	   Phone: +514-289-9123
+Montreal, Quebec, H2X 1E1	     FAX: +514-289-1831

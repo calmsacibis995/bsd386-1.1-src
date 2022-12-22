@@ -1,0 +1,724 @@
+=======================================
+
+   Seyon Copyright (c) 1992 Muhammad M.
+   Saggaf. Seyon has its roots in xcomm
+   2.2.
+
+=======================================
+
+Help: Gives you this help.
+
+Set: Sets the program parameters.
+    Parameters can also be set in the
+    startup file, in the directory
+    file, and in a script file.
+
+Dial: Takes you to the dialing
+    directory.  Double click on an item
+    to choose it. Clicking once
+    highlights the item(s). Once the
+    dialer takes over, you can
+    interrupt the dialing or script
+    execution at any time by pressing
+    'Cancel'.
+
+Transfer: Takes you to the transfer
+    console.  You can double-click on
+    item to choose it and you will be
+    promted for a file name if the
+    protocols needs one. Refer to the
+    FAQ for a description of the format
+    of the protocols file.
+
+Shell: Accepts a command for to be
+    passed to the shell.If the command
+    starts with '$', stdio will be
+    redirected to the modem. You can
+    use this to do file transfer as
+    well.
+
+Misc: Takes to some miscelaneous
+    utilities, you can send a break by
+    choosing 'Break' under this button.
+    You can also refresh (restart) the
+    terminal process by choosing
+    'Refresh' from here this will not
+    restart the terminal window, just
+    the process).
+
+Hangup: Hangs up the modem.
+
+Exit: Exits Seyon.
+
+=======================================
+
+   The name of the Seyon directory is
+   '~/.seyon'. The startup file is
+   'startup'. That of the dialing
+   directory is 'phonelist' and that of
+   the protocols file is 'protocols'.
+   These have to be in the current,
+   Seyon, or home directoy. Three
+   examples (startup, phonelist, and
+   protocols) are included.
+
+=======================================
+
+   Send success stories and bug reports
+   to alsaggaf@mit.edu. If you like
+   Seyon, send me email to that effect.
+   This will give me the incentive to
+   continue maintaining it.
+
+=======================================
+
+    FREQUENTLY ASKED QUESTIONS:
+
+=======================================
+
+    Warning: Some of the things below
+    are  terribly outdated. Tha manual
+    page, though, is always up-to-date.
+
+=======================================
+
+Q: I get the messages
+
+>> Warning: could not execute 'seyon-emu'.
+>> Warning: falling to 'xterm'.
+
+   when I start Seyon.
+
+A: When Seyon s invoked. It looks first
+   for seyon-emu and uses it as the
+   terminal emulator. seyon-emu has to
+   be a link to you favorite terminal
+   emulation program (xterm, color
+   xterm, xvt, mterm, Emu, cmdtool,
+   ..etc). This allows for more
+   flexibility in choosing the terminal
+   emulator. If Seyon doesn't find
+   seyon-emu, it just uses xterm as the
+   terminal emulator. This warning is
+   harmless. To get rid of it, make
+   seyon-emu a link to xterm.
+
+Q: How do I use the meta (ALT) key with
+   Seyon?
+
+A: If the remote host supports
+   8-bit-clean communications, you
+   should be able to use it
+   automatically (most hosts don't).
+   Otherwise, you can make Seyon send
+   ESC before a character when the meta
+   key is pressed with that character.
+   You can do that in two ways:
+
+   1) Set Meta->ESC translation to on
+      using either of the following:
+      a) the resource metaKeyTranslation 
+      b) from the 'Set' console
+      c) in a script: 'set meta_tr on'
+
+   2) if you're using xterm as Seyon's
+      terminal emulator, use
+
+      Seyon.vt100.eightBitInput: off
+
+=======================================
+
+Q: When I dial, the modem says CONNECT
+   and I get a Connection Complete
+   message. To wake the remote host up,
+   I first hit Enter a few times. But
+   the host soon hangs up, apparently
+   seeing a dead line. What's wrong?
+
+A: Try setting <nl mode> in the Set
+   console. The Seyon default is to
+   send a \n when you press Enter. Many
+   hosts expect a \r; you get that when
+   <nl mode> is selected.
+
+   (contributed by Sakari Aaltonen,
+   <sakaria@vipunen.hut.fi>)
+
+   NOTE: starting from version 1.5, the
+   defaults is to enable NL->CR
+   translation.
+
+=======================================
+
+Q: In the 'Set' console, which color
+   means that the parameter is active? 
+
+A: Black means active, otherwise
+   inactive. 
+
+=======================================
+
+Q: How do I send an initialization
+   string to my modem.
+
+A: put the command
+
+       transmit "AT(whatever)^M"
+
+   in Seyon's startup file. Most modern
+   modems do not need an initialization
+   string though, since they store
+   their setup in non-volitile memory.
+
+=======================================
+
+Q: How do I tell the remote host about
+   the size of my terminal window? I
+   want the applications to take
+   advantage of the lerger size.
+
+A: If the remote host is a Unix machine
+   (or any other machine that supports
+   X-windows), issue the command
+   'resize' (if that doesn't help, try
+   'eval `resize`'. If the remote host
+   is a BBS, set the page length by the
+   appropriate command (e.g. 'p' on a
+   BBS running PCBoard).
+
+=======================================
+
+Q: What's this Xdefaults file you keep
+   talking about?
+
+A: It is usually named ~/.Xresources.
+   If that doesn't exist. the Xserver
+   uses the file ~/.Xdefaults. Do 'man
+   X' to learn how to customize the
+   resources in this file.
+
+=======================================
+
+Q: When I use 'Edit' to edit the
+   phonelist or protocols files, the
+   dialing directory and the transfer
+   console do not reflect the changes I
+   made, what's wrong?
+
+A: You have to use 'Reread' to update
+   the the dialing directory and the
+   transfer console.
+
+=======================================
+
+Q: How do I make sz/rz work?
+
+A: The following is from the readme
+   file included with minicom. I used
+   it, and it has always worked for me:
+
+   If you are using a new version if
+   Chuch Forsenberg's zmodem, it is
+   possible that it will not run OK in
+   a window. This is because the new
+   versions *don't* use stdin and
+   stdout, but without mercy they just
+   open /dev/tty. Ai! I changed the
+   following in the file "rbsb.c" and
+   now things work allright. You might
+   want to change this also.  Here is
+   the particular function I'm talking
+   about:
+
+---------------------------------------
+/* Line 336 */
+/* Initialize tty device for serial 
+   file xfer */
+inittty()
+{
+#ifndef HVM
+    Tty = open("/dev/tty", 2);
+    if (Tty < 0) {
+       perror("/dev/tty");  exit(2);
+    }
+#else
+    Tty = 1;
+#endif
+    Ttystream = fdopen(Tty, "w");
+    setbuf(Ttystream, xXbuf);        
+}
+---------------------------------------
+
+   And to get the Logging output to the
+   screen instead of to /tmp/szlog,
+   change the following in sz.c :
+
+---------------------------------------
+if (npats < 1 && !Command && !Test) 
+    usage();
+if (Verbose) {
+/* Line 403 of sz.c */
+#ifndef HVM
+    if (freopen(LOGFILE, "a", stderr)==NULL) {
+        printf("Can't open log file %s\n",LOGFILE);
+        exit(2);
+    }
+#endif
+    setbuf(stderr, NULL);
+}
+vfile("%s %s for %s\n", Progname, VERSION, OS);
+---------------------------------------
+   You might want to change the same in
+   the file "rz.c" also, around line
+   249.  It is now possible to use the
+   -v[vv] flag with rz/sz and see the
+   debugging output appear in the
+   status window!
+
+   You have to define 'HVM' to make the
+   change effective, ofcourse!
+
+   NOTE (for Seyon users): Once you
+   have done that, use '$rz -vv' as
+   your zmodem command (or '$sz -vv').
+
+=======================================
+
+Q: What are Seyon's configuration
+   files? and where should they be put?
+
+A: Those are 'startup', 'phonelist',
+   and 'protocols'. Seyon looks for
+   them in the current directory, then
+   the default Seyon directory
+   ('~/.seyon'), and finally in the
+   user's home directory. The names of
+   these files as well as that of the
+   default directory can be overridden
+   by setting the appropriate
+   resources. Refer to that in another
+   answer somewhere in this file.
+
+=======================================
+
+Q: Can I put the scripts somewhere else
+   other than in my home directory?
+
+A: Yes, use the resource 
+
+        Seyon.scriptDirectory:
+
+   (default is defaultDirectory). Seyon
+   will look for scripts in the current
+   directory, then in the script
+   directory, and finally in the user's
+   home directory.
+
+=======================================
+
+Q: I'd like to start a local shell but
+   I don't want to start another xterm,
+   can I have a shell in the Seyon's
+   terminal emulation window?
+
+A: Yes, click the 'Shell' button and
+   instead of giving it a usual shell
+   command, use the name of your shell
+   (i.e. tcsh, sh, ..etc).  This will
+   start the shell of your choice in
+   the terminal window.
+
+=======================================
+
+Q: Do I have to specify the BITS and
+   BPS fileds for each entry in the
+   phonelist directory?
+
+A: No. Seyon will use the default BPS
+   rate and bit mask if none is
+   specified in the phonelist entry.
+
+=======================================
+
+Q: Can I specify an alternate location
+   and name for the help file?
+
+A: You can, but it's highly discouraged
+   unless you have no write permission
+   to the default location (determined
+   automatically at compile-time). Use
+   the resource
+
+            Seyon.helpFile:
+
+   You have to specify the complete
+   file path and name.
+
+=======================================
+
+Q: Seyon comes up tiny and with
+   overlapping buttons, what's wrong?
+
+A: The app-defaults file must be
+   installed properly or Seyon will not
+   function properly. Use 'make
+   install' to install the app-defaults
+   file in the proper place and make
+   sure it is installed properly and is
+   not corrupt.
+
+=======================================
+
+Q: I get 'killed by siganl 11' when I
+   start seyon.
+
+A: You must be using old versions of
+   libraraies. Test that by using
+
+            ldd seyon-cmd
+
+   This will tell you what libraries
+   you have linked Seyon with. If you
+   get anything other than
+
+      /lib/XawVen.so.2.1 (Classic 2.1)
+      /lib/libX11.so.2.1 (Classic 2.1)
+      /lib/libc.so.4 (Jump table 4.1)
+
+   it's time to upgrade to newer
+   libraries.
+
+   (This question is for linux only,
+   for platforms it may be a bug.
+   Report it.) 
+
+=======================================
+
+Q: How does the dialer work?
+
+A: Click on an item to toggles it. Once
+   you have selected all the items you
+   want, click on 'Go'. The dialer will
+   dial each number until a connection
+   is made. once a connection is made,
+   that item is unselected
+   automatically. Double-clicking on an
+   item will select that item, unselect
+   all others, and dial that item. You
+   can interrupt the dialing or the
+   script execution at any time by
+   chossing 'Cancel'. 'Can. & hangup'
+   will additionally hangup the line.
+
+=======================================
+
+Q: How do use pulse dialing?
+
+A: Use the resources. Set
+
+       Seyon.dialPrefix = ATDP
+
+   There is also another resources,
+   dialSuffix.
+
+=======================================
+
+Q: How can I setup the ZMODEM
+   autodownload feature or disable it?
+
+A: Via the resources. The resource
+
+     Seyon.zmodemAutoDownload: off
+
+   will disable it (default is 'on').
+   The resource
+
+   Seyon.zmodemAutoDownloadCommand: \
+                 $cd /usr/dl; rz -vv
+
+   tells Seyon what command to use to
+   for ZMODEM (default is 'rz').  The
+   format of the command is the same as
+   that of the shell and transfer
+   commands.
+
+=======================================
+
+Q: How do I turn off the 'fun' messages
+   or make them less frequent?
+
+A: The resource
+
+           Seyon.showFunMessages: off
+
+   will turn them off (default is
+   'on'). The resource
+
+        Seyon.funMessagesInterval: 30
+
+   specifies that the messages should
+   appear every 15 seconds (unless
+   Seyon has something more important
+   to say, like a real message).
+   Default interval is 1 minute.
+
+=======================================
+
+Q: How can tell seyon what port to use?
+
+A: There are two ways to do that:
+
+   1) Specify it in your Xdefaults
+      file, something like:
+             
+             Seyon.modem: /dev/ttys0
+
+   2) Invoke Seyon by the the switch
+             -modem, e.g.
+             
+             seyon -modem /dev/ttys0
+
+=======================================
+
+Q: How can I control the bahavior of
+   the terminal emulation winow?
+
+A: You can do that via the resources of
+   the vt100 widget of xterm. he
+   following is an example of what you
+   can put in your Xdefaults file:
+
+     Seyon.vt100.foreground: black
+     Seyon.vt100.background: white
+     Seyon.vt100.geometry: 80x25+50+250
+     Seyon.vt100.saveLines: 100
+                        .            
+                        .
+                        .
+
+   Refer to the xterm manual page for
+   the full set of the resources.
+
+=======================================
+
+Q: The resourecs I put in my Xdefaults
+   file do not seem to work, why?
+
+A: You have to use xrdb to load the
+   resourecs or restart your X server.
+   Also, you have to use the class name
+   'Seyon' and not the instance 'seyon'
+   in your Xdefaults file.
+
+=======================================
+
+Q: How shoud the protocols file be
+   formatted?
+
+A: Here is an example:
+
+    regu_zm_dl  "$ cd /dl; rz -vv" n
+    "reg zm ul" "$sz -vv"          y
+    graphic_zm_dl grz              No
+    xrz3D       $cd /dl; xrz"      NO
+
+   The first field is the title of the
+   protocol. You can anything in there
+   for your refrence as long as it is
+   either one word or quoted.
+
+   The second field is the actual
+   command that will be executed.
+   Again,if the command is more than
+   one word, it has to be quoted.
+   Notice how 'cd' is used to have one
+   or more download or upload
+   directories. If the command begins
+   with '$', the standard input and
+   standard outpt will be redirected to
+   the modem.
+
+   The last field tells Seyon whether
+   it should prompt for a file name or
+   not. this field can be either a yes
+   or a no. Normally, you would put yes
+   for an upload and no otherwise.
+
+=======================================
+
+Q: How can tell Seyon about the
+   non-standard responses of my modem?
+
+A: Use the following resources:
+
+       Seyon.connectString
+       Seyon.noConnectString1
+       Seyon.noConnectString2
+       Seyon.noConnectString3
+       Seyon.noConnectString4
+
+   Refer to what the defaults are for
+   these resources in another answer in
+   this file.
+       
+=======================================
+
+Q: When I choose an item in the dialing
+   direcory or from the transfer
+   protocols directory it get
+   highlighted but nothing happens,
+   why?
+
+A: Clicking once on an item only
+   highlightes it. You have to
+   double-click on it to choose it. You
+   can highlight multiple items in the
+   dialing directory and then click
+   'Go' to dial them (circulate) until
+   a connection is made.
+
+=======================================
+
+Q: How can I control the dialer
+   behavior?
+
+A: Via the following resources:
+
+       Seyon.dialTimeOut
+       Seyon.dialDelay
+       Seyon.dialRepeat
+
+   Dial timeout is the time given for
+   each try (default is 45 seconds),
+   dial delay is the time between tries
+   (default is 10 seconds), and dial
+   repeat is the number of tries Seyon
+   attempts before up (default is 5
+   seconss).
+
+=======================================
+
+Q: How can disable the confirmation
+   popups for hangup and exit?
+
+A: Via the resources hangupConfirm and
+   exitConfirm. Put the following in
+   your Xdefaults file:
+
+           Seyon.hangupConfirm: off
+           Seyon.exitConfirm: off
+
+=======================================
+
+Q: What do I do if the terminal is
+   stuck?
+
+A: Choose 'Refresh' under the 'Misc'
+   button. This will restart the
+   terminal process (not the terminal
+   window).
+
+=======================================
+
+Q: How can I use hardware flow control
+   (RTS/CTS)?
+
+A: Use the rtscts mode. It is enabled
+   by default. You disable it in the
+   startup file, in a script, or
+   interactively from the 'Set'
+   console.
+
+=======================================
+
+Q: How can I make Seyon send delete
+   instead of backspace?
+
+A: Put the line
+
+       set del "on"
+
+   in the startup file or in the
+   script. or set the parameter
+   interactively by the 'Set' button.
+
+=======================================
+
+Q: Can Seyon do ANSI color that most
+   BBS systems use?
+
+A: Yes, but yu have to get color xterm.
+   Patches for that are on
+   export.lcs.mit.edu.
+
+=======================================
+
+Q: Where can I get the latest copy of
+   Seyon?
+
+A: By ftp from sipb.mit.edu at the
+   directory /pub/seyon.
+
+=======================================
+
+Q: How can I help?
+
+A: 1) Send your impression of he
+      program after each upgrade.  
+   2) Send suggestions for improvement
+      (even the little details).  
+   3) Send any pretty color
+      customization you do.  
+   4) If you implement an extra
+      feature, send it to be included
+      in the standard release. 
+
+=======================================
+
+Q: Where can I send bug reports and
+   suggestions? Where can I get more
+   information about the development
+   and use of Seyon? Where can I
+   participate in general discussions
+   about Seyon? Where can I get the
+   most up-to-date announcements about
+   official and test releases?
+
+A: Join the Seyon channel on the
+   linux-activists mailing list. Send a
+   message to
+
+   linux-activists-request@joker.hut.fi
+
+   with the following as one of the
+   headers:
+
+    X-Mn-Admin: join Seyon
+
+   That should do it. To get more
+   information about how to use the
+   mailing list and send to it, send a
+   message to the above address with
+   the single word 'help' as the
+   subject and the body of the message.
+
+=======================================
+
+Q: How can I send bug reports?
+
+A: Use the form included in the file
+   BUGS. If you don't, I cannot
+   guarantee that I'm going to look
+   into it. Sending me something like
+   'the dialer doesn't work' doesn't
+   tell anything. I have to know more.
+
+=======================================
+
+Q: How can I contact the author?
+
+A: Send him (that's me!) email at
+   alsaggaf@mit.edu
+
+=======================================
+

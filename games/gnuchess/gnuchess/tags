@@ -1,0 +1,113 @@
+BRscan	eval.c	/^BRscan (register short int sq, short int *mob)$/
+BVerifyMove	book.c	/^BVerifyMove (char *s, short unsigned int *mv, int /
+Balgbr	book.c	/^Balgbr (short int f, short int t, short int flag)$/
+BishopValue	eval.c	/^BishopValue (register short int sq, short int side/
+BlendBoard	eval.c	/^BlendBoard (const short int a[64], const short int/
+CB	search.c	/^#define CB(i) (unsigned char) ((color[2 * (i)] ? 0/
+CaptureList	genmoves.c	/^CaptureList (register short int side, short int pl/
+ChangeAlphaWindow	nondsp.c	/^ChangeAlphaWindow (void)$/
+ChangeBetaWindow	nondsp.c	/^ChangeBetaWindow (void)$/
+ChangeDbLev	nondsp.c	/^ChangeDbLev (void)$/
+ChangeHashDepth	nondsp.c	/^ChangeHashDepth (void)$/
+ChangeSearchDepth	nondsp.c	/^ChangeSearchDepth (void)$/
+ChangeXwindow	nondsp.c	/^ChangeXwindow (void)$/
+CheckEETable	eval.c	/^CheckEETable (short int side)$/
+ClrScreen	nondsp.c	/^ClrScreen (void)$/
+CopyBoard	eval.c	/^CopyBoard (const short int a[64], short int b[64])/
+Die	nondsp.c	/^Die (int sig)$/
+DoDebug	nondsp.c	/^DoDebug (void)$/
+DoTable	nondsp.c	/^DoTable (short table[64])$/
+EditBoard	nondsp.c	/^EditBoard (void)$/
+ElapsedTime	dspcom.c	/^ElapsedTime (short int iop)$/
+EnPassant	search.c	/^EnPassant (short int xside, short int f, short int/
+ExaminePosition	eval.c	/^ExaminePosition (void)$/
+ExitChess	nondsp.c	/^ExitChess (void)$/
+Fbdcmp	util.c	/^int Fbdcmp(char *a,char *b)$/
+GenMoves	genmoves.c	/^GenMoves (register short int ply, register short i/
+GetGame	dspcom.c	/^GetGame (void)$/
+GetOpenings	book.c	/^GetOpenings (void)$/
+GetXGame	dspcom.c	/^GetXGame (void)$/
+GiveHint	nondsp.c	/^GiveHint (void)$/
+InitConst	init.c	/^InitConst (char *lang)$/
+Initialize	nondsp.c	/^Initialize (void)$/
+InitializeStats	search.c	/^InitializeStats (void)$/
+Initialize_dist	init.c	/^Initialize_dist (void)$/
+Initialize_killt	init.c	/^Initialize_killt (void)$/
+Initialize_moves	init.c	/^Initialize_moves (void)$/
+Initialize_ttable	init.c	/^Initialize_ttable ()$/
+InputCommand	dspcom.c	/^InputCommand (void)$/
+KingValue	eval.c	/^KingValue (register short int sq, short int side)$/
+KnightValue	eval.c	/^KnightValue (register short int sq, short int side/
+Link	genmoves.c	/^#define Link(from,to,flag,s) \\$/
+LinkMove	genmoves.c	/^LinkMove (short int ply, short int f,$/
+ListGame	dspcom.c	/^ListGame (void)$/
+MakeMove	search.c	/^MakeMove (short int side,$/
+Mmain	main.c	/^main (int argc, char **argv)$/
+MoveList	genmoves.c	/^MoveList (short int side, register short int ply)$/
+NewGame	init.c	/^NewGame (void)$/
+OpeningBook	book.c	/^OpeningBook (unsigned short *hint, short int side)/
+PawnValue	eval.c	/^PawnValue (register short int sq, short int side)$/
+ProbeEETable	eval.c	/^ProbeEETable (short int side, short int *score)$/
+ProbeFTable	util.c	/^ProbeFTable (short int side,$/
+ProbeTTable	search.c	/^ProbeTTable (short int side,$/
+PromptForMove	nondsp.c	/^PromptForMove (void)$/
+PutInEETable	eval.c	/^PutInEETable (short int side,int score)$/
+PutInFTable	util.c	/^PutInFTable (short int side,$/
+QueenValue	eval.c	/^QueenValue (register short int sq, short int side)/
+RESET	book.c	/^RESET (void)$/
+RookValue	eval.c	/^RookValue (register short int sq, short int side)$/
+SaveGame	dspcom.c	/^SaveGame (void)$/
+ScoreK1PK	eval.c	/^ScoreK1PK (short int side,$/
+ScoreKBNK	eval.c	/^ScoreKBNK (short int winner, short int king1, shor/
+ScoreKPK	eval.c	/^ScoreKPK (short int side,$/
+ScoreLoneKing	eval.c	/^ScoreLoneKing (short int side)$/
+ScorePosition	eval.c	/^ScorePosition (register short int side)$/
+SearchStartStuff	nondsp.c	/^SearchStartStuff (short int side)$/
+SelectLevel	nondsp.c	/^SelectLevel (char *sx)$/
+SelectMove	search.c	/^SelectMove (short int side, short int iop)$/
+SetContempt	nondsp.c	/^SetContempt (void)$/
+SetMachineTime	dspcom.c	/^SetMachineTime (char *s)$/
+SetOppTime	dspcom.c	/^SetOppTime (char *s)$/
+SetTimeControl	dspcom.c	/^SetTimeControl (void)$/
+SetupBoard	nondsp.c	/^SetupBoard (void)$/
+ShowCurrentMove	nondsp.c	/^ShowCurrentMove (short int pnt, short int f, short/
+ShowDepth	nondsp.c	/^ShowDepth (char ch)$/
+ShowLine	nondsp.c	/^ShowLine (short unsigned int *bstline)$/
+ShowMessage	nondsp.c	/^ShowMessage (char *s)$/
+ShowPostnValue	nondsp.c	/^ShowPostnValue (short int sq)$/
+ShowPostnValues	nondsp.c	/^ShowPostnValues (void)$/
+ShowResults	nondsp.c	/^ShowResults (short int score, short unsigned int */
+ShowSidetoMove	nondsp.c	/^ShowSidetoMove (void)$/
+TerminateChess	main.c	/^TerminateChess (int sig)$/
+TerminateSearch	nondsp.c	/^TerminateSearch (int sig)$/
+TimeCalc	main.c	/^TimeCalc ()$/
+Undo	dspcom.c	/^Undo (void)$/
+UnmakeMove	search.c	/^UnmakeMove (short int side,$/
+UpdateDisplay	nondsp.c	/^UpdateDisplay (short int f, short int t, short int/
+UpdatePieceList	search.c	/^UpdatePieceList (short int side, short int sq, sho/
+UpdateWeights	eval.c	/^UpdateWeights (void)$/
+VerifyMove	dspcom.c	/^VerifyMove (char *s, short int iop, short unsigned/
+Vparse	book.c	/^Vparse (FILE * fd, unsigned short *mv, short int s/
+ZeroRPT	util.c	/^ZeroRPT (void)$/
+ZeroTTable	util.c	/^ZeroTTable (void)$/
+algbr	dspcom.c	/^algbr (short int f, short int t, short int flag)$/
+ataks	ataks.c	/^ataks (short int side, short int *a)$/
+bkalloc	book.c	/^bkalloc (unsigned bksize)$/
+bkdisplay	book.c	/^bkdisplay (s, cnt, moveno)$/
+castle	search.c	/^castle (short int side, short int kf, short int kt/
+dist_	eval.c	/^inline short dist_ (short f1, short r1, short f2, /
+evaluate	eval.c	/^evaluate (register short int side,$/
+gsrand	main.c	/^gsrand (unsigned int seed)$/
+help	nondsp.c	/^help (void)$/
+kpkbv_	eval.c	/^kpkbv_ (short pf, short pr, short wf, short wr, sh/
+kpkwv_	eval.c	/^kpkwv_ (short pf, short pr, short wf, short wr, sh/
+lts	book.c	/^#define lts(x) (((x>>48)&0xfffe)|side)$/
+parse	util.c	/^parse (FILE * fd, short unsigned int *mv, short in/
+parser	dspcom.c	/^parser (char *f, int side)$/
+pick	search.c	/^pick (short int p1, short int p2)$/
+repetition	search.c	/^repetition ()$/
+search	search.c	/^search (short int side,$/
+skip	nondsp.c	/^skip ()$/
+skipb	nondsp.c	/^skipb ()$/
+trapped	eval.c	/^trapped (register short int sq)$/
+urand	main.c	/^urand (void)$/

@@ -1,0 +1,17 @@
+F ARG_BRAC.GZ;1                     	arg_brace.c.gz
+F ARG_DIR_.GZ;1                     	arg_dir.c.gz
+F ARG_GLOB.GZ;1                     	arg_glob.c.gz
+F ARG_H.GZ;1                        	arg.h.gz
+F ARG_LPAR.GZ;1                     	arg_lparse.c.gz
+F ARG_MATC.GZ;1                     	arg_match.c.gz
+F ARG_QUOT.GZ;1                     	arg_quote.c.gz
+F ARG_REDI.GZ;1                     	arg_redir.c.gz
+F ARG_USER.GZ;1                     	arg_user.c.gz
+F ARG_VEC_.GZ;1                     	arg_vec.c.gz
+F ARG_VERS.GZ;1                     	arg_version.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F README.GZ;1                       	README.gz
+F SCCSDAT0.GZ;1                     	sccsdata.c.gz
+F SCCSDAT1.GZ;1                     	sccsdata.h.gz
+F TESTARG_.GZ;1                     	testarg.c.gz

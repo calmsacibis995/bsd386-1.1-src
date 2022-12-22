@@ -1,0 +1,17 @@
+F ATOM_C.GZ;1                       	atom.c.gz
+F CACHE_C.GZ;1                      	cache.c.gz
+F CHARINFO.GZ;1                     	charinfo.c.gz
+F DIFSUTIL.GZ;1                     	difsutils.c.gz
+F DISPATCH.GZ;1                     	dispatch.c.gz
+F EVENTS_C.GZ;1                     	events.c.gz
+F EXTENSIO.GZ;1                     	extensions.c.gz
+F FONTINFO.GZ;1                     	fontinfo.c.gz
+F FONTS_C.GZ;1                      	fonts.c.gz
+F GLOBALS_.GZ;1                     	globals.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F INITFONT.GZ;1                     	initfonts.c.gz
+F MAIN_C.GZ;1                       	main.c.gz
+F RESOURCE.GZ;1                     	resource.c.gz
+F SWAPREP_.GZ;1                     	swaprep.c.gz
+F SWAPREQ_.GZ;1                     	swapreq.c.gz
+F TABLES_C.GZ;1                     	tables.c.gz

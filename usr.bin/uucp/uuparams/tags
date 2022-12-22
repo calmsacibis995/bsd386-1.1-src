@@ -1,0 +1,4 @@
+Muuparams	uuparams.c	/^main(argc, argv)$/
+checknames	uuparams.c	/^checknames(tp, n)$/
+finish	uuparams.c	/^finish(error)$/
+print	uuparams.c	/^print(tp, n)$/

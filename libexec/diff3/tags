@@ -1,0 +1,44 @@
+ALLOCATE	diff3.c	/^#define	ALLOCATE(number, type)	\\$/
+D3_TYPE	diff3.c	/^#define	D3_TYPE(diff)	((diff)->correspond)$/
+D_HIGHLINE	diff3.c	/^#define	D_HIGHLINE(diff, filenum)	\\$/
+D_HIGH_MAPLINE	diff3.c	/^#define	D_HIGH_MAPLINE(diff, fromfile, tofile, lin/
+D_LENARRAY	diff3.c	/^#define	D_LENARRAY(diff, filenum)	\\$/
+D_LINEARRAY	diff3.c	/^#define	D_LINEARRAY(diff, filenum)	\\$/
+D_LOWLINE	diff3.c	/^#define	D_LOWLINE(diff, filenum)	\\$/
+D_LOW_MAPLINE	diff3.c	/^#define	D_LOW_MAPLINE(diff, fromfile, tofile, line/
+D_NEXT	diff3.c	/^#define	D_NEXT(diff)	((diff)->next)$/
+D_NUMLINES	diff3.c	/^#define	D_NUMLINES(diff, filenum)	\\$/
+D_RELLEN	diff3.c	/^#define	D_RELLEN(diff, filenum, linenum)	\\$/
+D_RELNUM	diff3.c	/^#define	D_RELNUM(diff, filenum, linenum)	\\$/
+Mdiff3	diff3.c	/^main (argc, argv)$/
+Mgetopt	../../usr.bin/diff/diff/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../../usr.bin/diff/diff/getopt1.c	/^main (argc, argv)$/
+READNUM	diff3.c	/^#define	READNUM(s, num)	\\$/
+SKIPWHITE	diff3.c	/^#define	SKIPWHITE(s)	{ while (*s == ' ' || *s == '/
+_getopt_internal	../../usr.bin/diff/diff/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+compare_line_list	diff3.c	/^compare_line_list (list1, lengths1, list2, lengths/
+copy_stringlist	diff3.c	/^copy_stringlist (fromptrs, fromlengths, toptrs, to/
+create_diff3_block	diff3.c	/^create_diff3_block (low0, high0, low1, high1, low2/
+dotlines	diff3.c	/^dotlines (outputfile, b, filenum)$/
+exchange	../../usr.bin/diff/diff/getopt.c	/^exchange (argv)$/
+fatal	diff3.c	/^fatal (string)$/
+getopt	../../usr.bin/diff/diff/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../../usr.bin/diff/diff/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../../usr.bin/diff/diff/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+make_3way_diff	diff3.c	/^make_3way_diff (thread0, thread1)$/
+my_index	../../usr.bin/diff/diff/getopt.c	/^my_index (str, chr)$/
+myread	diff3.c	/^myread (fd, ptr, size)$/
+output_diff3	diff3.c	/^output_diff3 (outputfile, diff, mapping, rev_mappi/
+output_diff3_edscript	diff3.c	/^output_diff3_edscript (outputfile, diff, mapping, /
+output_diff3_merge	diff3.c	/^output_diff3_merge (infile, outputfile, diff, mapp/
+perror_with_exit	diff3.c	/^perror_with_exit (string)$/
+process_diff	diff3.c	/^process_diff (filea, fileb, last_block)$/
+process_diff_control	diff3.c	/^process_diff_control (string, db)$/
+read_diff	diff3.c	/^read_diff (filea, fileb, output_placement)$/
+reverse_diff3_blocklist	diff3.c	/^reverse_diff3_blocklist (diff)$/
+scan_diff_line	diff3.c	/^scan_diff_line (scan_ptr, set_start, set_length, l/
+undotlines	diff3.c	/^undotlines (outputfile, leading_dot, start, num)$/
+usage	diff3.c	/^usage (status)$/
+using_to_diff3_block	diff3.c	/^using_to_diff3_block (using, last_using, low_threa/
+xmalloc	diff3.c	/^xmalloc (size)$/
+xrealloc	diff3.c	/^xrealloc (ptr, size)$/

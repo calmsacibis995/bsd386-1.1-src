@@ -1,0 +1,2 @@
+Melvprsv	elvprsv.c	/^void main(argc, argv)$/
+preserve	elvprsv.c	/^void preserve(tname, when)$/

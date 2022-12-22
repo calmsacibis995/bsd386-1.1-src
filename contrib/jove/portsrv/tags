@@ -1,0 +1,4 @@
+Mportsrv	portsrv.c	/^main(argc, argv)$/
+proc_error	portsrv.c	/^proc_error(str)$/
+proc_write	portsrv.c	/^proc_write(ptr, n)$/
+read_pipe	portsrv.c	/^read_pipe(fd)$/

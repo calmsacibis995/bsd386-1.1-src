@@ -1,0 +1,33 @@
+CHECKNUM	disklabel.c	/^#define CHECKNUM(n, str, a) { \\$/
+F	setterm.c	/^#define	F(s)	s, (sizeof s - 1)$/
+NXTNUM	disklabel.c	/^#define NXTNUM(n) { \\$/
+cchar	setterm.c	/^cchar(fp, t, flags, minus, number)$/
+cflags	setterm.c	/^cflags(fp, t, flags, minus, number)$/
+cfsetterm	setterm.c	/^cfsetterm(t, flags, failp)$/
+csize	setterm.c	/^csize(fp, t, flags, minus, number)$/
+daemon	daemon.c	/^daemon(nochdir, noclose)$/
+dbopen	devname.c	/^#define dbopen(a,b,c,d,e) hash_open(a,b,c,e)$/
+devname	devname.c	/^devname(dev, type)$/
+disklabel_Warning	disklabel.c	/^disklabel_Warning(fmt, a1, a2, a3, a4, a5)$/
+disklabel_checklabel	disklabel.c	/^disklabel_checklabel(lp)$/
+disklabel_skip	disklabel.c	/^disklabel_skip(cp)$/
+disklabel_word	disklabel.c	/^disklabel_word(cp)$/
+forkpty	pty.c	/^forkpty(amaster, name, termp, winp)$/
+get_flag	setterm.c	/^get_flag(flags)$/
+getloadavg	getloadavg.c	/^getloadavg(loadavg, nelem)$/
+group_from_gid	pwcache.c	/^group_from_gid(gid, nogroup)$/
+iflags	setterm.c	/^iflags(fp, t, flags, minus, number)$/
+ignore	setterm.c	/^ignore(fp, t, flags, minus, number)$/
+lflags	setterm.c	/^lflags(fp, t, flags, minus, number)$/
+login	login.c	/^login(ut)$/
+login_tty	login_tty.c	/^login_tty(fd)$/
+logout	logout.c	/^logout(line)$/
+logwtmp	logwtmp.c	/^logwtmp(line, name, host)$/
+oflags	setterm.c	/^oflags(fp, t, flags, minus, number)$/
+openpty	pty.c	/^openpty(amaster, aslave, name, termp, winp)$/
+raw	setterm.c	/^raw(fp, t, flags, minus, number)$/
+setproctitle	setproctitle.c	/^setproctitle(va_alist)$/
+setterm	setterm.c	/^setterm(f, action, flags, failp)$/
+speed	setterm.c	/^speed(fp, t, flags, minus, number)$/
+streq	disklabel.c	/^#define streq(a,b)      (strcmp(a,b) == 0)$/
+user_from_uid	pwcache.c	/^user_from_uid(uid, nouser)$/

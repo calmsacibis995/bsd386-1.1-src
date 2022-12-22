@@ -1,0 +1,4 @@
+     jobs [ -lp ] [ job ... ]
+          Lists information about each given job, or all jobs  if
+          job is omitted.  The -l flag lists process ids, and the
+          -p flag lists process groups.

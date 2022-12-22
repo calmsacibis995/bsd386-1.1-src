@@ -1,0 +1,10 @@
+F COPYING.GZ;1                      	COPYING.gz
+F DIR.GZ;1                          	dir.gz
+F EPOCH.GZ;1                        	epoch.gz
+F EPOCH_1.GZ;1                      	epoch-1.gz
+F EPOCH_2.GZ;1                      	epoch-2.gz
+F EPOCH_3.GZ;1                      	epoch-3.gz
+F EPOCH_4.GZ;1                      	epoch-4.gz
+F INFO.GZ;1                         	info.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/emacs/epoch-info

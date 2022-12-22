@@ -1,0 +1,88 @@
+# RE_SID: @(%)/tmp_mnt/vol/dosnfs/shades_SCCS/unix/pcnfsd/v2/src/SCCS/s.Makefile.sunos 1.1 93/02/04 19:27:50 SMI
+#
+#       @(#)Makefile.sunos	1.1     2/4/93
+#
+# Makefile for rpc.pcnfsd for SunOS 4.1 or similar
+#
+
+
+all: sunos/rpc.pcnfsd sunos/clnt.pcnfsd
+
+SVR_OBJS=  \
+	sunos/pcnfsd_svc.o \
+	sunos/pcnfsd_xdr.o \
+	sunos/pcnfsd_v1.o \
+	sunos/pcnfsd_v2.o \
+	sunos/pcnfsd_misc.o \
+	sunos/pcnfsd_cache.o \
+	sunos/pcnfsd_print.o
+
+SVR_SRCS=  \
+	pcnfsd_svc.c \
+	pcnfsd_xdr.c \
+	pcnfsd_v1.c \
+	pcnfsd_v2.c \
+	pcnfsd_misc.c \
+	pcnfsd_cache.c \
+	pcnfsd_print.c
+
+TST_OBJS= \
+	sunos/pcnfsd_clnt.o \
+	sunos/pcnfsd_test.o \
+	sunos/pcnfsd_xdr.o
+
+TST_SRCS= \
+	pcnfsd_clnt.c \
+	pcnfsd_test.c \
+	pcnfsd_xdr.c
+
+HDRS= pcnfsd.h common.h
+
+LINTFLAGS= -hbax
+# uncomment as appropriate for debugging
+CFLAGS = -DOSVER_SUNOS41
+#CFLAGS = -g -DDEBUG -DOSVER_SUNOS41
+LIBS= -lrpcsvc
+LFLAGS = 
+
+sunos/rpc.pcnfsd: $(SVR_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(SVR_OBJS) $(LIBS)
+
+sunos/pcnfsd_svc.o: $(HDRS) pcnfsd_svc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_svc.c
+
+sunos/pcnfsd_xdr.o: $(HDRS) pcnfsd_xdr.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_xdr.c
+
+sunos/pcnfsd_v1.o: $(HDRS) pcnfsd_v1.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v1.c
+
+sunos/pcnfsd_v2.o: $(HDRS) pcnfsd_v2.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v2.c
+
+sunos/pcnfsd_misc.o: $(HDRS) pcnfsd_misc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_misc.c
+
+sunos/pcnfsd_cache.o: $(HDRS) pcnfsd_cache.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_cache.c
+
+sunos/pcnfsd_print.o: $(HDRS) pcnfsd_print.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_print.c
+
+
+sunos/clnt.pcnfsd: $(TST_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(TST_OBJS) $(LIBS)
+
+sunos/pcnfsd_clnt.o: $(HDRS) pcnfsd_clnt.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_clnt.c
+
+sunos/pcnfsd_test.o: $(HDRS) pcnfsd_test.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_test.c
+
+
+lint: $(SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(SVR_SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(TST_SRCS)
+
+clean:
+	rm -rf sunos

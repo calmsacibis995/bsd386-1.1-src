@@ -1,0 +1,33 @@
+Mnamed-xfer	named-xfer.c	/^main(argc, argv)$/
+addinv	../db_glue.c	/^addinv(np, dp)$/
+buildprotolist	../db_glue.c	/^buildprotolist()$/
+buildservicelist	../db_glue.c	/^buildservicelist()$/
+cgetprotobynumber	../db_glue.c	/^cgetprotobynumber(proto)$/
+cgetservbyport	../db_glue.c	/^cgetservbyport(port, proto)$/
+db_getclev	../db_glue.c	/^db_getclev(origin)$/
+dhash	../db_glue.c	/^dhash(dp, dlen)$/
+filenamecpy	named-xfer.c	/^filenamecpy(ddtfile, optarg)$/
+findservice	../db_glue.c	/^findservice(s, list)$/
+get_class	../db_glue.c	/^get_class(class)$/
+getdtablesize	../db_glue.c	/^getdtablesize()$/
+getname	../db_glue.c	/^getname(np, buf, buflen)$/
+gettime	../db_glue.c	/^gettime(ttp)$/
+getzone	named-xfer.c	/^getzone(zp, serial_no, port)$/
+my_close	../db_glue.c	/^my_close(fd)$/
+my_fclose	../db_glue.c	/^my_fclose(fp)$/
+print_output	named-xfer.c	/^print_output(msg, msglen, rrp)$/
+protocolname	../db_glue.c	/^protocolname(num)$/
+protocolnumber	../db_glue.c	/^protocolnumber(p)$/
+read_alarm	named-xfer.c	/^read_alarm()$/
+rm_datum	../db_glue.c	/^rm_datum(dp, np, pdp)$/
+rm_name	../db_glue.c	/^rm_name(np, pp, pnp)$/
+rminv	../db_glue.c	/^rminv(odp)$/
+samedomain	named-xfer.c	/^samedomain(name, domain)$/
+sameword	named-xfer.c	/^#define sameword(a,b) (strcasecmp(a,b) == 0)$/
+saveinv	../db_glue.c	/^saveinv()$/
+savestr	../db_glue.c	/^savestr(str)$/
+servicename	../db_glue.c	/^servicename(port, proto)$/
+servicenumber	../db_glue.c	/^servicenumber(p)$/
+soa_zinfo	named-xfer.c	/^soa_zinfo(zp, cp, eom)$/
+usage	named-xfer.c	/^usage(msg)$/
+writemsg	../db_glue.c	/^writemsg(rfd, msg, msglen)$/

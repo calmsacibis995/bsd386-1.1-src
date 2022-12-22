@@ -1,0 +1,7 @@
+F GETBSIZE.C;1                      	getbsize.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/pstat
+F PATHNAME.H;1                      	pathnames.h
+F PSTAT.8;1                         	pstat.8
+F PSTAT.C;1                         	pstat.c
+F TAGS.;1                           	tags

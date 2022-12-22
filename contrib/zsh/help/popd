@@ -1,0 +1,10 @@
+     popd [ +-n ]
+          Removes entries from  the  directory  stack.   With  no
+          arguments,  removes  the  top directory from the stack,
+          and performs a cd to the new top  directory.   With  an
+          argument  of the form +n, remove the nth entry counting
+          from the left of the list shown by  the  dirs  command,
+          starting with zero, and change to that directory.  With
+          an argument of the form -n, remove the nth entry count-
+          ing  from the right.  If the PUSHD_MINUS option is set,
+          the meanings of + and - in this context are swapped.

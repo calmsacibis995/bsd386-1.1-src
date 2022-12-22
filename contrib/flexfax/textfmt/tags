@@ -1,0 +1,29 @@
+CVTI	textfmt.c++	/^#define	CVTI(x)	(float(x)\/LUNIT)	\/\/ convert coo/
+Copy_Block	textfmt.c++	/^Copy_Block(long b1,long b2)		\/* copy bytes b1..b2/
+ICVT	textfmt.c++	/^#define	ICVT(x) ((Coord)((x)*LUNIT))	\/\/ scale in/
+OpenAFMFile	textfmt.c++	/^OpenAFMFile(char* font_path)$/
+beginCol	textfmt.c++	/^beginCol()$/
+beginLine	textfmt.c++	/^beginLine()$/
+beginText	textfmt.c++	/^beginText()$/
+closeStrings	textfmt.c++	/^closeStrings(const char* cmd)$/
+doFile	textfmt.c++	/^doFile(FILE* fp)$/
+emitPrologue	textfmt.c++	/^emitPrologue(FILE* fd, int argc, char* argv[])$/
+emitTrailer	textfmt.c++	/^emitTrailer(FILE* fd)$/
+endCol	textfmt.c++	/^endCol()$/
+endLine	textfmt.c++	/^endLine()$/
+endTextCol	textfmt.c++	/^endTextCol()$/
+endTextLine	textfmt.c++	/^endTextLine()$/
+fatal	textfmt.c++	/^fatal(const char* fmt ...)$/
+findFont	textfmt.c++	/^findFont(const char* name)$/
+fxmax	textfmt.c++	/^inline Coord fxmax(Coord a, Coord b)	{ return (a >/
+fxmin	textfmt.c++	/^inline Coord fxmin(Coord a, Coord b)	{ return (a </
+getAFMLine	textfmt.c++	/^getAFMLine(FILE* fp, char* buf, int bsize)$/
+height	textfmt.c++	/^float	physPageHeight;		\/\/ physical page height (/
+inch	textfmt.c++	/^inch(const char* s)$/
+newCol	textfmt.c++	/^newCol()$/
+newPage	textfmt.c++	/^newPage()$/
+readMetrics	textfmt.c++	/^readMetrics()$/
+setDefaultFont	textfmt.c++	/^setDefaultFont()$/
+setupMargins	textfmt.c++	/^setupMargins(const char* s)$/
+setupPageSize	textfmt.c++	/^setupPageSize(const char* name)$/
+usage	textfmt.c++	/^usage()$/

@@ -1,0 +1,12 @@
+F BI_PARSE.C;1                      	bi-parser.c
+F BI_PARSE.H;1                      	bi-parser.h
+F CEXP.C;1                          	cexp.c
+F CP_PARSE.C;1                      	cp-parse.c
+F CP_PARSE.H;1                      	cp-parse.h
+F C_PARSE.C;1                       	c-parse.c
+F C_PARSE.H;1                       	c-parse.h
+F C_PARSE.IN;1                      	c-parse.in
+F GCC_2_50.DIF;1                    	gcc-2.5.5-2.5.6.diff
+F GCC_2_51.DIF;1                    	gcc-2.5.6-2.5.7.diff
+F GCC_2_52.DIF;1                    	gcc-2.5.7-2.5.8.diff
+F OBJC_PAR.C;1                      	objc-parse.c

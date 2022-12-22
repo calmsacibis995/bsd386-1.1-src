@@ -1,0 +1,5 @@
+     return [ n ]
+          Causes a shell function or . script to  return  to  the
+          invoking  script with the return status specified by n.
+          If n is omitted then the return status is that  of  the
+          last command executed.

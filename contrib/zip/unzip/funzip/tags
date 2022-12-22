@@ -1,0 +1,19 @@
+DUMPBITS	../unzip/inflate.c	/^#define DUMPBITS(n) {b>>=(n);k-=(n);}$/
+FlushOutput	funzip.c	/^int FlushOutput()$/
+LG	funzip.c	/^#define LG(p) ((ULONG)(SH(p)) | ((ULONG)(SH((p)+2)/
+Mfunzip	funzip.c	/^void main(argc, argv)$/
+NEEDBITS	../unzip/inflate.c	/^#define NEEDBITS(n) {while(k<(n)){b|=((ULONG)NEXTB/
+ReadByte	funzip.c	/^int ReadByte(b)$/
+SH	funzip.c	/^#define SH(p) ((UWORD)(byte)((p)[0]) | ((UWORD)(by/
+err	funzip.c	/^void err(n, m)$/
+flush	../unzip/inflate.c	/^void flush(w)$/
+huft_build	../unzip/inflate.c	/^int huft_build(b, n, s, d, e, t, m)$/
+huft_free	../unzip/inflate.c	/^int huft_free(t)$/
+inflate	../unzip/inflate.c	/^void inflate()$/
+inflate_block	../unzip/inflate.c	/^int inflate_block(e)$/
+inflate_codes	../unzip/inflate.c	/^int inflate_codes(tl, td, bl, bd)$/
+inflate_dynamic	../unzip/inflate.c	/^int inflate_dynamic()$/
+inflate_entry	../unzip/inflate.c	/^int inflate_entry()$/
+inflate_fixed	../unzip/inflate.c	/^int inflate_fixed()$/
+inflate_stored	../unzip/inflate.c	/^int inflate_stored()$/
+updcrc	funzip.c	/^ULONG updcrc(s, n)$/

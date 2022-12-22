@@ -1,0 +1,1043 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: driver.n,v 1.1 1993/12/17 03:43:48 sanders Exp $
+.de c
+.nr _F \\n(.f
+.ul 0
+.ft CR
+.if \\n(.$ \&\\$1\f\\n(_F\\$2\\$3\\$4
+.rr _F
+..
+.de B3
+.sm BSD /386\\$1\\$2\\$3\\$4
+..
+.de Xr
+\&\f(CR\\$1\fP\^(\\$2)\\$3
+..
+.\" code start
+.de CS
+.lp
+.c
+.nf
+.in 3n
+.ta \w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u +\w'01234567'u
+..
+.\" code end
+.de CE
+.in
+.fi
+.lp
+..
+.na
+.ll 6.5i
+.he 'Device Drivers in BSD/386''%'
+.hx
+.(b C
+.sv 0.5i
+.sz 14
+.b "Device Drivers and Autoconfiguration in BSD/386"
+.sz 12
+.sp 0.5i
+Michael J. Karels
+Berkeley Software Design, Inc.
+\*(td
+.sp 0.5i
+.)b
+.sh 1 Introduction
+.pp
+This document provides background information for authors
+of device drivers for
+.B3 .
+It is not a tutorial on writing device drivers,
+but assumes general knowledge of drivers and the kernel environment.
+It also assumes that the reader is familiar with the information
+in the document,
+.i "Building Kernels on BSD/386" .
+This document concentrates on the areas in which
+.B3
+is different from
+other systems, especially those in which it differs from earlier BSD systems.
+.pp
+The major difference in the current
+.B3
+driver environment
+(version 1.0)
+is in the area of autoconfiguration.
+The system uses a new, portable autoconfiguration scheme developed
+by Chris Torek at Lawrence Berkeley Laboratory.
+.B3
+autoconfiguration is based on a pre-release
+of the code which was done for 4.4BSD.
+This scheme uses a portable framework, data structures and support
+functions in conjunction with bus- and device-specific functions
+to configure and support hardware on various possible I/O busses.
+The
+.B3
+system currently supports devices on the ISA and EISA
+busses.
+.pp
+The remainder of this document summarizes the new autoconfiguration
+scheme, its data structures, and the entry points supported
+by a typical driver.
+It uses a skeletal character device driver for a fictitious
+device as an example.
+The sources for real device drivers in the system serve as additional
+examples, and this guide provides assistance in understanding those drivers.
+.pp
+Note that this information is subject to change in later releases,
+as additional changes have been made in the autoconfiguration implementation
+in preparation for the 4.4BSD release.
+In particular, the new version of the program
+.Xr config 8
+was not incorporated into the 1.0 release,
+and will be included in a later release.
+This will change some of the details described here.
+.sh 1 "Autoconfiguration Overview"
+.pp
+The new autoconfiguration system uses new data structures
+which are partly generic and partly hardware-dependent.
+The data structures utilize the object-oriented concept of derived
+classes, including multiple inheritance, although all code is written in C.
+.pp
+The general scheme of autoconfiguration is that the topology
+of a system's devices forms a directed graph with a single root.
+The root might be an imaginary location relative to the CPU
+or an internal bus, or it might be a genuine I/O bus.
+In
+.B3 ,
+the main bus is called an ISA bus, even though
+the bus might in fact be an EISA bus, and though some devices
+are actually directly attached to the CPU.
+The devices are either controllers or terminal devices on the graph;
+a controller is any device to which other devices may attach.
+Examples of controllers include busses, SCSI host adapters,
+and traditional disk controllers.
+Other devices include disks, terminal multiplexors, etc.
+.pp
+The system is configured with a number of possible devices
+and associated addresses.
+The system locates the root device to initiate autoconfiguration.
+Then, starting with the root device, the autoconfiguration code
+iterates through the graph looking for the presence of the devices
+that have been configured at various locations.
+When a controller is configured, it is responsible for initiating
+configuration of any attached devices.
+Depending on the nature of the controller and the attached devices,
+the controller code may either examine the hardware, calling the generic
+code with a description of each device found, or it may call a generic
+function that checks all configured devices that might attach to this
+parent device.
+Thus, autoconfiguration performs a depth-first traversal of the device
+attachments.
+.sh 1 "Generic Driver and Autoconfiguration Data Structures"
+.pp
+Several new machine-independent data structures
+were added as a part of the new autoconfiguration scheme.
+These data structures describe a device driver (the
+.c cfdriver
+structure),
+a possible device that has been configured at a particular location (a
+.c cfdata
+structure, and a device that has actually been located (a
+.c device
+structure).
+All three structures are defined in
+.c /sys/sys/device.h .
+It is important to understand the general functions of these data
+structures, although not all of the specifics are necessary
+to understand the development of a device driver.
+.pp
+The
+.c cfdriver
+structure describes a generic device driver, including its autoconfiguration
+entry points.
+It is also used as the base for finding all of the devices
+after autoconfiguration.
+One of these structures is statically allocated in each device driver
+using a conventional name that is assumed by the
+.c config
+program,
+which is the name of the device followed by
+.c cd
+(for the 
+.c xx
+device, the name is
+.c xxcd ) .
+Note that some device driver source files support multiple types
+of device, for example a given type of disk controller and the disks
+that would be attached to such a controller;
+those drivers contain a
+.c cfdriver
+structure for each device type.
+.pp
+The current
+.c cfdriver
+structure is as follows:
+.CS
+typedef int (*cfmatch_t) __P((struct device *, struct cfdata *, void *));
+
+struct cfdriver {
+	void	**cd_devs;		/* devices found */
+	char	*cd_name;		/* device name */
+	cfmatch_t cd_match;		/* returns a match level */
+	void	(*cd_attach) __P((struct device *, struct device *, void *));
+	size_t	cd_devsize;		/* size of dev data (for malloc) */
+	void	*cd_aux;		/* additional driver, if any */
+	int	cd_ndevs;		/* size of cd_devs array */
+};
+.CE
+.lp
+(Note that the function prototypes and surrounding parentheses
+are passed as a parameter to the macro
+.c __P ,
+which allows them to be hidden in a non-ANSI\-C environment.)
+.pp
+The two driver functions located via this structure are the
+.c cd_match
+function, which is analogous to the older device
+.c probe
+function,
+and the
+.c cd_attach
+function.
+During autoconfiguration, the
+.c cd_match
+function of a driver is called each time a possible device is to be probed.
+If the probe is successful in finding a device, a
+.c device
+structure is allocated (see below), and the
+.c cd_attach
+function is called to allow the device driver to complete initialization.
+Further details are given in the section on driver autoconfiguration functions.
+.pp
+The 
+.c cfdata
+structure is the next data structure of interest.
+One of these structures is created by the
+.c config
+program for each controller or device specification in a kernel
+configuration file.
+These structures are placed in an initialized array in
+.c ioconf.c
+in the compilation directory.
+They describe the device (type and unit number), the parent device,
+and the location of the device in machine- and parent-specific units.
+The current
+.c cfdata
+structure is as follows:
+.CS
+struct cfdata {
+	struct	cfdriver *cf_driver;	/* config driver */
+	short	cf_unit;		/* unit number */
+	short	cf_fstate;		/* finding state (below) */
+	int	*cf_loc;		/* locators (machine dependent) */
+	int	cf_flags;		/* flags from config */
+	short	*cf_parents;		/* potential parents */
+	void	(**cf_ivstubs)();	/* config-generated vectors, if any */
+};
+#define FSTATE_NOTFOUND	0	/* has not been found */
+#define	FSTATE_FOUND	1	/* has been found */
+#define	FSTATE_STAR	2	/* duplicable leaf (unimplemented) */
+.CE
+.lp
+The
+.c cf_loc
+field points at an array of integers containing the addressing
+information for the device, the nature of which is specific
+to the machine and bus or controller type.
+Note that the same device (driver and unit) may be configured multiple
+times to specify alternate locations for the device.
+The
+.c cf_parents
+value points to an array of indices into the
+.c cfdata
+array, which is the list of possible parent devices to which this device might
+attach.
+.pp
+The
+.c device
+structure is the minimal data structure to describe a device that has
+been found during autoconfiguration.
+It is dynamically allocated when the device is found and before
+it is attached.
+Most drivers require additional per-device information, and it is desirable
+that all of this storage be allocated dynamically.
+Thus, the
+.c cfdriver
+structure contains a field to indicate the amount of storage needed
+for each device, and the autoconfiguration attach function allocates
+space for the device structure and additional driver data.
+By convention, the driver's data structure is known as a
+.c softc
+structure
+(e.g.
+.c xx_softc
+for the
+.c xx
+driver);
+this structure must begin with a
+.c device
+structure.
+.pp
+The autoconfiguration code allocates an array of pointers to the device
+structures for each driver;
+this array is found via the
+.c cd_devs
+pointer in the
+.c cfdriver
+structure, and the number of elements in the array is given by
+.c cd_ndevs .
+In this manner, most of the data structures that depend on the number
+of devices located are allocated dynamically by the generic autoconfiguration
+code.
+.pp
+The current
+.c device
+structure is as follows:
+.CS
+enum devclass { DV_DULL, DV_DISK, DV_TAPE, DV_TTY, DV_NET, DV_CLK, DV_COPROC };
+
+struct device {
+/*	enum	devclass dv_class;	/* class */
+	char	*dv_name;		/* device name */
+	int	dv_unit;		/* device unit number */
+	int	dv_flags;		/* flags (copied from config) */
+	char	*dv_xname;		/* expanded name (name + unit) */
+	struct	device *dv_parent;	/* pointer to parent device */
+};
+.CE
+In addition, some generic device classes provide a class-specific data structure
+derived from the
+.c device
+structure;
+for example, a disk device is described by the 
+.c dkdevice
+structure, which includes an initial
+.c device
+structure.
+This is one example of inheritance in the new device scheme,
+demonstrating the \*(lqobject-oriented\*(rq data structures;
+the disk class inherits from the device base class.
+Examples of multiple inheritance will be shown below.
+.sh 1 "ISA Data Structures"
+.pp
+In addition to the machine-independent data structures,
+there are several ISA-specific data structures.
+These are defined in
+.c /sys/i386/isa/isavar.h .
+.pp
+The first ISA-specific information is the content and interpretation
+of the locators built by
+.c config
+and referenced via the
+.c cfdata
+structure.
+For ISA devices, the locators contain
+the port base, the number of ports (initially zero), the I/O memory base
+and size, the IRQ value (usually unspecified, IRQUNK), and the DMA channel
+(DRQ).
+Any or all of these values may be unspecified if they are unused
+or if they are determined dynamically.
+Most drivers see this information in a different form, the
+.c isa_attach_args
+structure, which is passed as a parameter to ISA device probe and attach
+functions:
+.CS
+struct isa_attach_args {
+	u_short	ia_iobase;		/* base i/o address */
+	u_short	ia_iosize;		/* span of ports used */
+	u_short	ia_irq;			/* interrupt request */
+	u_short	ia_drq;			/* DMA request */
+	caddr_t ia_maddr;		/* physical i/o mem addr */
+	u_int	ia_msize;		/* size of i/o memory */
+	void	*ia_aux;		/* driver specific */
+};
+.CE
+.pp
+Another ISA-specific data structure is used for each ISA device.
+This structure could also have been derived from the generic
+.c device
+structure/class, but that would have made things difficult
+for ISA devices that were also members of a functional device class
+such as disk devices or tty devices.
+This is an example of multiple inheritance (multiple inheritance
+with virtual base classes).
+Here, a device class that inherits from both a functional class
+and the ISA device class would use a functional class containing a
+.c device
+structure; thus, the ISA device class contains a pointer to the
+.c device
+structure which is external to it, possibly in the data structure
+for another base class.
+The
+.c isadev
+structure is thus:
+.CS
+struct isadev {
+	struct  device *id_dev;		/* back pointer to generic */
+	struct	isadev *id_bchain;	/* forward link in bus chain */	
+};
+.CE
+.pp
+Finally, the ISA device layer must handle interrupts for some devices,
+although not all devices use interrupts.
+The data structure used by an ISA device that uses interrupts
+is the
+.c intrhand
+structure:
+.CS
+struct intrhand {
+	int	(*ih_fun)();
+	void	*ih_arg;
+	u_long	ih_count;
+	struct	intrhand *ih_next;
+};
+.CE
+.sh 1 "Sample Driver: Data Structures"
+.pp
+The preceding discussions of autoconfiguration and data structures
+are now sufficient to examine a sample device driver for an
+.c xx
+device on the ISA bus.
+This imaginary device and its driver illustrate the data structures
+for the driver, the autoconfiguration routines, and other driver entry points.
+The examples omit any code to make any device do anything;
+where such code would normally be present, the example includes
+calls to functions whose names are intended to describe the operations.
+This should not be construed as a recommendation that all such code
+should be placed in individual functions; normally, it would be present
+in the locations shown here rather than in subroutines.
+.pp
+The imaginary device uses a range of I/O ports, an interrupt,
+and device memory in the 640 KB to 1 MB (0xA0000 to 0x100000) I/O space.
+It also uses a DMA channel.
+It uses many of the ISA support functions, although a real driver
+might not need all of them.
+.pp
+Throughout the example,
+names beginning with
+.c XX
+can be assumed to be driver-specific definitions,
+and functions beginning with
+.c xx
+are driver-specific functions even if not shown.
+.pp
+The driver begins as always with the inclusion of header files
+defining the data structures and other useful items:
+.CS
+#include "param.h"			/* ALWAYS included */
+#include "systm.h"			/* general kernel functions */
+#include "device.h"			/* generic device definitions */
+#include "isa.h"			/* ISA bus parameters */
+#include "isavar.h"			/* ISA-specific data structures */
+#include "icu.h"			/* interrupt definitions */
+#include "dma.h"			/* DMA definitions */
+#include "xxreg.h"			/* xx register definitions */
+#include "xxvar.h"			/* xx data structure definitions */
+#include "xxioctl.h"			/* xx-specific ioctl definitions */
+.CE
+.lp
+Note that the
+.c xxreg.h
+file should define only register names and contents
+and other values defined by the hardware.
+Any externally-visible data structures or ioctl commands
+should be defined in other header files as in the last two files included.
+Most drivers use neither of these examples.
+.pp
+Next, the data structures
+used in the driver.
+The first structure describes each type/model of device supported
+by the driver, for use later in the example:
+.CS
+struct xx_type {
+	char	*xx_name;
+	/* parameters describing each type of device supported */
+} [XX_NTYPES] = {
+	/* definitions for each type of device supported */
+	{ "model X" },
+	{ "model Y" },
+};
+.CE
+.pp
+The next data structure is the per-device data structure for a
+.c xx
+device, to be allocated as each device is located;
+by convention, this is called
+.c xx_softc .
+As always, it begins with a
+.c "struct device" .
+It also includes the data structures needed for every ISA device
+and for an ISA device that uses an interrupt.
+Finally, it includes fields to store the addressing parameters
+needed for the device in operation, and other fields useful
+in example functions.
+.CS
+struct xx_softc {
+	struct  device sc_dev;		/* base device, must be first */
+	struct  isadev sc_id;		/* ISA device */
+	struct  intrhand sc_ih;		/* interrupt vectoring */
+
+	int	sc_base;		/* I/O port base */
+	int	sc_membase;		/* kernel address of device memory */
+	int	sc_memsize;		/* size of device memory */
+	int	sc_dmachan;		/* DMA channel */
+	struct	xx_type *sc_type;	/* type-specific device parameters */
+
+	int	sc_open;		/* device is open */
+	/* additional private storage per device located */
+};
+.CE
+.lp
+Finally, function declarations (with prototypes) and the
+.c cfdriver
+structure are illustrated:
+.CS
+int	xxprobe __P((struct device *, struct cfdata *, void *));
+void	xxforceintr __P((void *));
+void	xxattach __P((struct device *, struct device *, void *));
+struct	xx_type *xxtype __P((struct isa_attach_args *));
+int	xxintr __P((void *));
+
+struct cfdriver xxcd =
+	{ NULL, "xx", xxprobe, xxattach, sizeof(struct xx_softc) };
+.CE
+.lp
+Again, the name
+.c xxcd
+is assumed by the
+.c config
+program, and is referenced by each
+.c cfdata
+entry for a possible
+.c xx
+device.
+.sh 1 "Sample Driver: Autoconfiguration"
+.pp
+Next, the \*(lqboilerplate\*(rq code for the autoconfiguration entry points:
+.CS
+/*
+ * Probe the hardware to see if it is present
+ */
+xxprobe(parent, cf, aux)
+	struct device *parent;
+	struct cfdata *cf;
+	void *aux;
+{
+	register struct isa_attach_args *ia = (struct isa_attach_args *) aux;
+
+	/*
+	 * Check whether device registers appear
+	 * to be present at this address.
+	 */
+	if (!xx_test_registers(ia->ia_iobase))
+		return (0); 		/* device not present here */
+
+	/*
+	 * Check/test shared memory in 640K to 1MB "hole".  ia_maddr is
+	 * a physical address, ISA_HOLE_VADDR converts to kernel virtual.
+	 */
+	if (!xx_memory_ok(ISA_HOLE_VADDR(ia->ia_maddr)))
+		return (0); 		/* memory not present here */
+
+	/*
+	 * If we support multiple device subtypes, etc., we can pass
+	 * this information to xxforceintr and/or xxattach using ia->ia_aux.
+	 * Here we pass a pointer to the structure describing the subtype.
+	 */
+	ia->ia_aux = xx_check_type(ia);
+
+	if (ia->ia_irq == IRQUNK) {
+		ia->ia_irq = isa_discoverintr(xxforceintr, aux);
+		/* disable device interrupts here */
+		if (ffs(ia->ia_irq) - 1 == 0)
+			return (0);	/* no interrupt */
+	}
+
+	ia->ia_iosize = XX_NPORT;	/* reserve this many ports */
+	return (1);			/* device appears to be present here */
+}
+.CE
+.sp
+.CS
+/*
+ * force device to interrupt for autoconfiguration
+ */ 
+void
+xxforceintr(aux)
+	void *aux;
+{
+	struct isa_attach_args *ia = (struct isa_attach_args *) aux;
+
+	xx_intr_enable(ia->ia_iobase, (struct xx_type *) ia->ia_aux);
+	/*
+	 * The device should now interrupt.  If it does not,
+	 * initiate some activity to force an interrupt.
+	 */
+	if (!isa_got_intr())
+		xx_poke_harder();
+}
+.CE
+.lp
+The purpose of the
+.c xxprobe
+function is to determine whether a
+.c xx
+device exists at the specified I/O base port and memory address.
+Obviously, if the device does not exist, but some other device uses
+some of these ports or addresses, it is desirable to minimize
+the problems that may result.
+Accordingly, read-only checks are preferred to those that modify registers.
+.pp
+This example illustrates configuration of a device that is set to use
+a specific interrupt (IRQ) and memory base by a permanent setup
+such as jumpers or a configuration utility.
+The memory is tested at the specified location,
+and the identity of the interrupt is discovered by making the device
+interrupt;
+.c isa_discoverintr
+notes the first interrupt, if any, that occurs after calling the
+.c xxforceintr
+function.
+The value is returned as a bit mask (e.g., IRQ0 has value 1,
+IRQ8 has value 0x100, etc.).
+Currently, if no interrupt occurs, the value for IRQ0 is returned
+(this may change in the future).
+The
+.c ffs
+function returns one greater than the index of the lowest set bit
+of a mask, or zero if no bits are set.
+.pp
+The example function
+.c xxforceintr
+uses the function
+.c isa_got_intr
+to test whether it has already received an interrupt.
+The return value of
+.c isa_got_intr
+is like that of
+.c isa_discoverintr
+except that the value zero indicates that no interrupt has been received.
+Most drivers will not need to use this function;
+their
+.c forceintr
+functions will normally try one scheme to force an interrupt
+and then return.
+The
+.c forceintr
+function need not wait for an interrupt;
+that is done by
+.c isa_discoverintr .
+.pp
+Other devices might program the desired memory address and/or interrupt
+number once the device was found via the base port.
+(Some devices even program the base port at run time, using a well-known
+port to locate the device initially.)
+A driver for a device that may be programmed to use one of several interrupts
+can allocate an unused interrupt with the call
+.CS
+	ia->ia_irq = isa_irqalloc(XX_IRQMASK);
+.CE
+The
+.c isa_irqalloc
+function accepts a mask of possible IRQ values, and returns one of those
+values which is otherwise unused.
+It returns a mask suitable for assignment to
+.c ia_irq
+if one of the values is available, and returns zero if all of the values
+are already in use.
+.pp
+Devices that do not use an interrupt should set
+.c ia->ia_irq
+to zero, as the default value (IRQUNK) is not zero.
+.pp
+If the driver supports multiple device subtypes, or if the driver
+otherwise needs to pass data to its forceintr and/or attach
+functions, the field
+.CS
+	void	*ia_aux;		/* driver specific */
+.CE
+in the
+.c isa_attach_args
+structure is available to the driver for passing such information.
+Note that it is not safe to use this pointer to refer to dynamically-allocated
+memory, as there is no assurance that the attach function
+will actually be called for each call of the probe function.
+.pp
+If the device probe function returns true, and if the indicated
+port range does not overlap with any other device,
+the device will be attached to the system.
+Memory for the
+.c xx_softc
+structure is allocated, the
+.c "struct device"
+portion of the structure is initialized to the correct unit number
+and names,
+and a pointer to the structure is placed into the array of known
+.c xx
+devices in the
+.c cd_devs
+array (enlarging the array as needed).
+The configuration message for the device is printed without
+a newline (e.g,
+.c "xx0 at isa0 iobase 0xXXX" "\& ...").
+The
+.c xxattach
+function is then called to allow the driver to initialize
+its portion of the data structures, and to make itself
+known to other classes of which it is a member.
+It may also print additional, driver dependent information
+preceded by a colon.
+It should print a newline to complete the line in any case.
+.CS
+/*
+ * Interface exists: initialize softc structure
+ * and attach to bus, interrupts, etc.
+ */
+void
+xxattach(parent, self, aux)
+	struct device *parent, *self;
+	void *aux;
+{
+	register struct xx_softc *sc = (struct xx_softc *) self;
+	struct isa_attach_args *ia = (struct isa_attach_args *) aux;
+
+	/* record device location for all future accesses */
+	sc->sc_base = ia->ia_iobase;
+	sc->sc_membase = ISA_HOLE_VADDR(ia->ia_maddr);
+	sc->sc_memsize = ia->ia_msize;
+	sc->sc_dmachan = ia->ia_drq;
+	sc->sc_type = (struct xx_type *) ia->ia_aux;
+
+	printf(": %s\en", sc->sc_type->xx_name);
+
+	/* attach to isa bus */
+	isa_establish(&sc->sc_id, &sc->sc_dev);
+
+	/* attach interrupt handler */
+	sc->sc_ih.ih_fun = xxintr;
+	sc->sc_ih.ih_arg = (void *)sc;
+	intr_establish(ia->ia_irq, &sc->sc_ih, DV_xxx);	/* fill in device type */
+
+	/* allocate and initialize DMA channel, given maximum I/O size */
+	at_setup_dmachan(sc->sc_dmachan, XX_MAXIOSIZE);
+}
+.CE
+.pp
+This example illustrates the conversion of an ISA physical address (\c
+.c ia->ia_maddr )
+to a kernel virtual address for direct access in the kernel.
+The standard ISA device memory area (640 KB to 1 MB, or 0xA0000 to 0x1000000)
+is always mapped by the kernel, and the macro
+.c ISA_HOLE_VADDR
+returns a kernel virtual address for a physical address in this range.
+Currently, there is no simple analog for use with device memory outside
+of this range.
+.pp
+Note that the device attach function should normally not initialize
+the device for operation, and should leave interrupts disabled
+if the device interrupts spontaneously (as do network and communications
+devices).
+This minimizes the chances of confusing future device probes,
+in particular when using
+.c isa_discoverintr .
+The device should be initialized when it is first opened,
+or (in the case of a network device) when an address is first assigned.
+.pp
+The call to
+.c intr_establish
+registers an interrupt handler for this device using the specified interrupt.
+Thus, unlike prior systems, the name(s) of the interrupt functions
+need not be specified in the configuration file, and
+.c config
+does not generate assembly-language glue code for each possible
+device as in the past.
+.pp
+The last parameter to
+.c intr_establish
+is one of the device classes shown with the
+.c device
+structure.
+This parameter is used to compute the interrupt masks
+for the
+.c splbio ,
+.c spltty ,
+and
+.c splimp 
+functions, which block all disk/tape, terminal and network interrupts
+respectively.
+When an interrupt for this device is received, interrupts for other
+devices in this class are also blocked.
+.pp
+It is allowed for multiple devices to attach to the same interrupt,
+although a warning message is printed (interrupt sharing must also
+be supported by the specific devices for reliable operation).
+When multiple devices attach to the same interrupt, each device's
+interrupt function is called when that interrupt is received.
+.pp
+The call to
+.c at_setup_dmachan
+initializes the DMA code for use on this channel
+for operations up to the specified size.
+There is no current mechanism for allocation of a DMA channel
+or for sharing a channel.
+The current DMA support is set up for use by \*(lqblock\*(rq I/O
+devices using the buffer cache or the
+.c physio
+function, for which I/O buffers are always mapped into the kernel address
+space.
+.pp
+Devices that use bus-master DMA may set up the DMA channel using the call
+.CS
+	at_dma_cascade(chan);
+.CE
+This call initializes the DMA controller for bus-master DMA.
+.pp
+The attach function for a controller must initiate configuration
+of possible child devices attached to it.
+There are two mechanisms available for this.
+The first (and generally more desirable)
+is for the controller to examine the hardware to find any devices present.
+This is possible on hardware with a small number of possible device
+locations and self-describing child devices; for example, a SCSI bus
+usually allows this style of configuration.
+As each device is found,
+.c config_found
+is called with the identity of the parent and a parent-specific
+location parameter.
+If a configured device specification matches the device,
+it is then attached, otherwise a message is printed about finding
+a device that was not configured.
+.pp
+If a controller is unable to locate child devices by direct examination,
+its attach function can use
+.c config_search
+to locate all possible child devices that have been configured into the system,
+and to probe each of them in turn.
+.pp
+Although it is not an autoconfiguration-related entry point,
+the interrupt handler is presented here, as it is registered
+by the attach function.
+Unlike interrupt handlers in other systems, the parameter
+to an interrupt handler in
+.B3
+is a generic
+.c "void *"
+pointer rather than a unit number.
+The value passed is the value placed in the
+.c ih_arg
+field of the
+.c intrhand
+structure which is used to register the interrupt.
+The calling convention results in an interrupt function such as this:
+.CS
+/*
+ * Device interrupt handler
+ */
+xxintr(sc0)
+	void *sc0;
+{
+	struct xx_softc *sc = sc0;
+	register int base = sc->sc_base;
+
+	/* check device status, etc. */
+	at_dma_terminate(sc->sc_dmachan);
+	return (1);	/* interrupt was expected */
+}
+.CE
+.lp
+The call to
+.c at_dma_terminate
+would be used at the completion of a DMA operation;
+see the discussion of
+.c xxstart
+below.
+.pp
+Note that the interrupt function has a return value.
+On the ISA bus, the two possible return values are 0 and 1;
+0 indicates that the interrupt was not expected by this driver.
+If no device indicates that it was expecting the interrupt,
+a \*(lqstray interrupt\*(rq message is logged.
+.sh 1 "Sample Driver: Other Entry Points"
+.pp
+Several other driver entry points are illustrated in this section,
+emphasizing those features that different in this system than in most others.
+These examples assume a \*(lqcharacter\*(rq device driver.
+The examples are quite incomplete even as boilerplate for most classes
+of device;
+as always, the best way to write these functions is to reuse a portion
+of an existing driver that is similar in nature.
+Details such as blocking interrupts are ignored in the examples.
+.pp
+Several of the functions in these examples show more parameters
+than declared in some existing drivers.
+Although the additional parameters are often not needed, especially here,
+they are shown for completeness.
+In several cases, a
+.c proc
+parameter is present.
+This should not be used by most drivers, but is present when necessary
+for access checks, etc.
+.pp
+The first example is a simple
+.c open
+function.
+As the drivers no longer have an array of statically-allocated
+.c softc
+structures, validating the unit number and finding the
+.c softc
+structure are different than in past systems.
+.CS
+xxopen(dev, flag, fmt, p)
+	dev_t dev;
+	int flag, fmt;
+	struct proc *p;
+{
+	int unit = minor(dev);
+	struct xx_softc *sc;
+
+	/* Validate unit number */
+	if (unit >= xxcd.cd_ndevs || (sc = xxcd.cd_devs[unit]) == NULL)
+		return (ENXIO);
+
+	if (sc->sc_open == 0) {
+		if (xxinit(sc))		/* initialize device */
+			sc->sc_open = 1;
+		else
+			return (EIO);
+	}
+	return (0);			/* success */
+}
+.CE
+.pp
+The sample close function is also very simple:
+.CS
+xxclose(dev, flag, fmt, p)
+	dev_t dev;
+	int flag, fmt;
+	struct proc *p;
+{
+	int s;
+	struct xx_softc *sc = xxcd.cd_devs[minor(dev)];
+
+	/* Mark as not open */
+	sc->sc_open = 0;
+	xxshutdown(sc);			/* turn off device */
+
+	return(0);
+}
+.CE
+.pp
+The close function (and the other remaining functions)
+need not check the validity of the unit number, as the open would not have
+succeeded if the unit number were invalid.
+.pp
+The character device read and write functions have the same calling
+convention.
+This example serves mostly to illustrate the calling convention
+and the use of the
+.c tsleep
+function.
+Note that the \*(lqraw\*(rq interfaces to block I/O devices
+generally do not require read and write functions, but can use the
+.c rawread
+and
+.c rawwrite
+functions in the character device switch.
+.CS
+xxwrite(dev, uio, flag)
+	dev_t dev;
+	struct uio *uio;
+	int flag;
+{
+	int n, s, error;
+	struct xx_softc *sc = xxcd.cd_devs[minor(dev)];
+
+	/* Loop while more data remaining */
+	while (uio->uio_resid != 0) {
+		while (xx_device_busy(sc)) {
+			error = tsleep(sc, PZERO | PCATCH, "xxwrit", 0);
+			if (error != 0)
+				return (error);
+		}
+		xxstart(sc, uio);
+	}
+	return (0);
+}
+.CE
+.pp
+The
+.c xxstart
+function illustrates the use of DMA.
+In fact, the current DMA support is set up for use by block devices
+using a different interface (using a
+.c "struct buf"
+rather than a
+.c uio
+to describe an operation, thus this example is contrived.
+.CS
+xxstart(sc, uio)
+	struct xx_softc *sc;
+	struct uio *uio;
+{
+
+	/* compute or allocate kernel address */
+	at_dma(uio->uio_rw == UIO_READ, kaddr, count, sc->sc_dmachan);
+	/* initiate I/O */
+	if (error)
+		at_dma_abort(sc->sc_dmachan);
+}
+.CE
+.lp
+The
+.c at_dma
+function programs the DMA controller for a DMA operation.
+The parameter
+.c kaddr
+is a kernel virtual address.
+If the specified address range is not physically contiguous
+or extends above the range of ISA address (16 MB, using 24-bit addresses),
+the data are copied to or from a buffer in low memory.
+The
+.c at_dma_abort
+function
+can be used to cancel a DMA operation that will not be completed. 
+.pp
+Finally, the sample ioctl function illustrates the calling convention:
+.CS
+xxioctl(dev, cmd, data, flag, p)
+	dev_t dev;
+	caddr_t data;
+	struct proc *p;
+{
+	register struct xx_softc *sc = xxcd.cd_devs[minor(dev)];
+
+	switch (cmd) {
+	default:
+		return (ENOTTY);
+	}
+	return (0);
+}
+.CE
+.lp
+The
+.c data
+parameter to the ioctl function is a pointer to a buffer in the kernel
+address space containing any input data, and into which any returned
+data is placed.
+The data is copied into and/or out of the kernel by the ioctl system call,
+not by the device driver.
+The amount of data that can be passed to or from an ioctl call
+is limited by the parameter
+.c IOCPARM_MAX
+in
+.c /sys/sys/ioctl.h
+(currently one page, or 4096 bytes)
+and by the format of an ioctl command, which encodes the amount and direction
+of data to be copied.
+.pp
+Although these examples are rather skeletal, they should serve to provide
+guidance in implementing a device driver and to provide assistance
+in understanding existing drivers.

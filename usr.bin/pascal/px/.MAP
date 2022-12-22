@@ -1,0 +1,11 @@
+F INT.C;1                           	int.c
+F INTERP.C;1                        	interp.c
+F MACHDEP.H;1                       	machdep.h
+F MAKEFILE.;1                       	Makefile
+F PX.1;1                            	px.1
+F READ_ME.;1                        	READ_ME
+F UTILITIE.C;1                      	utilities.c
+F VARS.H;1                          	vars.h
+F VERSION0.C;1                      	Version.c
+F VERSION1.C;1                      	version.c
+F WHOAMI.H;1                        	whoami.h

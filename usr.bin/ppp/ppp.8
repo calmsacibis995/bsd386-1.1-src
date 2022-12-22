@@ -1,0 +1,137 @@
+.Dd February 24, 1993
+.Dt PPP 8
+.Os BSD/386
+.Sh NAME
+.Nm ppp
+.Nd establish PPP connection over dial-up asynchronous line
+.Sh SYNOPSIS
+.Nm ppp
+.Op Fl d
+.Op Fl x
+.Op Fl s Ar sysfile
+.Op Ar system\-name
+.Sh DESCRIPTION
+.Nm Ppp
+is used to establish network connections with Point-to-Point
+Protocol (PPP) over dial-up asynchronous lines.
+The program can be used in both
+.Em originating
+and
+.Em answering
+modes.
+.Nm Ppp
+in originating mode dials the number, performs the login sequence,
+attaches the line to a network interface and waits until
+the session is terminated.
+In answering mode
+.Nm ppp
+is called as login shell from
+.Xr login 1
+and attaches the line to a network interface for the duration
+of the session.
+To operate in answering mode
+.Nm ppp
+should be called with no arguments.
+.Pp
+.Nm Ppp
+obtains the parameters of remote systems from a single
+configuration file (which will further be called the
+system file).
+The name of the system file is
+.Pa /etc/ppp.sys .
+See
+.Xr ppp.sys 5
+for the detailed description of the system file format.
+.Pp
+The following operands are supported by
+.Nm ppp :
+.Bl -tag -width Ar
+.It Fl d
+Invokes originating
+.Nm ppp
+in
+.Em daemon
+mode \- the actual connection will not be initiated until
+an outgoing data packet will be routed through the interface.
+After termination of the session
+.Nm ppp
+in daemon mode will not exit but will return to the standby
+mode and wait for outgoing packets.
+.It Fl x
+Prints some debugging information about the progress of
+dialing and login sequences.
+.It Fl s Ar sysfile
+Use
+.Ar sysfile
+instead of
+.Pa /etc/ppp.sys
+as the system file.
+.It Ar system\-name
+specifies the system to call; if omitted and
+.Fl d
+is present
+.Nm ppp
+will spawn background processes for every system entry
+in system file which is marked as dial-out.
+If neither
+.Ar system\-name
+nor
+.Fl d
+are persent
+.Nm ppp
+assumes the answering mode in which case the effiective
+system name is simply the login user name.
+.El
+.Pp
+.Nm Ppp
+requires super-user priveleges.
+Since
+.Nm ppp
+can configure the interface and PPP parameters there is
+no need to use
+.Nm ifconfig
+or
+.Nm pppconfig
+for dial-up links.
+However,
+.Nm ppp
+does
+.Em not
+add or change routes through PPP interfaces.
+Usually
+.Nm ppp
+is called from a system reboot script.
+.Pp
+Although
+.Nm ppp
+is intended to be used on dial-up links it can be used on
+dedicated asynchronous circuits as well when
+.Nm pppattach
+functionality is not sufficient.
+.Sh FILES
+.Bl -tag -width Pa
+.It Pa /etc/ppp.sys
+The system file.
+.El
+.Sh DIAGNOSTICS
+Diagnostics are, hopefully, self explanatory.
+.Sh SEE ALSO
+.Xr ppp.sys 5 ,
+.Xr ifconfig 8 ,
+.Xr pppattach 8 ,
+.Xr pppconfig 8 ,
+.Xr appp 4 ,
+.Xr ppp 4
+.Sh HISTORY
+The
+.Nm ppp
+command appeared in BSDI.
+.Sh BUGS
+The daemon mode with no system specified is not
+implemented yet.
+.Pp
+It is not currently possible to allocate interfaces
+dynamically (see
+.Xr ppp.sys 5 ).
+.Pp
+The program relies on the hardwired modem-specific dialing scripts.

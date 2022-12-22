@@ -1,0 +1,19 @@
+F EQNRC.;1                          	eqnrc
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+F MS.MAN;1                          	ms.man
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/tmac
+F TMAC.DVI;1                        	tmac.dvi
+F TMAC.LAT;1                        	tmac.latin1
+F TMAC.PIC;1                        	tmac.pic
+F TMAC.PS;1                         	tmac.ps
+F TMAC.PSA;1                        	tmac.psatk
+F TMAC.PSN;1                        	tmac.psnew
+F TMAC.PSO;1                        	tmac.psold
+F TMAC.PSP;1                        	tmac.pspic
+F TMAC.S;1                          	tmac.s
+F TMAC.X;1                          	tmac.X
+F TMAC.XPS;1                        	tmac.Xps
+F TMAC0.TTY;1                       	tmac.tty
+F TMAC1.TTY;1                       	tmac.tty-char
+F TROFFRC.;1                        	troffrc

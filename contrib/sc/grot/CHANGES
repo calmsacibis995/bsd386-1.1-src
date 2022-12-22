@@ -1,0 +1,588 @@
+CHANGES BETWEEN 6.21 and 6.19
+Mark R. Rubin
+	-noted a problem using bison 1.16 (use any version but 1.16)
+Marco S Hyman/Ian */and others
+	-Crypt/CRYPT_PATH define problem
+Paul Eggert
+	-sc.doc $Revision: 1.1.1.1 $ 'buglet'
+Ulf Noren/Dave Lewis
+	-AIX3.1/Microport System V/AT don't have notimeout()
+		changed NONOTIMEOUT to NO_NOTIMEOUT, define if not present
+Niels Baggesen
+	-function keys may not return ascii codes that isascii() understands
+	-added an A command for vi mode (add at end of row).
+	-Special key support: DC='x' (del char in vi mode), FIND='g' (goto),
+		HELP='?', SELECT='m'
+Dave Davey
+	-noted Ultrix 4.2 curses doesn't have idlok()
+		[I added NO_IDLOK in Makefile]
+Kim DeVaughn
+	-added ${RIGHTBUG} is now passed to sc.o && screen.o
+	-suggested a better fix on SunOS 4.x dont use the Sys V
+	 package (CC = /usr/5bin/cc, etc), but use the BSD 4.3 defines
+David Bonnell
+	-scqref [will produce] TROFF output instead of plain text, 
+	 [when] you define QREF_FMT=TROFF in the Makefile.
+	 The resulting quick reference guide uses the MS macro set and you 
+	 build with something like:
+		scqref > quickref
+	 	troff -ms quickref > quickref.ps
+Kurt Cockrum
+	- sc.h:
+		If not (defined(BSD42) || defined(BSD43) && !defined(ultrix)),
+		include <memory.h> for the benefit of some USG systems...
+	- screen.c:
+		Repaired cpp logic:
+		don't mention IDLOKBAD or idlok() unless SYSV3 defined;
+		idlok() does not exist for USG pre-SYSV systems (may exist for
+		SYSV{2,3,4}).
+	- tutorial.sc:
+		Repaired a number of off-by-1 errors.
+Mats Wichmann
+	-cleaned up Robert E. Cousins MIF format support code which is
+		compatible with FrameMaker.
+Neil Skilling
+	-added @numiter which returns the number of iterations performed.
+	 It allows you to solve equations by direct substitution. Taking a
+	 guess from another cell if the first iteration otherwise taking the
+	 last best iterate. Other uses may be found.
+Martin MacLaren
+	-MS-DOS cleanup of Makefile
+Art Mulder
+	-^T toggle: don't list crypt if not available
+John Amanatides
+	-pointed out a possible NULL ref in interp.c
+Phil Johnson
+	-sc now appends: "asc", "cln", "tbl", etc. to output files
+	-made the engineering format match that used by an engineer
+	-deleted an unused engmult[] reference
+	-added a fix to struct enode for the HP compiler
+Kevin Cosgrove
+	-noted sc should use any predefined PI
+Jeff Buhrt
+	-'make clean' now leaves the binaries and man pages [Jean-Pierre Radley]
+	-'make clobber' cleans all built files (like clean used to) [""]
+	-'-D' vs '-S' was needed on a XENIX2_3 line [""]
+	-'quit()' -> 'doquit()', function conflict [""]
+	-change xmalloc,xrealloc,xfree -> scxmalloc,scxrealloc,scxfree
+		(xmalloc is a standard malloc)
+
+CHANGES BETWEEN 6.19 and 6.18
+Tom Tkacik
+	-sc.doc and CHANGES changes
+Edgard
+	-moving right off the screen now redraws vs optimize
+Sisira Jayasinghe
+	- added build.com (VMS) and VMS fixes
+Jonathan I. Kamen && Charlie Shub
+	-noted fmod doesn't exist on BSD4.3 and Mt Xinu 
+Ben Priest
+	-vi compatability: ' ' moves right as well as 'l' while line editing
+Jeff Buhrt
+	-one more possible NULL pointer fixed
+	-added NONOTIMEOUT for those that don't have notimeout() in curses
+	-undef CRYPT=-DCRYPT_PATH... if crypt isn't available
+	-merged simple fmod into interp.c if fmod() is not present
+
+CHANGES BETWEEN 6.18 and 6.17
+James Dugal	
+	- NULL pointer fix for is_locked
+Kevin Pye
+	- add a new mode suitable for entry of large amounts of data.
+		moves to next cell on return, maxrow/col when to start
+		entering in the next row/col. (see help screens B&C)
+	COMMANDS ADDED: ^Tz, ^Tr, Srowlimit=?, Scollimit=?
+David Fox - added a date format so that columns whose values are the number
+	of seconds since 1/1/70 will be displayed as dates in the format
+	dd-mmm-yy, and a modification to the grammar so data entered in the
+	format dd_mm_yy will be converted into the number of seconds since
+	1/1/70.
+	COMMANDS ADDED: f # # 3
+Teus Hagen
+	- labels are centered strings
+	- constant strings with '\' preceeding character will
+	  be wheeled over the column width
+	- a restart of sc on an sc file will go to last used cel
+	- added toupper, tolower and do proper word capitalization
+	COMMANDS ADDED: @toupper(), @tolower(), @capital(), @pi, "\[String]
+Jeff Buhrt
+	- external functions null/previous message was backwards
+	- cleaned up help.c by inserting a new screen
+	- found a possible NULL pointer in screen.c
+
+CHANGES BETWEEN 6.17 and 6.16
+Ulf Noren
+	- added cell locking, disallowing input, to ranges of cells
+Herr Soeryantono
+	- I added ifdef's around curses KEY_* functions his curses didn't have
+		(Sun/OS 4 on a SPARC)
+Jay Lepreau
+	- changes to tutorial.sc: how to get out, should be used w/ 24 lines
+	- IDLOKBAD was not passed to screen.c
+	- suggested error messages if the execl of crypt fails
+	- pointed out BSD's crypt is in /usr/bin/crypt
+Henk P. Penning
+	- suggested Makefile list the mode of the man page & tutorial.sc
+	- make install will now install the psc man
+	- yylval was not known in lex.c for HP-UX 7.05
+Edgard
+	- hitwinch fixes
+	- KEY_HOME now takes you to 0,0
+CHECK KEY_NPAGE/PPAGE
+Stephen (Steve) M. Brooks
+	- suggested the man pages should include Sc's revision
+Dan Banay
+	- code to set LINES and COLS after a window size change
+Bart Schaefer
+	- @myrow/@mycol fix
+Bruce Jerrick
+	- noted ln may not always work for the temporary source files
+Gene H. Olson
+	- fixes for SIGWINCH for Sun OS 4.1.1
+Teus Hagen
+	- added three functions:
+		1) allow @PI as well
+		2) @upper/@lower for casing characters in a string
+		3) @capital for upper case first char of words in a string.
+Martin Maclaren
+	- added MS-DOS support
+		COMPILER USED: Microsoft C, 5.1
+		TOOLS USED   : NDMAKE GNUBISON GNUSED PCCURSES
+Cuong Bui
+	- has a working Vietnamese version of sc, noted a A_CHARTEXT
+		mask problem
+Jeff Buhrt
+	- when numeric prescale is on: 300 -> 3.0, now 300. -> 300. not 3.0
+		(numbers with a decimal aren't scaled)
+
+CHANGES BETWEEN 6.16 and 6.15
+Tom Tkacik
+	-fixed a bug in ^W
+Jonathan I. Kamens
+	- added Makefile rules so scqref and psc don't clobber .o's
+Larry Philps
+	- fixed a SCO XENIX vs M_XENIX problem
+	- fixed a problem where dosval() might not xmalloc enough memory
+Dave Close
+	- fix for Xenix 2.3 to reset terminal modes
+
+CHANGES BETWEEN 6.15 and 6.14
+Lowell Skoog
+	- fixed a bug in 'F'ormat
+Henk Hesselink
+	- format.c double neg. sign 
+	- interp.c minr/minc bug, plus modflg wasn't set
+	- fixed a hardcoded path in sc.doc
+	- improvement: 
+		-show current cell format in top line
+		-[buhrt: go into edit mode on the old format if it existed
+			otherwise insert mode]
+Jonathan Crompron
+	- made sure doformat() does a checkbounds()
+Stephen (Steve) M. Brooks
+	- pointed out -s in psc was broke
+Michael Richardson
+	- fixed negative numbers in exponential format
+
+CHANGES BETWEEN 6.14 and 6.13
+Mats Wichmann
+	- Sys V R4 patches, fixed 'Press RETURN ...' on a shell command
+Tim Theisen
+	- changed #define for memcpy/memset under ultrix
+Rick Walker
+	- Added @myrow and @mycol to give the row/col of the current cell
+	'The two functions are @myrow and @mycol, which return the numerical
+	row and column of the calling cell.  The cell directly above a cell
+	in the D column could then be accessed by @nval("d",@myrow-1).'
+	NOTE: @myrow and @mycol can't be used in specifying ranges.
+
+CHANGES BETWEEN 6.13 and 6.12
+Rick Walker
+	- pointed out a move(x,y)-> (y,x) in sc.c
+Glenn Barry
+	- Further SunOS 4.X cleanups
+Tom Tkacik
+	- made sure 'J' moves downward 1/2 a screen even at the bottom
+David I. Dalva
+	- pointed out crypt may not be in /bin/crypt
+Gregory Bond
+	- allows the vi-mode editing of very long expressions
+		(> 1 screen width) to work on 2nd + subsequent lines
+Tom Anderson
+	- "let A1 = aaa" (where aaa is defined as A0:A0) is now valid
+	- added autolabeling
+		'When there is an empty cell to the left of a cell that has
+		just been defined (with /d), a label is created in the blank
+		cell.  The label holds the definition that has just been
+		created.  This labeling is only done for definitions of single
+		cells (and not for ranges).'
+		'The feature can be turned on and off with a toggle (^T)
+		command'
+Petri Wessman
+	- Added support for SLaTeX, 'a Scandinavian version of LaTeX, in
+		intensive use ... in Finland and in Sweden'
+Jeff Buhrt
+	- vmtbl.c explictly set arrays of pointers to NULL, vs memset()
+	- psc   [-P] plain numbers only:a number only when there is no [-+eE]
+		[-S] all numbers are strings
+	- psc: a number must end in [0-9.eE] anything else makes it a string
+		(4, 4., 4.5, and 4e are numbers; 4-, 4+, etc are not).
+	- psc: made sure we grow enough when we call growtbl()
+	- cleaned up the Makefile w/ a few suggestions
+	- SIGWINCH is delt with next time the screen would update (testing)
+	- added IDLOKBAD to get around a SysV curses bug (see Makefile)
+	- moved screen functions into screen.c (except for one indirect
+		'repaint()' call in sc.c, and help.c)
+
+CHANGES BETWEEN 6.12 and 6.11
+James Dugal
+	- added format.c to SRCS in Makefile
+	- noted RETURN didn't enter insert mode
+Peter King
+	- pointed out iscntrl is broken on some other systems as well
+	- sent some lint cleanups
+Michael Richardson
+	- patch to stop format looping when scientific notation was selected
+Glenn T. Barry
+	- code to turn on hardware scrolling and added 'slow speed display'
+		speedups, default for SYSV3 or see -DSUNOS41SYSV in Makefile.
+Tom Tkacik
+	- fixes to make sure J and K move same amount, and re-added H code
+Jeff Buhrt
+	- fixed a possible xfree(NULL) in getent() (found when adding K_VAL)
+	- merged compiler cleanups
+*	- added $(name)qref to print a Quick Reference card
+	- got rid of INVALIDS that may have been left around
+*	- pressing return on a empty line puts you into insert mode
+		(like in <=Sc6.1). When entering you can also press ESC
+		to go into the editor (no change); this is also documented
+		now so it might stay around this time.
+
+CHANGES BETWEEN 6.11 and 6.10
+
+Jonathan I. Kamens
+	- sc.doc now mentions the tutorial file in the FILES section
+Andy Fyfe
+	- pointed out 3 locations where a NULL should have been '\0'
+Robert Bond
+	- pointed out the ERROR could hide a cellerror
+Piercarlo Grandi
+	- H,J,I,K now move 1/2 screen
+Ulf Noren
+	- changes for AIX V3.1
+		- defined CHTYPE and NLS for the preprocessor. CHTYPE is
+		the type of every character in a curses window.
+		- Added KEY_BACKSPACE to nmgetch
+		- strtof ifdef
+	- Iteration change: when Sc says: "Still changing after 9 iterations"
+	Sc at that point will have eval'd 9 times
+Chris Metcalf
+	- pointed out I broke setlist when adding 'goto {error,invalid}'
+James P. Dugal
+	- iscntrl() wasn't handling TABS though CRs under Pyramid OSx4.1
+Peter King
+	- BROKENCURSES patch for nl()/nonl() bug on some BSD systems
+	- backups, tutorial file, and man references now depend on $name
+	- DFLTPAGER to DFLT_PAGER fix
+
+CHANGES BETWEEN 6.10 and 6.9
+
+Tom Tkacik
+	- when moving off the current table (resizing) now move the cursor
+		on 'l' or 'k'.
+	- patches to sc.doc to correctly format the vi-mode notes
+Jim Clausing
+	- made sure / doesn't try to divide by zero.
+Tom Kloos
+	- correction to substr() example in help.c
+Piercarlo "Peter" Grandi
+	- Disable non-constant expressions while loading
+	- Added extra code in dealing w/ floating point exceptions
+	- #ifdef'd SAVENAME (vs hardcoded SC.SAVE) to allowing changing the
+		emergency save name.
+Casey Leedom
+	- Makefile changes: man extension, RINT note, make values should
+		never be left undefined and then referenced, don't leave
+		around *.old's
+Tom Anderson
+	- patches to add type of column format (note format now has 3 args)
+Jeff Buhrt
+	- xmalloc/xfree fatal() will now call diesave()
+		(MAKE SURE the saved file is ok if this were to happen)
+	- history[] is now a circular queue, this will cut down on the
+		number of data moves and also xmalloc/xfree calls
+		(idea from Keith Bostic)
+	- cells with an error (ex: divide by 0) will show 'ERROR'
+	- you can 'goto error' (or 'goto') to find an ERROR (for next ERROR)
+Robert Bond
+	- When in numeric mode the ^B, ^F, ^N, ^P key will end a numeric entry.
+
+CHANGES BETWEEN 6.9 and 6.8
+
+Jim Richardson
+	- pointed out vi mode was not documented in sc.doc
+	- found a nasty buffer limit bug in savedot()
+	- a side effect was ^D could cause a core dump (-Jeff)
+Tim Wilson
+	- Hints on compiling on Ultrix
+Eric Putz
+	-patch for printfile() (sc died on huge # of columns in a W)
+Jeffrey C Honig
+	-patch for lex.c which bombed on SunOS 4.1 if $TERM was not set
+Tom Kloos
+	-psc now calls [+-.] strings vs numbers.
+	-also pointed out a format reversal problem
+Jack Goral
+	-changes to Makefile to compile under SCO Unix V rel 3.2.0
+Mark Nagel
+	-changes to allow arbitrarily complex formatting of cells 
+Kim Sanders
+	-^W generated an incorrect equation (line was not started at beginning)
+Mike Schwartz
+	-a put command will use the same encryption key as when the
+	file was read.
+	>I have a suggestion for making the encyrption option of "sc" more
+	>usable:  Right now, if you use the -x option when you start up sc, it
+	>prompts you for the key (just like "vi -x" does).  But when you try to
+	>write the file out using the Put command, it asks for the key again
+	>each time.  Why not make it use the same key you used before (as "vi
+	>-x" does)?  That would really help, because as it is, each time you try
+	>to save the file you run the risk of mistyping the key.
+	>
+	>You might think this causes a security problem, since the key is then
+	>an argument to crypt, and hence is visible from ps.  But when crypt
+	>runs, the first thing it does is to copy the key to an internal buffer
+	>and then zero out the argv copy, so the window of vulnerability is
+	>vanishingly small.
+Adri Verhoef
+	- pointed out a ^D caused a core dump (fixed)
+Gene H. Olson
+	- format now grows the spreadsheet before setting the column format.
+	- removed an extra ';' that caused a possible column number trashing
+Paul Eggert
+	-sc now also has round-to-even, also known as ``banker's rounding''.
+	>With round-to-even, a number exactly halfway between two values is
+	>rounded to whichever is even; e.g. rnd(0.5)=0, rnd(1.5)=2,
+	>rnd(2.5)=2, rnd(3.5)=4.  This is the default rounding mode for
+	>IEEE floating point, for good reason: it has better numeric
+	>properties.  For example, if X+Y is an integer,
+	>then X+Y = rnd(X)+rnd(Y) with round-to-even,
+	>but not always with sc's rounding (which is
+	>round-to-positive-infinity).  I ran into this problem when trying to
+	>split interest in an account to two people fairly.
+	-While we're on the subject, @round(X,Y) should also work when Y
+	>is negative. For example, @round(123,-2) should yield 100.
+
+
+CHANGES BETWEEN 6.8 and 6.7
+
+Jeff Buhrt (with help from some beta testers-Thank you)
+	  1) added a per row memory allocation
+		-runs in about 1/2 run time and 1/3 the space of 6.6vm.1
+		-insert/delete row now just moves pointers (# == maxrow+1-currow)
+			and blanks one row (of columns (maxcol))
+		-as the number of cells grows the size is more linear
+			(no more ##Meg images except for 100,000's of rows....)
+		-row to column pointer translation is done by a macro (ATBL)
+			that returns a pointer to the cell pointer.
+			*ATBL would be a pointer to a *ent (cell).
+		-the maximum # of columns is limited by ABSMAXCOLS or
+			sizeof(struct ent *)*maxcols (whichever is smaller)
+			(702 * 4 = 2808 is no real limit even for 286 large model)
+		-the maximum # of rows is limited by the virtual memory limit or
+			sizeof(struct ent **)*maxrows (whichever is smaller)
+			(4*X=64k, X=16384 rows (excluding malloc overhead) on
+				a '286 large model. Even w/ 3.25Meg and 10Mhz)
+			(plus of course any memory used for cells)
+	2) dolookup (int vs double)
+	3) dolookup calling eval w/ ent * not enode *
+		 (dolookup called w/ ent * not enode *)
+	4) cleaned up a lot of .... *x = 0 to  (.... *)0 (cmds, interp)
+	5) psc: fwidth/precision were reversed on the output
+	6) Backup copy (on save) using same mode to [path/]#file~
+		 (will prompt if a backup fails)
+	7) put y/n prompt function into yn_ask(mesg)
+	8) found a move(x,y) in sc -> move(y,x) and only move when needed
+	9) we use FullUpdate || changed (to see if ANY cells changed) 
+		before trying to redraw the screen in update
+		(now we don't try to redraw every time a key is hit)
+		-if we are stand[ing]out we do not create a cell just to force a
+		 standout inside the repaint section of update()
+		-only draw blank cells if we cleared it or it is standing out
+		reason: the less work (what to update) curses has to do, the faster
+			a screen update will be (less cpu required)
+	14) {insert, delete}col replaced w/ {open,close}col(currow, numcol_to_insert)
+		(limits looping)
+	6.7.1.1
+	15) goto nonexistant cell may loop
+	16) make sure that startup size will at least fill the screen w/ cells.
+	17) added version.c
+	6.7.1.2
+	18) When we would normally die w/o saving (SIGQUIT, etc), we now ask
+		if people would like to save the current spreadsheet.
+		If 'y', saves to the current file name, otherwise ~/SC.SAVE,
+		then /tmp/SC.SAVE if all else fails.
+	6.7.1.3
+	19) don't use malloc.c for production code
+	20) progname is now truncated to just the basename (systems w/ long paths
+		caused problems)
+
+CHANGES BETWEEN 6.1 and 6.7
+
+Dave Lewis - 
+	Found and fixed a null pointer derefrece in the 'R' command.
+
+Rob McMahon -
+	Changed the ctl() macro to work with ANSI style compilers.
+	Cleaned up some non-readonly text problems.
+
+Rick Linck -
+	Fixed a bug in lex.c - Ann Arbor Ambassadors have long ks and ke
+	termcap entries.
+
+Sam Drake -
+	A fix for undefined C_* symbols in AIX.
+
+Peter Brower -
+	Cleaned up the INTERNATIONAL ifdefs with more portable code.
+
+Glen Ditchfield
+	Cleaned up a problem in crypt.c when the encrypted file shrank.
+
+Bob Bond -
+	Vi style editing for the command line.
+	A bug in range name aliases.
+
+Jeff Buhrt -
+	-Added "~" filename expansion.
+	-702 columns (A-ZZ) and unlimited rows/cells based on max. memory
+	-fixed a few bugs
+	-slightly decreased CPU usage
+	-MAKES backup copies of files
+	-understands ~$HOME stuff
+
+CHANGES BETWEEN 5.1 and 6.1:
+
+Andy Valencia -
+	xmalloc aligns data to a double boundary.
+
+Lawrence Cipriani -
+	Fixed a bug in the "do you want to save this" sequence.
+
+Soren Lundsgaard -
+	A null pointer derefrence.
+
+Rick Perry -
+	Cleaned up a problem with modchk() in sc.c.
+
+Gregory Bond -
+	Added code for multi argument versions of @min and @max.
+
+Tad Mannes -
+	Added code to save/restore hidden rows and columns when the
+	data base is saved or restored.
+
+Marius Olafsson -
+	INTERNATIONAL changes.  Allows full 8 bit characters (if
+	curses supports them.)
+
+Kurt Horton -
+	Added support for @pv, @fv and @pmt financial functins.
+	Tested lots of different systems, linting.
+
+John Campbell -
+	Support for VMS.  See VMS_NOTES.
+
+Peter King -
+	 User selection of row or column order for recalculation.
+		Also affects order of traversing regions in /f and /r
+	 User setting of automatic or manual recalculation.
+	 User setting of number of times to try recalculation.
+	 + and - commands when in non-numeric mode to do 
+		increment and decrement operations.
+	@index, @stindex, @atan2, @lookup  functions.
+	Save/restore options.
+	Support for TeX, LaTeX, and better support for tbl in "T" cmd.
+	Provision of a copyent function to copy entries (same code repeated
+		in several locations)
+	Forwrow, backrow, forwcol, backcol functions to replace
+		repeated code
+	Correct interpretation of ESCAPE or ^G as an abort when in a 
+		two character command such as 'ar' or 'ac'
+	Cleanup in eval() - catches non-trap function errors.
+
+Bob Bond - 
+       Added search options to "g".
+       Added supression of hidden columns to "W"
+       Added the mod operator "%"
+       New help functions.
+       Constant prescale "$"
+       Added string matching to @lookup.
+       Some more bug fixes.
+       Testing, integration, documentation.
+
+Alan Silverstein-
+	Greatly revised the manual entry.
+	Added menus for ^E command and row/column commands, which
+	involved a bunch of code cleanup.
+
+	Changed top row display to clearly indicate string labels
+	versus number parts, and to distinguish string functions from
+	constant labels.
+
+	When the character cursor is on a cell (not topline), ^H
+	(backspace) is like ^B (move back one cell), rather than being
+	ignored.
+
+	When the character cursor is on a cell (not topline), ^I (tab)
+	is like ^F (move forward one cell), rather than being ignored.
+	^R is no longer identical with ^L.  Now ^R highlights all cells
+	which should be entered by a user because they contain constant
+	numeric values (not the result of a numeric expression).
+
+	Added a ^X command, similar to ^R, which highlights cells which
+	have expressions.  It also displays the expressions in the
+	highlighted cells as left-justified strings, instead of the
+	label and/or value of the cell.
+
+	Added indirection functions (@nval() and @sval()) for simple
+	table lookups.  Given a column name and row number, they return
+	the numeric or string value of the selected cell.
+
+	Added external functions (@ext()) for non-trivial
+	computations.  Given a command name and argument, it calls the
+	command and reads back one output line.
+
+	Added a ^T,e command to toggle enabling of external functions.
+
+	Changed ^T,t to only control the top line display, and added
+	^T,c to control current cell highlighting.  (Separated the
+	functions.)
+
+	"!" (shell escape) gives a vi-style warning if there were any
+	changes since the last write.  (No change to manual entry.)
+
+	Fixed some startup, error, and prompt messages to be cleaner
+	and/or more consistent.  (No changes to manual entry.)
+
+	Fixed a bug:  If @substr() upper bound (third parameter) is
+	past the end of the string operand, return the substring
+	through the end of the string, rather than returning a null
+	string.
+
+	Fixed a bug:  Reset SIGINT to default after forking before
+	calling shell escape program and before starting pipeline (for
+	commands which support this).  Didn't reset SIGINT before
+	calling crypt and external functions because in both cases it
+	should be irrelevant.  (No change to manual entry.)
+
+CHANGES BETWEEN 6.1 and 6.2:
+
+
+Chris Cole-
+	Compatibility with Lotus 1-2-3
+		a) @hlookup(expr,range,expr)
+		b) @vlookup(expr,range,expr)
+		c) @round(expr,expr)
+		d) @if(expr,expr,expr)
+		e) @abs(expr)

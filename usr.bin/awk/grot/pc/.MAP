@@ -1,0 +1,14 @@
+F CONFIG.H;1                        	config.h
+F GAWK.DEF;1                        	gawk.def
+F GAWK_32.DEF;1                     	gawk-32.def
+F GETID.C;1                         	getid.c
+F MAKEFILE.EMX;1                    	Makefile.emx
+F MAKEFILE.MSC;1                    	Makefile.msc
+F MAKEFILE.OS2;1                    	Makefile.os2
+F MAKEGAWK.BAT;1                    	makegawk.bat
+F MKCONF.CMD;1                      	mkconf.cmd
+F MUNGECON.CMD;1                    	mungeconf.cmd
+F NAMES.LNK;1                       	names.lnk
+F NAMES2.LNK;1                      	names2.lnk
+F POPEN.C;1                         	popen.c
+F POPEN.H;1                         	popen.h

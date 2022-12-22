@@ -1,0 +1,338 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: boot.8,v 1.2 1994/02/03 02:02:14 polk Exp $
+.\"
+.Dd March 2, 1993
+.Dt BOOT 8 i386
+.Os
+.Sh NAME
+.Nm boot
+.Nd bootstrap procedures for
+.Tn BSD Ns /386
+.Sh DESCRIPTION
+.Tn BSD Ns /386
+is normally booted by simply turning on the power to the
+computer and waiting.  Under normal conditions, the floppy drive will
+be empty, so the BIOS will read and execute the boot block from the
+hard disk, which will read and execute the program
+.Pa /boot .
+Then,
+.Pa /boot
+will normally read and execute the kernel,
+.Pa /bsd .
+Next, the kernel does a series of probes to determine what hardware is
+present, then executes the program
+.Xr init 8 .
+Init then runs the shell script
+.Pa /etc/rc .
+This script checks the file systems, configures the network hardware
+and starts background system tasks.  If it completes normally, init
+will spawn getty processes for the terminals listed in
+.Pa /etc/ttys ,
+to allow users to log in.
+If 
+.Pa /etc/rc
+exits with an error code, init will instead run a single user shell.
+.Pp
+A number of these steps may be configured or modified
+during a single execution, or in configuration files.
+.Pp
+The program
+.Pa /boot
+prints the kernel text, data and bss sizes while loading
+the kernel, then prints the entry location, pauses briefly,
+and then transfers control to the kernel.
+This process takes several seconds.
+During this time, if you type a key on the keyboard, the load
+will be aborted, and you will be prompted with:
+.Pp
+.Dl Boot:
+.Pp
+At this point, you can specify an alternate kernel to boot,
+potentially on a different device.
+The default boot flags for the kernel are changed
+to request a boot to single user, possibly asking for a root filesystem
+location (see below).
+.Pp
+The complete boot command is:
+.Pp
+.Bd -ragged -offset indent
+.Ar dev\| Ns ( Ar adapter , Ar controller ,
+.Ar unit , Ar partition ) Ns Ar pathname
+.Op Fl adrsw | Ar howto
+.Ed
+.Pp
+or
+.Pp
+.Bd -ragged -offset indent
+.Fl \& Ns Ar bootcommand
+.Ed
+.Pp
+If the command begins with
+.Fl \&
+the line is treated as a boot command (see below),
+otherwise the line is used as a boot specification.
+The device specification
+.Pf ( Ar dev
+through the closing parenthesis) is optional;
+if omitted, the kernel is loaded from the device and partition from which
+the bootstrap was loaded.
+Otherwise,
+.Ar dev
+is the type of the desired device:
+.Bd -ragged -offset indent
+.Bl -column "eahaxx"
+.It Li fd No "	floppy disk"
+.It Li wd No "	traditional hard disks"
+.It Li sd No "	SCSI hard disks"
+.It Li aha No "	disk on Adaptec ISA SCSI host adapter"
+.It Li eaha No "	disk on Adaptec EISA SCSI host adapter"
+.El
+.Ed
+.Pp
+The latter two names are useful when more than one type of host adapter
+is present.
+.Pp
+The values
+inside the parentheses should be numbers.
+.Ar adapter
+is normally unused.
+The disk controller and disk unit numbers
+are given by
+.Ar controller
+and
+.Ar unit .
+The
+.Ar partition
+value refers to the disk
+partitions by number (0=a, 1=b, etc).
+If fewer than four numbers are specified, then zeroes are prepended.
+For example, a single number sets the partition,
+leaving the other parameters at 0.
+If nothing appears between the parentheses,
+then all four parameters are set to 0.
+.Pp
+The pathname identifies the desired file to be booted.
+If no device specification or pathname is present
+(that is, only a RETURN is typed),
+the default boot sequence is initiated.
+The default boot command is
+.Dq Li /bsd .
+.Pp
+The following options to the loaded kernel are available.
+With no options, the default is the same as specifying the 
+.Fl as
+options if the boot was interrupted, and no options if the bootstrap was
+automatic.
+If any options are present, only those present are actually used; a
+.Fl \&
+alone explicitly disables all options.
+.Bl -tag -width indent
+.It Fl a
+Askname; if loading a generic kernel, the kernel will prompt
+for the name of the root filesystem device.
+If loading a bootstrap program, prompt for a boot command.
+.It Fl d
+Enable debugging.
+Currently, this enables diagnostic output during the startup operations
+of the kernel.
+.It Fl r
+Use the default (compiled-in) root filesystem
+rather than using the load device as the root.
+.It Fl s
+Boot to a single-user shell rather than checking filesystems
+and going into multiuser operation.
+.It Fl w
+Mount the root filesystem read/write rather than read-only (not yet
+implemented in the kernel).
+.El
+.Pp
+The boot flags may also be set using the
+.Ar howto
+parameter, which is a decimal, octal or hex number that sets the
+boot flags \(em see the RB_* constants in
+.Pa sys/reboot.h .
+The use of the flags above is generally recommended rather than a numeric value.
+.Pp
+If a bootstrap command line begins with
+.Fl \& ,
+it is treated as an internal boot command.
+There is one such command currently:
+.Fl autodebug Ar number
+sets the level of debugging for autoconfiguration to the specified
+.Ar number .
+The levels available are 0 (no debugging), 1 (print information about each
+device and location probed and the result, pausing after each screenful),
+and 2 (print information as for 1, but confirm whether each device should
+be probed).
+Level 2 is useful if probing some device location causes a failure.
+.Pp
+If the file
+.Pa /etc/boot.default
+exists, the
+.Pa /boot
+program reads a single line from that file for the name and location
+of the kernel to be booted, as well as any options.
+The file contents take the same form as the response to the
+.Li Boot:
+prompt.
+This line becomes the default kernel and options;
+if loading of the kernel is interrupted,
+and then just RETURN is typed, this default is executed.
+.Sh BOOT HINTS
+Here are a few common boot procedures.  The sections that follow
+describe what is happening in more detail.
+.Pp
+To boot a single user shell from the hard disk: make sure the floppy
+drive is empty, reset the processor, type space while the kernel is
+being loaded, then type a RETURN at the Boot: prompt.
+You should
+usually run fsck to check the file systems before doing anything else.
+If you type control-D, the system will come up multi-user.  Don't
+forget that the root is read-only at the start, so if you want to do
+maintenance in single-user mode, you need to do
+.Pp
+.Dl mount -u /
+.Pp
+to enable writes.
+.Pp
+To boot a backup kernel from the hard disk: make sure the floppy
+drive is empty, reset the processor, type space while the kernel is
+being loaded, then type the desired kernel name at the Boot: prompt
+(e.g. bsd.good).  This will land you in a single user shell.
+.Pp
+To boot
+.Tn BSD Ns /386
+from the hard disk, even though the FDISK label is set
+to boot DOS by default: insert a
+.Tn BSD Ns /386
+boot floppy and reset the
+processor.  At the Boot: prompt, type
+.Dq Li wd()bsd -
+(replace
+.Li wd
+with
+.Li sd
+for a scsi main disk).  Leave off the
+.Li \&-
+if you want a single user shell.
+The floppy drive is now free, and can be used normally when the system
+finishes booting.  (See below for creating a floppy that boots
+straight
+.Tn BSD Ns /386
+without any operator intervention.)
+.Pp
+To boot with a CD-ROM root: insert a
+.Tn BSD Ns /386
+boot floppy and a
+.Tn BSD Ns /386
+CD-ROM and reset the processor.  At the Boot: prompt, press RETURN.
+Type RETURN again at when offered the chance to change floppies.
+After kernel autoconfiguration, you will be prompted
+.Dq Li "root device?" .
+Type
+.Dq Li sd0a
+for a scsi CD-ROM, or
+.Dq Li mcd0a
+for the Mitsumi ISA
+CD-ROM.  The boot floppy is no longer needed, so you may insert
+another floppy, if desired.
+.Pp
+If there is a floppy in drive 0 when the processor is reset, then its
+boot block with be read and executed by the BIOS.  The floppy boot
+always starts at the Boot: prompt.  If you just type a RETURN, the
+default action is to boot /bsd from the floppy.  Since standalone
+floppy systems are cramped for space, the floppy boot gives you a
+chance to change media between loading the kernel and starting it.
+Therefore, the disk you actually use as the root file system need not
+have a kernel binary.
+.Pp
+If you boot with a floppy root, then you must not remove the floppy
+while running; however, if you specify an alternate device, then the
+floppy is free and can be used for any purpose.
+.Pp
+To make a floppy that boots straight to
+.Tn BSD Ns /386
+on a hard disk, make
+a copy of your distribution boot floppy, and in the copy, put a line like
+.Pp
+.Dl wd(0,0)/bsd
+.Pp
+in the file
+.Pa /etc/boot.default .
+Replace
+.Li wd
+with
+.Li sd
+if you have a scsi main disk;
+change the unit numbers as needed.
+.Sh BOOT DETAILS
+The boot process on a PC consists of a number of stages.
+.Pp
+The first stage is handled by the system BIOS.
+It selects a boot device, then loads and executes the first sector
+of the device.
+The device selection is sometimes configurable, but often defaults
+to the
+.Dq A
+floppy if a diskette is present, otherwise the
+.Dq C
+(primary) hard disk.
+If the disk is a hard disk, the first block may be a
+.Tn BSD Ns /386
+boot block, a standard PC master boot record, or a program
+like
+.Xr bootany
+(see
+.Xr disksetup 8 ) ,
+which allows a choice of systems to be booted.
+In the latter two cases, a PC FDISK partition table in the first block
+lists the PC-style partitions and indicates which should normally be booted.
+Another bootstrap facility may also be used, such as the OS/2
+boot manager.
+If a
+.Tn BSD Ns /386
+partition is selected,
+a
+.Tn BSD Ns /386
+boot block
+is then executed
+(usually one of
+.Pa fdboot ,
+.Pa wdboot ,
+.Pa ahaboot ,
+or
+.Pa eahaboot ) .
+The boot block loads a slightly larger program from the following
+15 sectors
+(usually one of
+.Pa bootfd ,
+.Pa bootwd ,
+.Pa bootaha ,
+or
+.Pa booteaha ) .
+That program prints
+.Dq Li "Loading /boot"
+and then loads and executes
+.Pa /boot
+from the indicated partition.
+.Pa /boot
+then loads and executes the kernel, passing the boot flags and additional
+information to the kernel.
+.Sh FILES
+.Bl -tag -width /etc/boot.default
+.It Pa /boot
+Second stage boot
+.It Pa /sbin/init
+The first user program
+.It Pa /etc/rc
+Startup shell script
+.It Pa /etc/boot.default
+Default boot command
+.Sh SEE ALSO
+.Xr disklabel 8 ,
+.Xr disksetup 8 ,
+.Xr init 8 ,
+.Xr reboot 8 ,
+.Xr shutdown 8

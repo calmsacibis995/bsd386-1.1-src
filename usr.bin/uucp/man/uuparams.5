@@ -1,0 +1,562 @@
+.\"
+.V= $Id: uuparams.5,v 1.4 1994/01/31 04:45:23 donn Exp $
+.\"
+.ds S1 UUPARAMS
+.ds S2 \fIUuparams\fP
+.ds S3 \fIuuparams\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.if t .ds MP \f(CWCONFIG\fP
+.if t .ds NP \f(CW/etcuucp/CONFIG\fP
+.if n .ds MP CONFIG
+.if n .ds NP `/etc/uucp/CONFIG'
+.ds sT \v'-0.2v'\s-1*\s0\v'0.2v'
+.TH \*(S1 5 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uuparams \- UUCP program parameters
+.SH SYNOPSIS
+.BI /etc/uucp/CONFIG
+.SH DESCRIPTION
+This file provides an optional parameter changing facility.
+\*(S5 is configured with the defaults listed below,
+but any of these defaults can be changed
+by editing the configuration file to set the new value.
+.PP
+The basic parameter file that affects all \*(S5 programs is
+\*(NP.
+It is installed in a
+.I well-known
+location principally because
+it allows the \*(S5 operating directory to be altered.
+.PP
+The program
+.IR uuparams (8)
+displays the default or altered parameter settings.
+.SH MACROS
+Some parameters represent arguments
+passed to programs called by \*(S5 programs.
+There are some macros that can be used inside arguments
+to interpolate fields from the message being processed by the handler,
+they are all identified by the special character \fB&\fP:
+.PP
+.if t .RS 2
+.TP "\w'\fB&D\fP	\fIHome.\fPXX'u"
+.BI &F "	From."
+The name of the sender of the message.
+.TP
+.BI &H "	Home."
+The name of the destination host (on which the program is being invoked).
+.TP
+.BI &O "	Origin."
+The name of the host from which the message originated.
+.TP
+.BI &U "	User."
+The name of the user to which the message is being delivered.
+.TP
+.BI &&
+If you really need to interpolate just an \fB&\fP.
+.TP
+.BI &%
+The way to escape a \fB%\fP (see below).
+.if t .RE
+.PP
+There is a set of macros related to the above
+that can be used to interpolate a string
+depending on the presence of absence of a value
+associated with the `\fB&\fP' macro of the same name.
+If the string is not interpolated the macro is replaced by the null string,
+and if this causes the entire argument to become empty it is
+omitted from the list of arguments.
+These macros are all enclosed by the special character \fB%\fP, and
+take the form:
+.PP
+.RS
+\fB%\fP{\fB+\fP|\fB\-\fP}\fBX\fP\fIstring\fP\fB%\fP
+.RE
+.PP
+The \fIstring\fP is interpolated if the form \fB+X\fP is used
+and the `\fB&\fP' macro would yield a non-empty string,
+or if the form \fB\-X\fP is used
+and the `\fB&\fP' macro would yield an empty string. Eg:
+.PP
+.RS
+.if n %+U\-u%
+.if t \f(CW%+U\-u%\fP
+.RE
+.PP
+will interpolate `\-u' if the macro \fB&U\fP would yield a non-empty user name.
+.PP
+There is another set of macros that can be used to interpolate a string
+depending on the evaluation of a simple boolean expression.
+If the string is not interpolated the macro is replaced by the null string,
+and if this causes the entire argument to become empty it is
+omitted from the list of arguments.
+These macros are all enclosed by the special character \fB%\fP, and
+take the form:
+.PP
+.RS
+\fB%\fP[\fB!\fP]\fBX\fP\fIstring\fP\fB%\fP
+.RE
+.PP
+If the condition selected by \fBX\fP evaluates to \fBtrue\fP
+and the optional \fB!\fP was not given
+then \fIstring\fP is interpolated.
+Where the \fB!\fP is given \fIstring\fP is interpolated
+when the condition evaluates to \fBfalse\fP.
+The \fIstring\fP given may contain \fB&\fP substitutions,
+however nested \fB%\fP substitutions are not permitted.
+.PP
+Selector characters (\fIX\fP) are:
+.PP
+.if t .RS 2
+.TP "\w'\fB\fPXX'u"
+.B H
+True if \fB&O\fP is identical with \fB&H\fP,
+ie: if the message originated at the destination node.
+.if t .RE
+.SH PARAMETERS
+Parameters are defined the same way one defines shell variables,
+as in:
+.if t \f(CWNAME=value\fP,
+.if n `NAME=value',
+one per line.
+There are three sorts of parameters,
+strings, arrays of strings, and numbers.
+String arrays are merely comma (`,') separated strings,
+as in:
+.if t \f(CWUUCICOARGS="-r1","-c"\fP.
+.if n `UUCICOARGS="-r1","-c"'.
+Spaces or tabs around the `=' will be ignored,
+as will trailing spaces and tabs.
+Strings may be enclosed in double-quotes, which will be ignored.
+A leading double-quote may be escaped with a backslash (`\e').
+Numbers are hexadecimal if they have a leading `0x',
+octal if they have a leading `0',
+otherwise decimal.
+.PP
+Comments may be introduced with a hash character (`#')
+at the start of a line,
+and continue to the end of the line.
+Empty lines are ignored.
+.PP
+Those parameters with a `prepend' field will have its value prepended
+if they don't start with a leading `/'.
+.br
+.ne 10
+.PP
+The following parameters may be changed:
+.PP
+.nf
+.ta +\w'\s-1\f(CWACCESS_REMOTE_FILES\fP\s0X'u +\w'\s-1\f(CW/var/spool/uucppublic/\fP\s0X'u
+Name	Default	Prepend
+.ft CW
+.ps -1
+.vs \n(.s+2
+.sp .25
+ACCESS_REMOTE_FILES	0
+ACTIVEFILE	".active"
+ALIASFILE	L.aliases	PARAMSDIR
+ALLACUINOUT	0
+ANON_USERS	uucp,tmj
+CMDSFILE	L.cmds	PARAMSDIR
+CMDTIMEOUT	14400
+CNNCT_ACCT_FILE	connect	PARAMSDIR
+CORRUPTDIR	.Corrupt	SPOOLDIR
+DEADLOCKTIME	5400
+DEBUG	0
+DEFAULT_CICO_TURN	1800
+DIALFILE	"L-dialcodes"	PARAMSDIR
+DIALINOUT	"acucntrl"	PARAMSDIR
+DIRCHECKTIME	900
+DIR_MODE	0755
+EXPLAINDIR	explain/	PARAMSDIR
+FILE_MODE	0666
+LOCKDIR	/var/run/	SPOOLDIR
+LOCKNAMEISDEV	0
+LOCKPIDISSTR	0
+LOCKPRE	LCK..
+LOCK_MODE	0444
+LOGDIR	/var/log/uucp/	SPOOLDIR
+LOGIN_MUST_MATCH	"uucp:tty9","tmj:ttyd"
+LOG_MODE	0644
+LOG_BAD_SYS_NAME	0
+MAILPROG	/usr/sbin/sendmail
+MAILPROGARGS	""
+MAXUUSCHEDS	4
+MAXXQTS	15
+MINSPOOLFSFREE	100
+NEEDUUXQT	.NeedUuxqt	SPOOLDIR
+NODENAME	""
+NODESEQFILE	""	PARAMSDIR
+NODESEQTEMP	"SQTMP"	PARAMSDIR
+NODESEQLOCK	"SQ"	PARAMSDIR
+NOLOGIN	"/etc/nologin"
+NOSTRANGERS	"uucp:tty9","tmj:ttyd"
+ORIG_UUCP	1
+PARAMSDIR	/etc/uucp/
+PROGDIR	/usr/libexec/
+PROG_PARAMSDIR	params/	PARAMSDIR
+PUBDIR	/var/spool/uucppublic/	SPOOLDIR
+SEQFILE	SEQF	SPOOLDIR
+SHELL	/bin/sh
+SPOOLALTDIRS	/var/spool/nuucp/
+SPOOLDIR	/var/spool/uucp/
+STATUSDIR	status/	SPOOLDIR
+SYSFILE	L.sys	PARAMSDIR
+TELNETD	/usr/etc/in.telnetd
+TMPDIR	/tmp/
+TRACEFLAG	0
+USERFILE	USERFILE	PARAMSDIR
+UUCICO	uucico	PROGDIR
+UUCICOARGS	"-r1","-c"
+UUCICO_ONLY	0
+UUCP	/usr/bin/uucp
+UUCPARGS	""
+UUCPGROUP	uucp
+UUCPUSER	uucp
+UUSCHED	uusched	PROGDIR
+UUSCHEDARGS	""
+UUX	/usr/bin/uux
+UUXARGS	""
+UUXQT	uuxqt	PROGDIR
+UUXQTARGS	""
+UUXQTHOOK	uuxqt-hook	PARAMSDIR
+VERIFY_TCP_ADDRESS	0
+WARN_NAME_TOO_LONG	0
+WORK_FILE_MASK	0137
+XQTDIR	.Xqtdir	SPOOLDIR
+.vs
+.ps
+.ft
+.DT
+.fi
+.PP
+If you change
+.SM UUCPUSER
+or
+.SM UUCPGROUP
+then you must also change all the ownerships in \f(CWSPOOLDIR\fP
+from the old value to the new value.
+.PP
+Note that it is legal to set a program name to
+.SM NULLSTR
+\(em it just won't be executed.
+.SS Definitions
+.if n .ds tw 4
+.if t .ds tw \w'\s-1ACCESS_REMOTE_FILES\s0X'u
+.TP "\*(tw"
+.SM ACCESS_REMOTE_FILES
+Set to 1 (else 0) to allow uux to fetch remote files.
+.TP
+.SM ACTIVEFILE
+This can be set to some filename unique to
+.IR uucico 's
+spool area to indicate when it is active in the directory.
+This will prevent any automatic directory truncation while
+.I uucico
+is active.
+Set
+.I null
+otherwise.
+.TP
+.SM ALIASFILE
+Name of aliases file
+(described in 
+.IR L.aliases (5)).
+.TP
+.SM ALLACUINOUT
+Set to 1 if all ACUs are used for simultaneous dialin/dialout access.
+.TP
+.SM ANON_USERS
+A list of comma-separated login names
+that are considered to be `anonymous' calls
+that shouldn't be allowed to receive any waiting messages.
+.TP
+.SM CMDSFILE
+Name of `legal commands' validation file for
+.IR uuxqt (8).
+.TP
+.SM CMDTIMEOUT
+Timeout for command file.
+.TP
+.SM CNNCT_ACCT_FILE
+Name of connect accounting file.
+Accounting disabled if this is null.
+File is created if it doesn't exist.
+.TP
+.SM CORRUPTDIR
+Directory for corrupted command files.
+.TP
+.SM DEADLOCKTIME
+How long before untouched lock file is considered dead.
+.TP
+.SM DEBUG
+Set global debug level.
+CARE! This affects \fBall\fP programs.
+.TP
+.SM DEFAULT_CICO_TURN
+Default uucico turn-around time in seconds.
+.TP
+.SM DIALFILE
+Name of file holding optional dial codes.
+.TP
+.SM DIALINOUT
+Name of program to control \s-1ACU\s0s for simultaneous dial in/out access.
+(Simultaneous use disabled if null.)
+.TP
+.SM DIRCHECKTIME
+Directory check period for new work.
+.TP
+.SM DIR_MODE
+Directory creation mode for work directories.
+.TP
+.SM EXPLAINDIR
+Directory for program argument explanations (for boolean program options etc.).
+Files in this directory with the same name as a program
+will be read by that program if required
+to provide explanations for argument options.
+.TP
+.SM FILE_MODE
+Basic message file creation mode.
+.TP
+.SM LOCKDIR
+Directory for locks.
+.TP
+.SM LOCKNAMEISDEV
+Set to 1 if lock files have names representing device number
+(sprintf pattern "%s%s%3.3lu.%3.3lu.%3.3lu" with arguments
+LOCKDIR, LOCKPRE, maj, maj, min) as opposed to a device name
+(sprintf pattern "%s%s%s" with arguments LOCKDIR, LOCKPRE, tty).
+.TP
+.SM LOCKPIDISSTR
+Set to 1 if lockfiles have \s-1ASCII\s0 pid (otherwise int).
+.TP
+.SM LOCKPRE
+Lock file pre-fix.
+.TP
+.SM LOCK_MODE
+Lock file creation mode.
+.TP
+.SM LOGDIR
+Directory for program log files.
+.TP
+.SM LOGIN_MUST_MATCH
+Non-null if you want to guarantee that the site they claim to be
+is who you expect them to be.
+If this is defined and the site calling in identifies itself as "foo",
+then the login name used MUST be either "foo" or "Ufoo".
+If there are exceptions, then they can be defined in a comma-separated list
+in the form: name[<:>line]... where
+.I name
+is the login name, and each
+.I line
+is an initial string to match the device they came in on (minus leading `/dev/'). 
+.TP
+.SM LOG_MODE
+Log file creation mode.
+.TP
+.SM LOG_BAD_SYS_NAME
+Set to 1 to log bad system names
+(that don't exist in \s-1SYSFILE\s0.)
+.TP
+.SM MAXUUSCHEDS
+Maximum allowed number of simultaneous `uuscheds'.
+.TP
+.SM MAXXQTS
+Maximum allowed number of simultaneous `uuxqts'.
+.TP
+.SM "MAILPROG\ \ MAILPROGARGS"
+Internally generated mail delivery program and args.
+.TP
+.SM MINSPOOLFSFREE
+Minimum space that should be available on the
+.SM SPOOLDIR
+file system, in Kbytes.
+.TP
+.SM NEEDUUXQT
+File to request a `uuxqt' scan.
+.TP
+.SM NODENAME
+Override kernel name for local node.
+.TP
+.SM "NODESEQFILE\ \ NODESEQTEMP\ \ NODESEQLOCK"
+These files control node conversation sequence numbers.
+Set 
+.SM NODESEQFILE
+to
+.if t \f(CW"SQFILE"\fP
+.if n "SQFILE"
+to enable, and add a line for each node with sequencing
+(not recommended unless sequencing is known to work at remote site).
+.TP
+.SM NOLOGIN
+Pathname of file to prevent further activity.
+.TP
+.SM NOSTRANGERS
+Non-null if you don't want to accept connections from sites that are not in your
+.SM SYSFILE.
+If there are exceptions, then they can be defined in a comma-separated list
+in the same form as
+.SM LOGIN_MUST_MATCH
+above.
+.TP
+.SM ORIG_UUCP
+Set to `1` to emulate original
+.SM UUCP.
+DO NOT CHANGE ON ACTIVE SYSTEM!
+.TP
+.SM PARAMSDIR
+Directory for
+.SM UUCP
+parameter files.
+.TP
+.SM PROGDIR
+Directory for
+.SM UUCP
+programs.
+.TP
+.SM PROG_PARAMSDIR
+Directory for program specific parameter files.
+Files in this directory with the same name as a program
+will be read by that program on startup
+and used to configure parameters in the same way that \*(NP works.
+.TP
+.SM PUBDIR
+Location of public files directory.
+.TP
+.SM SEQFILE
+Name of work file sequence number file.
+.TP
+.SM SHELL
+.I Bourne
+shell pathname.
+.TP
+.SM SPOOLALTDIRS
+Alternative spool directories for uucp
+(a `,' separated list).
+All the spool directories in
+.SM SPOOLALTDIRS
+(including
+.SM SPOOLDIR\c
+) will be scanned for work.
+.TP
+.SM SPOOLDIR
+Spool directory for uucp.
+This is the default directory tree for message file generation.
+.TP
+.SM STATUSDIR
+Directory for node call status files.
+.TP
+.SM STRANGERSCMD
+Optional command to be run if any connection request is rejected by the
+.SM LOGIN_MUST_MATCH
+or
+.SM NOSTRANGERS
+options above.
+.TP
+.SM SYSFILE
+Name of system file
+(described in 
+.IR L.sys (5)).
+.TP
+.SM TELNETD
+Pathname for
+.IR telnetd (8)
+if
+.IR uucpd (8)
+should pass non-\s-1UUCICO\s0 accounts to
+.IR telnetd .
+.TP
+.SM TMPDIR
+Directory for (very) temporary work files.
+.TP
+.SM TRACEFLAG
+Set global routine trace level (not same as
+.SM DEBUG
+).
+CARE! This affects \fBall\fP programs.
+.TP
+.SM USERFILE
+Name of system file
+(described in
+.IR USERFILE (5)).
+.TP
+.SM "UUCICO UUCICOARGS"
+Installed path name and initial args for `uucico' program.
+.TP
+.SM UUCICO_ONLY
+Set to `1' if you wish
+.IR uucpd (8)
+to only allow logins to accounts with shell = \s-1UUCICO\s0.
+(Otherwise, if 
+.SM TELNETD
+is non-null, it starts up `telnetd(8)' for non-\s-1UUCICO\s0 accounts.)
+.TP
+.SM UUCP
+Installed path name of `uucp' program.
+.TP
+.SM UUCPARGS
+Initial params for
+.SM UUCP.
+.TP
+.SM "UUCPUSER\ \ UUCPGROUP"
+User/group names for
+.SM UUCP.
+.TP
+.SM "UUSCHED UUSCHEDARGS"
+Installed path name and initial args for `uusched' program.
+.TP
+.SM "UUX UUXARGS"
+Installed path name of `uux' program and initial parameters.
+.TP
+.SM "UUXQT UUXQTARGS"
+Installed path name of `uuxqt' program and initial parameters.
+.TP
+.SM "UUXQT UUXQTHOOK"
+Optional executable (shell script or binary) which uuxqt will
+.BR exec (2)
+when it is finished.  Since
+.BR rmail (8)
+is capable of calling
+.BR sendmail (8)
+in `queuing' mode, you may wish to make \s-1UUXQTHOOK\s0 a shell
+script that runs `sendmail -q'.
+.TP
+.SM VERIFY_TCP_ADDRESS
+Set to 1 to verify incoming TCP connection adresses.
+.TP
+.SM WARN_NAME_TOO_LONG
+Set to 1 to warn about otherwise acceptable message names
+that exceed the standard maximum length [14].
+.TP
+.SM WORK_FILE_MASK
+File creation mask (umask) for temporary work files.
+.TP
+.SM XQTDIR
+Directory where uuxqt places temporary files.
+.br
+.ne 10
+.SH EXAMPLE
+The file \*(NP might contain:
+.PP
+.RS 2
+.ft CW
+.ta +\w'LOCKNAMEISDEVX'u +\w'=X'u
+.nf
+LOCKDIR	=	/var/spool/locks/
+LOCKPIDISSTR	=	1
+MAILPROG	=	/usr/sbin/sendmail
+MAILPROGARGS	=	"-f&F@&O"
+NODENAME	=	uunet
+ORIG_UUCP	=	0
+SPOOLDIR	=	/var/spool/nuucp/
+.fi
+.DT
+.ft
+.RE
+.br
+.ne 3
+.SH "SEE ALSO"
+.BR uuparams (8).
+.br

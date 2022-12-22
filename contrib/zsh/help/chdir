@@ -1,0 +1,22 @@
+     cd [ arg ]
+     cd old new
+     cd +-n
+          Change the  current  directory.   In  the  first  form,
+          change the current directory to arg, or to the value of
+          HOME if arg is not specified.  If arg is -,  change  to
+          the  value  of  OLDPWD,  the  previous directory.  If a
+          directory named arg is not found in the current  direc-
+          tory  and  arg does not begin with a slash, search each
+          component of the shell parameter cdpath.  If the option
+          CDABLEVARS  is  set,  and  a parameter named arg exists
+          whose value begins with a slash, treat its value as the
+          directory.
+
+          The second form of cd substitutes the  string  new  for
+          the  string  old  in the name of the current directory,
+          and tries to change to this new directory.
+
+          The third form of cd is equivalent to popd.
+
+     chdir
+          Same as cd.

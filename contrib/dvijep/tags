@@ -1,0 +1,52 @@
+ADD_MEMBER	dvijep.c	/^#define ADD_MEMBER(set,member) {set |= (1 << (memb/
+ARGS	fndfil.c	/^#define ARGS(plist)	plist$/
+BIGCHAR	dvijep.c	/^#define BIGCHAR(t) (((t->wp > (COORDINATE)size_lim/
+DBGOPT	fndfil.c	/^#define  DBGOPT(flag)	(debug_code & (flag))$/
+DOWNLOAD_CHARACTER	dvijep.c	/^#define DOWNLOAD_CHARACTER(nbytes) OUTF("\\033\\05/
+EMPTY_SET	dvijep.c	/^#define EMPTY_SET(set) {set = 0L;}$/
+FILE_EXISTS	fndfil.c	/^#define FILE_EXISTS(n) (access((char*)n,0) == 0)$/
+ISNAMEPREFIX	fndfil.c	/^#define ISNAMEPREFIX(c) (isalpha(c) || ((c) == '_'/
+ISNAMESUFFIX	fndfil.c	/^#define ISNAMESUFFIX(c) (isalnum(c) || ((c) == '_'/
+IS_MEMBER	dvijep.c	/^#define IS_MEMBER(set,member) (set & (1 << (member/
+MAP_CHAR	dvijep.c	/^#define MAP_CHAR(c) (((c) > 32) ? (c) : ((c) + 160/
+MIN	fndfil.c	/^#define	MIN(a,b)	((a) < (b) ? (a) : (b))$/
+MOVETO	dvijep.c	/^#define MOVETO(x,y) OUTF2("\\033*p%dx%dY",(x),YSIZ/
+MOVEX	dvijep.c	/^#define MOVEX(x) OUTF("\\033*p%dX",(x))$/
+MOVEY	dvijep.c	/^#define MOVEY(y) OUTF("\\033*p%dY",YSIZE-(y))$/
+Mfndfil	fndfil.c	/^main()$/
+NEWLINE	fndfil.c	/^#define NEWLINE(fp) {(void)putc((char)'\\r',fp);(v/
+ONPAGE	dvijep.c	/^#define ONPAGE(t) (((hh - t->xoffp + t->pxlw) <= X/
+OUT16	dvijep.c	/^#define OUT16(n) {OUTC((n)>>8); OUTC((n));}$/
+OUT_CHAR	dvijep.c	/^#define OUT_CHAR(c) OUTC(MAP_CHAR(c))$/
+RMOVETO	dvijep.c	/^#define RMOVETO(delx,dely) {\\$/
+RMOVEX	dvijep.c	/^#define RMOVEX(delx) {\\$/
+RMOVEY	dvijep.c	/^#define RMOVEY(dely) {\\$/
+ROUND	dvijep.c	/^#define ROUND(x) ((int)(x + 0.5))$/
+RULE	dvijep.c	/^#define RULE(x,y,width,height) {\\$/
+RULE2	dvijep.c	/^#define RULE2(x,y) {\\$/
+SETCOPIES	dvijep.c	/^#define SETCOPIES(n) OUTF("\\033&l%dX",MAX(1,MIN(n/
+SET_CHAR_CODE	dvijep.c	/^#define SET_CHAR_CODE(fontnumber,ch) {\\$/
+SET_FONT_ID	dvijep.c	/^#define SET_FONT_ID(fontnumber) OUTF("\\033*c%dd4F/
+STRSPN	fndfil.c	/^#define STRSPN(s,t) (size_t)strspn(s,t)$/
+TRANSFER_RASTER_GRAPHICS	dvijep.c	/^#define TRANSFER_RASTER_GRAPHICS(nbytes) OUTF("\\0/
+bopact	dvijep.c	/^bopact()			\/* beginning of page action *\/$/
+copyname	fndfil.c	/^copyname(target,source)$/
+devinit	dvijep.c	/^devinit(argc,argv)		\/* initialize device *\/$/
+devterm	dvijep.c	/^devterm()			\/* terminate device *\/$/
+envsub	fndfil.c	/^envsub(filename)$/
+eopact	dvijep.c	/^eopact()			\/* end of page action *\/$/
+fillrect	dvijep.c	/^fillrect(x,y,width,height)$/
+findfile	fndfil.c	/^findfile(pathlist,name)$/
+isfile	fndfil.c	/^isfile(filename)$/
+loadbmap	dvijep.c	/^loadbmap(c)			\/* load big character as raster bit/
+loadchar	dvijep.c	/^loadchar(c)$/
+loadrotatedchar	dvijep.c	/^loadrotatedchar(c,do_header)$/
+log_lookup	fndfil.c	/^log_lookup(fp,filename,status)$/
+makefont	dvijep.c	/^makefont()$/
+newfont	dvijep.c	/^newfont()$/
+outraster	dvijep.c	/^outraster(c,yoff)\/* print single raster line in b/
+outrow	dvijep.c	/^outrow(c,yoff)	\/* copy img_row[] into rasters[] i/
+saverow	dvijep.c	/^saverow(c,yoff)	\/* copy img_row[] into rasters[] /
+setchar	dvijep.c	/^setchar(c, update_h)$/
+setfont	dvijep.c	/^setfont()$/
+setstr	dvijep.c	/^setstr(c)$/

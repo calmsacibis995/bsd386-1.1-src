@@ -1,0 +1,5 @@
+cleanup	rcsclean.c	/^cleanup()$/
+exiterr	rcsclean.c	/^exiterr()$/
+get_directory	rcsclean.c	/^get_directory(dirname, aargv)$/
+mainProg	rcsclean.c	/^mainProg(rcscleanId, "rcsclean", "$Id: rcsclean.c,/
+unlock	rcsclean.c	/^unlock(delta)$/

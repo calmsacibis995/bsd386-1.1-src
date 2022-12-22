@@ -1,0 +1,495 @@
+.ds S1 ARGS
+.ds S2 args
+.ds S3 args
+.TH \*(S1 3 "" \^
+.nh
+.SH NAME
+ArgsUsage, DoArgs, EvalArgs \- program argument processing
+.SH SYNOPSIS
+.nf
+.ft CW
+.ta +\w'#includeXX'u
+#include	"Args.h"
+.sp
+char\ *	ArgsUsage(Args*)
+void	DoArgs(int,\ char**,\ Args*)
+int	EvalArgs(int,\ char**,\ Args*,\ int(*)())
+AFuncv	getInt1(PassVal,\ Pointer,\ char*)
+AFuncv	getName(PassVal,\ Pointer,\ char*)
+.sp
+.ta +\w'extern\ char\ *XX'u
+extern\ void	finish(int);
+extern\ char\ *	Name;
+extern\ int	NoArgsUsage;
+.DT
+.ft
+.fi
+.SH DESCRIPTION
+These routines provide a standard argument interface to programs,
+in the style of
+.IR getopt (3).
+Arguments can be flags with boolean, mandatory, or optional parameters.
+They can have fixed or variable positions, and occur optionally, once, or many times.
+They can be specified to be of type
+.IR boolean ,
+.IR char ,
+.IR string ,
+.IR integer ,
+or
+.IR "floating point" .
+.PP
+Where flag arguments
+(ones with a leading `\-' character)
+are specified to take mandatory values,
+the value can either occur in the same argument, or in the next.
+Where flag arguments take optional values,
+then the value must occur in the same argument,
+or be assumed to be absent.
+.PP
+Arguments are described by entries in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector,
+which contains one entry for each possible type of argument.
+By convention, the first entry always deals with the program name argument.
+The entries are scanned in order for each argument,
+and the first suitable match is used to process the argument.
+A set of macros to create entries is available.
+The last entry must always be the macro \f(CWArg_end\fP.
+.PP
+The
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector can be used to construct an
+.I usage
+message for use in argument option explanations.
+The special argument \fB\-?\fP is recognized by the routine
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+and implemented by the routine
+.if n \fIArgsUsage\fP
+.if t \f(CWArgsUsage\fP
+to request a
+.I usage
+file to be read from a default location,
+based on the name of the invoking program.
+The program name is expected always to be the last component of the first argument,
+and can be processed with the argument specific routine
+.IR getName ,
+which by default places its result into the invoker-supplied variable
+.IR Name .
+.PP
+Arguments may be processed according to type and placed in specified locations,
+and/or passed to user provided routines for individual processing.
+.SS ArgsUsage
+This routine returns a string describing the
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector
+using a quasi-\s-1BNF\s0 notation.
+.SS DoArgs
+.if n \fIDoArgs\fP
+.if t \f(CWDoArgs\fP
+is a default arguments processing routine that calls
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+to process the arguments, and prints any errors on
+.I stderr
+using
+.if n \fIArgsUsage\fP
+.if t \f(CWArgsUsage\fP
+to generate a usage message.
+The usage message can be prevented by setting the variable
+.I NoArgsUsage
+non-zero before or during invocation.
+Any errors cause the externally provided routine
+.I finish
+to be called with the program exit status value
+.SM EX_USAGE .
+.SS EvalArgs
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+scans the passed argument vector,
+evaluating arguments that match those described in the passed
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector.
+It returns the number of arguments processed,
+or a negative value if any errors occurred.
+The first and second arguments should be the same as those passed to the
+routine
+.IR main() .
+The third argument should point at an array of type
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+describing the expected program arguments.
+Errors cause an argument specific usage string
+to be generated and passed to the routine pointed to by the fourth argument.
+.PP
+If an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry has a variable address declared,
+then the argument is converted as per the argument type
+and assigned to the indicated variable.
+If an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry has a routine address declared,
+then the routine is called with three arguments as described below.
+Note that arguments of type
+.I string
+will produce a pointer into the original argument vector.
+.SS getInt1
+The routine
+.if n \fIgetInt1\fP
+.if t \f(CWgetInt1\fP
+can be used in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry.
+It places the integer value of an argument in the passed variable.
+If the value is missing or 0, it sets the variable to 1.
+.SS getName
+The routine
+.if n \fIgetName\fP
+.if t \f(CWgetName\fP
+can also be used in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry.
+It scans the passed string argument for the last '/' character,
+and places the remainder into the passed variable.
+.SH "USAGE FUNCTIONS"
+Functions can be declared to process each argument.
+They will be called with three arguments:
+the first the value of the argument to be processed;
+the second the address of any variable given in the
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry, and the third a pointer to the original argument value.
+The type of the first argument is
+.I PassVal
+which is a union of all the basic types that an argument can take.
+The type of the second argument is
+.if n \fIPointer\fP
+.if t \f(CWPointer\fP
+(which is normally
+.IR typedef ed
+to be
+.if n ``void *'',
+.if t \f(CWvoid *\fP,
+except where the C-compiler cannot handle it,
+when it becomes
+.if n ``char *'',
+.if t \f(CWchar *\fP,
+or maybe
+.if n ``int *''.)
+.if t \f(CWint *\fP.)
+.PP
+Functions should process the argument,
+and then return a value of type
+.I AFuncv
+to indicate any further action.
+Possible return values are:
+.PP
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'(AFuncv)\fIXstringX\fPX'u
+.TP "\*(tw"
+.SM ACCEPTARG
+The argument has been processed successfully.
+.TP
+.SM REJECTARG
+The argument hasn't been processed, and
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+should try matching it against a further
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+entry.
+.TP
+.SM ARGERROR
+The argument has caused an error, and
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+should generate a default explanation.
+.TP
+.RI (AFuncv) "``error''"
+Any other return value is assumed to be the address of a string
+describing an error condition.
+.RE
+.SH "USAGE MACROS"
+A set of macros for creating entries in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector is defined in the
+.I include
+file.
+Entries may be created directly using the definition for the type
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+described in the file,
+but the macros cover most cases, and are easier to use.
+.PP
+Each entry in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+vector describes an argument that, by default,
+is limited to one occurrence,
+and, if not of type
+.if n \fIbool\fP,
+.if t \f(CWbool\fP,
+is mandatory, and needs a value.
+These defaults can be overridden by the following options:
+.PP
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'\s-1OPTARG\s0XX'u
+.TP "\*(tw"
+.SM MANY
+There can be more than one argument matching this entry.
+.TP
+.SM OPTARG
+There need not be any arguments matching this entry.
+.TP
+.SM OPTVAL
+There need not be any parameter for this argument.
+.RE
+.PP
+The parameters for the macros have the following meanings:
+.PP
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'\fBO\fPXX'u
+.TP "\*(tw"
+.B C
+A comment to be used in describing the argument.
+.TP
+.B F
+A character denoting the flag name for a flagged argument.
+.TP
+.B O
+Any options as described above,
+.IR or ed
+together if more than one.
+.TP
+.B N
+A mandatory position for an argument in the argument list.
+.TP
+.B P
+A pointer to a variable, or \fB0\fP.
+.TP
+.B R
+A pointer to a routine, or \fB0\fP.
+.TP
+.B T
+The type of the argument:
+one of
+.SM BOOL,
+.SM STRING,
+.SM CHAR,
+.SM INT,
+.SM FLOAT,
+.SM DOUBLE,
+.SM LONG,
+.SM OCT,
+.SM HEX,
+or
+.SM NUMBER.
+.RE
+.br
+.ne 20
+.PP
+The basic macros are:
+.PP
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'\f(CWArg_macro(F,P,R,C,T,O)\fPX'u
+.TP "\*(tw"
+\f(CWArg_0(P,R)\fP
+Defines the mandatory first argument which is always the program invoked name.
+.TP
+\f(CWArg_N(N,P,R,C,T,O)\fP
+Defines an argument in position \fBN\fP of type \fBT\fP.
+.TP
+\f(CWArg_macro(F,P,R,C,T,O)\fP
+General argument macro,
+also used to create those defined below.
+.TP
+\f(CWArg_igndups\fP
+An entry that prevents
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+from complaining about duplicate arguments
+when the matched entry doesn't specify \s-1MANY\s0.
+.TP
+\f(CWArg_ignnomatch\fP
+An entry that prevents
+.if n \fIEvalArgs\fP
+.if t \f(CWEvalArgs\fP
+from complaining about unmatched arguments.
+.TP
+\f(CWArg_end\fP
+The mandatory last entry in an
+.if n \fIArgs\fP
+.if t \f(CWArgs\fP
+array.
+.RE
+.PP
+Other macros are:
+.PP
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'\f(CWArg_macro(F,P,R,C,T,O)\fPX'u
+.TP "\*(tw"
+\f(CWArg_any(P,R,C,O)\fP
+Accepts any argument (with or without a leading `\-') to be interpreted as a string.
+.TP
+\f(CWArg_bool(F,P,R)\fP
+Accepts an optional flag argument.
+If present, the passed variable is set to
+.IR true .
+.TP
+\f(CWArg_char(F,P,R,C,O)\fP
+Accepts a flag argument with a single character parameter.
+.TP
+\f(CWArg_double(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter will be converted to type
+.IR double .
+.TP
+\f(CWArg_float(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter will be converted to type
+.IR float .
+.TP
+\f(CWArg_hex(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is converted from a hexadecimal string to type
+.IR int .
+.TP
+\f(CWArg_int(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is converted from a decimal string to type
+.IR int .
+.TP
+\f(CWArg_long(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is converted from a decimal string to type
+.IR long .
+.TP
+\f(CWArg_minus(P,R)\fP
+Accepts an argument consisting of just the character `\fB\-\fP'.
+.TP
+\f(CWArg_noflag(P,R,C,O)\fP
+Accepts a non-flag argument to be interpreted as a string.
+.TP
+\f(CWArg_number(F,P,R,C,O)\fP
+Accepts an integer parameter
+whose conversion is specified by the leading characters:
+\fB0x\fP \(em a hexadecimal number;
+\fB0\fP \(em an octal number;
+anything else \(em a decimal number.
+.TP
+\f(CWArg_oct(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is converted from an octal string to type
+.IR long .
+.TP
+\f(CWArg_short(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is converted from a decimal string to type
+.IR short .
+.TP
+\f(CWArg_string(F,P,R,C,O)\fP
+Accepts a flag argument whose parameter is treated as a string.
+.RE
+.br
+.ne 14
+.SH EXAMPLES
+.nf
+.ft CW
+.ta +\w'AFuncvXX'u +\w'char\ *XX'u
+#include "Args.h"
+
+bool	boolean1;
+int	int1;
+long	long1;
+bool	minus;
+char *	string1;
+char *	string3;
+char *	Name;
+
+AFuncv	get_boolean2(PassVal, Pointer, char *);
+AFuncv	get_string2(PassVal, Pointer, char *);
+AFuncv	get_string4(PassVal, Pointer, char *);
+AFuncv	get_string5(PassVal, Pointer, char *);
+
+Args	Usage[] =
+{
+	Arg_0(0, getName),
+	Arg_bool(a, &boolean1, 0),
+	Arg_bool(b, 0, get_boolean2),
+	Arg_string(A, &string1, 0, "string1", 0),
+	Arg_string(B, 0, get_string2, "string2", MANY),
+	Arg_long(C, &long1, 0, "long", OPTARG),
+	Arg_int(D, &int1, getInt1, "integer", OPTARG|OPTVAL),
+	Arg_noflag(&string3, 0, "string3", 0),
+	Arg_noflag(0, get_string4, "string4", OPTARG|MANY),
+	Arg_minus(&minus, 0),
+	Arg_noflag(0, get_string5, "string5", OPTARG|MANY),
+	Arg_end
+};
+
+main(argc, argv)
+	int	argc;
+	char *	argv[];
+{
+	DoArgs(argc, argv, Usage);
+	exit(EX_OK);
+}
+.DT
+.ft
+.fi
+.SS "Usage Message"
+If the program above is invoked with no arguments,
+the following usage message will be printed on
+.IR stderr :
+.PP
+.nf
+.ft CW
+.ta +\w'Usage:\ "'u
+Usage: "name [-[a][b]] -A <string1> -B <string2> ... [-C <long>]\e
+	[-D[<integer>]] <string3> [<string4> ...] [-] [<string5> ...]"
+.DT
+.ft
+.fi
+.SS Comments
+The entries in the array
+``Usage''
+define several flag arguments, and non-flag arguments.
+The flags \fB\-a\fP and \fB\-b\fP are optional booleans (no parameters),
+whereas \fB\-A\fP is mandatory,
+and there must be at least one \fB\-B\fP argument.
+The flag \fB\-D\fP takes an optional parameter,
+but
+``int1''
+will be set to \fB1\fP if it appears without one.
+Routines are used to process some arguments,
+in particular, the routine
+``get_string4'',
+which will match all non-flag arguments after
+``string3'',
+must occasionally return the value
+.SM REJECTARG
+in order for any arguments to be processed by the next
+.I non-flag
+matching entry (containing the address of the routine
+``get_string5'').
+.br
+.ne 3
+.SH FILES
+.PD 0
+.TP "\w'\f(CW/usr/local/lib/explain/\fP\fIname\fPXX'u"
+\f(CW/usr/local/include/Args.h\fP
+Include file for macro definitions.
+\f(CW/usr/local/lib/libA.a\fP
+The library of compiled routines.
+.TP
+\f(CW/usr/local/lib/explain/\fP\fIname\fP
+Source for description of boolean flags for program \fIname\fP.
+.PD

@@ -1,0 +1,134 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxaddmodem.1m,v 1.1.1.1 1994/01/14 23:10:10 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXADDMODEM 1M "September 21, 1993"
+.SH NAME
+faxaddmodem \- configure a facsimile modem for use with
+.I FlexFAX
+.SH SYNOPSIS
+.B faxaddmodem
+[
+.B \-os
+.I system
+] [
+.B \-s
+.I speed
+] [
+.I tty
+]
+.SH DESCRIPTION
+.I faxaddmodem
+is an interactive shell script that does the
+necessary setup work to configure
+a facsimile modem for use by the
+.I FlexFAX
+software.
+If the serial port name is not specified on the command line
+.I faxaddmodem
+will prompt for it.
+.PP
+The configuration work done by
+.I faxaddmodem
+falls into two main areas: creating the necessary files to run
+a facsimile server process, and defining the contents of the
+configuration database file.
+The 
+.I config (4F)
+manual page has an in-depth description of the contents of the
+configuration file and should be consulted when installing a
+modem.
+.PP
+Many aspects of configuring a modem are operating system-specific.
+.I Faxaddmodem
+deduces the kind of operating system by invoking the
+.IR uname (1)
+program.
+If this program is not available, the operating system must
+be explicitly specified with the
+.B \-os
+option.
+Consult the shell script for the set of known operating systems.
+.PP
+.I faxaddmodem
+can be used to install a new modem or re-install an existing modem.
+In the latter case it will try to propagate the important
+server-related configuration parameters from the existing
+configuration file to the new configuration file.
+These parameter include items such as the phone number, area code,
+and tracing control parameters.
+Modem-related configuration parameters are, however, not propagated.
+Instead
+.I faxaddmodem
+attempts to deduce the type of modem attached to the specified serial
+port and then set up the configuration parameters using a set of
+.I prototype
+configuration files that have previously been tested with like modems.
+If a modem is to be installed for which there is no existing
+prototype file,
+.I faxaddmodem
+will install a comprehensive template of parameters that can be
+edited either during or after the installation process.
+.PP
+.I faxaddmodem
+deduces the type of modem attached to the serial port by sending
+commands to the modem at a fixed speed.
+By default commands are sent at 2400 baud.
+An alternate speed can be specified from the command line with the
+.B \-s
+option.
+.PP
+Because
+.I faxaddmodem
+needs to read and write the modem that is to be installed
+it will not proceed with an installation if the modem is
+locked for use by another process.
+.PP
+Finally, note that an installation can be safely aborted at any
+time by hitting the interrupt key.
+.I faxaddmodem
+delays making installation-related changes until after everything
+has been setup.
+.SH BUGS
+Only a subset of the possible configuration parameters
+are understood by
+.IR faxaddmodem ,
+the remainder must be setup by editing the resultant
+configuration file.
+.SH FILES
+.ta \w'${SPOOL}/bin/lockname    'u
+.nf
+${SPOOL}/bin/ondelay	program to open device without waiting for carrier
+${SPOOL}/bin/lockname	SVR4 UUCP lock filename generator
+.fi
+.PP
+Consult
+.IR intro (4F)
+for a complete discussion of the structure and
+content of the spooling area.
+.SH "SEE ALSO"
+.IR intro (4F),
+.IR config (4F),
+.IR faxd (1M)

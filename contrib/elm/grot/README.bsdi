@@ -1,0 +1,65 @@
+This directory contains Elm 2.4PL23 built under BSDI 1.0.
+The only change made to the distribution was to add this one file.
+
+For the most part, Elm builds right out of the box under BSDI.  There
+are a few things to note.
+
+1)  When asked "Use which C compiler?" do NOT accept the default
+    of "cc".  Enter "gcc" instead.
+
+2)  You will be offered three mailbox locking protocols: dot locking,
+    flock-style locking, and fcntl-locking.  You will be asked to
+    pick and choose which ones you want.  Be careful.  flock and
+    fcntl locking are different interfaces to the same mechanism.
+    If you pick both of them then Elm will deadlock.  Always pick
+    dot locking, and pick *exactly* one of the other two.
+
+3)  The permissions on the /var/mail directory, as distributed in BSDI
+    1.0, are wrong.  Since, by default, the mail spool fails to have the
+    sticky bit enabled, things are forced to run setuid/setgid that
+    shouldn't -- like Elm.
+
+    When asked "Am I going to be running as a setgid program?", just
+    say "No."  Then go fix the permissions on your mail spool directory.
+
+    A system that supports the special sticky bit semantics on directories
+    should use them on mail spools.  If it is set, then users can access
+    and manipulate their own folders with no special permissions, but
+    others won't be able to mess with them.
+
+    I recommend performing "chmod 1777 /var/mail" so that your mail
+    spool looks something like:
+
+	drwxrwxrwt  2 root  wheel  512 Dec  4 02:01 /var/mail
+
+    (Actually...I'd recommend creating a gid=mail and putting the setgid
+    bit on this directory too, but that's another story...)
+
+4)  The BSD make is demented.  To get Elm to build, I recommend using
+    the following command:
+
+	MAKEFLAGS=- make [optional_target]
+
+    Note that this works only in a sh-like shell (sh, bash, ksh, etc.).
+    If you have an alternative make, such as GNU make, you could use
+    that too.  Note, however, that you will probably have to futz around
+    with setting the MAKE environment parameter and specifying the "-e"
+    option.
+
+5)  This version has been compiled with a bogus hostname and domainname.
+    Elm should be able to determine the hostname at run-time.  To specify
+    the domainname, run the command:
+
+    	echo .unicom.com >/usr/contrib/lib/elm/domain
+
+    (substituting your domain into the above).  This, however,
+    isn't very critical.  Nothing catastrophic will happen if you
+    fail to create this file.  The From: line is added by the
+    transport (e.g. sendmail) and not Elm.  The domainname is used
+    for minor things, like the localsignature versus remotesignature
+    determination.
+
+	Chip Rosenthal
+	<chip@chinacat.unicom.com>
+	Fri Dec 10 18:12:53 CST 1993
+

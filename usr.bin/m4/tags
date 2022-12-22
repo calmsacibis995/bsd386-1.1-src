@@ -1,0 +1,64 @@
+Mmain	main.c	/^int main(argc, argv)$/
+Xchrsave	misc.c	/^void Xchrsave(c)$/
+Xputback	misc.c	/^void Xputback(c)$/
+addent	look.c	/^ndptr addent(name)$/
+addkywd	look.c	/^void addkywd(name, type)$/
+band	expr.c	/^static long int band(doit)$/
+bor	expr.c	/^static long int bor(doit)$/
+bxor	expr.c	/^static long int bxor(doit)$/
+cantread	main.c	/^void cantread(s)$/
+charcon	expr.c	/^static long int charcon(doit)$/
+dochc	serv.c	/^void dochc(argv, argc)$/
+dochq	serv.c	/^void dochq(argv, argc)$/
+dodefine	serv.c	/^void dodefine(name, defn)$/
+dodefn	serv.c	/^void dodefn(name)$/
+dodefqt	serv.c	/^void dodefqt(argv, argc)$/
+dodiv	serv.c	/^void dodiv(n)$/
+dodump	serv.c	/^void dodump(argv, argc)$/
+doifelse	serv.c	/^void doifelse(argv, argc)$/
+doincl	serv.c	/^int doincl(FileName)$/
+dopaste	serv.c	/^int dopaste(FileName)$/
+dopushdef	serv.c	/^void dopushdef(name, defn)$/
+doqutr	serv.c	/^void doqutr(argv, argc)$/
+dosub	serv.c	/^void dosub(argv, argc)$/
+doundiv	serv.c	/^void doundiv(argv, argc)$/
+eql	expr.c	/^static long int eql(doit)$/
+error	misc.c	/^void error(s)$/
+expand	serv.c	/^void expand(argv, argc)$/
+experr	expr.c	/^void experr(msg)$/
+expr	expr.c	/^long int expr(expbuf)$/
+freeQuoter	serv.c	/^void freeQuoter(q)$/
+getdiv	misc.c	/^void getdiv(ind)$/
+getopt	misc.c	/^int getopt(argc, argv, optstring)$/
+hash	look.c	/^hash(name)$/
+indx	misc.c	/^int indx(s1, s2)$/
+initialise_digval	expr.c	/^static void initialise_digval()$/
+initkwds	main.c	/^static void initkwds()$/
+inspect	main.c	/^ndptr inspect(name)$/
+int2str	int2str.c	/^char *int2str(dst, radix, val)$/
+is_blnk	main.c	/^#define is_blnk(c) ((unsigned)((c)-1) < ' ')$/
+is_sym1	main.c	/^#define	is_sym1(c) (chtype[(c)-EOF] > 10)$/
+is_sym2	main.c	/^#define is_sym2(c) (chtype[(c)-EOF] >  0)$/
+killdiv	misc.c	/^void killdiv()$/
+land	expr.c	/^static long int land(doit)$/
+lookup	look.c	/^ndptr lookup(name)$/
+lor	expr.c	/^static long int lor(doit)$/
+m4trim	serv.c	/^void m4trim(argv, argc)$/
+macro	main.c	/^void macro()$/
+map	serv.c	/^void map(d, s, f, t)$/
+memcpy	misc.c	/^void memcpy(to, from, count)$/
+numcon	expr.c	/^static long int numcon(doit)$/
+pbnum	misc.c	/^void pbnum(n)$/
+pbqtd	misc.c	/^void pbqtd(s)$/
+pbrad	misc.c	/^void pbrad(n, r, m)$/
+pbstr	misc.c	/^void pbstr(s)$/
+primary	expr.c	/^static long int primary(doit)$/
+query	expr.c	/^static long int query(doit)$/
+relat	expr.c	/^static long int relat(doit)$/
+remhash	look.c	/^void remhash(name, all)$/
+shift	expr.c	/^static long int shift(doit)$/
+strsave	misc.c	/^char *strsave(s)$/
+term	expr.c	/^static long int term(doit)$/
+ucArgv	serv.c	/^#define	ucArgv(n) ((unsigned char *)argv[n])$/
+unary	expr.c	/^static long int unary(doit)$/
+usage	misc.c	/^void usage()$/

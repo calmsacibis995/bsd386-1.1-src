@@ -1,0 +1,110 @@
+A small bug fix for kernels less than or equal to patchlevel 12.  This
+is made relative to 99p9, but will patch 99p10 successfully with a
+warning about offset lines.  Anything earlier or later may need hand
+patching.
+
+In the current code, select() on a pipe returns true (ie data available)
+if there are no reader/writers.  In the case of named pipes (FIFOs), it
+is quite permissible for there to be no reader/writers, and select()
+should block until data is available.  Similar exceptions apply to
+reads/writes.
+
+*** fs/fifo.c.orig	Wed Mar 31 20:08:45 1993
+--- fs/fifo.c	Wed Jul 14 08:29:38 1993
+***************
+*** 156,162 ****
+  void init_fifo(struct inode * inode)
+  {
+  	inode->i_op = &fifo_inode_operations;
+! 	inode->i_pipe = 1;
+  	PIPE_BASE(*inode) = NULL;
+  	PIPE_HEAD(*inode) = PIPE_TAIL(*inode) = 0;
+  	PIPE_RD_OPENERS(*inode) = PIPE_WR_OPENERS(*inode) = 0;
+--- 156,162 ----
+  void init_fifo(struct inode * inode)
+  {
+  	inode->i_op = &fifo_inode_operations;
+! 	inode->i_pipe = 2;
+  	PIPE_BASE(*inode) = NULL;
+  	PIPE_HEAD(*inode) = PIPE_TAIL(*inode) = 0;
+  	PIPE_RD_OPENERS(*inode) = PIPE_WR_OPENERS(*inode) = 0;
+*** fs/pipe.c.orig	Fri Apr 23 06:44:44 1993
+--- fs/pipe.c	Thu Jul 15 00:43:26 1993
+***************
+*** 20,26 ****
+  	if (!(filp->f_flags & O_NONBLOCK))
+  		while (!PIPE_SIZE(*inode)) {
+  			wake_up(& PIPE_WRITE_WAIT(*inode));
+! 			if (!PIPE_WRITERS(*inode)) /* are there any writers? */
+  				return 0;
+  			if (current->signal & ~current->blocked)
+  				return -ERESTARTSYS;
+--- 20,26 ----
+  	if (!(filp->f_flags & O_NONBLOCK))
+  		while (!PIPE_SIZE(*inode)) {
+  			wake_up(& PIPE_WRITE_WAIT(*inode));
+! 			if (inode->i_pipe == 1 && !PIPE_WRITERS(*inode)) /* are there any writers? */
+  				return 0;
+  			if (current->signal & ~current->blocked)
+  				return -ERESTARTSYS;
+***************
+*** 51,57 ****
+  {
+  	int chars, size, written = 0;
+  
+! 	if (!PIPE_READERS(*inode)) { /* no readers */
+  		send_sig(SIGPIPE,current,0);
+  		return -EPIPE;
+  	}
+--- 51,57 ----
+  {
+  	int chars, size, written = 0;
+  
+! 	if (inode->i_pipe == 1 && !PIPE_READERS(*inode)) { /* no readers */
+  		send_sig(SIGPIPE,current,0);
+  		return -EPIPE;
+  	}
+***************
+*** 62,68 ****
+  		size = PAGE_SIZE-1;
+  	while (count>0) {
+  		while (PIPE_SIZE(*inode) >= size) {
+! 			if (!PIPE_READERS(*inode)) { /* no readers */
+  				send_sig(SIGPIPE,current,0);
+  				return written?written:-EPIPE;
+  			}
+--- 62,68 ----
+  		size = PAGE_SIZE-1;
+  	while (count>0) {
+  		while (PIPE_SIZE(*inode) >= size) {
+! 			if (inode->i_pipe == 1 && !PIPE_READERS(*inode)) { /* no readers */
+  				send_sig(SIGPIPE,current,0);
+  				return written?written:-EPIPE;
+  			}
+***************
+*** 127,138 ****
+  {
+  	switch (sel_type) {
+  		case SEL_IN:
+! 			if (!PIPE_EMPTY(*inode) || !PIPE_WRITERS(*inode))
+  				return 1;
+  			select_wait(&PIPE_READ_WAIT(*inode), wait);
+  			return 0;
+  		case SEL_OUT:
+! 			if (!PIPE_FULL(*inode) || !PIPE_WRITERS(*inode))
+  				return 1;
+  			select_wait(&PIPE_WRITE_WAIT(*inode), wait);
+  			return 0;
+--- 127,138 ----
+  {
+  	switch (sel_type) {
+  		case SEL_IN:
+! 			if (!PIPE_EMPTY(*inode) || (inode->i_pipe == 1 && !PIPE_WRITERS(*inode)))
+  				return 1;
+  			select_wait(&PIPE_READ_WAIT(*inode), wait);
+  			return 0;
+  		case SEL_OUT:
+! 			if (!PIPE_FULL(*inode) || (inode->i_pipe == 1 && !PIPE_READERS(*inode)))
+  				return 1;
+  			select_wait(&PIPE_WRITE_WAIT(*inode), wait);
+  			return 0;

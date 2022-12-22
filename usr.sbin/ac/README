@@ -1,0 +1,11 @@
+This program is an attempt to duplicate the standard UNIX (TM) program
+"ac", which does login accounting.  We have not produced documentation
+for this program because it should work in precisely the same manner as
+the standard program.  If documentation is required, we will attempt to
+prepare it.
+
+Please read the file "copyright.h".
+
+
+			Jeff Marker, 17 November 1992
+			jeff@stolaf.edu

@@ -1,0 +1,3 @@
+Mpfbtops	pfbtops.c	/^int main(argc, argv)$/
+error	pfbtops.c	/^static void error(s)$/
+usage	pfbtops.c	/^static void usage()$/

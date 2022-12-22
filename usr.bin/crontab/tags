@@ -1,0 +1,39 @@
+Mcrontab	crontab.c	/^main(argc, argv)$/
+acquire_daemonlock	../../usr.sbin/cron/misc.c	/^acquire_daemonlock(closeflag)$/
+allowed	../../usr.sbin/cron/misc.c	/^allowed(username)$/
+arpadate	../../usr.sbin/cron/misc.c	/^arpadate(clock)$/
+check_error	crontab.c	/^check_error(msg)$/
+delete_cmd	crontab.c	/^delete_cmd() {$/
+edit_cmd	crontab.c	/^edit_cmd() {$/
+env_copy	../../usr.sbin/cron/env.c	/^env_copy(envp)$/
+env_free	../../usr.sbin/cron/env.c	/^env_free(envp)$/
+env_get	../../usr.sbin/cron/env.c	/^env_get(name, envp)$/
+env_init	../../usr.sbin/cron/env.c	/^env_init()$/
+env_set	../../usr.sbin/cron/env.c	/^env_set(envp, envstr)$/
+first_word	../../usr.sbin/cron/misc.c	/^first_word(s, t)$/
+free_entry	../../usr.sbin/cron/entry.c	/^free_entry(e)$/
+get_char	../../usr.sbin/cron/misc.c	/^get_char(file)$/
+get_list	../../usr.sbin/cron/entry.c	/^get_list(bits, low, high, names, ch, file)$/
+get_number	../../usr.sbin/cron/entry.c	/^get_number(numptr, low, names, ch, file)$/
+get_range	../../usr.sbin/cron/entry.c	/^get_range(bits, low, high, names, ch, file)$/
+get_string	../../usr.sbin/cron/misc.c	/^get_string(string, size, file, terms)$/
+in_file	../../usr.sbin/cron/misc.c	/^in_file(string, file)$/
+list_cmd	crontab.c	/^list_cmd() {$/
+load_entry	../../usr.sbin/cron/entry.c	/^load_entry(file, error_func, pw, envp)$/
+load_env	../../usr.sbin/cron/env.c	/^load_env(envstr, f)$/
+log_close	../../usr.sbin/cron/misc.c	/^log_close() {$/
+log_it	../../usr.sbin/cron/misc.c	/^log_it(username, xpid, event, detail)$/
+mkprint	../../usr.sbin/cron/misc.c	/^mkprint(dst, src, len)$/
+mkprints	../../usr.sbin/cron/misc.c	/^mkprints(src, len)$/
+parse_args	crontab.c	/^parse_args(argc, argv)$/
+set_cron_cwd	../../usr.sbin/cron/misc.c	/^set_cron_cwd()$/
+set_cron_uid	../../usr.sbin/cron/misc.c	/^set_cron_uid()$/
+set_debug_flags	../../usr.sbin/cron/misc.c	/^set_debug_flags(flags)$/
+set_element	../../usr.sbin/cron/entry.c	/^set_element(bits, low, high, number)$/
+skip_comments	../../usr.sbin/cron/misc.c	/^skip_comments(file)$/
+strcmp_until	../../usr.sbin/cron/misc.c	/^strcmp_until(left, right, until)$/
+strdtb	../../usr.sbin/cron/misc.c	/^strdtb(s)$/
+swap_uids	../../usr.sbin/cron/misc.c	/^int swap_uids() { save_euid = geteuid(); return se/
+swap_uids_back	../../usr.sbin/cron/misc.c	/^int swap_uids_back() { return seteuid(save_euid); /
+unget_char	../../usr.sbin/cron/misc.c	/^unget_char(ch, file)$/
+usage	crontab.c	/^usage(msg)$/

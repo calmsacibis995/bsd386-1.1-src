@@ -1,0 +1,621 @@
+.TH BASIC 1
+.SH NAME
+basica \- Basic subsystem from University of New Mexico
+.SH SYNOPSIS
+.B basica
+[ -p ]
+[ file-name ]
+.SH DESCRIPTION
+.de P
+.br
+.ne 0.5i
+.sp .5
+.IP "\\$1" 10
+.br
+..
+.I Basica
+is a truncated version of BASIC that closely resembles IBM\ VS/BASIC
+(don't ask why).
+When
+.I basica
+is started up, execution starts with a command monitor that looks
+over the user's workspace, which contains the BASIC program to be run.
+The user is prompted with a greater-than sign ``>'' for a monitor command.
+If the
+.B -p
+option is specified,
+.I basica
+will issue prompts, even if its input is not a terminal.
+This is very useful when using
+.I basica
+with
+.IR script (1).
+.sp
+If
+.I file-name
+is specified on the command-line, a
+.I "load file-name"
+command is simulated before monitor prints its prompt.
+.sp
+When files are loaded into the workspace, they are converted to
+an internal form (trees) which can be easily executed.
+When the workspace is listed on the terminal,
+or written to a file,
+a printable version of this internal form is what is written.
+This means that some user-specified formatting may be lost.
+Extra parenthesization and indentation are not lost, however.
+.sp
+The following definitions will be used thoughout
+the description of monitor commands and basic statements:
+.P "line-number"
+Any integer between 1 and 99 999 999.
+.P "line-no-range"
+A
+.I line-no-range
+is either a line-number,
+two line-numbers separated by \-,
+or
+.I %
+(meaning all the lines in the workspace).
+.P "file-name"
+A
+.I file-name
+is a string of characters denoting a Unix file.
+To avoid troubles, it is a good idea to limit your choice of
+filenames to those containing only letters, numbers and the special
+characters in the string ``._+-:=''.
+.P "basic-stmt"
+A
+.I basic-stmt
+is any valid Basic statement.
+.P "n"
+A whole number.
+.SH MONITOR COMMANDS
+Monitor commands can be abbreviated to their significant prefix.
+Available monitor commands are:
+.P "\fBhelp\fR"
+A brief list of the most important monitor commands is printed
+at the terminal.
+.P "\fBload\fR \fIfilename\fR"
+The workspace is cleared, and the named file is loaded into it.
+The name associated with the workspace is
+.IR filename .
+.P "\fBload\fR"
+The workspace is cleared, and the file last saved or loaded
+is loaded back into the workspace.
+It is an error if the workspace has no name associated with it.
+.P "\fBsave\fR \fIfilename\fR"
+The workspace is saved on the named file.
+If the workspace has no name, it becomes
+.IR filename .
+.P "\fBsave\fR"
+The workspace is saved on the file associated with the workspace.
+.P "\fBlist\fR"
+The program currently in the workspace is listed on the terminal.
+.P "\fBlist\fR \fIline-no-range\fR"
+The lines in the given range are printed on the terminal.
+.P "\fBrun\fR"
+The program variables are cleared, and the program in the current
+workspace is executed.
+.P "\fBquit\fR"
+Leave
+.I basic
+and return to the shell.
+.P "\fBexit\fR"
+Same as
+.IR exit .
+.P "\fIline-number basic-stmt\fR"
+The
+.I basic-stmt
+is inserted in the workspace with the given
+.IR line-number .
+If a line with the same number already exists in the workspace,
+it is deleted first.
+.P "\fBdelete\fR \fIline-no-range\fR"
+The specified lines are deleted from the workspace.
+It is an error if the lines specified do not appear in the workspace.
+.P "\fIbasic-stmt\fR"
+If the basic statement is not a
+.BR for ,
+.BR next ,
+.BR dim ,
+or
+.B data
+statement, it is executed immediately.
+It is not inserted into the workspace.
+.P "\fBvi\fR"
+Invoke the editor
+.I vi
+on the workspace, then load the result back into the workspace.
+This is the normal way to perform non-trivial changes on the workspace.
+.P "\fBedit\fR"
+Invoke the editor
+.I ex
+on the workspace, then load the result back into the workspace.
+This command is provided on the off chance you are not using a crt.
+.P "\fBrenumber\fR \fIline-number\fR, \fIincrement\fR"
+The basic statements in the workspace are renumbered.
+The first line in the workspace will have
+.I line-number
+as its associated line number,
+the second
+.IR line-number+increment ,
+the third
+.IR line-number+2*increment ,
+and so on.
+.sp .5
+If
+.I line-number
+is omitted, 1000 is used.
+.sp .5
+If
+.I increment
+is omitted, 10 is used.
+.P "\fBstep\fR"
+.I Step
+is like run, except that the program is run in single-step mode.
+The first statement is executed, the next statement to
+be executed is printed, and then control returns back to
+the monitor.
+To execute more statements, use the
+.I continue
+command.
+.P "\fBcontinue\fR \fIn\fR"
+In single-step mode, the next
+.I n
+statements are executed.
+If 
+.I n
+is omitted, 1 statement is executed.
+.br
+.ne 12
+.SH BASIC STATEMENTS
+In the description of the statements recognized by
+.IR basica ,
+items in
+.B bold-face
+are
+.I basic
+symbols,
+ellipses (...) denote repetition, and
+.P "[ \fIoptional-items\fR ]"
+marks that
+.I optional-items
+may be omitted from the statement.
+.P "real-id"
+is the name of an arithmetic variable.
+Arithmetic variables begin with letters, and are followed by zero or more
+letters or digits.
+Very long identifiers are allowed.
+.P "integer-id"
+is the name of an integer variable.
+Integer-ids follow the same rule as real-ids,
+but are followed by a percent sign ``%''.
+.P "string-id"
+is the name of a string variable.
+String-ids follow the same rule as real-ids,
+but are followed by a dollar sign ``$''.
+.P "variable"
+is either a
+.I real-variable ,
+an
+.I integer-variable
+or a
+.IR string-variable .
+.P "real-variable"
+is a real-id possibly followed by a subscript.
+.P "integer-variable"
+is an integer-id possibly followed by a subscript.
+.P "string-variable"
+is a string-id possibly followed by a subscript.
+.P "expr"
+is a valid BASIC expression.
+.P "real-expr"
+is a valid arithmetic expression.
+.P "string-expr"
+is a valid string-valued expression.
+.P "logical-expr"
+is a relational expression involving
+.BR = ,
+.BR <> ,
+.BR < ,
+.BR <= ,
+.BR > ,
+.BR >= ,
+parenthesized logical-exprs,
+or logical-exprs separated by
+.BR and s
+or
+.BR or s
+.P "mat-id"
+is the name of a matrix variable, one that appears in a
+.B dim
+statement.
+.sp 1.5
+.in 0
+The following BASIC statements are understood:
+.P "[ \fBlet\fR ] real-variable \fB=\fR real-expr"
+The arithmetic expression is evaluated and is assigned to the variable.
+When written out, the
+.B let
+is dropped from the statement.
+.P "[ \fBlet\fR ] string-variable \fB=\fR string-expr"
+The string expression is evaluated and is assigned to the variable.
+When written out, the
+.B let
+is dropped from the statement.
+.P "\fBend\fR"
+This must be the last statement in your
+.I basic
+program.
+When this statement is executed, the basic program halts,
+and the monitor resumes control again.
+.P "\fBstop\fR"
+When this statement is executed, the basic program halts,
+and the monitor resumes control again.
+.P "\fBrem\fR \fIany-text-whatsoever\fR"
+This statement is used to provide commentary for the program.
+This statement has no effect upon the execution of the program.
+.P "\fBinput\fR variable [ \fB,\fR variable ] ..."
+A question mark ``?'' is printed on the terminal,
+and the values of the specified variables are read from the terminal.
+.P "\fBmat input\fR mat-id [ \fB,\fR mat-id ] ..."
+A question-mark ``?'' is printed on the terminal,
+and values are read in from the terminal for the specified matrices.
+.P "\fBread\fR variable [ \fB,\fR variable ] ..."
+The values for the specified variables are taken from the next un-\fBread\fR
+values in
+.B data
+statements that appear in the program.
+.P "\fBmat read\fR mat-id [ \fB,\fR mat-id ] ..."
+The values for the specified matrices are taken from the next un-\fBread\fR
+values in
+.B data
+statements that appear in the program.
+.P "\fBdata\fR value [ \fB,\fR value ] ..."
+The specified data values are recorded for later use with either
+.B read
+or
+.B "mat read"
+statements.
+.IR Value s
+are either numeric or string constants.
+.P "\fBprint\fR expr [ \fB,\fR expr ] ..."
+The
+.IR expr s
+are evaluated and printed on the terminal in wide (14 character) fields.
+.I Basic
+will print subsequent output a new line.
+.P "\fBprint\fR expr [ \fB;\fR expr ] ... [ \fB;\fR ]"
+The
+.IR expr s
+are evaluated and printed on the terminal in narrow fields
+just wide enough to hold the expression.
+.br
+Commas (\B,\fR) and semi-colons (\fB;\fR) can both be used
+to separate expressions in a single
+.br
+If a semi-colon (\fB;\fR) appears by itself at the end of a
+.B print
+statement, subsequent output will be on the same output line.
+.P "\fBmat print\fR mat-id [ \fB,\fR mat-id ] ..."
+The values of the named matrices are printed in wide fields.
+Each row of each matrix starts on a new line,
+and different matrices are separated by blank lines.
+.P "\fBmat print\fR mat-id [ \fB;\fR mat-id ] ..."
+The values of the named matrices are printed in narrow fields.
+Each row of each matrix starts on a new line,
+and different matrices are separated by blank lines.
+.P "\fBdim\fR dim-var subscripts [ \fB,\fR dim-var subscripts ] ..."
+The specified dim-vars are dimensioned when this statement is executed.
+It is an error to dimension the same variable twice
+during the execution of a program.
+Dim-vars look like:
+.RS 10
+.P "string-id \fIn\fR"
+a string variable of length
+.IR n .
+.I n
+must be greater than 0 and less than 256.
+.P "string-id"
+a string variable of length 32.
+.P "real-id"
+an arithmetic variable.
+.RE
+Subscripts look like
+.RS 10
+.P "\fB[\fR \fIn\fR \fB]\fR"
+single-dimensioned matrix with subscripts from 1 to
+.IR n .
+.P "\fB[\fR \fIn\fR \fB,\fR \fIm\fR \fB]\fR"
+two-dimensional matrix with first subscript ranging from 1 to
+.IR n ,
+and second subscript ranging from 1 to
+.IR m .
+.br
+.I n
+and
+.I m
+may be any arithmetic expressions.
+.RE
+.P "\fBgoto\fR line-number"
+Execution will proceed from the named line.
+An error occurs if there is no such line in the program.
+.P "\fBgosub\fR line-number"
+Like
+.BR goto ,
+except that the statement following the
+.B gosub
+statement is remembered, and when a
+.B return
+statement is executed, program execution reverts to the statement
+following the
+.IR gosub .
+.BR gosub s
+can be nested up to 100 levels deep.
+.P "\fBreturn\fR"
+See
+.BR gosub .
+.P "\fBif\fR logical-expr \fBthen\fR basic-stmt [ \fBelse\fR basic-stmt ]"
+The logical-expr is evaluated, and if the value is true,
+the basic-stmt following the
+.B then
+is executed.
+If the value of the logical-expr is false, and there is a 
+basic-stmt following
+.BR else ,
+that statement is executed.
+If the value of the logical-expr is false,
+and there is no
+.B else
+part, nothing else happens.
+.P "\fBfor\fR real-id \fB=\fR real-expr \fBto\fR real-expr [ \fBstep\fR real-expr ]"
+The value of the real-expr following the
+.B =
+is evaluated and assigned to the real-id.
+If the step-value (the value of the real-expr following
+.I step
+if it exists, otherwise 1)
+is greater than 0 (less than 0)
+and the value of the real-id is less than or equal to
+(greater than or equal to)
+the value of the expression following
+.BR to ,
+execution continues with the following statement.
+Otherwise, execution skips to the statement following the next
+.I next
+statement with the same real-id.
+.P "\fBnext\fR real-id"
+The step-value of the current
+.B for
+statement is added to the corresponding real-id,
+and if the value of the real-id is less than or equal to
+(greater than or equal to if the step-value is negative)
+the corresponding
+.B to
+value, execution reverts to the statement following the
+.B for
+statement.
+Otherwise execution resumes with the statement following the
+.BR next .
+.ne 5
+.sp 2
+.in 0
+In the following descriptions of
+.B mat
+statements, all matrices must be arithmetic.
+.in 0
+.sp 1
+.P "\fBmat\fR mat-id \fB=\fR mat-id"
+Matrix assignment.
+The values in the second mat-id are assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+.P "\fBmat\fR mat-id \fB= -\fR mat-id"
+Matrix negation.
+The values in the second mat-id are negated and assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+.P "\fBmat\fR mat-id \fB=\fR mat-id \fB+\fR mat-id"
+Matrix addition.
+The values in the second mat-id are added to the values of the third,
+and assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+.P "\fBmat\fR mat-id \fB=\fR mat-id \fB-\fR mat-id"
+Matrix subtraction.
+The values in the third mat-id are subtracted from the values of the second,
+and assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+.P "\fBmat\fR mat-id \fB=\fR mat-id \fB*\fR mat-id"
+Matrix multiplication.
+The second and third matrices are multipled together and assigned to
+the first.
+If the second matrix is dimensioned [l,m] and the third [m,n],
+the first must be dimensioned [l,n].
+.P "\fBmat\fR mat-id \fB= idn\fR"
+The matrix is assigned an identity matrix.
+The matrix must be square.
+.P "\fBmat\fR mat-id \fB= zer\fR"
+The matrix is zeroed.
+.P "\fBmat\fR mat-id \fB= rnd\fR"
+The matrix is assigned all random elements.
+.P "\fBmat\fR mat-id \fB= inv(\fRmat-id\fB)\fR"
+Matrix inverse.
+The first matrix is assigned the matrix inverse of the second.
+Both matrixes must be square, and have the same rank.
+.P "\fBmat\fR mat-id \fB= trn(\fRmat-id\fB)\fR"
+Matrix transposition.
+The first matrix is assigned the transpose of the second.
+If the second is dimensioned [m,n], the first matrix must be
+dimensioned [n,m].
+.P "\fBmat\fR mat-id \fB=\fR \fB(\fRreal-expr\fB)\fR"
+Scalar assignment to a matrix.
+The real-expr is evaluated, and assigned to all the elements of the
+matrix.
+.P "\fBmat\fR mat-id \fB=\fR \fB(\fRreal-expr\fB) +\fR mat-id"
+Scalar addition.
+The value of the arithmetic expression is added to the elements
+of the second matrix and assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+.P "\fBmat\fR mat-id \fB=\fR \fB(\fRreal-expr\fB) -\fR mat-id"
+Scalar subtraction.
+The elements of the second matrix are subtracted from the value of
+the real-expr and assigned to the first matrix.
+The mat-ids must have the same number of dimensions,
+.P "\fBmat\fR mat-id \fB=\fR function \fB(\fRmat-id\fB)\fR"
+Scalar function application.
+The named function is applied to each element
+of the second matrix and assigned to the first.
+The mat-ids must have the same number of dimensions,
+with the same number of elements in each dimension.
+See FUNCTIONS for a list of arithmetic functions.
+.br
+.ne 12
+.SH EXAMPLE BASIC SESSION
+In the following example session, computer output is in italics.
+.nf
+.sp
+\fI%\fR basic
+\fI>\fR 100 data 1,2,3,4,5,6,7,8,9
+\fI>\fR 110 dim a[3,3]
+\fI>\fR 120 mat read a
+\fI>\fR 130 mat a = inv(a)
+\fI>\fR 140 mat print a
+\fI>\fR run
+	\fIError, line 130: Can't invert matrix 'a': it is singular.\fR
+
+\fI4 statements executed\fR
+\fI>\fR edit
+"/tmp/Bas005217" 5 lines, 110 characters
+\fI:\fR 1s/9/0/p
+  \fI100   data 1, 2, 3, 4, 5, 6, 7, 8, 0\fR
+\fI:\fR w
+\fI"/tmp/Bas005217" 5 lines, 110 characters\fR
+\fI:\fR q
+\fI>\fR run
+
+\fI-1.77778      0.888889      -0.111111     
+1.55556       -0.777778     0.222222      
+-0.111111     0.222222      -0.111111     
+
+5 statements executed\fR
+\fI>\fR save matrix.b
+	"matrix.b", 5 lines
+\fI>\fR q
+	0.53 cpu secs used, 32+22k memory, 31+31 page faults.
+.fi
+.br
+.ne 12
+.SH FUNCTIONS
+This section lists all the available intrinsic functions for
+.IR basica .
+In the following descriptions,
+.IR x ,
+.IR y , 
+and
+.I z
+denote arithmetic expressions,
+and
+.I s
+denotes a string expression.
+.P "\fBabs\fR(x)"
+returns the absolute value of x.
+.P "\fBacs\fR(x)"
+returns the arc-cosine of x.
+.P "\fBasn\fR(x)"
+returns the arc-sin of x.
+.P "\fBatn\fR(x)"
+returns the arc-cosine of x.
+.P "\fBchr\fR(x)"
+returns a character string formed by converting the value of x to a string.
+.P "\fBcos\fR(x)"
+returns the cosine of x radians.
+.P "\fBcot\fR(x)"
+returns the cotangent of x radians.
+.P "\fBcpu\fR"
+returns the number of cpu seconds taken by program execution.
+.P "\fBcsc\fR(x)"
+returns the cosecant of x radians.
+.P "\fBdeg\fR(x)"
+returns the number of degrees in x radians.
+.P "\fBdet\fR(mat-id)"
+returns the determinant of the given matrix.
+Note that even though the determinant may be non-zero,
+it may still be invalid to take the inverse.
+.P "\fBexp\fR(x)"
+natural exponentiation of x.
+.P "\fBhcs\fR(x)"
+returns the hyperbolic cosine of x.
+.P "\fBhsn\fR(x)"
+returns the hyperbolic sine of x.
+.P "\fBhtn\fR(x)"
+returns the hyperbolic tangent of x.
+.P "\fBint\fR(x)"
+returns the integer part of x.
+.P "\fBlen\fR(s)"
+returns the number of characters in s.
+.P "\fBlgt\fR(x)"
+returns the logarithm of x to the base 10.
+.P "\fBlog\fR(x)"
+returns the natural logarithm of x.
+.P "\fBltw\fR(x)"
+returns the logarithm of x to the base 2.
+.P "\fBmax\fR(x,y)"
+returns the maximum of x and y.
+.P "\fBmin\fR(x,y)"
+returns the minimum of x and y.
+.P "\fBnum\fR(s)"
+returns the numeric value of the string s.
+.P "\fBrad\fR(x)"
+returns the number of radians in x degrees.
+.P "\fBrnd\fR"
+returns a random number between 0 and 1 exclusive.
+.P "\fBrnd\fR(x)"
+sets the random-number seed to x, and then returns a random number
+between 0 and 1 exclusive.
+.P "\fBsec\fR(x)"
+returns the secant of x radians.
+.P "\fBsgn\fR(x)"
+returns the sign of x: -1 if x < 0, 0 if x = 0, +1 if x > 0.
+.P "\fBsin\fR(x)"
+returns the sine of x radians.
+.P "\fBsqr\fR(x)"
+returns the square root of x.
+.P "\fBstr\fR(s, x, y)"
+returns the substring of s that begins with character number x (starting
+from 1), and proceeds for y characters.
+.P "\fBstr\fR(s, x)"
+returns the substring of s that begins with character number x
+(starting from 1) to the end of s.
+.P "\fBtan\fR(x)"
+returns the tangent of x radians.
+.P "\fBtim\fR"
+returns the time of day in seconds from midnight.
+.SH FILES
+.ta 15n +10n +10n +10n
+/tmp/Basnnnnn	Basica temporary files during \fIedit\fR or \fIvi\fR.
+.SH SEE ALSO
+.I "IBM VS BASIC Language"
+(GC28-8303-2).
+.SH BUGS
+Some people do not like the fact that
+.I basic
+reformats their programs.
+.sp
+.B "print using"
+is not implemented yet.
+.sp
+File input/output is not implemented yet.
+.sp .5
+Blanks are significant, and are used to delimit names.
+.B "rem ark"
+and
+.B "remark"
+are not the same things.
+.B remark
+does not begin a
+.B rem
+statement.

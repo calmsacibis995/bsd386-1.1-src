@@ -1,0 +1,12 @@
+Mrpcinfo	rpcinfo.c	/^main(argc, argv)$/
+brdcst	rpcinfo.c	/^brdcst(argc, argv)$/
+deletereg	rpcinfo.c	/^deletereg(argc, argv)$/
+get_inet_address	rpcinfo.c	/^get_inet_address(addr, host)$/
+getprognum	rpcinfo.c	/^getprognum(arg)$/
+getvers	rpcinfo.c	/^getvers(arg)$/
+pmapdump	rpcinfo.c	/^pmapdump(argc, argv)$/
+pstatus	rpcinfo.c	/^pstatus(client, prognum, vers)$/
+reply_proc	rpcinfo.c	/^reply_proc(res, who)$/
+tcpping	rpcinfo.c	/^tcpping(portnum, argc, argv)$/
+udpping	rpcinfo.c	/^udpping(portnum, argc, argv)$/
+usage	rpcinfo.c	/^usage()$/

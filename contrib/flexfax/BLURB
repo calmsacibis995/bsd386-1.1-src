@@ -1,0 +1,443 @@
+FlexFAX Release Version 2.2.1 Available
+---------------------------------------
+
+This note has the following sections:
+
+    Overview
+    Supported Systems
+    About the Distribution
+    Class 1 Modem Support
+    Commonly Asked Questions
+    How to Obtain the Distribution by FTP
+    How to Obtain the Distribution by Mail
+    How to Obtain the Distribution within Silicon Graphics 
+    What to do Once You've Retrieved Stuff (source distribution)
+    What to do Once You've Retrieved Stuff (binary distribution)
+    FlexFAX Mailing List
+    Use and Copyright
+
+
+Overview
+--------
+FlexFAX is a facsimile system for UNIX systems.  It supports:
+
+o sending facsimile
+o receiving facsimile
+o polled retrieval of facsimile
+o transparent shared data use of the modem
+
+Facsimile can be any size (e.g. A4, B4), either 98 or 196 lpi, and
+transmitted/received as either 1D-encoded or 2D-encoded facsimile data
+(2D-encoded data is frequently more compact and hence takes a shorter
+time to communicate).
+
+Outgoing documents can be any format; the sendfax program uses a
+rule-based definition file similar to the System V /etc/magic file 
+to deduce document types and to decide how to convert each document
+to a form suitable for transmission (either PostScript or TIFF/F).
+Automatic cover page generation is supported and users can easily
+tailor cover pages to their environment.  A simple text-based
+phonebook database is supported by sendfax.  Information is also
+provided on how to trivially setup an email to fax gateway service.
+
+Incoming facsimile are stored in a receiving area as TIFF/F files and
+may be automatically delivered by mail and/or printed.  A fax server
+status program, faxstat, can be used to monitor the send and receive
+queues, as well as the state of facsimile servers.
+
+Fax modems may be shared with outgoing data communication applications
+that honor the "uucp locking protocol".  These applications typically
+include: cu, tip, kermit, uucp, slip, and ppp.  The system can also be
+configured so that incoming data calls cause the system to invoke the
+standard system getty program.
+
+The software is structured around a client-server architecture.  One
+facsimile server process exists for each fax modem on a network.
+Clients may send facsimile from any machine that can communicate with
+the machine(s) on which the server(s) reside.  Client software is
+designed to be lightweight and easy to port; imaging can be offloaded
+to the server or done on the client.  (Imaging is, however, typically
+done on the server because it simplifies administration.)  Multiple
+modems may be located on a single machine.  An access control mechanism
+is included to control which users on which machines may submit
+documents for transmission.
+
+The system supports a wide variety of fax modems.  Any Class 1 or
+Class 2 modem should work with the system.  The following modems have
+been used successfully with the software:
+
+Manufacturer	Model			Notes	Class	 Firmware Rev
+------------	-----			-----	-----	 ------------
+Abaton		InterFax 24/96			 	 unavailable
+AT&T Paradyne	DataPort 14.4		 +	1	 >= C01.22.00
+Boca Research	M1440E				2	 >= V1.270
+Boca Research	M1440E/RC32ACL		 @	2	 V1.000
+CPI		ViVa 14.4/FAX			2	 V1.10 172-502402-013
+Dallas Fax	<something>			2	 not recommended
+Digicom		Scout+			 +	1	 >= 2A19/2931
+Dynalink (?)	Dynalink 1414VE			2	 CBS-03
+Everex		EverFax 24/96D			2	 >= 901231
+Hayes		Optima 144   			1	 unknown
+Hayes		Optima 2400+Fax96   		2	 >= TR00-J260-001 XXX
+Logicode	Quicktel Xeba 14.4		2	 V0.500 TR14-Jxxx-001
+Multi-Tech	MT1432BA, MT224BA	 *,+	2	 >= 0307 I
+Multi-Tech	MT1432BG			2	 0109A
+Nuvo		Voyager 96424PFX		1	 AF-C2500-E0
+PPI		PM14400FXMT, PM14400FXSA	2	 >= 2.17
+Supra		SupraFAX v.32bis		1,2	 >= V1.200-C
+Supra		SupraFAX v.32bis/RC32ACL @	2	 >= V1.000
+Telebit		T3000, WorldBlazer		2	 >= LA7.01
+Twincom		144/DF				2	 >= V1.200
+USRobotics	Courier				1	 Sup4.1/DSP11
+USRobotics	Sportster			1	 Sup4.1/DSP10
+Zoom		VFX				1,2	 V2.00
+Zero One Net.	ZyXEL U1496E, U1496E+, U1496S	2	 >= 5.01
+
+Notes:
+
+* There are apparently many variants of the MT1432BA, the following
+  models are known to work: MT1432BA, MT1432BA/A, MT1432MK, MT1432PCS.
+@ /RC32ACL refers to second-generation products made with the Rockwell
+  RC32ACL part and different firmware.
++ Modem is recommended for use with this software.
+
+Class 1 means the modem supports the TIA/EIA-578 "Class 1" specification.
+Class 2 means the modem supports the TIA/EIA-592 draft SP-2388-A of
+August 30, 1991.  The Abaton modem uses a proprietary interface that is
+neither Class 1 or Class 2.  SEE THE SECTION "Class 1 Support" FOR
+IMPORTANT INFO ON CLASS 1 SUPPORT
+
+Note however that some modems perform better than others.  The file
+MODEMS included in the distribution provides information about each
+modem that has been tried.
+
+
+Supported Systems
+-----------------
+The software has been ported to the following systems:
+
+aix32	 AIX 3.2.3 extended on a RS/6000 model 580
+bsdi	 BSD/386 1.0 w/ GNU gcc 2.3.3
+freebsd	 FreeBSD on an Intel 486 w/ GNU gcc
+4.4bsd	 4.4BSD w/ GNU gcc 2.3.3 (incomplete)
+hpux	 HP-UX 9.x on an HP 9000/700 (not yet ready)
+linux	 Linux 99p9 on an Intel 386 using gcc 2.3.3
+sco	 SCO ODT 2.0 (incomplete)
+sgi	 Silicon Graphics 4D machines w/ AT&T C++ compiler
+solaris2 Solaris 2.x on a Sun4 with GNU gcc 2.3.3
+sun	 Sun3/Sun4 w/ SunOS 4.1.X and GNU gcc 2.3.3
+svr4	 System V Release 4 on an Intel x86 w/ GNU gcc 2.3.3
+386bsd	 386bsd 0.1 on an Intel 486 w/ GNU gcc 2.3.3+patches
+ultrix	 Ultrix 4.2A w/ GNU gcc 2.4.5
+
+Systems that are marked (incomplete) compile properly and can be used
+to send and receive facsimile, but may have known problems or may be
+lacking some utilities such as the faxaddmodem installation script.
+Systems that are marked (not yet ready) are in preparation, but not
+yet organized for distribution.
+
+Porting the software is usually straightforward provided there is a
+working C++ compiler (e.g. gcc), PostScript imaging facility (e.g.
+ghostscript), and support for a limited subset of the POSIX system call
+interface.  System requirements are described more fully in the source
+code distribution.
+
+
+
+About the Distribution
+----------------------
+There are two distributions: a binary version that is directly
+installable on a Silicon Graphics IRIX 4.0.x system and a source
+distribution.
+
+The executables in the binary version of this distribution are only
+for Silicon Graphics 4D processor-based systems.  The distribution
+is sure to work on any IRIX 4.0.x system, though it may also work
+on pre-4.0 os versions.
+
+The source distribution includes all the source code in the system
+except a small bit of code used to build a Display PostScript-based
+imager (this code is useless unless you have a developers agreement
+with Adobe for Display PostScript).  The system is written almost
+entirely in C++.  I use the AT&T 2.1 compiler, as supported by Silicon
+Graphics.  GNU gcc 2.3.3 has been successfully used to build this
+software on all systems.
+
+A PostScript interpreter program is needed for imaging outgoing
+facsimile on the server machine.  The binary distribution for Silicon
+Graphics machines includes an imaging program that requires the Display
+PostScript execution environment (dps_eoe) that is available with most
+versions of IRIX.  The source distribution includes a device driver for
+use with Ghostscript version 2.6.1 (an earlier version of this driver
+is also included in the Ghostscript distribution).
+
+
+
+Class 1 Modem Support (Caveat Emptor)
+-------------------------------------
+Most contemporary fax modems provide one of two command interfaces for
+communication between the host and modem: Class 1 or Class 2 (actually,
+many modems that provide a Class 2 interface also provide a Class 1
+interface.)  These interfaces are specified by the Electronic
+Industries Association/Telecommunications Industry Association
+(EIA/TIA).  The Class 1 standard provides minimal hardware support for
+fax communication while Class 2 adds many commands and places more
+functionality in the modem.
+
+FlexFAX includes drivers for both Class 1 and Class 2 modems.  Robust
+support for Class 1 modems places two requirements on the host system:
+
+o low latency for serial line input
+o near realtime response
+
+In a UNIX environment both these requirements can be problematic.  In
+particular, many UNIX systems increase the latency for data received on
+a serial port in order to reduce system overhead.  That is, input data
+are typically held in a low level device driver for some period of time
+before they are passed to the user so that bursts of input data can be
+delivered to the user together.  This behaviour is known to occur under
+the Silicon Graphics IRIX and SunOS 4.1.x operating systems; it may
+also occur under other systems.  It is important for the proper
+operation of the Class 1 driver that input data be delivered to the
+facsimile server as quickly as possible.  This may require making a
+non-standard call of some sort to the operating system.  For SGI
+systems this call is automatically done.  For SunOS systems it appears
+that the only way to minimize the input latency is to create a stream
+i/o module that accesses an internal interface (see the comments in the
+routine setInputBuffering in faxd/FaxServer.c++ and the directory
+port/sun/zsundev that contains source for a kernel streams module).
+
+The response time requirements are important for insuring that T.30
+protocol messages are received in a timely fashion.  On a loaded
+system the protocol process may be preempted by other activities and
+not be run fast enough to satisfy the protocol timing requirements.
+This can usually be guarded against by assigning the facsimile process
+a high scheduling priority.  Unfortunately most UNIX systems do not
+provide support for such facilities and so even if it is possible to
+receive serial line input with the minimum of delay, protocol timing
+requirements may not be met because of delays in scheduling the
+execution of the fax server process.  For this reason the facsimile
+server process attempts to raise its scheduling priority while it is
+actively sending or receiving facsimile.  At other times, such as when
+it is doing queue management operations, it runs at a normal priority.
+On Silicon Graphics and SVR4-based systems the ``high priority'' is a
+nondegrading scheduling priority that is above the priorities of the
+normal system processes.  On other systems the server currently always
+runs at the same (normal) scheduling priority.  For more details
+consult the setProcessPriority routine in faxd/FaxServer.c++.
+
+In summary, if you want to use a Class 1 modem with this software and
+your system does not provide support for low latency serial line input
+you are likely to have troubles.  If your system does not provide a
+mechanism for raising process scheduling priority (note that this is
+not the same as the UNIX ``nice'' parameter), then you may see problems
+when the server is under load.  Exactly how much load will cause trouble
+is dependent on the system configuration and processing power.
+
+
+
+Commonly Asked Questions
+------------------------
+Q: What's the best modem to buy/use with this software?
+A: First, if your system is incapable of supporting a Class 1 modem, then
+   you need to use a Class 2 modem.  The modems recomended for use with
+   FlexFAX, based on feedback from users of the software, are marked with
+   a (+) in the above table.  Modems not marked with a (+), or not listed
+   above, may also work well with this software.  Beware of modem firmware
+   revisions when consulting the table.  Note also that the selections are
+   based on sending AND receiving facsimile, but not on data use.  Class 2
+   modems are evaluated based on their ability to do adaptive answer, but
+   these recommendations are STRICTLY FOR FAX USE.
+
+Q: My modem is not listed as supported, will it work?
+A: If the modem conforms to the draft Class 2 standard that most vendors
+   used to implement their ``Ersatz Class 2'' modems, then it should work
+   with the software; probably with some minor modifications to one of the
+   modem configuration files distributed with the system.
+
+   If the modem conforms to the EIA-578 "Class 1" programming interface,
+   then it will only work if the intended host provides certain system
+   facilities.  Class 1 modems have successfully been used with this
+   software on Silicon Graphics and Sun systems.
+
+   Otherwise it is possible to support a modem by writing a new ``modem
+   driver'' that is compiled into the facsimile server.
+
+Q: My system is not listed as supported, how hard is it to do a port?
+A: The software is written mostly in C++ and can be built on any system
+   with GNU gcc 2.3.3 or later.  The software also requires a reasonable
+   set of POSIX system interfaces, support for the select system call,
+   and FIFO special files.  Missing facilities can typically be handled
+   by looking at other ports and cribbing code.  A complete port will also
+   require some modification to the shell script used to setup and install
+   modems.  A person that is familiar with their system should be able to
+   port the software in a few days.
+
+Q: How is FlexFAX related to netfax (aka GNU fax)?
+A: Netfax is a simple fax package developed by folks at MIT and freely
+   available under the terms of the GNU software agreement.  FlexFAX is
+   a totally independent project that was intended to provide a robust
+   facsimile service that supports a wide variety of modems and systems.
+   FlexFAX is also freely available, but with more open terms (see the
+   copyright at the bottom of this note).
+
+
+
+How to Obtain the Distribution by FTP
+-------------------------------------
+The source code is available for public ftp on
+    sgi.com			sgi/fax/v2.2.src.tar.Z
+	(192.48.153.1)
+
+You can also obtain inst'able images for Silicon Graphics machines from
+    sgi.com			sgi/fax/v2.2.inst.tar
+	(192.48.153.1)
+
+For example,
+    % ftp -n sgi.com
+    ....
+    ftp> user anonymous
+    Password: <use mail address as password>
+    ftp> cd sgi/fax
+    ftp> binary
+    ftp> get v2.2.src.tar.Z
+    ....
+    ftp> quit
+
+In general, the latest version of the 2.2 release of the software is
+always available as "v2.2.src.tar.Z" or "v2.2.inst.tar" in the ftp
+directory.  This file is a link to the appropriate released version (so
+don't waste your time retrieving the linked file as well!) Any files of
+the form v2.2.*.patch are shell scripts that can be used to patch older
+versions of the source code.  For example, the file v2.2.1.patch would
+contain patches to update v2.2.1.tar.Z.  Patch files only work to go
+between consecutive versions, so if you are multiple versions behind
+the latest release, you will need to apply each patch file between your
+current version and the latest.
+
+
+How to Obtain the Distribution by Mail
+--------------------------------------
+Do not send me requests for the software; they will be ignored (without
+response).  If you cannot use FTP at all, there is a service called
+"ftpmail" available from gatekeeper.dec.com:  you can send e-mail to
+this machine and it will use FTP to retrieve files for you and send you
+the files back again via e-mail.  To find out more about the ftpmail
+service, send a message to "ftpmail@gatekeeper.dec.com" whose body
+consists of the single line "help".
+
+
+How to Obtain the Distribution within Silicon Graphics 
+------------------------------------------------------
+Internal to Silicon Graphics there are inst'able images on the host
+flake.asd in the directory /usr/dist.  Thus you can do something like:
+
+    % inst -f flake.asd.sgi.com:/usr/dist/flexfax
+
+to install the latest version of the software on your machine.
+
+
+What to do Once You've Retrieved Stuff (source distribution)
+------------------------------------------------------------
+The source distributions come in a compressed tar file.  To extract the
+software do something like:
+
+    % mkdir fax; cd fax
+    % zcat <somewhere>/v2.2.src.tar.Z | tar xf -
+
+(uncompress and extract individual files in current directory).  Then
+follow the instructions in the file README in the top of the source tree.
+
+What to do Once You've Retrieved Stuff (binary distribution)
+------------------------------------------------------------
+The binary distribution comes as a tar file that contains images for
+use with the standard Silicon Graphics installation program inst(1).
+To unpack the inst images do something like:
+
+    % mkdir dist; cd dist
+    % tar xf <somewhere>/v2.2.inst.tar
+
+Next, run inst to install the appropriate pieces that you want.  The
+key documentation from the source distribution is included in the
+subsystem flexfax.man.readme.  When this subsystem is installed the
+README file and other useful pieces of information are placed in the
+directory /usr/local/doc/flexfax.  Otherwise the software is broken
+into two areas: flexfax.client.* for software needed on client machines,
+and flexfax.server.* for software needed on a machine where a fax
+modem is located.  To unpack and install the client portion:
+
+    % mkdir dist; cd dist
+    % tar xf ../v2.2.inst.tar
+    % cd ..; inst -f dist/flexfax
+    ...
+    inst> go
+
+(Note, the dist subdirectory is because some versions of inst fail if
+the files are in the current directory.)  Note that server binaries are
+not installed by default, so to get them also you need to do:
+
+    % inst -f flexfax
+    ...
+    inst> install flexfax.server.*
+    inst> go
+
+Remember that to install a server on a Silicon Graphics machine, you
+need to have already installed the Display PostScript execution
+environment product (dps_eoe).  Otherwise, the fax server will not be
+able to convert PostScript to facsimile for transmission.
+
+
+FlexFAX Mail List
+-----------------
+A mailing list for users of this software is located on sgi.com.
+If you want to join this mailing list or have a list-related request
+such as getting your name removed from it, send a request to
+
+    majordomo@whizzer.wpd.sgi.com
+
+For example, to subscribe, send the line "subscribe flexfax" in
+the body of your message.  The line "help" will return a list of
+the commands understood by the mailing list management software.
+
+Submissions (including bug reports) should be directed to:
+
+    flexfax@sgi.com
+
+When corresponding about this software please always specify what
+version you have, what system you're running on, and, if the problem is
+specific to your modem, identify the modem and firmware revision.
+
+
+
+Use and Copyright
+-----------------
+Silicon Graphics has seen fit to allow me to give this work away.  It
+is free.  There is no support or guarantee of any sort as to its
+operations, correctness, or whatever.  If you do anything useful with
+all or parts of it you need to honor the copyright notices.   I would
+also be interested in knowing about it and, hopefully, be acknowledged.
+
+	Sam Leffler	(sam@sgi.com)
+
+
+Copyright (c) 1988, 1989, 1990, 1991, 1992, 1993 Sam Leffler
+Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+
+    Permission to use, copy, modify, distribute, and sell this software and 
+    its documentation for any purpose is hereby granted without fee, provided
+    that (i) the above copyright notices and this permission notice appear in
+    all copies of the software and related documentation, and (ii) the names of
+    Sam Leffler and Silicon Graphics may not be used in any advertising or
+    publicity relating to the software without the specific, prior written
+    permission of Sam Leffler and Silicon Graphics.
+
+    THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+    WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+    IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+    ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+    OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+    WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+    LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+    OF THIS SOFTWARE.

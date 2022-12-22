@@ -1,0 +1,5 @@
+F APROPOS.1;1                       	apropos.1
+F APROPOS.C;1                       	apropos.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/man/apropos
+F TAGS.;1                           	tags

@@ -1,0 +1,47 @@
+.TH float 1 "12 June 1992"
+.IX float
+.SH NAME
+.PP
+float \- convert between floating point and unsigned byte formats
+
+.SH SYNOPSIS
+.PP
+\f3float\f1
+[\f3-help \f1]
+[\f3-direct \f1]
+[\f3-tofloat \f1]
+[\f3-fromfloat \f1]
+[\f3-input \f2filename\f1]
+[\f3-output \f2filename\f1]
+
+.SH DESCRIPTION
+.PP
+
+\fIfloat\fP converts sound samples from binary floating point to
+unsigned byte format and visa-versa.  Several phase vocoders and other
+analysis packages require the floating point format, while the Sound
+Blaster uses unsigned byte values.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.
+.TP
+.B -help
+Display some help on usage.
+.TP
+.B -tofloat
+Convert unsigned byte input to floating point format
+.TP
+.B -fromfloat
+Convert floating point input to unsigned byte format.
+.TP
+.B -direct
+Send the resulting data directly to /dev/sb_dsp instead of stdout.
+.TP
+.B -input \f2filename\f1
+Read input from \f2filename\f1 instead of stdin.
+.TP
+.B -output \f2filename\f1
+Write results to \f2filename\f1 instead of stdout.
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

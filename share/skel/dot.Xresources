@@ -1,0 +1,300 @@
+!
+!  cross-application definitions
+!
+!	These are not specific to one application
+!
+
+! this should be based on resolution, but that seems broken
+
+*TtyModes:			erase ^H kill ^U weras ^W intr ^C quit ^\\
+
+! definitions for the Text widget
+*Text.Translations:		#override \
+	Button1<Btn2Down>:	extend-end(CLIPBOARD)\n\
+	Ctrl<Key>W:		delete-previous-word()\n\
+	Meta<Key>k:		kill-selection()\n\
+	Ctrl<Key>U:		beginning-of-line()\
+				kill-to-end-of-line()\n\
+	Meta<Key>u:		unkill()\n\
+
+!*VT100.Translations:		#override \
+!	Button1<Btn2Down>:	select-end(CLIPBOARD)\n\
+!	Button1<Btn2Up>:	ignore()\n\
+! last line should be for HP/PC only.....
+*VT100.Translations:		#override \
+	Ctrl<Key>Escape:	string("`")\n\
+
+*font:				7x13
+*boldFont:			7x13B
+
+!  xterm
+
+!XTerm*font:			*-courier-medium-r-*--12-*
+!XTerm*boldFont:		*-courier-bold-r-*--12-*
+
+XTerm*scrollBar:		on
+okeeffe*scrollBar:		off
+bxmhterm*scrollBar:		off
+XTerm*saveLines:		300
+
+XTerm*jumpScroll:		on
+XTerm*reverseVideo:		on
+XTerm*reverseWrap:		on
+XTerm*scrollInput:		on
+XTerm*sunFunctionKeys:		off
+!XTerm*titeInhibit:		on
+XTerm*utmpInhibit:		on
+XTerm*visualBell:		on
+XTerm*visBellDelay:		300
+XTerm*AudibleBell:		off
+console*loginShell:		on
+console*AudibleBell:		on
+console*utmpInhibit:		off
+okconsole*loginShell:		on
+okconsole*AudibleBell:		on
+vgconsole*loginShell:		on
+vgconsole*AudibleBell:		on
+login*loginShell:		on
+login*utmpInhibit:		off
+
+#ifdef COLOR
+bsdicom*cursorColor:	skyblue
+bsdicom*pointerColor:	skyblue
+okeeffe*cursorColor:	skyblue
+okeeffe*pointerColor:	skyblue
+okconsole*cursorColor:	skyblue
+okconsole*pointerColor:	skyblue
+redrock*cursorColor:	red
+redrock*pointerColor:	red
+vangogh*cursorColor:	yellow
+vangogh*pointerColor:	yellow
+vgconsole*cursorColor:	yellow
+vgconsole*pointerColor:	yellow
+console*cursorColor:	violet
+console*pointerColor:	violet
+local*cursorColor:	violet
+local*pointerColor:	violet
+bxmhterm*cursorColor:	green
+bxmhterm*pointerColor:	green
+notes*cursorColor:	green
+notes*pointerColor:	green
+#endif
+
+xgdb*reverseVideo:	on
+
+Bxmh*reverseVideo:	on
+#Bxmh*font: 7x13
+#Bxmh*Paned.internalBorderWidth: 1
+#Bxmh*Scrollbar.borderWidth: 1
+Bxmh*toc.height: 180
+#Bxmh*toc*defaultSelection: CUT_BUFFER1
+#Bxmh*toc.scrollHorizontal: never
+#Bxmh*toc.scrollVertical: whenneeded
+#Bxmh*toc.displayCaret: false
+#Bxmh*toc.showGrip: false
+#Bxmh*toc.leftMargin: 0
+#Bxmh*toc.rightMargin: 0
+Bxmh*toc*font: -*-lucidatypewriter-medium-*-*-*-12-*-*-*-*-*-*-*
+#Bxmh*view.scrollHorizontal: never
+#Bxmh*view.scrollVertical: whenneeded
+#Bxmh*view.wrap: word
+#Bxmh*view.displayCaret: false
+#Bxmh*view.showGrip: true
+#Bxmh*cmdButtons.showGrip: false
+#Bxmh*cmdButtons.skipAdjust: true
+#Bxmh*cmdButtons*borderWidth: 2
+#Bxmh*folders.showGrip: false
+#Bxmh*folders.skipAdjust: true
+#Bxmh*sequences.showGrip: false
+#Bxmh*sequences.skipAdjust: true
+#Bxmh*titlebar.showGrip: true
+#Bxmh*titlebar.skipAdjust: true
+#Bxmh*SimpleMenu*Font: -*-helvetica-bold-r-*-*-14-*-*-*-*-*-*-*
+#Bxmh*SimpleMenu*Cursor: sb_left_arrow
+#Bxmh*SimpleMenu*SaveUnder: true
+#Bxmh*SimpleMenu*BackingStore: always
+#Bxmh*List.defaultColumns: 11
+#Bxmh*List.columnSpacing: 12
+#Bxmh*List.verticalList: true
+#Bxmh*List.allowResize: true
+#Bxmh*List.resizeToPreferred: true
+#Bxmh*SmeMenu.popupSelection: true
+Bxmh*folders*font: -*-lucida-bold-r-*-*-12-*-*-*-*-*-*-*
+#Bxmh*folders*translations: #override\
+#	<Btn1Down>: Set() Notify() select-folder()\n\
+#	<Btn1Down>(2): open-subfolders()\n\
+#	<Btn2Down>: Set() Notify() select-folder() move() next() show()\n\
+#	<Btn3Down>: Set() Notify() select-folder() open-folder()\n
+#Bxmh*sequences*translations: #override\
+#	<Btn1Down>: Set() Notify() select-seq()\n\
+#	<Btn1Down>(2): open-subfolders()\n\
+#	<Btn2Down>: Set() Notify() select-seq() add-to-seq()\n\
+#	<Btn3Down>: Set() Notify() select-seq() open-seq()\n
+#Bxmh*sequences*font: -*-lucida-medium-r-*-*-14-*-*-*-*-*-*-*
+Bxmh*cmdButtons*font: -*-helvetica-bold-r-*-*-14-*-*-*-*-*-*-*
+#Bxmh*titlebar.font: -*-helvetica-bold-r-*-*-14-*-*-*-*-*-*-*
+#Bxmh*Dialog*Font: -*-helvetica-bold-r-*-*-18-*-*-*-*-*-*-*
+#Bxmh*prompt*folder*translations: #override\
+#	:Ctrl<Key>[: complete-folder-name()\n\
+#	:<Key>Escape: complete-folder-name()\n\
+#	<Key>space: complete-folder-name()\n
+#Bxmh*prompt*seq*translations: #override\
+#	:Ctrl<Key>[: complete-seq-name()\n\
+#	:<Key>Escape: complete-seq-name()\n\
+#	<Key>space: complete-seq-name()\n
+#Bxmh.PrintCommand: printmail
+Bxmh.Geometry: =582x760+0+0
+Bxmh.XtermFlags: -geom 80x36-0+0 -name bxmhterm
+#Bxmh.XtermCommand: xterm
+#Bxmh.PopupCommand: bxmhpopup
+#Bxmh.DimProcessedMessages: on
+Bxmh.CleanupMsgs: off
+#Bxmh.FolderButtons: on
+#Bxmh.SeqButtons: on
+#Bxmh.Tabstop: 4
+#Bxmh.TocWidth: 128
+#Bxmh.NormalMsgFont: -*-lucidatypewriter-medium-*-*-*-12-*-*-*-*-*-*-*
+#Bxmh.CleanMsgFont: -*-new century schoolbook-medium-r-*-*-18-*
+Bxmh.distcommand:	dist -editor vi
+Bxmh.forwcommand:	forw -editor vi
+Bxmh.replcommand:	repl -editor vi
+#bxmh.boringHeaders:	resent-from:resent-to:resent-subject:resent-comments:from:to:cc:subject:date:
+
+!
+!  relatively minor applications
+!
+
+! show xbiff in reverse video (normally black, turns white when mail arrives)
+xbiff*borderColor:		white
+xbiff*reverseVideo:		on
+
+! xclock
+xclock*reverseVideo:		on
+
+! load monitor
+xload*borderColor:		white
+xload*font:			micro
+xload*geometry:			105x48
+xload*reverseVideo:		on
+
+! xlock (lock the keyboard) definitions
+xlock*font:			9x15
+xlock*geometry:			=+400+400
+!xlock*Font:			timrom12bfx
+xlock*AskPass:			off
+xlock*TimeOut:			10
+xlock*FlashTime:		2
+
+
+! the news reader...
+xrn*geometry:			510x750-0-0
+xrn*subjectRead:		on
+xrn*calvin:			off
+
+! canfield forever!
+!canfield*font:			9x15
+!canfield*geometry:		79x24+65+135
+!canfield*scrollBar:		false
+
+!
+!  The "xshell" application -- fast application invocation
+!
+!	If you want to use this, include the line "xshell &" in your
+!	.X11init file.
+!
+
+! use a small icon
+!xshell*IconSize:		small
+
+! make it normally black
+!xshell*reverseVideo:		on
+
+! put it just to the left of the default icons at the top right of the screen
+!xshell*geometry:		-470+0
+
+! actions
+!xshell.action.LeftButton:	xterm
+!xshell.action.a:		xterm -T icsia -n icsia -e rlogin icsia
+!xshell.action.b:		xterm -T icsib -n icsib -e rlogin icsib
+!xshell.action.c:		xcalc
+!xshell.action.h:		xman
+!xshell.action.L:		xlock
+!xshell.action.m:		xmh -geometry 508x750+0-0
+!xshell.action.n:		xrn
+!xshell.action.t:		xterm
+!xshell.action.w:		xwebster
+!xshell.action.6:		xterm -T icsia6 -n icsia6 -e rlogin icsia6
+!xshell.action.7:		xterm -T icsia7 -n icsia7 -e rlogin icsia7
+
+! xman -- manual browser
+!	these are documented, but do not work at this time
+!xman*topBox.geometry:		300x30
+!xman*manualBrowser.geometry:	500x600
+!xman*topBox:			false
+
+!
+!  The xmh (X interface to MH) mail user interface program
+!
+
+! the command to use when you want to print a message
+!	be sure to include ">/dev/null 2>&1" -- very important!!
+!xmh*PrintCommand:		enscript -G >/dev/null 2>&1
+
+! give a "raised flag" icon when mail has arrived
+!xmh*MailWaitingFlag:		on
+
+!xmh*PrintCommand:		enscript -G >/dev/null 2>&1
+!xmh*next.label:			Next
+!xmh*prev.label:			Prev
+!xmh*inc.label:			Inc
+!xmh*edit.label:			Edit
+!xmh*save.label:			Save
+!xmh*openSeq.label:		Open Seq
+!xmh*addToSeq.label:		Add to Seq
+!xmh*removeFromSeq.label:	Remove from Seq
+!xmh*deleteSeq.label:		Delete Seq
+!xmh*close.label:		Close Window
+!xmh*compose.label:		Compose Message
+!xmh*folderButtons.open.label:	Open
+!xmh*folderButtons.openInNew.label:Open in New
+!xmh*folderButtons.create.label:	New Folder
+!xmh*folderButtons.delete.label:	Delete Folder
+!xmh*geometry:			740x850
+
+!
+!  AWM window manager
+!
+!	These are basically untested, but you may want to start with
+!	this set if you prefer to use awm.
+!
+
+!awm.icon.font:			vtsingle
+!awm.icon.pixmap:		blank.bm
+!awm.popup.font:			fg-22
+!awm.windowName.offset:		16
+!awm.title.height:		16
+!awm.title.font:			vtsingle
+!awm.title.boldFont:		vtsingle
+!awm.title.boldPixmap:		twm.hilite.bm
+!awm.title.push:			false
+!awm.path:			/usr/X11/lib/awm/bitmaps
+!awm.delta:			3
+!awm.freeze:			on
+!awm.grid:			on
+!awm.zap:			off
+!awm.autoraise:			off
+!awm.hilite:			on
+!awm.titles:			on
+!awm.gadgets:			on
+!awm.wall:			off
+!awm.warpOnRaise:		off
+!awm.warpOnDeIconify:		off
+!awm.warpOnIconify:		off
+!awm.frameFocus:			on
+!awm.rootResizeBox:		on
+!awm.border.hilite:		off
+!awm.gadget.border:		0
+!awm.icon.hPad:			2
+!awm.icon.vPad:			5
+!awm.volume:			4
+

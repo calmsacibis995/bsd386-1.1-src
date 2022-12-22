@@ -1,0 +1,43 @@
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd September 16, 1992
+.Dt ISO9660 4
+.Os BSD 4
+.Sh NAME
+.Nm iso9660
+.Nd CD-ROM file system
+.Sh SYNOPSIS
+.Nm mount
+.Fl Ar t iso9660
+.Op Fl o Fl n
+.Ar special
+.Ar node
+.Sh DESCRIPTION
+The iso9660 file system is an implementation of ISO-9660 : 1988 (E),
+level 2 (and also the level 1 subset), plus the Rock Ridge extensions
+version 1.09.
+.Pp
+This file system only supports read-only mounts, so the read-only flag
+to mount is implied and need not be given.  The Rock Ridge extensions
+are enabled automatically when the necessary information is present on
+the volume.
+.Pp
+If the file system volume does not contain Rock Ridge information, the
+raw ISO-9660 file names are translated to lower case, truncated at the
+semicolon, and trailing dots are removed.
+.Pp
+The file system specific option
+.Fl n
+disables the Rock Ridge extensions and all file name translations.
+.Pp
+Normally, a CD-ROM will not have a disk label, so you should use the
+raw partition, for example, 
+.Nm /dev/sd1c .
+.Sh HISTORY
+The
+.Nm iso9660
+file system first appeared in BSDI.
+.Sh AUTHOR
+Pace Willisson
+

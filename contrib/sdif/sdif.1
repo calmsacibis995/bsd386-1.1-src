@@ -1,0 +1,129 @@
+.de XX
+.ds XX \\$4\ (v\\$3)
+..
+.XX Id: sdif,v 1.14 1992/12/11 01:27:56 utashiro Exp
+.TH SDIF 1 \*(XX
+.SH NAME
+sdif \- sdiff clone
+.SH SYNOPSIS
+.nr ww \w'\fBsdif\fP\ '
+.in +\n(wwu
+.ta \n(wwu
+.ti -\n(wwu
+\fBsdif\fP	\c
+[\-n] [\-l] [\-s] [\-[fF]] [\-b] [\-i] [\-w] [\-w \fIwidth\fP]
+[\-c] [file1 [file2]]
+.br
+.ti -\n(wwu
+\fBsdif\fP	\c
+[\-rcs] [\-q] [\-r\fIrev1\fP [\-r\fIrev2\fP]] [\fIsdif options\fP] file
+.SH DESCRIPTION
+.I Sdif
+is a clone program of System V \fIsdiff\fP(1) command.  The
+basic feature of sdif and sdiff is making a side-by-side
+listing of two different files.  It makes much easier to
+compare two files than looking at the normal diff output.
+All contents of two files a listed on left and right sides.
+Center column is used to indicate how different the line.
+No mark means there is no difference.  The line only
+included in left file is indicated by `<' mark, and `>' is
+used to lines only in right file.  Modified line has a mark
+`|'.  Example output from sdif is like this:
+.nf
+.cs R 25
+.ft CW
+
+	1    deleted       <
+	2    same             1    same
+	3    changed       |  2    modified
+	4    same             3    same
+	                   >  4    added
+
+.ft R
+.cs R
+.fi
+.PP
+.I Sdif
+has some incompatibilities with sdiff.  Negative
+incompatibility is a lack of \-o option and expanding all
+tabs to spaces.  Other incompatibilities are:
+.nf
+
+	\(bu line numbering
+	\(bu folding a long line
+	\(bu context diff support
+	\(bu unified diff support
+	\(bu option to keep diff mark
+	\(bu handle backspace and caridge return
+	\(bu default width is 80
+	\(bu rcs support
+	\(bu cdif (word context diff) support
+	\(bu read diff data from file or stdin
+
+.fi
+.SH OPTIONS
+.IP "\-w \fIwidth\fP"
+Use \fIwidth\fP as a width of output listing.  Default width
+is 80.  Original \fIsdiff\fP has a default value 130 but
+nobody uses 132 column line printer in these days.  If the
+standard error is to a terminal, the width of that terminal
+is taken as a output width if possible.
+.IP \-l
+Print only left column if the line is identical.
+.IP \-s
+Silent.  No output for identical lines.  Reading diff output
+from file or stdin put this switch on automatically.
+.IP \-n
+Print line number on each lines.
+.IP \-f
+Fold the line if it is longer than printing width.  Folded
+line is indicated by `+' mark at top of the line.  No
+continue mark is printed when numbering option is on.
+.IP \-F
+Fold longs line at word boundaries.
+.IP \-m
+Usually diff mark from diff output are trimed off.  This
+option forces to leave them on output listing.  I prefer to
+use this option with \-c.
+.IP "\-rcs, \-r\fIrev\fP"
+Use rcsdiff instead of normal diff.  Option \-rcs is not
+required when \-r\fIrev\fP is supplied.
+.IP \-cdif
+Use \fIcdif\fP command instead of normal diff command.
+.IP "\-b, \-w, \-c, \-u, \-B"
+Passed through to the back-end diff command.  \fISdif\fP can
+process the output from context diff (\-c) and unified diff
+(\-u) if those are available.  Option \-B is valid only for
+\fIcdif\fP.
+.SH RELATED COMMANDS
+.IP a2ps
+is a command which converts ascii text to postscript
+program.  C version was originally posted to usenet by
+miguel@imag.imag.fr (Miguel Santana).  I reimplemented it by
+perl and enhanced to use different font family for
+overstruck and underlined characters.  This is a convenient
+tool to print the output from sdif to postscript printer.
+.IP cdif
+is a program which post-processes normal diff output and
+highlights deleted, changed and added word on modified line.
+It uses overstiking to highlighting.  Sdif can handle there
+sequence correctly.  Cdif has to be installed to use \-cdif
+option with sdif.
+.PP
+Next is a example that I'm using often.
+.nf
+
+	sdif -cdif -w180 file1 file2 | a2ps -w
+
+.fi
+.PP
+All of these programs can be ftp'ed from sra.co.jp
+(133.137.4.3) by anonymous ftp from the directory
+~ftp/pub/lang/perl/sra-scripts.
+.SH AUTHOR
+Kazumasa Utashiro <utashiro@sra.co.jp>
+.br
+Software Research Associates, Inc., Japan
+.SH "SEE ALSO"
+perl(1), diff(1), cdif(1), a2ps(1)
+.ex

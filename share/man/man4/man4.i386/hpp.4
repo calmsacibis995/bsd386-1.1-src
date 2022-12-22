@@ -1,0 +1,48 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\" BSDI $Id: hpp.4,v 1.1 1994/01/31 08:41:40 donn Exp $
+.Dd January 30, 1994
+.Dt HPP 4 i386
+.Os
+.Sh NAME
+.Nm hpp
+.Nd
+.Tn HP
+EtherTwist PC LAN Adapter/16 Plus
+.Sh SYNOPSIS
+.Cd "device hpp0 at isa? port 0x2c0 iomem 0xc8000 iosiz 2048"
+.Sh DESCRIPTION
+The
+.Nm hpp
+interface provides access to a 10 Mb/s Ethernet network.
+It supports the
+HP 27247B PC LAN Adapter/16 TP Plus [AUI/UTP] and the
+HP 27252A PC LAN Adapter/16 TL Plus [AUI/BNC]
+It uses a block of 32 i/o ports in the range 0x100 through 0x3e0.
+The block must be aligned on a 32 port boundary.
+The base port and memory address are set a manufacturer-provided
+setup program using manual configuration..
+It uses an 2 kilobyte shared memory area at a 16KB-aligned address
+from 0xC8000 through 0xEC000.
+The memory address in the config file must agree with the address
+used when the card was configured.
+The hardware interrupt level may be read from the card
+or specified in the config file entry.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr hpp
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh AUTHOR
+Written for use in BSD/386 by Kevin Fall (kfall@cs.ucsd.edu).

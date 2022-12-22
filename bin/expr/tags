@@ -1,0 +1,8 @@
+Mexpr	expr.c	/^main(int argc, char **argv)$/
+arithop	expr.c	/^#define	arithop(result, op, s1, s2) \\$/
+matchop	expr.c	/^matchop(const char *s, char *pattern)$/
+null	expr.c	/^#define	null(s)	((s)[0] == '\\0' || ((s)[0] == '0'/
+relop	expr.c	/^#define	relop(result, op, s1, s2) \\$/
+yyerror	expr.c	/^yyerror(const char *message)$/
+yylex	expr.c	/^yylex()$/
+yyparse	expr.c	/^yyparse()$/

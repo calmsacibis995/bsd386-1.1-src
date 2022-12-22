@@ -1,0 +1,65 @@
+	BSDI $Id: README.BSDI,v 1.2 1993/03/08 07:09:49 polk Exp $
+
+This version of 'file' is somewhat modified from the version that
+Ian is distributing.  We request that you complain to bsdi about
+any problems in it and don't bother Ian (we'll take care of that
+:-).  If you need a newer copy of 'file', connect to ftp.cs.toronto.edu
+with anonymous ftp and pick up the stuff in /pub/darwin/file.
+
+Here's our exchange with Ian about redistributing 'file':
+
+From donn Thu Jan  7 17:17:47 1993
+To: ian@sq.com
+Subject: about distributing changed versions of 'file'
+
+I just re-read the MAINT document and I wanted to be sure that it was
+okay to redistribute 'file', since I had to whack it somewhat to fit
+our environment.  Specifically:
+
+  +     I added new Makefiles to support building from CD-ROM
+
+  +     I modified the man pages to replace the __foo__ stuff
+
+  +     I moved 'Magdir' to 'magic' (purely aesthetics :-)
+
+  +     I added .m suffixes to all the magic files for pmake's sake
+
+  +     I added a bsdi.m file for bsdi-specific magic numbers (only
+        one entry for now)
+
+  +     I added BSDI rcs-id comments (not copyrights) to files that
+        were modified
+
+  +     I modified the existing Id keywords in the files that changed
+        so that BSDI's check-ins wouldn't change them (changed the $
+        signs to spaces)
+
+  +     I moved all the material that wasn't relevant to BSDI's
+        distribution into a subdirectory (the original makefiles,
+        localinc files, PORTING, TARGETS, tst/Makefile)
+
+This all seems pretty innocent to me, but I thought I'd check with
+you just in case.  You're welcome to have a copy of the changed
+distribution to look at if you would like.  Also, we can distribute
+a README with a disclaimer for you if you'd like.
+
+Hopefully most of our customers will call us first for support,
+
+Donn
+
+To: donn@BSDI.COM (Donn Seeley)
+Subject: Re: about distributing changed versions of 'file' 
+Date:   Fri, 8 Jan 1993 10:54:31 -0500
+From: ian@sq.com
+
+On second thought, could you please include:
+        - the list of changes you made (the level of detail
+          you sent me is fine), and
+        - a note on where to FTP the original (you can copy the two-liner
+          from the man page if you have the latest version thereof).
+in a seperate file in the source tree (maybe README.BSDI or whatever
+your convention is).
+
+Thanks again
+Ian Darwin
+ian@sq.com

@@ -1,0 +1,29 @@
+! PC key mapping modifications (no Caps Lock)
+
+! doesn't work?
+!! disable the "Caps Lock" key
+!clear Lock
+!! change the "Caps Lock" key to be a control key
+!add Control = Caps_Lock
+
+!
+! Swap Caps_Lock and Control_R
+!
+remove Lock = Caps_Lock
+remove Control = Control_R
+keysym Control_R = Caps_Lock
+keysym Caps_Lock = Control_R
+add Lock = Caps_Lock
+add Control = Control_R
+
+! move around the escape key (PC only!)
+! `/~ key does Escape (shifted, ~)
+keycode 49 = Escape asciitilde
+
+! make backspace be ` and ~
+!keysym BackSpace = quoteleft asciitilde
+!keycode 22 = quoteleft asciitilde
+
+! make Next do Linefeed
+!keysym Next = Linefeed
+keycode 105 = Linefeed

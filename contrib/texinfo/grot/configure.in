@@ -1,0 +1,22 @@
+AC_INIT(texi.texi)
+AC_GCC_TRADITIONAL
+AC_PROG_INSTALL
+AC_PROG_RANLIB
+AC_ISC_POSIX
+AC_MINIX
+AC_CONST
+AC_STDC_HEADERS
+AC_HAVE_HEADERS(unistd.h termio.h string.h varargs.h sys/time.h sys/fcntl.h sys/ttold.h sys/ptem.h)
+AC_HAVE_FUNCS(setvbuf getcwd bzero rindex vfprintf vsprintf)
+AC_STRUCT_TM
+AC_SETVBUF_REVERSED
+AC_ALLOCA
+TERMLIBS=""
+for termlib in termcap terminfo curses termlib ; do
+   AC_HAVE_LIBRARY(${termlib}, [TERMLIBS="${TERMLIBS} -l${termlib}"])
+   case "${TERMLIBS}" in
+      *-l${termlib}* ) break ;;
+   esac
+done
+AC_SUBST(TERMLIBS)
+AC_OUTPUT(Makefile libtxi/Makefile makeinfo/Makefile info/Makefile util/Makefile)

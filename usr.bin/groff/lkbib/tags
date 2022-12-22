@@ -1,0 +1,2 @@
+Mlkbib.cc	lkbib.cc	/^main(int argc, char **argv)$/
+usage	lkbib.cc	/^static void usage()$/

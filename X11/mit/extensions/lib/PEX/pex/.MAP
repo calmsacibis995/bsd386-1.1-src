@@ -1,0 +1,14 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F PEX_FONT.GZ;1                     	pex_font.c.gz
+F PEX_INFO.GZ;1                     	pex_info.c.gz
+F PEX_LUT_.GZ;1                     	pex_lut.c.gz
+F PEX_MD_H.GZ;1                     	pex_md.h.gz
+F PEX_NS_C.GZ;1                     	pex_ns.c.gz
+F PEX_PICK.GZ;1                     	pex_pick.c.gz
+F PEX_PIPE.GZ;1                     	pex_pipe.c.gz
+F PEX_PRIV.GZ;1                     	pex_priv.h.gz
+F PEX_REND.GZ;1                     	pex_rend.c.gz
+F PEX_SRCH.GZ;1                     	pex_srch.c.gz
+F PEX_STRU.GZ;1                     	pex_stru.c.gz
+F PEX_UTIL.GZ;1                     	pex_util.c.gz
+F PEX_WS_C.GZ;1                     	pex_ws.c.gz

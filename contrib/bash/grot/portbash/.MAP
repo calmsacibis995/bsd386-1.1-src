@@ -1,0 +1,8 @@
+F LIBC.SH;1                         	libc.sh
+F MKDESC.SH;1                       	mkdesc.sh
+F PGRP.C;1                          	pgrp.c
+F README.;1                         	README
+F SIGNALS.SH;1                      	signals.sh
+F STDIO.SH;1                        	stdio.sh
+F STRINGS.SH;1                      	strings.sh
+F SYSCALLS.SH;1                     	syscalls.sh

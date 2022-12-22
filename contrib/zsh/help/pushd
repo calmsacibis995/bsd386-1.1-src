@@ -1,0 +1,25 @@
+     pushd [ arg ]
+     pushd old new
+     pushd +-n
+          Change the current directory, and push the old  current
+          directory onto the directory stack.  In the first form,
+          change the current directory to arg.   If  arg  is  not
+          specified,  change to the second directory on the stack
+          (that is, exchange the top two entries), or  change  to
+          the value of HOME if the PUSHD_TO_HOME option is set or
+          if there is only one entry on the stack.  If arg is  -,
+          change  to the value of OLDPWD, the previous directory.
+          If a directory named arg is not found  in  the  current
+          directory and arg does not contain a slash, search each
+          component of the shell parameter cdpath.  If the option
+          CDABLEVARS  is  set,  and  a parameter named arg exists
+          whose value begins with a slash, treat its value as the
+          directory.   If the option PUSHD_SILENT is not set, the
+          directory stack will be printed after a pushd  is  per-
+          formed.
+
+          The second form of pushd substitutes the string new for
+          the  string  old  in the name of the current directory,
+          and tries to change to this new directory.
+
+          The third form of pushd is equivalent to popd.

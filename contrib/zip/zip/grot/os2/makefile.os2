@@ -1,0 +1,198 @@
+# Makefile for Zip, ZipCloak, ZipNote and ZipSplit
+
+# Supported Make utilities:
+# - Microsoft/IBM nmake
+# - dmake 3.8 (parallel make, use -P4 if you have the memory),
+#   in the exe file targets, you will have to add spaces before $@ for gcc
+# - NOT watcom make (brain dead, apparently doesn't know lines cont'd with \)
+# - NOT GNU make (buggy, incompatible)
+
+# Supported C Compilers:
+# - Microsoft C 6.00 under OS/2 1.x (16-bit)
+# - GNU gcc (emx kit) under OS/2 2.0
+# - IBM C Set/2 under OS/2 2.0        - does not yet work with ASM code
+# - Watcom C/386 9.0 under OS/2 2.0   - does not yet work with ASM code
+
+# Supported Assemblers:
+# - Microsoft MASM 6.00 with MS C, IBM C, Watcom C
+# - Microsoft MASM 5.xx with MS C, if uncomment "masm" line near line 150
+# - GNU as with GNU gcc
+
+# To use, enter "nmake/dmake -f makefile.os2" (this makefile depends on its
+# name being "makefile.os2").
+
+# Add -DNO_ASM to CFLAGS and remove match.obj from OBJO if you do
+# not have masm or ml.
+# Add -DDYN_ALLOC to ASFLAGS if you have defined it in tailor.h or CFLAGS
+
+# Notes on 16-bit (Microsoft C 6.00) compilation:
+
+#   The resulting programs can be used under OS/2 protected mode only.
+#   A larger stack has to be used for OS/2 because system calls
+#   use more stack than under DOS, 8k is recommended by Microsoft.
+#   Note that __STDC__ has to be defined explicitly with C 6.00 when -Ze
+#   is given, because Microsoft disables __STDC__ when their extensions
+#   are enabled. This is different from the C 5.10 behaviour.
+
+# Notes on 32-bit (IBM C Set/2, Watcom C or GNU gcc) compilation:
+
+#   The resulting programs can be used under OS/2 protected
+#   mode of OS/2 2.0 only, not under 1.x and not under DOS.
+#   It makes no difference if __STDC__ is defined or not.
+#   Watcom C and IBM C Set/2 work with DYN_ALLOC only, because of
+#   Compiler bugs.
+
+CRYPTO=
+CLOAK=
+CRFLAG=
+#  *** For encryption version, remove the # at the front of next 3 lines ***
+#CRYPTO=crypt$(OBJ)
+#CLOAK=zipcloak.exe
+#CRFLAG=-DCRYPT
+
+default:
+	@echo Enter "$(MAKE) -f makefile.os2 msc"
+	@echo    or "$(MAKE) -f makefile.os2 ibm"
+	@echo    or "$(MAKE) -f makefile.os2 watcom"
+	@echo    or "$(MAKE) -f makefile.os2 gcc"
+
+mscdos:
+	$(MAKE) -f makefile.os2 zips \
+	CC="cl -nologo -AC -Oaict -Gs" \
+	CFLAGS="-W3 -Zep $(CRFLAG) $(FP)" \
+	AS="ml -nologo" \
+	ASFLAGS="-Zm -Cp" \
+	LDFLAGS="$(FP) -Lr -F 1000 -Fe" \
+        LDFLAGS2="-link /noe" \
+        OUT="-Fo" \
+        OBJ=".obj" \
+	OBJA=match.obj \
+        OBJO=""
+
+msc:
+	$(MAKE) -f makefile.os2 zips \
+	CC="cl -nologo -AC -Ocegit -Gs" \
+	CFLAGS="-W1 -Zep -J -G2 $(CRFLAG) -D__STDC__ -DOS2 $(FP)" \
+	AS="ml -nologo" \
+	ASFLAGS="-Zm -Cp" \
+	LDFLAGS="$(FP) -Lp -F 2000 -Fe" \
+        LDFLAGS2="-link /noe" \
+        OUT="-Fo" \
+        OBJ=".obj" \
+	OBJA=match.obj \
+        DEF="zip.def"
+
+ibm:
+	$(MAKE) -f makefile.os2 zips \
+	CC="icc -Q -O -Gs" \
+	CFLAGS="-Sm -Sp1 $(CRFLAG) -DOS2 -DDYN_ALLOC -DNO_ASM" \
+	NFLAGS="-O-" \
+	AS="ml -nologo" \
+	ASFLAGS="-Zm -Cp" \
+	LDFLAGS="-B/ST:131072 -Fe" \
+        LDFLAGS2="" \
+        OUT="-Fo" \
+        OBJ=".obj" \
+	OBJA="" \
+        DEF="zip.def"
+
+watcom:
+	$(MAKE) -f makefile.os2 zips \
+	CC="wcl386 -zq -Ox -s" \
+	CFLAGS="-Zp1 $(CRFLAG) -DOS2 -DDYN_ALLOC -DNO_ASM" \
+	AS="ml -nologo" \
+	ASFLAGS="-Zm -Cp" \
+	LDFLAGS="-k131072 -x -Fe=" \
+        LDFLAGS2="" \
+        OUT="-Fo" \
+        OBJ=".obj" \
+	OBJA=""
+
+gcc:
+	$(MAKE) -f makefile.os2 zips \
+	CC="gcc -O -s" \
+	CFLAGS="$(CRFLAG) -DOS2" \
+	AS="gcc" \
+	ASFLAGS="-Uunix" \
+	LDFLAGS="-o " \
+        LDFLAGS2="-los2" \
+        OUT="-o" \
+        OBJ=".o" \
+	OBJA="match.o"
+
+OBJO =  os2zip
+
+OBJZ =  zip$(OBJ) zipfile$(OBJ) zipup$(OBJ) fileio$(OBJ) util$(OBJ) \
+        globals$(OBJ) deflate$(OBJ) trees$(OBJ) bits$(OBJ) $(CRYPTO) \
+	$(OBJO)$(OBJ)
+
+OBJU =  zipfile_$(OBJ) zipup_$(OBJ) fileio_$(OBJ) util_$(OBJ) \
+	globals$(OBJ) $(OBJO)_$(OBJ)
+
+OBJN =  zipnote$(OBJ) $(OBJU)
+OBJC =  zipcloak$(OBJ) crypt_$(OBJ) $(OBJU)
+OBJS =  zipsplit$(OBJ) $(OBJU)
+
+.c$(OBJ):
+	$(CC) -c $(CFLAGS) $<
+
+zips:	zip.exe zipnote.exe zipsplit.exe $(CLOAK)
+
+zip$(OBJ):	zip.c zip.h ziperr.h tailor.h revision.h
+zipfile$(OBJ):	zipfile.c zip.h ziperr.h tailor.h
+zipup$(OBJ):	zipup.c zip.h ziperr.h tailor.h revision.h os2zip.h
+fileio$(OBJ):	fileio.c zip.h ziperr.h tailor.h os2zip.h
+util$(OBJ):	util.c zip.h ziperr.h tailor.h os2zip.h
+globals$(OBJ):	globals.c zip.h ziperr.h tailor.h
+deflate$(OBJ):	deflate.c zip.h ziperr.h tailor.h
+trees$(OBJ):	trees.c zip.h ziperr.h tailor.h
+	$(CC) -c $(CFLAGS) $(NFLAGS) $*.c
+bits$(OBJ):	bits.c zip.h ziperr.h tailor.h
+crypt$(OBJ):	crypt.c zip.h ziperr.h tailor.h
+os2zip$(OBJ):	os2zip.c os2zip.h
+
+match.obj:	match.asm
+	$(AS) -c $(ASFLAGS) $*.asm
+# use the following for MASM 5.00 instead of 6.00
+#	masm -ml -t $*.asm;
+
+match32.obj:	match32.asm
+	$(AS) -c $(ASFLAGS) $*.asm
+
+match.o:	match.s
+# note the uppercase S for gcc to run match.s through cpp!
+	$(AS) -c $(ASFLAGS) $*.S
+
+zipcloak$(OBJ):	zipcloak.c zip.h ziperr.h tailor.h revision.h
+zipnote$(OBJ):	zipnote.c zip.h ziperr.h tailor.h revision.h
+zipsplit$(OBJ): zipsplit.c zip.h ziperr.h tailor.h revision.h
+
+zipfile_$(OBJ):	zipfile.c zip.h ziperr.h tailor.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ zipfile.c
+
+zipup_$(OBJ):	zipup.c zip.h ziperr.h tailor.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ zipup.c
+
+fileio_$(OBJ):	fileio.c zip.h ziperr.h tailor.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ fileio.c
+
+util_$(OBJ):	util.c zip.h ziperr.h tailor.h os2zip.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ util.c
+
+crypt_$(OBJ):	crypt.c zip.h ziperr.h tailor.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ crypt.c
+
+os2zip_$(OBJ): os2zip.c os2zip.h
+	$(CC) -c $(CFLAGS) -DUTIL $(OUT)$@ os2zip.c
+
+zip.exe: $(OBJZ) $(OBJI) $(OBJA) $(DEF)
+	$(CC) $(LDFLAGS)$@ $(DEF) $(OBJZ) $(OBJI) $(OBJA) $(LDFLAGS2)
+
+zipcloak.exe: $(OBJC) $(DEF)
+	$(CC) $(LDFLAGS)$@ $(DEF) $(OBJC) $(LDFLAGS2)
+
+zipnote.exe: $(OBJN) $(DEF)
+	$(CC) $(LDFLAGS)$@ $(DEF) $(OBJN) $(LDFLAGS2)
+
+zipsplit.exe: $(OBJS) $(DEF)
+	$(CC) $(LDFLAGS)$@ $(DEF) $(OBJS) $(LDFLAGS2)

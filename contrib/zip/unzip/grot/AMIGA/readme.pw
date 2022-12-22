@@ -1,0 +1,18 @@
+Date: Tue, 21 May 91 12:46:10 EST
+From: mailrus!gatech!simcity!paul@uunet.UU.NET (Paul Wells)
+Subject: mods for unzip 4.1 for Amiga
+Message-ID: <9105211746.AA03598@simcity.UUCP>
+
+Please find enclosed a shar file for Amiga SAS/C 5.10a.  Two source files
+for the Amiga are included:  utime.c, so we can alter the date of a file,
+and stat.c, which isn't really needed for the SAS compiler, but is necessary
+for the Lattice.  Sorry, sys/stat.h is not mine, hence, not included; utime.c
+and stat.c are my original code and released to the public domain.  The patches
+pertain primarily to ANSI prototyping; however, please note that the SAS
+compiler doesn't know what a dup function is.  Everything was compiled with
+-DUNIX -DNOTINT16 and other appropriate SAS/C flags, as noted in lmkfile.
+I hope this is useful for others, but apologize if I didn't get there first.
+
+Paul Wells
+..!gatech!wa4mei!paulw         (or)
+..!gatech!wa4mei!simcity!paul

@@ -1,0 +1,16 @@
+Fri Feb 14 12:46:34 PST 1992
+
+This source tree contains gdb 4.4 with kernel debugging and control
+structure support from LBL (among many other changes and bug fixes).  
+There is also an X11 interface (type 'make xgdb' in the gdb subdirectory
+after configuration -- it has only been tested under R5).
+
+This is an alpha release of the LBL contribution.  Please do not 
+redistribute any of this code.
+
+Once stable, (most of) the additions will be merged into the master gdb 
+sources that Cygnus now maintains.  Hopefully, this will happen before
+release 4.5.
+
+Please direct questions or problems to Steve McCanne (mccanne@ee.lbl.gov).
+

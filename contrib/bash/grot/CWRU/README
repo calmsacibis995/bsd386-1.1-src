@@ -1,0 +1,20 @@
+Notes:
+
+ISC 386 machines must compile test.c without -O.  The resultant shell dumps
+core when test is invoked.
+
+Contents of this directory:
+
+CHANGES.930510		- list of changes new in the 5/11/93 release
+
+CHANGES.930711		- list of changes new in the 7/11/93 release
+
+CWRU.chlog		- my change log since the netwide 1.12 release
+
+PLATFORMS.113		- list of platforms I have built this release on
+
+POSIX.NOTES		- list of what changes for `posix mode'
+
+README			- this file
+
+misc			- directory with some useful tools

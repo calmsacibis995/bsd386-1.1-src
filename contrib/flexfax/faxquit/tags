@@ -1,0 +1,2 @@
+Mfaxquit	faxquit.c	/^main(int argc, char** argv)$/
+fatal	faxquit.c	/^fatal(char* fmt, ...)$/

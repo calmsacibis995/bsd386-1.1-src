@@ -1,0 +1,15 @@
+wheel:*:0:root
+daemon:*:1:daemon
+kmem:*:2:root
+sys:*:3:root
+tty:*:4:root
+operator:*:5:root
+uucp:*:6:
+bin:*:7:
+news:*:8:
+utmp:*:12:
+games:*:13:
+staff:*:20:root
+dialer:*:117:
+netdial:*:118:
+nogroup:*:32766:

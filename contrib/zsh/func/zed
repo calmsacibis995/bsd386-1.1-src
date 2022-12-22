@@ -1,0 +1,26 @@
+#!/bin/zsh
+# Edit small files with the command line editor.
+# You can even stick bits of the history list in it.
+
+local var
+
+# (Don't) catch interrupts
+# trap 'bindkey "^M" accept-line ; trap - 2 3; return 0' 2 3
+
+bindkey "^M" self-insert-unmeta
+bindkey "^X^W" accept-line
+
+[[ -z "$1" ]] && echo 'Usage: zed filename' && return 1
+[[ -f $1 ]] && var="$(<$1)"
+vared var
+print -R "$var" >! $1
+
+bindkey "^M" accept-line
+bindkey "^X^W" undefined-key
+
+# (Don't) release interrupts
+# trap - 2 3
+
+return 0
+
+#End of zed

@@ -1,0 +1,68 @@
+This is Info file dvips.info, produced by Makeinfo-1.47 from the input
+file dvips.texi.
+
+START-INFO-DIR-ENTRY
+* DVIps: (dvips.info).	 DVI to PostScript translator
+END-INFO-DIR-ENTRY
+
+Indirect:
+dvips.info-1: 182
+dvips.info-2: 46044
+dvips.info-3: 95574
+
+Tag Table:
+(Indirect)
+Node: Top184
+Node: Why dvips1428
+Node: Using dvips4857
+Node: Paper Size5563
+Node: Including PostScript7875
+Node: Bounding Box8785
+Node: EPSF Macros11551
+Node: Header Files16568
+Node: Literal PS17701
+Node: Literal headers18318
+Node: Graphics Support18995
+Node: Dynamic Creation24160
+Node: PostScript fonts25324
+Node: afm2tfm26874
+Node: Changing Encoding32207
+Node: Special Effects38360
+Node: Non-Resident Fonts42274
+Node: Font Aliases44028
+Node: Font Naming46046
+Node: Foundry50248
+Node: Typeface Families50712
+Node: Weight51625
+Node: Variants52060
+Node: Expansion53614
+Node: Naming Virtual Fonts54291
+Node: Examples56207
+Node: Command Line Options59301
+Node: Config File73787
+Node: Config File Options76561
+Node: Font Generation88369
+Node: Path Interpretation90583
+Node: Environment Variables92374
+Node: Bells and Whistles95576
+Node: MS-DOS97906
+Node: Installation99463
+Node: Problems102167
+Node: Debug Options103382
+Node: No Output104001
+Node: Small or Inverted105327
+Node: Printer Errors105907
+Node: 400 DPI107161
+Node: Long Documents Fail107532
+Node: Including Graphics Fails107836
+Node: Unable to Find Fonts109179
+Node: Unable to Generate Fonts109649
+Node: Color111527
+Node: The Macro Files112744
+Node: User Definable Colors115931
+Node: Color Subtleties117211
+Node: Ted Turner118878
+Node: Color Configuration120137
+Node: Color Support Details122469
+
+End Tag Table

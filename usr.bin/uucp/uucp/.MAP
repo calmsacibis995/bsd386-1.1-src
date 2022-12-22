@@ -1,0 +1,8 @@
+F DO_UUCP.C;1                       	do_uucp.c
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/uucp/uucp
+F TAGS.;1                           	tags
+F UUCP.1;1                          	uucp.1
+F UUCP.H;1                          	uucp.h
+F UUCP_ARG.C;1                      	uucp_args.c

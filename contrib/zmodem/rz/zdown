@@ -1,0 +1,18 @@
+#! /bin/sh
+
+# This is a wrapper to call rz from tip, allowing zmodem downloads.
+# Call it like this:
+#
+#   ~Czdown [options]
+#
+# The filename will be provided by the remote system.
+
+# tip sets up the file descriptors like this when using the ~C command:
+
+#  0 <-> local tty in
+#  1 <-> local tty out
+#  2 <-> local tty out
+#  3 <-> remote tty in
+#  4 <-> remote tty out
+
+exec rz -y $* 0>&3 1>&4 3>&- 4>&-

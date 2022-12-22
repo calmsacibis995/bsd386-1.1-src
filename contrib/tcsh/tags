@@ -1,0 +1,836 @@
+AddXkey	ed.xmap.c	/^AddXkey(Xkey, val, ntype)$/
+Beep	ed.screen.c	/^Beep()$/
+BindArrowKeys	ed.screen.c	/^BindArrowKeys()$/
+CHAR	glob.c	/^#define	CHAR(c)		((c)&M_ASCII)$/
+CLRDIR	tw.init.c	/^#define CLRDIR(dfd) \\$/
+CanWeTab	ed.screen.c	/^CanWeTab()$/
+ChangeSize	ed.screen.c	/^ChangeSize(lins, cols)$/
+CheckMaps	ed.defns.c	/^CheckMaps()$/
+ClearArrowKeys	ed.screen.c	/^ClearArrowKeys(name)$/
+ClearDisp	ed.refresh.c	/^ClearDisp()$/
+ClearEOL	ed.screen.c	/^ClearEOL(num)			\/* clear to end of line.  There a/
+ClearLines	ed.refresh.c	/^ClearLines()$/
+ClearScreen	ed.screen.c	/^ClearScreen()$/
+ClearToBottom	ed.screen.c	/^ClearToBottom()$/
+ClearXkey	ed.xmap.c	/^ClearXkey(map, in)$/
+Cookedmode	ed.init.c	/^Cookedmode()$/
+DIRAPPEND	sh.c	/^#define DIRAPPEND(a)  \\$/
+DefaultArrowKeys	ed.screen.c	/^DefaultArrowKeys() $/
+DeleteBack	ed.chared.c	/^DeleteBack(n)			\/* delete the n characters before/
+DeleteChars	ed.screen.c	/^DeleteChars(num)		\/* deletes <num> characters *\//
+DeleteXkey	ed.xmap.c	/^DeleteXkey(Xkey)$/
+Dfix1	sh.dol.c	/^Dfix1(cp)$/
+Dfix2	sh.dol.c	/^Dfix2(v)$/
+DgetC	sh.dol.c	/^DgetC(flag)$/
+Dgetdol	sh.dol.c	/^Dgetdol()$/
+Dpack	sh.dol.c	/^Dpack(wbuf, wp)$/
+Draw	ed.refresh.c	/^Draw(c)				\/* draw c, expand tabs, ctl chars *\/$/
+Dword	sh.dol.c	/^Dword()$/
+EQ	tw.spell.c	/^#define EQ(s,t)	(StrQcmp(s,t) == 0)$/
+EVEN	tw.parse.c	/^#define EVEN(x) (((x) & 1) != 1)$/
+EchoTC	ed.screen.c	/^EchoTC(v)$/
+Enumerate	ed.xmap.c	/^Enumerate(ptr, cnt)$/
+Gcat	sh.glob.c	/^Gcat(s1, s2)$/
+GetCursor	ed.chared.c	/^GetCursor()$/
+GetFreeNode	ed.xmap.c	/^GetFreeNode(ch)$/
+GetSize	ed.screen.c	/^GetSize(lins, cols)$/
+GetTermCaps	ed.screen.c	/^GetTermCaps()$/
+GetXkey	ed.xmap.c	/^GetXkey(ch, val)$/
+Gmatch	sh.glob.c	/^Gmatch(string, pattern)$/
+Gnmatch	sh.glob.c	/^Gnmatch(string, pattern, endstr)$/
+GoodStr	ed.screen.c	/^#define GoodStr(a) (tstr[a].str != NULL && tstr[a]/
+GotoBottom	ed.refresh.c	/^GotoBottom()$/
+ISSET	tc.sig.c	/^#define ISSET(x, y)	((x & sigmask(y)) != 0)$/
+IS_DOT	sh.dir.c	/^#define IS_DOT(sp, p) (ISDOT(p) && ((p) == (sp) ||/
+IS_DOTDOT	sh.dir.c	/^#define IS_DOTDOT(sp, p) (ISDOTDOT(p) && ((p) == (/
+Inputl	ed.inputl.c	/^Inputl()$/
+InsertStr	ed.chared.c	/^InsertStr(s)			\/* insert ASCIZ s at cursor (for c/
+Insert_write	ed.screen.c	/^Insert_write(cp, num)		\/* Puts terminal in insert/
+Itoa	tc.func.c	/^Itoa(n, s)			\/* convert n to characters in s *\/$/
+Load_input_line	ed.init.c	/^Load_input_line()$/
+Lookup	ed.xmap.c	/^Lookup(string, ptr, cnt)$/
+Lstat	glob.c	/^Lstat(fn, sb)$/
+META	glob.c	/^#define	META(c)		((c)|M_META)$/
+MoveCursor	ed.chared.c	/^MoveCursor(n)			\/* move cursor + right - left cha/
+MoveToChar	ed.screen.c	/^MoveToChar(where)		\/* move to character position /
+MoveToLine	ed.screen.c	/^MoveToLine(where)		\/* move to line <where> (first/
+Msh	sh.c	/^main(argc, argv)$/
+Opendir	glob.c	/^Opendir(str)$/
+PastBottom	ed.refresh.c	/^PastBottom()$/
+PrintArrowKeys	ed.screen.c	/^PrintArrowKeys(name)$/
+PrintXkey	ed.xmap.c	/^PrintXkey(key)$/
+PushMacro	ed.inputl.c	/^PushMacro(str)$/
+PutCursor	ed.chared.c	/^PutCursor(p)$/
+PutFreeNode	ed.xmap.c	/^PutFreeNode(ptr)$/
+PutPlusOne	ed.refresh.c	/^PutPlusOne(c)$/
+QuoteModeOff	ed.init.c	/^QuoteModeOff()$/
+QuoteModeOn	ed.init.c	/^QuoteModeOn()$/
+RCSID	sh.dir.c	/^RCSID("$Id: sh.dir.c,v 1.2 1994\/01\/13 22:27:51 p/
+RETRY	ed.term.c	/^#define RETRY(x) \\$/
+Rawmode	ed.init.c	/^Rawmode()$/
+ReBufferDisplay	ed.screen.c	/^ReBufferDisplay()$/
+RefCursor	ed.refresh.c	/^RefCursor()$/
+RefPlusOne	ed.refresh.c	/^RefPlusOne()$/
+Refresh	ed.refresh.c	/^Refresh()$/
+ResetArrowKeys	ed.screen.c	/^ResetArrowKeys()$/
+ResetInLine	ed.init.c	/^ResetInLine(macro)$/
+ResetXmap	ed.xmap.c	/^ResetXmap()$/
+Reverse	tc.func.c	/^Reverse(s)$/
+SETBIT	tc.sig.c	/^#define SETBIT(x, y)	x |= sigmask(y)$/
+SETDIR	tw.init.c	/^#define SETDIR(dfd) \\$/
+S_ISDIR	glob.c	/^#define S_ISDIR(a)	(((a) & S_IFMT) == S_IFDIR)$/
+S_ISLNK	glob.c	/^#define S_ISLNK(a)	(((a) & S_IFMT) == S_IFLNK)$/
+SetArrowKeys	ed.screen.c	/^SetArrowKeys(name, fun, type)$/
+SetAttributes	ed.screen.c	/^SetAttributes(atr)$/
+SetTC	ed.screen.c	/^SetTC(what, how)$/
+Stat	glob.c	/^Stat(fn, sb)$/
+Str	ed.screen.c	/^#define Str(a) tstr[a].str$/
+StrQcmp	tw.parse.c	/^StrQcmp(str1, str2)$/
+Strchr	glob.c	/^Strchr(str, ch)$/
+TCalloc	ed.screen.c	/^TCalloc(t, cap)$/
+TellTC	ed.screen.c	/^TellTC(what)$/
+TraverseMap	ed.xmap.c	/^TraverseMap(ptr, ch, val)$/
+TryDeleteNode	ed.xmap.c	/^TryDeleteNode(inptr, string)$/
+TryNode	ed.xmap.c	/^TryNode(ptr, string, val, ntype)$/
+Unsetenv	sh.func.c	/^Unsetenv(name)$/
+VOL_RESTORE	sh.sem.c	/^#define VOL_RESTORE() (	_gv.bifunc = bifunc, \\$/
+VOL_SAVE	sh.sem.c	/^#define VOL_SAVE()	( bifunc = _gv.bifunc, \\$/
+Val	ed.screen.c	/^#define Val(a) tval[a].val$/
+Vdraw	ed.refresh.c	/^Vdraw(c)			\/* draw char c onto V lines *\/$/
+XCRYPT	tc.func.c	/^#define XCRYPT(a, b) crypt(a, b)$/
+XmapCmd	ed.xmap.c	/^XmapCmd(cmd)$/
+XmapStr	ed.xmap.c	/^XmapStr(str)$/
+__P	tc.printf.c	/^static	void	doprnt		__P((void (*) __P((int)), cons/
+a2time_t	sh.lex.c	/^a2time_t(word)$/
+add_scroll_tab	tw.parse.c	/^add_scroll_tab(item)$/
+addla	sh.lex.c	/^addla(cp)$/
+adrof1	sh.set.c	/^adrof1(name, v)$/
+aliasrun	tc.func.c	/^aliasrun(cnt, s1, s2)$/
+alrmcatch	tc.func.c	/^alrmcatch(snum)$/
+apperr	tc.os.c	/^apperr(st)$/
+asx	sh.set.c	/^asx(vp, subscr, p)$/
+asyn0	sh.parse.c	/^asyn0(p1, p2)$/
+asyn3	sh.parse.c	/^asyn3(p1, p2)$/
+asyntax	sh.parse.c	/^asyntax(p1, p2)$/
+auto_lock	tc.func.c	/^auto_lock()$/
+auto_logout	tc.func.c	/^auto_logout()$/
+back_to_col_1	sh.file.c	/^back_to_col_1()$/
+backeval	sh.glob.c	/^backeval(cp, literal)$/
+balance	sh.set.c	/^balance(p, f, d)$/
+beep	sh.file.c	/^beep()$/
+beep_cmd	tc.func.c	/^beep_cmd()$/
+bfree	sh.lex.c	/^bfree()$/
+bgetc	sh.lex.c	/^bgetc()$/
+bindkey_usage	tc.bind.c	/^bindkey_usage()$/
+blk2short	tc.str.c	/^blk2short(src)$/
+blkcat	sh.misc.c	/^blkcat(up, vp)$/
+blkcpy	sh.misc.c	/^blkcpy(oav, bv)$/
+blkend	sh.misc.c	/^blkend(up)$/
+blkfree	sh.misc.c	/^blkfree(av0)$/
+blklen	sh.misc.c	/^blklen(av)$/
+blkpr	sh.misc.c	/^blkpr(av)$/
+blkspl	sh.misc.c	/^blkspl(up, vp)$/
+bsd_sigpause	tc.sig.c	/^bsd_sigpause(mask)$/
+bseek	sh.lex.c	/^bseek(l)$/
+btell	sh.lex.c	/^btell(l)$/
+btoeof	sh.lex.c	/^btoeof()$/
+c_alternativ_key_map	ed.chared.c	/^c_alternativ_key_map(state)$/
+c_delafter	ed.chared.c	/^c_delafter(num)	$/
+c_delbefore	ed.chared.c	/^c_delbefore(num)		\/* delete before dot, with boun/
+c_delfini	ed.chared.c	/^c_delfini()		\/* Finish up delete action *\/$/
+c_endword	ed.chared.c	/^c_endword(p, high, n)$/
+c_eword	ed.chared.c	/^c_eword(p, high, n)$/
+c_excl	ed.chared.c	/^c_excl(p)$/
+c_expand	ed.chared.c	/^c_expand(p)$/
+c_get_histline	ed.chared.c	/^c_get_histline()$/
+c_get_word	ed.chared.c	/^c_get_word(begin, end)$/
+c_glob	tw.parse.c	/^c_glob(v)$/
+c_hmatch	ed.chared.c	/^c_hmatch(str)$/
+c_hsetpat	ed.chared.c	/^c_hsetpat()$/
+c_insert	ed.chared.c	/^c_insert(num)$/
+c_next_word	ed.chared.c	/^c_next_word(p, high, n)$/
+c_nexword	ed.chared.c	/^c_nexword(p, high, n)$/
+c_number	ed.chared.c	/^c_number(p, num, dval)$/
+c_prev_word	ed.chared.c	/^c_prev_word(p, low, n)$/
+c_preword	ed.chared.c	/^c_preword(p, low, n)$/
+c_search_line	ed.chared.c	/^c_search_line(pattern, dir)$/
+c_substitute	ed.chared.c	/^c_substitute()$/
+calloc	tc.alloc.c	/^calloc(i, j)$/
+catch_sigsys	tc.os.c	/^catch_sigsys()$/
+catn	sh.file.c	/^catn(des, src, count)$/
+ccmd	ma.setp.c	/^ccmd(inpath, path)		\/* change inpath to path *\/$/
+cfgetispeed	mi.termios.c	/^speed_t cfgetispeed(termios_p)$/
+cfgetospeed	mi.termios.c	/^speed_t cfgetospeed(termios_p)$/
+cfsetispeed	mi.termios.c	/^speed_t cfsetispeed(termios_p, speed)$/
+cfsetospeed	mi.termios.c	/^speed_t cfsetospeed(termios_p, speed)$/
+change	ma.setp.c	/^change(pe, loc, key)$/
+check_window_size	ed.init.c	/^check_window_size(force)$/
+chkclob	sh.sem.c	/^chkclob(cp)$/
+choose_scroll_tab	tw.parse.c	/^choose_scroll_tab(exp_name, cnt)$/
+cleanf	tw.help.c	/^cleanf(snum)$/
+closech	sh.misc.c	/^closech()$/
+closem	sh.misc.c	/^closem()$/
+cncmd	ma.setp.c	/^cncmd(path, n)		\/* change at position n to path */
+collate	tc.func.c	/^collate(a, b)$/
+compare	glob.c	/^compare(p, q)$/
+continue_jobs	tc.func.c	/^continue_jobs(cp)$/
+copyblk	sh.misc.c	/^copyblk(v)$/
+copylex	sh.lex.c	/^copylex(hp, fp)$/
+copyn	sh.file.c	/^copyn(des, src, count)$/
+cpy_pad_spaces	ed.refresh.c	/^cpy_pad_spaces(dst, src, width)$/
+cwd_cmd	tc.func.c	/^cwd_cmd()$/
+dcanon	sh.dir.c	/^dcanon(cp, p)$/
+dcmd	ma.setp.c	/^dcmd(path)			\/* delete path *\/$/
+dcopy	sh.misc.c	/^dcopy(i, j)$/
+debugwholist	tc.who.c	/^debugwholist(new, wp)$/
+delete	ma.setp.c	/^delete(pe, n)$/
+dextract	sh.dir.c	/^dextract(dp)$/
+dfind	sh.dir.c	/^dfind(cp)$/
+dfollow	sh.dir.c	/^dfollow(cp)$/
+dfree	sh.dir.c	/^dfree(dp)$/
+dgetstack	sh.dir.c	/^dgetstack()$/
+dgoto	sh.dir.c	/^dgoto(cp)$/
+dmove	sh.misc.c	/^dmove(i, j)$/
+dncmd	ma.setp.c	/^dncmd(n)			\/* delete at position n *\/$/
+dnewcwd	sh.dir.c	/^dnewcwd(dp, dflag)$/
+dnormalize	sh.dir.c	/^dnormalize(cp, exp)$/
+do_help	tw.help.c	/^do_help(command)$/
+doagain	sh.func.c	/^doagain()$/
+doalias	sh.func.c	/^doalias(v, c)$/
+doaliases	tc.func.c	/^doaliases(v, c)$/
+dobackp	sh.glob.c	/^dobackp(cp, literal)$/
+dobg	sh.proc.c	/^dobg(v, c)$/
+dobg1	sh.proc.c	/^dobg1(v, c)$/
+dobind	tc.bind.c	/^dobind(v, dummy)$/
+dobindkey	tc.bind.c	/^dobindkey(v, c)$/
+dobreak	sh.func.c	/^dobreak(v, c)$/
+dochngd	sh.dir.c	/^dochngd(v, c)$/
+docomplete	tw.comp.c	/^docomplete(v, t)$/
+docontin	sh.func.c	/^docontin(v, c)$/
+dodirs	sh.dir.c	/^dodirs(v, c)$/
+doecho	sh.func.c	/^doecho(v, c)$/
+doechotc	tc.func.c	/^doechotc(v, c)$/
+doelse	sh.func.c	/^doelse (v, c)$/
+doend	sh.func.c	/^doend(v, c)$/
+doeval1	ed.inputl.c	/^doeval1(v)$/
+doexec	sh.exec.c	/^doexec(t)$/
+doexit	sh.func.c	/^doexit(v, c)$/
+dofg	sh.proc.c	/^dofg(v, c)$/
+dofg1	sh.proc.c	/^dofg1(v, c)$/
+doforeach	sh.func.c	/^doforeach(v, c)$/
+dogetspath	tc.os.c	/^dogetspath(v, c)$/
+dogetxvers	tc.os.c	/^dogetxvers(v, c)$/
+doglob	sh.func.c	/^doglob(v, c)$/
+dogoto	sh.func.c	/^dogoto(v, c)$/
+dohist	sh.hist.c	/^dohist(vp, c)$/
+dohist1	sh.hist.c	/^dohist1(hp, np, hflg)$/
+doif	sh.func.c	/^doif(v, kp)$/
+doinlib	tc.os.c	/^doinlib(v, c)$/
+doio	sh.sem.c	/^doio(t, pipein, pipeout)$/
+dojobs	sh.proc.c	/^dojobs(v, c)$/
+dokill	sh.proc.c	/^dokill(v, c)$/
+dolerror	sh.dol.c	/^dolerror(s)$/
+dolet	sh.set.c	/^dolet(v, dummy)$/
+dolimit	sh.func.c	/^dolimit(v, c)$/
+dolist	tc.func.c	/^dolist(v, c)$/
+dollar	tw.parse.c	/^dollar(new, old)$/
+dolog	tc.who.c	/^dolog(v, c)$/
+dologin	sh.func.c	/^dologin(v, c)$/
+dologout	sh.func.c	/^dologout(v, c)$/
+domigrate	tc.os.c	/^domigrate(v, c)$/
+domod	sh.lex.c	/^domod(cp, type)$/
+donefds	sh.misc.c	/^donefds()$/
+donewgrp	sh.func.c	/^donewgrp(v, c)$/
+donice	sh.time.c	/^donice(v, c)$/
+donohup	sh.func.c	/^donohup(v, c)$/
+donotify	sh.proc.c	/^donotify(v, c)$/
+doonintr	sh.func.c	/^doonintr(v, c)$/
+dopopd	sh.dir.c	/^dopopd(v, c)$/
+doprintenv	sh.func.c	/^doprintenv(v, c)$/
+dopushd	sh.dir.c	/^dopushd(v, c)$/
+dorepeat	sh.func.c	/^dorepeat(v, kp)$/
+dorootnode	tc.os.c	/^dorootnode(v, c)$/
+dosched	tc.sched.c	/^dosched(v, c)$/
+doset	sh.set.c	/^doset(v, c)$/
+dosetenv	sh.func.c	/^dosetenv(v, c)$/
+dosetpath	tc.os.c	/^dosetpath(arglist, c)$/
+dosetspath	tc.os.c	/^dosetspath(v, c)$/
+dosettc	tc.func.c	/^dosettc(v, c)$/
+dosetty	ed.term.c	/^dosetty(v, t)$/
+dosetxvers	tc.os.c	/^dosetxvers(v, c)$/
+dostop	sh.proc.c	/^dostop(v, c)$/
+dosub	sh.lex.c	/^dosub(sc, en, global)$/
+doswbrk	sh.func.c	/^doswbrk(v, c)$/
+doswitch	sh.func.c	/^doswitch(v, c)$/
+dotelltc	tc.func.c	/^dotelltc(v, c)$/
+dotime	sh.time.c	/^dotime(v, c)$/
+doumask	sh.func.c	/^doumask(v, c)$/
+douncomplete	tw.comp.c	/^douncomplete(v, t)$/
+douniverse	tc.os.c	/^douniverse(v, c)$/
+dounlimit	sh.func.c	/^dounlimit(v, c)$/
+dounsetenv	sh.func.c	/^dounsetenv(v, c)$/
+dover	tc.os.c	/^dover(v, c)$/
+dowait	sh.proc.c	/^dowait(v, c)$/
+dowarp	tc.os.c	/^dowarp(v, c)$/
+dowhich	tc.func.c	/^dowhich(v, c)$/
+dowhile	sh.func.c	/^dowhile(v, c)$/
+dozip	sh.func.c	/^dozip(v, c)$/
+dprintf	ed.refresh.c	/^dprintf(va_list)$/
+dprintstr	ed.refresh.c	/^dprintstr(str, f, t)$/
+draino	sh.print.c	/^draino()$/
+dset	sh.dir.c	/^dset(dp)$/
+dsetstack	sh.dir.c	/^dsetstack()$/
+dtilde	sh.dir.c	/^dtilde()$/
+dtildepr	sh.dir.c	/^dtildepr(dir)$/
+e_argdigit	ed.chared.c	/^e_argdigit(c)			\/* for ESC-n *\/$/
+e_argfour	ed.chared.c	/^e_argfour(c)$/
+e_capitolcase	ed.chared.c	/^e_capitolcase(c)$/
+e_charback	ed.chared.c	/^e_charback(c)$/
+e_charfwd	ed.chared.c	/^e_charfwd(c)$/
+e_charswitch	ed.chared.c	/^e_charswitch(cc)$/
+e_cleardisp	ed.chared.c	/^e_cleardisp(c)$/
+e_complete	ed.chared.c	/^e_complete(c)$/
+e_complete_all	ed.chared.c	/^e_complete_all(c)$/
+e_complete_back	ed.chared.c	/^e_complete_back(c)$/
+e_complete_fwd	ed.chared.c	/^e_complete_fwd(c)$/
+e_copyprev	ed.chared.c	/^e_copyprev(c)$/
+e_copyregion	ed.chared.c	/^e_copyregion(c)$/
+e_correct	ed.chared.c	/^e_correct(c)$/
+e_correctl	ed.chared.c	/^e_correctl(c)$/
+e_delnext	ed.chared.c	/^e_delnext(c)$/
+e_delnext_eof	ed.chared.c	/^e_delnext_eof(c)$/
+e_delprev	ed.chared.c	/^e_delprev(c)$/
+e_delwordnext	ed.chared.c	/^e_delwordnext(c)$/
+e_delwordprev	ed.chared.c	/^e_delwordprev(c)$/
+e_digit	ed.chared.c	/^e_digit(c)			\/* gray magic here *\/$/
+e_down_hist	ed.chared.c	/^e_down_hist(c)$/
+e_down_search_hist	ed.chared.c	/^e_down_search_hist(c)$/
+e_exchange_mark	ed.chared.c	/^e_exchange_mark(c)$/
+e_expand	ed.chared.c	/^e_expand(c)$/
+e_expand_glob	ed.chared.c	/^e_expand_glob(c)$/
+e_expand_history	ed.chared.c	/^e_expand_history(c)$/
+e_expand_vars	ed.chared.c	/^e_expand_vars(c)$/
+e_extendnext	ed.chared.c	/^e_extendnext(c)$/
+e_gcharswitch	ed.chared.c	/^e_gcharswitch(cc)$/
+e_helpme	ed.chared.c	/^e_helpme(c)$/
+e_inc_back	ed.chared.c	/^e_inc_back(c)$/
+e_inc_fwd	ed.chared.c	/^e_inc_fwd(c)$/
+e_inc_search	ed.chared.c	/^e_inc_search(dir)$/
+e_insert	ed.chared.c	/^e_insert(c)$/
+e_insovr	ed.chared.c	/^e_insovr(c)$/
+e_killall	ed.chared.c	/^e_killall(c)$/
+e_killbeg	ed.chared.c	/^e_killbeg(c)$/
+e_killend	ed.chared.c	/^e_killend(c)$/
+e_killregion	ed.chared.c	/^e_killregion(c)$/
+e_last_item	ed.chared.c	/^e_last_item(c)$/
+e_list_all	ed.chared.c	/^e_list_all(c)$/
+e_list_choices	ed.chared.c	/^e_list_choices(c)$/
+e_list_delnext	ed.chared.c	/^e_list_delnext(c)$/
+e_list_eof	ed.chared.c	/^e_list_eof(c)$/
+e_list_glob	ed.chared.c	/^e_list_glob(c)$/
+e_load_average	ed.chared.c	/^e_load_average(c)$/
+e_lowercase	ed.chared.c	/^e_lowercase(c)$/
+e_magic_space	ed.chared.c	/^e_magic_space(c)$/
+e_metanext	ed.chared.c	/^e_metanext(c)$/
+e_newline	ed.chared.c	/^e_newline(c)$/
+e_normalize_path	ed.chared.c	/^e_normalize_path(c)$/
+e_quote	ed.chared.c	/^e_quote(c)$/
+e_redisp	ed.chared.c	/^e_redisp(c)$/
+e_run_fg_editor	ed.chared.c	/^e_run_fg_editor(c)$/
+e_send_eof	ed.chared.c	/^e_send_eof(c)$/
+e_set_mark	ed.chared.c	/^e_set_mark(c)$/
+e_startover	ed.chared.c	/^e_startover(c)$/
+e_stuff_char	ed.chared.c	/^e_stuff_char(c)$/
+e_tobeg	ed.chared.c	/^e_tobeg(c)$/
+e_toend	ed.chared.c	/^e_toend(c)$/
+e_toggle_hist	ed.chared.c	/^e_toggle_hist(c)$/
+e_tty_dsusp	ed.chared.c	/^e_tty_dsusp(c)$/
+e_tty_flusho	ed.chared.c	/^e_tty_flusho(c)$/
+e_tty_int	ed.chared.c	/^e_tty_int(c)$/
+e_tty_quit	ed.chared.c	/^e_tty_quit(c)$/
+e_tty_starto	ed.chared.c	/^e_tty_starto(c)$/
+e_tty_stopo	ed.chared.c	/^e_tty_stopo(c)$/
+e_tty_tsusp	ed.chared.c	/^e_tty_tsusp(c)$/
+e_unassigned	ed.chared.c	/^e_unassigned(c)$/
+e_up_hist	ed.chared.c	/^e_up_hist(c)$/
+e_up_search_hist	ed.chared.c	/^e_up_search_hist(c)$/
+e_uppercase	ed.chared.c	/^e_uppercase(c)$/
+e_which	ed.chared.c	/^e_which(c)$/
+e_wordback	ed.chared.c	/^e_wordback(c)$/
+e_wordfwd	ed.chared.c	/^e_wordfwd(c)$/
+e_yank_kill	ed.chared.c	/^e_yank_kill(c)$/
+ed_Init	ed.init.c	/^ed_Init()$/
+ed_InitEmacsMaps	ed.defns.c	/^ed_InitEmacsMaps()$/
+ed_InitMaps	ed.defns.c	/^ed_InitMaps()$/
+ed_InitMetaBindings	ed.defns.c	/^ed_InitMetaBindings()$/
+ed_InitNLSMaps	ed.defns.c	/^ed_InitNLSMaps()$/
+ed_InitVIMaps	ed.defns.c	/^ed_InitVIMaps()$/
+ed_Setup	ed.init.c	/^ed_Setup(rst)$/
+ed_set_tty_eight_bit	ed.init.c	/^ed_set_tty_eight_bit()$/
+egetn	sh.exp.c	/^egetn(cp)$/
+enthist	sh.hist.c	/^enthist(event, lp, docopy, mflg)$/
+etracc	sh.exp.c	/^etracc(str, cp, vp)$/
+etraci	sh.exp.c	/^etraci(str, i, vp)$/
+evalav	sh.exp.c	/^evalav(v)$/
+execash	sh.exec.c	/^execash(t, kp)$/
+execute	sh.sem.c	/^execute(t, wanttty, pipein, pipeout)$/
+exp0	sh.exp.c	/^exp0(vp, ignore)$/
+exp1	sh.exp.c	/^exp1(vp, ignore)$/
+exp2	sh.exp.c	/^exp2(vp, ignore)$/
+exp2a	sh.exp.c	/^exp2a(vp, ignore)$/
+exp2b	sh.exp.c	/^exp2b(vp, ignore)$/
+exp2c	sh.exp.c	/^exp2c(vp, ignore)$/
+exp3	sh.exp.c	/^exp3(vp, ignore)$/
+exp3a	sh.exp.c	/^exp3a(vp, ignore)$/
+exp4	sh.exp.c	/^exp4(vp, ignore)$/
+exp5	sh.exp.c	/^exp5(vp, ignore)$/
+exp6	sh.exp.c	/^exp6(vp, ignore)$/
+expand_dir	tw.parse.c	/^expand_dir(dir, edir, dfd, cmd)$/
+expand_lex	tc.func.c	/^expand_lex(buf, bufsiz, sp0, from, to)$/
+expbrace	sh.glob.c	/^expbrace(nvp, elp, size)$/
+exportpath	sh.set.c	/^exportpath(val)$/
+expr	sh.exp.c	/^expr(vp)$/
+extract_dir_and_name	sh.file.c	/^extract_dir_and_name(path, dir, name)$/
+fcompare	tw.parse.c	/^fcompare(file1, file2)$/
+fg_proc_entry	tc.func.c	/^fg_proc_entry(pp)$/
+filetype	sh.file.c	/^filetype(dir, file)$/
+find_rows	tw.parse.c	/^find_rows(items, count, no_file_suffix)$/
+find_stop_ed	tc.func.c	/^find_stop_ed()$/
+findbucket	tc.alloc.c	/^findbucket(freep, srchlen)$/
+findev	sh.lex.c	/^findev(cp, anyarg)$/
+findlim	sh.func.c	/^findlim(cp)$/
+fixDolMod	sh.dol.c	/^fixDolMod()$/
+fix_strcoll_bug	tc.os.c	/^fix_strcoll_bug()$/
+fix_version	tc.vers.c	/^fix_version()$/
+fix_yp_bugs	tc.os.c	/^fix_yp_bugs()$/
+fixio	tc.func.c	/^fixio(fd, e)$/
+flush	sh.print.c	/^flush()$/
+fmthist	sh.hist.c	/^fmthist(fmt, ptr, buf)$/
+fprintf	tc.printf.c	/^fprintf(va_alist)$/
+free	tc.alloc.c	/^free(cp)$/
+free_items	sh.file.c	/^free_items(items)$/
+free_scroll_tab	tw.parse.c	/^free_scroll_tab()$/
+freelex	sh.lex.c	/^freelex(vp)$/
+freenod	sh.parse.c	/^freenod(p1, p2)$/
+freepaths	ma.setp.c	/^freepaths()$/
+freesyn	sh.parse.c	/^freesyn(t)$/
+func	sh.func.c	/^func(t, bp)$/
+getC	sh.lex.c	/^#define getC(f)		(((getCtmp = peekc) != '\\0') ? (/
+getC1	sh.lex.c	/^getC1(flag)$/
+getdol	sh.lex.c	/^getdol()$/
+getexcl	sh.lex.c	/^getexcl(sc)$/
+gethent	sh.lex.c	/^gethent(sc)$/
+gethomedir	tc.func.c	/^gethomedir(us)$/
+gethosttype	tc.vers.c	/^gethosttype()$/
+getinx	sh.set.c	/^getinx(cp, ip)$/
+getitem	sh.file.c	/^getitem(dir_fd, looking_for_lognames)$/
+getkeycmd	tc.bind.c	/^getkeycmd(sp)$/
+getn	sh.set.c	/^getn(cp)$/
+getsel	sh.lex.c	/^getsel(al, ar, dol)$/
+getstakd	sh.dir.c	/^getstakd(s, cnt)$/
+getsub	sh.lex.c	/^getsub(en)$/
+gettilde	tc.func.c	/^gettilde(us)$/
+getusername	tc.func.c	/^getusername(hm)$/
+getv	tc.os.c	/^getv(v)$/
+getval	sh.func.c	/^getval(lp, v)$/
+getvx	sh.set.c	/^getvx(vp, subscr)$/
+getword	sh.func.c	/^getword(wp)$/
+getxcode	tc.os.c	/^getxcode(xcid)$/
+getxid	tc.os.c	/^getxid(xcname)$/
+ginit	sh.glob.c	/^ginit()$/
+glob	glob.c	/^glob(pattern, flags, errfunc, pglob)$/
+glob1	glob.c	/^glob1(pattern, pglob, no_match)$/
+glob2	glob.c	/^glob2(pathbuf, pathend, pattern, pglob, no_match)$/
+glob3	glob.c	/^glob3(pathbuf, pathend, pattern, restpattern, pglo/
+globall	sh.glob.c	/^globall(v)$/
+globbrace	sh.glob.c	/^globbrace(s, p, bl)$/
+globequal	sh.glob.c	/^globequal(new, old)$/
+globexpand	sh.glob.c	/^globexpand(v)$/
+globextend	glob.c	/^globextend(path, pglob)$/
+globfree	glob.c	/^globfree(pglob)$/
+globone	sh.glob.c	/^globone(str, action)$/
+globtilde	sh.glob.c	/^globtilde(nv, s)$/
+gotolab	sh.func.c	/^gotolab(lab)$/
+handleone	sh.glob.c	/^handleone(str, vl, action)$/
+hashbang	tc.func.c	/^hashbang(fd, vp)$/
+heq	sh.hist.c	/^heq(a0, b0)$/
+hfree	sh.hist.c	/^hfree(hp)$/
+iacmd	ma.setp.c	/^iacmd(inpath, path)		\/* insert path after inpath /
+ibcmd	ma.setp.c	/^ibcmd(inpath, path)		\/* insert path before inpath/
+icmd	ma.setp.c	/^icmd(path, localsyspath)	\/* insert path before lo/
+ignored	sh.file.c	/^ignored(item)$/
+importpath	sh.c	/^importpath(cp)$/
+incmd	ma.setp.c	/^incmd(path, n)			\/* insert path at position n *\//
+initpaths	ma.setp.c	/^initpaths(paths)$/
+initwatch	tc.who.c	/^initwatch()$/
+inlist	tc.func.c	/^inlist(list, name)$/
+insert	ma.setp.c	/^insert(pe, loc, key)$/
+insert_we	tc.func.c	/^insert_we(new, where)$/
+is_prefix	sh.file.c	/^is_prefix(check, template)$/
+is_suffix	sh.file.c	/^is_suffix(check, template)$/
+isa	sh.exp.c	/^isa(cp, what)$/
+isadirectory	tw.parse.c	/^isadirectory(dir, file)		\/* return 1 if dir\/file/
+isapad	tc.os.c	/^isapad()$/
+isaset	tw.parse.c	/^#define isaset(c, w) ((w)[-1] == '=' && \\$/
+isbfunc	sh.func.c	/^isbfunc(t)$/
+islocale_var	sh.func.c	/^static bool islocale_var(var)$/
+islogin	sh.func.c	/^islogin()$/
+ismeta	glob.c	/^#define	ismeta(c)	(((c)&M_META) != 0)$/
+isrchx	sh.func.c	/^isrchx(n)$/
+keyword	sh.func.c	/^keyword(wp)$/
+lastchr	sh.misc.c	/^lastchr(cp)$/
+lex	sh.lex.c	/^lex(hp)$/
+libglob	sh.glob.c	/^libglob(vl)$/
+limtail	sh.func.c	/^limtail(cp, str)$/
+list_functions	tc.bind.c	/^list_functions()$/
+llib	tc.os.c	/^llib(s)$/
+loaddirs	sh.dir.c	/^loaddirs(fname)$/
+loadhist	sh.hist.c	/^loadhist(fname, mflg)$/
+locate	ma.setp.c	/^locate(pe, key)$/
+lshift	sh.misc.c	/^lshift(v, c)$/
+madrof	sh.set.c	/^madrof(pat, vp)$/
+malloc	tc.alloc.c	/^malloc(nbytes)$/
+match	glob.c	/^match(name, pat, patend, m_not)$/
+matchs	sh.lex.c	/^matchs(str, pat)$/
+migratepid	tc.os.c	/^migratepid(pid, new_site)$/
+morecore	tc.alloc.c	/^morecore(bucket)$/
+mypipe	sh.sem.c	/^mypipe(pv)$/
+nextslist	tw.help.c	/^nextslist(sl, np)$/
+nostat	tw.parse.c	/^nostat(dir)$/
+number	sh.misc.c	/^number(cp)$/
+okpcntl	sh.proc.c	/^okpcntl()$/
+operate	sh.set.c	/^operate(op, vp, p)$/
+osinit	tc.os.c	/^osinit()$/
+ourwait	tc.sig.c	/^ourwait(w)$/
+p2dig	sh.print.c	/^p2dig(i)$/
+padd	sh.proc.c	/^padd(t)$/
+pads	sh.proc.c	/^pads(cp)$/
+palloc	sh.proc.c	/^palloc(pid, t)$/
+panystop	sh.proc.c	/^panystop(neednl)$/
+parsecmd	tc.bind.c	/^parsecmd(str)$/
+parseescape	tc.bind.c	/^parseescape(ptr)$/
+parsekey	tc.bind.c	/^parsekey(sp)$/
+parsestring	tc.bind.c	/^parsestring(str, buf)$/
+pchild	sh.proc.c	/^pchild(snum)$/
+pclrcurr	sh.proc.c	/^pclrcurr(pp)$/
+pdeltat	sh.time.c	/^pdeltat(t1, t0)$/
+pendjob	sh.proc.c	/^pendjob()$/
+period_cmd	tc.func.c	/^period_cmd()$/
+pexerr	sh.exec.c	/^pexerr()$/
+pfind	sh.proc.c	/^pfind(cp)$/
+pflush	sh.proc.c	/^pflush(pp)$/
+pflushall	sh.proc.c	/^pflushall()$/
+pfork	sh.proc.c	/^pfork(t, wanttty)$/
+pgetcurr	sh.proc.c	/^pgetcurr(pp)$/
+pgetty	sh.proc.c	/^pgetty(wanttty, pgrp)$/
+phist	sh.hist.c	/^phist(hp, hflg)$/
+pjwait	sh.proc.c	/^pjwait(pp)$/
+pkeys	tc.bind.c	/^pkeys(first, last)$/
+pkill	sh.proc.c	/^pkill(v, signum)$/
+plim	sh.func.c	/^plim(lp, hard)$/
+plist	sh.set.c	/^plist(p, what)$/
+pmatch	sh.glob.c	/^pmatch(string, pattern, estr)$/
+pnote	sh.proc.c	/^pnote()$/
+pprint	sh.proc.c	/^pprint(pp, flag)$/
+pr_stat_sub	tc.os.c	/^pr_stat_sub(p2, p1, pr)$/
+precmd	tc.func.c	/^precmd()$/
+prefix	sh.misc.c	/^prefix(sub, str)$/
+prepend	tc.os.c	/^prepend(dirname, pathname)$/
+preread	sh.func.c	/^preread()$/
+prestjob	sh.proc.c	/^prestjob()$/
+printOne	ed.xmap.c	/^printOne(key, val, ntype)$/
+print_all_keys	tc.bind.c	/^print_all_keys()$/
+print_by_column	sh.file.c	/^print_by_column(dir, items, count)$/
+print_recognized_stuff	sh.file.c	/^print_recognized_stuff(recognized_part)$/
+print_who	tc.who.c	/^print_who(wp)$/
+printdirs	sh.dir.c	/^printdirs(dflag)$/
+printkey	tc.bind.c	/^printkey(map, in)$/
+printkeys	tc.bind.c	/^printkeys(map, first, last)$/
+printprompt	tc.prompt.c	/^printprompt(promptno, str)$/
+prlex	sh.lex.c	/^prlex(sp0)$/
+prusage	sh.time.c	/^prusage(r0, r1, e, b)$/
+prvars	sh.func.c	/^prvars()$/
+psave	sh.glob.c	/^psave(c)$/
+psavejob	sh.proc.c	/^psavejob()$/
+psecs	sh.print.c	/^psecs(l)$/
+pstart	sh.proc.c	/^pstart(pp, foregnd)$/
+ptprint	sh.proc.c	/^ptprint(tp)$/
+pushback	sh.file.c	/^pushback(string)$/
+putn	sh.set.c	/^putn(n)$/
+putn1	sh.set.c	/^putn1(n)$/
+putpure	sh.print.c	/^putpure(c)$/
+putraw	sh.print.c	/^putraw(c)$/
+pwait	sh.proc.c	/^pwait()$/
+pword	sh.glob.c	/^pword(bufsiz)$/
+qprintf	glob.c	/^qprintf(s)$/
+quote	sh.misc.c	/^quote(cp)$/
+quote_meta	tw.parse.c	/^quote_meta(word, qu, trail_space)$/
+rcmd	ma.setp.c	/^rcmd(localsyspath)		\/* reset path with localsyspa/
+readc	sh.lex.c	/^readc(wanteof)$/
+realloc	tc.alloc.c	/^realloc(cp, nbytes)$/
+recdirs	sh.dir.c	/^recdirs(fname)$/
+rechist	sh.hist.c	/^rechist(fname)$/
+recognize	sh.file.c	/^recognize(extended_name, item, name_length, numite/
+reexecute	sh.func.c	/^reexecute(kp)$/
+renum	sh.misc.c	/^renum(i, j)$/
+resetwatch	tc.who.c	/^resetwatch()$/
+restrict_limit	sh.func.c	/^restrict_limit(value)$/
+retype	sh.file.c	/^retype()$/
+rleft	sh.set.c	/^rleft(p)$/
+rmstar	tc.func.c	/^rmstar(cp)$/
+rright	sh.set.c	/^rright(p)$/
+rscan	sh.glob.c	/^rscan(t, f)$/
+ruadd	sh.time.c	/^ruadd(ru, ru2)$/
+s_strcat	tc.str.c	/^s_strcat(dst, src)$/
+s_strchr	tc.str.c	/^s_strchr(str, ch)$/
+s_strcmp	tc.str.c	/^s_strcmp(str1, str2)$/
+s_strcpy	tc.str.c	/^s_strcpy(dst, src)$/
+s_strend	tc.str.c	/^s_strend(cp)$/
+s_strlen	tc.str.c	/^s_strlen(str)$/
+s_strncat	tc.str.c	/^s_strncat(dst, src, n)$/
+s_strncmp	tc.str.c	/^s_strncmp(str1, str2, n)$/
+s_strncpy	tc.str.c	/^s_strncpy(dst, src, n)$/
+s_strrchr	tc.str.c	/^s_strrchr(str, ch)$/
+s_strsave	tc.str.c	/^s_strsave(s)$/
+s_strspl	tc.str.c	/^s_strspl(cp, dp)$/
+s_strstr	tc.str.c	/^s_strstr(s, t)$/
+saveblk	sh.misc.c	/^saveblk(v)$/
+savehist	sh.hist.c	/^savehist(sp, mflg)$/
+savepaths	ma.setp.c	/^savepaths(paths)$/
+scalloc	tc.alloc.c	/^scalloc(s, n)$/
+sched_next	tc.sched.c	/^sched_next()$/
+sched_run	tc.sched.c	/^sched_run()$/
+search	sh.func.c	/^search(type, level, goal)$/
+set	sh.set.c	/^set(var, val, flags)$/
+set1	sh.set.c	/^set1(var, vec, head, flags)$/
+setDolp	sh.dol.c	/^setDolp(cp)$/
+setNS	sh.set.c	/^setNS(cp)$/
+setalarm	tc.func.c	/^setalarm(lck)$/
+setdisc	tc.disc.c	/^setdisc(f)$/
+seterror	sh.err.c	/^seterror(va_alist)$/
+setexclp	sh.lex.c	/^setexclp(cp)$/
+setlim	sh.func.c	/^setlim(lp, hard, limit)$/
+setpath	ma.setp.c	/^setpath(paths, cmds, localsyspath, dosuffix, print/
+setq	sh.set.c	/^setq(name, vec, p, flags)$/
+settell	sh.lex.c	/^settell()$/
+settimes	sh.time.c	/^settimes()$/
+setttypgrp	sh.proc.c	/^setttypgrp(pgrp)$/
+setup_tty	sh.file.c	/^setup_tty(on)$/
+setzero	sh.misc.c	/^setzero(cp, i)$/
+sfree	tc.alloc.c	/^sfree(p)$/
+sg_to_tc_speed	mi.termios.c	/^static speed_t sg_to_tc_speed(speed)$/
+sh_access	sh.exp.c	/^sh_access(fname, mode)$/
+shift	sh.set.c	/^shift(v, c)$/
+shlvl	tc.func.c	/^shlvl(val)$/
+short2blk	tc.str.c	/^short2blk(src)$/
+short2qstr	tc.str.c	/^short2qstr(src)$/
+short2str	tc.str.c	/^short2str(src)$/
+showall	tc.alloc.c	/^showall(v, c)$/
+sig_ch_queue	tc.sig.c	/^sig_ch_queue()$/
+sig_ch_rel	tc.sig.c	/^sig_ch_rel()$/
+sigblock	tc.sig.c	/^sigblock(mask)$/
+sigpause	tc.sig.c	/^sigpause(what)$/
+sigrelse	tc.sig.c	/^sigrelse(what)$/
+sigret_t	tc.sig.c	/^    sigret_t (*a) __P((int));$/
+sigsetmask	tc.sig.c	/^sigsetmask(mask)$/
+sitename	tc.os.c	/^sitename(pid)$/
+skipargs	sh.dir.c	/^skipargs(v, dstr, str)$/
+skipslist	tw.help.c	/^skipslist(sl)$/
+smalloc	tc.alloc.c	/^smalloc(n)$/
+so_write	ed.screen.c	/^so_write(cp, n)$/
+sortscmp	sh.glob.c	/^sortscmp(a, b)$/
+spdir	tw.spell.c	/^spdir(extended_name, tilded_dir, item, name)$/
+spdist	tw.spell.c	/^spdist(s, t)$/
+spell_me	tw.spell.c	/^spell_me(oldname, oldsize, looking)$/
+splicepipe	sh.sem.c	/^splicepipe(t, cp)$/
+sprlex	tc.func.c	/^sprlex(buf, sp0)$/
+srccat	sh.c	/^srccat(cp, dp)$/
+srcfile	sh.c	/^srcfile(f, onlyown, flag, av)$/
+srchx	sh.func.c	/^srchx(cp)$/
+srcunit	sh.c	/^srcunit(unit, onlyown, hflg, av)$/
+srealloc	tc.alloc.c	/^srealloc(p, n)$/
+starting_a_command	tw.parse.c	/^starting_a_command(wordstart, inputline)$/
+stderror	sh.err.c	/^stderror(va_alist)$/
+str2short	tc.str.c	/^str2short(src)$/
+str_cp	ed.refresh.c	/^str_cp(a, b, n)$/
+str_delete	ed.refresh.c	/^str_delete(d, dat, dlen, num)$/
+str_insert	ed.refresh.c	/^str_insert(d, dat, dlen, s, num)$/
+strend	sh.misc.c	/^strend(cp)$/
+strip	sh.misc.c	/^strip(cp)$/
+strrcpy	tc.os.c	/^strrcpy(ptr, str)$/
+strsave	sh.misc.c	/^strsave(s)$/
+strspl	sh.misc.c	/^strspl(cp, dp)$/
+strstr	sh.misc.c	/^strstr(s, t)$/
+subword	sh.lex.c	/^subword(cp, type, adid)$/
+syn0	sh.parse.c	/^syn0(p1, p2, flags)$/
+syn1	sh.parse.c	/^syn1(p1, p2, flags)$/
+syn1a	sh.parse.c	/^syn1a(p1, p2, flags)$/
+syn1b	sh.parse.c	/^syn1b(p1, p2, flags)$/
+syn2	sh.parse.c	/^syn2(p1, p2, flags)$/
+syn3	sh.parse.c	/^syn3(p1, p2, flags)$/
+synch_handler	tc.sig.c	/^synch_handler(sno)$/
+syntax	sh.parse.c	/^syntax(p1, p2, flags)$/
+t_glob	tw.parse.c	/^t_glob(v, cmd)$/
+t_search	tw.parse.c	/^t_search(word, wp, command, max_word_length, looki/
+tc_to_sg_speed	mi.termios.c	/^static int tc_to_sg_speed(speed)$/
+tcgetattr	mi.termios.c	/^int tcgetattr(filedes, termios_p)$/
+tcsetattr	mi.termios.c	/^int tcsetattr(filedes, opt_actions, termios_p)$/
+tenematch	tw.parse.c	/^tenematch(inputline, num_read, command)$/
+tenex	sh.file.c	/^tenex(inputline, inputline_size)$/
+texec	sh.exec.c	/^texec(sf, st)$/
+tgetenv	tw.parse.c	/^tgetenv(str)$/
+tglob	sh.glob.c	/^tglob(t)$/
+tilde	sh.file.c	/^tilde(new, old)$/
+tildecompare	tc.func.c	/^tildecompare(p1, p2)$/
+tocontrol	tc.bind.c	/^tocontrol(c)$/
+toend	sh.func.c	/^toend()$/
+tprintf	tc.prompt.c	/^tprintf(what, buf, fmt, siz, str, tim, info)$/
+trim	sh.glob.c	/^trim(t)$/
+tsearch	sh.file.c	/^tsearch(word, command, max_word_length)$/
+tsetenv	sh.func.c	/^tsetenv(name, val)$/
+tty_cooked_mode	ed.term.c	/^tty_cooked_mode(td)$/
+tty_getchar	ed.term.c	/^tty_getchar(td, s)$/
+tty_geteightbit	ed.term.c	/^tty_geteightbit(td)$/
+tty_getspeed	ed.term.c	/^tty_getspeed(td)$/
+tty_gettabs	ed.term.c	/^tty_gettabs(td)$/
+tty_getty	ed.term.c	/^tty_getty(fd, td)$/
+tty_printchar	ed.term.c	/^tty_printchar(s)$/
+tty_setchar	ed.term.c	/^tty_setchar(td, s)$/
+tty_setdisc	ed.term.c	/^tty_setdisc(fd, dis)$/
+tty_setty	ed.term.c	/^tty_setty(fd, td)$/
+tvadd	sh.time.c	/^tvadd(tsum, t0)$/
+tvsub	sh.time.c	/^tvsub(tdiff, t1, t0)$/
+tw_alias_start	tw.init.c	/^tw_alias_start(dfd, pat)$/
+tw_bind_next	tw.init.c	/^tw_bind_next(dir, flags)$/
+tw_bind_start	tw.init.c	/^tw_bind_start(dfd, pat)$/
+tw_cmd_add	tw.init.c	/^tw_cmd_add(name)$/
+tw_cmd_alias	tw.init.c	/^tw_cmd_alias()$/
+tw_cmd_builtin	tw.init.c	/^tw_cmd_builtin()$/
+tw_cmd_cmd	tw.init.c	/^tw_cmd_cmd()$/
+tw_cmd_free	tw.init.c	/^tw_cmd_free()$/
+tw_cmd_next	tw.init.c	/^tw_cmd_next(dir, flags)$/
+tw_cmd_sort	tw.init.c	/^tw_cmd_sort()$/
+tw_cmd_start	tw.init.c	/^tw_cmd_start(dfd, pat)$/
+tw_collect	tw.parse.c	/^tw_collect(command, looking, exp_dir, exp_name, ta/
+tw_collect_items	tw.parse.c	/^tw_collect_items(command, looking, exp_dir, exp_na/
+tw_complete	tw.comp.c	/^tw_complete(line, word, pat, looking, suf)$/
+tw_complete_start	tw.init.c	/^tw_complete_start(dfd, pat)$/
+tw_dir_end	tw.init.c	/^tw_dir_end()$/
+tw_dir_next	tw.init.c	/^tw_dir_next(dfd)$/
+tw_dollar	tw.comp.c	/^tw_dollar(str, wl, nwl, buffer, sep, msg)$/
+tw_envvar_next	tw.init.c	/^tw_envvar_next(dir, flags)$/
+tw_file_next	tw.init.c	/^tw_file_next(dir, flags)$/
+tw_file_start	tw.init.c	/^tw_file_start(dfd, pat)$/
+tw_find	tw.comp.c	/^tw_find(nam, vp, cmd)$/
+tw_fixword	tw.parse.c	/^tw_fixword(looking, word, dir, exp_name, max_word_/
+tw_item_add	tw.init.c	/^tw_item_add(len)$/
+tw_item_find	tw.init.c	/^tw_item_find(str)$/
+tw_item_free	tw.init.c	/^tw_item_free()$/
+tw_item_get	tw.init.c	/^tw_item_get()$/
+tw_job_next	tw.init.c	/^tw_job_next(dir, flags)$/
+tw_job_start	tw.init.c	/^tw_job_start(dfd, pat)$/
+tw_limit_next	tw.init.c	/^tw_limit_next(dir, flags)$/
+tw_limit_start	tw.init.c	/^tw_limit_start(dfd, pat)$/
+tw_list_items	tw.parse.c	/^tw_list_items(looking, numitems, list_max)$/
+tw_logname_end	tw.init.c	/^tw_logname_end()$/
+tw_logname_next	tw.init.c	/^tw_logname_next(dir, flags)$/
+tw_logname_start	tw.init.c	/^tw_logname_start(dfd, pat)$/
+tw_match	tw.comp.c	/^tw_match(str, pat)$/
+tw_pos	tw.comp.c	/^tw_pos(ran, wno)$/
+tw_pr	tw.comp.c	/^tw_pr(cmp)$/
+tw_prlist	tw.comp.c	/^tw_prlist(p)$/
+tw_result	tw.comp.c	/^tw_result(act, pat)$/
+tw_shvar_next	tw.init.c	/^tw_shvar_next(dir, flags)$/
+tw_sig_next	tw.init.c	/^tw_sig_next(dir, flags)$/
+tw_sig_start	tw.init.c	/^tw_sig_start(dfd, pat)$/
+tw_str_add	tw.init.c	/^tw_str_add(sl, len)$/
+tw_str_free	tw.init.c	/^tw_str_free(sl)$/
+tw_suffix	tw.parse.c	/^tw_suffix(looking, exp_dir, exp_name, target, name/
+tw_tok	tw.comp.c	/^tw_tok(str)$/
+tw_var_next	tw.init.c	/^tw_var_next(dir, flags)$/
+tw_var_start	tw.init.c	/^tw_var_start(dfd, pat)$/
+tw_vl_start	tw.init.c	/^tw_vl_start(dfd, pat)$/
+tw_vptr_start	tw.init.c	/^tw_vptr_start(c)$/
+tw_wl_next	tw.init.c	/^tw_wl_next(dir, flags)$/
+tw_wl_start	tw.init.c	/^tw_wl_start(dfd, pat)$/
+udvar	sh.misc.c	/^udvar(name)$/
+unalias	sh.func.c	/^unalias(v, c)$/
+ungetC	sh.lex.c	/^#define	ungetC(c)	peekc = (Char) c$/
+ungetD	sh.lex.c	/^#define	ungetD(c)	peekd = (Char) c$/
+unparsech	ed.xmap.c	/^unparsech(cnt, ch)$/
+unparsekey	tc.bind.c	/^unparsekey(c)			\/* 'c' -> "c", '^C' -> "^" + "C" /
+unparsestring	tc.bind.c	/^unparsestring(str, buf, sep)$/
+unreadc	sh.lex.c	/^unreadc(c)$/
+unset	sh.set.c	/^unset(v, c)$/
+unset1	sh.set.c	/^unset1(v, head)$/
+unsetv	sh.set.c	/^unsetv(var)$/
+unsetv1	sh.set.c	/^unsetv1(p)$/
+untty	sh.c	/^untty()$/
+update_line	ed.refresh.c	/^update_line(old, new, cur_line)$/
+update_vars	sh.set.c	/^update_vars(vp)$/
+v_action	ed.chared.c	/^v_action(c)$/
+v_add	ed.chared.c	/^v_add(c)$/
+v_addend	ed.chared.c	/^v_addend(c)$/
+v_change_case	ed.chared.c	/^v_change_case(cc)$/
+v_char_back	ed.chared.c	/^v_char_back(c)$/
+v_char_fwd	ed.chared.c	/^v_char_fwd(c)$/
+v_charto_back	ed.chared.c	/^v_charto_back(c)$/
+v_charto_fwd	ed.chared.c	/^v_charto_fwd(c)$/
+v_chgmeta	ed.chared.c	/^v_chgmeta(c)$/
+v_chgtoend	ed.chared.c	/^v_chgtoend(c)$/
+v_cm_complete	ed.chared.c	/^v_cm_complete(c)$/
+v_cmd_mode	ed.chared.c	/^v_cmd_mode(c)$/
+v_csearch_back	ed.chared.c	/^v_csearch_back(ch, count, tflag)$/
+v_csearch_fwd	ed.chared.c	/^v_csearch_fwd(ch, count, tflag)$/
+v_delmeta	ed.chared.c	/^v_delmeta(c)$/
+v_delprev	ed.chared.c	/^v_delprev(c) 		\/* Backspace key in insert mode */
+v_dsh_meta	ed.chared.c	/^v_dsh_meta(c)$/
+v_endword	ed.chared.c	/^v_endword(c)$/
+v_eword	ed.chared.c	/^v_eword(c)$/
+v_insbeg	ed.chared.c	/^v_insbeg(c)$/
+v_insert	ed.chared.c	/^v_insert(c)$/
+v_rchar_back	ed.chared.c	/^v_rchar_back(c)$/
+v_rchar_fwd	ed.chared.c	/^v_rchar_fwd(c)$/
+v_repeat_srch	ed.chared.c	/^v_repeat_srch(c)$/
+v_replmode	ed.chared.c	/^v_replmode(c)$/
+v_replone	ed.chared.c	/^v_replone(c)$/
+v_rsrch_back	ed.chared.c	/^v_rsrch_back(c)$/
+v_rsrch_fwd	ed.chared.c	/^v_rsrch_fwd(c)$/
+v_search	ed.chared.c	/^v_search(dir)$/
+v_substchar	ed.chared.c	/^v_substchar(c)$/
+v_substline	ed.chared.c	/^v_substline(c)$/
+v_undo	ed.chared.c	/^v_undo(c)$/
+v_ush_meta	ed.chared.c	/^v_ush_meta(c)$/
+v_wordback	ed.chared.c	/^v_wordback(c)$/
+v_wordbegnext	ed.chared.c	/^v_wordbegnext(c)$/
+v_wordfwd	ed.chared.c	/^v_wordfwd(c)$/
+v_zero	ed.chared.c	/^v_zero(c)			\/* command mode 0 for vi *\/$/
+va_arg	sh.err.c	/^#define va_arg(a, b) (a ? (b) 0 : (b) 0)$/
+value1	sh.set.c	/^value1(var, head)$/
+vffree	sh.sem.c	/^vffree(snum)$/
+vfprintf	tc.printf.c	/^vfprintf(fp, fmt, va)$/
+void	tw.parse.c	/^static void (*tw_start_entry[]) __P((DIR *, Char */
+watch_login	tc.who.c	/^watch_login()$/
+wfree	sh.func.c	/^wfree()$/
+who_info	tc.who.c	/^who_info(ptr, c, wbuf)$/
+window_change	ed.init.c	/^window_change(snum)$/
+word	sh.lex.c	/^word()$/
+xaddchar	tc.printf.c	/^xaddchar(c)$/
+xecho	sh.func.c	/^xecho(sep, v)$/
+xgethostname	tc.os.c	/^xgethostname(name, namlen)$/
+xgetpass	tc.func.c	/^xgetpass(prm)$/
+xgetwd	tc.os.c	/^xgetwd(pathname)$/
+xmemmove	tc.os.c	/^xmemmove(vdst, vsrc, len)$/
+xnice	tc.os.c	/^xnice(incr)$/
+xprintf	tc.printf.c	/^xprintf(va_alist)$/
+xputchar	sh.print.c	/^xputchar(c)$/
+xset	sh.set.c	/^xset(cp, vp)$/
+xsighold	tc.sig.c	/^xsighold(what)$/
+xsigignore	tc.sig.c	/^xsigignore(a)$/
+xsigpause	tc.sig.c	/^xsigpause(what)$/
+xsprintf	tc.printf.c	/^xsprintf(va_alist)$/
+xstrerror	tc.os.c	/^xstrerror(i)$/
+xtcgetpgrp	tc.os.c	/^xtcgetpgrp(fd)$/
+xtcsetpgrp	tc.os.c	/^xtcsetpgrp(fd, pgrp)$/
+xvprintf	tc.printf.c	/^xvprintf(fmt, va)$/
+xvsprintf	tc.printf.c	/^xvsprintf(str, fmt, va)$/

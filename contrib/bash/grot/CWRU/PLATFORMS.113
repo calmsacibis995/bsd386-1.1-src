@@ -1,0 +1,16 @@
+The version of bash in this directory has been compiled on the
+following systems:
+
+Sun 690			SunOS 4.1.2
+386			BSDI BSD/386 1.0
+NeXTstation		NeXT OS 2.1
+IBM RT			IBM/4.3 (AOS)
+Motorola Delta 88K	SVR3.2
+Decstation 3100		Ultrix 4.2
+Dec 4000 Alpha AXP	DEC OSF/1 V1.2
+386			ISC UNIX 3.0.1
+386			386BSD 0.1
+IBM RS/6000		AIX 3.2
+HP 9000/370		MORE/BSD 4.3
+HP 9000/834		HP-UX 7.0
+Sony NEWS 841		NEWSOS 4.1C

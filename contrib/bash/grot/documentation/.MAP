@@ -1,0 +1,9 @@
+F BASH.PS;1                         	bash.ps
+F BASH_BUI.1;1                      	bash_builtins.1
+F BASH_BUI.PS;1                     	bash_builtins.ps
+F BASH_BUI.REA;1                    	bash_builtins.readme
+F FEATURES.INF;1                    	features.info
+F FEATURES.TEX;1                    	features.texi
+F MAKEFILE.;1                       	Makefile
+F TEXINDEX.C;1                      	texindex.c
+F TEXINFO.TEX;1                     	texinfo.tex

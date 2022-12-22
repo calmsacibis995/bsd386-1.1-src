@@ -1,0 +1,119 @@
+/* Written  7:33 pm  Oct 29, 1986 by lwall@sdcrdcf.UUCP in mirror:net.sources.bu */
+/* ---------- "patch 2.0 patch #2" ---------- */
+System: patch version 2.0
+Patch #: 2
+Priority: LOW
+Subject: patch can report a new-style context diff when it is really an old one
+From: lwall@sdcrdcf (Larry Wall)
+Complaint: How come my beta testers didn't find this one?  :-)
+
+Description:
+	The patch program can falsely report "This is really a new-style context
+	diff without the telltale asterisks."  This does not keep patch
+	from working, but it can prevent the most sane error recovery, and
+	it is rather distracting.  The problem was that a patch to a place
+	at the beginning of the input file spoofs patch into thinking there
+	are fewer lines of context, which throws off the calculation which
+	produces the message.
+
+Repeat-By:
+	Installing patch #1.  (I'm soooo embarassed!)
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,hplabs,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 NUM ...
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and NUM
+	is the number of one or more patches you need, separated by spaces.
+	You can also get them by anonymous FTP from sdc-camarillo.arpa.
+
+Index: patchlevel.h
+Prereq: 1
+1c1
+< #define PATCHLEVEL 1
+---
+> #define PATCHLEVEL 2
+ 
+Index: pch.c
+Prereq: 2.0
+*** pch.c.old	Wed Oct 29 15:53:26 1986
+*** pch.c	Wed Oct 29 15:53:35 1986
+***************
+*** 1,4
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch2,v 1.2 1992/01/04 19:03:29 kolstad Exp $
+   *
+   * $Log: patch2,v $
+# Revision 1.2  1992/01/04  19:03:29  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:39:37  lwall
+
+--- 1,4 -----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch2,v 1.2 1992/01/04 19:03:29 kolstad Exp $
+   *
+   * $Log: patch2,v $
+# Revision 1.2  1992/01/04  19:03:29  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  86/10/29  15:52:08  lwall
+***************
+*** 1,6
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch2,v 1.2 1992/01/04 19:03:29 kolstad Exp $
+   *
+   * $Log: patch2,v $
+# Revision 1.2  1992/01/04  19:03:29  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:39:37  lwall
+   * Baseline for netwide release.
+   * 
+
+--- 1,9 -----
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch2,v 1.2 1992/01/04 19:03:29 kolstad Exp $
+   *
+   * $Log: patch2,v $
+# Revision 1.2  1992/01/04  19:03:29  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.1  86/10/29  15:52:08  lwall
++  * Could falsely report new-style context diff.
++  * 
+   * Revision 2.0  86/09/17  15:39:37  lwall
+   * Baseline for netwide release.
+   * 
+***************
+*** 608,614
+  	}
+  
+  	if (diff_type == CONTEXT_DIFF &&
+! 	  (fillcnt || ptrn_copiable > 2*p_context) ) {
+  	    if (verbose)
+  		say1("\
+  (Fascinating--this is really a new-style context diff but without the telltale\n\
+
+--- 611,617 -----
+  	}
+  
+  	if (diff_type == CONTEXT_DIFF &&
+! 	  (fillcnt || (p_first > 1 && ptrn_copiable > 2*p_context)) ) {
+  	    if (verbose)
+  		say1("\
+  (Fascinating--this is really a new-style context diff but without the telltale\n\
+/* End of text from mirror:net.sources.bu */

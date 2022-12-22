@@ -1,0 +1,18 @@
+.TH DAEMON 1 "February 22, 1993"
+.UC 8
+.SH NAME
+daemon \- run a process with no tty
+.SH SYNOPSIS
+.B daemon
+[ - ]
+.I command
+.SH DESCRIPTION
+Will run the given command without a controlling tty.
+.PP
+If the `-' option is present, open file descriptors are 
+closed and the process's working directory is moved to the 
+root directory before the
+.I command
+is executed.
+.SH "SEE ALSO"
+tty(4)

@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/rstatd
+F RSTATD.8;1                        	rstatd.8
+F RSTAT_PR.C;1                      	rstat_proc.c
+F TAGS.;1                           	tags

@@ -1,0 +1,7 @@
+F DVIPS.1;1                         	dvips.1
+F DVIPS.TEX;1                       	dvips.texi
+F DVIPS0.INF;1                      	dvips.info
+F DVIPS1.INF;1                      	dvips.info-1
+F DVIPS2.INF;1                      	dvips.info-2
+F DVIPS3.INF;1                      	dvips.info-3
+F MAKEFILE.;1                       	Makefile

@@ -1,0 +1,164 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxalter.1,v 1.1.1.1 1994/01/14 23:10:10 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXALTER 1 "January 15, 1993"
+.SH NAME
+faxalter \- alter parameters of a facsimile job queued for transmission
+.SH SYNOPSIS
+.B faxalter
+[
+.B \-h
+.I hostname
+] [
+.B \-a
+.I tts
+] [
+.B \-k
+.I killtime
+] [
+.B \-n
+.I notify
+] [
+.B \-p
+] [
+.B \-t
+.I maxtries
+] [
+.B \-DQR
+]
+.IR jobid ...
+.SH DESCRIPTION
+.I Faxalter
+alters parameters of one or more facsimile jobs that
+are queued for transmission.
+At present only two parameters can be altered;
+the time to send a job and the notification scheme.
+A 
+.I jobid
+is the number printed by
+.IR sendfax (1)
+when a job is queued for transmission.
+This number can also be obtained from
+.IR faxstat (1).
+.PP
+The
+.B \-a
+option is used to specify a new time to send a job.
+The syntax for specifying a time is the same as used
+by
+.IR sendfax (1)
+(and
+.IR at (1)).
+The
+.B \-p
+option specifies that the jobs should be
+.IR pushed ;
+that is, they should be sent immediately
+(NB: this is equivalent to ``\-a now''.)
+.PP
+The
+.B \-k
+option is used to specify a new time to kill a job;
+the syntax is the same as used for the 
+.B \-a
+option.
+.PP
+The
+.B \-t
+option is used to alter the maximum number of times the
+server should call the remote fax machine.
+.PP
+The
+.B \-n
+option is used to select a notification scheme to
+use for the specified jobs.
+Possible schemes are:
+``\fInone\fP'' for no notification (default),
+``\fIwhen done\fP'' for notification when the job is completed,
+``\fIwhen requeued\fP'' for notification when the job is requeued
+after a failed transmission attempt.
+The
+.BR \-Q ,
+.BR \-D ,
+and
+.B \-R
+options are shorthand for these notification schemes,
+respectively.
+One can also leave off ``\fIwhen\fP'' when using the
+.B \-n
+option; e.g., ``\fIdone\fP'' instead of ``\fIwhen done\fP''.
+.PP
+Users can only alter jobs that they
+have queued; except the
+.I fax
+user who can alter any job.
+.PP
+By default,
+.I faxalter
+contacts the facsimile server on the host specified
+in the
+.B FAXSERVER
+environment variable.
+This can be overridden with the
+.B \-h
+option.
+.SH DIAGNOSTICS
+.B "Job %s not altered: it was not queued."
+The specified job was not found in the server's queue.
+.PP
+.B "Job %s not altered: open failed; check SYSLOG."
+The server was unable to do some necessary operation on the 
+remote host and so could not alter the job.
+More information about what went wrong can be found in the
+.IR syslogd (1M)
+log file on the server's machine.
+.PP
+.B "Job %s not altered: could not establish server process owner."
+A request was made by the ``fax'' user to alter
+a job that it did submit.
+This request was not accepted because
+the server was unable to deduce the identity under which
+it was executing.  That is, there was no password file
+entry for the server's effective user id.
+This (usually) indicates that the entry in the file
+.I ${USRETC}/inetd.conf
+on the remove machine is setup wrong; see
+.IR faxd.recv (1M)
+for more information.
+.PP
+.B "Job %s not altered: you neither own it nor are the fax user."
+A request was made to alter a job that the user does not own
+(and the user is not the ``fax'' user).
+.SH BUGS
+.I Faxalter
+must be run on the same host on which the job was
+submitted.
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1),
+.IR faxrm (1),
+.IR faxstat (1),
+.IR faxd.recv (1M)

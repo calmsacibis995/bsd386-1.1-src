@@ -1,0 +1,11 @@
+D ATT_NAME                          	att-nameserver
+D CHECKFN                           	checkfn
+D COMPRESS                          	compress
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MAKEDEPE                          	makedepend
+D MISC                              	misc
+D MKSV3SHL                          	mksv3shlib
+D PATCH                             	patch
+D PEX                               	PEX
+D PROGS                             	progs
+D SCRIPTS                           	scripts

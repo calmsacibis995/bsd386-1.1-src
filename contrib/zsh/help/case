@@ -1,0 +1,8 @@
+          case word in [ pattern ) list ;; ] ...  esac
+               Execute the list associated with the first pattern
+               that  matches  word, if any.  The form of the pat-
+               terns is the same as that used for  filename  gen-
+               eration.  See Filename Generation below.
+
+          case word { [ pattern ) list ;; ] ...  }
+               Another form of case.

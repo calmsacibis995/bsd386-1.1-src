@@ -1,0 +1,26 @@
+CPSTRUCT	rstat_proc.c	/^#define CPSTRUCT(src,dst)					\\$/
+Mrstat_svc	rstat_svc.c	/^main()$/
+cpu_stats	rstat_proc.c	/^cpu_stats(int *cp)$/
+disk_stats	rstat_proc.c	/^disk_stats(int *dk_xfer)$/
+fork	rstat_proc.c	/^pid_t fork(void) { return 0; }	\/* prevent RPC cod/
+havedisk	rstat_proc.c	/^havedisk()$/
+rstatproc_havedisk_1	rstat_proc.c	/^rstatproc_havedisk_1()$/
+rstatproc_havedisk_2	rstat_proc.c	/^rstatproc_havedisk_2()$/
+rstatproc_havedisk_3	rstat_proc.c	/^rstatproc_havedisk_3()$/
+rstatproc_stats_1	rstat_proc.c	/^rstatproc_stats_1()$/
+rstatproc_stats_2	rstat_proc.c	/^rstatproc_stats_2()$/
+rstatproc_stats_3	rstat_proc.c	/^rstatproc_stats_3()$/
+rstatprog_1	rstat_svc.c	/^rstatprog_1(rqstp, transp)$/
+rstatprog_2	rstat_svc.c	/^rstatprog_2(rqstp, transp)$/
+rstatprog_3	rstat_svc.c	/^rstatprog_3(rqstp, transp)$/
+setup	rstat_proc.c	/^setup()$/
+setup_disks	rstat_proc.c	/^setup_disks()$/
+setup_networking	rstat_proc.c	/^setup_networking()$/
+setup_sysinfo	rstat_proc.c	/^setup_sysinfo()$/
+stat_update	rstat_proc.c	/^stat_update()$/
+updatestat	rstat_proc.c	/^updatestat()$/
+vm_stats	rstat_proc.c	/^vm_stats(struct vmmeter *sum)$/
+xdr_rstat_timeval	rstat_xdr.c	/^xdr_rstat_timeval(xdrs, objp)$/
+xdr_stats	rstat_xdr.c	/^xdr_stats(xdrs, objp)$/
+xdr_statsswtch	rstat_xdr.c	/^xdr_statsswtch(xdrs, objp)$/
+xdr_statstime	rstat_xdr.c	/^xdr_statstime(xdrs, objp)$/

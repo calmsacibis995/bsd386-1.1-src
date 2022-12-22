@@ -1,0 +1,238 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: pathconf.3,v 1.1 1993/02/05 22:05:18 polk Exp $
+.\"
+.Dd January 14, 1993
+.Dt PATHCONF 3
+.Os
+.Sh NAME
+.Nm pathconf ,
+.Nm fpathconf ,
+.Nm sysconf
+.Nd "configurable variables
+.Sh SYNOPSIS
+.Fd #include <unistd.h>
+.Ft long
+.Fn pathconf "const char *path" "int name"
+.Ft long
+.Fn fpathconf "int fd" "int name"
+.Ft long
+.Fn sysconf "int name"
+.Sh DESCRIPTION
+Certain system parameters may be dependent on configuration.
+The
+.Fn pathconf
+and
+.Fn fpathconf
+functions recover configurable variables
+associated with files,
+while the
+.Fn sysconf
+function recovers configurable variables
+associated with the system.
+.Pp
+The
+.Fn pathconf
+function operates on a named file, while the
+.Fn fpathconf
+function operates on an open file descriptor.
+The configurable variables associated with these functions
+include the following:
+.Pp
+.Bl -tag -width _PC_CHOWN_RESTRICTED -compact
+.It _PC_LINK_MAX
+The maximum number of hard links to the given file or directory.
+.It _PC_MAX_CANON
+The maximum number of bytes in the given
+.Xr tty 4 's
+canonical input queue.
+.It _PC_MAX_INPUT
+The maximum number of bytes in the given
+.Xr tty 4 's
+input queue.
+.It _PC_NAME_MAX
+The maximum number of bytes in a filename in the given directory.
+.It _PC_PATH_MAX
+The maximum number of bytes in a pathname
+relative to the given directory.
+.It _PC_PIPE_BUF
+The maximum number of bytes that can be written to the given pipe
+or FIFO at one time.
+If the given file is a directory,
+returns the value for a FIFO that could be created in that directory.
+.It _PC_CHOWN_RESTRICTED
+Returns 1 if only root can use
+.Xr chown 2
+to change the owner of the given file and
+only root or the owner of the file may change its group;
+otherwise returns 0.
+If the given file is a directory,
+returns the value appropriate to a file
+which could be created in that directory.
+.It _PC_NO_TRUNC
+For the given directory,
+returns 1 if excessively long filenames generate errors;
+returns 0 if filenames are silently truncated to their maximum length.
+.It _PC_VDISABLE
+For the given
+.Xr tty 4 ,
+returns 1 if the _POSIX_VDISABLE feature
+is available to disable use of specific special characters;
+otherwise returns 0.
+.El
+.Pp
+The
+.Fn sysconf
+function handles the following configurable variables:
+.Pp
+.Bl -tag -width _PC_CHOWN_RESTRICTED -compact
+.It _SC_ARG_MAX
+The maximum number of bytes in argument and environment strings
+passed to
+.Xr execve 2 .
+.It _SC_CHILD_MAX
+The maximum number of children for any process.
+.It _SC_CLK_TCK
+The number of system clock ticks per second.
+.It _SC_JOB_CONTROL
+Returns 1 if job control is available, 0 otherwise.
+.It _SC_NGROUPS_MAX
+The maximum number of supplementary group IDs for any process.
+.It _SC_OPEN_MAX
+The maximum number of open file descriptors for any process.
+.It _SC_SAVED_IDS
+Returns 1 if the
+.St -p1003.1-88
+saved group and user ID feature is available,
+0 otherwise.
+.It _SC_STREAM_MAX
+The maximum number of open stdio streams for any process.
+.It _SC_TZNAME_MAX
+The maximum number of bytes in a time zone name.
+.It _SC_VERSION
+Returns an integer indicating the
+.St -p1003.1-88
+conformance level.
+.El
+.Sh RETURN VALUES
+The functions
+.Fn pathconf ,
+.Fn fpathconf
+and
+.Fn sysconf
+all return \-1 and set
+.Va errno
+if
+.Fa name
+is invalid.
+For
+.Fn pathconf
+and
+.Fn fpathconf ,
+if
+.Fa name
+doesn't have a limit,
+or for
+.Fn sysconf ,
+if the feature denoted by
+.Fa name
+isn't supported,
+the function returns \-1
+and does not set
+.Va errno .
+For
+.Fn pathconf
+and
+.Fn fpathconf ,
+if the system needs the given file or file descriptor
+to return the value for
+.Fa name ,
+and the file or file descriptor
+is unusable for some reason,
+the function returns \-1 and sets
+.Va errno .
+.Sh ERRORS
+The functions
+.Fn pathconf ,
+.Fn fpathconf
+and
+.Fn sysconf
+may fail and set
+.Va errno
+as follows:
+.Bl -tag -width [ENAMETOOLONG]
+.It Bq Er EINVAL
+The value of
+.Fa name
+is not recognized.
+.El
+.Pp
+The functions
+.Fn pathconf
+and
+.Fn fpathconf
+may fail and set
+.Va errno
+as follows:
+.Bl -tag -width [ENAMETOOLONG]
+.It Bq Er EINVAL
+The feature requested by
+.Fa name
+is meaningless when applied to
+.Fa path
+or
+.Fa fd ,
+respectively.
+.El
+.Pp
+The function
+.Fn pathconf
+may fail and set
+.Va errno
+as follows:
+.Bl -tag -width [ENAMETOOLONG]
+.It Bq Er EACCES
+Permission is denied to search a directory in
+.Fa path .
+.It Bq Er ENAMETOOLONG
+The length of
+.Fa path
+exceeds the appropriate limit either in total
+or in some element.
+.It Bq Er ENOENT
+.Fa path
+doesn't exist.
+.It Bq Er ENOTDIR
+Some element of
+.Fa path
+is not a directory.
+.El
+.Pp
+The function
+.Fn fpathconf
+may fail and set
+.Va errno
+as follows:
+.Bl -tag -width [ENAMETOOLONG]
+.It Bq Er EBADF
+The file descriptor
+.Fa fd
+is not open.
+.El
+.Sh SEE ALSO
+.Xr chown 2 ,
+.Xr execve 2 ,
+.Xr tty 4
+.Sh STANDARDS
+These functions are defined by
+.St -p1003.1-88 .
+.Sh HISTORY
+These functions are
+.Ud .
+.Sh BUGS
+The current implementation is a hack in a library routine
+and ignores
+.Fa path
+and variable limits.

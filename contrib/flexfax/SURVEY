@@ -1,0 +1,46 @@
+To: flexfax-survey@whizzer.wpd.sgi.com (FlexFAX Survey-or)
+Subject: survey
+--------
+[It would be really useful to me if I could find out what modems are
+ being used and on what platforms.  If you use or have used the
+ software, please fill out the form below and return it to the above
+ address. If you have multiple copies or multiple different systems,
+ it would be easiest for me if you sent me one form for each system
+ (I'll be processing the forms automatically, so please don't change
+ the text to the left of a ":").  This information is solely for my use.]
+
+Your real name:
+Your affiliation:
+Your physical mail address:
+How to reach you by phone:
+How to reach you by fax:
+
+Modem Model (as described by vendor literature):
+Result of AT+FMDL? or similar:
+Modem Vendor:
+Result of AT+FMFR? or similar:
+Modem firmware revision (AT+FREV? or similar):
+
+Host Hardware (e.g. SGI Indigo w/ R3K cpu, Sun4c, etc.):
+Host OS (include revision; e.g. SunOS 4.1.2, IRIX 4.0.5H):
+Output of "uname -a", if supported:
+
+Serial port hardware modem is connected to (e.g. on-board, ALM-2):
+Serial port device name modem is connected to (e.g. /dev/ttyd2, /dev/cua0):
+Host-modem flow control method (RTS/CTS|XON/XOFF):
+DCD handling (DCD follows carrier|DCS always on|other&describe):
+DTR handling (modem ignores DTR|modem resets on DTR transition|other&describe):
+
+Modem is used for outgoing fax (yes|no):
+Modem is used for incoming fax (yes|no):
+Modem is used for outgoing data (yes|no):
+If yes, please list programs (e.g. kermit, cu, tip, uucp, slip:
+Modem is used for incoming data (yes|no):
+If yes, please list uses (e.g. slip, uucp, login):
+Modem is used for outgoing voice (yes|no):
+Modem is used for incoming voice (yes|no):
+
+Modem settings (output of AT&V or similar):
+
+FlexFAX config file if different from distributed file for this modem
+(other than by phone number-related information):

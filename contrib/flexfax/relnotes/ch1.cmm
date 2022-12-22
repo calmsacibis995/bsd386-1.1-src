@@ -1,0 +1,214 @@
+.nr H1 0
+.H 1 "Introduction"
+.VL 7
+.P
+This document describes the features of the 2.2.0 release of
+the \*(FF facsimile system;
+\*(FF supports:
+.BL
+.LI
+sending facsimile
+.LI
+receiving facsimile
+.LI
+polled retrieval of facsimile
+.LI
+transparent shared data use of the modem
+.LE
+.P
+Outgoing documents can be any format; the \f2sendfax\fP(1) program uses a
+rule-based definition file similar to the System V \f3/etc/magic\fP file 
+to deduce document types and to decide how to convert each document
+to a form suitable for transmission (either PostScript\(tm or \s-1TIFF/F\s+1).
+Automatic cover page generation is supported and users can easily
+tailor cover pages to their environment.  A simple text-based
+phonebook database is supported by sendfax.  Information is also
+provided on how to trivially setup an email to fax gateway service.
+.P
+Incoming facsimile are stored in a receiving area as \s-1TIFF/F\s+1 files and
+may be automatically delivered by mail and/or printed.  A fax server
+status program, \f2faxstat\fP(1), can be used to monitor the send and receive
+queues, as well as the state of facsimile servers.
+.P
+Fax modems may be shared with outgoing data communication applications
+that honor the ``\s-1UUCP\s+1 locking protocol.''  These applications typically
+include: cu, tip, kermit, uucp, slip, and ppp.  The system can also be
+configured so that incoming data calls cause the system to invoke the
+standard system getty program.
+.P
+The software is structured around a client-server architecture.  One
+facsimile server process exists for each fax modem on a network.
+Clients may send facsimile from any machine that can communicate with
+the machine(s) on which the server(s) reside.  Client software is
+designed to be lightweight and easy to port; imaging can be offloaded
+to the server or done on the client.  (Imaging is, however, typically
+done on the server because it simplifies administration.)  Multiple
+modems may be located on a single machine.  An access control mechanism
+is included to control which users on which machines may submit
+documents for transmission.
+.P
+The system supports a wide variety of fax modems.  Any Class 1 or
+Class 2 modem should work with the system.  The following table lists
+the modems that have been used successfully with the software.
+Note however that some modems perform better than others.  
+Chapter 6 of this document includes information about many
+modems that have been tried.
+.KS
+.TS
+l l l l.
+Manufacturer	Model	Notes	Firmware Rev
+_
+Abaton	InterFax 24/96		unavailable
+AT&T Paradyne	DataPort 14.4	1,+	>= C01.22.00
+Boca Research	\s-1M1440E\s+1	2	>= V1.270
+Boca Research	\s-1M1440E/RC32ACL\s+1	2,@	V1.000
+CPI	ViVa 14.4/FAX	2	V1.10 172-502402-013
+Dallas Fax	<something>	2	not recommended
+Digicom	Scout+	1,+	>= 2A19/2931
+Dynalink (?)	Dynalink 1414VE	2	CBS-03
+Everex	EverFax 24/96D	2	>= 901231
+Hayes	Optima 144	1	unknown
+Hayes	Optima 2400+Fax96	2	>= TR00-J260-001 XXX
+Logicode	Quicktel Xeba 14.4	2	V0.500 TR14-Jxxx-001
+Multi-Tech	\s-1MT1432BA\s+1, \s-1MT224BA\s+1	2,*,+	>= 0307 I
+Multi-Tech	\s-1MT1432BG\s+1	2	0109A
+Nuvo	Voyager \s-196424PFX\s+1	1	AF-C2500-E0
+\s-1PPI\s+1	\s-1PM14400FX\s+1	2,\(dd	>= 2.17
+Supra	SupraFAX v.32bis	1,2	>= V1.200-C
+Supra	SupraFAX v.32bis/\s-1RC32ACL\s+1	2,@	>= V1.000
+Telebit	T3000, WorldBlazer	2	>= LA7.01
+Twincom	144/DF	2	>= V1.200
+USRobotics	Courier	1	Sup4.1/DSP11
+USRobotics	Sportster	1	Sup4.1/DSP10
+Zoom	VFX	1,2	V2.00
+Zero One Net.	ZyXEL U1496	2,\(dg	>= 5.01
+.TE
+.sp
+.fi
+Notes:
+.in +\w'@ 'u
+.ta \w'@ 'u
+.ti -\w'@ 'u
+1	The modem supports the TIA/EIA-578 "Class 1" specification.
+.ti -\w'@ 'u
+2	Class 2 means the modem supports the
+TIA/EIA-592 draft SP-2388-A of August 30, 1991.
+.ti -\w'@ 'u
+*	There are apparently many variants of the
+\s-1MT1432BA\s+1, the following models are known to work:
+\s-1MT1432BA\s+1, \s-1MT1432BA/A\s+1, \s-1MT1432MK\s+1, \s-1MT1432PCS\s+1.
+.ti -\w'@ 'u
+@	\s-1/RC32ACL\s+1 refers to second-generation products made
+with the Rockwell \s-1RC32ACL\s+1 part and different firmware.
+.ti -\w'@ 'u
++	Modem is recommended for use with this software.
+.ti -\w'@ 'u
+\(dd	\s-1PM14400FX\s+1 refers to the \s-1PM14400FXMT\s+1
+and \s-1PM14400FXSA\s+1 models.
+.ti -\w'@ 'u
+\(dg	U1496 refers to the U1496E, U1496E+, and U1496S models.
+.in -\w'@ 'u
+.KE
+.LE
+.H 2 "Release Identification Information" 
+.P
+Following is the release identification information for \*(FF
+.P
+.KS
+.TS
+lfPB l .
+\f3Software Option Product\fP	T{
+.fi
+\*(FF Facsimile Software
+T}
+.sp 0.5
+\f3Version\fP	T{
+.fi
+2.2.0
+T}
+.sp 0.5
+\f3System Software Requirements\fP	T{
+.fi
+4D1-4.0.X
+T}
+.TE
+.KE
+.H 2 "Copyright Notice"
+\(co \f3Copyright 1988, 1989, 1990, 1991, 1992, 1993 Sam Leffler\fP
+.br
+\(co \f3Copyright 1991, 1992, 1993 Silicon Graphics, Inc.\fP
+.fi
+.vs 10
+.na
+.nh
+Permission to use, copy, modify, distribute, and sell this software and 
+its documentation for any purpose is hereby granted without fee, provided
+that (i) the above copyright notices and this permission notice appear in
+all copies of the software and related documentation, and (ii) the names of
+Sam Leffler and Silicon Graphics may not be used in any advertising or
+publicity relating to the software without the specific, prior written
+permission of Sam Leffler and Silicon Graphics.
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+OF THIS SOFTWARE.
+.H 2 "On-Line Release Notes"
+When you install the on-line documentation for a product, 
+you can view the release notes on your screen 
+as you would an on-line manual page.  
+.P
+Refer to the \f2relnotes(1)\fP and
+\f2grelnotes(1)\fP manual pages for how to
+access the on-line release notes.
+.H 2 "Product Support"
+A mailing list for users of this software is located on the host
+sgi.com.
+If you want to join this mailing list or have a list-related request
+such as getting your name removed from it, send a request to
+.sp .5
+.ti .5i
+\f3majordomo@whizzer.wpd.sgi.com\fP
+.sp .5
+For example, to subscribe, send the line "subscribe flexfax" in
+the body of your message.  The line "help" will return a list of
+the commands understood by the mailing list management software.
+.P
+Submissions (including bug reports) should be directed to:
+.sp .5
+.ti .5i
+\f3flexfax@sgi.com\fP
+.sp .5
+Note that the mailing list has many people on it.  Please take this
+into consideration when posting notes to it; i.e. avoid posting large
+trace logs and the such.  Also, when corresponding about this software
+please always specify what version you have (see above), what system
+you're running on, and, if the problem is specific to your modem,
+identify the modem and firmware revision.
+.H 2 "Document Overview"
+This document contains the following chapters:
+.AL 1 +5
+.LI
+Introduction
+.LI
+Installation Information
+.LI
+Changes and Additions
+.LI
+Bug Fixes
+.LI
+Known Problems and Workarounds
+.LI
+Modem Bugs and Gotchas
+.LE
+First time installers of this software should read Chapter 2
+carefully.
+The last chapter discusses modem-related issues and may be of
+interest to people trying to select a modem to purchase for
+use with \*(FF.

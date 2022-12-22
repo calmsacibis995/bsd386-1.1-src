@@ -1,0 +1,4 @@
+Mmwrite	mwrite.c	/^main(argc, argv)$/
+free_space	mwrite.c	/^free_space()$/
+got_signal	mwrite.c	/^got_signal()$/
+writeit	mwrite.c	/^writeit(fixed, path, verbose, mod_time, single, ta/

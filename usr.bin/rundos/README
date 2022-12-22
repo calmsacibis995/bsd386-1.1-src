@@ -1,0 +1,129 @@
+Copyright (c) 1992 BSDI, All rights reserved
+
+       This file briefly describes new RUNDOS version
+
+
+       1.  What is unsupported?
+         1.  No communication ports support
+         2.  No tools for floppy formatting
+
+       2.  What's new
+         1.  Printer  port  support  - both at "hardware" level and
+             through INT17
+         2.  All menu items now work correctly and  one  more  item
+             added
+
+       3.  Menu
+       Menu  is activated by pressing <CTRL><ALT><DEL> and contains
+       following items:
+         1.  Suspend - suspend RUNDOS
+         2.  Flush printer buffer - asynchronous lpr execution  for
+             printer buffers flushing
+         3.  Timer mode - timer mode selection
+         4.  Restart  -  restart  RUNDOS (it's not the same as quit
+             and enter RUNDOS)
+         5.  Quit - quit RUNDOS
+       In this release there are several  keys  combinations  which
+       may  be  used  for  debugging. In particular <CTRL><ALT<Gray
+       DEL> quits RUNDOS without entering menu.
+       Several error messages are accompanied by  menu.  For  exam-
+       ple,  after  error  message "Writing to printer - ERROR" you
+       may try to  restart  RUNDOS  or  just  quit  menu.  "Invalid
+       opcode"  means  internal  RUNDOS  error (second-to- the-last
+       error :-).
+       If some sophisticated graphics mode is being  used  entering
+       and  leaving menu may corrupt screen. In many cases you only
+       have to restart RUNDOS.
+
+       4.  Timer modes
+       These modes mainly affect sound generation. If  you  believe
+       that  your  program generates incorrect sounds try to change
+       time mode (No. 2 is especially useful).
+         T0 timer interrupts are not pending and all  extra  inter-
+            rupts  which  are  received  while another interrupt is
+            processed are discarded (default mode).
+         T1 all interrupts are put in queue and  are  processed  in
+            turn.  Some  programs  which  use  music  and animation
+            require this mode. Use only when needed (e.g, for  slow
+            replay).   This  mode may affect execution of some pro-
+            grams (they will  execute very slow) and may result  in
+            stack overflow.
+         T2 turn sound on/off
+       Some  programs  using timer (e.g., flight simulator AFT) may
+       not work correctly due to errors in timer count  processing.
+       Program restart usually helps.
+
+       5.  Printing
+       Printer  device  assignment  is  done  in start-up file con-
+       fig.rundos by following command:
+
+       assing lptN name
+
+       where N - port number, <name> may be either name of  regular
+       or  special file (output is redirected to this file) or key-
+       word "spool" (output is redirected to a temporary  file  and
+       may be printed later through menu).
+
+       6.  Disks
+       Disk assignment command:
+
+       assign flop[1|2]]|[hard[1|2] file_name number
+
+       where   <file_name>   is   either   character   device  name
+       (/dev/rxxx) or regular file, <Number> is either disk size in
+       Kb (for floppies - 360, 1200, 720, 1440) or winchester type.
+       Currently only one type 1  is implemented  -   306  cyls,  4
+       heads, 17 sectors/track).
+       As  partition  table must always exist currently there is no
+       means to create a file system in empty file  by  FDISK  pro-
+       gram.  New  file  system  in empty file can be created using
+       Disk Manager (we use Version 4.0). Another way - take  first
+       512 bytes from existing pseudo- disk.
+
+       7.  Start-up file
+       Currently  only  three commands are recognized: assign - for
+       device assignment, and kernemul and logfile - for debugging.
+
+       8.  Miscellaneous
+       We recommend to put
+
+       STACK=20,256
+
+       in  CONFIG.SYS,  but  it  may  result in DOS error "Internal
+       stack overflow".  In this case
+
+       STACK=0,0
+
+       may help
+
+       Programs may seem silent for fairly  long  period  of  time.
+       This  doesn't  mean that the program is hanging, just device
+       ports are being polled and as emulation  speed  is  signifi-
+       cantly  lower  than  actual speed of IN and OUT instructions
+       you may see this behavior.
+       DOS is booted as usual, first it tries disk A:, then C:.
+
+       As we now always use hardware VGA BIOS file firstpage must be
+       be created by getfirstpage program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

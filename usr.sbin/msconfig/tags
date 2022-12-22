@@ -1,0 +1,8 @@
+BOARD	msconfig.c	/^#define BOARD(d)	((d) >> 3 & 0x1f)$/
+Mmsconfig	msconfig.c	/^main(int argc, char **argv)$/
+TTY	msconfig.c	/^#define TTY(d)	((d) & 0x07)$/
+chat	msconfig.c	/^chat(int log, const char *fmt, ...)$/
+display_config	msconfig.c	/^display_config(int fd)$/
+eioctl	msconfig.c	/^eioctl(int log, int fd, int cmd, void * data, char/
+error	msconfig.c	/^error(int log, const char *fmt, ...)$/
+usage	msconfig.c	/^usage()$/

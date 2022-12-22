@@ -1,0 +1,3 @@
+faxRmApp	faxrm.c++	/^faxRmApp::~faxRmApp() {}$/
+initialize	faxrm.c++	/^faxRmApp::initialize(int argc, char** argv)$/
+request	faxrm.c++	/^faxRmApp::faxRmApp() : request("remove") {}$/

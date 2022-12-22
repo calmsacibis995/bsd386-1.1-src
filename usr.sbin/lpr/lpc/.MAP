@@ -1,0 +1,7 @@
+F CMDS.C;1                          	cmds.c
+F CMDTAB.C;1                        	cmdtab.c
+F LPC.8;1                           	lpc.8
+F LPC.C;1                           	lpc.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/lpr/lpc
+F TAGS.;1                           	tags

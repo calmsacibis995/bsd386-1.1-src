@@ -1,0 +1,37 @@
+.Dd September 15, 1992
+.Dt CDCTL 1
+.Os
+.Sh NAME
+.Nm cdctl
+.Nd control various functions of a cdrom drive
+.Sh DESCRIPTION
+This program allows some functions of a cdrom drive to be controlled
+from the command line.  The options are:
+.Pp
+-s num: Play an audio CD starting at the given track number.
+.Pp
+-e num: Specify the end track number for playing an audio CD.  The
+default is to play until the end of the disk.
+.Pp
+-t: Print the table of contents.  This is a listing of track numbers
+and durations.  Durations are listed in minutes:seconds:frames, where
+a frame is 1/75'th of a second.
+.Pp
+-h: Print a hash code that represents the table of contents.  You
+might use this to index a database of disk titles.
+.Pp
+-S: Stop playing
+.Pp
+-w: This flag causes cdctl to wait until the play operation is
+complete before exiting.
+.Pp
+-p: Print a status message every second while the play operation
+proceeds, then exit when playing is finished.  You could use this in a
+pipe to make a fancier display program.
+.Pp
+-f filename: Specify the cdrom device name.  If omittied, cdctl will
+examine the environment variable CDROM, and finally try /dev/rcdrom.
+For a SCSI drive, use the C partition of the raw device, for example,
+/dev/rsd1c.
+.Pp
+To use a SCSI drive, cdctl must run as root.

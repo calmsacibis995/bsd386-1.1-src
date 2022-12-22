@@ -1,0 +1,9 @@
+F HPUX.H;1                          	hpux.h
+F HPUX_COM.C;1                      	hpux_compat.c
+F HPUX_EXE.H;1                      	hpux_exec.h
+F HPUX_NET.C;1                      	hpux_net.c
+F HPUX_SIG.C;1                      	hpux_sig.c
+F HPUX_SY0.C;1                      	hpux_syscalls.c
+F HPUX_SY1.C;1                      	hpux_sysent.c
+F HPUX_TER.H;1                      	hpux_termio.h
+F HPUX_TTY.C;1                      	hpux_tty.c

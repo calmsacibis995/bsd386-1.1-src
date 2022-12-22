@@ -1,0 +1,256 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: ppp.4,v 1.1 1993/03/08 16:21:21 polk Exp $
+.\"
+.Dd March 1, 1993
+.Dt PPP 4
+.Os BSD/386
+.Sh NAME
+.Nm ppp
+.Nd Point-to-Point Protocol (PPP)
+.Sh SYNOPSIS
+.Fd #include <sys/types.h>
+.Fd #include <sys/ioctl.h>
+.Fd #include <net/if.h>
+.Fd #include <net/pppioctl.h>
+
+.Cd options PPP
+.Sh DESCRIPTION
+The Point-to-Point Protocol (PPP) provides a method for
+transmitting datagrams over serial point-to-point links.
+The current implementation supports dedicated synchronous
+and asynchronous circuits as well as dial-up telephone
+links.
+.Pp
+The kernel configuration option
+.Dv PPP
+should be defined to include the relevant code in the kernel.
+.Sh "PROTOCOL OPTIONS"
+There are a number of configurable PPP options which may
+be set or examined with interface request
+.Xr ioctl 2
+calls.
+Before loading or examination of the options the
+.Dv ifreq
+structure should be initialized as:
+.Bd -literal -offset indent
+struct ifreq ifr;
+struct ppp_ioctl *pio = ifr_pppioctl(&ifr);
+
+	...
+	strncpy(ifr.ifr_name, interface_name, sizeof ifr.ifr_name);
+	ioctl(socket, PPPIOCGPAR, &ifr);
+.Ed
+.Pp
+The
+.Dv ppp_ioctl
+structure is defined as:
+.Bd -literal -offset indent
+struct ppp_ioctl {
+	u_long  ppp_cmap;
+	u_short ppp_mru;
+	u_short ppp_idletime;
+	u_char  ppp_flags;
+	u_char  ppp_maxconf;
+	u_char  ppp_maxterm;
+	u_char  ppp_timeout;
+};
+.Ed
+.Pp
+The fields represent the following:
+.Bl -tag -width ppp_idletime
+.It Dv ppp_cmap
+A map of the control characters which should be avoided on
+asynchronous lines in case the equipment uses some
+of them for flow control or link control or inserts
+characters for time fill.
+The least significant bit corresponds to the null
+character and the most significant bit to the character
+with code 037 (US).
+The default all-zero mask will allow transmission of
+all control characters.
+.It Dv ppp_mru
+The maximal packet size the local side is willing
+to receive.
+This option can be useful on packet-switching links
+to prevent link-level packet fragmentation or in case
+of problems with hardware flow control.
+The default value for
+.Dv ppp_mru
+is 1500 (bytes).
+.It Dv ppp_idletime
+The time after which the idle timer drops the connection if no outgoing
+data packets were processed.
+A zero value disables the idle timer.
+.It Dv ppp_flags
+Protocol options flags; see description below.
+.It Dv ppp_maxconf
+The limit on attempts to negotiate PPP control protocol
+options.
+After the specified number of unsuccessful attempts the connection
+will be dropped.
+A zero value allows unlimited attempts to negotiate.
+This option is useful on dial-up links to cause the connection to drop
+in the event of malfunction on the remote side.
+The default value on asynchronous lines is 10 and 0 on
+synchronous lines.
+.It Dv ppp_maxterm
+The limit on attempts to terminate the link gracefully;
+the default is 3 attempts before unilaterally dropping the
+connection.
+.It Dv ppp_timeout
+The interval between attempts to configure/terminate
+a connection, in tenths of a second.
+The default value is 30 (3 seconds).
+.El
+.Pp
+The following protocol option flags are supported:
+.Bl -tag -width PPP_TRACE
+.It Dv PPP_PFC
+Protocol field compression.
+This option eliminates an extra byte in the PPP packet header
+which can be useful on slow links but can cause computing
+overhead on fast synchronous links.
+.It Dv PPP_ACFC
+Address and control fields compression.
+This option reduces the size of the PPP packet header by two bytes,
+which can be useful on slow links but can cause computing
+overhead on fast synchronous links.
+.It Dv PPP_TCPC
+Van Jacobson's TCP header compression.
+This option enables the compression of TCP headers by
+eliminating the redundant information in the headers
+of consecutive TCP packets, reducing the protocol
+overhead by up to 100 bytes per packet which may be
+really critical for performance of interactive
+.Xr telnet 1
+or
+.Xr rlogin 1
+sessions.
+However, VJ TCP compression requires keeping
+state information about every TCP session on both
+ends (up to 16 simultaneous sessions) and is not
+really useful on fast links connecting large networks.
+The TCP compression does not affect UDP and ICMP packets.
+.It Dv PPP_FTEL
+Priority queuing.
+This flag enables high-priority queueing of
+.Dq interactive
+TCP packets
+(with source or destination ports assigned to
+services like
+.Xr telnet
+or the control connection of
+.Xr ftp 1 ) ,
+effectively giving them precedence over all other IP packets.
+This can reduce response time on links with mixed
+file transfer and interactive traffic.
+.It Dv PPP_TRACE
+State tracing.
+This flag enables printing of trace information for
+PPP control packets and protocol
+finite state machine transitions.
+This option is effective only if the kernel is configured to
+include the PPP trace printing code (i.e. the option
+.Dv PPP_DEBUG
+is included in the kernel configuration file).
+The default value for this option is defined by the value of
+.Dv PPP_DEBUG :
+a zero value disables tracing by default, a one value enables it.
+.El
+.Pp
+The default flags on asynchronous links are
+.Dv PPP_PFC ,
+.Dv PPP_ACFC ,
+.Dv PPP_TCPC
+and
+.Dv PPP_FTEL ;
+on synchronous links,
+the default is
+.Dv PPP_FTEL .
+The default value for
+.Dv PPP_TRACE
+can be configured (usually PPP tracing is not available or
+off by default).
+.Pp
+The PPP protocol parameters can be divided into three
+groups:
+.Em initial
+parameters which are used before negotiation
+with the remote side,
+.Em negotiated
+parameters which both sides agreed on
+(if the link
+is not active, these parameters are the same as initial),
+and
+.Em non-negotiable
+parameters which cannot be changed during the negotiation
+phase of a PPP connection.
+The negotiated parameters cannot be changed directly; the only way
+to affect them is to load the initial parameters and configure the
+link down and up forcing re-negotiation.
+The non-negotiable parameters may be changed at any time
+and the change takes effect immediately.
+.Pp
+The following parameters and flags are non-negotiable:
+.Dv ppp_idletime ,
+.Dv ppp_maxconf ,
+.Dv ppp_maxterm ,
+.Dv ppp_timeout ,
+.Dv PPP_FTEL ,
+.Dv PPP_TRACE .
+.Sh "PROTOCOL CONTROL OPERATIONS"
+The following
+.Xr ioctl 2
+requests are supported:
+.Bl -tag -width PPPIOCWAIT
+.It Dv PPPIOCGPAR
+Get the initial protocol parameters.
+.It Dv PPPIOCSPAR
+Load the initial protocol parameters.
+.It Dv PPPIOCNPAR
+Get the negotiated protocol parameters.
+.It Dv PPPIOCWAIT
+Wait on the interface until an outgoing
+data packet will be deferred or dropped because the
+link-level protocol and/or physical link are not active.
+This operation is useful for servicing dial-on-demand PPP links.
+Packets dropped because the interface is administratively
+down (i.e. the interface flag
+.Dv IFF_UP
+is not asserted) will not interrupt the waiting.
+.El
+.Pp
+Since synchronous interfaces support more than one link-level
+protocol, PPP must be selected before the above
+.Xr ioctl
+requests can be used.
+Switching the interface link-level protocol loads the default parameters.
+Currently, to select PPP on synchronous interfaces the
+interface flag
+.Dv IFF_LINK0
+must be asserted (see
+.Xr ifconfig 8 ) .
+.Sh SEE ALSO
+.Xr ioctl 2 ,
+.Xr socket 2 ,
+.Xr intro 4 ,
+.Xr appp 4 ,
+.Xr ifconfig 8 ,
+.Xr pppconfig 8 ,
+.Xr pppattach 8 ,
+.Xr ppp 8
+.br
+.Pp
+W. Simpson,
+The Point-to-Point Protocol (PPP) for the Transmission of
+Multi-protocol Datagrams over Point-to-Point Links, RFC\ 1331,
+May 1992.
+.Pp
+G. McGregor,
+The PPP Internet Protocol Control Protocol (IPCP), RFC\ 1332,
+May 1992.
+.Sh BUGS
+Currently only the IP transport level is supported;
+future releases may be extended to include OSI and Xerox NS.

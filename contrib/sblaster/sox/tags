@@ -1,0 +1,161 @@
+ConvertFromIeeeExtended	aiff.c	/^double ConvertFromIeeeExtended(bytes)$/
+ConvertToIeeeExtended	aiff.c	/^ConvertToIeeeExtended(num, bytes)$/
+Msox	sox.c	/^main(n, args)$/
+abs	stat.c	/^#define	abs(val)	(((val) < 0) ? -(val) : (val))$/
+aiffstartread	aiff.c	/^aiffstartread(ft) $/
+aiffstartwrite	aiff.c	/^aiffstartwrite(ft)$/
+aiffstopwrite	aiff.c	/^aiffstopwrite(ft)$/
+aiffwrite	aiff.c	/^aiffwrite(ft, buf, len)$/
+aiffwriteheader	aiff.c	/^aiffwriteheader(ft, nframes)$/
+austartread	au.c	/^austartread(ft) $/
+austartwrite	au.c	/^austartwrite(ft) $/
+austopwrite	au.c	/^austopwrite(ft)$/
+auwrite	au.c	/^auwrite(ft, buf, samp)$/
+auwriteheader	au.c	/^auwriteheader(ft, data_size)$/
+avg_flow	avg.c	/^avg_flow(effp, ibuf, obuf, isamp, osamp)$/
+avg_getopts	avg.c	/^avg_getopts(effp, n, argv) $/
+avg_start	avg.c	/^avg_start(effp)$/
+avg_stop	avg.c	/^avg_stop(effp)$/
+band_flow	band.c	/^band_flow(effp, ibuf, obuf, isamp, osamp)$/
+band_getopts	band.c	/^band_getopts(effp, n, argv) $/
+band_start	band.c	/^band_start(effp)$/
+band_stop	band.c	/^band_stop(effp)$/
+blockstart	voc.c	/^blockstart(ft)$/
+blockstop	voc.c	/^blockstop(ft) $/
+checkeffect	sox.c	/^checkeffect(effp)$/
+checkformat	sox.c	/^checkformat(ft) $/
+clip24	echo.c	/^clip24(l)$/
+cmpformats	sox.c	/^cmpformats(ft, ft2)$/
+compress	hcom.c	/^\/*void*\/ compress(df, dl, fr)$/
+copy_flow	copy.c	/^copy_flow(effp, ibuf, obuf, isamp, osamp)$/
+copy_getopts	copy.c	/^copy_getopts(effp, n, argv) $/
+copy_start	copy.c	/^copy_start(effp)$/
+copy_stop	copy.c	/^copy_stop(effp)$/
+copyformat	sox.c	/^copyformat(ft, ft2)$/
+doopts	sox.c	/^doopts(n, args)$/
+echo_drain	echo.c	/^echo_drain(effp, obuf, osamp)$/
+echo_flow	echo.c	/^echo_flow(effp, ibuf, obuf, isamp, osamp)$/
+echo_getopts	echo.c	/^echo_getopts(effp, n, argv) $/
+echo_start	echo.c	/^echo_start(effp)$/
+echo_stop	echo.c	/^echo_stop(effp)$/
+fail	sox.c	/^fail(va_alist) $/
+filetype	sox.c	/^filetype(fd)$/
+gcd	misc.c	/^gcd(a, b) $/
+getblock	voc.c	/^getblock(ft)$/
+geteffect	sox.c	/^geteffect(effp)$/
+gettype	sox.c	/^gettype(formp)$/
+hcomread	hcom.c	/^int hcomread(ft, buf, len)$/
+hcomstartread	hcom.c	/^\/*void*\/ hcomstartread(ft)$/
+hcomstartwrite	hcom.c	/^\/*void*\/ hcomstartwrite(ft) $/
+hcomstopread	hcom.c	/^\/*void*\/ hcomstopread(ft) $/
+hcomstopwrite	hcom.c	/^\/*void*\/ hcomstopwrite(ft) $/
+hcomwrite	hcom.c	/^\/*void*\/ hcomwrite(ft, buf, len)$/
+init	sox.c	/^init() {$/
+lcm	misc.c	/^lcm(a, b) $/
+lowp_flow	lowp.c	/^lowp_flow(effp, ibuf, obuf, isamp, osamp)$/
+lowp_getopts	lowp.c	/^lowp_getopts(effp, n, argv) $/
+lowp_start	lowp.c	/^lowp_start(effp)$/
+lowp_stop	lowp.c	/^lowp_stop(effp)$/
+makecodes	hcom.c	/^void makecodes(e, c, s, b)$/
+min	voc.c	/^#define	min(a, b)	(((a) < (b)) ? (a) : (b))$/
+nothing	misc.c	/^int nothing() {;}$/
+null_drain	misc.c	/^null_drain(effp, obuf, osamp)$/
+padbytes	hcom.c	/^\/*void*\/ padbytes(ft, n)$/
+pred_flow	pred.c	/^pred_flow(effp, ibuf, obuf, isamp, osamp)$/
+pred_getopts	pred.c	/^pred_getopts(effp, n, argv) $/
+pred_ict	pred.c	/^pred_ict(effp)$/
+pred_init	pred.c	/^pred_init(effp, ibuf, obuf)$/
+pred_next	pred.c	/^pred_next(effp, samp)$/
+pred_start	pred.c	/^pred_start(effp)$/
+pred_stop	pred.c	/^pred_stop(effp)$/
+process	sox.c	/^process() {$/
+putcode	hcom.c	/^void putcode(c, df)$/
+putlong	hcom.c	/^void putlong(c, v)$/
+putshort	hcom.c	/^void putshort(c, v)$/
+rate_flow	rate.c	/^rate_flow(effp, ibuf, obuf, isamp, osamp)$/
+rate_getopts	rate.c	/^rate_getopts(effp, n, argv) $/
+rate_start	rate.c	/^rate_start(effp)$/
+rate_stop	rate.c	/^rate_stop(effp)$/
+rawdefaults	raw.c	/^rawdefaults(ft)$/
+rawread	raw.c	/^rawread(ft, buf, nsamp) $/
+rawstartread	raw.c	/^rawstartread(ft) $/
+rawstartwrite	raw.c	/^rawstartwrite(ft) $/
+rawwrite	raw.c	/^rawwrite(ft, buf, nsamp) $/
+rblong	misc.c	/^rblong(ft)$/
+rbshort	misc.c	/^rbshort(ft)$/
+read_ieee_extended	aiff.c	/^double read_ieee_extended(ft)$/
+report	sox.c	/^report(va_alist) $/
+rllong	misc.c	/^rllong(ft)$/
+rlong	misc.c	/^rlong(ft)$/
+rlshort	misc.c	/^rlshort(ft)$/
+rshort	misc.c	/^rshort(ft)$/
+sbdspread	sbdsp.c	/^sbdspread(ft, buf, len) $/
+sbdspstartread	sbdsp.c	/^sbdspstartread(ft) $/
+sbdspstartwrite	sbdsp.c	/^sbdspstartwrite(ft) $/
+sbdspstopread	sbdsp.c	/^sbdspstopread(ft) $/
+sbdspstopwrite	sbdsp.c	/^sbdspstopwrite(ft) $/
+sbdspwrite	sbdsp.c	/^sbdspwrite(ft, buf, len) $/
+sbstartread	raw.c	/^sbstartread(ft) $/
+sbstartwrite	raw.c	/^sbstartwrite(ft) $/
+sfstartread	sf.c	/^sfstartread(ft) $/
+sfstartwrite	sf.c	/^sfstartwrite(ft) $/
+sigint	sbdsp.c	/^sigint(s)$/
+sine	vibro.c	/^sine(buf, len, depth)$/
+skipbytes	hcom.c	/^\/*void*\/ skipbytes(ft, n)$/
+sndrstartwrite	sndrtool.c	/^sndrstartwrite(ft)$/
+sndtstartread	sndrtool.c	/^sndtstartread(ft)$/
+sndtstartwrite	sndrtool.c	/^sndtstartwrite(ft)$/
+sndtstopwrite	sndrtool.c	/^sndtstopwrite(ft)$/
+sndtwrite	sndrtool.c	/^sndtwrite(ft, buf, len)$/
+sndtwriteheader	sndrtool.c	/^sndtwriteheader(ft,nsamples)$/
+st_linear_to_ulaw	libst.c	/^st_linear_to_ulaw( sample )$/
+st_ulaw_to_linear_slow	libst.c	/^st_ulaw_to_linear_slow( ulawbyte )$/
+stat_flow	stat.c	/^stat_flow(effp, ibuf, obuf, isamp, osamp)$/
+stat_getopts	stat.c	/^stat_getopts(effp, n, argv) $/
+stat_start	stat.c	/^stat_start(effp)$/
+stat_stop	stat.c	/^stat_stop(effp)$/
+statistics	sox.c	/^statistics() {$/
+strcmpcase	sox.c	/^strcmpcase(s1, s2)$/
+svxread	8svx.c	/^svxread(ft, buf, nsamp) $/
+svxstartread	8svx.c	/^svxstartread(ft)$/
+svxstartwrite	8svx.c	/^svxstartwrite(ft)$/
+svxstopread	8svx.c	/^svxstopread(ft)$/
+svxstopwrite	8svx.c	/^svxstopwrite(ft)$/
+svxwrite	8svx.c	/^svxwrite(ft, buf, len)$/
+svxwriteheader	8svx.c	/^svxwriteheader(ft,nsamples)$/
+swapl	misc.c	/^swapl(ul)$/
+swapw	misc.c	/^swapw(us)$/
+swstartread	raw.c	/^swstartread(ft) $/
+swstartwrite	raw.c	/^swstartwrite(ft) $/
+ubstartread	raw.c	/^ubstartread(ft) $/
+ubstartwrite	raw.c	/^ubstartwrite(ft) $/
+ulstartread	raw.c	/^ulstartread(ft) $/
+ulstartwrite	raw.c	/^ulstartwrite(ft) $/
+usage	sox.c	/^usage(opt)$/
+uwstartread	raw.c	/^uwstartread(ft) $/
+uwstartwrite	raw.c	/^uwstartwrite(ft) $/
+vibro_flow	vibro.c	/^vibro_flow(effp, ibuf, obuf, isamp, osamp)$/
+vibro_getopts	vibro.c	/^vibro_getopts(effp, n, argv) $/
+vibro_start	vibro.c	/^vibro_start(effp)$/
+vibro_stop	vibro.c	/^vibro_stop(effp)$/
+vocread	voc.c	/^vocread(ft, buf, len) $/
+vocstartread	voc.c	/^vocstartread(ft) $/
+vocstartwrite	voc.c	/^vocstartwrite(ft) $/
+vocstopread	voc.c	/^vocstopread(ft) $/
+vocstopwrite	voc.c	/^vocstopwrite(ft) $/
+vocwrite	voc.c	/^vocwrite(ft, buf, len) $/
+volumechange	sox.c	/^long volumechange(y)$/
+wavread	wav.c	/^wavread(ft, buf, len) $/
+wavstartread	wav.c	/^wavstartread(ft) $/
+wavstartwrite	wav.c	/^wavstartwrite(ft) $/
+wavstopread	wav.c	/^wavstopread(ft) $/
+wavstopwrite	wav.c	/^wavstopwrite(ft) $/
+wavwrite	wav.c	/^wavwrite(ft, buf, len) $/
+wavwritehdr	wav.c	/^wavwritehdr(ft) $/
+wblong	misc.c	/^wblong(ft, ul)$/
+wbshort	misc.c	/^wbshort(ft, us)$/
+wllong	misc.c	/^wllong(ft, ul)$/
+wlong	misc.c	/^wlong(ft, ul)$/
+wlshort	misc.c	/^wlshort(ft, us)$/
+write_ieee_extended	aiff.c	/^write_ieee_extended(ft, x)$/
+wshort	misc.c	/^wshort(ft, ui)$/

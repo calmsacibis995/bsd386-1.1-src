@@ -1,0 +1,16 @@
+BITCASE	faxdecode.c	/^#define	BITCASE(b)			\\$/
+CODEDCOST	fax2ps.c	/^#define	CODEDCOST(c, codelen) \\$/
+DECLARE1	fax2ps.c	/^DECLARE1(makeCodeNames, int, ncodes)$/
+DECLARE2	fax2ps.c	/^DECLARE2(enterCode, int, dx, int, len)$/
+DECLARE3	fax2ps.c	/^DECLARE3(printPair, TIFF*, tif, CodeEntry*, a, Cod/
+DECLARE4	fax2ps.c	/^DECLARE4(fax2ps, TIFF*, tif, int, npages, int*, pa/
+DEFCOST	fax2ps.c	/^#define	DEFCOST(mdc, codelen)	(mdc + codelen + 5)$/
+DIGITS	fax2ps.c	/^#define	DIGITS(x)	((x) < 10 ? 1 : (x) < 100 ? 2 : /
+GetPageNumber	fax2ps.c	/^#define	GetPageNumber(tif) \\$/
+MIN	fax2ps.c	/^#define	MIN(a,b)	((a)<(b)?(a):(b))$/
+PIXEL	faxdecode.c	/^#define	PIXEL(buf,ix)    ((((buf)[(ix)>>3]) >> (7-/
+USECOST	fax2ps.c	/^#define	USECOST(count, codelen)	(count * (codelen+/
+fetchByte	faxdecode.c	/^#define	fetchByte(tif, sp)	(fax.cc--, *fax.bp++)$/
+is2DEncoding	faxdecode.c	/^#define	is2DEncoding(tif)	(fax.is2d)$/
+isBitSet	faxdecode.c	/^#define	isBitSet(sp)    ((sp)->b.data & bitMask[(s/
+makeCodeTable	fax2ps.c	/^makeCodeTable()$/

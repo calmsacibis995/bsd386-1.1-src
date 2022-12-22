@@ -1,0 +1,6 @@
+F MAKEFILE.;1                       	Makefile
+F MPLAY.0;1                         	mplay.0
+F MPLAY.1;1                         	mplay.1
+F MPLAY.C;1                         	mplay.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/midi/mplay
+F TAGS.;1                           	tags

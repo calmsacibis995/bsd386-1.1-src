@@ -1,0 +1,11 @@
+D CONF                              	conf
+D EISA                              	eisa
+D FLOPPY                            	floppy
+D I386                              	i386
+D INCLUDE                           	include
+D ISA                               	isa
+F MAKEFILE.;1                       	Makefile
+D MCA                               	mca
+D OBJ                               	OBJ
+D STAND                             	stand
+F TAGS.;1                           	tags

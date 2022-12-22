@@ -1,0 +1,73 @@
+MAX	decimal.c	/^#define MAX(a, b) (((a) > (b) ? (a) : (b)))$/
+Mdc	dc.c	/^main (argc, argv, env)$/
+Mdecimal	decimal.c	/^main ()$/
+add_scaled	decimal.c	/^add_scaled (into, from, factor, scale)$/
+binop	dc.c	/^binop (op)$/
+concat	dc.c	/^concat (s1, s2, s3)$/
+condop	dc.c	/^condop (cond)$/
+dec_read	dc.c	/^dec_read ()$/
+decimal_add	decimal.c	/^decimal_add (b1, b2)$/
+decimal_add1	decimal.c	/^decimal_add1 (b1, b2)$/
+decimal_after	decimal.c	/^decimal_after (b)$/
+decimal_compare	decimal.c	/^decimal_compare (b1, b2)$/
+decimal_copy	decimal.c	/^decimal_copy (b)$/
+decimal_copy_1	decimal.c	/^decimal_copy_1 (b, digits)$/
+decimal_div	decimal.c	/^decimal_div (b1, b2, digits)$/
+decimal_error	dc.c	/^decimal_error (s1, s2)$/
+decimal_expt	decimal.c	/^decimal_expt (base, expt, frac_digits)$/
+decimal_fraction	decimal.c	/^decimal_fraction (b)$/
+decimal_from_int	decimal.c	/^decimal_from_int (i)$/
+decimal_int_rem	decimal.c	/^decimal_int_rem (b, divisor)$/
+decimal_length	decimal.c	/^decimal_length (b)$/
+decimal_mul	decimal.c	/^decimal_mul (b1, b2)$/
+decimal_mul_dc	decimal.c	/^decimal_mul_dc (b1, b2, digits)$/
+decimal_mul_rounded	decimal.c	/^decimal_mul_rounded (b1, b2, digits)$/
+decimal_neg	decimal.c	/^decimal_neg (b2)$/
+decimal_parse	decimal.c	/^decimal_parse (s, radix)$/
+decimal_print	decimal.c	/^decimal_print (b, charout, radix)$/
+decimal_print_1	decimal.c	/^decimal_print_1 (b, r, radix, charout)$/
+decimal_rem	decimal.c	/^decimal_rem (b1, b2, digits)$/
+decimal_round_digits	decimal.c	/^decimal_round_digits (b, digits)$/
+decimal_sqrt	decimal.c	/^decimal_sqrt (d, frac_digits)$/
+decimal_sub	decimal.c	/^decimal_sub (b1, b2)$/
+decimal_sub1	decimal.c	/^decimal_sub1 (b1, b2)$/
+decimal_to_int	decimal.c	/^decimal_to_int (b)$/
+decimal_trunc_digits	decimal.c	/^decimal_trunc_digits (b, digits)$/
+decimal_zerop	decimal.c	/^decimal_zerop (b)$/
+decode_digit	decimal.c	/^decode_digit (digitchar)$/
+decref	dc.c	/^decref (d)$/
+empty	dc.c	/^empty ()$/
+error	dc.c	/^error (s1, s2)$/
+execute	dc.c	/^execute ()$/
+fatal	dc.c	/^fatal (s1, s2)$/
+fetch	dc.c	/^fetch()$/
+fgetchar	dc.c	/^fgetchar ()$/
+flush_trailing_digits	decimal.c	/^flush_trailing_digits (b, digits)$/
+fputchar	dc.c	/^fputchar (c)$/
+free_regstack	dc.c	/^free_regstack (r)$/
+get_regstack	dc.c	/^get_regstack ()$/
+incref	dc.c	/^incref (d)$/
+make_decimal	decimal.c	/^make_decimal (before, after)$/
+pb	decimal.c	/^pb (b)$/
+pbi	decimal.c	/^pbi (b)$/
+perror_with_name	dc.c	/^perror_with_name (name)$/
+popmacro	dc.c	/^popmacro ()$/
+popmacros	dc.c	/^popmacros (d)$/
+popstack	dc.c	/^popstack (op)$/
+print_digit	decimal.c	/^print_digit (digit, charout)$/
+print_obj	dc.c	/^print_obj (obj)$/
+print_string	dc.c	/^print_string (string)$/
+push	dc.c	/^push (d)$/
+pushlength	dc.c	/^pushlength (d)$/
+pushmacro	dc.c	/^pushmacro (m)$/
+pushreg	dc.c	/^pushreg (c)$/
+pushscale	dc.c	/^pushscale (d)$/
+pushsqrt	dc.c	/^pushsqrt (d)$/
+read_string	dc.c	/^read_string (stopc, inputfn, startc)$/
+setibase	dc.c	/^setibase (d)$/
+setobase	dc.c	/^setobase (d)$/
+setprecision	dc.c	/^setprecision (d)$/
+subtract_scaled	decimal.c	/^subtract_scaled (into, from, factor, scale)$/
+unfetch	dc.c	/^unfetch (c)$/
+xmalloc	dc.c	/^xmalloc (size)$/
+xrealloc	dc.c	/^xrealloc (ptr, size)$/

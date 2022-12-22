@@ -1,0 +1,17 @@
+F ENCORE.H;1                        	encore.h
+F GENIX.H;1                         	genix.h
+F MERLIN.H;1                        	merlin.h
+F NS32K.C;1                         	ns32k.c
+F NS32K.H;1                         	ns32k.h
+F NS32K.MD;1                        	ns32k.md
+F PC532.H;1                         	pc532.h
+F PC532_MA.H;1                      	pc532-mach.h
+F PC532_MI.H;1                      	pc532-min.h
+F SEQUENT.H;1                       	sequent.h
+F TEK6000.H;1                       	tek6000.h
+F TEK6100.H;1                       	tek6100.h
+F TEK6200.H;1                       	tek6200.h
+F XM_GENIX.H;1                      	xm-genix.h
+F XM_NS32K.H;1                      	xm-ns32k.h
+F XM_PC532.H;1                      	xm-pc532-min.h
+F X_GENIX.;1                        	x-genix

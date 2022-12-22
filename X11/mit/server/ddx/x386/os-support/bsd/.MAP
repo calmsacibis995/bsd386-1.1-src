@@ -1,0 +1,5 @@
+F BSD_INIT.GZ;1                     	bsd_init.c.gz
+F BSD_IO_C.GZ;1                     	bsd_io.c.gz
+F BSD_VIDE.GZ;1                     	bsd_video.c.gz
+F BSD_VTSW.GZ;1                     	bsd_VTsw.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz

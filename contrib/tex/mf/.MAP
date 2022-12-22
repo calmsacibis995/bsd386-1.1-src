@@ -1,0 +1,8 @@
+D GROT                              	grot
+D INIMF                             	inimf
+F MAKEFIL0.GZ;1                     	Makefile.defs,v.gz
+F MAKEFIL1.GZ;1                     	Makefile.defs.gz
+F MAKEFIL2.GZ;1                     	Makefile.gz
+D MFWINDOW                          	MFwindow
+D MF_C_SRC                          	mf_c_srcs
+D VIRMF                             	virmf

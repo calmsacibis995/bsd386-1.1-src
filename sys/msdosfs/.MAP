@@ -1,0 +1,12 @@
+F BOOTSECT.H;1                      	bootsect.h
+F BPB.H;1                           	bpb.h
+F DENODE.H;1                        	denode.h
+F DIRENTRY.H;1                      	direntry.h
+F FAT.H;1                           	fat.h
+F MSDOSFS0.C;1                      	msdosfs_conv.c
+F MSDOSFS1.C;1                      	msdosfs_denode.c
+F MSDOSFS2.C;1                      	msdosfs_fat.c
+F MSDOSFS3.C;1                      	msdosfs_lookup.c
+F MSDOSFS4.C;1                      	msdosfs_vfsops.c
+F MSDOSFS5.C;1                      	msdosfs_vnops.c
+F MSDOSFSM.H;1                      	msdosfsmount.h

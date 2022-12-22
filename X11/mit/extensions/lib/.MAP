@@ -1,0 +1,15 @@
+F EXTUTIL_.GZ;1                     	extutil.c.gz
+F GLOBALS_.GZ;1                     	globals.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F IMPORT_H.GZ;1                     	import.h.gz
+F LIBXEXT0.GZ;1                     	libXext.c.gz
+F LIBXEXT1.GZ;1                     	libXext.def.gz
+F MITMISC_.GZ;1                     	MITMisc.c.gz
+D PEX                               	PEX
+D PEXLIB                            	PEXlib
+D XINPUT                            	xinput
+F XMULTIBU.GZ;1                     	XMultibuf.c.gz
+F XSHAPE_C.GZ;1                     	XShape.c.gz
+F XSHM_C.GZ;1                       	XShm.c.gz
+D XTEST                             	xtest
+F XTESTEXT.GZ;1                     	XTestExt1.c.gz

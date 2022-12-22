@@ -1,0 +1,39 @@
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+Mwdiff	wdiff.c	/^main (int argc, char *argv[])$/
+VA_START	error.c	/^#define VA_START(args, lastarg) va_start(args, las/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+complete_input_program	wdiff.c	/^complete_input_program (void)$/
+complete_output_program	wdiff.c	/^complete_output_program (void)$/
+copy_until_ordinal	wdiff.c	/^copy_until_ordinal (SIDE *side, int ordinal)$/
+copy_whitespace	wdiff.c	/^copy_whitespace (SIDE *side, FILE *file)$/
+copy_word	wdiff.c	/^copy_word (SIDE *side, FILE *file)$/
+decode_directive_line	wdiff.c	/^decode_directive_line (void)$/
+end_of_delete	wdiff.c	/^end_of_delete (void)$/
+end_of_insert	wdiff.c	/^end_of_insert (void)$/
+error	error.c	/^error (status, errnum, message, va_alist)$/
+exchange	getopt.c	/^exchange (argv)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+initialize_strings	wdiff.c	/^initialize_strings (void)$/
+launch_input_program	wdiff.c	/^launch_input_program (void)$/
+launch_output_program	wdiff.c	/^launch_output_program (void)$/
+my_bcopy	getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	getopt.c	/^my_index (string, chr)$/
+print_copyright	wdiff.c	/^print_copyright (void)$/
+print_statistics	wdiff.c	/^print_statistics (void)$/
+private_strerror	error.c	/^private_strerror (errnum)$/
+putc_for_tputs	wdiff.c	/^putc_for_tputs (int chr)$/
+readpipe	readpipe.c	/^readpipe (va_alist)$/
+reformat_diff_output	wdiff.c	/^reformat_diff_output (void)$/
+setup_signals	wdiff.c	/^setup_signals (void)$/
+signal_handler	wdiff.c	/^signal_handler (int number)$/
+skip_until_ordinal	wdiff.c	/^skip_until_ordinal (SIDE *side, int ordinal)$/
+skip_whitespace	wdiff.c	/^skip_whitespace (SIDE *side)$/
+skip_word	wdiff.c	/^skip_word (SIDE *side)$/
+split_file_into_words	wdiff.c	/^split_file_into_words (SIDE *side)$/
+start_of_delete	wdiff.c	/^start_of_delete (void)$/
+start_of_insert	wdiff.c	/^start_of_insert (void)$/
+usage_and_exit	wdiff.c	/^usage_and_exit (void)$/
+writepipe	writepipe.c	/^writepipe (va_alist)$/

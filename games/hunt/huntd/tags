@@ -1,0 +1,70 @@
+Mdriver	driver.c	/^main(ac, av, ep)$/
+add_shot	execute.c	/^add_shot(type, y, x, face, charge, owner, expl, ov/
+announce	driver.c	/^announce()$/
+answer	answer.c	/^answer()$/
+candig	makemaze.c	/^candig(y, x)$/
+ce	terminal.c	/^ce(pp)$/
+cgoto	terminal.c	/^cgoto(pp, y, x)$/
+check	draw.c	/^check(pp, y, x)$/
+checkdam	driver.c	/^checkdam(ouch, gotcha, credit, amt, shot_type)$/
+chkshot	shots.c	/^chkshot(bp, next)$/
+chkslime	shots.c	/^chkslime(bp, next)$/
+clear_scores	driver.c	/^clear_scores()$/
+clearwalls	expl.c	/^clearwalls()$/
+cloak	execute.c	/^cloak(pp)$/
+clrscr	terminal.c	/^clrscr(pp)$/
+create_shot	execute.c	/^create_shot(type, y, x, face, charge, size, owner,/
+dig	makemaze.c	/^dig(y, x)$/
+dig_maze	makemaze.c	/^dig_maze(x, y)$/
+drawmaze	draw.c	/^drawmaze(pp)$/
+drawplayer	draw.c	/^drawplayer(pp, draw)$/
+drawstatus	draw.c	/^drawstatus(pp)$/
+execute	execute.c	/^execute(pp)$/
+explshot	shots.c	/^explshot(blist, y, x)$/
+face	execute.c	/^face(pp, dir)$/
+find_under	shots.c	/^find_under(blist, bp)$/
+fire	execute.c	/^fire(pp, req_index)$/
+fire_slime	execute.c	/^fire_slime(pp, req_index)$/
+fixshots	shots.c	/^fixshots(y, x, over)$/
+get_ident	answer.c	/^get_ident(machine, uid, name, team)$/
+havechar	driver.c	/^havechar(pp)$/
+init	driver.c	/^init()$/
+is_bullet	shots.c	/^is_bullet(y, x)$/
+iswall	shots.c	/^iswall(y, x)$/
+look	draw.c	/^look(pp)$/
+makeboots	driver.c	/^makeboots()$/
+makemaze	makemaze.c	/^makemaze()$/
+mark_boot	shots.c	/^mark_boot(bp)$/
+mark_player	shots.c	/^mark_player(bp)$/
+message	draw.c	/^message(pp, s)$/
+mon_execute	execute.c	/^mon_execute(pp)$/
+move	execute.c	/^move(pp, dir)$/
+move_drone	shots.c	/^move_drone(bp)$/
+move_flyer	shots.c	/^move_flyer(pp)$/
+move_normal_shot	shots.c	/^move_normal_shot(bp)$/
+move_slime	shots.c	/^move_slime(bp, speed, next)$/
+moveshots	shots.c	/^moveshots()$/
+opposite	shots.c	/^opposite(face, dir)$/
+outch	terminal.c	/^outch(pp, ch)$/
+outstr	terminal.c	/^outstr(pp, str, len)$/
+pickup	execute.c	/^pickup(pp, y, x, prob, obj)$/
+play_at	shots.c	/^play_at(y, x)$/
+player_sym	draw.c	/^player_sym(pp, y, x)$/
+rand_dir	answer.c	/^rand_dir()$/
+rand_num	driver.c	/^rand_num(range)$/
+ref	terminal.c	/^ref(pp)$/
+remap	makemaze.c	/^remap()$/
+remove_wall	expl.c	/^remove_wall(y, x)$/
+rollexpl	expl.c	/^rollexpl()$/
+save_bullet	shots.c	/^save_bullet(bp)$/
+scan	execute.c	/^scan(pp)$/
+see	draw.c	/^see(pp, face)$/
+send_stats	driver.c	/^send_stats()$/
+sendcom	terminal.c	/^sendcom(pp, command, arg1, arg2)$/
+showexpl	expl.c	/^showexpl(y, x, type)$/
+showstat	draw.c	/^showstat(pp)$/
+stmonitor	answer.c	/^stmonitor(pp)$/
+stplayer	answer.c	/^stplayer(newpp, enter_status)$/
+translate	draw.c	/^translate(ch)$/
+zap	driver.c	/^zap(pp, was_player)$/
+zapshot	shots.c	/^zapshot(blist, obp)$/

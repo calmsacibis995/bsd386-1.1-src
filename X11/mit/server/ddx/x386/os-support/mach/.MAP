@@ -1,0 +1,5 @@
+F BIOS_MMA.GZ;1                     	bios_mmap.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MACH_INI.GZ;1                     	mach_init.c.gz
+F MACH_IO_.GZ;1                     	mach_io.c.gz
+F MACH_VID.GZ;1                     	mach_video.c.gz

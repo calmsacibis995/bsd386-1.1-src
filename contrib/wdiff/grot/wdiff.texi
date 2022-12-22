@@ -1,0 +1,377 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename wdiff.info
+@settitle A word difference finder
+@finalout
+@setchapternewpage odd
+@c %**end of header
+
+@ifinfo
+This file documents the @code{wdiff} command, which compares two
+files, finding which words have been deleted or added to the first
+for getting the second.
+
+Copyright (C) 1992 by the Free Software Foundation, Inc.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by the Foundation.
+@end ifinfo
+
+@titlepage
+@title wdiff
+@subtitle The word difference finder
+@subtitle Edition 0.04, for wdiff Version 0.04
+@subtitle November 1992
+@author by Francois Pinard
+
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1992 Free Software Foundation, Inc.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by the Foundation.
+@end titlepage
+
+@node Top, Copying, (dir), (dir)
+
+@ifinfo
+This file documents the @code{wdiff} command, as of release 0.04.  This
+command compares two files, finding which words have been deleted or
+added to the first for getting the second.
+@end ifinfo
+
+@menu
+* Copying::			How you can copy and share @code{wdiff}.
+* Overview::                    Preliminary information.
+* Invoking wdiff::              How to run @code{wdiff}.
+* Examples::                    Actual examples of @code{wdiff} usage.
+
+ --- The Detailed Node Listing ---
+@end menu
+
+@node Copying, Overview, Top, Top
+@include gpl.texinfo
+
+@node Overview, Invoking wdiff, Copying, Top
+@chapter Overview
+
+The program @code{wdiff} is a front end to @code{diff} for comparing
+files on a word per word basis.  A word is anything between whitespace.
+This is useful for comparing two texts in which a few words have been
+changed and for which paragraphs have been refilled.  It works by
+creating two temporary files, one word per line, and then executes
+@code{diff} on these files.  It collects the @code{diff} output and uses
+it to produce a nicer display of word differences between the original
+files.
+
+Ideally, @code{wdiff} should avoid calling @code{diff} and do all the
+work internally, allowing it to be faster and more polished.  However, I
+loathe replicating the @code{diff} algorithm and development effort,
+instead of improving @code{diff} itself.  It would be more sensible to
+integrate @code{wdiff} into @code{diff} than the other way around.  I
+did it this way only because I had a sudden and urgent need for it, and
+it would have taken too much time to integrate it correctly into GNU
+@code{diff}.  Your advice or opinions about this are welcome.
+
+@code{wdiff} was written by Francois Pinard.
+@c *** Comment placer la ce'dille?
+Please report bugs to @w{@file{bug-gnu-utils@@prep.ai.mit.edu}}.
+Include the version number, which you can find by running @w{@samp{wdiff
+--version}}.  Include in your message sufficient input to reproduce the
+problem and also, the output you expected.
+
+@node Invoking wdiff, Examples, Overview, Top
+@chapter Invoking @code{wdiff}
+
+The format for running the @code{wdiff} program is:
+
+@example
+wdiff @var{option} @dots{} @var{old_file} @var{new_file}
+@end example
+
+@code{wdiff} compares files @var{old_file} and @var{new_file} and
+produces an annotated copy of @var{new_file} on standard output.
+@code{wdiff} will exit with a status of 0 if no differences were found,
+a status of 1 if any differences were found, or a status of 2 for any
+error.
+
+In this documentation, @dfn{deleted text} refers to text in
+@var{old_file} which is not in @var{new_file}, while @dfn{inserted text}
+refers to text on @var{new_file} which is not in @var{old_file}.
+
+@code{wdiff} supports the following command line options:
+
+@table @samp
+@item --help
+@itemx -h
+Print an informative help message describing the options.
+
+@item --version
+@itemx -v
+Print the version number of @code{wdiff} on the standard error output.
+
+@item --no-deleted
+@itemx -1
+Avoid producing deleted words on the output.  If neither @samp{-1} or
+@samp{-2} is selected, the original right margin may be exceeded for
+some lines.
+
+@item --no-inserted
+@itemx -2
+Avoid producing inserted words on the output.  When this flag is given,
+the whitespace in the output is taken from @var{old_file} instead of
+@var{new_file}.  If neither @samp{-1} or @samp{-2} is selected, the
+original right margin may be exceeded for some lines.
+
+@item --no-common
+@itemx -3
+Avoid producing common words on the output.  When this option is not
+selected, common words and whitespace are taken from @var{new_file},
+unless option @samp{-2} is given, in which case common words and
+whitespace are rather taken from @var{old_file}.  When selected,
+differences are separated from one another by lines of dashes.
+Moreover, if this option is selected at the same time as @samp{-1} or
+@samp{-2}, then none of the output will have any emphasis, i.e. no bold
+or underlining.  Finally, if this option is not selected, but both
+@samp{-1} and @samp{-2} are, then sections of common words between
+differences are segregated by lines of dashes.
+
+@item --statistics
+@itemx -s
+On completion, for each file, the total number of words, the number of
+common words between the files, the number of words deleted or inserted
+and the number of words that have changed is output.  (A changed word is
+one that has been replaced or is part of a replacement.)  Except for the
+total number of words, all of the numbers are followed by a percentage
+relative to the total number of words in the file.
+
+@item --auto-pager
+@itemx -a
+Some initiatives which were previously automatically taken in previous
+versions of @code{wdiff} are now put under the control of this option.
+By using it, a pager is interposed whenever the @code{wdiff} output is
+directed to the user's terminal.  Without this option, no pager will be
+called, the user is then responsible for explicitly piping @code{wdiff}
+output into a pager, if required.
+
+The pager is selected by the value of the @code{PAGER} environment
+variable when @code{wdiff} is run.  If @code{PAGER} is not defined at
+run time, then a default pager, selected at installation time, will be
+used instead.  A defined but empty value of @code{PAGER} means no pager
+at all.
+
+When a pager is interposed through the use of this option,
+one of the options @samp{-l} or @samp{-t} is also selected, depending on
+whether the string @samp{less} appears in the pager's name or not.
+
+It is often useful to define @samp{wdiff} as an alias for @samp{wdiff
+-a}.  However, this @emph{hides} the normal @code{wdiff} behaviour.  The
+default behaviour may be restored simply by piping the output from
+@code{wdiff} through @code{cat}.  This dissociates the output from the
+user's terminal.
+
+@item --printer
+@itemx -p
+Use over-striking to emphasize parts of the output.  Each character of the
+deleted text is underlined by writing an underscore @samp{_} first,
+then a backspace and then the letter to be underlined.  Each character of the
+inserted text is emboldened by writing it twice, with a backspace in
+between.  This option is not selected by default.
+
+@item --less-mode
+@itemx -l
+Use over-striking to emphasize parts of output.  This option works as
+option @code{-p}, but also over-strikes whitespace associated with
+inserted text.  @code{less} shows such whitespace using reverse video.
+This option is not selected by default.  However, it is automatically
+turned on whenever @code{wdiff} launches the pager @code{less}.  See
+option @samp{-a}.
+
+This option is commonly used in conjunction with @code{less}:
+
+@example
+wdiff -l @var{old_file} @var{new_file} | less
+@end example
+
+@item --terminal
+@itemx -t
+Force the production of @code{termcap} strings for emphasising parts of
+output, even if the standard output is not associated with a terminal.
+The @samp{TERM} environment variable must contain the name of a valid
+@code{termcap} entry.  If the terminal description permits, underlining
+is used for marking deleted text, while bold or reverse video is used
+for marking inserted text.  This option is not selected by default.
+However, it is automatically turned on whenever @code{wdiff} launches a
+pager, and it is known that the pager is @emph{not} @code{less}.  See
+option @samp{-a}.
+
+This option is commonly used when @code{wdiff} output is not redirected,
+but sent directly to the user terminal, as in:
+
+@example
+wdiff -t @var{old_file} @var{new_file}
+@end example
+
+A common kludge uses @code{wdiff} together with the pager @code{more},
+as in:
+
+@example
+wdiff -t @var{old_file} @var{new_file} | more
+@end example
+
+However, some versions of @code{more} use @code{termcap} emphasis for
+their own purposes, so strange interactions are possible.
+
+@item --start-delete @var{argument}
+@itemx -w @var{argument}
+Use @var{argument} as the @dfn{start delete} string.  This string will
+be output prior to any sequence of deleted text, to mark where it
+starts.  By default, no start delete string is used unless there is no
+other means of distinguishing where such text starts; in this case the
+default start delete string is @samp{[-}.
+
+@item --end-delete @var{argument}
+@itemx -x @var{argument}
+Use @var{argument} as the @dfn{end delete} string.  This string will be
+output after any sequence of deleted text, to mark where it ends.  By
+default, no end delete string is used unless there is no other means of
+distinguishing where such text ends; in this case the default end delete
+string is @samp{-]}.
+
+@item --start-insert @var{argument}
+@itemx -y @var{argument}
+Use @var{argument} as the @dfn{start insert} string.  This string will
+be output prior to any sequence of inserted text, to mark where it
+starts.  By default, no start insert string is used unless there is no
+other means of distinguishing where such text starts; in this case the
+default start insert string is @samp{@{+}.
+
+@item --end-insert @var{argument}
+@itemx -z @var{argument}
+Use @var{argument} as the @dfn{end insert} string.  This string will be
+output after any sequence of inserted text, to mark where it ends.  By
+default, no end insert string is used unless there is no other means of
+distinguishing where such text ends; in this case the default end insert
+string is @samp{+@}}.
+
+@item --avoid-wraps
+@itemx -n
+Avoid spanning the end of line while showing deleted or inserted text.
+Any single fragment of deleted or inserted text spanning many lines will
+be considered as being made up of many smaller fragments not containing
+a newline.  So deleted text, for example, will have an end delete string
+at the end of each line, just before the new line, and a start delete
+string at the beginning of the next line.  A long paragraph of inserted
+text will have each line bracketed between start insert and end insert
+strings.  This behaviour is not selected by default.
+@end table
+
+Note that options @samp{-p}, @samp{-t}, and @samp{-[wxyz]} are not
+mutually exclusive.  If you use a combination of them, you will merely
+accumulate the effect of each.  Option @samp{-l} is a variant of option
+@samp{-p}.
+
+@node Examples,  , Invoking wdiff, Top
+@chapter Actual examples of @code{wdiff} usage
+
+This section presents a few examples of usage, most of them have been
+contributed by @code{wdiff} users.
+
+@itemize @bullet
+@item Change bars example.
+
+This example comes from a discussion with Joe Wells,
+@samp{jbw@@cs.bu.edu}.
+
+The following command produces a copy of @var{new_file}, shifted right
+one space to accommodate change bars since the last revision, ignoring
+those changes coming only from paragraph refilling.  Any line with new
+or changed text will get a @samp{|} in column 1.  However, deleted text
+is not shown nor marked.
+
+@example
+wdiff -1n @var{old_file} @var{new_file} |
+  sed -e 's/^/  /;/@{+/s/^ /|/;s/@{+//g;s/+@}//g'
+@end example
+
+Here is how it works.  Word differences are found, paying attention only
+to additions, as requested by option @samp{-1}.  For bigger changes
+which span line boundaries, the insert bracket strings are repeated on
+each output line, as requested by option @samp{-n}.  This output is then
+reformatted with a @code{sed} script which shifts the text right two
+columns, turns the initial space into a bar only if there is some new
+text on that line, then removes all insert bracket strings.
+
+@item @code{La@TeX{}} example.
+
+This example has been provided by Steve Fisk,
+@samp{fisk@@polar.bowdoin.edu}.
+
+The following uses La@TeX{} to put deleted text in boxes, and new text
+in double boxes:
+
+@example
+wdiff -w "\fbox@{" -x "@}" -y "\fbox@{\fbox@{" -z "@}@}" @dots{}
+@end example
+
+@noindent
+works nicely.
+
+@item @code{troff} example.
+
+This example comes from Paul Fox, @samp{pgf@@cayman.com}.
+
+Using @code{wdiff}, with some @code{troff}-specific delimiters gives
+@emph{much} better output.  The delimiters I used:
+
+@example
+wdiff -w'\s-5' -x'\s0' -y'\fB' -z'\fP' @dots{}
+@end example
+
+This makes the pointsize of deletions 5 points smaller than normal, and
+emboldens insertions.  Fantastic!
+
+I experimented with:
+
+@example
+wdiff -w'\fI' -x'\fP' -y'\fB' -z'\fP'
+@end example
+
+since that's more like the defaults you use for terminals/printers, but
+since I actually use italics for emphasis in my documents, I thought the
+point size thing was clearer.
+
+I tried it on code, and it works surprisingly well there, too...
+
+@end itemize
+
+@bye

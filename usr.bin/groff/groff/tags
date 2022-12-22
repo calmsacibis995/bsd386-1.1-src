@@ -1,0 +1,30 @@
+Mgroff.cc	groff.cc	/^int main(int argc, char **argv)$/
+P	pipeline.c	/^#define P(parms) parms$/
+WCOREDUMP	pipeline.c	/^#define WCOREDUMP(s) ((s) & WCOREFLAG)$/
+WEXITSTATUS	pipeline.c	/^#define WEXITSTATUS(s) (((s) >> 8) & 0377)$/
+WIFEXITED	pipeline.c	/^#define WIFEXITED(s) (((s) & 0377) == 0)$/
+WIFSIGNALED	pipeline.c	/^#define WIFSIGNALED(s) (((s) & 0377) != 0 && (((s)/
+WIFSTOPPED	pipeline.c	/^#define WIFSTOPPED(s) (((s) & 0377) == 0177)$/
+WSTOPSIG	pipeline.c	/^#define WSTOPSIG(s) (((s) >> 8) & 0377)$/
+WTERMSIG	pipeline.c	/^#define WTERMSIG(s) ((s) & 0177)$/
+append_arg	groff.cc	/^void possible_command::append_arg(const char *s, c/
+append_arg_to_string	groff.cc	/^void append_arg_to_string(const char *arg, string /
+argv	groff.cc	/^: name(0), argv(0)$/
+basename	groff.cc	/^const char *basename(const char *s)$/
+build_argv	groff.cc	/^void possible_command::build_argv()$/
+clear_args	groff.cc	/^void possible_command::clear_args()$/
+get_argv	groff.cc	/^char **possible_command::get_argv()$/
+get_name	groff.cc	/^const char *possible_command::get_name()$/
+handle_unknown_desc_command	groff.cc	/^void handle_unknown_desc_command(const char *comma/
+help	groff.cc	/^void help()$/
+itoa	pipeline.c	/^static char *itoa(n)$/
+possible_command	groff.cc	/^possible_command::~possible_command()$/
+print	groff.cc	/^void possible_command::print(int is_last, FILE *fp/
+print_commands	groff.cc	/^void print_commands()$/
+run_commands	groff.cc	/^int run_commands()$/
+run_pipeline	pipeline.c	/^int run_pipeline(ncommands, commands)$/
+set_name	groff.cc	/^void possible_command::set_name(const char *s)$/
+strsignal	pipeline.c	/^static char *strsignal(n)$/
+synopsis	groff.cc	/^void synopsis()$/
+sys_fatal	pipeline.c	/^static void sys_fatal(s)$/
+usage	groff.cc	/^void usage()$/

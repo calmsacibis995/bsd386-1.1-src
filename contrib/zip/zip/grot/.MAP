@@ -1,0 +1,17 @@
+F ALGORITH.DOC;1                    	algorith.doc
+D ATARI                             	atari
+F CONTENTS.;1                       	contents
+F HISTORY.;1                        	history
+F INFOZIP.WHO;1                     	infozip.who
+F INSTALL.DOC;1                     	install.doc
+D MAC                               	mac
+F MAKEFILE.;1                       	makefile
+D MSDOS                             	msdos
+D NT                                	nt
+D OS2                               	os2
+F README.;1                         	Readme
+D VMS                               	vms
+F WHERE.;1                          	Where
+F ZIP.DOC;1                         	zip.doc
+F ZIPNOTE.C;1                       	zipnote.c
+F ZIPSPLIT.C;1                      	zipsplit.c

@@ -1,0 +1,25 @@
+.\"	BSDI $Id: vreset.1,v 1.1.1.1 1994/01/13 20:52:57 polk Exp $
+.Dd January 3, 1994
+.Dt VRESET 1
+.Os
+.Sh NAME
+.Nm vreset
+.Nd reset VGA display to text-mode
+.Sh SYNOPSIS
+.Nm vreset
+.Sh DESCRIPTION
+.Nm Vreset
+is used to reset VGA display adaptors to text-mode.  While it should
+seldom be necessary, 
+.Nm vreset
+can sometimes save a reboot when another program (e.g., 
+.Xr X 1 )
+leaves the display in an unknown or otherwise unusable state.
+.Sh SEE ALSO
+.Xr vgafont 1 ,
+.Xr pccons 4
+.Sh HISTORY
+The
+.Nm vreset
+command is
+.Ud .

@@ -1,0 +1,12 @@
+F CONFIGUR.;1                       	configure
+F CONFIGUR.IN;1                     	configure.in
+F FLEX.SKL;1                        	flex.skl
+F FLEXLEXE.H;1                      	FlexLexer.h
+F INITSCAN.C;1                      	initscan.c
+F INSTALL.;1                        	INSTALL
+F INSTALL.SH;1                      	install.sh
+F MAKEFILE.IN;1                     	Makefile.in
+D MISC                              	MISC
+F MKINSTAL.;1                       	mkinstalldirs
+F MKSKEL.SH;1                       	mkskel.sh
+F NEWS.;1                           	NEWS

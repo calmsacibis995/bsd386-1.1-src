@@ -1,0 +1,9 @@
+#	Example L.cmds
+# This is the list of commands that uuxqt will execute.
+# A line with PATH=... changes the path used to locate the commands.
+# Make sure that your targeted commands are contained in this path.
+#
+PATH=/bin:/usr/bin:/usr/contrib/bin:/usr/local/bin
+rmail
+rnews
+#uucp  -  Not advised uness you trust your neighbors

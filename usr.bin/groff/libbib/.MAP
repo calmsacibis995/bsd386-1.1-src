@@ -1,0 +1,9 @@
+F COMMON.CC;1                       	common.cc
+D GROT                              	grot
+F INDEX.CC;1                        	index.cc
+F LINEAR.CC;1                       	linear.cc
+F MAKEFILE.;1                       	Makefile
+F MAP.C;1                           	map.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/libbib
+F SEARCH.CC;1                       	search.cc
+F TAGS.;1                           	tags

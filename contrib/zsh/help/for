@@ -1,0 +1,28 @@
+      for name [ in word ... ]
+      do list
+      done Expand the list of words, and  set  the  parameter
+	   name  to each of them in turn, executing list each
+	   time.  If the in word is omitted,  use  the  posi-
+	   tional parameters instead of the words.
+
+      for name [ in word ... ] ; sublist
+	   This is a shorthand for for.  Though it may  cause
+	   confusion, it is included for convenience; its use
+	   in scripts is discouraged,  unless  sublist  is  a
+	   command of the form { list }.
+
+      foreach name ( word ... )
+      list
+      end  Another form of for.
+
+      for name in word ...
+      {
+      list
+      }    Another form of for.
+
+      for name ( word ... ) {
+      list
+      }    Another form of for.
+
+      for name ( word ... ) sublist
+	   Another form of for.

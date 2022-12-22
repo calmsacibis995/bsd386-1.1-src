@@ -1,0 +1,8 @@
+F CDSP.1;1                          	cdsp.1
+F CDSP.C;1                          	cdsp.c
+F GETOPT.C;1                        	getopt.c
+F GETOPT.H;1                        	getopt.h
+F GETOPT1.C;1                       	getopt1.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/sblaster/cdsp
+F TAGS.;1                           	tags

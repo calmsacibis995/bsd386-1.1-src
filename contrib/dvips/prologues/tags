@@ -1,0 +1,5 @@
+Msqueeze	squeeze.c	/^main(argc, argv)$/
+cmdout	squeeze.c	/^void cmdout(s)$/
+putchar	squeeze.c	/^#define putchar(a) (void)putc(a, out) ;$/
+specialout	squeeze.c	/^void specialout(c)$/
+strout	squeeze.c	/^void strout(s)$/

@@ -1,0 +1,57 @@
+*** mkdev.h.old	1992/12/30 16:55:50
+--- mkdev.h	1992/12/30 23:35:56
+***************
+*** 65,73 ****
+  
+  
+  static dev_t
+! makedev(maj, min)
+! major_t maj;
+! minor_t min;
+  {
+  int ver;
+  #if !defined(_STYPES)
+--- 65,71 ----
+  
+  
+  static dev_t
+! makedev(major_t maj, minor_t min)
+  {
+  int ver;
+  #if !defined(_STYPES)
+***************
+*** 80,87 ****
+  }
+  
+  static major_t 
+! major(dev)
+! dev_t dev;
+  {
+  int ver;
+  #if !defined(_STYPES)
+--- 78,84 ----
+  }
+  
+  static major_t 
+! major(dev_t dev)
+  {
+  int ver;
+  #if !defined(_STYPES)
+***************
+*** 94,101 ****
+  }
+  
+  static minor_t 
+! minor(dev)
+! dev_t dev;
+  {
+  int ver;
+  #if !defined(_STYPES)
+--- 91,97 ----
+  }
+  
+  static minor_t 
+! minor(dev_t dev)
+  {
+  int ver;
+  #if !defined(_STYPES)

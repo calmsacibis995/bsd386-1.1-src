@@ -1,0 +1,2 @@
+iftoa	iftoa.c	/^char *iftoa(i, decimal_point)$/
+itoa	itoa.c	/^char *itoa(i)$/

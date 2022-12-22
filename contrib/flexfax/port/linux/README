@@ -1,0 +1,35 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/linux/README,v 1.1.1.1 1994/01/14 23:10:31 torek Exp $
+
+The kernel needs a small bugfix - see the file kernel.patch for details.
+This must be applied for all kernels <= pl12.  pl9 and pl10 (and maybe
+pl11) will patch cleanly (with offset lines warnings), but pl12 will
+have to be patched by hand.  I'm still at pl9 myself, so haven't tested
+the patch with pl10-12, but feedback I've received indicates that these
+kernels work correctly after patching.  To install the patch, execute
+the following from the directory in which this file resides:
+	(cd /linux ; patch -p0) < kernel.patch
+
+If you intend sharing the serial port with other programs (uucp, kermit,
+minicom, etc) make sure that the port you supply to faxaddmodem is the
+same as that used by the other programs.  If you want to allow remote
+logins and you are using the cua* devices, you will need to run getty
+with the corresponding ttyS* device.  This is because the cua* devices
+differ in some signal handling respects to the ttyS* devices, and the
+login process suffers.  My config.cua1 has the line:
+	GettyArgs:	"-h ttyS1 %s vt100"
+
+If you are using the RINGBACK feature in getty_ps to allow your phone to
+be used for both voice and data calls, be aware that the standard
+FlexFax distribution does not yet support this feature.  I have a patch
+that supplies a workaround; contact me for details.
+
+I've built this successfully with make 3.62, gcc 2.3.3, 99p9, and have
+received +ve results from users with gcc 2.4.5, 99p12.
+
+If you are using gcc 2.3.3, the tiff library will require at least
+15Mb (RAM + SWAP) and a significant amount of time to compile.  If
+you have the source handy, see the file port/generic/GCC-PATCH.
+
+Problems to pclink@qus102.qld.tne.oz.au or rick@razorback.brisnet.org.au.
+
+Rick.

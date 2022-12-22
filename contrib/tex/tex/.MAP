@@ -1,0 +1,7 @@
+D GROT                              	grot
+D INITEX                            	initex
+F MAKEFIL0.GZ;1                     	Makefile.defs.gz
+F MAKEFIL1.GZ;1                     	Makefile.gz
+D TEX_C_SR                          	tex_c_srcs
+D VIRTEX                            	virtex
+F _DEPEND.GZ;1                      	.depend.gz

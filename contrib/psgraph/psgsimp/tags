@@ -1,0 +1,2 @@
+Mpsgsimp	psgsimp.c	/^main(argc, argv)$/
+Usage	psgsimp.c	/^Usage()$/

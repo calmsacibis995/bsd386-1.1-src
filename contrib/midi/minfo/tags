@@ -1,0 +1,6 @@
+Mminfo	minfo.c	/^main(argc, argv)$/
+print_event_info	minfo.c	/^print_event_info(event, event_size, event_type)$/
+print_normal_event	minfo.c	/^print_normal_event(event)$/
+print_text	minfo.c	/^print_text(event)$/
+process_file	minfo.c	/^process_file(mfile, spec_tracks)$/
+usage	minfo.c	/^usage(program)$/

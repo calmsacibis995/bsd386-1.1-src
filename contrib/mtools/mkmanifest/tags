@@ -1,0 +1,3 @@
+Mmkmanifest	mkmanifest.c	/^main(argc, argv)$/
+dos_name	mkmanifest.c	/^dos_name(name)$/
+strpbrk	mkmanifest.c	/^strpbrk(string, brkset)$/

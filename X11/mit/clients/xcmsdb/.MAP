@@ -1,0 +1,6 @@
+D DATAFILE                          	datafiles
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F LOADDATA.GZ;1                     	loadData.c.gz
+F SCCDFILE.GZ;1                     	SCCDFile.h.gz
+F XCMSDB_C.GZ;1                     	xcmsdb.c.gz
+F XCMSDB_M.GZ;1                     	xcmsdb.man.gz

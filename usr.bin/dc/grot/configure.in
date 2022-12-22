@@ -1,0 +1,6 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(dc.texinfo)
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_HAVE_FUNCS(bcopy bzero)
+AC_OUTPUT(Makefile)

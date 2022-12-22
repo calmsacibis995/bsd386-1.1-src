@@ -1,0 +1,196 @@
+#!/bin/sh
+# Generated automatically by configure.
+# Run this file to recreate the current configuration.
+# This directory was configured as follows,
+# on host hilltop.BSDI.COM:
+#
+# ./configure 
+
+for arg
+do
+  case "$arg" in
+    -recheck | --recheck | --rechec | --reche | --rech | --rec | --re | --r)
+    exec /bin/sh ./configure  ;;
+    *) echo "Usage: config.status --recheck" 2>&1; exit 1 ;;
+  esac
+done
+
+trap 'rm -fr Makefile doc/Makefile config.h conftest*; exit 1' 1 3 15
+VERSION='3.5.2'
+CC='gcc'
+CPP='gcc -E'
+AWK='awk'
+INSTALL='/usr/bin/install -c'
+INSTALL_PROGRAM='$(INSTALL)'
+INSTALL_DATA='$(INSTALL) -m 644'
+LIBS='-ltermcap  -lutil'
+srcdir='.'
+prefix=''
+exec_prefix=''
+prsub=''
+
+top_srcdir=$srcdir
+
+# Allow make-time overrides of the generated file list.
+test -n "$gen_files" || gen_files="Makefile doc/Makefile"
+
+for file in .. $gen_files; do if [ "x$file" != "x.." ]; then
+  srcdir=$top_srcdir
+  # Remove last slash and all that follows it.  Not all systems have dirname.
+  dir=`echo $file|sed 's%/[^/][^/]*$%%'`
+  if test "$dir" != "$file"; then
+    test "$top_srcdir" != . && srcdir=$top_srcdir/$dir
+    test ! -d $dir && mkdir $dir
+  fi
+  echo creating $file
+  rm -f $file
+  echo "# Generated automatically from `echo $file|sed 's|.*/||'`.in by configure." > $file
+  sed -e "
+$prsub
+s%@VERSION@%$VERSION%g
+s%@CC@%$CC%g
+s%@CPP@%$CPP%g
+s%@AWK@%$AWK%g
+s%@INSTALL@%$INSTALL%g
+s%@INSTALL_PROGRAM@%$INSTALL_PROGRAM%g
+s%@INSTALL_DATA@%$INSTALL_DATA%g
+s%@LIBS@%$LIBS%g
+s%@srcdir@%$srcdir%g
+s%@DEFS@%-DHAVE_CONFIG_H%" $top_srcdir/${file}.in >> $file
+fi; done
+test -n "$gen_config" || gen_config=config.h
+echo creating $gen_config
+# These sed commands are put into SEDDEFS when defining a macro.
+# They are broken into pieces to make the sed script easier to manage.
+# They are passed to sed as "A NAME B NAME C VALUE D", where NAME
+# is the cpp macro being defined and VALUE is the value it is being given.
+# Each defining turns into a single global substitution command.
+#
+# SEDd sets the value in "#define NAME VALUE" lines.
+SEDdA='s@^\([ 	]*\)#\([ 	]*define[ 	][ 	]*\)'
+SEDdB='\([ 	][ 	]*\)[^ 	]*@\1#\2'
+SEDdC='\3'
+SEDdD='@g'
+# SEDu turns "#undef NAME" with trailing blanks into "#define NAME VALUE".
+SEDuA='s@^\([ 	]*\)#\([ 	]*\)undef\([ 	][ 	]*\)'
+SEDuB='\([ 	]\)@\1#\2define\3'
+SEDuC=' '
+SEDuD='\4@g'
+# SEDe turns "#undef NAME" without trailing blanks into "#define NAME VALUE".
+SEDeA='s@^\([ 	]*\)#\([ 	]*\)undef\([ 	][ 	]*\)'
+SEDeB='$@\1#\2define\3'
+SEDeC=' '
+SEDeD='@g'
+rm -f conftest.sed
+cat >> conftest.sed <<CONFEOF
+${SEDdA}POSIX${SEDdB}POSIX${SEDdC}1${SEDdD}
+${SEDuA}POSIX${SEDuB}POSIX${SEDuC}1${SEDuD}
+${SEDeA}POSIX${SEDeB}POSIX${SEDeC}1${SEDeD}
+${SEDdA}PID_T_DEFINED${SEDdB}PID_T_DEFINED${SEDdC}1${SEDdD}
+${SEDuA}PID_T_DEFINED${SEDuB}PID_T_DEFINED${SEDuC}1${SEDuD}
+${SEDeA}PID_T_DEFINED${SEDeB}PID_T_DEFINED${SEDeC}1${SEDeD}
+${SEDdA}SIG_T_DEFINED${SEDdB}SIG_T_DEFINED${SEDdC}1${SEDdD}
+${SEDuA}SIG_T_DEFINED${SEDuB}SIG_T_DEFINED${SEDuC}1${SEDuD}
+${SEDeA}SIG_T_DEFINED${SEDeB}SIG_T_DEFINED${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}UID_T_DEFINED${SEDdB}UID_T_DEFINED${SEDdC}1${SEDdD}
+${SEDuA}UID_T_DEFINED${SEDuB}UID_T_DEFINED${SEDuC}1${SEDuD}
+${SEDeA}UID_T_DEFINED${SEDeB}UID_T_DEFINED${SEDeC}1${SEDeD}
+${SEDdA}BSDJOBS${SEDdB}BSDJOBS${SEDdC}1${SEDdD}
+${SEDuA}BSDJOBS${SEDuB}BSDJOBS${SEDuC}1${SEDuD}
+${SEDeA}BSDJOBS${SEDeB}BSDJOBS${SEDeC}1${SEDeD}
+${SEDdA}PTYRANGE0${SEDdB}PTYRANGE0${SEDdC}"pqrsv"${SEDdD}
+${SEDuA}PTYRANGE0${SEDuB}PTYRANGE0${SEDuC}"pqrsv"${SEDuD}
+${SEDeA}PTYRANGE0${SEDeB}PTYRANGE0${SEDeC}"pqrsv"${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}PTYRANGE1${SEDdB}PTYRANGE1${SEDdC}"0123456789abcdef"${SEDdD}
+${SEDuA}PTYRANGE1${SEDuB}PTYRANGE1${SEDuC}"0123456789abcdef"${SEDuD}
+${SEDeA}PTYRANGE1${SEDeB}PTYRANGE1${SEDeC}"0123456789abcdef"${SEDeD}
+${SEDdA}UTHOST${SEDdB}UTHOST${SEDdC}1${SEDdD}
+${SEDuA}UTHOST${SEDuB}UTHOST${SEDuC}1${SEDuD}
+${SEDeA}UTHOST${SEDeB}UTHOST${SEDeC}1${SEDeD}
+${SEDdA}LOADAV_TYPE${SEDdB}LOADAV_TYPE${SEDdC}double${SEDdD}
+${SEDuA}LOADAV_TYPE${SEDuB}LOADAV_TYPE${SEDuC}double${SEDuD}
+${SEDeA}LOADAV_TYPE${SEDeB}LOADAV_TYPE${SEDeC}double${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}LOADAV_NUM${SEDdB}LOADAV_NUM${SEDdC}3${SEDdD}
+${SEDuA}LOADAV_NUM${SEDuB}LOADAV_NUM${SEDuC}3${SEDuD}
+${SEDeA}LOADAV_NUM${SEDeB}LOADAV_NUM${SEDeC}3${SEDeD}
+${SEDdA}LOADAV_SCALE${SEDdB}LOADAV_SCALE${SEDdC}1${SEDdD}
+${SEDuA}LOADAV_SCALE${SEDuB}LOADAV_SCALE${SEDuC}1${SEDuD}
+${SEDeA}LOADAV_SCALE${SEDeB}LOADAV_SCALE${SEDeC}1${SEDeD}
+${SEDdA}SIGVOID${SEDdB}SIGVOID${SEDdC}1${SEDdD}
+${SEDuA}SIGVOID${SEDuB}SIGVOID${SEDuC}1${SEDuD}
+${SEDeA}SIGVOID${SEDeB}SIGVOID${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}BSDWAIT${SEDdB}BSDWAIT${SEDdC}1${SEDdD}
+${SEDuA}BSDWAIT${SEDuB}BSDWAIT${SEDuC}1${SEDuD}
+${SEDeA}BSDWAIT${SEDeB}BSDWAIT${SEDeC}1${SEDeD}
+${SEDdA}TERMIO${SEDdB}TERMIO${SEDdC}1${SEDdD}
+${SEDuA}TERMIO${SEDuB}TERMIO${SEDuC}1${SEDuD}
+${SEDeA}TERMIO${SEDeB}TERMIO${SEDeC}1${SEDeD}
+${SEDdA}GETTTYENT${SEDdB}GETTTYENT${SEDdC}1${SEDdD}
+${SEDuA}GETTTYENT${SEDuB}GETTTYENT${SEDuC}1${SEDuD}
+${SEDeA}GETTTYENT${SEDeB}GETTTYENT${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}USEBCOPY${SEDdB}USEBCOPY${SEDdC}1${SEDdD}
+${SEDuA}USEBCOPY${SEDuB}USEBCOPY${SEDuC}1${SEDuD}
+${SEDeA}USEBCOPY${SEDeB}USEBCOPY${SEDeC}1${SEDeD}
+${SEDdA}USEMEMMOVE${SEDdB}USEMEMMOVE${SEDdC}1${SEDdD}
+${SEDuA}USEMEMMOVE${SEDuB}USEMEMMOVE${SEDuC}1${SEDuD}
+${SEDeA}USEMEMMOVE${SEDeB}USEMEMMOVE${SEDeC}1${SEDeD}
+${SEDdA}DIRENT${SEDdB}DIRENT${SEDdC}1${SEDdD}
+${SEDuA}DIRENT${SEDuB}DIRENT${SEDuC}1${SEDuD}
+${SEDeA}DIRENT${SEDeB}DIRENT${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}USESETENV${SEDdB}USESETENV${SEDdC}1${SEDdD}
+${SEDuA}USESETENV${SEDuB}USESETENV${SEDuC}1${SEDuD}
+${SEDeA}USESETENV${SEDeB}USESETENV${SEDeC}1${SEDeD}
+
+CONFEOF
+# This sed command replaces #undef's with comments.  This is necessary, for
+# example, in the case of _POSIX_SOURCE, which is predefined and required
+# on some systems where configure will not decide to define it in
+# config.h.
+cat >> conftest.sed <<\CONFEOF
+s,^[ 	]*#[ 	]*undef[ 	][ 	]*[a-zA-Z_][a-zA-Z_0-9]*,/* & */,
+CONFEOF
+rm -f conftest.h
+# Break up the sed commands because old seds have small limits.
+maxsedlines=20
+cp $top_srcdir/$gen_config.in conftest.h1
+while :
+do
+  lines=`grep -c . conftest.sed`
+  if test -z "$lines" || test "$lines" -eq 0; then break; fi
+  rm -f conftest.s1 conftest.s2 conftest.h2
+  sed ${maxsedlines}q conftest.sed > conftest.s1 # Like head -20.
+  sed 1,${maxsedlines}d conftest.sed > conftest.s2 # Like tail +21.
+  sed -f conftest.s1 < conftest.h1 > conftest.h2
+  rm -f conftest.s1 conftest.h1 conftest.sed
+  mv conftest.h2 conftest.h1
+  mv conftest.s2 conftest.sed
+done
+rm -f conftest.sed conftest.h
+echo "/* $gen_config.  Generated automatically by configure.  */" > conftest.h
+cat conftest.h1 >> conftest.h
+rm -f conftest.h1
+if cmp -s $gen_config conftest.h 2>/dev/null; then
+  # The file exists and we would not be changing it.
+  rm -f conftest.h
+else
+  rm -f $gen_config
+  mv conftest.h $gen_config
+fi
+
+
+exit 0
+mv config.h conftest
+sed -e 's@^\(.*\)defin.\( .*\) .*/\*\(.*KEEP_UNDEF_HERE\)@\1undef\2	/\*\3@' < conftest > config.h
+rm -f conftest

@@ -1,0 +1,86 @@
+.\"	BSDI $Id: elvis.1,v 1.3 1994/01/15 07:12:58 polk Exp $
+.\"
+.TH ELVIS 1
+.SH NAME
+elvis \- the Elvis editor
+.SH SYNOPSIS
+\fBelvis\fP [\fIflags\fP] [\fB+\fP\fIcmd\fP] [\fIfiles\fP...]
+.SH DESCRIPTION
+\fIElvis\fP is a text editor which emulates \fIvi\fP/\fIex\fP.
+.PP
+When \fIelvis\fP is invoked as \fIelvis\fP or \fIvi\fP,
+it starts up in `visual' mode.
+If you invoke \fIelvis\fP as \fIview\fP,
+then the readonly option is set as though you had given it the
+.B "-R
+flag.
+If you invoke \fIelvis\fP as \fIex\fP,
+then \fIelvis\fP will start up in the colon command mode
+instead of the visual command mode,
+as though you had given it the "-e" flag.
+.SH OPTIONS
+.IP \fB-r\fP
+To the real vi, this flag means that a previous edit should be recovered.
+\fIElvis\fP, though, has a separate program, called \fIelvrec(1)\fP, for recovering
+files.
+When you invoke \fIelvis\fP with -r, \fIelvis\fP will tell you to run \fIelvrec\fP.
+.IP \fB-R\fP
+This sets the `readonly' option,
+so you won't accidentally overwrite a file.
+.IP "\fB-t\fP \fItag\fP"
+This causes \fIelvis\fP to start editing at the given tag.
+.IP "\fB-m\fP [\fIfile\fP]"
+\fIElvis\fP will search through \fIfile\fP for something that looks like
+an error message from a compiler.
+It will then begin editing the source file that caused the error,
+with the cursor sitting on the line where the error was detected.
+If you don't explicitly name a \fIfile\fP, then "errlist" is assumed.
+.IP \fB-e\fP
+\fIElvis\fP will start up in colon command mode.
+.IP \fB-v\fP
+\fIElvis\fP will start up in visual command mode.
+.IP \fB-i\fP
+\fIElvis\fP will start up in input mode.
+.IP "\fB-w\fR \fIwinsize\fR"
+Sets the `window' option's value to \fIwinsize\fR.
+.IP "\fB+\fP\fIcommand\fP or \fB-c\fP \fIcommand\fP"
+If you use the +\fIcommand\fP parameter,
+then after the first file is loaded
+\fIcommand\fP is executed as an \fIex\fP command.
+A typical example would be ``vi +237 foo'',
+which would cause \fIelvis\fP to start editing foo and
+then move directly to line 237.
+.SH FILES
+.IP /var/tmp/elv*
+During editing,
+\fIelvis\fP stores text in a temporary file.
+.IP tags
+This is the database used by the \fI:tags\fP command and the \fB-t\fP option.
+It is usually created by the \fIctags(1)\fP program.
+.IP ".exrc or elvis.rc"
+A file called ".exrc" in your home directory
+is executed as a series of \fIex\fR commands.
+A file by the same name may be executed in the current directory, too.
+.SH "SEE ALSO"
+ctags(1), elvprsv(1), elvrec(1)
+.PP
+\fIElvis - A Clone of Vi/Ex\fP, the complete \fIelvis\fP documentation.
+.SH BUGS
+There is no LISP support.
+Certain other features are missing, too.
+.PP
+Auto-indent mode is not quite compatible with the real vi.
+Among other things, 0^D and ^^D don't do what you might expect.
+.PP
+Long lines are displayed differently.
+The real vi wraps long lines onto multiple rows of the screen,
+but \fIelvis\fP scrolls sideways.
+.SH AUTHOR
+.nf
+Steve Kirkendall
+kirkenda@cs.pdx.edu
+.fi
+.PP
+Many other people have worked to port \fIelvis\fP to various operating systems.
+To see who deserves credit, run the \fI:version\fP command from within \fIelvis\fP,
+or look in the system-specific section of the complete documentation.

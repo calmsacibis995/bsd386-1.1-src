@@ -1,0 +1,9 @@
+F DIRNAMEM.C;1                      	dirnamemax.c
+F EIGN.;1                           	eign
+D GROT                              	grot
+F INDXBIB.CC;1                      	indxbib.cc
+F INDXBIB.MAN;1                     	indxbib.man
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/indxbib
+F SIGNAL.C;1                        	signal.c
+F TAGS.;1                           	tags

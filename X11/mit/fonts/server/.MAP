@@ -1,0 +1,8 @@
+F CONFIG_C.GZ;1                     	config.cpp.gz
+D DIFS                              	difs
+F FS_MAN.GZ;1                       	fs.man.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D INCLUDE                           	include
+D MACFS                             	MacFS
+D OS                                	os
+F README.GZ;1                       	README.gz

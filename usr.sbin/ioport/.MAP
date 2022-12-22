@@ -1,0 +1,5 @@
+F IOPORT.8;1                        	ioport.8
+F IOPORT.C;1                        	ioport.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/ioport
+F TAGS.;1                           	tags

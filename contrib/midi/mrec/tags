@@ -1,0 +1,3 @@
+Mmrec	mrec.c	/^main(argc, argv)$/
+key_press	mrec.c	/^key_press()$/
+usage	mrec.c	/^usage(program)$/

@@ -1,0 +1,169 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	@(#) BSDI $Id: sa.8,v 1.3 1993/12/14 00:02:59 polk Exp $
+.\"
+.Dd January 25, 1993
+.Dt sa 1
+.Os
+.Sh NAME
+.Nm sa
+.Nd process system accounting logs
+.Sh SYNOPSIS
+.Nm sa
+.Fl u
+.Op Fl S Ar saveacctfile
+.Op Fl U Ar usracctfile
+.Op Ar acctfile
+.Pp
+.Nm sa
+.Op Fl s
+.Op Fl abcdDfijkKlmnrt
+.Op Fl v Ar thres
+.Op Fl S Ar saveacctfile
+.Op Fl U Ar usracctfile
+.Op Ar acctfile
+.Sh DESCRIPTION
+The
+.Nm sa
+utility is used to maintain and generate reports from the system
+accounting files.
+.Pp
+The summary accounting file
+is read before the accounting file so the report includes previous
+system data.
+.Pp
+The optional argument
+.Ar acctfile
+overrides the default system accounting file
+.Pa /var/account/acct .
+By default
+.Nm sa
+will sort by cpu time.
+.Pp
+The default output fields are labeled:
+.Bl -tag -width Ds -compact
+.It cpu
+sum of the user plus system time in minutes;
+.It re
+real (wall clock) time in minutes;
+.It k
+unused in the current implementation;
+.It avio
+average number of I/O operations per execution;
+.It cnt
+number of times the executable was executed.
+.El
+.Pp
+The optional field labels are:
+.Bl -tag -width Ds -compact
+.It pct
+percent of of total time;
+.It tio
+total I/O operations;
+.It k*sec
+CPU memory usage integral in kilo-core seconds;
+.It u
+user time in minutes;
+.It s
+system time in minutes;
+.It re/cpu
+real (wall clock) time divided by cpu time in minutes.
+.El
+.Pp
+The flags are as follows:
+.Bl -tag -width Ds
+.It Fl a
+Print all command names.  By default command names containing unprintable
+characters and those used only once are placed under
+.Ql ***other .
+.It Fl b
+Sort by average cpu time used (cpu divided by cnt).
+.It Fl c
+Add the percent field (labeled pct) that is the percentage of total
+time used by this command.
+.It Fl d
+Sort by average number of I/O operations (avio).
+.It Fl D
+Print and sort by the total number of I/O operations (tio, replaces avio).
+.It Fl f
+Force compression of junk files if using the
+.Fl v
+flag.
+.It Fl i
+Ignore the summary file and only report the contents of the
+.Ar acctfile .
+.It Fl j
+Report cpu field as seconds per execution.
+.It Fl k
+Sort by CPU-time average memory usage.
+.It Fl K
+Print and sort by the CPU memory usage integral (k*sec).
+.It Fl l
+Print user and system time separately (under the u and s fields, replacing
+the cpu field).
+.It Fl m
+Summarize system resource usage by user.  Some of the other flags don't
+make sense with this option.
+.It Fl n
+Sort by number of executions (cnt).
+.It Fl r
+Reverse the order of any sort.
+.It Fl s
+Merge the accounting records from
+.Ar acctfile
+into the summary files
+.Ar savacctfile
+and
+.Ar usracctfile .
+.It Fl t
+Print the ration of real (wall clock) time to cpu (re/cpu)
+.It Fl u
+Print the command name and user ID for each record in the accounting file.
+Overrides any other flags.
+.It Fl v
+This argument allows you to filter out garbage.
+.Nm Sa
+will prompt you for each command that was executed less than
+.Ar thres
+times.  Responding with a y will cause that record to be added to the 
+.Ql ***junk
+category.  You can force this behavior using the
+.Fl f
+flag.
+.It Fl S
+Override the default accounting summary file
+.Pa /var/account/savacct .
+.It Fl U
+Override the default per-user accounting file
+.Pa /var/account/usracct
+(printed by -m).
+.El
+.Pp
+The
+.Nm sa
+utility exits 0 on success, and >0 if an error occurs.
+.Sh FILES
+.Bl -tag -width /var/account/usracct -compact
+.It Pa /var/account/acct
+system accounting file
+.It Pa /var/account/savacct
+accounting summary by command
+.It Pa /var/account/usracct
+accounting summary by user ID
+.El
+.Sh SEE ALSO
+.Xr accton 1 ,
+.Xr acct 2 ,
+.Xr acct 5
+.Sh HISTORY
+A
+.Nm sa
+command appeared in Version 7 AT&T UNIX.  This
+.Nm sa
+was written by
+.hy 0
+Andrew H. Marrinson <andy@terasil.terasil.com>.
+.hy

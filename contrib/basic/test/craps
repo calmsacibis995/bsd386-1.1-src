@@ -1,0 +1,45 @@
+ 10 rem program to estimate the probability of winning in the game
+ 20 rem of craps.
+ 30
+ 40 rem written by:      henry d. shapiro
+ 50 rem                  cs 150  sec 007
+ 60 rem                  09/29/81
+ 70
+ 80 rem the rules of the game of craps are (these may not be exactly
+ 90 rem correct, since i'm not much of a gambler):
+100 rem on the first roll of the dice if you get a 2, 3, or 12 you lose.
+110 rem on the first roll of the dice if you get a 7 or 11 you win.
+120 rem on the first roll anything else determines your 'point'.
+130 rem you continue to roll until either
+140 rem   1) you get a 7 -- you lose
+150 rem   2) you get your point again -- you win
+160
+170 rem program works by simulating 10000 games of craps, taking the
+180 rem ratio of the number of wins to the number of games played.
+190
+200 rem variable dicitionary
+210 rem   d1 - the value on die one
+220 rem   d2 - the value on die two
+230 rem   p  - the value on the first roll
+240 rem   p1 - the value on all subsequent rolls
+250 rem   w  - count of the number of games won
+260 rem   i  - which game is currently being played (loop control variable)
+270
+280 let w=0
+290 for i=1 to 10000
+300   let d1=int(rnd*6)+1
+310   let d2=int(rnd*6)+1
+320   let p=d1+d2
+330   if p<=3 or p=12 then 430
+340   if p=7  or p=11 then 420
+350   rem roll indefinitely until game is either won or lost
+360     let d1=int(rnd*6)+1
+370     let d2=int(rnd*6)+1
+380     let p1=d1+d2
+390     if p1=7 then 430
+400     if p<>p1 then goto 360
+410     rem won -- got my point or came here from 340 (roll one won)
+420   let w=w+1
+430 next i
+440 print "the chances of winning in the game of craps are about";w/10000
+450 end

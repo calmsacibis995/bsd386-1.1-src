@@ -1,0 +1,7 @@
+D FIXWRITE                          	fixwrites
+D GROT                              	grot
+F MAKEFIL0.GZ;1                     	Makefile.defs.gz
+F MAKEFIL1.GZ;1                     	Makefile.gz
+D REGFIX                            	regfix
+D SPLITUP                           	splitup
+D WEB2C                             	web2c

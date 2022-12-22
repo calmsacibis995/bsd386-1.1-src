@@ -1,0 +1,183 @@
+ACU_Open	Diallers.c	/^ACU_Open($/
+BuildParTab	Connect.c	/^BuildParTab($/
+BuildProtocols	Control.c	/^BuildProtocols($/
+CallOK	Status.c	/^CallOK($/
+ChkDebug	cico_args.c	/^ChkDebug()$/
+CloseACU	Connect.c	/^CloseACU()$/
+CommitSeq	Sequence.c	/^CommitSeq()$/
+Connect	Connect.c	/^Connect()$/
+Control	Control.c	/^Control($/
+CreateActive	do_cico.c	/^CreateActive($/
+Delay	Diallers.c	/^Delay($/
+DoTermios	uu_termios.c	/^DoTermios($/
+ExpandTelno	Connect.c	/^ExpandTelno($/
+ExplainMesg	Control.c	/^ExplainMesg($/
+FindCmds	Control.c	/^FindCmds($/
+GetCmdArgs	Control.c	/^GetCmdArgs($/
+GetNextCmd	Control.c	/^GetNextCmd($/
+GetNxtSeq	Sequence.c	/^GetNxtSeq($/
+Gturnon	g_proto.c	/^Gturnon()$/
+ISCNTRL	g_proto.c	/^#define	ISCNTRL(a)	((a&0300)==0)	\/* Control packe/
+InMesg	Mesg.c	/^InMesg($/
+LOOP	Diallers.c	/^#define	LOOP(n)		{ register long N = (n); while ( /
+MAXRETRIES	f_proto.c	/^#define MAXRETRIES(A)	(A < 10000L ? 2 : 1)$/
+MakeTmp	Control.c	/^MakeTmp($/
+MatchProtocols	Control.c	/^MatchProtocols($/
+Mmain	main.c	/^main($/
+NextDevice	Diallers.c	/^NextDevice($/
+OpenVC	Connect.c	/^OpenVC($/
+OutMesg	Mesg.c	/^OutMesg($/
+Reenable	Diallers.c	/^Reenable()$/
+ReportRate	Control.c	/^ReportRate($/
+SendBRK	Diallers.c	/^SendBRK($/
+SendLine	Connect.c	/^SendLine($/
+SetRaw	do_cico.c	/^SetRaw($/
+SetupTty	Diallers.c	/^SetupTty($/
+StartProtocol	Control.c	/^StartProtocol($/
+Startup	Control.c	/^Startup($/
+Status	Status.c	/^Status(va_alist)$/
+Timeout	Connect.c	/^Timeout(int sig)$/
+TtyIndex	do_cico.c	/^#define TtyIndex(a)	("0123456789abcdefghijklmnopqr/
+UUDELAY	Diallers.c	/^#define UUDELAY(num,denom)	intervaldelay(num,denom/
+UnlockSeq	Sequence.c	/^UnlockSeq()$/
+Uucp	do_cico.c	/^Uucp($/
+WriteVC	Connect.c	/^WriteVC($/
+X25lock	do_cico.c	/^X25lock()$/
+X25unlock	do_cico.c	/^X25unlock()$/
+acceptpkt	g_proto.c	/^acceptpkt()$/
+ackpkts	g_proto.c	/^ackpkts()$/
+anyread	Control.c	/^anyread($/
+bufferdata	g_proto.c	/^bufferdata($/
+busyloop	Diallers.c	/^busyloop($/
+catch_alarm	t_proto.c	/^catch_alarm(int sig)$/
+catch_rd_alarm	g_proto.c	/^catch_rd_alarm()$/
+catchsig	do_cico.c	/^catchsig(int sig)$/
+check_access	do_cico.c	/^check_access($/
+checklist	Control.c	/^checklist($/
+checkperm	Control.c	/^checkperm($/
+chkdatasize	g_proto.c	/^chkdatasize($/
+chksum	chksum.c	/^chksum($/
+cico_args	cico_args.c	/^cico_args($/
+close_dev	Diallers.c	/^close_dev(int fd)$/
+close_status	Status.c	/^close_status()$/
+cnnt_acct	do_cico.c	/^cnnt_acct()$/
+corrupt	Control.c	/^corrupt($/
+dflt_rd_msg	Control.c	/^dflt_rd_msg($/
+dflt_wr_msg	Control.c	/^dflt_wr_msg($/
+dircls	Diallers.c	/^dircls($/
+diropn	Diallers.c	/^diropn($/
+disable	Diallers.c	/^disable($/
+do_cico	do_cico.c	/^do_cico()$/
+dochat	Connect.c	/^dochat($/
+docontrol	g_proto.c	/^docontrol($/
+drop_dtr	Diallers.c	/^drop_dtr(int fd)$/
+enable	Diallers.c	/^enable($/
+exchange_hups	Control.c	/^exchange_hups($/
+expect	Connect.c	/^expect($/
+explainArgs	cico_args.c	/^explainArgs(PassVal val, Pointer ptr, char * str)$/
+explainVn	cico_args.c	/^explainVn(PassVal val, Pointer ptr, char * str)$/
+falarm	f_proto.c	/^falarm(int sig)$/
+fdig	Diallers.c	/^fdig($/
+filecat	Control.c	/^filecat($/
+find_work	do_cico.c	/^find_work()$/
+finish	do_cico.c	/^finish(int error)$/
+fioclex	Connect.c	/^fioclex($/
+frdblk	f_proto.c	/^frdblk($/
+frdbuf	f_proto.c	/^frdbuf($/
+frddata	f_proto.c	/^frddata($/
+frdmsg	f_proto.c	/^frdmsg($/
+freepool	g_proto.c	/^freepool($/
+ftimedelay	Diallers.c	/^ftimedelay($/
+fturnoff	f_proto.c	/^fturnoff()$/
+fturnon	f_proto.c	/^fturnon()$/
+fwrblk	f_proto.c	/^fwrblk($/
+fwrdata	f_proto.c	/^fwrdata($/
+fwrmsg	f_proto.c	/^fwrmsg($/
+getDebug	do_cico.c	/^getDebug(PassVal val, Pointer ptr, char * str)$/
+getGrade	do_cico.c	/^getGrade(PassVal val, Pointer ptr, char * str)$/
+getMyNode	cico_args.c	/^getMyNode(PassVal val, Pointer ptr, char * str)$/
+getPARAMSfile	cico_args.c	/^getPARAMSfile(PassVal val, Pointer ptr, char * str/
+getRemote	cico_args.c	/^getRemote(PassVal val, Pointer ptr, char * str)$/
+getRole	cico_args.c	/^getRole(PassVal val, Pointer ptr, char * str)$/
+getSPOOLDIR	cico_args.c	/^getSPOOLDIR(PassVal val, Pointer ptr, char * str)$/
+getSRemote	cico_args.c	/^getSRemote(PassVal val, Pointer ptr, char * str)$/
+getTurn	cico_args.c	/^getTurn(PassVal val, Pointer ptr, char * str)$/
+getnextfd	Connect.c	/^getnextfd()$/
+getpool	g_proto.c	/^getpool($/
+grdblk	g_proto.c	/^grdblk($/
+grddata	g_proto.c	/^grddata($/
+grdmsg	g_proto.c	/^grdmsg($/
+gturnoff	g_proto.c	/^gturnoff()$/
+gturnon	g_proto.c	/^gturnon()$/
+gwrblk	g_proto.c	/^#define		gwrblk(A,B)		writedata(A, B)$/
+gwrdata	g_proto.c	/^gwrdata($/
+gwrmsg	g_proto.c	/^gwrmsg($/
+ignArg	cico_args.c	/^ignArg(PassVal val, Pointer ptr, char * str)$/
+ignore	do_cico.c	/^ignore(int sig)$/
+init	g_proto.c	/^init($/
+intervaldelay	Diallers.c	/^intervaldelay($/
+isdir	Control.c	/^isdir($/
+isoctal	Connect.c	/^#define isoctal(x)	((x >= '0') && (x <= '7'))$/
+lastpart	Control.c	/^lastpart($/
+login	Connect.c	/^login($/
+logsize	g_proto.c	/^logsize($/
+mail_arrived	Control.c	/^mail_arrived($/
+mail_err	Control.c	/^mail_err($/
+mail_notice	Control.c	/^mail_notice($/
+master_init	do_cico.c	/^master_init()$/
+min	t_proto.c	/^#define min(a,b)	(((a)<(b))?(a):(b))$/
+name_prog	do_cico.c	/^name_prog($/
+nap	Diallers.c	/^nap($/
+newstatus	Control.c	/^newstatus($/
+nodev	Diallers.c	/^nodev()$/
+notin	Connect.c	/^notin($/
+null_func	Control.c	/^null_func()$/
+nullcls	Diallers.c	/^nullcls(int fd)$/
+nullerror	do_cico.c	/^nullerror($/
+nullopn	Diallers.c	/^nullopn(char *ph, char **flds, Device *dev)$/
+onintr	do_cico.c	/^onintr(int sig)$/
+open_dev	Diallers.c	/^open_dev(char *name)$/
+open_status	Status.c	/^open_status($/
+orphan_uuxqt	Control.c	/^orphan_uuxqt()$/
+output	g_proto.c	/^output()$/
+pktfail	g_proto.c	/^pktfail()$/
+pktsize	g_proto.c	/^pktsize($/
+process	do_cico.c	/^process()$/
+prt_cntrl	g_proto.c	/^prt_cntrl(char c)$/
+prt_state	g_proto.c	/^prt_state($/
+putcount	Sequence.c	/^putcount($/
+putinpub	Control.c	/^putinpub($/
+putpool	g_proto.c	/^putpool($/
+readVC	g_proto.c	/^readVC($/
+readdata	g_proto.c	/^readdata($/
+readline	do_cico.c	/^readline($/
+readpause	g_proto.c	/^readpause($/
+receive_msg	Control.c	/^receive_msg($/
+recvpkt	g_proto.c	/^recvpkt()$/
+rescan	Control.c	/^rescan()$/
+reset	g_proto.c	/^reset()$/
+restoretty	do_cico.c	/^restoretty()$/
+send_msg	Control.c	/^send_msg($/
+sendpkt	g_proto.c	/^sendpkt($/
+set_line_types	do_cico.c	/^set_line_types()$/
+setaudit	do_cico.c	/^setaudit(Audit type)$/
+setup	Diallers.c	/^setup()$/
+setupline	Control.c	/^setupline($/
+slave_init	do_cico.c	/^slave_init()$/
+slow_write	Diallers.c	/^slow_write($/
+terminate	g_proto.c	/^terminate()$/
+test_nologin	do_cico.c	/^test_nologin()$/
+timeout	do_cico.c	/^timeout(int sig)$/
+toggle_trace	do_cico.c	/^toggle_trace(int sig)$/
+trdblk	t_proto.c	/^trdblk($/
+trddata	t_proto.c	/^trddata($/
+trdmsg	t_proto.c	/^trdmsg($/
+twrblk	t_proto.c	/^twrblk($/
+twrdata	t_proto.c	/^twrdata($/
+twrmsg	t_proto.c	/^twrmsg($/
+unlinkdf	Control.c	/^unlinkdf($/
+update_turntime	Control.c	/^update_turntime()$/
+validate_node	do_cico.c	/^validate_node()$/
+wprefix	Connect.c	/^wprefix($/
+writedata	g_proto.c	/^writedata($/
+wrong_role	Control.c	/^wrong_role($/

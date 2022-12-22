@@ -1,0 +1,50 @@
+.TH chew 1 "12 June 1992"
+.IX chew
+.SH NAME
+.PP
+chew \- convert between signed and unsigned byte formats
+
+.SH SYNOPSIS
+.PP
+\f3chew\f1
+[\f3-help \f1]
+[\f3-left \f1]
+[\f3-right \f1]
+[\f3-direct \f1]
+[\f3-input \f2filename\f1]
+[\f3-output \f2filename\f1]
+
+.SH DESCRIPTION
+.PP
+
+\fIchew\fP reads signed or unsigned bytes and converts them to the
+other format.  This is useful for programs like csound that output
+signed bytes (range -127 to 128).  \fIchew\fP will turn these to
+signed bytes (range 0 to 255).  \fIchew\fP can also be used to convert
+in the other direction because it simply rotates values by 128.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.
+.TP
+.B -help
+Display some help on command options.
+.TP
+.B -left
+Extract only the left channel (even numbered bytes) of a stereo sound file.
+.TP
+.B -right
+Extract only the right channel (odd numbered bytes).  This can also be
+used to extract just the high bytes of a sound file stored as short
+integers.
+.TP
+.B -direct
+Send the resulting data directly to /dev/sb_dsp instead of stdout.
+.TP
+.B -input \f2filename\f1
+Read input from \f2filename\f1 instead of stdin.
+.TP
+.B -output \f2filename\f1
+Write results to \f2filename\f1 instead of stdout.
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

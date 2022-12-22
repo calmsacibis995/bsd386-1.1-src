@@ -1,0 +1,6 @@
+COMPUTE	crc.c	/^#define	COMPUTE(var, ch)	(var) = (var) << 8 ^ crct/
+Mcdctl	cdctl.c	/^main(argc, argv)$/
+crcbuf	crc.c	/^crcbuf(buf, len)$/
+print_toc	cdctl.c	/^print_toc(cdinfo)$/
+print_toc_hash	cdctl.c	/^print_toc_hash(cdinfo)$/
+usage	cdctl.c	/^usage()$/

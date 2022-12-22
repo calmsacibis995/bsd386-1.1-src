@@ -1,0 +1,88 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: vgafont.1,v 1.1.1.1 1993/03/09 15:13:03 polk Exp $
+.Dd March 2, 1993
+.Dt VGAFONT 1
+.Os
+.Sh NAME
+.Nm vgafont
+.Nd load EGA/VGA fonts
+.Sh SYNOPSIS
+.Nm vgafont
+.Op Ar fontname
+.Sh DESCRIPTION
+.Nm Vgafont
+is used to load and restore text-mode fonts on EGA/VGA display adapters.
+By default
+.Nm vgafont
+loads
+a VGA font named
+.Pa default ;
+this may be overridden with the environment variable
+.Ev VGAFONT .
+.Pp
+If
+.Ar fontname
+does not contain a
+.Dq /
+character,
+.Nm vgafont
+will look for the font file relative to the directory
+.Pa /usr/share/vgafont ;
+otherwise it will treat
+.Ar fontname
+as a pathname.
+.Pp
+The font file should
+contain character bitmap lines of the form:
+.Bd -literal -offset indent
+<char-code>: <line1> <line2> ... <lineN>
+.Ed
+.Pp
+where
+.Ar char-code
+is the hexadecimal code of a character, and
+.Ar line1 ,
+.Ar line2
+and so on
+are hexadecimal bitmaps for the character scan lines.
+The least significant bit corresponds to the left side,
+and scan lines are listed from top to bottom.
+The file may contain comments.
+Comments start with a
+.Dq #
+character and run to the end of the line.
+Blank lines or lines containing only a comment are ignored.
+.Pp
+The default VGA character cell size is 8 columns by
+16 lines; dots in the 8th column can be duplicated in the
+9th column by hardware.
+EGA and CGA/MDA cell sizes are 8x14 and 8x8 correspondingly.
+If a character definition string contains fewer line octets
+than are used by the video adapter, the lower part of the cell
+will be loaded with zeroes.
+Extra line octets are ignored.
+.Sh ENVIRONMENT
+If the following environment variable exists, it is utilized by
+.Nm vgafont .
+.Bl -tag -width Fl
+.It Ev VGAFONT
+Contains the name of a font which will be used instead of
+.Pa default .
+.El
+.Sh FILES
+.Bl -tag -width /usr/share/vgafont -compact
+.It Pa /usr/share/vgafont
+directory for the font files
+.It Pa /dev/vga
+VGA device file
+.El
+.Sh SEE ALSO
+.Xr pccons 4 ,
+.Xr environ 7
+.Sh HISTORY
+The
+.Nm vgafont
+command is
+.Ud .

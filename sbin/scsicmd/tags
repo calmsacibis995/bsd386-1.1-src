@@ -1,0 +1,32 @@
+Mmain	main.c	/^main(argc, argv)$/
+_bomb	bomb.c	/^_bomb(va_alist)$/
+_complain	bomb.c	/^_complain(va_alist)$/
+compute_disklabel	main.c	/^compute_disklabel()$/
+display_pm	main.c	/^display_pm(pmp)$/
+execute_command	main.c	/^execute_command()$/
+extract_bf	main.c	/^extract_bf(parm, display)$/
+extract_pm	main.c	/^extract_pm(pmp)$/
+getpm	main.c	/^getpm(parm)$/
+inquiry_code	support.c	/^inquiry_code(pmp)$/
+mode_select_cmd	support.c	/^mode_select_cmd()$/
+mode_sense_cmd	support.c	/^mode_sense_cmd()$/
+print_disklabel	main.c	/^print_disklabel(lp)$/
+print_parameters	main.c	/^print_parameters(parm_list)$/
+prompt	main.c	/^prompt(s)$/
+read_cmd	support.c	/^read_cmd()$/
+read_data_cmd	support.c	/^read_data_cmd()$/
+read_var_cmd	support.c	/^read_var_cmd()$/
+request_sense_code	support.c	/^request_sense_code(pmp)$/
+restore_default	support.c	/^restore_default(parm, pv)$/
+save_default	support.c	/^save_default(parm, pv)$/
+scsi_cmd	support.c	/^scsi_cmd(iofunc)$/
+scsi_sense	support.c	/^scsi_sense()$/
+search_command	main.c	/^search_command(command)$/
+set_parameters	main.c	/^set_parameters(parm_list)$/
+sprintasc	support.c	/^sprintasc(asc, ascq)$/
+start_command	main.c	/^start_command(command)$/
+store_pm	main.c	/^store_pm(pmp)$/
+usage	main.c	/^usage()$/
+warntape	main.c	/^warntape(s)$/
+write_cmd	support.c	/^write_cmd()$/
+write_disklabel	main.c	/^write_disklabel(lp)$/

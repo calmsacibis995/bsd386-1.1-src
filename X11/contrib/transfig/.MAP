@@ -1,0 +1,10 @@
+F CHANGES.GZ;1                      	CHANGES.gz
+F COPYRIGH.GZ;1                     	copyright.gz
+D DOC                               	doc
+D FIG2DEV                           	fig2dev
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F NOTES.GZ;1                        	NOTES.gz
+F PATCHLEV.GZ;1                     	patchlevel.h.gz
+F README.GZ;1                       	README.gz
+D TRANSFIG                          	transfig

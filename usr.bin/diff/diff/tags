@@ -1,0 +1,217 @@
+AT_STRINGS_BEG	regex.c	/^#define AT_STRINGS_BEG(d) ((d) == (size1 ? string1/
+AT_STRINGS_END	regex.c	/^#define AT_STRINGS_END(d) ((d) == end2)	$/
+AT_WORD_BOUNDARY	regex.c	/^#define AT_WORD_BOUNDARY(d)						\\$/
+BUF_PUSH	regex.c	/^#define BUF_PUSH(c)							\\$/
+BUF_PUSH_2	regex.c	/^#define BUF_PUSH_2(c1, c2)						\\$/
+BUF_PUSH_3	regex.c	/^#define BUF_PUSH_3(c1, c2, c3)						\\$/
+DEBUG_POP	regex.c	/^#define DEBUG_POP(item_addr) *(item_addr) = POP_FA/
+DEBUG_PRINT1	regex.c	/^#define DEBUG_PRINT1(x) if (debug) printf (x)$/
+DEBUG_PRINT2	regex.c	/^#define DEBUG_PRINT2(x1, x2) if (debug) printf (x1/
+DEBUG_PRINT3	regex.c	/^#define DEBUG_PRINT3(x1, x2, x3) if (debug) printf/
+DEBUG_PRINT4	regex.c	/^#define DEBUG_PRINT4(x1, x2, x3, x4) if (debug) pr/
+DEBUG_PRINT_COMPILED_PATTERN	regex.c	/^#define DEBUG_PRINT_COMPILED_PATTERN(p, s, e) 				/
+DEBUG_PRINT_DOUBLE_STRING	regex.c	/^#define DEBUG_PRINT_DOUBLE_STRING(w, s1, sz1, s2, /
+DEBUG_PUSH	regex.c	/^#define DEBUG_PUSH(item)$/
+DEBUG_STATEMENT	regex.c	/^#define DEBUG_STATEMENT(e) e$/
+DOUBLE_FAIL_STACK	regex.c	/^#define DOUBLE_FAIL_STACK(fail_stack)					\\$/
+EVER_MATCHED_SOMETHING	regex.c	/^#define EVER_MATCHED_SOMETHING(R)  ((R).bits.ever_/
+EXTEND_BUFFER	regex.c	/^#define EXTEND_BUFFER()							\\$/
+EXTRACT_NUMBER	regex.c	/^#define EXTRACT_NUMBER(destination, source)				\\$/
+EXTRACT_NUMBER_AND_INCR	regex.c	/^#define EXTRACT_NUMBER_AND_INCR(destination, sourc/
+FAIL_STACK_EMPTY	regex.c	/^#define FAIL_STACK_EMPTY()     (fail_stack.avail =/
+FAIL_STACK_FULL	regex.c	/^#define FAIL_STACK_FULL()      (fail_stack.avail =/
+FAIL_STACK_PTR_EMPTY	regex.c	/^#define FAIL_STACK_PTR_EMPTY() (fail_stack_ptr->av/
+FAIL_STACK_TOP	regex.c	/^#define FAIL_STACK_TOP()       (fail_stack.stack[f/
+FIRST_STRING_P	regex.c	/^#define FIRST_STRING_P(ptr) 					\\$/
+FREE_VAR	regex.c	/^#define FREE_VAR(var) if (var) free (var); var = N/
+FREE_VARIABLES	regex.c	/^#define FREE_VARIABLES()						\\$/
+GET_BUFFER_SPACE	regex.c	/^#define GET_BUFFER_SPACE(n)						\\$/
+GET_UNSIGNED_NUMBER	regex.c	/^#define GET_UNSIGNED_NUMBER(num) 					\\$/
+GUESS_LINES	io.c	/^#define GUESS_LINES(n,s,t) (((t) - (s)) \/ ((n) < /
+HASH	io.c	/^#define HASH(h, c) ((c) + ROL (h, 7))$/
+INIT_FAIL_STACK	regex.c	/^#define INIT_FAIL_STACK()						\\$/
+INSERT_JUMP	regex.c	/^#define INSERT_JUMP(op, loc, to) \\$/
+INSERT_JUMP2	regex.c	/^#define INSERT_JUMP2(op, loc, to, arg) \\$/
+ISALNUM	regex.c	/^#define ISALNUM(c) (isascii (c) && isalnum (c))$/
+ISALPHA	regex.c	/^#define ISALPHA(c) (isascii (c) && isalpha (c))$/
+ISBLANK	regex.c	/^#define ISBLANK(c) (isascii (c) && isblank (c))$/
+ISCNTRL	regex.c	/^#define ISCNTRL(c) (isascii (c) && iscntrl (c))$/
+ISDIGIT	regex.c	/^#define ISDIGIT(c) (isascii (c) && isdigit (c))$/
+ISGRAPH	regex.c	/^#define ISGRAPH(c) (isascii (c) && isgraph (c))$/
+ISLOWER	regex.c	/^#define ISLOWER(c) (isascii (c) && islower (c))$/
+ISPRINT	regex.c	/^#define ISPRINT(c) (isascii (c) && isprint (c))$/
+ISPUNCT	regex.c	/^#define ISPUNCT(c) (isascii (c) && ispunct (c))$/
+ISSPACE	regex.c	/^#define ISSPACE(c) (isascii (c) && isspace (c))$/
+ISUPPER	regex.c	/^#define ISUPPER(c) (isascii (c) && isupper (c))$/
+ISXDIGIT	regex.c	/^#define ISXDIGIT(c) (isascii (c) && isxdigit (c))$/
+IS_ACTIVE	regex.c	/^#define IS_ACTIVE(R)  ((R).bits.is_active)$/
+IS_CHAR_CLASS	regex.c	/^#define IS_CHAR_CLASS(string)						\\$/
+MATCHED_SOMETHING	regex.c	/^#define MATCHED_SOMETHING(R)  ((R).bits.matched_so/
+MAX	regex.c	/^#define MAX(a, b) ((a) > (b) ? (a) : (b))$/
+MIN	regex.c	/^#define MIN(a, b) ((a) < (b) ? (a) : (b))$/
+Mdiff	diff.c	/^main (argc, argv)$/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+PATFETCH	regex.c	/^#define PATFETCH(c)							\\$/
+PATFETCH_RAW	regex.c	/^#define PATFETCH_RAW(c)							\\$/
+POINTER_TO_OFFSET	regex.c	/^#define POINTER_TO_OFFSET(ptr)			\\$/
+POP_FAILURE_ITEM	regex.c	/^#define POP_FAILURE_ITEM() fail_stack.stack[--fail/
+POP_FAILURE_POINT	regex.c	/^#define POP_FAILURE_POINT(str, pat, low_reg, high_/
+PREFETCH	regex.c	/^#define PREFETCH()							\\$/
+PUSH_FAILURE_ITEM	regex.c	/^#define PUSH_FAILURE_ITEM(item)						\\$/
+PUSH_FAILURE_POINT	regex.c	/^#define PUSH_FAILURE_POINT(pattern_place, string_p/
+PUSH_PATTERN_OP	regex.c	/^#define PUSH_PATTERN_OP(pattern_op, fail_stack)			/
+REGEX_REALLOCATE	regex.c	/^#define REGEX_REALLOCATE(source, osize, nsize) rea/
+REGEX_TALLOC	regex.c	/^#define REGEX_TALLOC(n, t) ((t *) REGEX_ALLOCATE (/
+REG_MATCH_NULL_STRING_P	regex.c	/^#define REG_MATCH_NULL_STRING_P(R)  ((R).bits.matc/
+REG_UNSET	regex.c	/^#define REG_UNSET(e) ((e) == REG_UNSET_VALUE)$/
+RETALLOC	regex.c	/^#define RETALLOC(addr, n, t) ((addr) = (t *) reall/
+RETALLOC_IF	regex.c	/^#define RETALLOC_IF(addr, n, t) \\$/
+ROL	io.c	/^#define ROL(v, n) ((v) << (n) | (v) >> (UINT_BIT -/
+SET_LIST_BIT	regex.c	/^#define SET_LIST_BIT(c)                           /
+SET_REGS_MATCHED	regex.c	/^#define SET_REGS_MATCHED()						\\$/
+SIGN_EXTEND_CHAR	regex.c	/^#define SIGN_EXTEND_CHAR(c) ((signed char) (c))$/
+STORE_JUMP	regex.c	/^#define STORE_JUMP(op, loc, to) \\$/
+STORE_JUMP2	regex.c	/^#define STORE_JUMP2(op, loc, to, arg) \\$/
+STORE_NUMBER	regex.c	/^#define STORE_NUMBER(destination, number)				\\$/
+STORE_NUMBER_AND_INCR	regex.c	/^#define STORE_NUMBER_AND_INCR(destination, number)/
+STREQ	regex.c	/^#define STREQ(s1, s2) ((strcmp (s1, s2) == 0))$/
+SYNTAX	regex.c	/^#define SYNTAX(c) re_syntax_table[c]$/
+TALLOC	regex.c	/^#define TALLOC(n, t) ((t *) malloc ((n) * sizeof (/
+TRANSLATE	regex.c	/^#define TRANSLATE(d) (translate ? translate[(unsig/
+WORDCHAR_P	regex.c	/^#define WORDCHAR_P(d)							\\$/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_change	analyze.c	/^add_change (line0, line1, deleted, inserted, old)$/
+add_exclude	diff.c	/^add_exclude (pattern)$/
+add_exclude_file	diff.c	/^add_exclude_file (name)$/
+add_regexp	diff.c	/^add_regexp (reglist, pattern)$/
+alt_match_null_string_p	regex.c	/^alt_match_null_string_p (p, end, reg_info)$/
+analyze_hunk	util.c	/^analyze_hunk (hunk, first0, last0, first1, last1, /
+assert	regex.c	/^#define assert(e)$/
+at_begline_loc_p	regex.c	/^at_begline_loc_p (pattern, p, syntax)$/
+at_endline_loc_p	regex.c	/^at_endline_loc_p (p, pend, syntax)$/
+bcmp	regex.c	/^#define bcmp(s1, s2, n)	memcmp ((s1), (s2), (n))$/
+bcmp_translate	regex.c	/^bcmp_translate (s1, s2, len, translate)$/
+bcopy	regex.c	/^#define bcopy(s, d, n)	memcpy ((d), (s), (n))$/
+begin_output	util.c	/^begin_output ()$/
+binary_file_p	io.c	/^#define binary_file_p(buf, size) (size != 0 && mem/
+briefly_report	analyze.c	/^briefly_report (changes, filevec)$/
+buffer_lcm	cmpbuf.c	/^buffer_lcm (a, b)$/
+build_reverse_script	analyze.c	/^build_reverse_script (filevec)$/
+build_script	analyze.c	/^build_script (filevec)$/
+bzero	regex.c	/^#define bzero(s, n)	memset ((s), 0, (n))$/
+change_letter	util.c	/^change_letter (inserts, deletes)$/
+ck_atoi	diff.c	/^ck_atoi (str, out)$/
+common_op_match_null_string_p	regex.c	/^common_op_match_null_string_p (p, end, reg_info)$/
+compare_files	diff.c	/^compare_files (dir0, name0, dir1, name1, depth)$/
+compare_names	dir.c	/^compare_names (file1, file2)$/
+compareseq	analyze.c	/^compareseq (xoff, xlim, yoff, ylim, minimal)$/
+compile_range	regex.c	/^compile_range (p_ptr, pend, translate, syntax, b)$/
+concat	util.c	/^concat (s1, s2, s3)$/
+debug_script	util.c	/^debug_script (sp)$/
+diag	analyze.c	/^diag (xoff, xlim, yoff, ylim, minimal, part)$/
+diff_2_files	analyze.c	/^diff_2_files (filevec, depth)$/
+diff_dirs	dir.c	/^diff_dirs (filevec, handle_file, depth)$/
+dir_file_pathname	util.c	/^dir_file_pathname (dir, file)$/
+dir_sort	dir.c	/^dir_sort (dir, dirdata)$/
+discard_confusing_lines	analyze.c	/^discard_confusing_lines (filevec)$/
+error	util.c	/^error (format, arg, arg1)$/
+exchange	getopt.c	/^exchange (argv)$/
+excluded_filename	diff.c	/^excluded_filename (f)$/
+extract_number	regex.c	/^extract_number (dest, source)$/
+extract_number_and_incr	regex.c	/^extract_number_and_incr (destination, source)$/
+fatal	util.c	/^fatal (m)$/
+filetype	diff.c	/^filetype (st)$/
+find_and_hash_each_line	io.c	/^find_and_hash_each_line (current)$/
+find_change	util.c	/^find_change (start)$/
+find_function	context.c	/^find_function (file, linenum, linep, lenp)$/
+find_hunk	context.c	/^find_hunk (start)$/
+find_identical_ends	io.c	/^find_identical_ends (filevec)$/
+find_reverse_change	util.c	/^find_reverse_change (start)$/
+finish_output	util.c	/^finish_output ()$/
+format_group	ifdef.c	/^format_group (out, format, endchar, groups)$/
+format_ifdef	ifdef.c	/^format_ifdef (format, beg0, end0, beg1, end1)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+group_in_compile_stack	regex.c	/^group_in_compile_stack (compile_stack, regnum)$/
+group_match_null_string_p	regex.c	/^group_match_null_string_p (p, end, reg_info)$/
+groups_letter_value	ifdef.c	/^groups_letter_value (g, letter)$/
+init_syntax_once	regex.c	/^init_syntax_once ()$/
+insert_op1	regex.c	/^insert_op1 (op, loc, arg, end)$/
+insert_op2	regex.c	/^insert_op2 (op, loc, arg1, arg2, end)$/
+isascii	regex.c	/^#define isascii(c) 1$/
+line_cmp	util.c	/^line_cmp (s1, len1, s2, len2)$/
+mark_ignorable	context.c	/^mark_ignorable (script)$/
+memchr	util.c	/^memchr (s, c, n)$/
+message	util.c	/^message (format, arg1, arg2)$/
+message5	util.c	/^message5 (format, arg1, arg2, arg3, arg4)$/
+my_index	getopt.c	/^my_index (str, chr)$/
+option_list	diff.c	/^option_list (optionvec, count)$/
+output_1_line	util.c	/^output_1_line (text, limit, flag_format, line_flag/
+perror_with_name	util.c	/^perror_with_name (text)$/
+pfatal_with_name	util.c	/^pfatal_with_name (text)$/
+pr_context_hunk	context.c	/^pr_context_hunk (hunk)$/
+pr_forward_ed_hunk	ed.c	/^pr_forward_ed_hunk (hunk)$/
+pr_forward_ed_script	ed.c	/^pr_forward_ed_script (script)$/
+pr_unidiff_hunk	context.c	/^pr_unidiff_hunk (hunk)$/
+prepare_text_end	io.c	/^prepare_text_end (current)$/
+print_1_line	util.c	/^print_1_line (line_flag, line)$/
+print_1sdiff_line	side.c	/^print_1sdiff_line (left, sep, right)$/
+print_compiled_pattern	regex.c	/^print_compiled_pattern (bufp)$/
+print_context_header	context.c	/^print_context_header (inf, unidiff_flag)$/
+print_context_label	context.c	/^print_context_label (mark, inf, label)$/
+print_context_number_range	context.c	/^print_context_number_range (file, a, b)$/
+print_context_script	context.c	/^print_context_script (script, unidiff_flag)$/
+print_double_string	regex.c	/^print_double_string (where, string1, size1, string/
+print_ed_hunk	ed.c	/^print_ed_hunk (hunk)$/
+print_ed_script	ed.c	/^print_ed_script (script)$/
+print_fastmap	regex.c	/^print_fastmap (fastmap)$/
+print_half_line	side.c	/^print_half_line (line, indent, out_bound)$/
+print_ifdef_hunk	ifdef.c	/^print_ifdef_hunk (hunk)$/
+print_ifdef_lines	ifdef.c	/^print_ifdef_lines (out, format, group)$/
+print_ifdef_script	ifdef.c	/^print_ifdef_script (script)$/
+print_message_queue	util.c	/^print_message_queue ()$/
+print_normal_hunk	normal.c	/^print_normal_hunk (hunk)$/
+print_normal_script	normal.c	/^print_normal_script (script)$/
+print_number_range	util.c	/^print_number_range (sepchar, file, a, b)$/
+print_partial_compiled_pattern	regex.c	/^print_partial_compiled_pattern (start, end)$/
+print_rcs_hunk	ed.c	/^print_rcs_hunk (hunk)$/
+print_rcs_script	ed.c	/^print_rcs_script (script)$/
+print_script	util.c	/^print_script (script, hunkfun, printfun)$/
+print_sdiff_common_lines	side.c	/^print_sdiff_common_lines (limit0, limit1)$/
+print_sdiff_hunk	side.c	/^print_sdiff_hunk (hunk)$/
+print_sdiff_script	side.c	/^print_sdiff_script (script)$/
+print_unidiff_number_range	context.c	/^print_unidiff_number_range (file, a, b)$/
+re_comp	regex.c	/^re_comp (s)$/
+re_compile_fastmap	regex.c	/^re_compile_fastmap (bufp)$/
+re_compile_pattern	regex.c	/^re_compile_pattern (pattern, length, bufp)$/
+re_exec	regex.c	/^re_exec (s)$/
+re_match	regex.c	/^re_match (bufp, string, size, pos, regs)$/
+re_match_2	regex.c	/^re_match_2 (bufp, string1, size1, string2, size2, /
+re_search	regex.c	/^re_search (bufp, string, size, startpos, range, re/
+re_search_2	regex.c	/^re_search_2 (bufp, string1, size1, string2, size2,/
+re_set_registers	regex.c	/^re_set_registers (bufp, regs, num_regs, starts, en/
+re_set_syntax	regex.c	/^re_set_syntax (syntax)$/
+read_files	io.c	/^read_files (filevec, pretend_binary)$/
+regcomp	regex.c	/^regcomp (preg, pattern, cflags)$/
+regerror	regex.c	/^regerror (errcode, preg, errbuf, errbuf_size)$/
+regex_compile	regex.c	/^regex_compile (pattern, size, syntax, bufp)$/
+regexec	regex.c	/^regexec (preg, string, nmatch, pmatch, eflags)$/
+regfree	regex.c	/^regfree (preg)$/
+scan_char_literal	ifdef.c	/^scan_char_literal (lit, intptr)$/
+scan_printf_spec	ifdef.c	/^scan_printf_spec (spec)$/
+setup_output	util.c	/^setup_output (name0, name1, depth)$/
+shift_boundaries	analyze.c	/^shift_boundaries (filevec)$/
+sip	io.c	/^sip (current, skip_test)$/
+slurp	io.c	/^slurp (current)$/
+specify_format	diff.c	/^specify_format (var, value)$/
+specify_style	diff.c	/^specify_style (style)$/
+store_op1	regex.c	/^store_op1 (op, loc, arg)$/
+store_op2	regex.c	/^store_op2 (op, loc, arg1, arg2)$/
+tab_from_to	side.c	/^tab_from_to (from, to)$/
+translate_line_number	util.c	/^translate_line_number (file, lnum)$/
+translate_range	util.c	/^translate_range (file, a, b, aptr, bptr)$/
+usage	diff.c	/^usage (reason)$/
+xmalloc	util.c	/^xmalloc (size)$/
+xrealloc	util.c	/^xrealloc (old, size)$/

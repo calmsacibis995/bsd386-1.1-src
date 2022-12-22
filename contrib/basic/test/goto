@@ -1,0 +1,8 @@
+100	goto 110
+110	goto 130
+120	print x
+130	goto 170
+140	x = 1
+150	goto 155
+160	stop
+170	goto 140

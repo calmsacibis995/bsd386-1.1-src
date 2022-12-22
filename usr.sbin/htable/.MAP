@@ -1,0 +1,8 @@
+F HTABLE.8;1                        	htable.8
+F HTABLE.C;1                        	htable.c
+F HTABLE.H;1                        	htable.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/htable
+F PARSE.Y;1                         	parse.y
+F SCAN.L;1                          	scan.l
+F TAGS.;1                           	tags

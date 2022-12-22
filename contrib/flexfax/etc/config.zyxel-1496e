@@ -1,0 +1,73 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.zyxel-1496e,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for a ZyXEL-1496E.  Firmware revisions from
+# 5.02 on should work, though rev 6.01 works much better.
+#
+# This configuration file sets up the ZyXEL to run at 38.4 for
+# both sending and receiving.  RTS/CTS flow control is used on
+# the tty port--you probably shouldn't use XON/XOFF.  Note that
+# on an SGI system the getty speed is the following non-standard
+# gettydefs entry:
+#
+# dx_38400# B38400 # B38400 SANE TAB3 HUPCL #\r\n\n$HOSTNAME login: #dx_38400
+#
+# CONFIG: CLASS2: ZyXEL*
+#
+CountryCode:		1
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class2		# use class 2 interface
+ModemRate:		38400		# 38.4 works fine
+#GettyArgs:		"-h %l dx_%s"	# NB: enable this for dialins
+ModemFlowControl:	rtscts
+ModemFlowControlCmd:	&H3		# hardware flow control
+ModemSetupDTRCmd:	&D2		# DTR off causes modem to hang up
+ModemSetupDCDCmd:	&C1		# DCD tracks carrier
+ModemSetupAACmd:	+FAA=1		# enable in current class
+#
+ModemSendFillOrder:	LSB2MSB		# as expected
+ModemRecvFillOrder:	MSB2LSB		# opposite of what makes sense
+Class2RecvDataTrigger:	"\022"		# a la 2388-B
+#
+# Additional reset commands:
+#
+# &B1	  DTE-DCE rate is fixed at DTE setting
+# &N0	  Auto-negotiate highest possible DCE-DCE link rate
+# &S0	  DSR always on
+# *F0	  Deny remote configuration
+# S18=2	  Receive at 38400
+# S38.3=1 DCD on/off sequence follows UNIX standard; also
+#	  fix receiving baud rate at S18 value
+# S39=0	  (avoid Class 2 compatibility hacks)
+# 
+ModemResetCmds:		&B1&N0&S0*F0S18=2S38.3=1S39=0
+#
+# We normally append the "@" symbol to the dial string so that
+# the modem will wait 5 seconds before attempting to connect
+# and return result codes that distinguish between no carrier
+# and no answer.  This makes it possible to avoid problems with
+# repeatedly dialing a number that doesn't have a fax machine
+# (kudos to Stuart Lynne for this trick.)
+#
+# Unfortunately, ZyXEL's don't seem to detect a busy signal when
+# the @ symbol is used to terminate the dialing string.  Instead
+# calls to a busy line come back with a NO CARRIER status which
+# causes us to toss the job.  Consequently we fall back to the
+# normal method and raise the number of retries on a no carrier
+# status.  ZyXEL claims that this behaviour is not a bug, but 
+# rather that we are requesting ``an enhancement'' (never mind
+# that their manual says that it should work).
+#
+ModemDialCmd:		DT%s		# no '@' 'cuz then busy not recognized
+NoCarrierRetrys:	3		# retry 3 times on no carrier

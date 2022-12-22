@@ -1,0 +1,780 @@
+.\" midi.4 MBD
+.TH MIDI 4 "18 February 1992"
+.SH NAME
+midi \- Music Quest MIDI board compatible devices
+.SH SYNOPSIS
+.nf
+.B #include <sys/ioctl.h>
+.B #include <sys/midiioctl.h>
+.fi
+.SH DESCRIPTION
+.LP
+.SM MIDI\s0,
+Musical Instrument Digital Interface, allows control of various
+musical instruments and non-musical devices.
+For instance, it allows a keyboard on a synthesizer to control
+a drum machine, a drum machine to control a
+lighting rack or a
+.SM MIDI
+guitar to control a multi-track recorder.
+This is an interface to the Music Quest
+.SM PC
+.SM MIDI
+board.
+Since the Music Quest board is based on the
+Roland 
+.SM MPU\s0-401
+.SM MIDI
+board, which appears to be the industry standard,
+it should be highly compatible with other boards.
+Through the
+.SM MIDI
+device, you can send out
+.SM MIDI
+commands to your
+.SM MIDI
+equipment as well as read the data they produce.
+.LP
+The Music Quest
+.SM PC
+.SM MIDI
+board can operate in two modes.
+The default mode is the intelligent mode.
+In this mode the board will time stamp all
+events it receives before passing the data on to the
+.SM PC.
+These time stamps are bytes in the range
+0 \- 0xef that tell how many clock ticks have
+occurred since the last event it received.
+The duration of a tick is dependent on
+the current tempo setting and the current
+ticks per beat resolution.
+If the timer should overflow, a message
+is sent saying as much and the timer is
+reset.
+.LP
+When in intelligent mode, the board also
+expects all outgoing data to contain
+a timing byte.
+This allows the board to do the necessary
+real-time synchronization music requires.
+The same data the board generates can be
+saved and sent back to the board at a
+later time to reproduce exactly what was
+played.
+The board has eight
+.I play tracks
+which have their own separate timing clocks,
+any combination of which can be active at
+the same time.
+It also has a
+.I conductor track
+that acts in a similar way to the
+.I play tracks,
+but instead of sending
+.SM MIDI
+commands at a specified time, it
+sends a board command.
+.LP
+The other mode the
+.SM MIDI
+board can operate in is called
+.SM UART
+mode.
+In this mode the board does not time stamp
+events and does not expect events sent to
+it to be time stamped.
+It just passes what it gets on the
+.SM MIDI
+in port to the
+.SM PC,
+and anything the
+.SM PC
+sends it to the
+.SM MIDI
+out port.
+.LP
+When in intelligent mode, the
+.SM MIDI
+board has more operational states than you
+can shake a stick at.
+These states are controlled through board
+commands which are sent through either
+.SM IOCTL
+calls
+or through the
+.I conductor track.
+When using the
+.I conductor track,
+you should use the value specified with the
+.SM IOCTL,
+and not the
+.SM IOCTL
+define itself.
+This is because the
+.SM IOCTL
+defines are long values with extra information
+encoded with them, and the board command is
+only the listed byte.
+The
+.SM IOCTL\s0's
+are as follows:
+.SS IOCTLs for MIDI
+.TS
+tab(|);
+l l l lw(2.5i).
+\fBIOCTL\fP|Value|Argument|Description
+\fBFIONBIO\fP|N/A|u_char|T{
+Selects either blocking or non-blocking
+i/o.
+See fcntl(2).
+T}
+\fBMCLRQ\fP|N/A|u_char|T{
+Clear anything queued for play in any
+.I play tracks.
+Aborts any writes that may have blocked.
+These writes will return 0.
+T}
+\fBMRESET\fP|0xff|None|T{
+Resets the board and restores it
+to its power on condition.
+T}
+\fBMUART\fP|0x3f|None|T{
+Puts the board in UART mode.
+After this command the board will
+ignore all others except
+.BR MRESET .
+T}
+\fBMSTART\fP|0x0a|None|T{
+Sends a
+.SM MIDI
+start command through the
+.SM MIDI
+out port and resets and starts the timers on selected
+.I play tracks.
+Use
+.B MCLRPC
+and
+.B MCLRQ
+to start at beginning
+of sequence.
+Use
+.B MSELTRKS
+to select which
+.I play tracks
+will be active.
+T}
+\fBMCONT\fP|0x0b|None|T{
+Sends a
+.SM MIDI
+continue command through the
+.SM MIDI
+out port and starts the timers
+on selected
+.I play tracks.
+Use this command to start playback
+after a
+.BR MSTOP .
+T}
+\fBMSTOP\fP|0x05|None|T{
+Sends a
+.SM MIDI
+stop command through the
+.SM MIDI
+out port and stops the
+timers on the active
+.I play tracks.
+T}
+\fBMRECSTART\fP|0x22|None|T{
+Sends a
+.SM MIDI
+start command through the
+.SM MIDI
+out port and puts the board
+into recording mode.
+Any data received will be time
+stamped and can be read from
+.BR /dev/midicntl .
+T}
+\fBMRECSTDBY\fP|0x20|None|T{
+Board is ready to receive and
+time-stamp data.
+Board will send a
+.SM MIDI
+start command through the
+.SM MIDI
+out port when it receives
+either MSTART or MCONT, or
+external
+.SM MIDI
+control is in effect and a
+.SM MIDI
+start or continue command arrives
+at
+.SM MIDI
+in.
+T}
+\fBMRECCONT\fP|0x23|None|T{
+Sends
+.SM MIDI
+continue command through the
+.SM MIDI
+out port and time stamps incoming
+data.
+T}
+\fBMRECSTOP\fP|0x11|None|T{
+Sends a
+.SM MIDI
+stop command through the
+.SM MIDI
+out port and ignores incoming data
+unless
+.BR MSTOPTRANON .
+T}
+\fBMSTARTANDREC\fP|0x2a|None|T{
+A combination of
+.B MSTART
+and
+.BR MRECSTART .
+It resets and starts timers on selected
+.I play tracks
+and time stamps incoming data.
+T}
+\fBMCONTANDREC\fP|0x2b|None|T{
+A combination of
+.B MCONT
+and
+.BR MRECCONT .
+It starts without resetting timers on selected
+.I play tracks
+and time stamps incoming data.
+T}
+\fBMSTARTANDSTDBY\fP|0x28|None|T{
+A combination of
+.B MSTART
+and
+.BR MRECSTDBY .
+It resets and starts timers on selected
+.I play tracks
+and enters
+.B MRECSTDBY
+mode.
+T}
+\fBMSTOPANDREC\fP|0x15|None|T{
+A combination of
+.B MSTOP
+and
+.BR MRECSTOP .
+It stops active
+.I play tracks
+and
+stops time stamping incoming data.
+Incoming data is ignored.
+T}
+\fBMSNDSTART\fP|0x02|None|T{
+Sends
+.SM MIDI
+start command through
+.SM MIDI
+out port.
+It does not start
+.I play tracks.
+T}
+\fBMSNDSTOP\fP|0x01|None|T{
+Sends a
+.SM MIDI
+stop command to the
+.SM MIDI
+out port.
+T}
+\fBMSNDCONT\fP|0x03|None|T{
+Sends
+.SM MIDI
+continue command through
+.SM MIDI
+out port.
+It does not start
+.I play tracks.
+T}
+\fBMALLOFF\fP|0x30|None|T{
+Sends note offs for all notes
+currently on.
+Not implemented on the Music Quest board.
+T}
+\fBMRTMOFF\fP|0x32|None|T{
+Turns off real time messages.
+This stops the board from sending
+.SM MIDI
+clocks to
+.SM MIDI
+out and keeps the board from sending
+.SM MIDI
+start, stop and continue messages
+with the
+.B MSTART MSTOP
+and
+.B MCONT
+commands.
+Once disabled, real time messages can only be
+re-enabled by resetting the board with
+.BR MRESET .
+T}
+\fBMTIMEON\fP|0x34|None|T{
+Turns on time stamping of
+incoming data when stopped.
+.B MSTOPTRANON
+must also be active.
+To leave this mode, the board must
+be reset by a
+.B MRESET
+command.
+T}
+\fBMEXTCONTOFF\fP|0x90|None|T{
+Board will ignore
+.SM MIDI
+start, stop and continue messages it receives.
+T}
+\fBMEXTCONTON\fP|0x91|None|T{
+Board will receive and act on
+.SM MIDI
+start, stop and continue messages it receives.
+This is the default power on condition.
+T}
+\fBMSTOPTRANOFF\fP|0x8a|None|T{
+The board will ignore data it receives when
+stopped.
+T}
+\fBMSTOPTRANON\fP|0x8b|None|T{
+The board will pass any data it receives when
+stopped.
+The data will be time stamped with the timing byte set to
+0x00 if
+.B MTIMEON
+is active.
+T}
+\fBMCLRPC\fP|0xb8|None|T{
+This clears the plays counters on the
+board.
+Active tracks set with
+.B MSELTRKS
+will be loaded.
+Do this before an
+.B MPLAY
+command to start at the beginning of a sequence.
+T}
+\fBMCLRPM\fP|0xb9|None|T{
+This clears the play map track table, whatever that is.
+It also sends note off messages for all notes known to
+be on.
+T}
+\fBMCLRRECCNT\fP|0xba|None|T{
+This resets the record counter.
+T}
+\fBMCONDOFF\fP|0x8e|None|T{
+This disables the
+.I conductor track.
+The power on default is to have the
+.I conductor track
+disabled.
+T}
+\fBMCONDON\fP|0x8f|None|T{
+This enables the
+.I conductor track.
+The
+.I conductor track
+acts in a manner similar to the
+.I play tracks.
+T}
+\fBMRESETRELTMP\fP|0xb1|None|T{
+This resets the relative tempo to the power up value of
+0x40.
+T}
+\fBMMETOFF\fP|0x84|None|T{
+This turns the metronome off.
+No sound will be produced on the metronome output jack.
+T}
+\fBMMETACNTOFF\fP|0x83|None|T{
+Turns metronome on with accents off.
+Only the beginning of measures are accented.
+T}
+\fBMMETACNTON\fP|0x85|None|T{
+Turns metronome on with accents on.
+The beginning beat of a measure is most accented,
+succeeding beats are marked with clicks of alternating
+volume.
+T}
+\fBMMEASENDOFF\fP|0x8c|None|T{
+The board will not send measure end messages during
+recording.
+Default state is measure ends enabled.
+T}
+\fBMMEASENDON\fP|0x8d|None|T{
+The board will send measure end messages.
+The end of a measure is determined by
+.B MSETMETFRQ
+and
+.BR MSETBPM .
+T}
+\fBMCLKINTRN\fP|0x80|None|T{
+The board will use its internal clocks.
+T}
+\fBMCLKMIDI\fP|0x82|None|T{
+The board will use the external
+.SM MIDI
+clock.
+T}
+\fBMRES48\fP|0xc2|None|T{
+This sets the board resolution to
+48 ticks per beat.
+T}
+\fBMRES72\fP|0xc3|None|T{
+This sets the board resolution to
+72 ticks per beat.
+T}
+\fBMRES96\fP|0xc4|None|T{
+This sets the board resolution to
+96 ticks per beat.
+T}
+\fBMRES120\fP|0xc5|None|T{
+This sets the board resolution to
+120 ticks per beat.
+This is the default power on setting.
+T}
+\fBMRES144\fP|0xc6|None|T{
+This sets the board resolution to
+144 ticks per beat.
+T}
+\fBMRES168\fP|0xc7|None|T{
+This sets the board resolution to
+168 ticks per beat.
+T}
+\fBMRES192\fP|0xc8|None|T{
+This sets the board resolution to
+192 ticks per beat.
+T}
+\fBMCLKPCOFF\fP|0x94|None|T{
+This disables clock to
+.SM PC
+messages.
+This is the default power on state.
+T}
+\fBMCLKPCON\fP|0x95|None|T{
+This enables clock to
+.SM PC
+messages.
+The board will send clock to
+.SM PC
+messages
+at the clock to
+.SM PC
+rate.
+T}
+\fBMSYSTHRU\fP|0x37|None|T{
+Sends
+.SM MIDI
+system exclusive messages from
+.SM MIDI
+in through to the
+.SM MIDI
+out port.
+To clear this mode you must reset the board
+with
+.BR MRESET .
+T}
+\fBMTHRUOFF\fP|0x33|None|T{
+The board will not pass
+data from
+.SM MIDI
+in through to the
+.SM MIDI
+out port.
+T}
+\fBMBADTHRU\fP|0x88|None|T{
+The board will send unacceptable channel messages
+from the
+.SM MIDI
+in through to the
+.SM MIDI
+out port.
+T}
+\fBMALLTHRU\fP|0x89|None|T{
+The board will pass all channel messages from
+the
+.SM MIDI
+in through to the
+.SM MIDI
+out port.
+T}
+\fBMMODEPC\fP|0x35|None|T{
+Enables mode messages to the
+.SM PC.
+This forces the board to send
+channel control messages to the
+.SM PC.
+Once enabled, the only way to disable them
+is to reset the board with a
+.BR MRESET .
+T}
+\fBMCOMMPC\fP|0x38|None|T{
+This enables system common messages to be sent to the
+.SM PC.
+Once enabled, the only way to disable them
+is to reset the board with a
+.BR MRESET .
+T}
+\fBMIDIRTPC\fP|0x39|None|T{
+This allows all external
+.SM MIDI
+start, continue and stop commands
+to be sent to the PC as system messages.
+Once enabled, the only way to disable them
+is to reset the board with a
+.BR MRESET .
+T}
+\fBMIDICONTPCOFF\fP|0x86|None|T{
+This disables continuous controller messages.
+These messages include: polyphonic key pressure/after
+touch, control change for controllers 0 \- 63,
+channel pressure/after touch and pitch bend change messages.
+T}
+\fBMIDICONTPCON\fP|0x87|None|T{
+This enables continuous controller messages.
+This is the default power on condition.
+T}
+\fBMIDISYSPCOFF\fP|0x96|None|T{
+This command filters out all system exclusive
+messages from reaching the
+.SM PC.
+This is the default power on condition.
+T}
+\fBMIDISYSPCON\fP|0x97|None|T{
+This command sends all systems exclusive messages
+received to the
+.SM PC.
+If
+.B MSYSTHRU
+was enabled, it is disabled.
+T}
+\fBMIDISELTRKS\fP|0xec|u_char|T{
+Select which
+.I play tracks
+are active.
+Each bit specifies a
+.I play track
+with the least significant bit being
+.I play track 0
+and a 1 meaning the track
+is active.
+New active tracks won't take effect until
+the next
+.BR MCRLPC .
+I think.
+T}
+\fBMSNDPLAYCNT\fP|0xed|u_char|T{
+This command selects which
+.I play track
+counters will
+be sent when recording begins after the board
+is playing.
+These values can be used to synchronize overdubbing.
+The values will be sent in ascending
+.I play track
+order.
+Default power up condition is to not send any
+counters.
+T}
+\fBMSELCHN8\fP|0xee|u_char|T{
+Select channels 1 to 8.
+Each bit is a channel with the
+.SM LSB
+being channel 1 and a 1 meaning the channel
+is selected.
+T}
+\fBMSELCHN16\fP|0xee|u_char|T{
+Select channels 9 to 16.
+Each bit is a channel with the
+.SM LSB
+being channel 9 and a 1 meaning the channel
+is selected.
+T}
+\fBMSETBASETMP\fP|0xe0|u_char|T{
+Set the base tempo value in beats per minute.
+Values less than 8 will be forced up to
+8 and values greater than 250 will be
+forced down to 250.
+The default value is 100.
+T}
+\fBMSETRELTMP\fP|0xe1|u_char|T{
+Set the relative tempo value.
+The value is a one byte fixed point scalar
+used to multiply the base tempo to determine
+the actual tempo.
+The number is represented with the two high
+order bits representing the whole number
+and the low six bits representing the fraction.
+Thus a value of 0x40 represents a scalar of
+one.
+This is the power on default value.
+T}
+\fBMSETRELTMPGRD\fP|0xe2|u_char|T{
+Set how long it will take to change to the
+relative tempo multiplied by base tempo value.
+A value of zero means a change in relative tempo
+will take effect immediately.
+If non-zero the value is added to the base tempo
+every metronome beat until the target tempo is
+reached.
+T}
+\fBMSETMETFRQ\fP|0xe4|u_char|T{
+Set the metronome frequency.
+The value specifies the number of
+.SM MIDI
+clock ticks per metronome click.
+Since
+.SM MIDI
+clocking runs at the rate of 24 ticks
+per quarter note, setting the metronome
+frequency value to 24 will cause the metronome
+to click on every quarter note.
+The power on default is 12, which causes the
+metronome to click every eighth note.
+T}
+\fBMSETBPM\fP|0xe6|u_char|T{
+This sets the number of beats per measure.
+This is used in determining accents for the
+metronome.
+T}
+\fBMCLKPCRATE\fP|0xe7|u_char|T{
+This determines the frequency of clock to
+.SM PC
+messages.
+The default is 120.
+T}
+\fBMSETREMAP\fP|0xe8|u_char|T{
+Allows the board to remap events on
+one channel to another.
+The high order nibble of the argument
+specifies the input channel.
+The low order nibble of the argument
+specifies the channel on which channel
+the input should go out.
+T}
+\fBMMESTRK[0-7]\fP|T{
+0xd0 \-
+.br
+0xd7
+T}|MIDI_MESS|T{
+Send a message to a non-active
+.I play track.
+.SM MIDI_MESS
+is a structure that contains a pointer to the
+message (in unsigned char's) and a value containing
+the number of bytes in the message.
+T}
+\fBMMESSYS\fP|0xdf|MIDI_MESS|T{
+Send a system message to
+.SM MIDI
+out.
+The system messages that can be sent are:
+system exclusive, song position pointer, song select
+and tune request messages.
+T}
+\fBMREQPC[0-7]\fP|T{
+0xa0 \-
+.br
+0xa7
+T}|u_char|T{
+Gets the
+.I play track
+counter for the specified
+.I play track.
+T}
+\fBMREQRCCLR\fP|0xab|u_char|T{
+Returns the record counter and immediately resets it.
+T}
+\fBMREQVER\fP|0xac|u_char|T{
+Gets the board's
+firmware
+version.
+T}
+\fBMREQREV\fP|0xad|u_char|T{
+Gets the board's
+firmware
+revision.
+T}
+\fBMREQTMP\fP|0xaf|u_char|T{
+Gets the current active tempo.
+T}
+\fBMCLKFSK\fP|0x81|None|T{
+Use Frequency Shift Keying for the board's timing.
+Not implemented.
+T}
+\fBMFSKINTRN\fP|0x92|None|T{
+Use internal FSK.
+Not implemented.
+T}
+\fBMFSKMIDI\fP|0x93|None|T{
+Use external FSK.
+Not implemented.
+T}
+.TE
+.LP
+To allow for easier specification of the
+.I play tracks
+and board control,
+the device is represented in different parts with different minor
+numbers.
+Minor numbers 0 \- 7 represent the
+.I play tracks
+0 \- 7 respectively.
+These are write only devices and only allow the blocking
+.SM IOCTL.
+Most
+.SM IOCTL\s0's
+are done through the control device, which has a minor number of 128.
+This is also the device that you use to read from the board.
+Device number 8 is the
+.I conductor track
+device.
+It is used for sending timed board control messages.
+You write the timing byte and the message to it, and
+use it to read any replies the board generates if the
+command returns a value.
+The
+.I play track
+devices are named
+.B /dev/midi0
+through
+.BR /dev/midi7 ,
+the control device
+.B /dev/midicntl
+and the conductor
+.BR /dev/midicond .
+Only one process is allowed to open the control device and the conductor
+device at a time, while
+any number of processes may open the
+.I play tracks.
+This is to keep different processes from interfering with each
+other by changing the state of the board.
+.SH FILES
+.nf
+.B /dev/midi0
+.B /dev/midi1
+.B /dev/midi2
+.B /dev/midi3
+.B /dev/midi4
+.B /dev/midi5
+.B /dev/midi6
+.B /dev/midi7
+.B /dev/midicond
+.B /dev/midicntl
+.fi
+.SH SEE ALSO
+.BR ioctl (2),
+.BR fcntl (2)
+.SH BUGS
+.LP
+There is currently no support for send system messages and non-active
+.I play track
+messages through the
+.I conductor track.

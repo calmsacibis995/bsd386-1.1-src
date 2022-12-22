@@ -1,0 +1,16 @@
+F GLIMITS.H;1                       	glimits.h
+F GSTDARG.H;1                       	gstdarg.h
+F GSTDDEF.H;1                       	gstddef.h
+F GSYSLIMI.H;1                      	gsyslimits.h
+F GVARARGS.H;1                      	gvarargs.h
+F VA_ALPHA.H;1                      	va-alpha.h
+F VA_CLIPP.H;1                      	va-clipper.h
+F VA_H8300.H;1                      	va-h8300.h
+F VA_I860.H;1                       	va-i860.h
+F VA_I960.H;1                       	va-i960.h
+F VA_M88K.H;1                       	va-m88k.h
+F VA_MIPS.H;1                       	va-mips.h
+F VA_PA.H;1                         	va-pa.h
+F VA_PYR.H;1                        	va-pyr.h
+F VA_SPARC.H;1                      	va-sparc.h
+F VA_SPUR.H;1                       	va-spur.h

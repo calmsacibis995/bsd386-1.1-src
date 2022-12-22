@@ -1,0 +1,118 @@
+FLUSH_BLOCK	deflate.c	/^#define FLUSH_BLOCK(eof) \\$/
+INSERT_STRING	deflate.c	/^#define INSERT_STRING(s, match_head) \\$/
+LG	zipfile.c	/^#define LG(a) ((ulg)SH(a) | ((ulg)SH((a)+2) << 16)/
+MAX	trees.c	/^#define MAX(a,b) (a >= b ? a : b)$/
+MIN	deflate.c	/^#define MIN(a,b) ((a) <= (b) ? (a) : (b))$/
+Mzip	zip.c	/^void main(argc, argv)$/
+PUTBYTE	bits.c	/^#define PUTBYTE(b) \\$/
+PUTLG	zipfile.c	/^#define PUTLG(a,f) {PUTSH(a,f) PUTSH((a) >> 16,f)}/
+PUTSH	zipfile.c	/^#define PUTSH(a,f) {putc((char)(a),(f)); putc((cha/
+SH	zipfile.c	/^#define SH(a) (((ush)(uch)(a)[0]) | (((ush)(uch)(a/
+UPDATE_HASH	deflate.c	/^#define UPDATE_HASH(h,c) (h = (((h)<<H_SHIFT) ^ (c/
+bi_init	bits.c	/^void bi_init (zipfile)$/
+bi_reverse	bits.c	/^unsigned bi_reverse(code, len)$/
+bi_windup	bits.c	/^void bi_windup()$/
+build_bl_tree	trees.c	/^local int build_bl_tree()$/
+build_tree	trees.c	/^local void build_tree(desc)$/
+check_match	deflate.c	/^local void check_match(start, match, length)$/
+closed	fileio.c	/^local void closed(d)$/
+cmptime	fileio.c	/^local int cmptime(p, q)$/
+copy_block	bits.c	/^void copy_block(buf, len, header)$/
+crc32	util.c	/^ulg crc32(c, b)$/
+ct_init	trees.c	/^void ct_init(attr, method)$/
+cutpath	zipfile.c	/^local char *cutpath(p)$/
+d_code	trees.c	/^#define d_code(dist) \\$/
+deflate	deflate.c	/^ulg deflate()$/
+deletedir	fileio.c	/^int deletedir(d)$/
+destroy	fileio.c	/^int destroy(f)$/
+dosmatch	util.c	/^int dosmatch(p, s)$/
+dostime	fileio.c	/^ulg dostime(y, n, d, h, m, s)$/
+echo	fileio.c	/^int echo(opt)$/
+echoff	fileio.c	/^void echoff(f)$/
+echon	fileio.c	/^void echon()$/
+err	zip.c	/^void err(c, h)$/
+error	zip.c	/^void error(h)$/
+ex2in	fileio.c	/^local char *ex2in(x, pdosflag)$/
+exclude	fileio.c	/^int exclude()$/
+fcalloc	fileio.c	/^void far * fcalloc(items, size)$/
+fcopy	fileio.c	/^int fcopy(f, g, n)$/
+fexpel	fileio.c	/^struct flist far *fexpel(f)$/
+file_read	zipup.c	/^int file_read(buf, size)$/
+filetime	fileio.c	/^ulg filetime(f, a, n)$/
+fill_window	deflate.c	/^local void fill_window()$/
+flush_block	trees.c	/^ulg flush_block(buf, stored_len, eof)$/
+flush_outbuf	bits.c	/^local void flush_outbuf(w, size)$/
+fqcmp	fileio.c	/^local int fqcmp(a, b)$/
+fqcmpz	fileio.c	/^local int fqcmpz(a, b)$/
+freeup	zip.c	/^local void freeup()$/
+gen_bitlen	trees.c	/^local void gen_bitlen(desc)$/
+gen_codes	trees.c	/^local void gen_codes (tree, max_code)$/
+getfileattr	fileio.c	/^int getfileattr(f)$/
+getnam	fileio.c	/^char *getnam(n)$/
+getp	fileio.c	/^char *getp(m, p, n)$/
+handler	zip.c	/^local void handler(s)$/
+help	zip.c	/^local void help()$/
+ident	util.c	/^local unsigned ident(unsigned chr)$/
+in2ex	fileio.c	/^char *in2ex(n)$/
+inctime	fileio.c	/^local void inctime(s)$/
+init_block	trees.c	/^local void init_block()$/
+init_upper	util.c	/^void init_upper()$/
+int	bits.c	/^int (*read_buf) OF((char *buf, unsigned size)) = f/
+invlocal	fileio.c	/^local time_t invlocal(t)$/
+isshexp	util.c	/^char *isshexp(p)$/
+issymlnk	fileio.c	/^int issymlnk(a)$/
+last	fileio.c	/^local char *last(p)$/
+leave	zip.c	/^local void leave(e)$/
+license	zip.c	/^local void license()$/
+lm_init	deflate.c	/^void lm_init (pack_level, flags)$/
+longest_match	deflate.c	/^int longest_match(cur_match)$/
+mem_read	bits.c	/^local int mem_read(buf, size)$/
+memcmp	fileio.c	/^memcmp(b1,b2,len)                     \/* jpd@usl
+memcompress	bits.c	/^ulg memcompress(tgt, tgtsize, src, srcsize)$/
+memcpy	fileio.c	/^memcpy(dst,src,len)           \/* v2.0f *\/$/
+memset	fileio.c	/^memset(buf, init, len)$/
+msname	fileio.c	/^local char *msname(n)$/
+namecmp	util.c	/^int namecmp(string1, string2)$/
+newname	fileio.c	/^local int newname(n)$/
+opend	fileio.c	/^local dstrm *opend(n)$/
+opendir	fileio.c	/^dstrm *opendir(n)$/
+percent	zipup.c	/^int percent(n, m)$/
+pqdownheap	trees.c	/^local void pqdownheap(tree, k)$/
+pqremove	trees.c	/^#define pqremove(tree, top) \\$/
+procname	fileio.c	/^int procname(n)$/
+putcentral	zipfile.c	/^int putcentral(z, f)$/
+putend	zipfile.c	/^int putend(n, s, c, m, z, f)$/
+putextended	zipfile.c	/^int putextended(z, f)$/
+putlocal	zipfile.c	/^int putlocal(z, f)$/
+readd	fileio.c	/^local char *readd(d)$/
+readdir	fileio.c	/^struct direct *readdir(d)$/
+readzipfile	zipfile.c	/^int readzipfile()$/
+recmatch	util.c	/^local int recmatch(p, s)$/
+replace	fileio.c	/^int replace(d, s)$/
+scan_tree	trees.c	/^local void scan_tree (tree, max_code)$/
+search	util.c	/^voidp far **search(b, a, n, cmp)$/
+seekable	bits.c	/^int seekable()$/
+send_all_trees	trees.c	/^local void send_all_trees(lcodes, dcodes, blcodes)/
+send_bits	bits.c	/^void send_bits(value, length)$/
+send_tree	trees.c	/^local void send_tree (tree, max_code)$/
+setfileattr	fileio.c	/^int setfileattr(f, a)$/
+shmatch	util.c	/^int shmatch(p, s)$/
+smaller	trees.c	/^#define smaller(tree, n, m) \\$/
+stamp	fileio.c	/^void stamp(f, d)$/
+strlower	fileio.c	/^local char *strlower(s)$/
+strupper	fileio.c	/^local char *strupper(s)$/
+suffixes	zipup.c	/^local int suffixes(a, s)$/
+tempname	fileio.c	/^char *tempname(zip)$/
+trash	zipfile.c	/^int trash()$/
+unix2dostime	fileio.c	/^local ulg unix2dostime(t)$/
+updcrc	util.c	/^ulg updcrc(s, n)$/
+vms_wild	fileio.c	/^local void vms_wild(p, d)$/
+warn	zip.c	/^void warn(a, b)$/
+wild	fileio.c	/^int wild(w)$/
+zbcmp	zipfile.c	/^local int zbcmp(n, z)$/
+zipcopy	zipup.c	/^int zipcopy(z, x, y)$/
+zipstdout	zip.c	/^local void zipstdout()$/
+ziptyp	zipfile.c	/^char *ziptyp(s)$/
+zipup	zipup.c	/^int zipup(z, y)$/
+zqcmp	zipfile.c	/^local int zqcmp(a, b)$/
+zsearch	zipfile.c	/^struct zlist far *zsearch(n)$/

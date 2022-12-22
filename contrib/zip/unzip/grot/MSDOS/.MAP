@@ -1,0 +1,7 @@
+D BCC                               	bcc
+F BORLAND.FIX;1                     	Borland.fix
+F CONTENTS.;1                       	Contents
+F MAKEFILE.;1                       	makefile
+F MAKEFILE.BCC;1                    	makefile.bcc
+F MAKEFILE.QC;1                     	makefile.qc
+D TCC                               	tcc

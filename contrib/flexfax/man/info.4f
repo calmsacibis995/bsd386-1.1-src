@@ -1,0 +1,124 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/info.4f,v 1.1.1.1 1994/01/14 23:10:11 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH INFO 4F "September 12, 1993"
+.SH NAME
+info \- remote facsimile machine capability database
+.SH DESCRIPTION
+The
+.B info
+subdirectory in the
+.I FlexFAX
+spooling area holds information about the capabilities
+and status of facsimile machines that have been called.
+One file exists for each machine, with the filename
+created from the remote machine's fully-qualified
+phone number.
+Files have a simple
+.SM ASCII
+format.
+Each line is of the form
+.sp .5
+.ti +0.5i
+[\fB&\fP]\fBtag\fP: \fIvalue\fP
+.br
+.sp .5
+where a \fItag\fP identifies a capability and a \fIvalue\fP
+is either a string, number, or boolean value.
+An optional ``&'' at the front of the line indicates that the
+tag's value is
+.I "locked down"
+and should not be updated by the server.
+This facility is useful for restricting the capabilities used
+with a particular machine.
+.PP
+The following items are recorded:
+.in +0.5i
+.sp .5
+.ta \w'supports2DEncoding    'u +\w'boolean    'u
+.nf
+\fBTag	Type	Description\fP
+calledBefore	boolean	fax machine has previously answered at this number
+dialFailures	number	count of consecutive failed dial operations
+lastDialFailure	string	reason for last failed dial operation
+lastSendFailure	string	reason for last failed send attempt
+maxPageWidth	number	maximum page width in pixels
+maxPageLength	number	maximum page length in millimeters
+maxSignallingRate	string	maximum signalling rate (bits/sec) to use
+jobInProgress	string	current job sending to remote machine
+rejectNotice	string	reject outgoing jobs and return notice string
+remoteCSI	string	remote machine Called Subscriber Identification
+sendFailures	number	count of consecutive failed send attempts
+supportsHighRes	boolean	accepts 196 line/inch images
+supports2DEncoding	boolean	accepts Group 2D encoding
+supportsPostScript	boolean	accepts Adobe PostScript transfer protocol
+.fi
+.in -0.5i
+.PP
+The facsimile server,
+.IR faxd (1M),
+uses the information stored in this directory when
+deciding if a call should be placed and when
+preparing documents for transmission.
+If multiple jobs are queued for the same destination, the
+jobs will be serialized to avoid contention.
+Also, if a call fails in such a way that subsequent calls
+should not be attempted, the server will install a
+.I rejectNotice
+that will cause subsequent attempts to send to that destination
+to be aborted (note that this is similar to the 
+.I rejectNotice
+item that may be manually placed in the parallel
+.IR cinfo (4F)
+file).
+If a remote machine's capabilities are known, then
+documents are prepared according to the capabilities.
+Otherwise, documents are prepared using only the
+minimum capabilities required by the Group 3
+standard\(em 1D encoding, 98 lines/inch, and
+.SM "ISO A4"
+page dimensions.
+.PP
+The
+.I calledBefore
+item is used by the facsimile server is used in deciding whether
+or not to redial a phone number when encountering certain errors.
+For example, if a dialing command results in a ``\s-1NO CARRIER\s+1''
+result, then the number will not be retried unless
+the number has previously been dialed successfully.
+.SH NOTES
+.I Faxd
+automatically creates and updates entries in the
+.B info
+directory, as required.
+.PP
+The data in this directory is simply a
+.I cache
+of remote capabilities and, except for locked down items, can be
+safely purged at any time.
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR cinfo (4F)

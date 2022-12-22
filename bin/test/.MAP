@@ -1,0 +1,8 @@
+F BINARY_O.;1                       	binary_op
+F MAKEFILE.;1                       	Makefile
+F MKOPS.;1                          	mkops
+L OBJ.;1                            	obj	/usr/cdrom_obj/bin/test
+F TEST.1;1                          	test.1
+F TEST.C;1                          	test.c
+F TEST.CSH;1                        	TEST.csh
+F UNARY_OP.;1                       	unary_op

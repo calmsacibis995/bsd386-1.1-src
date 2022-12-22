@@ -1,0 +1,4 @@
+Mmplay	mplay.c	/^main(argc, argv)$/
+abort_play	mplay.c	/^abort_play()$/
+process_file	mplay.c	/^process_file(mfile, spec_tracks, repeat, verbose)$/
+usage	mplay.c	/^usage(program)$/

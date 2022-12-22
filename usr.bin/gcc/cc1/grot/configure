@@ -1,0 +1,12 @@
+#!/bin/sh
+progname=$0
+
+# Find the directory where the script is found.
+# The second sed call is to convert `.//configure' to `./configure'.
+srcdir=`echo $0 | sed 's|//|/|' | sed 's|/[^/]*$||'`
+if [ x$srcdir = x$0 ]
+then
+srcdir=.
+fi
+
+$srcdir/config.gcc $*

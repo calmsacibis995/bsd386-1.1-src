@@ -1,0 +1,111 @@
+#! /bin/sh -e
+
+# we use these as is, and we dislike -i files
+rm builtins/-i lib/readline/-i
+
+# save away regular bash sources
+mkdir bash bash/grot
+
+mv alias.c bash
+mv alias.h bash
+mv documentation/bash.1 bash
+mv bashansi.h bash
+mv bashline.c bash
+mv bracecomp.c bash
+mv braces.c bash
+mv builtins.h bash
+mv command.h bash
+mv config.h bash
+mv copy_cmd.c bash
+mv dispose_cmd.c bash
+mv dispose_cmd.h bash
+mv endian.c bash/grot
+mv error.c bash
+mv error.h bash
+mv execute_cmd.c bash
+mv expr.c bash
+mv filecntl.h bash
+mv flags.c bash
+mv flags.h bash
+mv general.c bash
+mv general.h bash
+mv getcwd.c bash
+mv lib/glob/glob.c bash
+mv hash.c bash
+mv hash.h bash
+mv input.c bash
+mv input.h bash
+mv jobs.c bash
+mv jobs.h bash
+mv longest_sig.c bash/grot
+mv machines.h bash
+mv mailcheck.c bash
+mv make_cmd.c bash
+mv make_cmd.h bash
+mv maxpath.h bash
+mv newversion.c bash/grot
+mv nojobs.c bash
+mv parse.y bash
+mv parser.h bash
+mv lib/posixheaders/posixstat.h bash
+mv print_cmd.c bash
+mv quit.h bash
+mv shell.c bash
+mv shell.h bash
+mv siglist.c bash
+mv siglist.h bash
+mv signames.c bash
+mv subst.c bash
+mv subst.h bash
+mv test.c bash
+mv trap.c bash
+mv trap.h bash
+mv unwind_prot.c bash
+mv unwind_prot.h bash
+mv variables.c bash
+mv variables.h bash
+mv version.c bash
+mv y.tab.c bash/grot
+mv y.tab.h bash/grot
+mv .distribution bash/grot/distribution
+if [ -f .machine ]; then mv .machine bash/grot/machine; fi
+
+mv builtins bash
+
+mv bash/builtins/Makefile bash/builtins/Makefile.dist
+
+# yech.
+mkdir tilde
+mv lib/tilde/tilde.h tilde
+
+# place to hide unused stuff
+mkdir grot
+
+mv CWRU grot
+mv INSTALL grot
+mv README* grot
+mv RELEASE grot
+mv config.h.mini grot
+mv configure grot
+mv cpp-Makefile grot
+mv documentation grot
+mv examples grot
+mv portbash grot
+mv support grot
+mv test-suite grot
+mv tests grot
+mv vprint.c grot
+
+mv lib/readline/doc grot
+mv lib/readline/examples grot/examples.readline
+mv lib/glob grot
+mv lib/malloc grot
+mv lib/malloclib grot
+mv lib/termcap grot
+mv lib/tilde grot
+
+mv lib/readline .
+mv lib/posixheaders/ansi_stdlib.h readline
+mv readline/Makefile readline/Makefile.dist
+
+rmdir lib/posixheaders lib

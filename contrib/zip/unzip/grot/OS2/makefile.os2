@@ -1,0 +1,142 @@
+# Makefile for UnZip, ZipInfo and Ship                       12 August 1992
+#
+# - for Microsoft C 6.00 under OS/2 1.x (16-bit)
+# - for IBM C Set/2 under OS/2 2.0 (32-bit)
+# - for Watcom C/386 9.0 under OS/2 2.0 (32-bit)
+# - for GNU gcc (emx kit) under OS/2 2.0 (32-bit)
+
+# To use, enter "{d,n}make -f makefile.os2" (this makefile depends on its
+# name being "makefile.os2").
+
+# Notes on Microsoft C 6.00 compilation:
+#   The resulting programs can be used under OS/2 1.x or 2.x
+#   protected mode only, not under DOS.  A larger stack has to
+#   be used for OS/2 because system calls use more stack than
+#   under DOS; 8k is recommended by Microsoft.
+
+# Notes on IBM C Set/2, Watcom C/386 or gcc compilation:
+#   The resulting programs can be used under OS/2 protected
+#   mode of OS/2 2.0 only, not under 1.x and not under DOS.
+
+CRYPTF =
+CRYPTO =
+# *** For decryption version, remove the # at the front of next 2 lines ***
+# CRYPTF = -DCRYPT
+# CRYPTO = crypt$(OBJ)
+
+default:
+	@echo Enter "$(MAKE) -f makefile.os2 msc"
+	@echo    or "$(MAKE) -f makefile.os2 ibm"
+	@echo    or "$(MAKE) -f makefile.os2 watcom"
+	@echo    or "$(MAKE) -f makefile.os2 gcc"
+
+mscdos:
+	$(MAKE) -f makefile.os2 unzips \
+	CC="cl -nologo -AC -Oaict -Gs" \
+	CFLAGS="-Zp1 $(CRYPTF)" \
+	LDFLAGS="-Lr -F 1000 -Fe" \
+	LDFLAGS2="" \
+	OUT="-Fo" \
+	OBJ=".obj" \
+	OBJO=""
+
+msc:
+	$(MAKE) -f makefile.os2 unzips \
+	CC="cl -nologo -AC -Ocegit -Gs" \
+	CFLAGS="-G2 -Zp1 $(CRYPTF) -DOS2 -DMSC" \
+	LDFLAGS="-Lp -F 2000 -Fe" \
+	LDFLAGS2="" \
+	OUT="-Fo" \
+	OBJ=".obj" \
+	DEF=unzip.def DEFI=zipinfo.def DEFS=ship.def
+
+ibm:
+	$(MAKE) -f makefile.os2 unzips \
+	CC="icc -Q -O -Gs" \
+	CFLAGS="-Sm -Sp1 $(CRYPTF) -DOS2" \
+	LDFLAGS="-B/ST:131072 -Fe" \
+	LDFLAGS2="" \
+	OUT="-Fo" \
+	OBJ=".obj" \
+	DEF=unzip.def DEFI=zipinfo.def DEFS=ship.def
+
+watcom:
+	$(MAKE) -f makefile.os2 unzips \
+	CC="wcl386 -zq -Ox -s" \
+	CFLAGS="-Zp1 $(CRYPTF) -DOS2" \
+	LDFLAGS="-k131072 -x -Fe=" \
+	LDFLAGS2="" \
+	OUT="-Fo" \
+	OBJ=".obj"
+
+gcc:
+	$(MAKE) -f makefile.os2 unzips \
+	CC="gcc -O -s" \
+	CFLAGS="$(CRYPTF) -DOS2 -Uunix" \
+	LDFLAGS="-o " \
+	LDFLAGS2="-los2" \
+	OUT="-o" \
+	OBJ=".o"
+
+# variables
+OBJ1 = unzip$(OBJ) envargs$(OBJ) extract$(OBJ) misc$(OBJ) $(CRYPTO)
+OBJ2 = file_io$(OBJ) mapname$(OBJ) match$(OBJ)
+OBJ3 = inflate$(OBJ) explode$(OBJ) unreduce$(OBJ) unshrink$(OBJ)
+OBJO = os2unzip$(OBJ)
+OBJI = zipinfo$(OBJ) envargs$(OBJ) match$(OBJ) misc_$(OBJ) os2zinfo$(OBJ)
+
+unzips:	unzip.exe zipinfo.exe
+
+crypt$(OBJ):	crypt.c unzip.h zip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+envargs$(OBJ):	envargs.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+explode$(OBJ):	explode.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+extract$(OBJ):	extract.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+file_io$(OBJ):	file_io.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+inflate$(OBJ):	inflate.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+mapname$(OBJ):	mapname.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+match$(OBJ):	match.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+misc$(OBJ):	misc.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+misc_$(OBJ):	misc.c unzip.h
+	$(CC) -c $(CFLAGS) -DZIPINFO $(OUT)$@ misc.c
+
+os2unzip$(OBJ): os2unzip.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+os2zinfo$(OBJ):	os2unzip.c unzip.h
+	$(CC) -c $(CFLAGS) -DZIPINFO $(OUT)$@ os2unzip.c
+
+unreduce$(OBJ):	unreduce.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+unshrink$(OBJ):	unshrink.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+unzip$(OBJ):	unzip.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+zipinfo$(OBJ):	zipinfo.c unzip.h
+	$(CC) -c $(CFLAGS) $*.c
+
+unzip.exe: $(OBJ1) $(OBJ2) $(OBJ3) $(OBJO) $(DEF)
+	$(CC) $(LDFLAGS)$@ $(DEF) $(OBJ1) $(OBJ2) $(OBJ3) $(OBJO) $(LDFLAGS2)
+
+zipinfo.exe: $(OBJI) $(DEFI)
+	$(CC) $(LDFLAGS)$@ $(DEFI) $(OBJI) $(LDFLAGS2)

@@ -1,0 +1,17 @@
+F CONFIG.H;1                        	config.h
+F CSHAR.1;1                         	cshar.1
+F GLUE.C;1                          	glue.c
+F LCWD.C;1                          	lcwd.c
+F LEXEC.C;1                         	lexec.c
+F LFILES.C;1                        	lfiles.c
+F LHOST.C;1                         	lhost.c
+F LLIB.C;1                          	llib.c
+F LMEM.C;1                          	lmem.c
+F LUSER.C;1                         	luser.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/cshar/cshar
+F PARSER.C;1                        	parser.c
+F PATCHLEV.H;1                      	patchlevel.h
+F SHAR.C;1                          	shar.c
+F SHAR.H;1                          	shar.h
+F TAGS.;1                           	tags

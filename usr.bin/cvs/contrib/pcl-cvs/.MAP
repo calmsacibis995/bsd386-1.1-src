@@ -1,0 +1,14 @@
+F CHANGELO.;1                       	ChangeLog
+F COMPILE_.EL;1                     	compile-all.el
+F COOKIE.EL;1                       	cookie.el
+F ELIB_DL0.EL;1                     	elib-dll-debug.el
+F ELIB_DL1.EL;1                     	elib-dll.el
+F ELIB_NOD.EL;1                     	elib-node.el
+F INSTALL.;1                        	INSTALL
+F MAKEFILE.;1                       	Makefile
+F PCL_CVS.EL;1                      	pcl-cvs.el
+F PCL_CVS.INF;1                     	pcl-cvs.info
+F PCL_CVS.TEX;1                     	pcl-cvs.texinfo
+F PCL_CVS_.EL;1                     	pcl-cvs-startup.el
+F README.;1                         	README
+F TEXINFO.TEX;1                     	texinfo.tex

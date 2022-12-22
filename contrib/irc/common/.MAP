@@ -1,0 +1,8 @@
+F BSD.C;1                           	bsd.c
+F DBUF.C;1                          	dbuf.c
+D GROT                              	grot
+F MATCH.C;1                         	match.c
+F PACKET.C;1                        	packet.c
+F PARSE.C;1                         	parse.c
+F SEND.C;1                          	send.c
+F SUPPORT.C;1                       	support.c

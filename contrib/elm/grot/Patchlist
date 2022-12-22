@@ -1,0 +1,1459 @@
+=========================================================
+Patch Set - Patches 23a through 23d: Sun Sep 19 19:48:31 EDT 1993
+Elm 2.4PL22 -> Elm 2.4PL23
+
+Write options to elmrc even if their values are empty strings.
+Rationalize code that reads and writes weedouts and alternates.
+From: chip%fin@myrddin.sybus.com
+
+Correct problem in fetch_alias() with alias record fixup that caused
+core dump on machines with pointers larger than int.  This problem
+was reported on comp.mail.elm by Richard Eckman and Jim Brown.  Simplify
+get_one_alias() by having it use fetch_alias().
+
+break_down_tolist() tried to blindly split address lists at "," which
+caused bogus results with addreses that had a comma inside a comment
+or quoted text, such as "user@domain (Last, First)".  This patch steps
+through the address in quanta of RFC-822 tokens when searching for a
+delimiting comma.  It also adds "rfc822_toklen()" to the library to
+get that length.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+This fixes a bug in the MIME code.  Include_Part() uses expand_env()
+to expand the include file name, but since expand_env() is destructive
+[it uses strtok()] the file name gets corrupted, and the "Content-Name"
+header can contain a bogus value.  The easy fix would be a one-line
+hack to Include_Part to use a temporary buffer.  This patch does not
+implement the easy fix.  *Every* place expand_env() is used, its side
+effects cause problems.  I think the right fix is to make expand_env()
+non-destructive (i.e. have it duplicate the input to a temporary buffer
+and work from there).  The attached patch modifies expand_env() in
+that manner, and eliminates all of the `copy to a temporary buffer'
+calls that precede it throughout elm.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+I have been repetedly crashing elm 2.4.22 until I discovered that a
+test for failing to open the system elmrc file is mising. This could
+usefully be added in read_rc.c. Version info and patch follows:
+From: "C.R. Ritson" <C.R.Ritson@newcastle.ac.uk>
+
+Greatly simplified "lib/striparens.c" to use new rfc822_toklen() routine.
+This cut more than 50% out of the object size.  Also added _TEST case.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+When resyncing aliases from elm, and there was aliases to delete,
+the alias.pag file could be corrupted since file_offset wasn't set to zero.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+A long-standing bug of handling replies to VMS systems.
+Original "From: " -line is of format:
+	From: "NAME \"Real Name\"" <USERNAME@vms-system>
+(PMDF mailer)
+	Anyway,  parse_arpa_who()  strips quotes too cleanly
+resulting data:
+	NAME \"Real Name\
+which, when put into parenthesis, becomes:
+	(NAME \"Real Name\)
+which in its turn lacks closing `)'
+Patch of  lib/parsarpwho.c  fixes that.
+strtokq() started one position too late to search for next double-quote (") char.
+Another one-off (chops off trailing comment character, quote or not..)  in   src/reply.c
+From:	Matti Aarnio <mea@utu.fi>
+
+Three changes to expand_env() in src/read_rc.c:  make it non-destructive,
+have it return an error code instead of bailing out, and add a buffer
+size argument to avoid overwritting the destination.  The first is to
+avoid all of the gymnastics Elm needed to go through (and occasionally
+forgot to go through) to protect the value handed to expand_env().
+The second is because expand_env() was originally written to support
+"elmrc" and bailing out was a reasonable thing to do there -- but not
+in the other places where it has since been used.  The third is just
+a matter of practicing safe source code.
+
+This patch changes all invocations to expand_env() to eliminate making
+temporary copies (now that the routine is non-destructive) and to pass
+in a destination length.  Since expand_env() no longer bails out on
+error, a do_expand_env() routine was added to src/read_rc.c handle
+this.  Moreover, the error message now gives some indication of what
+the problem is rather than just saying "can't expand".
+
+Gratitous change to src/editmsg.c renaming filename variables to
+clarify the purpose.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+[ Patch description ]
+Update the example elmrc and move a couple out of order variable
+descriptions.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Handle reply-to in batch mode.
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+In fastmail, if environment variable $REPLYTO is set, use it as
+default Reply-To.  Also, eliminate unnecessary strlen() calls.
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+Support aliases both on 64 bit and 32 bit machines at the same time.
+From: Dan Mosedale <mosedale@genome.stanford.edu>
+
+Spaces in weedout strings wasn't preserved ("From " became "From").
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Added text about how the weedout list works w.r.t From: and From_
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+default_weedlist() can't use pmalloc, because weedout() calls free when
+it encounters *clear-weed-list*.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+The NLS messages for elm -h output didn't have the -i or -t options.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+The message CannotInitErrorExpanding was called CantExpandEnvVar in s_elm.m.
+Change it for consistency.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Since it was not intended that varargs.h and stdarg.h were
+included simultaneously there may be colliding definitions
+on some systems if you use a standard C compiler. If both
+of these headers are included the compiler has no way to
+know which definitions to use.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+"*clear-weed-list*" in elmrc was wiped out when one saved the options in elm.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+When STDC is used on Convex the feof() function is defined as
+a true library routine in the header files and moreover the
+library routine also leaks royally. It returns always 1!!
+So we have to use a macro. Convex naturally does not provide
+you with one though if you are using a STDC compiler. So we
+have to include one.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Removed bogus string lockfile.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+The last character of a form field gets zapped if more characters than
+the field expects are entered.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Patch for Elm 2.4 PL22 to correct handling of SIGWINCH signals on
+DecStations with Ultrix 4.2.
+The problem was that elm running in an xterm exits silently when the
+window is resize. This was caused by incorrect signal handling for BSD.
+From: vogt@isa.de
+
+Implement new timezone handling.  New file lib/get_tz.c with new timezone
+routines.  Added new TZMINS_USE_xxxxxx and TZNAME_USE_xxxxxx configuration
+definitions.  Obsoleted TZNAME, ALTCHECK, and TZ_MINUTESWEST configuration
+definitions.  Updated Configure.  Modified lib/getarpdate.c and
+lib/strftime.c to use new timezone routines.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Add proper casts to free() calls to suppress warnings.
+Properly cast return types.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Added -d option to elmalias.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Elm tries to replace the system toupper() and tolower() on current
+BSD systems, which is unnecessary.  Even worse, the replacements
+collide during linking with routines in isctype.o.  This patch adds
+a Configure test to determine whether replacements are really needed
+(BROKE_CTYPE definition).  The <ctype.h> header file is now included
+globally through hdrs/defs.h and the BROKE_CTYPE patchup is handled
+there.  Inclusion of <ctype.h> was removed from *all* the individual
+files, and the toupper() and tolower() routines in lib/opt_utils.c
+were dropped.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Fix signal type for 386bsd
+From: Scott Mace <smace@freefall.cdrom.com>
+
+When an environment variable was given as the tmpdir definition the src
+and dest overlapped in expand_env.  This made elm produce a garbage
+expansion because expand_env cannot cope with overlapping src and
+dest.  I added a new variable raw_temp_dir to keep src and dest not to
+overlap.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+I compiled elm 2.4.22 with Purify 2 and fixed some memory leaks and
+some reads of unitialized memory.
+From: vogt@isa.de
+
+A change to answer:s mail command to be like those of elm and filter.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Elm was failing to write an empty "alternatives" list to elmrc.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Usage message for elmalias changed.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Correct typo and use hard spaces within quotes in *clear-weed-list* note.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+fix where checkalias doesn't fully expand multi-database aliases
+From: Steve Wolf <woof@atl.hp.com>
+
+The macro ctrl(c) did not work correctly for a DEL character
+neither did it make the backward mapping from a control char
+to the letter that is normally used with an up-arrow prefix
+to represent the control character.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Don't declare _exit() if <unistd.h> already did it.
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+Test ANSI_C, not __STDC__ (which is not set on e.g. AIX).
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+The ANSI version of varargs is "stdarg", not "stdargs".
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+Added some documentation for textencoding variable.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+more purify found errors
+From: vogt@isa.de
+
+Add missing parens
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Fix problem where deleting to previous line caused duplication due to the
+file being opened for append (in append mode, all writes are to the end of
+file regardless of the file pointer).
+From: pdc@lunch.asd.sgi.com (Paul Close)
+
+have Writechar() backspace over the left edge of the screen to the end
+of the previous line if the current line is not the first line on the
+screen.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Call to expand_env for pager should be call to do_expand_env.
+temp_dir not initialized.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Try splitting chown into two calls to set group on systems where
+chown of owner is restricted.
+From: Syd
+
+strtokq was called with the wrong number of parameters.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Add ability for elmalias to determine HOME if missing from the environment.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Changed a few buffers from LONG_STRING (512) to VERY_LONG_STRING
+to avoid long header lines overflowing the allocated space. At
+least 1024 bytes should be allowed in any header line/field.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Here's some more patch stuff for undersize buffers for header lines.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Fix a code portability problem with Convex.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+I found a few places more where the code was missing a call
+to fflush() before it called unlock() and fclose()/exit()
+right after unlocking the mail drop.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Erroneous Content-Length:s that ended up beyond the end of the folder
+wasn't checked for, so the rest of the folder became one big message.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+expand() didn't read the global rc file if the user elmrc didn't exist or
+didn't have an entry for maildir.
+From: Jan.Djarv@sa.erisoft.se (Jan Djarv)
+
+Conform textencoding addition to style standard.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Although it doesnt solve the limit/resync problem of new
+messages, allow them to be accessed anyway.
+From: austig@solan.unit.no
+
+
+
+=========================================================
+Patch Set - Patches 22 through 22: Sun Jun  6 14:09:37 EDT 1993
+Elm 2.4PL21 -> Elm 2.4PL22
+
+
+If I have two aliases of the same name the duplicate is caught *but
+still written to the data file*!!!
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+test firstname == lastname and if true zero out firstname before
+writing to the aliases.text file.  Let me check out the source.  Now if
+you try to change a SYSTEM alias it lets you know and asks to verify
+that you are going to superceed that alias.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+fix @aliasname sort problem
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Move first name to lastname if lastname blank.
+this is the only real way for now.  I think that the dbz stuff, sorting,
+and other things all hope to see a lastname.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+In some cases, with certain editors, the user can create an
+aliases.text file in which the last line is terminated with an EOF but
+doesn't have a '\n'.  Currently, elm with complain that the line is
+too long.
+From: "William F. Pemberton" <wfp5p@holmes.acc.virginia.edu>
+
+The test in delete did not take into account for mixed case.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Fix builtin editor so you can run "readmsg" with "~<".
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Have real_from() ignore bogus timezones in From_ lines
+rather than bailing out with an error.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+According to the SVID (version 3) the function crypt is
+
+    char *     crypt( const char *, const char * )
+
+However, it is declared as
+
+    unsigned char crypt();
+
+on line 179 of src/encode.c.  The "unsigned" keyword causes the compile
+to fail on SVID3 compliant systems.  Upon inspection, it appeared that
+the declaration was not even required if CRYPT was not defined, so
+changed it to be conditionally compiled.
+From: Larry Philps <larryp@sco.COM>
+
+len_next_part() was botching quote-delimited strings.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+guide fixes:
+Update for quotes
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Added safe_malloc(), safe_realloc(), and safe_strdup().  They
+will be used in the new elmalias utility.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Initialize safe_malloc() failure trap just to play it safe.  Although
+Elm doesn't currently use these routines, do this just in case somebody
+someday adds a call to a library routine that does use them.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Added fetch_alias() and next_addr_in_list() routines for use in
+new elmalias utility.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Modified to use new safe_malloc() routines.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Added new utilities "elmalias" and "prlong".  Modified "checkalias"
+and "listalias" to use them.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Added elmalias.1 man page.  Updated Users.guide to mention elmalias.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Added references to elmalias(1L).
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Fix year handling bug in date(1) time formats.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+I have now added a parameter which controls whether want_to clears the
+line and centers the question or behaves like it did before. I also
+added a 0 at the end of the parameter list to all the other calls to
+want_to where a centered question on a clean line is not desirable.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+The builtin editor couldn't back up to a line that had a character
+at the wrapcolumn position.
+Added tab handling to the builtin editor.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+None of i, q, x, >, and ^L are recognized by the single character help
+on the options screen.  <return> causes the options screen to scroll
+because all non-printing characters are echoed by the error message.
+Options and alias help files didn't list all commands.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+If a To: or Cc: line is split in a comment, that is between ( and ),
+get_and_expand_everyone won't parse that correctly.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Check for EINTR if getchar() returns EOF. Happens after a resume from an
+interactive stop.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The setting of relop to the default (EQ) was in the wrong place,
+causing the wrong relation to be inserted in the rule.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Removed a malloc of a struct condition_rec that is never used.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The USR2 signal lost messages on some OS:es and did an unnecessary resync
+on others.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The primary editor didn't change at once when you entered a new value in
+the option screen.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The wrong NLS message was used in the option screen for the "A(l)ias Sorting".
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The "window is too small..." message gets printed on the wrong screen. The
+message also needs \r\n at the end.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Added check if headers_per_page is zero in get_page().
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+want_to() wrote "No." when user pressed return even if the default answer
+wasn't == *def_ans_no.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The onoff macro assumes a boolean option only has values 1 or 0.
+This is not true for forms option (may be 2 == MAYBE).
+
+This is known bug EB51 BTW. I'm looking at the list now and there are some
+bugs that I think are simple, and I'll try to fix some of them.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Fix to don't use address from reply-to field if it is empty.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+This can not happen according to RFC822. It requires at least one address if the
+reply-to is present, so this bug (EB48) isn't really a bug. But one can
+always try to be nice :-).
+
+nameof() didn't check that the character after the common string was /, thus
+(if Mail is the folderdir) Maildir/x was made to be =dir/x.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Added function enforce_newline to enforce newline (what else :-) at
+end of message.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+These patches makes 'T' (since it was free) do a Tag and Move command in the
+index and alias page, and in the builtin pager.
+In the alias help in src/alias.c, there is a tolower done on the character
+one wants help for.  This is clearly wrong.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+On AIX, __STDC__ is not defined but it does use unistd.h, etc.  In
+hdrs/def.h, ANS_C already gets defined if __STDC__ or _AIX.  But this
+variable then needs to be used in src/init.c and hdrs/filter.h in place
+of the current test for __STDC__.
+From:	rstory@elegant.com (Robert Story)
+
+the posix macros to interpret the result of the stat-call.
+From: vogt@isa.de (Gerald Vogt)
+
+In GetPrompt(), when timeout = 0 make sure we check the return of 
+ReadCh() for EINTR on non-POSIX (BSDish) systems.
+From: tom@osf.org
+
+I noticed when I was sorting a mailbox by subject, that 2 messages with
+the following subjects
+
+    Subject: Re: Reading news
+    Subject: Reading news
+
+they were sorted as shown above even though the "Re:" message was
+"Sent" after the original.  It turns out that the routine skip_re has a
+bug.  If the actual subject (the part after the "Re: ") starts with the
+characters "re" skip_re will erroneously not strip the "Re:" part at
+all.  The following patch fixes that behaviour.
+From: Larry Philps <larryp@sco.COM>
+
+Give up and add an Ultrix specific patch. There is a bug in Ispell under
+ultrix.  The problem is that when ispell returns, the terminal is no
+longer in raw mode. (Ispell isn't restoring the terminal parameters)
+From: Scott Ames <scott@cwis.unomaha.edu>
+
+For many embedded X.400 addresses in the format
+"/.../.../.../.../"@admd.country NLEN was simply too short and part of
+the address never made it to the reply address. In my opinion 512 bytes
+should be enough. So make it LONG_STRING.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+I found a small screen corruption problem with elm.  If you select 'c' for
+change mailbox and then back out by just typing <Return> at the prompt for the
+new mailbox, the prompt 'Command: ' seems to be reprinted on the wrong line
+leaving the previous prompt and the 'Change Mailbox' string in place.
+
+Further investiagtion tracked the problem to the softkey programming.  When a
+newline (LF) character is sent to the terminal in the sofkey's "send" string,
+the terminal still performs a linefeed just as if the linefeed were sent at any
+other time.  The particlar set of softkeys for change mode has four such
+newlines and this is enought to cause the screen to scroll up one line.  This
+in turn causes the prompt to appear on the wrong line.
+
+I have fixed this by replacing the newlines with carriage returns instead.  I
+checked and this still performs the desired action without actually scrolling
+the screen.
+From: Steve Fosdick <stevef@aom.bt.co.uk>
+
+Lets try it again. In the file newmbox.c you check whether a mail is 
+metamail. You also check whether a mail has a sun-attachment but elm doesn't
+recognize whether it has other attachment from for example the NeXT.
+From: rob@IS.TWI.TUDelft.NL (Rob Kooper)
+
+For convex, #if-defed memcpy, memset and sleep.
+From: rzm@oso.chalmers.se (Rafal Maszkowski)
+
+SunOS 4.1.3 uses the BSD convention for signal handling in system
+calls like read. The system call resumes when the signal handler
+returns unless the SA_INTERRUPT flag is set. Thus to make elm resize
+it's window after a SIGWINCH this flag must be set.
+From: vogt@isa.de (Gerald Vogt)
+
+readmsg treated a line with From_ preceeded by whitespace as a valid
+message delimiter.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+frm treated a line with From_ preceeded by whitespace as a valid
+message delimiter.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+newmail treated a line with From_ preceeded by whitespace as a valid
+message delimiter.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The message OptionExitHelp in s_elm.m is called OptionReturnHelp in header and
+source files. Change it to keep consistency.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+There was a mismatch between OptionPrintHelp and the message in src/options.c
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+It's very non-portable, and fairly dangerous, to ass_u_me that you
+know what's inside a FILE.  So don't #define clearerr().
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+Use strerror() with ANSI compilers.
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+I'm using Elm 2.4.21 under Linux.  Linux has no Bourne shell.  Each
+user installs her favorite shell as /bin/sh.  I use Bash 1.12.
+
+Elm invokes the mail transport (MTA) like so:
+
+   ( ( MTA destination; rm -f tempfile ) & ) < tempfile &
+
+This form of command doesn't work with my Bash, in which any command
+which is backgrounded ("&") gets its stdin attached to /dev/null.
+
+The below patch arranges for Elm to call the MTA thusly:
+
+   ( MTA destination <tempfile; rm -f tempfile ) &
+From: decwrl!uunet.UU.NET!fin!chip (Chip Salzenberg)
+
+Use pointer arithmetic for aliases on crays
+From: Quentin Van Abbe <rxxqva@argolis.osf.rmit.OZ.AU>
+
+NLS message ElmOptionBorderMenu should be ElmOptionBorderHelp in one place.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Try and get getarpdate to work on AIX
+From: "William F. Pemberton" <wfp5p@holmes.acc.virginia.edu>
+
+If there are local user names (account names) in the alias, they don't
+get fully expanded with a GCOS field like they do when you type an
+account name on the To line.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Jan's removal of tolower in alias.c breaks help for 'I'.  This fixes
+that and makes the help messages for characters that have printable
+synonyms on the alias and options screens consistent with the help files.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Fix problem where "<space>From" was recognized as a valid "From_" line.
+From: decwrl!decvax!gatech!WLK.COM!chip (Chip Rosenthal)
+
+created a new elmrc variable named "readmsginc".  This specifies an
+increment by which the message count is updated.  If this variable is
+set to, say, 25, then the message count will only be updated every 25
+messages, displaying 0, 25, 50, 75, and so forth.  The default value
+of 1 will cause Elm to behave exactly as it currently does in PL21.
+From: Eric Peterson <epeterso@encore.com>
+
+On the DEC Alpha, OSF/1 the following change made things happy.
+From: dave@opus.csd.uwm.edu (Dave Rasmussen)
+
+Prevent overwriting appended message.
+From: Jason Molenda <molenda@sequent.com>
+
+Add sleepmsg to elmrc to control sleep timing for transient messages
+From: Syd
+
+When compiled on a POSIX host PL22 failed checking whether the file is
+readable and a regular file or not. There was one `!' missing in the
+`if (S_ISREG(mode))' test which should read `if (! S_ISREG(mode))'.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Fix wrong message being displayed and then overwritten
+for long aliases.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+The recent feature addition for the "readmsginc" variable did not modify
+the output statement that is used when MMDF is defined.  The following
+patch makes the variable work on MMDF systems.
+From: Larry Philps <larryp@sco.COM>
+
+A MIME body-part must end with a newline even when there was no newline
+at the end of the actual body or the body is null. Otherwise the next
+mime boundary may not be recognized.  The same goes with the closing
+boundary too.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Moved the new numeric variables to the Numeric Variables section and
+applied the quoting/highlight policy to them.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+When frm checked for file access on a POSIX system there
+was a test `&& S_ISREG(mode)' instead of `&& ! S_ISREG(mode)'
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+A couple of calls to want_to() had typos. Here is the patch.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+document new tidy feature
+From: dave@devteq.co.uk (Dave Thomas)
+
+This is a trivial patch to 'from.c' to tidy up the output is
+the cases where the 'from' part is longer that 20 characters.
+It adds the new '-t' (for tidy) option:
+From: dave@devteq.co.uk (Dave Thomas)
+
+fix elmalias bug
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Fix bug where text following "<" within double-quote delimited comment
+is taken as an address.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+fix want-to patch collision
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+It looks like there was some earlier patch that re-introduced
+some lock problems from the past time of 2.4beta.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+While looking into the feasibility of adding `limit sender' as requested
+on Usenet, I noticed that the limit code was replicated for each of
+the supported conditions.  The following patch simplifies limit_selection()
+by sharing the common code between all conditions.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+In the Makefile listalias was given only a+x permission
+though it should have been a+rx.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Total rewrite of verify_transmission().  The existing code was a monsterous
+mess and rife with bugs (couldn't forget zero-length messages in send-only
+mode, prompts were being setup wrong, perms on Canceled.mail not done right,
+etc. etc. etc.)  Previously, the work had been split among two places,
+the main code in mail() and the menu in verify_transmission(), and Elm kept
+bouncing back and forth between the two.  Now, all work is performed in
+verify_transmission() and it simply returns a send-it/forget-it status.
+Modified "Canceled.mail" handling so that the files it creates are in
+an mbox format (i.e. now includes headers as well as message body).
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+With this patch build_address() should treat local mailing
+lists and other aliases known by the transport agent as valid
+addresses.
+I also conditionalized printing the "Expands to: " message
+in check_only mode to be done only when there is an expanded
+address to print. Build_address will inform anyway about an
+alias that does not exist.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Move the actual file saving code out of "save_copy()" into a seperate
+routine called "append_copy_to_file()" to make it globally available.
+In particular the "Canceled.mail" handling is going to be rewritten
+to use it.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Dave Thomas forgot to update the NLS message file when he added the tidy
+option to frm.  While I was at it, I did a little cleanup to keep things
+alphabetized.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+check for missing replyfile
+From: roy@lorien.gatech.edu (Roy Mongiovi)
+
+Elm either failed to expand a group alias or crashed in strlen
+(called from do_expand_group()).
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Cosmetic addition to previous verify_transmission() changes.  The
+merged code highlighted the fact that i)spell displayed a message
+and then immediately cleared the screen (erasing that message) before
+invoking ispell.  This patch drops the clear screen.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Make it use the message catalog already defined
+From: Super Y.S.T. <tabata@matsumoto.dcl.co.jp>
+
+
+
+
+
+
+=========================================================
+Patch Set - Patches 21 through 21: Mon Feb  8 13:41:36 EST 1993
+Elm 2.4PL20 -> Elm 2.4PL21
+
+Do not assume that "char c" can represent EOF.
+From: chip@tct.com (Chip Salzenberg)
+
+exitprog.c makes a reference to a null character pointer, savecopy.c
+tries to reference an uninitialized variable, and the previous patch to
+src/lock.c to get rid of an uninitialized variable compiler message
+needed to be put in filter/lock.c as well.
+From: wdh@grouper.mkt.csd.harris.com (W. David Higgins)
+
+Just a small bugfix for the '#' (Debug Message) screen.  The columns of the
+various flags don't all line up properly:
+From: Gary Bartlett <garyb@abekrd.co.uk>
+
+Significant changes to provide consistent Date and From_ header
+cracking.  Overhauled date utilities and moved into library.  Moved
+real_from() into library.  Modified frm, newmail, and readmsg utilities
+to use library version of real_from().  Moved get_word() from Elm
+source into library.  Added new library routines atonum() and strfcpy().
+Fixed trailing backslash bug in len_next().
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+	add c)hange alias command to alias helpfile
+	if a deleted alias is changed, undelete it.  Also added the 'N'
+flag to changed aliases to help remind the user.  Documented it.
+Note:  if they mark the alias for deletion AFTER making the change it
+WILL be deleted. (and marked accordingly)
+	modified alias mode title string to indicate when a resync was
+needed.
+	allow editing alias file when none exist.
+	Now aliases are check for illegal characters (and WS) and
+addresses are check for illegal WS when they are being entered.  If
+anything illegal is found and message is printed and they keep entering
+the item until they get it right.
+	I fixed a couple of places where int should be long to match
+the declared type of alias_rec.length
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+fix which file name is used on confirm messages
+From: vogt@isa.de (Gerald Vogt)
+
+There is a mismatch between the number of args and the format string in
+src/pattern.c.
+In nls/C/C/C/s_filter.m there is a , after OutOfMemory.
+This is my fault, and although it doesn't seem to affect things, there is no
+need for it.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Elm switches screens prematurely when calling metamail. It switches
+before writing the "Press any key..." message, thus losing metamail output.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+read_headers() in src/newmbox.c assumes that Mime-Version preceeds
+Content-Type in the headers. I removed that assumption.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+On a resync, the temp file was being reopened in *append*
+mode, thus the fseek that tried to back up the file pointer had no
+effect.
+From: Larry Philps <larryp@sco.COM>
+
+alter the message on aborts to report the temp file name to the user
+From: The Postmaster <sysnet@central1.lancaster.ac.uk>
+
+During 'make uninstall', an error occurs with the make for doc/,
+due to a wrongly-extended "if" statement in the Makefile.
+From: Allan Kugel <hico2!hico3!allan@tsdiag.ocpt.ccur.com>
+
+Nits and typos in the NLS messages and corresponding default messages.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Fix one of the aliases.dir to be aliases.pag.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Some systems don't have SIGBUS, make it optional.
+From: Syd
+
+When SY_ENV_SHELL is set for syscall() it ends up touching SHELL in
+the parent's environment if vfork is used, so change to fork.
+From: tale@uunet.uu.net (David C Lawrence)
+
+Adds a new integer parameter builtinlines.
+if (builtinlines < 0) and (the length of the message < LINES on
+      screen + builtinlines) use internal.
+if (builtinlines > 0) and (length of message < builtinlines)
+	use internal pager.
+if (builtinlines = 0) or none of the above conditions hold, use the
+external pager if defined.
+From: "John P. Rouillard" <rouilj@ra.cs.umb.edu>
+
+I implemented a change to filter's default verbose message format
+including %x %X style date and time along with username
+From: mark@drd.com (Mark Lawrence)
+
+Filter turns spaces in quoted strings into _ and then back again. This destroys
+any _ that where there in the first place. This patch removes that.
+Also fixed a minor bug where 'filter -r' wrote out the wrong thing if the
+relation in a rule was '~'.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The following minor patch for leavembox.c is useful for BSD systems
+which implement correct (per SVID & POSIX) struct utimbuf.  Where the
+source previously tested just '#ifdef BSD' it now tests '#if
+defined(BSD) && !defined(UTIMBUF)'.  This suppresses a compile-time
+warning on ConvexOS due to the prototype of utime.
+From: rwright@dhostwo.convex.com (Randy Wright)
+
+Correct MMDF syntax problems and newmail botches.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+When elm exits because a spool mailbox is used, it should do a Raw(OFF) so
+that the error message get's printed on the right screen.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+It seams that SCO Unix nedds 1 pair of () extra to get
+the new newmail.c code to work.
+From: Jan S{ll <jan%unikla@Mail.SWIP.net>
+
+fixed the behaviour of the tool nfrm or frm -snew to be inconsistent
+with elm itself. In from.c it never recognized the file in the MAIL
+environment variable to be a SPOOL file as you say in the source.
+From: Erick Otto <eotto@hvlpa.ns-nl.att.com>
+
+There is a small bug in this routine in Chip's PL21 patch.  The code
+calls atonum to convert the 4 digit timezone field.  However this field
+is actually of the form HHMM, not a decimal number, so for example
+-0500 was being converted to -500 rather than the correct -300.
+From: Larry Philps <larryp@sco.COM>
+
+Corrections to PL21 Alpha docs and consistent punctuation use in help files.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+When newmail stats/reads the mailbox it updates the access times.  This
+causes problems for users that run both newmail and xbiff since xbiff
+just looks at the access times of the mailbox.  Added code to newmail
+that borrows some code from src/leavembox.c for updating mailbox access
+times.
+From: aj@redwood.cray.com (Chris Jackman)
+
+More utime portability problems with convex
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Adresses with double quoted strings that contains comma was parsed
+wrongly by break_down_tolist() and figure_out_addressee().
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Fix where we remove the extra hostbangs and on which fields we do
+it to include bcc and cc as well as to, and to do it in the file
+copies as well as the command line.
+From: Syd via code change request from djh@neptune.att.com
+A Raw(OFF) was missing so when in mail only mode and one
+does f)orget, the "Message saved" ends up on wrong screen.
+Also added \r\n to end of messages to make output look nicer.
+
+When composing mail in the builtin editor, it wrapped on /.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+xrealloc name conflicts with some os having a routine called xrealloc,
+renamed it elm_xrealloc.
+From: Syd
+
+added the RFC822 fields Comments, In-Reply-To and References.
+to fastmail.
+From: Greg Smith <smith@heliotrope.bucknell.edu>
+
+Fix src/alias.c for which seek is being used, FILE * requires fseek
+From: Syd via prompt from mfvargo@netcom.com (Michael Vargo)
+
+Add cast to silence compiler warning.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Make alias names consistently handled as lower case.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Fix to copy_file to ignore unescaped from if content_length not yet reached.
+Fixes to NLS messages match number of newlines between default messages
+and NLS messages. Also an extra ) was removed.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+
+
+
+
+
+
+
+=========================================================
+Patch Set - Patches 18 through 20: Thu Dec 24 18:53:52 EST 1992
+Elm 2.4PL17 -> Elm 2.4PL20
+
+Fix unintended change where forwarding without editing started adding
+prefix chars
+From: Syd
+
+Here are the doc changes for my additions to the alias system and
+the new switches to listalias.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Add a c)hange alias, -u and -t options to listalias to list only user
+and only system aliases respectively.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Fix formatting and typograpical problems
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Always pass three parameters to header_cmp().
+From: chip@tct.com (Chip Salzenberg)
+
+Fixed where when doing ! or | and ti/te is enabled, one doesn't see the
+"Press any key to return to ELM:" message. because the screens are
+switched before the message is printed.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Quote from the filter of phrase to prevent RFC-822 parsing problems
+From: Syd via request from Ian Stewartson <istewart@dlvax2.datlog.co.uk>
+
+EDITOROPTS and DEFEDITOR appear to be unused but here is 
+a patch to make use of $editoropts.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Fix confirm prompts to follow Elm style in confirm append/create
+From: Syd
+
+Fix messages and nls messages to match.  Plus use want_to
+where appropriate.
+From: Syd, via prompting from Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Add Ignore of CONT signals on exit for Ultrix
+From: Syd via prompt from Bob Mason
+
+Add lstat call for proper detection of symlink in leavembox.c
+From: Syd via prompt from Bryan Curnutt
+
+Make copy_sans_escape expand tabs to prevent subject displays from getting messed up
+From: Syd via request from pgf@Cayman.COM (Paul Fox)
+
+
+
+
+=========================================================
+Patch Set - Patches 13 through 17: Fri Dec 11 20:52:23 EST 1992
+Elm 2.4PL13 -> Elm 2.4PL17
+
+Attempt to fix where Elm was issuing the final error message on the
+cursor screen instead of the regular screen on terminals where the
+ti/te code swaps the screen.
+From: Syd
+
+Internal fix to use correct errno on some error messages.
+From: Syd
+
+Add decode option to copy_message
+From: bjoerns@stud.cs.uit.no (Bjoern Stabell)
+
+Fix Configure for ls that return 0 status even if file
+is not found, re packing man pages.
+From: aj@redwood.cray.com (Chris Jackman)
+
+Fix Configure not getting mailgrp correct on symlinks.
+From: aj@redwood.cray.com (Chris Jackman)
+
+Add missing -n flag to doc makefile.
+From: gwh@dogmatix.inmos.co.uk
+
+Always init fcntlerr and flockerr in src/lock.c to avoid compiler
+warnings.
+From: Syd via prompt from wdh@grouper.mkt.csd.harris.com (W. David Higgins)
+
+Traditional C used 'unsigned preserving' rules when an integral data
+value is widened to integer and ANSI C changed the rules to 'value
+preserving'. This is one of the few things that the ANSI X3J11 committee
+did that might break existing programs.  Casting to (int)
+From: Bo.Asbjorn.Muldbak <bam@jutland.ColumbiaSC.NCR.COM>
+
+When ELM is reporting "appending to <foldername>" I never get to see
+but a flash of light, before the message line has been replaced by a
+dummy "Messages saved" string.  And if you happen to have mistyped the
+foldername or the leading '=', you never see the foldername.
+
+This fix will change file.c to show either
+
+	Message <what> to <foldername>
+
+or
+	<#> messages <what> to <foldername>
+From: Bo.Asbjorn.Muldbak <bam@jutland.ColumbiaSC.NCR.COM>
+
+This implements the use of SIGUSR1 and SIGUSR2 as discussed on the
+mailing list recently, and adds them to the documentation.
+From: scs@lokkur.dexter.mi.us (Steve Simmons)
+
+Attempt to patch posix_signal for SunOS problem.
+From: A lot of the Elm group
+
+Change canceled mail message to indicate full path name as
+AFS users don't have home and elm's home the same.
+From: Syd
+
+Fix doc/Makefile.SH to have an else clause on all if's so that
+if's that return an error code on a not taken if and a null else
+clause don't exit the makefile
+From: Syd via requests from many
+
+General changes for apollo portability
+From: gordonb@mcil.comm.mot.com (Gordon Berkley)
+
+Fix typos in edit.c
+From: Bo.Asbjorn.Muldbak <bam@jutland.ColumbiaSC.NCR.COM>
+
+If sigset() and sigrelse() are available, release signal before
+using longjmp() to leave signal handler.
+From: chip@tct.com (Chip Salzenberg)
+
+Anytime elm wants to re-run newalias, selected is set to 0.
+(removing any limit in effect)
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Allow for use from restricted shell by putting SHELL=/bin/sh in the
+environment of spawned mail transport program.
+From: chip@tct.com (Chip Salzenberg)
+
+fix Obvious typos.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+List_folder knew only about '=' but nothing about the rest
+of [+=%] as one would have expected.
+From: Jukka Antero Ukkonen <ukkonen@venus.csc.fi>
+
+Fix where the user creates a first new alias, then deletes it, the
+alias stays on screen, but the file really will be empty if it was the
+last alias, so the retry to delete gives 'cannot open ...file' messages
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Make Elm complain about spaces that are not after commas in
+alias and address lists
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Make verb and pronoun agree.
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+in do_get_alias().  abuf[] was under dimensioned.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Remove the old packed manual page before trying to pack the new one.
+From: Tom Moore <tmoore@fievel.DaytonOH.NCR.COM>
+
+Fix double inclusion of sys/types.h
+From: Tom Moore <tmoore@wnas.DaytonOH.NCR.COM>
+
+Fix building editor wrap problem
+From: Syd via prompting from vogt@isa.de (Gerald Vogt)
+
+
+
+
+=========================================================
+Patch Set - Patches 12 and 13: Sat Nov 21 21:03:26 EST 1992
+Elm 2.4PL11 -> Elm 2.4PL13
+
+Handle the case where a system does
+>         #define jmp_buf sigjmp_buf
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Fix segmentation violation on restricted alias page jump.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Fix bug where alias records were not sorting by both last and
+first names.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Fix when expanding the macro '%S', the subject line is scanned for a
+'Re:', and if nothing is found, a '"Re: ' is added. But when a 'Re:'
+*is* found, then nothing is added, not even the '"'.
+From: Sigmund Austigard <austig@solan.unit.no>
+
+I was playing with the metamail stuff and Sun's Openwindows Mailtool
+and discovered that I was able to 'display' messages generated with
+Mailtool in elm using metamail.  This marks the Sun Attachments as
+needing metamail.
+From: Lutz Brunke <brunke@dkrz-hamburg.dbp.de>
+
+Change the way Configure and doc/Makefile.SH deal with installing
+man pages.
+From: Tom Moore <tmoore@wnas.DaytonOH.NCR.COM>
+
+Add support for a "config.changes" file to override Configure decisions.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Allow SCO MMDF to use the mmdf library for mailer via execmail.
+From: Larry Philps <larryp@sco.com>
+
+Add on initial display or display where the entire screen is being
+drawn, we should not output the trailing blanks that clear the old
+value.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+This mod fixes overlapping prototypes for strchr and index on
+Convex.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+According to the MIME BNF, quoted strings are allowed in the value portion
+of a parameter.
+From: chk@alias.com (C. Harald Koch)
+
+The fastmail utility appears to work incorrectly when multiple addresses are
+supplied. Spaces were inserted between addresses rather than commas.
+From: little@carina.hks.com (Jim Littlefield)
+
+
+
+=========================================================
+Patch Set - Patch 11: Tues Nov 17 1992
+Elm 2.4PL10 -> Elm 2.4PL11
+
+Quickie fix to handle a botched edit of a test line in Configure
+
+
+
+
+=========================================================
+Patch Set - Patches 9 and 10 : Sat Nov 14 21:34:44 EST 1992
+Elm 2.4PL8 -> Elm 2.4PL10
+
+I think that the code in 'newmbox.c' which handles bad 'Content-length'
+entries is incomplete. The file-ptr for the mail file is
+backed up, but the file-ptr of the temp file WAS LEFT UNMODIFIED !
+From langesw.ssw.de!root Wed Nov 11 14:28:57 1992
+
+When elm copies the temp mailbox back to the mail spool to resync or
+quit, it changes to the mailgroup before attempting to diddle in the
+mail spool, but when it copies the temp mailbox back to the mail spool
+after editing, it forgets to change to mailgroup.  This patch appears
+to work, but I haven't exhaustively checked for some path that leaves
+the gid set
+wrong.  From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+There's an error in two messages in s_aliases.m which causes elm2.4
+to core dump when resyncronize aliases. (%s/%s) should be (%c/%c).
+
+This bug doesn't show up unless you use message catalogs, since the default
+message in a_quit.c is correct.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Fix how nls emulation lib gencat links prev pointers
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+The alias message_count isn't set to zero if the last alias has
+been deleted from the alias table. As no aliases are reread from
+the aliases database the message_count is left as it was before.
+
+Fixed that the function do_newalias() sometimes returns without freeing
+the buffer allocated before. The patch adds these free calls.
+
+When you erroneously type a number in your folder elm asks you for
+a new current message number. But now if you erase this one number
+and leave the string empty elm will set the new current message to
+the second message on our sun4! The patch adds a check for an empty
+string and returns the current number if no number was entered.
+From: vogt@isa.de (Gerald Vogt)
+
+The situation is that the .elm/aliases file is missing, but
+.elm/aliases.dir and .elm/aliases.pag exist (isn't serendipity
+wonderful?).  The ndbz functions tolerate this and just put a NULL
+pointer in the db structure for the data file FILE pointer.  However,
+get_one_alias() in listalias and elm doesn't account for the db_open()
+succeeding but the dbz_basef field being NULL, so it passes the NULL
+pointer to fread().  Detect null and return 0
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Clear the screen before displaying MIME:
+From: marius@rhi.hi.is (Marius Olafsson)
+
+Add regexp processing to filter.
+Add execc operator
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+
+
+
+=========================================================
+Patch Set - Patches 7 and 8 : Sat Nov  7 15:54:44 EST 1992
+Elm 2.4PL6 -> Elm 2.4PL8
+
+Add some tolerance for incorrect Content-Length header (fixes bug where
+Elm would combine two messages if content-length header was incorrect.
+Still has problem if incorrect content-length exactly matches multiple
+messages)
+From: Syd
+
+Change Makefile in doc to use -f as some shells don't have -x in test
+From: Syd
+
+The first is that when doing a summary, macros are expanded when printing the
+rule. IMHO they should be printed as with the -r option (i.e. %t is
+printed as "<time>" and so on).
+
+The second one is that the summary printed "applied n time" regardless of
+the value of n, not "applied n times" when n > 1.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+There is no need to write out the MIME-Version header in subparts
+From: Klaus Steinberger <Klaus.Steinberger@Physik.Uni-Muenchen.DE>
+
+fix null dereferences from patch 5
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Fix where elm duplicates the entry's from the global elm.rc.
+It will however still copy the global weedout headers to your local
+elmrc if they where not already in it.
+From: janw@fwi.uva.nl (Jan Wortelboer)
+
+another typo (2.4.6 Ref.guide)
+From: David.W.Tamkin@gagme.chi.il.us (David W. Tamkin)
+
+comments should be allowed anywhere in the alias file.
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Symbol change for AIX370
+From: uri@watson.ibm.com
+
+Fix redefinition complaint by SCO 3.2v2.0.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+Enhanced printing support.  Added "-I" to readmsg to
+suppress spurious diagnostic messages.
+From: chip@chinacat.unicom.com (Chip Rosenthal)
+
+These small typos stopped me from making forms, so here is a patch.
+From: andrew.mcparland@rd.eng.bbc.co.uk (Andrew McParland)
+
+Add a hack to not use ti/te on list folders and do print
+From: Syd
+
+New header parsing routine header_cmp to allow for linear
+white space around the : in headers
+From: Syd
+
+
+
+=========================================================
+Patch Set - Patch 6 : Mon Nov  2 15:52:00 EST 1992
+Elm 2.4PL5 -> Elm 2.4PL6
+
+Things I found in doc/Ref.guide looking over patches 4 & 5:
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+More changes to folder creation confirmation
+From: Larry Philps <larryp@sco.COM>
+
+fix a bug in the forms reply caused by the Cc: buffer not being
+cleared.  If one has sent mail just prior to replying to the form and
+specified a Cc:  address, the form reply is also sent to those Cc:
+address(es).
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+Add missing MAKE variable in doc/Makefile.SH
+From: Syd
+
+it invokes metamail (the pseudo is because "text" isn't a legal Content-Type).
+in src/mime.c notplain() tries to check for text but fails because it should
+look for "text\n" not "text".
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+Use copy_message in mime shows to get encode processing
+From: bjoerns@stud.cs.uit.no (Bjoern Stabell)
+
+Corrections to Unix date parsing and time zone storage
+From: eotto@hvlpa.att.com
+
+Prevent index underflow when wildchar is in first three chars of string
+From: Syd via note from gwh@dogmatix.inmos.co.uk
+
+
+=========================================================
+Patch Set - Patches 4 and 5 : Sat Oct 24 22:48:00 EDT 1992
+Elm 2.4PL3 -> Elm 2.4PL5
+
+Fixes SysV style forwarding
+From: Baruch Cochavy <bcochavy@ilux39.intel.com>
+
+fix newmail attempting to close a file descriptor even if the corresponding
+open failed.
+From: "Peter A. Bigot" <pab@cs.arizona.edu>
+
+In our global elm.rc I keep the four options as below
+
+	confirmappend = OFF	Don't confirm every append to any file.
+	confirmcreate = ON	Confirm creation of every new file.
+	confirmfiles = ON	Confirm append to non folder files though.
+	confirmfolders = ON	In case someone does not want to be asked
+				every time when creating a new file try
+				to confirm creation of folders though.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+changes found by using codecenter on Elm 2.4.3
+From: Graham Hudspith <gwh@inmos.co.uk>
+
+There is now an additional elmrc option "displaycharset", which
+sets the charset supported on your terminal. This is to prevent
+elm from calling out to metamail too often.
+Plus a slight documentation update for MIME composition (added examples)
+From: Klaus Steinberger <Klaus.Steinberger@Physik.Uni-Muenchen.DE>
+
+More typos
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+I think all these are typos
+From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+
+remove the 25 (MAXRULES) limitation.
+Basically it mallocs rules in hunks of RULESINC (25) as it goes along.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+fixed a bug were elm didn't call metamail on messages with a characterset,
+which could be displayed by elm itself, but message is encoded with QP
+or BASE64
+From: Klaus Steinberger <Klaus.Steinberger@Physik.Uni-Muenchen.DE>
+
+Here are the patches to support POSIX sigaction().
+From: tom@osf.org
+
+
+=========================================================
+Patch Set - Patch 3: Mon Oct 19 13:10:28 EDT 1992
+Elm 2.4PL2 -> Elm 2.4PL3
+
+Fix spelling of name
+From: Larry Philps <larryp@sco.COM>
+
+corrected typos
+From: David.W.Tamkin@gagme.chi.il.us (David W. Tamkin)
+
+Here's another; now the copyright notices on the man pages don't seem
+to have an ego problem.  The various guides are just fine.
+From: Steve Simmons <scs@wotan.iti.org>
+
+setting the debug level to 5 or higher caused a core dump due to a possible
+dereference of a NULL pointer
+From: "Peter A. Bigot" <pab@cs.arizona.edu>
+
+rewrite the Configure prompt for metamail
+From: Steve Simmons <scs@iti.org>
+
+Correct reversed usage of $d_utimbuf.
+From: chip@tct.com (Chip Salzenberg)
+
+Fix warnings from my ANSI C compiler because the declaration of
+edit_interrupt did not match the prototype for the second argument of
+a call to signal.
+From: Larry Philps <larryp@sco.COM>
+
+TEXT_SORT was supported, but UNRECOGNIZED
+From: ls@dmicvx.dmi.min.dk  (Lennart Sorth)
+
+Force text arithmetic into unsigned for those systems
+with signed chars
+From: Marius Olafsson <marius@rhi.hi.is>
+
+Change lock file name to add user name on filter locking of mail spool
+From: Peter Brouwer <pb@idca.tds.philips.nl>
+
+Fix messages to work with 4.3bsd /bin/sh
+From: w8sdz@TACOM-EMH1.Army.Mil (Keith Petersen - MACA WSMR)
+
+Add flags to read_rc to support command line overrides of the option.
+From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+
+adds the function bytemap() and the macros MAPIN and MAPOUT from the file
+lib/ndbz.c in the file src/alias.c.
+This fixes the byte order independence in aliases.
+
+prevent elm from exiting when resyncing the empty incoming mailbox.
+From: vogt@isa.de (Gerald Vogt)
+
+patch to make elm use (or in my case, not use) termcap/terminfo ti/te.
+From: Graham Hudspith <gwh@inmos.co.uk>
+
+=========================================================
+Patch Set - Patches 1 and 2: Sat Oct 10 22:14:59 EDT 1992
+Elm 2.4PL0 -> Elm 2.4PL2
+
+Switch to wrapper for flock and fcntl locking.
+Change order to fcntl first, other order blocked.
+From: Jukka Ukkonen <ukkonen@csc.fi>
+
+Fix some compiler warnings that I receive compiling Elm on my SVR4
+machine.
+From: Tom Moore <tmoore@fievel.DaytonOH.NCR.COM>
+
+Add AIX to src/curses.c for define of window size in different include
+file.
+From: Syd via note from Tom Kovar
+
+get_return() assumes that message_count reflects the number of
+messages in the current folder, but the message_count it's seeing
+from the alias subsystem is actually the *alias* count.
+toggle the main state before and after calling get_return().
+From: cliff@sfn.ORG (R. Cliff Young)
+
+Add missing setlocale and getopen to newalias and listalias.
+From: Syd
+
+Touchups on config guide
+From: David Barr <barr@pop.psu.edu>
+
+Fix segv in wildcards if SHELL= has no / character in path
+From: Syd
+
+1. If firstname && lastname is null then copy aliasname into the 
+personal name field (inside the ()'s) when creating an alias
+from the menu using the 'n' command.
+
+2. Now if for some reason and alias has a null personal name field
+(the person hand edited aliases.text) the blank () is not printed
+as part of the address.  This actually cured another problem, where
+the To: field on the screen (when you hit 'm' on the alias menu)
+used to be blank, now the address shows up....
+From: "Robert L. Howard" <robert.howard@matd.gatech.edu>
+
+Updated AIX 3.2 section of README file
+From: Syd
+
+fixed a bug in the .lp macro in doc/tmac.n.  The lp macros is always
+called with a unit specified for the second argument, however, the
+macro added a "n" unit specifier to that argument.  The following patch
+fixes this problem.
+
+The various .guide books use the troff .tl macro liberally, but often the
+extra ' characters needed at the end of the lines to explicitly specify
+the trailing nulls fields were left off.  The following patch fixes the
+erroneous lines.
+From: Larry Philps <larryp@sco.COM>
+
+While installing elm2.4 on a Sun4 running SunOS4.1.2, the Configure script
+doesn't recognize F_SETLK because it searches in /usr/include/sys/fcntl.h
+which includes /usr/include/sys/fcntlcom.h (where F_SETLK is).
+From: dax@ulysse.enst.fr (Philippe Dax)
+
+change dbm name to dbz to avoid conflicts with partial call
+ins from shared libraries, and from mixing code with yp code.
+From: Syd via prompt from Jess Anderson
+

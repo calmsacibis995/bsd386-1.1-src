@@ -1,0 +1,9 @@
+D CDSP                              	cdsp
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+D MIXER                             	mixer
+D PLAYMIDI                          	playmidi
+D RECORD                            	record
+D SCRIPTS                           	scripts
+D SOX                               	sox
+D XMIX                              	xmix

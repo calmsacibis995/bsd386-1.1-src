@@ -1,0 +1,16 @@
+echo my pid is $$
+
+echo c start
+
+c=`count 0 5000`
+
+echo c done
+
+trap 'echo SIGINT' 2
+
+for i in $c
+do
+	echo -n 1
+done
+
+echo after loop

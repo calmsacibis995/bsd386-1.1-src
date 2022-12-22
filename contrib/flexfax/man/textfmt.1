@@ -1,0 +1,178 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/textfmt.1,v 1.1.1.1 1994/01/14 23:10:13 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH TEXTFMT 1 "May 12, 1993"
+.SH NAME
+textfmt \- convert text to PostScript\(tm for facsimile transmission
+.SH SYNOPSIS
+.B ${LIBEXEC}/textfmt
+[
+.B \-12
+] [
+.B \-B
+] [
+.B \-c
+] [
+.B \-D
+] [
+.B \-f
+.I font
+] [
+.B \-G
+] [
+.B \-m
+.I columns
+] [
+.B \-o
+.I width
+] [
+.B \-p
+.I pointsize
+] [
+.B \-r
+] [
+.B \-R
+] [
+.B \-s
+.I pagesize-name
+] [
+.B \-U
+] [
+.B \-Ml=#,r=#,t=#,b=#
+] [
+.B \-V
+.I vertical-spacing
+] [
+.IR files ...
+]
+.SH DESCRIPTION
+.I textfmt
+takes
+.SM ASCII
+text and generates formatted PostScript\(tm
+suitable for facsimile transmission.
+It is usually invoked as a filter program by the
+.IR sendfax (1)
+program.
+.PP
+Input files may be specified on the command line.
+If none are given, then
+.I textfmt
+will read from standard input.
+.PP
+By default,
+.I textfmt
+will generate an output document that is formtted with a single
+vertical column of text, set in a 10 point fixed width font, and
+has a simple page header that consists of the file name, last
+modification date, and the page number.
+Pages are generated according to the default page dimensions
+(see
+.IR pagesizes (4F)).
+When multi-column output is requested, text is set by default with
+a 7 point fixed width font.
+.SH OPTIONS
+Many of the options to
+.I textfmt
+have been chosen for compatibility with the Adobe Systems'
+.I enscript
+program; other options are for features that are not provided by
+.IR enscript .
+.TP
+.B \-1
+set text in one column.
+.TP
+.B \-2
+set text two columns.
+.TP
+.B \-B
+suppress page headers.
+.TP
+.B \-c
+clip long text lines instead of wrapping them at page margins.
+.TP
+.B \-D
+do not use
+.SM "ISO 8859-1"
+encoding in the generated PostScript.
+.TP
+.B \-f
+use the specified font for setting text.
+.TP
+.B \-G
+use a gaudy-style page header.
+.TP
+.B \-m
+set text in the specified number of columns.
+.TP
+.B \-M
+set the page margins; the default margins are:
+left and right .25 inch, top .85 inch, bottom .5 inch.
+.TP
+.B \-o
+draw an outline around each column of text; the specified number 
+defines the width of the line that is drawn.
+.TP
+.B \-p
+use the specified point size for setting text.
+.TP
+.B \-r
+set pages rotated by 90 degrees (in ``Landscape mode'').
+.TP
+.B \-R
+set pages unrotated (in ``Portrait mode'').
+.TP
+.B \-s
+use the page dimensions associated with the the named page size.
+.TP
+.B \-U
+reverse collate pages; that is the last page will appear first
+in the resultant PostScript, then the next-to-last page, etc.
+.TP
+.B \-V
+set the vertical spacing; default is 1.2 x point size.
+.SH NOTES
+If
+.I textfmt
+is unable to locate font metric information for a font, then it
+will use a fixed-width metric that is 60% of the text point size;
+this metric will almost certainly result
+in incorrectly formatted PostScript.
+.PP
+.I textfmt
+is derived from the
+.I lptops
+program written by Don Beebe.
+.SH FILES
+.ta \w'${LIBDATA}/pagesizes    'u
+.nf
+${LIBDATA}/pagesizes	page size database
+${AFMDIR}	font metric files
+.fi
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1),
+.IR pagesizes (4F)

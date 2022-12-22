@@ -1,0 +1,106 @@
+From: sp@questor.wimsey.bc.ca (Steve Pershing)
+Newsgroups: comp.dcom.modems,alt.dcom.telecom
+Subject: New ZyXEL ROM's - Correction
+Date: 3 Oct 92 03:01:07 GMT
+
+The latest release of ROM firmware for ZyXEL 1496S and 1496E modems has
+been received from ZyXEL USA, and are available by mail-server request
+from Questor as ZOO archives.
+
+
+ | (If you do not have access to an EPROM programmer, we may be able to
+ | help with that...
+ | Please ask by sending e-mail to:    system@questor.wimsey.bc.ca
+ | and we will respond promptly.)
+
+
+The Questor mail-server automatically uuencodes binary files, with
+xxencoding available as an option.
+
+To request either set of ROM binaries, send e-mail to:
+
+        mail-server@questor.wimsey.bc.ca
+
+and in an otherwise blank body text, insert the following line(s):
+
+/GET prodinfo/zyxel/rm502e.zoo
+/GET prodinfo/zyxel/rm502e.zoo
+
+  --->  If you require XXencoding, use the following format:
+
+/GET prodinfo/zyxel/rm502e.zoo xxencode
+
+         - or -
+
+/GET prodinfo/zyxel/rm502s.zoo xxencode
+
+
+Questor also *sells* ZyXEL and Telebit modems at *very* reasonable prices.
+
+For a copy of the current price list, add the following line to your
+request:
+
+INFO USACOST                    (for USA prices)
+INFO WLDCOST                    (for World prices)
+INFO CDNCOST                    (for Canadian prices)
+
+
+
+A complete file listing (including TIFF images of spec sheets) is also
+available by adding the following line:
+
+
+INFO FILINDX
+
+
+    - o -          - o -         - o -         - o -
+
+
+The following is a copy of the release note for version 5.02 ROMs.  It is
+also include in the ZOO archive:
+
+
+			Firmware 5.02 release note
+	  -----------------------------------------------------------
+
+	1. AT detection has been tuned for plus model.
+
+	2. "RINGING" response is restored, set bit 6 of s42 can disable
+	   this function.
+
+	3. Fast Rate re-Negotiation fall back/forward range change from
+	   16800-7200 to 16800-4800.
+
+	4. Improve the silence/quiet detection in voice mode.
+
+	5. Fix caller ID & distinctive ring bugs.
+
+	6. Can send to fax machine which has no answer tone.
+
+	7. Correct response messages associated with ATX2 & ATX3
+
+	8. Fix compatibile problem with some fax machchine which can
+	   not response to MPS signal correctly without some delay between
+	   fax message and MPS.
+
+	9. Add Austra country code (233) for 120 ms flash time.
+
+       10. Add Japan country code (234) for 20 pps pulse dial and
+	   ring detector spec.
+
+       11. Correct remote digital loopback problem in async non error
+	   control mode.
+
+       12. Correct frequency range problem of ring detector.
+
+       13. Correct 1300 Hz calling tone to be recognized as fax calling tone
+	   problem.
+
+
+--
+        Steve Pershing, System Administrator, The QUESTOR Project
+  FREE access to Environ, Sci, Med, & AIDS news, and more.  [also UUCP]
+        on a ZyXEL-1496S v.42bis, v.32bis, v.33, up to 16,800bps.
+  .-------------------------------------------------------------------.
+  |  POST: 1027 Davie St., Box 486, Vancouver, B.C., Canada  V6E 4L2  |
+  |  Fones: (+1 604)  Data: 681-0670  FAX: 682-6160  Voice: 682-6659  |

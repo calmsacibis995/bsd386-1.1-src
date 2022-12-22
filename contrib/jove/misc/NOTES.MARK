@@ -1,0 +1,9 @@
+Sat Dec 28 00:22:42 EST 1991
+
+Added doit.sgi
+
+Changed tune.template to remove "extern" which upsets sgi compiler.
+
+Added hugh's patch to fix problem with spell-buffer (do a spell-buffer,
+then, while in the recursive edit, kill the original buffer, exit the
+recursive edit, and Jove could dump core on a null deref)

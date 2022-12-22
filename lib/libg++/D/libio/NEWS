@@ -1,0 +1,11 @@
+*** Major changes in libio version 0.63 (released with libg++ 2.5.3):
+
+* There is a g++ bug that causes inconsistent name mangling for the
+assembler name of the virtual function table for the istream class.
+A work-around has been put into streambuf.h, which will make g++
+always do the right thing.  Note that this may require you to
+recompile programs that were incorrectly compiled by g++.
+
+* Functions that do printf-style formatting to the unbuffered
+streams have been optimized to write to a temporary buffer.
+

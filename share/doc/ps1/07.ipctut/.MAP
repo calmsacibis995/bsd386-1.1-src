@@ -1,0 +1,17 @@
+F ACCEPT.GRN;1                      	accept.grn
+F DGRAMREA.C;1                      	dgramread.c
+F DGRAMSEN.C;1                      	dgramsend.c
+F GREMLINS.;1                       	gremlins
+F MAKEFILE.;1                       	Makefile
+F PIPE.C;1                          	pipe.c
+F PIPE.GRN;1                        	pipe.grn
+F SOCKETPA.C;1                      	socketpair.c
+F SOCKETPA.GRN;1                    	socketpair.grn
+F STRCHKRE.C;1                      	strchkread.c
+F STREAMRE.C;1                      	streamread.c
+F STREAMWR.C;1                      	streamwrite.c
+F TUTOR.ME;1                        	tutor.me
+F UDGRAMRE.C;1                      	udgramread.c
+F UDGRAMSE.C;1                      	udgramsend.c
+F USTREAMR.C;1                      	ustreamread.c
+F USTREAMW.C;1                      	ustreamwrite.c

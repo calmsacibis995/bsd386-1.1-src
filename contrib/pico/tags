@@ -1,0 +1,230 @@
+AskAttach	attach.c	/^AskAttach(fn, sz, cmnt)$/
+AttachError	attach.c	/^AttachError()$/
+BOTTOM	composer.c	/^#define	BOTTOM()	(term.t_nrow - 2)$/
+BrowserAnchor	browse.c	/^BrowserAnchor(dir)$/
+BrowserKeys	browse.c	/^BrowserKeys()$/
+FileBrowse	browse.c	/^FileBrowse(dir, fn, sz)$/
+FindCell	browse.c	/^struct fcell *FindCell(mp, string)$/
+GetKey	osdep.c	/^GetKey()$/
+HALF_SCR	composer.c	/^#define	HALF_SCR()	((term.t_nrow-5)\/2)$/
+HALLOC	composer.c	/^#define	HALLOC()	(struct hdr_line *)malloc(sizeof(/
+HeaderEditor	composer.c	/^HeaderEditor(f, n)$/
+HeaderFocus	composer.c	/^HeaderFocus(h, offset)$/
+HeaderOffset	composer.c	/^HeaderOffset(h)$/
+InitEntryText	composer.c	/^InitEntryText(address, h)$/
+InitMailHeader	composer.c	/^InitMailHeader(mp)$/
+LINELEN	composer.c	/^#define	LINELEN()	(term.t_ncol - headents[ods.cur_/
+Mmain	main.c	/^main(argc, argv)$/
+NewAttach	attach.c	/^PATMT *NewAttach(f, l, c)$/
+POPD	osdep.c	/^#define POPD()    ((depth > 0) ? stack[--depth] : /
+PT	pico.c	/^#define PT(X)	((PICOTEXT *)(X))$/
+PUSHD	osdep.c	/^#define PUSHD(X)  (stack[depth++] = X)$/
+P_close	osdep.c	/^P_close(fp)$/
+P_open	osdep.c	/^FILE *P_open(s)$/
+PaintBrowser	browse.c	/^PaintBrowser(mp, level)$/
+PaintCell	browse.c	/^PaintCell(x, y, l, cell, inverted)$/
+ParseAttach	attach.c	/^ParseAttach(lp, off, fn, sz, cmnt, no)$/
+PlaceCell	browse.c	/^PlaceCell(mp, cp, x, y)$/
+ResizeBrowser	browse.c	/^ResizeBrowser()$/
+ResizeHeader	composer.c	/^ResizeHeader()$/
+SyncAttach	attach.c	/^SyncAttach()$/
+ZotAttach	attach.c	/^void ZotAttach(p)$/
+alt_editor	osdep.c	/^alt_editor(f, n)$/
+ansibeep	ansi.c	/^ansibeep()$/
+ansieeol	ansi.c	/^ansieeol()$/
+ansieeop	ansi.c	/^ansieeop()$/
+ansimove	ansi.c	/^ansimove(row, col)$/
+ansiopen	ansi.c	/^ansiopen()$/
+ansiparm	ansi.c	/^ansiparm(n)$/
+ansirev	ansi.c	/^ansirev(state)		\/* change reverse video state *\//
+anycb	buffer.c	/^anycb()$/
+arraylen	bind.c	/^arraylen(array)$/
+backchar	basic.c	/^backchar(f, n)$/
+backdel	random.c	/^backdel(f, n)$/
+backline	basic.c	/^backline(f, n)$/
+backpage	basic.c	/^backpage(f, n)$/
+backword	word.c	/^backword(f, n)$/
+bclear	buffer.c	/^bclear(bp)$/
+bfind	buffer.c	/^bfind(bname, cflag, bflag)$/
+bktoshell	osdep.c	/^bktoshell()		\/* suspend MicroEMACS and wait to wa/
+capword	word.c	/^capword(f, n)$/
+chword	spell.c	/^chword(wb, cb)$/
+compresspath	osdep.c	/^compresspath(base, path, len)$/
+copy	osdep.c	/^copy(a, b)$/
+copyregion	region.c	/^copyregion(f, n)$/
+delbword	word.c	/^delbword(f, n)$/
+delfword	word.c	/^delfword(f, n)$/
+do_hup_signal	osdep.c	/^do_hup_signal()$/
+doton	display.c	/^doton(r, chs)$/
+dumblroot	display.c	/^dumblroot(x, b)$/
+dumbroot	display.c	/^dumbroot(x, b)$/
+edinit	pico.c	/^edinit(bname)$/
+emlwrite	display.c	/^emlwrite(message, arg) $/
+eq	search.c	/^eq(bc, pc)$/
+errstr	osdep.c	/^errstr(err)$/
+execute	pico.c	/^execute(c, f, n)$/
+expandp	search.c	/^expandp(srcstr, deststr, maxlength)$/
+fallowc	osdep.c	/^fallowc(c)$/
+fexist	osdep.c	/^fexist(file, m, l)$/
+ffclose	osdep.c	/^ffclose()$/
+ffgetline	fileio.c	/^ffgetline(buf, nbuf)$/
+ffputline	fileio.c	/^ffputline(buf, nbuf)$/
+ffropen	fileio.c	/^ffropen(fn)$/
+ffwopen	osdep.c	/^ffwopen(fn)$/
+filename	file.c	/^filename(f, n)$/
+fileread	file.c	/^fileread(f, n)$/
+filesave	file.c	/^filesave(f, n)$/
+filewrite	file.c	/^filewrite(f, n)$/
+fillpara	word.c	/^fillpara(f, n)	\/* Fill the current paragraph acco/
+fioperr	osdep.c	/^fioperr(e, f)$/
+fixpath	osdep.c	/^fixpath(name, len)$/
+forscan	search.c	/^forscan(wrapt,patrn,leavep)	\/*	search forward for/
+forwchar	basic.c	/^forwchar(f, n)$/
+forwdel	random.c	/^forwdel(f, n)$/
+forwline	basic.c	/^forwline(f, n)$/
+forwpage	basic.c	/^forwpage(f, n)$/
+forwsearch	search.c	/^forwsearch(f, n)$/
+forwword	word.c	/^forwword(f, n)$/
+geninsert	line.c	/^geninsert(dotp, doto, linep, c, attb, n)$/
+getccol	random.c	/^getccol(bflg)$/
+getcwd	osdep.c	/^getcwd(pth, len)$/
+getfcells	browse.c	/^struct bmaster *getfcells(dname)$/
+getfnames	osdep.c	/^getfnames(dn, n)$/
+getgoal	basic.c	/^getgoal(dlp)$/
+gethomedir	osdep.c	/^gethomedir(l)$/
+getregion	region.c	/^getregion(rp)$/
+gotobob	basic.c	/^gotobob(f, n)$/
+gotobol	basic.c	/^gotobol(f, n)$/
+gotobop	basic.c	/^gotobop(f, n)$/
+gotoeob	basic.c	/^gotoeob(f, n)$/
+gotoeol	basic.c	/^gotoeol(f, n)$/
+gotoeop	basic.c	/^gotoeop(f, n)$/
+gotoline	basic.c	/^gotoline(f, n)$/
+hello	tcap.c	/^hello()$/
+homeless	osdep.c	/^homeless(f)$/
+ifile	file.c	/^ifile(fname)$/
+insfile	file.c	/^insfile(f, n)$/
+insspace	line.c	/^insspace(f, n)	$/
+intag	attach.c	/^intag(s, i)$/
+inword	word.c	/^inword()$/
+isdir	osdep.c	/^isdir(fn, l)$/
+kbseq	osdep.c	/^kbseq(c)$/
+kdelete	line.c	/^kdelete()$/
+killregion	region.c	/^killregion(f, n)$/
+killtext	random.c	/^killtext(f, n)$/
+kinsert	line.c	/^kinsert(c)$/
+kpinsert	tcap.c	/^kpinsert(kstr, kval)$/
+kremove	line.c	/^kremove(n)$/
+lalloc	line.c	/^lalloc(used)$/
+layoutcells	browse.c	/^layoutcells(mp)$/
+lchange	line.c	/^lchange(flag)$/
+ldelete	line.c	/^ldelete(n, kflag)$/
+ldelnewline	line.c	/^ldelnewline()$/
+lfree	line.c	/^lfree(lp)$/
+linsert	line.c	/^linsert(n, c)$/
+lnewline	line.c	/^lnewline()$/
+lowerregion	region.c	/^lowerregion(f, n)$/
+lowerword	word.c	/^lowerword(f, n)$/
+makename	osdep.c	/^makename(bname, fname)$/
+markregion	region.c	/^markregion(attr)$/
+mlerase	display.c	/^mlerase()$/
+mlputi	display.c	/^mlputi(i, r)$/
+mlputli	display.c	/^mlputli(l, r)$/
+mlreply	display.c	/^mlreply(prompt, buf, nbuf, flg)$/
+mlreplyd	display.c	/^mlreplyd(prompt, buf, nbuf, flg)$/
+mlwrite	display.c	/^mlwrite(fmt, arg)$/
+mlyesno	display.c	/^mlyesno(prompt, dflt)$/
+modeline	display.c	/^modeline(wp)$/
+movecursor	display.c	/^movecursor(row, col)$/
+movetoword	spell.c	/^movetoword(w)$/
+newline	random.c	/^newline(f, n)$/
+newnode	tcap.c	/^#define	newnode()	(struct KBSTREE *)malloc(sizeof(/
+nlforw	display.c	/^nlforw()$/
+normal	bind.c	/^normal(c, list, sc)$/
+o_delete	tcap.c	/^o_delete()$/
+o_insert	tcap.c	/^o_insert(c)$/
+o_scrolldown	tcap.c	/^o_scrolldown(row, n)$/
+o_scrollup	tcap.c	/^o_scrollup(row, n)$/
+packbuf	buffer.c	/^packbuf(buf, blen, lcrlf)$/
+pclear	display.c	/^pclear(x, y)$/
+pdel	display.c	/^pdel()$/
+peeol	display.c	/^peeol()$/
+pfnexpand	osdep.c	/^char *pfnexpand(fn, len)$/
+pico	pico.c	/^pico(pm)$/
+pico_new_mail	osdep.c	/^pico_new_mail()$/
+pinsert	display.c	/^pinsert(c)$/
+pprints	display.c	/^pprints(x, y)$/
+pputc	display.c	/^pputc(c, a)$/
+pputs	display.c	/^pputs(s, a)$/
+prettysz	attach.c	/^char *prettysz(l)$/
+pscr	display.c	/^pscr(l, o)$/
+putnpad	tcap.c	/^putnpad(str, n)$/
+putpad	tcap.c	/^putpad(str)$/
+readbuf	buffer.c	/^readbuf(buf)$/
+readin	file.c	/^readin(fname, lockfl)$/
+readpattern	search.c	/^readpattern(prompt)$/
+rebindfunc	bind.c	/^rebindfunc(a, b)$/
+refresh	window.c	/^refresh(f, n)$/
+rename	osdep.c	/^rename(oldname, newname)$/
+resize_pico	display.c	/^resize_pico(row, col)$/
+rtfrmshell	osdep.c	/^rtfrmshell()$/
+scrolldown	display.c	/^scrolldown(wp, r, n)$/
+scrollup	display.c	/^scrollup(wp, r, n)$/
+setfillcol	random.c	/^setfillcol(f, n)$/
+setimark	basic.c	/^setimark(f, n)$/
+setmark	basic.c	/^setmark(f, n)$/
+sgetline	buffer.c	/^sgetline(ibuf, nchars, obuf, blen)$/
+showCompTitle	display.c	/^showCompTitle()$/
+showcpos	random.c	/^showcpos(f, n)$/
+sinserts	attach.c	/^sinserts(ds, dl, ss, sl)$/
+sisin	browse.c	/^sisin(s1, s2)$/
+spell	spell.c	/^spell(f, n)$/
+sstrcasecmp	osdep.c	/^sstrcasecmp(s1, s2)$/
+swapimark	basic.c	/^swapimark(f, n)$/
+swapmark	basic.c	/^swapmark(f, n)$/
+tab	random.c	/^tab(f, n)$/
+tcapbeep	tcap.c	/^tcapbeep()$/
+tcapclose	tcap.c	/^tcapclose()$/
+tcapdelete	tcap.c	/^tcapdelete()$/
+tcapeeol	tcap.c	/^tcapeeol()$/
+tcapeeop	tcap.c	/^tcapeeop()$/
+tcapinsert	tcap.c	/^tcapinsert(ch)$/
+tcapmove	tcap.c	/^tcapmove(row, col)$/
+tcapopen	tcap.c	/^tcapopen()$/
+tcaprev	tcap.c	/^tcaprev(state)		\/* change reverse video status */
+time_to_check	osdep.c	/^time_to_check()$/
+tmpname	osdep.c	/^tmpname(name)$/
+ttclose	osdep.c	/^ttclose()$/
+ttflush	osdep.c	/^ttflush()$/
+ttgetc	osdep.c	/^ttgetc()$/
+ttgetwinsz	osdep.c	/^ttgetwinsz()$/
+ttisslow	osdep.c	/^ttisslow()$/
+ttopen	osdep.c	/^ttopen()$/
+ttputc	osdep.c	/^ttputc(c)$/
+typahead	osdep.c	/^typahead()$/
+unmarkbuffer	region.c	/^unmarkbuffer()$/
+update	display.c	/^update()$/
+updateline	display.c	/^updateline(row, vline, pline, flags)$/
+updext	display.c	/^updext()$/
+upperregion	region.c	/^upperregion(f, n)$/
+upperword	word.c	/^upperword(f, n)$/
+vteeol	display.c	/^vteeol()$/
+vtinit	display.c	/^vtinit()$/
+vtmove	display.c	/^vtmove(row, col)$/
+vtputc	display.c	/^vtputc(c)$/
+vtpute	display.c	/^vtpute(c)$/
+vttidy	display.c	/^vttidy()$/
+whelp	bind.c	/^whelp(f, n)$/
+winch_handler	osdep.c	/^SIGTYPE winch_handler()$/
+wkeyhelp	display.c	/^wkeyhelp(keys, helptxt)$/
+worthit	osdep.c	/^worthit(l)$/
+wrapword	word.c	/^wrapword()$/
+writeout	file.c	/^writeout(fn)$/
+writetmp	file.c	/^char *writetmp(f, n)$/
+wscrollw	bind.c	/^wscrollw(begrow, endrow, textp, textlen)$/
+wstripe	display.c	/^wstripe(line, column, pmt, key)$/
+yank	random.c	/^yank(f, n)$/
+zotbuf	buffer.c	/^zotbuf(bp)	\/* kill the buffer pointed to by bp */
+zotdisplay	display.c	/^zotdisplay()$/
+zotfcells	browse.c	/^zotfcells(hp)$/
+zotmaster	browse.c	/^zotmaster(mp)$/

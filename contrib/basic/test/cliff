@@ -1,0 +1,13 @@
+
+10	x = 6
+20	print int(rnd*x)+1
+30	end
+40	rem It blows up after the second try...
+50	rem
+60	rem How was the US festival?
+70	rem
+80	rem Have you heard of the "Anemic Boyfriends?"
+90	rem
+100	rem See you at the programming Contest...
+110	rem
+120	rem			--Cliff

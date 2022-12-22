@@ -1,0 +1,10 @@
+Mgcore	gcore.c	/^main(argc, argv)$/
+core	gcore.c	/^core(efd, fd, ki)$/
+datadump	gcore.c	/^datadump(efd, fd, p, addr, npage)$/
+error	util.c	/^error(va_alist)$/
+md_core	md-i386.c	/^md_core(kd, fd, ki)$/
+setprog	util.c	/^setprog(cp)$/
+stripdir	util.c	/^stripdir(s)$/
+usage	util.c	/^usage()$/
+userdump	gcore.c	/^userdump(fd, p, addr, npage)$/
+warning	util.c	/^warning(va_alist)$/

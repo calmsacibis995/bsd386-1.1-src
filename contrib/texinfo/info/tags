@@ -1,0 +1,296 @@
+DECLARE_INFO_COMMAND	echo_area.c	/^DECLARE_INFO_COMMAND (ea_forward, "Move forward a /
+Mgetopt	../libtxi/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../libtxi/getopt1.c	/^main (argc, argv)$/
+Minfo	info.c	/^main (argc, argv)$/
+Mtilde	tilde.c	/^main (argc, argv)$/
+_getopt_internal	../libtxi/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_char_to_keyseq	session.c	/^add_char_to_keyseq (character)$/
+add_gcable_pointer	gc.c	/^add_gcable_pointer (pointer)$/
+add_index_to_index_nodenames	indices.c	/^add_index_to_index_nodenames (array, node)$/
+add_menu_to_file_buffer	dir.c	/^add_menu_to_file_buffer (contents, size, fb)$/
+adjust_nodestart	nodes.c	/^adjust_nodestart (node, min, max)$/
+alphabetic	echo_area.c	/^#define alphabetic(c) (islower (c) || isupper (c) /
+apropos_in_all_indices	indices.c	/^apropos_in_all_indices (search_string, inform)$/
+backward_move_node_structure	session.c	/^backward_move_node_structure (window, behaviour)$/
+begin_info_session	session.c	/^begin_info_session (initial_node)$/
+begin_info_session_with_error	session.c	/^begin_info_session_with_error (initial_node, forma/
+begin_multiple_window_info_session	session.c	/^begin_multiple_window_info_session (filename, node/
+build_completions	echo_area.c	/^build_completions ()$/
+build_message_buffer	window.c	/^build_message_buffer (format, arg1, arg2)$/
+build_message_node	window.c	/^build_message_node (format, arg1, arg2)$/
+build_tags_and_nodes	nodes.c	/^build_tags_and_nodes (file_buffer)$/
+calculate_line_starts	window.c	/^calculate_line_starts (window)$/
+canonicalize_whitespace	info-utils.c	/^canonicalize_whitespace (string)$/
+character_width	window.c	/^character_width (character, hpos)$/
+close_dribble_file	dribble.c	/^close_dribble_file ()$/
+compare_references	echo_area.c	/^compare_references (entry1, entry2)$/
+compare_strings	nodemenu.c	/^compare_strings (string1, string2)$/
+completions_must_be_rebuilt	echo_area.c	/^completions_must_be_rebuilt ()$/
+completions_window_p	echo_area.c	/^completions_window_p (window)$/
+compressed_filename_p	filesys.c	/^compressed_filename_p (filename)$/
+consistency_check_info_windows	session.c	/^consistency_check_info_windows ()$/
+copy_binding	search.c	/^copy_binding (binding)$/
+create_internal_info_help_node	infodoc.c	/^create_internal_info_help_node ()$/
+dispatch_error	session.c	/^dispatch_error (keyseq)$/
+display_clear_display	display.c	/^display_clear_display (display)$/
+display_cursor_at_point	display.c	/^display_cursor_at_point (window)$/
+display_info_keyseq	session.c	/^display_info_keyseq (expecting_future_input)$/
+display_initialize_display	display.c	/^display_initialize_display (width, height)$/
+display_scroll_display	display.c	/^display_scroll_display (start, end, amount)$/
+display_scroll_line_starts	display.c	/^display_scroll_line_starts (window, old_pagetop, o/
+display_startup_message_and_start	session.c	/^display_startup_message_and_start ()$/
+display_update_display	display.c	/^display_update_display (window)$/
+display_update_one_window	display.c	/^display_update_one_window (win)$/
+dribble	dribble.c	/^dribble (byte)$/
+dump_map_to_message_buffer	infodoc.c	/^dump_map_to_message_buffer (prefix, map)$/
+dump_node_to_file	session.c	/^dump_node_to_file (node, filename, dump_subnodes)$/
+dump_node_to_stream	session.c	/^dump_node_to_stream (filename, nodename, stream, d/
+ea_kill_text	echo_area.c	/^ea_kill_text (from, to)$/
+echo_area_after_read	echo_area.c	/^echo_area_after_read ()$/
+echo_area_inform_of_deleted_window	echo_area.c	/^echo_area_inform_of_deleted_window (window)$/
+echo_area_initialize_node	echo_area.c	/^echo_area_initialize_node ()$/
+echo_area_prep_read	echo_area.c	/^echo_area_prep_read ()$/
+echo_area_stack_contains_completions_p	echo_area.c	/^echo_area_stack_contains_completions_p ()$/
+echo_area_stack_depth	echo_area.c	/^echo_area_stack_depth ()$/
+exchange	../libtxi/getopt.c	/^exchange (argv)$/
+extract_colon_unit	filesys.c	/^extract_colon_unit (string, idx)$/
+file_buffer_of_window	session.c	/^file_buffer_of_window (window)$/
+filename_non_directory	info-utils.c	/^filename_non_directory (pathname)$/
+filesys_decompressor_for_file	filesys.c	/^filesys_decompressor_for_file (filename)$/
+filesys_error_string	filesys.c	/^filesys_error_string (filename, error_num)$/
+filesys_read_compressed	filesys.c	/^filesys_read_compressed (pathname, filesize, finfo/
+filesys_read_info_file	filesys.c	/^filesys_read_info_file (pathname, filesize, finfo)/
+find_footnotes_window	footnotes.c	/^find_footnotes_window ()$/
+find_node_in_binding	search.c	/^find_node_in_binding (nodename, binding)$/
+find_node_separator	search.c	/^find_node_separator (binding)$/
+find_tags_table	search.c	/^find_tags_table (binding)$/
+forget_info_file	nodes.c	/^forget_info_file (filename)$/
+forget_window_and_nodes	session.c	/^forget_window_and_nodes (window)$/
+format_node_info	nodemenu.c	/^format_node_info (node)$/
+forward_move_node_structure	session.c	/^forward_move_node_structure (window, behaviour)$/
+free_display	display.c	/^free_display (display)$/
+free_echo_area	window.c	/^free_echo_area ()$/
+free_file_buffer_tags	nodes.c	/^free_file_buffer_tags (file_buffer)$/
+free_info_tag	nodes.c	/^free_info_tag (tag)$/
+free_isearch_states	session.c	/^free_isearch_states ()$/
+function_documentation	infodoc.c	/^function_documentation (function)$/
+function_name	infodoc.c	/^function_name (function)$/
+gc_pointers	gc.c	/^gc_pointers ()$/
+get_info_window_of_window	session.c	/^get_info_window_of_window (window)$/
+get_internal_info_window	info-utils.c	/^get_internal_info_window (name)$/
+get_node_length	nodes.c	/^get_node_length (binding)$/
+get_nodes_of_info_file	nodes.c	/^get_nodes_of_info_file (file_buffer)$/
+get_nodes_of_tags_table	nodes.c	/^get_nodes_of_tags_table (file_buffer, buffer_bindi/
+get_tags_of_indirect_tags_table	nodes.c	/^get_tags_of_indirect_tags_table (file_buffer, indi/
+get_visited_nodes	nodemenu.c	/^get_visited_nodes (filter_func)$/
+getopt	../libtxi/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../libtxi/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../libtxi/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+grow_me_shrinking_next	window.c	/^#define grow_me_shrinking_next(me, next, diff) \\$/
+grow_me_shrinking_prev	window.c	/^#define grow_me_shrinking_prev(me, prev, diff) \\$/
+if	session.c	/^  if (!info_error_was_printed)$/
+incremental_search	session.c	/^incremental_search (window, count, ignore)$/
+info_add_path	filesys.c	/^info_add_path (path, where)$/
+info_any_buffered_input_p	session.c	/^info_any_buffered_input_p ()$/
+info_apropos	indices.c	/^info_apropos (string)$/
+info_clear_pending_input	session.c	/^info_clear_pending_input ()$/
+info_concatenate_references	info-utils.c	/^info_concatenate_references (ref1, ref2)$/
+info_delete_window_internal	session.c	/^info_delete_window_internal (window)$/
+info_dispatch_on_key	session.c	/^info_dispatch_on_key (key, map)$/
+info_error	info.c	/^info_error (format, arg1, arg2)$/
+info_file_in_path	filesys.c	/^info_file_in_path (filename, path)$/
+info_find_file	nodes.c	/^info_find_file (filename)$/
+info_find_file_internal	nodes.c	/^info_find_file_internal (filename, get_tags)$/
+info_find_fullpath	filesys.c	/^info_find_fullpath (partial)$/
+info_find_or_create_help_window	infodoc.c	/^info_find_or_create_help_window ()$/
+info_free_references	info-utils.c	/^info_free_references (references)$/
+info_gather_typeahead	session.c	/^info_gather_typeahead ()$/
+info_gc_file_buffers	session.c	/^info_gc_file_buffers ()$/
+info_get_another_input_char	session.c	/^info_get_another_input_char ()$/
+info_get_input_char	session.c	/^info_get_input_char ()$/
+info_get_key_from_typeahead	session.c	/^info_get_key_from_typeahead (key)$/
+info_get_labeled_reference	info-utils.c	/^info_get_labeled_reference (label, references)$/
+info_get_node	nodes.c	/^info_get_node (filename, nodename)$/
+info_get_node_of_file_buffer	nodes.c	/^info_get_node_of_file_buffer (nodename, file_buffe/
+info_get_or_remove_footnotes	footnotes.c	/^info_get_or_remove_footnotes (window)$/
+info_handle_pointer	session.c	/^info_handle_pointer (label, window)$/
+info_indices_of_file_buffer	indices.c	/^info_indices_of_file_buffer (file_buffer)$/
+info_indices_of_window	indices.c	/^info_indices_of_window (window)$/
+info_initialize_numeric_arg	session.c	/^info_initialize_numeric_arg ()$/
+info_input_buffer_space_available	session.c	/^info_input_buffer_space_available ()$/
+info_input_pending_p	session.c	/^info_input_pending_p ()$/
+info_load_file	nodes.c	/^info_load_file (filename)$/
+info_load_file_internal	nodes.c	/^info_load_file_internal (filename, get_tags)$/
+info_menu_items	info-utils.c	/^info_menu_items (binding)$/
+info_menu_of_node	info-utils.c	/^info_menu_of_node (node)$/
+info_menu_or_ref_item	session.c	/^info_menu_or_ref_item (window, count, key, builder/
+info_move_to_xref	session.c	/^info_move_to_xref (window, count, key, dir)$/
+info_node_of_file_buffer_tags	nodes.c	/^info_node_of_file_buffer_tags (file_buffer, nodena/
+info_parse_and_select	session.c	/^info_parse_and_select (line, window)$/
+info_parse_label	info-utils.c	/^info_parse_label (label, node)$/
+info_parse_node	info-utils.c	/^info_parse_node (string, newlines_okay)$/
+info_push_typeahead	session.c	/^info_push_typeahead (key)$/
+info_read_and_dispatch	session.c	/^info_read_and_dispatch ()$/
+info_read_completing_in_echo_area	echo_area.c	/^info_read_completing_in_echo_area (window, prompt,/
+info_read_completing_internal	echo_area.c	/^info_read_completing_internal (window, prompt, com/
+info_read_in_echo_area	echo_area.c	/^info_read_in_echo_area (window, prompt)$/
+info_read_maybe_completing	echo_area.c	/^info_read_maybe_completing (window, prompt, comple/
+info_references_internal	info-utils.c	/^info_references_internal (label, binding)$/
+info_reload_file_buffer_contents	nodes.c	/^info_reload_file_buffer_contents (fb)$/
+info_replace_key_to_typeahead	session.c	/^info_replace_key_to_typeahead (key)$/
+info_search_in_node	session.c	/^info_search_in_node (string, node, start, window, /
+info_search_internal	session.c	/^info_search_internal (string, window, dir)$/
+info_select_reference	session.c	/^info_select_reference (window, entry)$/
+info_session	session.c	/^info_session ()$/
+info_set_input_from_file	session.c	/^info_set_input_from_file (filename)$/
+info_set_node_of_window	session.c	/^info_set_node_of_window (window, node)$/
+info_set_pending_input	session.c	/^info_set_pending_input (key)$/
+info_short_help	info.c	/^info_short_help ()$/
+info_show_point	session.c	/^info_show_point (window)$/
+info_signal_handler	signals.c	/^info_signal_handler (sig)$/
+info_target_search_node	session.c	/^info_target_search_node (node, string, start)$/
+info_xrefs	info-utils.c	/^info_xrefs (binding)$/
+info_xrefs_of_node	info-utils.c	/^info_xrefs_of_node (node)$/
+inform_in_echo_area	echo_area.c	/^inform_in_echo_area (message)$/
+initialize_dumping	session.c	/^initialize_dumping ()$/
+initialize_info_keymaps	infomap.c	/^initialize_info_keymaps ()$/
+initialize_info_session	session.c	/^initialize_info_session (node)$/
+initialize_info_signal_handler	signals.c	/^initialize_info_signal_handler ()$/
+initialize_input_line	echo_area.c	/^initialize_input_line (prompt)$/
+initialize_keyseq	session.c	/^initialize_keyseq ()$/
+initialize_message_buffer	window.c	/^initialize_message_buffer ()$/
+insert_text_into_fb_at_binding	dir.c	/^insert_text_into_fb_at_binding (fb, binding, text,/
+internal_info_node_p	info-utils.c	/^internal_info_node_p (node)$/
+key_documentation	infodoc.c	/^key_documentation (key, map)$/
+keymap_copy_keymap	infomap.c	/^keymap_copy_keymap (map)$/
+keymap_discard_keymap	infomap.c	/^keymap_discard_keymap (map)$/
+keymap_make_keymap	infomap.c	/^keymap_make_keymap ()$/
+looking_at	search.c	/^looking_at (string, binding)$/
+lookup_info_filename	filesys.c	/^lookup_info_filename (filename)$/
+make_binding	search.c	/^make_binding (buffer, start, end)$/
+make_display	display.c	/^make_display (width, height)$/
+make_file_buffer	nodes.c	/^make_file_buffer ()$/
+make_footnotes_node	footnotes.c	/^make_footnotes_node (node)$/
+make_variable_completions_array	variables.c	/^make_variable_completions_array ()$/
+maybe_build_dir_node	dir.c	/^maybe_build_dir_node (dirname, from_files_named)$/
+maybe_initialize_infopath	filesys.c	/^maybe_initialize_infopath ()$/
+memory_error_and_abort	tilde.c	/^memory_error_and_abort ()$/
+message_buffer_length_this_line	window.c	/^message_buffer_length_this_line ()$/
+message_buffer_resize	window.c	/^message_buffer_resize (length)$/
+message_buffer_to_node	window.c	/^message_buffer_to_node ()$/
+message_in_echo_area	window.c	/^message_in_echo_area (format, arg1, arg2)$/
+move_to_new_line	session.c	/^move_to_new_line (old, new, window)$/
+my_bcopy	../libtxi/getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	../libtxi/getopt.c	/^my_index (str, chr)$/
+name_internal_node	info-utils.c	/^name_internal_node (node, name)$/
+named_function	infodoc.c	/^named_function (name)$/
+nodemenu_format_info	nodemenu.c	/^nodemenu_format_info ()$/
+open_dribble_file	dribble.c	/^open_dribble_file (name)$/
+output_character_function	terminal.c	/^output_character_function (c)$/
+pad_to	window.c	/^pad_to (count, string)$/
+pause_or_input	echo_area.c	/^pause_or_input ()$/
+pop_echo_area	echo_area.c	/^pop_echo_area ()$/
+pop_isearch	session.c	/^pop_isearch (window, search_index, direction, fail/
+pretty_keyname	infodoc.c	/^pretty_keyname (key)$/
+pretty_keyseq	session.c	/^pretty_keyseq (keyseq)$/
+print_node	session.c	/^print_node (node)$/
+printed_representation	info-utils.c	/^printed_representation (character, hpos)$/
+printf_to_message_buffer	window.c	/^printf_to_message_buffer (format, arg1, arg2)$/
+push_echo_area	echo_area.c	/^push_echo_area ()$/
+push_isearch	session.c	/^push_isearch (window, search_index, direction, fai/
+read_function_name	m-x.c	/^read_function_name (prompt, window)$/
+read_variable_name	variables.c	/^read_variable_name (prompt, window)$/
+recalculate_line_starts	window.c	/^recalculate_line_starts (window)$/
+redisplay_after_signal	signals.c	/^redisplay_after_signal ()$/
+remember_calling_window	echo_area.c	/^remember_calling_window (window)$/
+remember_info_file	nodes.c	/^remember_info_file (file_buffer)$/
+remember_info_filename	filesys.c	/^remember_info_filename (filename, expansion)$/
+remember_info_program_name	info.c	/^remember_info_program_name (fullpath)$/
+remember_window_and_node	session.c	/^remember_window_and_node (window, node)$/
+remove_completion_duplicates	echo_area.c	/^remove_completion_duplicates ()$/
+replace_in_documentation	infodoc.c	/^replace_in_documentation (string)$/
+restore_calling_window	echo_area.c	/^restore_calling_window ()$/
+save_filename	info-utils.c	/^save_filename (filename)$/
+save_nodename	info-utils.c	/^save_nodename (nodename)$/
+save_string	info-utils.c	/^save_string (string, string_p, string_size_p)$/
+saven_filename	info-utils.c	/^saven_filename (filename, len)$/
+saven_nodename	info-utils.c	/^saven_nodename (nodename, len)$/
+saven_string	info-utils.c	/^saven_string (string, len, string_p, string_size_p/
+savestring	tilde.c	/^#define savestring(x) (char *)strcpy (xmalloc (1 +/
+search	search.c	/^search (string, binding)$/
+search_backward	search.c	/^search_backward (input_string, binding)$/
+search_forward	search.c	/^search_forward (string, binding)$/
+send_to_terminal	terminal.c	/^#define send_to_terminal(string) \\$/
+set_remembered_pagetop_and_point	session.c	/^set_remembered_pagetop_and_point (window)$/
+set_window_pagetop	session.c	/^set_window_pagetop (window, desired_top)$/
+show_isearch_prompt	session.c	/^show_isearch_prompt (dir, string, failing_p)$/
+shrink_me_growing_next	window.c	/^#define shrink_me_growing_next(me, next, diff) \\$/
+shrink_me_growing_prev	window.c	/^#define shrink_me_growing_prev(me, prev, diff) \\$/
+sigprocmask	signals.c	/^sigprocmask (operation, newset, oldset)$/
+skip_line	search.c	/^skip_line (string)$/
+skip_node_characters	search.c	/^skip_node_characters (string, newlines_okay)$/
+skip_node_separator	search.c	/^skip_node_separator (body)$/
+skip_non_whitespace	search.c	/^skip_non_whitespace (string)$/
+skip_whitespace	search.c	/^skip_whitespace (string)$/
+skip_whitespace_and_newlines	search.c	/^skip_whitespace_and_newlines (string)$/
+strerror	filesys.c	/^strerror (num)$/
+stricmp	search.c	/^stricmp (string1, string2)$/
+string_in_line	search.c	/^string_in_line (string, line)$/
+string_width	window.c	/^string_width (string, hpos)$/
+strnicmp	search.c	/^strnicmp (string1, string2, count)$/
+terminal_begin_inverse	terminal.c	/^terminal_begin_inverse ()$/
+terminal_begin_using_terminal	terminal.c	/^terminal_begin_using_terminal ()$/
+terminal_clear_screen	terminal.c	/^terminal_clear_screen ()$/
+terminal_clear_to_eol	terminal.c	/^terminal_clear_to_eol ()$/
+terminal_delete_lines	terminal.c	/^terminal_delete_lines (start, count)$/
+terminal_down_line	terminal.c	/^terminal_down_line ()$/
+terminal_end_inverse	terminal.c	/^terminal_end_inverse ()$/
+terminal_end_using_terminal	terminal.c	/^terminal_end_using_terminal ()$/
+terminal_get_screen_size	terminal.c	/^terminal_get_screen_size ()$/
+terminal_goto_xy	terminal.c	/^terminal_goto_xy (x, y)$/
+terminal_initialize_terminal	terminal.c	/^terminal_initialize_terminal (terminal_name)$/
+terminal_insert_lines	terminal.c	/^terminal_insert_lines (start, count)$/
+terminal_new_terminal	terminal.c	/^terminal_new_terminal (terminal_name)$/
+terminal_prep_terminal	terminal.c	/^terminal_prep_terminal ()$/
+terminal_put_text	terminal.c	/^terminal_put_text (string)$/
+terminal_ring_bell	terminal.c	/^terminal_ring_bell ()$/
+terminal_scroll_terminal	terminal.c	/^terminal_scroll_terminal (start, end, amount)$/
+terminal_unprep_terminal	terminal.c	/^terminal_unprep_terminal ()$/
+terminal_up_line	terminal.c	/^terminal_up_line ()$/
+terminal_write_chars	terminal.c	/^terminal_write_chars (string, nchars)$/
+tilde_expand	tilde.c	/^tilde_expand (string)$/
+tilde_expand_word	tilde.c	/^tilde_expand_word (filename)$/
+tilde_find_prefix	tilde.c	/^tilde_find_prefix (string, len)$/
+tilde_find_suffix	tilde.c	/^tilde_find_suffix (string)$/
+times_description	session.c	/^times_description (count)$/
+unmessage_in_echo_area	window.c	/^unmessage_in_echo_area ()$/
+usage	info.c	/^usage ()$/
+version_string	info.c	/^version_string ()$/
+where_is	infodoc.c	/^where_is (map, function)$/
+where_is_internal	infodoc.c	/^where_is_internal (map, function)$/
+window_adjust_pagetop	window.c	/^window_adjust_pagetop (window)$/
+window_change_window_height	window.c	/^window_change_window_height (window, amount)$/
+window_chars_to_goal	window.c	/^window_chars_to_goal (line, goal)$/
+window_clear_echo_area	window.c	/^window_clear_echo_area ()$/
+window_delete_window	window.c	/^window_delete_window (window)$/
+window_get_cursor_column	window.c	/^window_get_cursor_column (window)$/
+window_get_goal_column	window.c	/^window_get_goal_column (window)$/
+window_get_state	window.c	/^window_get_state (window, state)$/
+window_goto_percentage	window.c	/^window_goto_percentage (window, percent)$/
+window_initialize_windows	window.c	/^window_initialize_windows (width, height)$/
+window_line_of_point	window.c	/^window_line_of_point (window)$/
+window_make_modeline	window.c	/^window_make_modeline (window)$/
+window_make_window	window.c	/^window_make_window (node)$/
+window_mark_chain	window.c	/^window_mark_chain (chain, flag)$/
+window_message_in_echo_area	window.c	/^window_message_in_echo_area (format, arg1, arg2)$/
+window_new_screen_size	window.c	/^window_new_screen_size (width, height)$/
+window_physical_lines	window.c	/^window_physical_lines (node)$/
+window_set_node_of_window	window.c	/^window_set_node_of_window (window, node)$/
+window_set_state	window.c	/^window_set_state (window, state)$/
+window_tile_windows	window.c	/^window_tile_windows (style)$/
+window_toggle_wrap	window.c	/^window_toggle_wrap (window)$/
+window_unmark_chain	window.c	/^window_unmark_chain (chain, flag)$/
+write_node_to_stream	session.c	/^write_node_to_stream (node, stream)$/
+xmalloc	tilde.c	/^xmalloc (bytes)$/
+xrealloc	tilde.c	/^xrealloc (pointer, bytes)$/
+zap_infopath	filesys.c	/^zap_infopath ()$/

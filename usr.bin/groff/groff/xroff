@@ -1,0 +1,3 @@
+#! /bin/sh -
+#	BSDI $Id: xroff,v 1.1 1994/01/11 22:35:20 polk Exp $
+exec groff -TX75-12 -mX ${1+"$@"}

@@ -1,0 +1,5 @@
+     unlimit [ -h ] resource ...
+          The resource limit for each resource is set to the hard
+          limit.   If  the -h flag is given and the shell is run-
+          ning as root, the hard resource limit for each resource
+          is removed.

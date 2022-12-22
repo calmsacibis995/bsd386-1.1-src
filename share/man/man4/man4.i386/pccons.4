@@ -1,0 +1,116 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: pccons.4,v 1.2 1994/01/31 08:41:42 donn Exp $
+.Dd January 31, 1994
+.Dt PCCONS 4 i386
+.Os
+.Sh NAME
+.Nm pccons ,
+.Nm kbd
+.Nd PC keyboard and text mode display driver
+.Sh SYNOPSIS
+.Cd "device pccons0 at isa? port 0x60"
+.Sh DESCRIPTION
+The
+.Nm
+driver supports standard PC-AT keyboards in several different modes.
+The driver uses a monochrome or color display adaptor (MDA, CGA, EGA
+or VGA-compatible) in text mode.
+.Pp
+The device
+.Pa /dev/conskbd0
+represents the text mode display and keyboard,
+which is normally accessed via the indirect console driver
+.Xr cons 4
+and the device
+.Pa /dev/console .
+This device acts as a standard tty device as described by
+.Xr tty 4 .
+In addition, the
+.Nm
+driver supports the use of several additional text-mode
+.Dq virtual screens ,
+normally known as
+.Pa /dev/ttyc2
+and up.
+The number of screens is eight including
+the primary on a color display;
+monochrome supports only one because the standard display memory
+is insufficient for multiple screens.
+.Pp
+While in text mode, the active display can be changed to another open
+screen by pressing the corresponding function key while holding
+down the ALT key.
+That is, ALT-F1 switches to the primary display, ALT-F2 switches
+to the next display
+.Ns ( Pa /dev/ttyc2 ) ,
+etc.
+This key press is ignored if the corresponding device is not open.
+.Pp
+The mappings from key codes to characters and escape sequences
+is specified by a keyboard mapping table compiled into the kernel.
+An optional table may be compiled into the kernel by placing a line
+such as
+.Dl "options KBD=UK"
+in the kernel config file,
+which specifies the
+.Li UK
+mapping.
+The kernel config line
+.Dl "options CAPSLOCK_CONTROL" 
+replaces the caps-lock key with a control key.
+The table sources are located in the
+.Pa i386/isa/kbd
+subdirectory of the kernel source.
+.Pp
+The escape sequences and controls for the display are described by the
+.Li pc3
+entry in the
+.Xr termcap 5
+database.
+They are a substantial subset of the ANSI terminal controls as supported
+on terminals such as the VT220.
+In addition, many of the standard PC console escape sequences are supported
+as described in the iBSC2 compatibility specification,
+including the sequences to change colors and font types.
+.Pp
+If the terminal size is changed with
+.Xr stty 1
+and its
+.Li rows
+operand, the emulator will use the new size if it is no greater than 25 lines.
+Thus, the command
+.Li "clear; stty rows 24"
+allows a 24-line display to be used.
+.Pp
+The
+.Nm kbd
+device,
+.Pa /dev/kbd ,
+provides an alternate interface to the console keyboard.
+While open, it suspends normal operations on the text-mode devices.
+This device is usually used in conjunction with the
+.Xr vga 4
+device for graphics-mode programs.
+While the
+.Nm kbd
+device is open, normal text-mode access to the display
+via the console devices
+is suspended.
+.Pp
+Several
+.Xr ioctl 2
+operations are provided primarily for use on the
+.Nm kbd
+device, in particular to place the keyboard into a raw mode
+which returns make and break keycodes rather than the standard
+character sequences.
+.Sh FILES
+.Pa /dev/conskbd0 ,
+.Pa /dev/ttyc[2-8] ,
+.Pa /dev/kbd
+.Sh SEE ALSO
+.Xr cons 4 ,
+.Xr vga 4,
+.Xr vgafont 1

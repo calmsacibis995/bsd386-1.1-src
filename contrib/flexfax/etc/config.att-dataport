@@ -1,0 +1,46 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.att-dataport,v 1.1.1.1 1994/01/14 23:09:38 torek Exp $
+#
+# Configuration for using the Class 1 command interface with
+# an AT&T DataPort 14.4 modem.  Firmware version 122 (ati1)
+# or newer.
+#
+# Hardware flow control is used.
+#
+# Note that due to a bug in the 1.22 firmware the FCS bytes in the HDLC
+# frames are NOT returned to the host.  This is fixed in versions 1.33
+# and later.  To deal with this problem, early firmware revs should be
+# sure to have Class1FrameOverhead set appropriately.
+#
+# CONFIG: CLASS1: 144: Manufacturer='AT&T' Model=Dataport
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class1		# hint to override class 2
+ModemRate:		38400		# could probably run 57600
+ModemFlowControl:	rtscts
+ModemFlowControlCmd:	&R0&S1		# RTS/CTS follow RS232 operation
+ModemSetupDTRCmd:	&D2		# DTR off causes modem to reset
+ModemSetupDCDCmd:	&C1		# DCD follows carrier
+ModemMfrQueryCmd:	!AT&T
+ModemModelQueryCmd:	!DataPort
+ModemRevQueryCmd:	I19
+#
+# NB: this works around a bug in the 1.22 firmware; it is fixed
+# in versions 1.33 and later in which case you should remove this
+# line and use the default value of 4.
+#
+Class1FrameOverhead:	2		# 1.22 firmware does not include FCS
+#
+ModemDialCmd:		DT%s		# T for tone dialing

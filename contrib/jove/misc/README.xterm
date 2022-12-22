@@ -1,0 +1,41 @@
+This Jove has support for pointing at the screen when in Xterm.
+
+Here is the entry from the Jove commands help file:
+
+:entry "xterm-mouse" "Command"
+This function enables the use of the mouse with JOVE in an
+xterm window. The function is enabled when 'ansi-codes' is defined and
+the function is bound to <escape><open-square-bracket>M.  Moving the
+mouse and pressing the left button will set the point to the mouse
+position and push it.  Moving the mouse and pressing the right button
+will set the point to the mouse position and yank the region from the
+last mark and the current point.  Moving the mouse and pressing the
+middle button will set the point to the mouse position and paste the
+contents of the mouse button in place. Note that this in a
+JOVE function and is independent of the normal cut and paste
+operations available under xterm. It is possible to bind these
+operations to SHIFT+the mouse button, so that they will work in
+addition to JOVE cut and paste.
+
+
+To install this:
+
+a)	ensure that XTERMPOINT is defined at compile time
+b)	You need to turn the xterm feature on and off.
+	Change the xterm termcap entry to contain
+
+		vs=\E[?9h:ve=\E[?9l:
+
+	This is the visual start and end controls and tells xterm what
+	to do.
+c)	You need to add the line
+
+	bind-to-key xterm-mouse ^[[M
+
+	into your .joverc file. This is ESC [ M
+
+
+Peter Collinson  - Hillside Systems
+
+1st February 1992
+

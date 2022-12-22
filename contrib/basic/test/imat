@@ -1,0 +1,5 @@
+   10	dim arr%[20]
+   20	for i = 1 to 20
+   30	     arr%[i] = i*i
+   40	next i
+   50	mat print arr%

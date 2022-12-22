@@ -1,0 +1,17 @@
+F ACCT.C;1                          	acct.c
+F COMPARE.C;1                       	compare.c
+F COMPARE.I;1                       	compare.i
+F ERROR.C;1                         	error.c
+F IO.C;1                            	io.c
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/sa
+F OPTIONS.C;1                       	options.c
+F PATHNAME.H;1                      	pathnames.h
+F SA.8;1                            	sa.8
+F SA.H;1                            	sa.h
+F SIGNAL.C;1                        	signal.c
+F SORT.C;1                          	sort.c
+F SUMMARY.C;1                       	summary.c
+F TAGS.;1                           	tags
+F USER.C;1                          	user.c

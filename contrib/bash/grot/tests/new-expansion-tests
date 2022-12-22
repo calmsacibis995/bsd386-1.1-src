@@ -1,0 +1,60 @@
+expect()
+{
+        echo expect "$@"
+}
+
+expect '<foo bar>'
+echo "${undef-"foo bar"}"	# should be foo bar
+expect '<foo>'
+echo "${und="foo"}"		# should be foo
+
+expect "<$HOME>"
+echo ${HOME-"}"}
+expect "<$HOME>"
+echo "${HOME-'}'}"
+expect "<$HOME>"
+echo "${HOME-"}"}"
+
+expect an error message
+echo "${HOME:`echo }`}"	# should be an error -- bad substitution
+
+expect "<$HOME>"
+echo ${HOME}
+expect "<$HOME>"
+echo ${HOME:-`echo }`}
+expect "<$HOME>"
+echo ${HOME:-`echo "}"`}
+expect "<$HOME>"
+echo "${HOME:-`echo "}"`}"
+expect "<$HOME>"
+echo "$(echo "${HOME}")"
+expect "<$HOME>"
+echo "$(echo "$(echo ${HOME})")"
+expect "<$HOME>"
+echo "$(echo "$(echo "${HOME}")")"
+
+P=*@*
+expect '<*@>'
+echo "${P%"*"}"         # should be *@
+expect '<@*>'
+echo "${P#\*}"		# should be @*
+
+expect '<)>'
+echo "$(echo ")")"	# should be )
+expect '<")">'
+echo "$(echo "\")\"")"	# should be ")"
+
+foo='abcd   '
+expect '<-abcd ->'
+echo -${foo}-		# should be -abcd -
+expect '<-abcd ->'
+echo -${foo% *}-	# should be -abcd -
+expect '<-abcd->'
+echo -${foo%% *}-	# should be -abcd-
+
+set a b c d e
+expect '<a b c d e>'
+IFS=""
+echo "$@"
+IFS=' 	
+'

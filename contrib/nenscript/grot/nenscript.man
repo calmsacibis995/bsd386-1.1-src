@@ -1,0 +1,264 @@
+
+
+
+NENSCRIPT(1)             USER COMMANDS               NENSCRIPT(1)
+
+
+
+NNNNAAAAMMMMEEEE
+     nenscript - format an ASCII file and convert to PostScript
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+     nnnneeeennnnssssccccrrrriiiipppptttt [ ----????11112222BBBBGGGGgggghhhhllllNNNNnnnnRRRRrrrrssssVVVVWWWWwwww ] [ ----ffff_f_o_n_t ] [ ----FFFF_t_i_t_l_e_f_o_n_t ] [
+     ----bbbb_h_e_a_d_e_r  ]  [  ----LLLL_l_i_n_e_s  ]  [  ----pppp_f_i_l_e_n_a_m_e  ] [ ----PPPP_p_r_i_n_t_e_r ] [
+     ----SSSS_c_l_a_s_s_i_f_i_c_a_t_i_o_n ] [ ----####_c_o_p_i_e_s ] [ _f_i_l_e... ]
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+     Formats the specified ASCII files  and  produces  PostScript
+     output conforming to the Adobe Structuring Conventions.  The
+     output pages may be in landscape or portrait mode, with  one
+     or two columns, with or without headers.
+
+     If no input files are specified, then input is accepted from
+     stdin.
+
+     Tabs in the input stream are  expanded  to  eight  character
+     positions.
+
+     Formfeed (control-L) characters in the input stream cause  a
+     new  page or column to be started. Form feed characters must
+     be at the start start of a line, or preceded  only  by  whi-
+     tespace.
+
+     PostScript output is directed to a printer using llllpppprrrr  unless
+     otherwise  specified using the -p option. The printer to use
+     is set by the PRINTER environment variable.  If this is  not
+     set, then the printer "Postscript" ("prn" for MSDOS) will be
+     used.
+
+     Font specifications are formed from the font  name  and  the
+     font size, i.e. CCCCoooouuuurrrriiiieeeerrrr11110000 specifies a 10 point Courier font,
+     and Courier-Bold12 specifies a bold, 12 point Courier font.
+
+     The NENSCRIPT  environment  variable  may  be  used  to  set
+     default  values for most configurable attributes. Values set
+     in this way will be overridden by any options  specified  on
+     the commands line.
+
+     The current version of nenscript is 1.12.
+
+
+OOOOPPPPTTTTIIIIOOOONNNNSSSS
+     ----????   ----hhhh Print usage message.
+
+
+     ----1111   Specifies single column output (default).
+
+
+     ----2222   Specifies two column output.
+
+
+
+
+Sun Release 4.1    Last change: 20 August 1992                  1
+
+
+
+
+
+
+NENSCRIPT(1)             USER COMMANDS               NENSCRIPT(1)
+
+
+
+     ----BBBB   Turns off page titles.
+
+
+     ----bbbb_h_e_a_d_e_r
+          Print the text specified by _h_e_a_d_e_r as the title on each
+          page,  rather than the default header which is composed
+          of the name of the source file, the  current  time  and
+          date  and  the page number. If in gaudy mode, the title
+          is displayed in the blank  area  just  above  the  file
+          title.
+
+
+     ----ffff_f_o_n_t
+          Use _f_o_n_t for printing text. Only Courier in sizes 5  to
+          30  can  be used for printing text. The default font is
+          Courier10, unless two column landscape mode  is  speci-
+          fied in which case the default font is Courier7.
+
+
+     ----FFFF_t_i_t_l_e_f_o_n_t
+          Use _t_i_t_l_e_f_o_n_t for printing  titles.  Any  font  in  any
+          point  size can be used for printing titles.The default
+          font is Courier-Bold10.
+
+
+     ----GGGG   Enable gaudy mode.
+
+
+     ----gggg   Disable gaudy mode (default).
+
+
+     ----LLLL_l_i_n_e_s
+          Set the maximum number of lines which will  be  printed
+          per  page  or  column. The actual number of lines which
+          appear may be less depending upon the  font  and  paper
+          size.
+
+
+     ----llll   Do not set a limit on on the maximum  number  of  lines
+          per page, i.e. the number of lines is determined by the
+          font size and the paper size (default).
+
+
+     ----NNNN   Precede each line with it's line number relative to the
+          start of the file.
+
+
+     ----nnnn   Disable line numbering (default).
+
+
+     ----pppp_f_i_l_e_n_a_m_e
+          Direct the  PostScript  to  _f_i_l_e_n_a_m_e  rather  than  the
+
+
+
+Sun Release 4.1    Last change: 20 August 1992                  2
+
+
+
+
+
+
+NENSCRIPT(1)             USER COMMANDS               NENSCRIPT(1)
+
+
+
+          default  printer.  If '-' is specified as the filename,
+          then the PostScript is sent to stdout.
+
+
+     ----PPPP_p_r_i_n_t_e_r
+          Overrides the PRINTER environment variable in determin-
+          ing  the  printer  to spool output to. Ignored if -p is
+          used.
+
+
+     ----RRRR   Don't rotate the page, i.e.  output  in  portrait  mode
+          (default).
+
+
+     ----rrrr   Rotate the page, i.e. output in landscape mode.
+
+
+     ----SSSS_c_l_a_s_s_i_f_i_c_a_t_i_o_n
+          Prints the string argument in Helvetica-Bold28  at  the
+          top  and  bottom  of the page in conformance to regula-
+          tions for printing classified material.
+
+
+     ----ssss   Disable  a  previous  heading  specified  with  the  -S
+          option.
+
+
+     ----VVVV   Display information identifying  the  version  of  nnnneeeennnn----
+          ssssccccrrrriiiipppptttt.... NNNNooootttthhhhiiiinnnngggg wwwwiiiillllllll bbbbeeee pppprrrriiiinnnntttteeeedddd rrrreeeeggggaaaarrrrddddlllleeeessssssss
+
+
+     ----WWWW   Truncate lines which are wide for the page.
+
+
+     ----wwww   Wrap lines which are too wide for the page onto succes-
+          sive  lines  (default).   Continuation lines are marked
+          with + character before the left margin.
+
+
+     ----####_c_o_p_i_e_s
+          Print each page _c_o_p_i_e_s times.
+
+
+EEEENNNNVVVVIIIIRRRROOOONNNNMMMMEEEENNNNTTTT
+     PPPPRRRRIIIINNNNTTTTEEEERRRR        Specifies the name of the printer  to  direct
+                    PostScript output to. If not set, the default
+                    is a printer named "PostScript".
+
+
+     NNNNEEEENNNNSSSSCCCCRRRRIIIIPPPPTTTT      If defined, this string is searched for valid
+                    options  before  the command line supplied by
+                    the user.
+
+
+
+Sun Release 4.1    Last change: 20 August 1992                  3
+
+
+
+
+
+
+NENSCRIPT(1)             USER COMMANDS               NENSCRIPT(1)
+
+
+
+BBBBUUUUGGGGSSSS
+     As nnnneeeennnnssssccccrrrriiiipppptttt does not have  access  to  complete  PostScript
+     font  tables, it must use some other technique for calculat-
+     ing the number of characters that fit across the  page.  The
+     solution  was to use a fixed table for the Courier font in a
+     range of sizes. If this table was extended, other fonts  and
+     sizes could be used for printing text. Alternatively, if the
+     text processing was done on the printer, then there would be
+     no need to know anything about the font sizes...
+
+     No checking is performed on font names, other than  checking
+     that  only  Courier can be specified for the text font. If a
+     font is  specified  that  is  not  available  on  the  final
+     printer, the result is undetermined.
+
+     No checking  is  performed  on  the  input  file  to  detect
+     accidental printing of garbage files. Caveat emptor!
+
+     No mapping of the input characters is performed,  so  output
+     may  vary depending upon the vagaries of downstream software
+     and hardware.
+
+     No support for manual feed, page prefeed, mail upon  comple-
+     tion or any of the other rarely used options of eeeennnnssssccccrrrriiiipppptttt....
+
+     No messages are displayed whilst processing.
+
+     Input line lengths are  limited  to  8192  characters  after
+     expansion of tabs.
+
+     Only A4 size paper is currently supported.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sun Release 4.1    Last change: 20 August 1992                  4
+
+
+

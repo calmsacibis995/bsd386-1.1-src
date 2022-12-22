@@ -1,0 +1,215 @@
+CTL	makeinfo.c	/^#define CTL(c) ((c) & (~control_character_bit))$/
+DEFUN_SELF_DELIMITING	makeinfo.c	/^#define DEFUN_SELF_DELIMITING(c)					\\$/
+META	makeinfo.c	/^#define META(c) ((c) | (meta_character_bit))$/
+Mgetopt	../libtxi/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../libtxi/getopt1.c	/^main (argc, argv)$/
+Mmakeinfo	makeinfo.c	/^main (argc, argv)$/
+UNCTL	makeinfo.c	/^#define UNCTL(c) coerce_to_upper(((c)|control_char/
+UNMETA	makeinfo.c	/^#define UNMETA(c) ((c) & (~meta_character_bit))$/
+_getopt_internal	../libtxi/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_char	makeinfo.c	/^add_char (character)$/
+add_word	makeinfo.c	/^add_word (string)$/
+add_word_args	makeinfo.c	/^add_word_args (va_alist)$/
+backup_input_pointer	makeinfo.c	/^backup_input_pointer ()$/
+begin_insertion	makeinfo.c	/^begin_insertion (type)$/
+canon_white	makeinfo.c	/^canon_white (string)$/
+clear	makeinfo.c	/^clear (name)$/
+close_insertion_paragraph	makeinfo.c	/^close_insertion_paragraph ()$/
+close_paragraph	makeinfo.c	/^close_paragraph ()$/
+close_paragraph_with_lines	makeinfo.c	/^close_paragraph_with_lines (lines)$/
+close_single_paragraph	makeinfo.c	/^close_single_paragraph ()$/
+cm_TeX	makeinfo.c	/^cm_TeX (arg)$/
+cm_appendix	makeinfo.c	/^cm_appendix ()$/
+cm_appendixsec	makeinfo.c	/^cm_appendixsec ()$/
+cm_appendixsubsec	makeinfo.c	/^cm_appendixsubsec ()$/
+cm_appendixsubsubsec	makeinfo.c	/^cm_appendixsubsubsec ()$/
+cm_asterisk	makeinfo.c	/^cm_asterisk ()$/
+cm_bold	makeinfo.c	/^cm_bold (arg, start, end)$/
+cm_bullet	makeinfo.c	/^cm_bullet (arg)$/
+cm_cartouche	makeinfo.c	/^cm_cartouche ()$/
+cm_chapheading	makeinfo.c	/^cm_chapheading ()$/
+cm_chapter	makeinfo.c	/^cm_chapter ()$/
+cm_cite	makeinfo.c	/^cm_cite (arg, position)$/
+cm_clear	makeinfo.c	/^cm_clear ()$/
+cm_code	makeinfo.c	/^cm_code (arg)$/
+cm_copyright	makeinfo.c	/^cm_copyright (arg)$/
+cm_ctrl	makeinfo.c	/^cm_ctrl (arg, position)$/
+cm_dfn	makeinfo.c	/^cm_dfn (arg, position)$/
+cm_display	makeinfo.c	/^cm_display ()$/
+cm_dots	makeinfo.c	/^cm_dots (arg)$/
+cm_emph	makeinfo.c	/^cm_emph (arg)$/
+cm_enumerate	makeinfo.c	/^cm_enumerate ()$/
+cm_example	makeinfo.c	/^cm_example ()$/
+cm_file	makeinfo.c	/^cm_file (arg)$/
+cm_flushleft	makeinfo.c	/^cm_flushleft ()$/
+cm_flushright	makeinfo.c	/^cm_flushright ()$/
+cm_format	makeinfo.c	/^cm_format ()$/
+cm_ftable	makeinfo.c	/^cm_ftable ()$/
+cm_group	makeinfo.c	/^cm_group ()$/
+cm_heading	makeinfo.c	/^cm_heading ()$/
+cm_ifclear	makeinfo.c	/^cm_ifclear ()$/
+cm_ifinfo	makeinfo.c	/^cm_ifinfo ()$/
+cm_ifset	makeinfo.c	/^cm_ifset ()$/
+cm_inforef	makeinfo.c	/^cm_inforef (arg)$/
+cm_italic	makeinfo.c	/^cm_italic (arg, start, end)$/
+cm_itemize	makeinfo.c	/^cm_itemize ()$/
+cm_kbd	makeinfo.c	/^cm_kbd (arg)$/
+cm_key	makeinfo.c	/^cm_key (arg)$/
+cm_lisp	makeinfo.c	/^cm_lisp ()$/
+cm_lowersections	makeinfo.c	/^cm_lowersections ()$/
+cm_majorheading	makeinfo.c	/^cm_majorheading ()$/
+cm_menu	makeinfo.c	/^cm_menu ()$/
+cm_minus	makeinfo.c	/^cm_minus (arg)$/
+cm_node	makeinfo.c	/^cm_node ()$/
+cm_obsolete	makeinfo.c	/^cm_obsolete (arg, start, end)$/
+cm_pxref	makeinfo.c	/^cm_pxref (arg)$/
+cm_quotation	makeinfo.c	/^cm_quotation ()$/
+cm_raisesections	makeinfo.c	/^cm_raisesections ()$/
+cm_refill	makeinfo.c	/^cm_refill ()$/
+cm_roman	makeinfo.c	/^cm_roman (arg, start, end)$/
+cm_samp	makeinfo.c	/^cm_samp (arg)$/
+cm_sc	makeinfo.c	/^cm_sc (arg, start_pos, end_pos)$/
+cm_section	makeinfo.c	/^cm_section ()$/
+cm_set	makeinfo.c	/^cm_set ()$/
+cm_smallexample	makeinfo.c	/^cm_smallexample ()$/
+cm_smalllisp	makeinfo.c	/^cm_smalllisp ()$/
+cm_strong	makeinfo.c	/^cm_strong (arg, position)$/
+cm_subheading	makeinfo.c	/^cm_subheading ()$/
+cm_subsection	makeinfo.c	/^cm_subsection ()$/
+cm_subsubheading	makeinfo.c	/^cm_subsubheading ()$/
+cm_subsubsection	makeinfo.c	/^cm_subsubsection ()$/
+cm_table	makeinfo.c	/^cm_table ()$/
+cm_title	makeinfo.c	/^cm_title (arg, start, end)$/
+cm_titlefont	makeinfo.c	/^cm_titlefont (arg, start, end)$/
+cm_today	makeinfo.c	/^cm_today (arg)$/
+cm_top	makeinfo.c	/^cm_top ()$/
+cm_unnumbered	makeinfo.c	/^cm_unnumbered ()$/
+cm_unnumberedsec	makeinfo.c	/^cm_unnumberedsec ()$/
+cm_unnumberedsubsec	makeinfo.c	/^cm_unnumberedsubsec ()$/
+cm_unnumberedsubsubsec	makeinfo.c	/^cm_unnumberedsubsubsec ()$/
+cm_value	makeinfo.c	/^cm_value (arg, start_pos, end_pos)$/
+cm_var	makeinfo.c	/^cm_var (arg, start_pos, end_pos)$/
+cm_vtable	makeinfo.c	/^cm_vtable ()$/
+cm_w	makeinfo.c	/^cm_w (arg, start, end)$/
+cm_xref	makeinfo.c	/^cm_xref (arg)$/
+coerce_to_lower	makeinfo.c	/^#define coerce_to_lower(c) ((isupper(c) ? tolower(/
+coerce_to_upper	makeinfo.c	/^#define coerce_to_upper(c) ((islower(c) ? toupper(/
+command_char	makeinfo.c	/^#define command_char(c) ((!whitespace(c)) && \\$/
+command_name_condition	makeinfo.c	/^command_name_condition ()$/
+convert	makeinfo.c	/^convert (name)$/
+cr_or_whitespace	makeinfo.c	/^#define cr_or_whitespace(c) (((c) == '\\t') || ((c/
+curchar	makeinfo.c	/^#define curchar() input_text[input_text_offset]$/
+current_insertion_type	makeinfo.c	/^current_insertion_type ()$/
+current_item_function	makeinfo.c	/^current_item_function ()$/
+defun_insertion	makeinfo.c	/^defun_insertion (type)$/
+digit_value	makeinfo.c	/^#define digit_value(c) ((c) - '0')$/
+discard_braces	makeinfo.c	/^discard_braces ()$/
+discard_insertions	makeinfo.c	/^discard_insertions ()$/
+discard_until	makeinfo.c	/^discard_until (string)$/
+do_enumeration	makeinfo.c	/^do_enumeration (type, default_string)$/
+do_flush_right_indentation	makeinfo.c	/^do_flush_right_indentation ()$/
+do_nothing	makeinfo.c	/^do_nothing ()$/
+end_insertion	makeinfo.c	/^end_insertion (type)$/
+enumerate_item	makeinfo.c	/^enumerate_item ()$/
+error	makeinfo.c	/^error (va_alist)$/
+exchange	../libtxi/getopt.c	/^exchange (argv)$/
+execute_string	makeinfo.c	/^execute_string (va_alist)$/
+expand_filename	makeinfo.c	/^expand_filename (filename, input_name)$/
+filename_part	makeinfo.c	/^filename_part (filename)$/
+find_and_load	makeinfo.c	/^find_and_load (filename)$/
+find_node	makeinfo.c	/^find_node (name)$/
+find_node_reference	makeinfo.c	/^find_node_reference (node, ref_list)$/
+find_proc_name	makeinfo.c	/^find_proc_name (proc)$/
+find_type_from_name	makeinfo.c	/^find_type_from_name (name)$/
+fix_whitespace	makeinfo.c	/^fix_whitespace (string)$/
+flush_file_stack	makeinfo.c	/^flush_file_stack ()$/
+flush_output	makeinfo.c	/^flush_output ()$/
+free_and_clear	makeinfo.c	/^free_and_clear (pointer)$/
+free_node_references	makeinfo.c	/^free_node_references ()$/
+fs_error	makeinfo.c	/^fs_error (filename)$/
+full_pathname	makeinfo.c	/^full_pathname (filename)$/
+get_char_len	makeinfo.c	/^get_char_len (character)$/
+get_command_entry	makeinfo.c	/^get_command_entry (string)$/
+get_item_function	makeinfo.c	/^get_item_function ()$/
+get_node_token	makeinfo.c	/^get_node_token ()$/
+get_rest_of_line	makeinfo.c	/^get_rest_of_line (string)$/
+get_until	makeinfo.c	/^get_until (match, string)$/
+get_until_in_braces	makeinfo.c	/^get_until_in_braces (match, string)$/
+get_until_in_line	makeinfo.c	/^get_until_in_line (match, string)$/
+get_xref_token	makeinfo.c	/^get_xref_token ()$/
+getopt	../libtxi/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../libtxi/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../libtxi/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+glean_node_from_menu	makeinfo.c	/^glean_node_from_menu (remember_reference)$/
+handle_variable	makeinfo.c	/^handle_variable (action)$/
+handle_variable_internal	makeinfo.c	/^handle_variable_internal (action, name)$/
+ignore_blank_line	makeinfo.c	/^ignore_blank_line ()$/
+indent	makeinfo.c	/^indent (amount)$/
+inhibit_output_flushing	makeinfo.c	/^inhibit_output_flushing ()$/
+init_brace_stack	makeinfo.c	/^init_brace_stack ()$/
+init_insertion_stack	makeinfo.c	/^init_insertion_stack ()$/
+init_internals	makeinfo.c	/^init_internals ()$/
+init_paragraph	makeinfo.c	/^init_paragraph ()$/
+init_tag_table	makeinfo.c	/^init_tag_table ()$/
+insert	makeinfo.c	/^insert (character)$/
+insert_and_underscore	makeinfo.c	/^insert_and_underscore (with_char)$/
+insert_self	makeinfo.c	/^insert_self ()$/
+insertion_type_pname	makeinfo.c	/^insertion_type_pname (type)$/
+isdigit	makeinfo.c	/^#define isdigit(c)  ((c) >= '0' && (c) <= '9')$/
+isletter	makeinfo.c	/^#define isletter(c) (((c) >= 'A' && (c) <= 'Z') ||/
+isolate_nodename	makeinfo.c	/^isolate_nodename (nodename)$/
+isupper	makeinfo.c	/^#define isupper(c) ((c) >= 'A' && (c) <= 'Z')$/
+kill_self_indent	makeinfo.c	/^kill_self_indent (count)$/
+line_error	makeinfo.c	/^line_error (va_alist)$/
+looking_at	makeinfo.c	/^#define looking_at(string) \\$/
+member	makeinfo.c	/^#define member(c, s) (strchr (s, c) != NULL)$/
+memory_error	makeinfo.c	/^memory_error (callers_name, bytes_wanted)$/
+my_bcopy	../libtxi/getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	../libtxi/getopt.c	/^my_index (str, chr)$/
+normalize_node_name	makeinfo.c	/^normalize_node_name (string)$/
+pathname_part	makeinfo.c	/^pathname_part (filename)$/
+pop_and_call_brace	makeinfo.c	/^pop_and_call_brace ()$/
+pop_insertion	makeinfo.c	/^pop_insertion ()$/
+pop_node_filename	makeinfo.c	/^pop_node_filename ()$/
+popfile	makeinfo.c	/^popfile ()$/
+print_version_info	makeinfo.c	/^print_version_info ()$/
+push_insertion	makeinfo.c	/^push_insertion (type, item_function)$/
+push_node_filename	makeinfo.c	/^push_node_filename ()$/
+pushfile	makeinfo.c	/^pushfile ()$/
+read_command	makeinfo.c	/^read_command ()$/
+read_token	makeinfo.c	/^read_token ()$/
+reader_loop	makeinfo.c	/^reader_loop ()$/
+reftype_type_string	makeinfo.c	/^reftype_type_string (type)$/
+remember_brace	makeinfo.c	/^remember_brace (proc)$/
+remember_brace_1	makeinfo.c	/^remember_brace_1 (proc, position)$/
+remember_error	makeinfo.c	/^remember_error ()$/
+remember_node	makeinfo.c	/^remember_node (node, prev, next, up, position, lin/
+remember_node_reference	makeinfo.c	/^remember_node_reference (node, line, type)$/
+reverse_list	makeinfo.c	/^reverse_list (list)$/
+savestring	makeinfo.c	/^#define savestring(x) \\$/
+search_forward	makeinfo.c	/^search_forward (string, from)$/
+sectioning_underscore	makeinfo.c	/^sectioning_underscore (command)$/
+self_delimiting	makeinfo.c	/^self_delimiting (character)$/
+sentence_ender	makeinfo.c	/^#define sentence_ender(c) ((c) == '.' || (c) == '?/
+set	makeinfo.c	/^set (name, value)$/
+set_p	makeinfo.c	/^set_p (name)$/
+skip_whitespace	makeinfo.c	/^#define skip_whitespace() while (input_text_offset/
+split_file	makeinfo.c	/^split_file (filename, size)$/
+start_enumerating	makeinfo.c	/^start_enumerating (at, type)$/
+start_paragraph	makeinfo.c	/^start_paragraph ()$/
+stop_enumerating	makeinfo.c	/^stop_enumerating ()$/
+stricmp	makeinfo.c	/^stricmp (string1, string2)$/
+toupper	makeinfo.c	/^#define toupper(c) ((c) - 32)$/
+uninhibit_output_flushing	makeinfo.c	/^uninhibit_output_flushing ()$/
+usage	makeinfo.c	/^usage ()$/
+validate	makeinfo.c	/^validate (tag, line, label)$/
+validate_file	makeinfo.c	/^validate_file (filename, tag_table)$/
+validate_other_references	makeinfo.c	/^validate_other_references (ref_list)$/
+warning	makeinfo.c	/^warning (va_alist)$/
+what_section	makeinfo.c	/^what_section (text)$/
+whitespace	makeinfo.c	/^#define whitespace(c) (((c) == '\\t') || ((c) == '/
+write_tag_table	makeinfo.c	/^write_tag_table ()$/
+write_tag_table_indirect	makeinfo.c	/^write_tag_table_indirect ()$/
+write_tag_table_internal	makeinfo.c	/^write_tag_table_internal (indirect_p)$/
+xmalloc	makeinfo.c	/^xmalloc (nbytes)$/
+xrealloc	makeinfo.c	/^xrealloc (pointer, nbytes)$/

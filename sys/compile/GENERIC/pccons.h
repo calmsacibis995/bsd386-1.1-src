@@ -1,0 +1,1 @@
+#define NPCCONS 1

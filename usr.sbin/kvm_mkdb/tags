@@ -1,0 +1,8 @@
+Mkvm_mkdb	kvm_mkdb.c	/^main(argc, argv)$/
+badfmt	kvm_mkdb.c	/^badfmt(p)$/
+badread	kvm_mkdb.c	/^badread(nr, p)$/
+basename	kvm_mkdb.c	/^#define basename(cp)	((tmp=rindex((cp), '\/')) ? t/
+cleanup	kvm_mkdb.c	/^cleanup()$/
+create_knlist	nlist.c	/^create_knlist(name, db)$/
+error	kvm_mkdb.c	/^error(n)$/
+usage	kvm_mkdb.c	/^usage()$/

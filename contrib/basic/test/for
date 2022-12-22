@@ -1,0 +1,7 @@
+  100	y = 100
+  110	x = y
+  120	for i = 1 to 10000
+  130	next i
+  140	print x, y, i
+  150	stop
+  160	end

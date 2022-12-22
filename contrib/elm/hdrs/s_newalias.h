@@ -1,0 +1,29 @@
+/* s_newalias.h created from s_newalias.us by gencat on Thu Dec 10 22:04:44 EST 1992 */
+
+#define NewaliasSet	0xc
+#define NewaliasUsage	0x1
+#define NewaliasNoAlloc	0x2
+#define NewaliasUpdateSystem	0x3
+#define NewaliasUpdatePersonal	0x4
+#define NewaliasNoHOME	0x5
+#define NewaliasNoOpenIn	0x6
+#define NewaliasNoOpendbz	0x7
+#define NewaliasNoOpenOut	0x8
+#define NewaliasNoSave	0x9
+#define NewaliasProcessed	0xa
+#define NewaliasLineToLong	0xb
+#define NewaliasSplit	0xc
+#define NewaliasNoFieldSep	0xd
+#define NewaliasCharNotSupported	0xe
+#define NewaliasDupAlias	0xf
+#define NewaliasErrWrite	0x10
+#define NewaliasListUsage	0x11
+#define NewaliasNoPipe	0x12
+#define NewaliasNoOpenData	0x13
+#define NewaliasSystem	0x14
+#define NewaliasUser	0x15
+#define NewaliasSplitShort	0x16
+#define NewaliasAliasWSNotAllowed	0x17
+#define NewaliasAddressWSNotAllowed	0x18
+#define NewaliasCouldntDeleteData	0x19
+#define NewaliasCouldntDeleteHash	0x1a

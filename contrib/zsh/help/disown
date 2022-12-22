@@ -1,0 +1,5 @@
+     disown job ...
+          Remove the specified jobs from the job table; the shell
+          will  no  longer report their status, and will not com-
+          plain if you try to exit an interactive shell with them
+          running or stopped.

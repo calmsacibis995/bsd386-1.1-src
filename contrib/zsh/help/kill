@@ -1,0 +1,10 @@
+     kill [ -sig ] job ...
+     kill -l
+          Sends either SIGTERM or the  specified  signal  to  the
+          given  jobs  or processes.  Signals are given by number
+          or by names (with the prefix "SIG"  removed).   If  the
+          signal  being  sent  is  not KILL or CONT, then the job
+          will be sent a CONT signal if it is stopped.  The argu-
+          ment  job can be the process id of a job not in the job
+          list.  In the second form, kill -l,  the  signal  names
+          are listed.

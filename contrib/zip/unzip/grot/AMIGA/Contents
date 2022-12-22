@@ -1,0 +1,22 @@
+Contents of the AMIGA sub-archive for UnZip 5.0 and later:
+
+  Contents      this file
+  DMakefile     DICE compiler makefile for UnZip
+  lmkfile       SAS/C makefile for UnZip
+  patch.pw      Paul Wells _TZ patch, subsequently modified (see below)
+  readme.pw     Paul Wells comments
+  stat.c        stat() function for Paul Wells port
+  utime.c       utime() function for Paul Wells port
+
+Notes:  Paul Wells' original Amiga port for SAS/C and Lattice C (I think)
+was subsequently modified for another compiler (probably DICE by Georg
+Sassen), and possibly no longer compiles under the original compilers.
+The suspect code is in file_io.c and has to do with Paul's _TZ code, which
+is presently commented out and replaced by a specialized SetFileDate call.
+The file patch.pw will give you some idea of how the code originally looked.
+Presumably all three compilers have predefined macros which identify them,
+so there need not be any conflict; but there may be one at the moment.
+
+Note also that the DICE compiler version does not require either of the
+two source files included here, and that none of the Amiga stuff has been
+tested since UnZip 4.1.

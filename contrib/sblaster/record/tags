@@ -1,0 +1,14 @@
+IOCTL	record.c	/^#define IOCTL(cmd, arg)	\\$/
+Mgetopt	../cdsp/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../cdsp/getopt1.c	/^main (argc, argv)$/
+Mrecord	record.c	/^main (int argc , char *argv[])$/
+PRINT	record.c	/^#define PRINT(x)	do { if (!quiet) printf x; } whil/
+_getopt_internal	../cdsp/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+exchange	../cdsp/getopt.c	/^exchange (argv)$/
+getopt	../cdsp/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../cdsp/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../cdsp/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+max	record.c	/^#define max(a,b) ((a) > (b) ? (a) : (b))$/
+min	record.c	/^#define min(a,b) ((a) < (b) ? (a) : (b))$/
+my_bcopy	../cdsp/getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	../cdsp/getopt.c	/^my_index (string, chr)$/

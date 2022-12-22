@@ -1,0 +1,9 @@
+D BDM                               	bdm
+F BUGS.GZ;1                         	BUGS.gz
+F CONFBDM2.GZ;1                     	confbdm2.sh.gz
+F COPYRIGH.GZ;1                     	COPYRIGHT.gz
+D DRIVERS                           	drivers
+F HISTORY.GZ;1                      	HISTORY.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MFB_BANK                          	mfb.banked
+F README.GZ;1                       	README.gz

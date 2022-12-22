@@ -1,0 +1,240 @@
+DO_SEARCH	command.c	/^#define	DO_SEARCH()	if (number <= 0) number = 1;	/
+ISPIPE	edit.c	/^#define	ISPIPE(fd)	((fd)==0)$/
+Mmain	main.c	/^main(argc, argv)$/
+STOREC	line.c	/^#define	STOREC(c,a)	if (storec((c),(a))) return (1/
+WHITESP	tags.c	/^#define	WHITESP(c)	((c)==' ' || (c)=='\\t')$/
+add_back_pos	position.c	/^add_back_pos(pos)$/
+add_cmdtable	decode.c	/^add_cmdtable(filename)$/
+add_forw_pos	position.c	/^add_forw_pos(pos)$/
+add_hometable	decode.c	/^add_hometable()$/
+add_line	screen.c	/^add_line()$/
+add_lnum	linenum.c	/^add_lnum(lno, pos)$/
+adjsline	position.c	/^adjsline(sline)$/
+ap_int	prompt.c	/^ap_int(n)$/
+ap_pos	prompt.c	/^ap_pos(pos)$/
+ap_quest	prompt.c	/^ap_quest()$/
+ap_str	prompt.c	/^ap_str(s)$/
+attr_ewidth	line.c	/^attr_ewidth(a)$/
+attr_swidth	line.c	/^attr_swidth(a)$/
+back	forwback.c	/^back(n, pos, force, only_last)$/
+back_line	input.c	/^back_line(curr_pos)$/
+back_raw_line	line.c	/^back_raw_line(curr_pos, linep)$/
+backc	line.c	/^backc()$/
+backspace	screen.c	/^backspace()$/
+backward	forwback.c	/^backward(n, force, only_last)$/
+bad_file	filename.c	/^bad_file(filename)$/
+badmark	mark.c	/^badmark(c)$/
+bell	screen.c	/^bell()$/
+bin_file	filename.c	/^bin_file(f)$/
+binary_char	charset.c	/^binary_char(c)$/
+bl_enter	screen.c	/^bl_enter()$/
+bl_exit	screen.c	/^bl_exit()$/
+bo_enter	screen.c	/^bo_enter()$/
+bo_exit	screen.c	/^bo_exit()$/
+buffered	ch.c	/^buffered(block)$/
+calcgap	linenum.c	/^calcgap(p)$/
+cannot	screen.c	/^cannot(s)$/
+cat_file	edit.c	/^cat_file()$/
+ch_addbuf	ch.c	/^ch_addbuf(nnew)$/
+ch_back_get	ch.c	/^ch_back_get()$/
+ch_beg_seek	ch.c	/^ch_beg_seek()$/
+ch_end_seek	ch.c	/^ch_end_seek()$/
+ch_flush	ch.c	/^ch_flush()$/
+ch_forw_get	ch.c	/^ch_forw_get()$/
+ch_get	ch.c	/^#define	ch_get()   ((ch_block == buf_head->block &/
+ch_length	ch.c	/^ch_length()$/
+ch_nbuf	ch.c	/^ch_nbuf(want_nbufs)$/
+ch_nonpipe	ch.c	/^ch_nonpipe()$/
+ch_pipe	ch.c	/^ch_pipe()$/
+ch_seek	ch.c	/^ch_seek(pos)$/
+ch_tell	ch.c	/^ch_tell()$/
+cheaper	screen.c	/^cheaper(t1, t2, doit, def)$/
+clear	screen.c	/^clear()$/
+clear_eol	screen.c	/^clear_eol()$/
+clr_linenum	linenum.c	/^clr_linenum()$/
+cmd_char	cmdbuf.c	/^cmd_char(c)$/
+cmd_decode	decode.c	/^cmd_decode(cmd, sp)$/
+cmd_erase	cmdbuf.c	/^cmd_erase()$/
+cmd_exec	command.c	/^cmd_exec()$/
+cmd_int	cmdbuf.c	/^cmd_int()$/
+cmd_putstr	cmdbuf.c	/^cmd_putstr(s)$/
+cmd_reset	cmdbuf.c	/^cmd_reset()$/
+cmd_search	decode.c	/^cmd_search(cmd, table, endtable, sp)$/
+commands	command.c	/^commands()$/
+cond	prompt.c	/^cond(c, where)$/
+control_char	charset.c	/^control_char(c)$/
+cost	screen.c	/^cost(t)$/
+curr_byte	prompt.c	/^curr_byte(where)$/
+currline	linenum.c	/^currline(where)$/
+deinit	screen.c	/^deinit()$/
+do_append	line.c	/^do_append(c)$/
+ecalloc	main.c	/^ecalloc(count, size)$/
+edit	edit.c	/^edit(filename, just_looking)$/
+edit_first	edit.c	/^edit_first()$/
+edit_index	edit.c	/^edit_index(n)$/
+edit_last	edit.c	/^edit_last()$/
+edit_list	edit.c	/^edit_list(list)$/
+edit_next	edit.c	/^edit_next(n)$/
+edit_prev	edit.c	/^edit_prev(n)$/
+empty_lines	position.c	/^empty_lines(s, e)$/
+empty_screen	position.c	/^empty_screen()$/
+end_logfile	ch.c	/^end_logfile()$/
+eof_bell	forwback.c	/^eof_bell()$/
+eof_check	forwback.c	/^eof_check()$/
+eq_message	prompt.c	/^eq_message()$/
+errno_message	os.c	/^errno_message(filename)$/
+error	output.c	/^error(fmt, parg)$/
+exec_mca	command.c	/^exec_mca()$/
+ext_ifile	ifile.c	/^#define ext_ifile(h)	((IFILE)(h))$/
+fake_interrupt	signal.c	/^fake_interrupt()$/
+fch_get	ch.c	/^fch_get()$/
+fexpand	filename.c	/^fexpand(s)$/
+filesize	filename.c	/^filesize(f)$/
+find_helpfile	filename.c	/^find_helpfile()$/
+find_ifile	ifile.c	/^find_ifile(filename)$/
+find_linenum	linenum.c	/^find_linenum(pos)$/
+find_pos	linenum.c	/^find_pos(lno)$/
+findopt	opttbl.c	/^findopt(c)$/
+findtag	tags.c	/^findtag(tag)$/
+flip_triple	option.c	/^flip_triple(val, lc)$/
+flush	output.c	/^flush()$/
+forw	forwback.c	/^forw(n, pos, force, only_last, nblank)$/
+forw_line	input.c	/^forw_line(curr_pos)$/
+forw_raw_line	line.c	/^forw_raw_line(curr_pos, linep)$/
+forward	forwback.c	/^forward(n, force, only_last)$/
+get_back_scroll	forwback.c	/^get_back_scroll()$/
+get_cmdbuf	cmdbuf.c	/^get_cmdbuf()$/
+get_filename	ifile.c	/^get_filename(ifile)$/
+get_ifile	ifile.c	/^get_ifile(filename, prev)$/
+get_index	ifile.c	/^get_index(ifile)$/
+get_pos	ifile.c	/^get_pos(ifile, scrpos)$/
+get_scrpos	position.c	/^get_scrpos(scrpos)$/
+get_term	screen.c	/^get_term()$/
+get_time	os.c	/^get_time()$/
+getcc	command.c	/^getcc()$/
+getchr	ttyin.c	/^getchr()$/
+getmark	mark.c	/^getmark(c)$/
+getnum	option.c	/^getnum(sp, c, errp)$/
+getumark	mark.c	/^getumark(c)$/
+gline	line.c	/^gline(i, ap)$/
+glob	filename.c	/^glob(filename)$/
+gomark	mark.c	/^gomark(c)$/
+help	help.c	/^help()$/
+home	screen.c	/^home()$/
+homefile	filename.c	/^homefile(filename)$/
+ichardef	charset.c	/^ichardef(s)$/
+icharset	charset.c	/^icharset(name)$/
+ierror	output.c	/^ierror(fmt, parg)$/
+if	edit.c	/^	if (curr_ifile != NULL_IFILE)$/
+inc_costcount	screen.c	/^inc_costcount(c)$/
+init	screen.c	/^init()$/
+init_charset	charset.c	/^init_charset()$/
+init_mark	mark.c	/^init_mark()$/
+init_option	opttbl.c	/^init_option()$/
+init_prompt	prompt.c	/^init_prompt()$/
+init_signals	signal.c	/^init_signals(on)$/
+int_ifile	ifile.c	/^#define int_ifile(h)	((struct ifile *)(h))$/
+intread	os.c	/^intread()$/
+iprintf	output.c	/^iprintf(fmt, parg)$/
+iprintnum	output.c	/^iprintnum(num, radix)$/
+iread	os.c	/^iread(fd, buf, len)$/
+isoptpending	option.c	/^isoptpending()$/
+isoptstring	main.c	/^#define	isoptstring(s)	(((s)[0] == '-' || (s)[0] =/
+jump_back	jump.c	/^jump_back(n)$/
+jump_forw	jump.c	/^jump_forw()$/
+jump_line_loc	jump.c	/^jump_line_loc(pos, sline)$/
+jump_loc	jump.c	/^jump_loc(pos, sline)$/
+jump_percent	jump.c	/^jump_percent(percent)$/
+lastmark	mark.c	/^lastmark()$/
+len_cmdbuf	cmdbuf.c	/^len_cmdbuf()$/
+longish	linenum.c	/^longish()$/
+longloopmessage	linenum.c	/^longloopmessage()$/
+lower_left	screen.c	/^lower_left()$/
+lsystem	lsystem.c	/^lsystem(cmd)$/
+markpos	mark.c	/^markpos(c)$/
+match	search.c	/^match(pattern, buf)$/
+match_brac	brac.c	/^match_brac(obrac, cbrac, forwdir, n)$/
+mca_char	command.c	/^mca_char(c)$/
+mca_search	command.c	/^mca_search()$/
+multi_search	command.c	/^multi_search(pattern, n)$/
+new_ifile	ifile.c	/^new_ifile(filename, prev)$/
+next_ifile	ifile.c	/^next_ifile(h)$/
+nifile	ifile.c	/^nifile()$/
+nopendopt	option.c	/^nopendopt()$/
+nostring	option.c	/^nostring(c)$/
+null_line	line.c	/^null_line()$/
+onscreen	position.c	/^onscreen(pos)$/
+open_getchr	ttyin.c	/^open_getchr()$/
+opt_W	optfunc.c	/^opt_W(type, s)$/
+opt__L	optfunc.c	/^opt__L(type, s)$/
+opt__O	optfunc.c	/^opt__O(type, s)$/
+opt__P	optfunc.c	/^opt__P(type, s)$/
+opt__T	optfunc.c	/^opt__T(type, s)$/
+opt_b	optfunc.c	/^opt_b(type, s)$/
+opt_k	optfunc.c	/^opt_k(type, s)$/
+opt_l	optfunc.c	/^opt_l(type, s)$/
+opt_o	optfunc.c	/^opt_o(type, s)$/
+opt_p	optfunc.c	/^opt_p(type, s)$/
+opt_prompt	option.c	/^opt_prompt(c)$/
+opt_query	optfunc.c	/^opt_query(type, s)$/
+opt_t	optfunc.c	/^opt_t(type, s)$/
+opt_v	optfunc.c	/^opt_v(type, s)$/
+optstring	option.c	/^optstring(s, c)$/
+pappend	line.c	/^pappend(c)$/
+pdone	line.c	/^pdone(endline)$/
+pipe_data	lsystem.c	/^pipe_data(cmd, spos, epos)$/
+pipe_mark	lsystem.c	/^pipe_mark(c, cmd)$/
+plinenum	line.c	/^plinenum(pos)$/
+pos_clear	position.c	/^pos_clear()$/
+pos_init	position.c	/^pos_init()$/
+position	position.c	/^position(where)$/
+pr_expand	prompt.c	/^pr_expand(proto, maxwidth)$/
+pr_string	prompt.c	/^pr_string()$/
+prchar	charset.c	/^prchar(c)$/
+prev_ifile	ifile.c	/^prev_ifile(h)$/
+prewind	line.c	/^prewind()$/
+prompt	command.c	/^prompt()$/
+propt	option.c	/^propt(c)$/
+protochar	prompt.c	/^protochar(c, where)$/
+psignals	signal.c	/^psignals()$/
+put_line	output.c	/^put_line()$/
+putbs	screen.c	/^putbs()$/
+putchr	output.c	/^putchr(c)$/
+putstr	output.c	/^putstr(s)$/
+pwidth	line.c	/^pwidth(c, a)$/
+query	output.c	/^query(fmt, parg)$/
+quit	main.c	/^quit(status)$/
+raw_mode	screen.c	/^raw_mode(on)$/
+repaint	jump.c	/^repaint()$/
+save	main.c	/^save(s)$/
+scan_option	option.c	/^scan_option(s)$/
+scrsize	screen.c	/^scrsize(p_height, p_width)$/
+search	search.c	/^search(search_type, pattern, n)$/
+seek_filesize	filename.c	/^seek_filesize(f)$/
+setmark	mark.c	/^setmark(c)$/
+setmp	prompt.c	/^setmp()$/
+single_char_option	option.c	/^single_char_option(c)$/
+skipcond	prompt.c	/^skipcond(p)$/
+skipsp	main.c	/^skipsp(s)$/
+so_enter	screen.c	/^so_enter()$/
+so_exit	screen.c	/^so_exit()$/
+squish_check	forwback.c	/^squish_check()$/
+start_mca	command.c	/^start_mca(action, prompt)$/
+stop	signal.c	/^stop(type)$/
+store_pos	ifile.c	/^store_pos(ifile, scrpos)$/
+storec	line.c	/^storec(c, a)$/
+strtcpy	main.c	/^strtcpy(to, from, len)$/
+sync_logfile	ch.c	/^sync_logfile()$/
+tagsearch	tags.c	/^tagsearch()$/
+tellpos	ch.c	/^#define	tellpos(blk,off)   ((POSITION)((((long)(bl/
+toggle_option	option.c	/^toggle_option(c, s, how_toggle)$/
+toupper	opttbl.c	/^#define	toupper(c)	((c)-'a'+'A')$/
+u_interrupt	signal.c	/^u_interrupt(type)$/
+ul_enter	screen.c	/^ul_enter()$/
+ul_exit	screen.c	/^ul_exit()$/
+ungetcc	command.c	/^ungetcc(c)$/
+ungetsc	command.c	/^ungetsc(s)$/
+use_logfile	edit.c	/^use_logfile(filename)$/
+vbell	screen.c	/^vbell()$/
+wherechar	prompt.c	/^wherechar(p, wp)$/
+winch	signal.c	/^winch(type)$/

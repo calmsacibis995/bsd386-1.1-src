@@ -1,0 +1,293 @@
+.nr H1 2
+.H 1 "Changes and Additions"
+.\"
+.\"
+.\"
+.\" What changes have been made to <product> features that were in its
+.\" last release? Include feature enhancements here.
+.\"
+.\"
+.\" What features have been added to <product> since its last release?
+.\"
+.\"
+The following list describes changes and additions made to this software
+since the 2.1 release.
+.P
+General changes:
+.BL
+.LI
+It is now possible to configure a default page size (e.g. \s-1ISO A4\s+1)
+to use for outgoing facsimile.
+The file \f3/usr/local/lib/fax/pagesizes\fP is
+an external database of page sizes.
+Programs that need a page size to be specified support a \-s option
+for doing this.
+.LI
+Local dialing conventions are now specified in a ``dial string rules''
+file that is read by the fax server.
+Dial string rules define how to craft canonical phone numbers from
+dialing strings and how to process a
+user-supplied dial string before it is presented to the modem.
+.LI
+Private information that must be specified in a dial string (e.g.
+credit card access codes) can be hidden by setting up dial string
+rules for the client applications.
+.LI
+The \f2lptops\fP utility used in version 2.1.0 has been replaced by
+a new \f2textfmt\fP program that is less general, but more integrated
+with the system.
+.LI
+The fax server can be commanded to answer an incoming call explicitly
+as fax, data, or voice (though voice has no effect right now).
+.LI
+Support has been added to the fax server for two adaptive answering schemes
+that are implemented entirely in the server; the first scheme causes
+the server to answer a call first as fax and then as data; in the second
+scheme the server rotates call answering among a set of techniques
+(data, fax, voice); see the README file and the \f2config\fP(4F) manual page
+for more information.
+.LI
+The software no longer uses \f2at\fP(1) to implement
+delayed submission and job timeout (the
+server now handles these tasks internally).
+.LI
+User notification by the server is now done through shell scripts
+that may be tailored according to site needs.
+.LI
+Users may now tag outgoing jobs with an arbitrary identification string
+that is returned in any notification messages.
+.LI
+More job parameters can be altered after a job is submitted: time-to-send,
+killtime, and max retries.
+.LI
+Support has been added for the US Robotics Courier Class 1 modem.
+.LI
+Support has been added for the US Robotics Sportster Class 1 modem.
+.LI
+Support has been added for the \s-1AT&T\s+1 DataPort Class 1 modem (including
+a workaround for a bug in the 1.22 firmware).
+.LI
+Support has been added for the \s-1PPI PM14400FXMT\s+1 and
+\s-1PM14400FXSA\s+1 modems.
+.LI
+Support has been added for modems based on the Rockwell \s-1RC32ACL\s+1.
+.LI
+A tree of contributed software that doesn't really belong in the mainstream
+distribution has been started\(emcheck out the \f3contrib\fP area in the public
+ftp area on the host sgi.com (\f3sgi/fax/contrib\fP).
+.LE
+Changes to the facsimile server:
+.BL
+.LI
+It is now permissible for \s-12D\s+1-encoded data to be sent to a fax machine
+that has not previously been called.
+.LI
+The fax machine information database has been extended to permit
+individual machines to be ``disabled'' with any submitted jobs returned
+to sender with a machine-specific rejection notice.
+.LI
+The ModemType configuration parameter is no longer treated as a hint;
+the modem will not be probed as any other kind if the type is specified
+to be ``Class1'', ``Class2'', or ``Everex''/``Abaton''; the old behaviour
+can be obtained by not specifying a ModemType or by specifying the type
+as ``Unknown''.
+.LI
+There are new configuration parameters for responding to explicit
+requests to answer an incoming call as fax, data, or voice; there
+are Modem*AnswerCmd parameters and ModemAnswer*Begin parameters for
+forcing actions such as baud rate change on answer.
+.LI
+The total number of phone calls placed for an outgoing job can now be
+controlled.
+.LI
+Dial string handling is now defined by an external set of rules.
+.LI
+The notification done for received facsimile now contains all available
+information (most importantly any error that occurred).
+.LI
+The server now invokes the \f3bin/pollrcvd\fP script to deliver each document
+received during a poll.
+.LI
+The server now invokes the \f3bin/faxrcvd\fP script for each received facsimile.
+.LI
+The server now invokes the \f3bin/notify\fP script for user notification (such
+as when a job is requeued).
+.LI
+The server now records the remote \s-1CSI\s+1 in the \f3info/*\fP files.
+.LI
+The data in the \f3info\fP directory is now partitioned strictly between
+cached data (kept in the \f3info\fP directory) and static data (kept in the
+new \f3cinfo\fP directory).
+.LI
+It is now possible to configure a per-machine session tracing level
+by creating an entry in the \f3cinfo\fP directory.
+.LI
+\s-1AT\s+1 command strings may now include escape codes to force the server to
+reconfigure the baud rate and/or flow control scheme at any time that
+a configurable command is transmitted to a modem.
+.LI
+The baud rate hunting logic has been removed; host-modem communication
+is now locked at a fixed baud rate (except when changed by escape codes).
+.LI
+Getty processes are now reaped immediately by catching \s-1SIGCLD\s+1 instead
+of polling for process exit.
+.LI
+Support has been added for modems that send "\s-1FAX\s+1" or "\s-1DATA\s+1" before
+"\s-1CONNECT\s+1" when answering an inbound call
+.LI
+The tty device protection mode set by the server is now configurable.
+.LI
+The accounting information has been expanded.
+.sp
+\fIClass 1-specific Changes and Additions\fP
+.LI
+The Class 1 driver now accepts \s-1ASCII\s+1
+data in received \s-1TSI/CIG\s+1 strings.
+.LI
+The Class 1 driver receive frame abort logic has been extended to
+support modems that do not respond well to the usual resynchronization
+scheme.
+.LI
+The Class 1 driver timeout on receiving the initial identification
+frames can now be configured separately for use with the adaptive answer
+scheme implemented in the server.
+.LI
+The Class 1 driver no longer assumes that a "\s-1CONNECT\s+1" response to an
+answer command implies a fax connection\(eminstead the connection type
+is selected according to the answering request.
+.LI
+\s-1HDLC\s+1 frame handling has been parameterized to deal with modems that
+do not include the \s-1FCS\s+1 bytes in received frames
+(e.g. certain firmware revisions of the \s-1AT&T\s+1 DataPort).
+.sp
+\fIClass 2-specific Changes and Additions\fP
+.LI
+The Class 2 driver is now more careful about receiving invalid \s-1+FDCS\s+1
+and \s-1+FDIS\s+1 result strings from the modem.
+.LI
+ZyXEL modems with revision 6.01 or newer firmware are now permitted to
+send high resolution (196lpi) and \s-12D\s+1-encoded data.
+.LI
+\s-1PPI\s+1 modems with revision
+2.17 or older firmware are not permitted to send
+high resolution (196lpi) or \s-12D\s+1-encoded data because
+of firmware problems.
+.LE
+.P
+Changes and additions to the \f2faxd.recv\fP program:
+.BL
+.LI
+The program is more careful to ignore corrupted or
+partially written job files.
+.LI
+Support was added for the alteration of more job parameters.
+.LI
+The \f2root\fP user is now treated like the \f2fax\fP
+user (i.e. it is permitted
+to do privileged operations).
+.LE
+.P
+Changes and additions to the \f2sendfax\fP program:
+.BL
+.LI
+A \-s option was added for specifying different page sizes.
+.LI
+A \-t option was added
+to set the number of times a job should be tried;
+i.e. the phone should be dialed.
+.LI
+A \-i option was added for specifying a job identification tag.
+.LE
+.P
+Changes and additions to the \f2faxcover\fP program:
+.BL
+.LI
+A \-s option was added for specifying different page sizes.
+.LI
+If the \s-1FAXCOVER\s+1 environment variable is set,
+its value is used as the pathname for the template file.
+.LE
+.P
+Changes and additions to the \f2faxalter\fP program:
+.BL
+.LI
+A \-t option was added for specifying the max number of tries.
+.LI
+A \-k option was added for specifying the killtime for a job.
+.LE
+.P
+Changes and additions to the \f2faxaddmodem\fP command script:
+.BL
+.LI
+A new algorithm is used for identifying Class 1 modems;
+the product code returned by the command ``\s-1ATI0\s+1'' is now used.
+.LI
+There no longer is a builtin notion of what modems have prototype
+configuration files; configuration files are now searched for in the \f3etc\fP
+subdirectory of the spooling area.
+.LI
+\f2faxaddmodem\fP is no longer is fooled by the installation of other
+fax packages that have a similar \f3/etc/services\fP entry.
+.LI
+Certain alternative locations for system files are now handled
+transparently.
+.LI
+A better job is done of identifying if Yellow Pages/NIS is in use.
+.LE
+.P
+Changes and additions in miscellaneous utility code:
+.BL
+.LI
+A new program, \f2textfmt\fP, replaces the \f2lptops\fP program.
+.LI
+\f2faxanswer\fP now takes a \-h option to specify how to answer an incoming
+call (``fax'', ``data'', and ``voice'' strings are recognized).
+.LI
+\f2bin/faxinfo\fP now uses the page size database to print out page size names.
+.LI
+\f2bin/faxsubmit\fP is no longer needed and has been removed.
+.LI
+\f2bin/submit2at\fP is no longer needed and has been removed.
+.LI
+\f2bin/probemodem\fP is a new shell script that probes a modem and reports
+responses to certain Class 1 and Class 2 commands; it is useful to
+see how closely a modem conforms to the Class 1/2 specifications
+that \*(FF assumes.
+.LI
+\f2bin/xferstats\fP is a shell script for processing accounting information
+for transmitted facsimile.
+.LI
+\f2bin/recvstats\fP is a shell script for processing accounting information
+for received facsimile.
+.LE
+Changes to the manual pages:
+.BL
+.LI
+\f2flexfax\fP(1) is a new page that gives an overview of the client applications.
+.LI
+\f2pagesizes\fP(4F) is a new page that describes the page size database.
+.LI
+\f2dialrules\fP(4F) is a new page that describes the dial string rules file.
+.LI
+\f2textfmt\fP(1) is a new page that describes the new text formatting program.
+.LI
+\f2flexfax\fP(4F) was renamed \f2intro\fP(4F) to avoid a name clash.
+.LI
+\f2cinfo\fP(4F) is a new page that descripts the control info directory.
+.LI
+pathnames in installed manual pages now reflect the local configuration.
+.LI
+\f2dialtest\fP(1M) is a new page for the dial string rules file test program.
+.LI
+\f2notify\fP(1M) is a new page that describes the \f3bin/notify\fP script.
+.LI
+\f2faxrcvd\fP(1M) is a new page that describes the \f3bin/faxrcvd\fP script.
+.LI
+\f2pollrcvd\fP(1M) is a new page that describes the \f3bin/pollrcvd\fP script.
+.LI
+\f2transcript\fP(1M) is a new page that describes the \f3bin/transcript\fP script.
+.LI
+\f2recvstats\fP(1M) is a new page that describes the \f3bin/recvstats\fP script.
+.LI
+\f2xferstats\fP(1M) is a new page that describes the \f3bin/xferstats\fP script.
+.LE

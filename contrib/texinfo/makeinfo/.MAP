@@ -1,0 +1,6 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.IN;1                     	Makefile.in
+F MAKEINFO.C;1                      	makeinfo.c
+F MAKEINFO.TEX;1                    	makeinfo.texi
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/texinfo/makeinfo
+F TAGS.;1                           	tags

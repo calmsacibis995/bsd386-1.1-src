@@ -1,0 +1,26 @@
+.TH midi2fm 1 "12 June 1992"
+.IX midi2fm
+.SH NAME
+.PP
+midi2fm \- play incoming MIDI data on Sound Blaster FM synth 
+
+.SH SYNOPSIS
+.PP
+\f3midi2fm\f1
+
+.SH DESCRIPTION
+.PP
+\fImidi2fm\fP is an quick hack to play FM notes using my MIDI horn
+as a controller.  Since I have no polyphonic controllers, there is no
+real FM voice allocation and only monophonic sounds are made.  I'm
+including this program only to give ideas to anyone who might want to
+write a real application to do something similar.
+
+Also, the instruments themselves are randomly generated (at each
+Program Change signal), and leave a lot to be desired.  They are
+usually of inadequate volume, and lack any reasonable timbre, of
+course.  A real program would load instruments from .INS files or
+perhaps steal them from existing .CMF song files.
+
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

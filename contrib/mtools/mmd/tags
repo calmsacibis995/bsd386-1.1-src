@@ -1,0 +1,3 @@
+Mmmd	mmd.c	/^main(argc, argv)$/
+empty_dir	mmd.c	/^empty_dir(dot, dot_dot)$/
+got_signal	mmd.c	/^got_signal()$/

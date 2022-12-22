@@ -1,0 +1,7 @@
+D DOC                               	doc
+D GROT                              	grot
+D LIBRARY                           	library
+D LIBTK                             	libtk
+F MAKEFILE.;1                       	Makefile
+D TKTEST                            	tktest
+D WISH                              	wish

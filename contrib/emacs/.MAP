@@ -1,0 +1,14 @@
+D EPOCH_GR                          	epoch-grot
+D EPOCH_IN                          	epoch-info
+D EPOCH_LI                          	epoch-lisp
+D EPOCH_MA                          	epoch-man
+D EPOCH_SR                          	epoch-src
+D ETC                               	etc
+D GROT                              	grot
+D INFO                              	info
+D LISP                              	lisp
+F MAKEFIL0.GZ;1                     	Makefile.gz
+F MAKEFIL1.GZ;1                     	Makefile.inc.gz
+D MAN                               	man
+D OLDXMENU                          	oldXMenu
+D SRC                               	src

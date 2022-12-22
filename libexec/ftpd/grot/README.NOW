@@ -1,0 +1,28 @@
+
+There has been a change in the syntax of the "upload" keyword in the
+ftpaccess file.
+
+OLD syntax: upload <dir glob> <yes|no> <user> <group> <dirs|nodirs>
+NEW syntax: upload <hierarchy> <dir glob> <yes|no> <user> <group> <dirs|nodirs>
+
+The <hierarchy> argument is the ftp hierarchy that the upload command
+now applies to.  This allows for the "upload" keyword to be used by
+guest and anonymous users, instead of just anonymous.
+
+To migrate your < 2.1A ftpaccess to 2.1B, just add the home directory
+of the ftp account to each upload line.  
+
+For example:
+ ftp:*:10000:31:FTP user:/home/ftp:/bin/true
+
+[2.1A ftpaccess]
+ upload  *           yes
+ upload  /bin/*      no
+ upload  /etc/*      no
+ upload  /incoming*  yes  bryan onc   0644    nodirs
+
+[2.1B ftpaccess]
+ upload  /home/ftp  *           yes
+ upload  /home/ftp  /bin/*      no
+ upload  /home/ftp  /etc/*      no
+ upload  /home/ftp  /incoming*  yes  bryan onc   0644    nodirs

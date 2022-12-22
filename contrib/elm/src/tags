@@ -1,0 +1,384 @@
+CarriageReturn	curses.c	/^CarriageReturn()$/
+Centerline	strings.c	/^Centerline(line, string)$/
+ClearScreen	curses.c	/^ClearScreen()$/
+CleartoEOLN	curses.c	/^CleartoEOLN()$/
+CleartoEOS	curses.c	/^CleartoEOS()$/
+CursorDown	curses.c	/^CursorDown(n)$/
+CursorLeft	curses.c	/^CursorLeft(n)$/
+CursorRight	curses.c	/^CursorRight(n)$/
+CursorUp	curses.c	/^CursorUp(n)$/
+EndBold	curses.c	/^EndBold()$/
+EndHalfbright	curses.c	/^EndHalfbright()$/
+EndInverse	curses.c	/^EndInverse()$/
+EndMemlock	curses.c	/^EndMemlock()$/
+EndUnderline	curses.c	/^EndUnderline()$/
+GetPrompt	in_utils.c	/^GetPrompt()$/
+GetXYLocation	curses.c	/^GetXYLocation(x,y)$/
+HasMemlock	curses.c	/^HasMemlock()$/
+Include_Part	mime.c	/^Include_Part(dest, buffer, check)$/
+InitScreen	curses.c	/^InitScreen()$/
+Melm	elm.c	/^main(argc, argv)$/
+MoveCursor	curses.c	/^MoveCursor(row, col)$/
+NewLine	curses.c	/^NewLine()$/
+PutLine0	curses.c	/^PutLine0(x, y, line)$/
+PutLine1	curses.c	/^PutLine1(x,y, line, arg1)$/
+PutLine2	curses.c	/^PutLine2(x,y, line, arg1, arg2)$/
+PutLine3	curses.c	/^PutLine3(x,y, line, arg1, arg2, arg3)$/
+Raw	curses.c	/^Raw(state)$/
+RawState	curses.c	/^RawState()$/
+ReadCh	curses.c	/^ReadCh()$/
+Release_the_file	lock.c	/^Release_the_file(flock_fd)$/
+ScreenSize	curses.c	/^ScreenSize(lines, columns)$/
+SetXYLocation	curses.c	/^SetXYLocation(x,y)$/
+StartBold	curses.c	/^StartBold()$/
+StartHalfbright	curses.c	/^StartHalfbright()$/
+StartInverse	curses.c	/^StartInverse()$/
+StartMemlock	curses.c	/^StartMemlock()$/
+StartUnderline	curses.c	/^StartUnderline()$/
+Write_to_screen	curses.c	/^Write_to_screen(line, argcount, arg1, arg2, arg3)$/
+Writechar	curses.c	/^Writechar(ch)$/
+a_sendmsg	mailmsg1.c	/^a_sendmsg(edit_message, form_letter)$/
+absolute	save_opts.c	/^#define absolute(x)		((x) < 0? -(x) : (x))$/
+add_alias	alias.c	/^add_alias(replace, to_replace)$/
+add_comment	save_opts.c	/^add_comment(iindex, fd)$/
+add_current_alias	alias.c	/^add_current_alias()$/
+add_mailheaders	mkhdrs.c	/^add_mailheaders(filedesc)$/
+add_name_to_list	aliaslib.c	/^int add_name_to_list(name,bufptr,bufsizep)$/
+add_to_alias_text	alias.c	/^add_to_alias_text(aliasname, firstname, lastname, /
+address_matches	pattern.c	/^address_matches(message_number, pat)$/
+alarm_signal	signals.c	/^alarm_signal(sig)$/
+alias	alias.c	/^alias()$/
+alias_help	alias.c	/^alias_help()$/
+alias_matches	pattern.c	/^alias_matches(message_number, pat)$/
+alias_old_current	a_sort.c	/^alias_old_current(iindex)$/
+alias_screen	a_screen.c	/^alias_screen(modified)$/
+alias_sort_name	a_sort.c	/^char *alias_sort_name(type)$/
+alias_sort_one_liner	options.c	/^alias_sort_one_liner(sorting_by)$/
+alias_title	a_screen.c	/^alias_title(modified)$/
+alias_type	a_screen.c	/^char *alias_type(type)$/
+alternatives	read_rc.c	/^alternatives(string)$/
+am_or_pm	date.c	/^#define am_or_pm(n)	(n > 11? (n > 23? "am" : "pm")/
+ampm	date.c	/^#define ampm(n)		(n > 12? n - 12 : n)$/
+append	file_util.c	/^append(fd, filename, prefix_str)$/
+append_copy_to_file	savecopy.c	/^append_copy_to_file(to, cc, bcc, fname_copy, fname/
+append_sig	mailmsg2.c	/^append_sig(file)$/
+args_help	args.c	/^args_help()$/
+args_version	args.c	/^args_version()$/
+argv_zero	strings.c	/^char *argv_zero(string)$/
+ask_accept	alias.c	/^ask_accept(aliasname, firstname, lastname, comment/
+block_signals	leavembox.c	/^block_signals()$/
+bounce_off_remote	bouncebk.c	/^char *bounce_off_remote(to)$/
+break_down_tolist	reply.c	/^break_down_tolist(buf, iindex, address, comment)$/
+breakup	read_rc.c	/^breakup(buffer, word1, word2)$/
+build_address	addr_util.c	/^build_address(to, full_to)$/
+build_alias_line	a_screen.c	/^build_alias_line(buffer, entry, message_number, hi/
+build_bottom	showmsg_c.c	/^build_bottom()$/
+build_header_line	screen.c	/^build_header_line(buffer, entry, message_number, h/
+build_offset_table	save_opts.c	/^build_offset_table(elminfo_fd)$/
+bus_signal	signals.c	/^bus_signal(sig)$/
+bytes	file_util.c	/^bytes(name)$/
+cf_english	savecopy.c	/^cf_english(fn)$/
+change_alias_sort	options.c	/^change_alias_sort(var, x, y)$/
+change_file	quit.c	/^change_file()$/
+change_sort	options.c	/^change_sort(var, x, y)$/
+charset_ok	mime.c	/^int charset_ok(s)$/
+check_encoding	mime.c	/^int check_encoding(Encoding)$/
+check_for_multipart	mime.c	/^int check_for_multipart(filedesc)$/
+check_form_file	forms.c	/^check_form_file(filename)$/
+check_mailfile_size	file_util.c	/^check_mailfile_size(mfile)$/
+check_range	elm.c	/^check_range()$/
+clear_central_message	out_utils.c	/^clear_central_message()$/
+clear_error	out_utils.c	/^clear_error()$/
+clear_key	softkeys.c	/^clear_key(key)  $/
+comment_matches	pattern.c	/^comment_matches(message_number, pat)$/
+compare_aliases	a_sort.c	/^compare_aliases(p1, p2)$/
+compare_headers	sort.c	/^compare_headers(p1, p2)$/
+compute_visible	limit.c	/^compute_visible(message)$/
+copy	file_util.c	/^copy(from, to)$/
+copy_failed_emergency_exit	edit.c	/^static void copy_failed_emergency_exit(cur_folder,/
+copy_message	fileio.c	/^copy_message(prefix, $/
+copy_message_across	mailmsg2.c	/^copy_message_across(source, dest, copy)$/
+copy_sans_escape	strings.c	/^copy_sans_escape(dest, source, len)$/
+copy_the_msg	mailmsg1.c	/^copy_the_msg(is_a_response)$/
+copy_write_error_exit	fileio.c	/^static void copy_write_error_exit()$/
+create_folder_state_file	syscall.c	/^int create_folder_state_file()$/
+create_new_elmdir	utils.c	/^create_new_elmdir()$/
+create_new_folders	utils.c	/^create_new_folders()$/
+days_ahead	date.c	/^days_ahead(days, buffer)$/
+debug_message	elm.c	/^debug_message()$/
+debug_screen	elm.c	/^debug_screen()$/
+default_weedlist	read_rc.c	/^default_weedlist()$/
+define_key	softkeys.c	/^define_key(key, display, send)$/
+define_softkeys	softkeys.c	/^define_softkeys(level)$/
+delete_aliases	a_quit.c	/^delete_aliases(newaliases, prompt)$/
+delete_from_alias_text	alias.c	/^delete_from_alias_text(name, num_to_delete)$/
+delete_msg	delete.c	/^delete_msg(real_del, update_screen)$/
+display_central_message	out_utils.c	/^display_central_message()$/
+display_file	help.c	/^display_file(file)$/
+display_helpfile	help.c	/^display_helpfile(section)$/
+display_line	builtin.c	/^display_line(input_line, input_size)$/
+display_options	options.c	/^display_options()$/
+display_to	mailmsg1.c	/^display_to(address)$/
+do_check_only	elm.c	/^do_check_only(to_whom)$/
+do_expand_env	read_rc.c	/^do_expand_env(descr, dest, src, destlen)$/
+do_expand_group	aliaslib.c	/^int do_expand_group(group, bufptr, bufsizep, sysal/
+do_get_alias	aliaslib.c	/^int do_get_alias(name, bufptr, bufsizep, mailing, /
+do_mmdf_addresses	remail.c	/^do_mmdf_addresses(dest_file,buffer)$/
+do_pipe	syscall.c	/^do_pipe()$/
+do_rc	read_rc.c	/^do_rc(file, lcl)$/
+do_set	read_rc.c	/^do_set(file, word1, word2, lcl)$/
+domainize	hdrconfg.c	/^static void domainize(addresses)$/
+domainize_addr	hdrconfg.c	/^static void domainize_addr(src, dest)$/
+domainize_submenu	hdrconfg.c	/^static int domainize_submenu()$/
+dump_rc_results	read_rc.c	/^dump_rc_results()$/
+edit_a_file	edit.c	/^edit_a_file(editfile)$/
+edit_aliases_text	a_edit.c	/^edit_aliases_text()$/
+edit_headers	hdrconfg.c	/^edit_headers()$/
+edit_interrupt	editmsg.c	/^edit_interrupt(sig)$/
+edit_mailbox	edit.c	/^edit_mailbox()$/
+edit_the_message	editmsg.c	/^edit_the_message(filename, already_has_text)$/
+elm_chown	utils.c	/^int elm_chown(file, userid, groupid)$/
+elm_date_str	date.c	/^elm_date_str(buf, seconds)$/
+emergency_exit	utils.c	/^emergency_exit()$/
+encode	encode.c	/^encode(line)$/
+enforce_newline	editmsg.c	/^enforce_newline(filename)$/
+erase_a_char	in_utils.c	/^#define erase_a_char()		{ Writechar(BACKSPACE); Wr/
+erase_tab	wordwrap.c	/^#define erase_tab(nr)		do Writechar(BACKSPACE); wh/
+error	out_utils.c	/^error(s)$/
+error1	out_utils.c	/^error1(s, a)$/
+error2	out_utils.c	/^error2(s, a1, a2)$/
+error3	out_utils.c	/^error3(s, a1, a2, a3)$/
+exit_alias	a_quit.c	/^exit_alias()$/
+exit_prog	exitprog.c	/^exit_prog()$/
+expand_backquote	mkhdrs.c	/^expand_backquote(buffer, filedesc)$/
+expand_env	read_rc.c	/^expand_env(dest, src, destlen)$/
+expand_filename	file.c	/^expand_filename(filename, use_cursor_control)$/
+extract_info	calendar.c	/^extract_info(save_to_fd)$/
+find_alias	find_alias.c	/^find_alias(word, alias_type)$/
+find_and_store_loc	save_opts.c	/^find_and_store_loc(name, offset)$/
+find_cfg_opts	options.c	/^find_cfg_opts(c)$/
+find_old_current	sort.c	/^find_old_current(iindex)$/
+find_opt	save_opts.c	/^find_opt(s)$/
+fix_arpa_address	addr_util.c	/^fix_arpa_address(address)$/
+fix_header_page	screen.c	/^fix_header_page()$/
+force_raw	curses.c	/^force_raw()$/
+format_form	forms.c	/^format_form(filename)$/
+format_long	strings.c	/^char *format_long(inbuff, init_len)$/
+forward	reply.c	/^forward()$/
+forwarded	addr_util.c	/^forwarded(buffer, entry)$/
+fpe_signal	signals.c	/^fpe_signal(sig)  $/
+from_matches	pattern.c	/^from_matches(message_number, pat)$/
+fsize	file_util.c	/^long fsize(fd)$/
+generate_reply_to	mkhdrs.c	/^generate_reply_to(msg)$/
+get_alias_address	aliaslib.c	/^char *get_alias_address(name, mailing, too_longp)$/
+get_aliases	alias.c	/^get_aliases(are_in_aliases)$/
+get_aliasname	alias.c	/^get_aliasname(aliasname, buffer, duplicate)$/
+get_and_expand_everyone	reply.c	/^get_and_expand_everyone(return_address, full_addre/
+get_copies	mailmsg1.c	/^get_copies(cc_field, address, addressII, copy_mess/
+get_ctime_date	date.c	/^char *get_ctime_date()$/
+get_existing_address	returnadd.c	/^get_existing_address(buffer, msgnum)$/
+get_folder_type	newmbox.c	/^get_folder_type(filename)$/
+get_key_no_prompt	encode.c	/^get_key_no_prompt()$/
+get_one_alias	alias.c	/^get_one_alias(db, current)$/
+get_page	utils.c	/^get_page(msg_pointer)$/
+get_realnames	alias.c	/^get_realnames(aliasname, firstname, lastname, comm/
+get_reply_subj	reply.c	/^get_reply_subj(out_subj,in_subj,dflt_subj)$/
+get_return	returnadd.c	/^get_return(buffer, msgnum)$/
+get_return_name	reply.c	/^get_return_name(address, name, trans_to_lowercase)/
+get_subject	mailmsg1.c	/^get_subject(subject_field)$/
+get_term_chars	init.c	/^get_term_chars()$/
+get_to	mailmsg1.c	/^get_to(to_field, address)$/
+get_token	strings.c	/^char *get_token(source, keys, depth)$/
+get_with_expansion	editmsg.c	/^get_with_expansion(prompt, buffer, expanded_buffer/
+getkey	encode.c	/^getkey(send)$/
+has_wildcards	wildcards.c	/^has_wildcards( name )$/
+hdrmenu_clear_promptarea	hdrconfg.c	/^static void hdrmenu_clear_promptarea()$/
+hdrmenu_get	hdrconfg.c	/^static int hdrmenu_get(h)$/
+hdrmenu_put	hdrconfg.c	/^static void hdrmenu_put(h, already_clear)$/
+hdrproc_addr	hdrconfg.c	/^static int hdrproc_addr(h)$/
+hdrproc_expires	hdrconfg.c	/^static int hdrproc_expires(h)$/
+hdrproc_precedence	hdrconfg.c	/^static int hdrproc_precedence(h)$/
+hdrproc_userhdr	hdrconfg.c	/^static int hdrproc_userhdr(h)$/
+help	help.c	/^help(pager_help)$/
+hup_signal	signals.c	/^hup_signal(sig)$/
+ill_signal	signals.c	/^ill_signal(sig)$/
+info_enter	options.c	/^info_enter(name, ypos, xpos, append_current, passw/
+init_helpmsg	file.c	/^init_helpmsg( msg, action_word, allow_dot )$/
+init_opts_menu	options.c	/^void init_opts_menu()$/
+initialize	init.c	/^initialize(requestedmfile)$/
+install_aliases	alias.c	/^install_aliases()$/
+is_cal_entry	calendar.c	/^is_cal_entry(string)$/
+is_it_on	read_rc.c	/^is_it_on(word)$/
+isslash	in_utils.c	/^#define isslash(c)		(c == '\/')$/
+isstopchar	in_utils.c	/^#define isstopchar(c)		(c == ' ' || c == '\\t' || /
+leapyear	date.c	/^#define leapyear(year)	((year % 4 == 0) && ((year /
+leave	utils.c	/^leave(val)$/
+leave_locked	utils.c	/^leave_locked(val)$/
+leave_mbox	leavembox.c	/^leave_mbox(resyncing, quitting, prompt)$/
+level_name	options.c	/^level_name(n)$/
+limit	limit.c	/^limit()$/
+limit_alias_selection	limit.c	/^limit_alias_selection(based_on, pattern, additiona/
+limit_selection	limit.c	/^limit_selection(based_on, pattern, additional_crit/
+line_wrap	wordwrap.c	/^line_wrap(string,tail,count,tabs)$/
+list_folders	syscall.c	/^list_folders(numlines, helpmsg, wildcard)$/
+lock	lock.c	/^lock(direction)$/
+lockfile	lock.c	/^static char *lockfile=(char*)0;$/
+lower_prompt	out_utils.c	/^lower_prompt(s)$/
+mail	mailmsg2.c	/^mail(copy_msg, edit_message, form)$/
+mail_filled_in_form	forms.c	/^mail_filled_in_form(address, subject)$/
+mail_form	mailmsg2.c	/^mail_form(address, subj)$/
+main_state	alias.c	/^main_state()$/
+make_menu_date	date.c	/^make_menu_date(entry)$/
+makekey	encode.c	/^makekey( rkey)$/
+malloc_failed_exit	utils.c	/^void malloc_failed_exit(proc, len)$/
+match_in_message	pattern.c	/^match_in_message(pat)$/
+matches_weedlist	read_rc.c	/^matches_weedlist(buffer)$/
+max	alias.c	/^#define max(a,b)	       ((a) < (b) ? (b) : (a))$/
+meta_match	pattern.c	/^meta_match(function)$/
+metachar	read_rc.c	/^#define  metachar(c)	(c == '+' || c == '%' || c ==/
+minimum	screen.c	/^#define  minimum(a,b)	((a) < (b) ? (a) : (b))$/
+mk_temp_mail_fn	newmbox.c	/^mk_temp_mail_fn(tempfn, mbox)$/
+month_number	date.c	/^month_number(name)$/
+motion	elm.c	/^motion(ch)$/
+move_old_files_to_new	utils.c	/^move_old_files_to_new()$/
+moveabsolute	curses.c	/^moveabsolute(col, row)$/
+name_copy_file	savecopy.c	/^name_copy_file(fn)$/
+name_matches	pattern.c	/^name_matches(message_number, pat)$/
+nameof	utils.c	/^char *nameof(filename)$/
+needs_mmdecode	mime.c	/^needs_mmdecode(s)$/
+newmbox	newmbox.c	/^newmbox(new_file, adds_only)$/
+next_line	builtin.c	/^next_line(inputptr, inputlenptr, output, outputlen/
+next_message	limit.c	/^next_message(iindex, skipdel)$/
+no_editor_edit_the_message	editmsg.c	/^no_editor_edit_the_message(filename)$/
+notplain	mime.c	/^notplain(s)$/
+occurances_of	string2.c	/^occurances_of(ch, string)$/
+ok_rc_char	read_rc.c	/^#define ok_rc_char(c)   (isalnum(c) || c == '-' ||/
+on_off	read_rc.c	/^#define on_off(s)	(s == 1? "ON " : "OFF")$/
+on_or_off	options.c	/^on_or_off(var, x, y)$/
+on_page	screen.c	/^on_page(message)$/
+one_liner	options.c	/^one_liner(string)$/
+one_liner_for	options.c	/^one_liner_for(c)$/
+onoff	options.c	/^#define   onoff(n)	(n == 1? on_name : off_name)$/
+open_alias_files	alias.c	/^open_alias_files(are_in_aliases)$/
+open_system_aliases	alias.c	/^open_system_aliases()$/
+open_user_aliases	alias.c	/^open_user_aliases()$/
+optimize_and_add	reply.c	/^optimize_and_add(new_address, full_address)$/
+optionally_enter	in_utils.c	/^optionally_enter(string, x, y, append_current, pas/
+options	options.c	/^options()$/
+options_help	options.c	/^options_help()$/
+outchar	curses.c	/^outchar(c)$/
+output_abbreviated_to	mailmsg1.c	/^output_abbreviated_to(address)$/
+parse_aliases	alias.c	/^parse_aliases(buffer, remainder)$/
+parse_arguments	args.c	/^parse_arguments(argc, argv, to_whom)$/
+pattern_enter	in_utils.c	/^pattern_enter(string, alt_string, x, y, alternate_/
+pattern_match	pattern.c	/^pattern_match()$/
+pipe_signal	signals.c	/^pipe_signal(sig)$/
+pmalloc	pmalloc.c	/^char *pmalloc(size)$/
+post_cal	options.c	/^static post_cal(f)$/
+post_editor	options.c	/^static post_editor(f)$/
+post_folder	options.c	/^static post_folder(f)$/
+post_menu	options.c	/^static post_menu(f)$/
+post_pager	options.c	/^static post_pager(f)$/
+post_print	options.c	/^static post_print(f)$/
+post_sent	options.c	/^static post_sent(f)$/
+post_sort	options.c	/^static post_sort(f)$/
+prev_message	limit.c	/^prev_message(iindex, skipdel)$/
+print_message_so_far	editmsg.c	/^print_message_so_far(edit_fd, filename)$/
+print_msg	syscall.c	/^int print_msg(pause_on_scroll)$/
+process_expiration_date	expires.c	/^process_expiration_date(date, message_status)$/
+process_showmsg_cmd	showmsg_c.c	/^process_showmsg_cmd(command)$/
+prompt	out_utils.c	/^prompt(s)$/
+prompt_for_entries	forms.c	/^prompt_for_entries(buffer, fd, entries)$/
+prompt_for_sized_entry	forms.c	/^prompt_for_sized_entry(prompt, buffer, field_size)/
+put_border	showmsg_c.c	/^put_border()$/
+put_cmd_name	showmsg_c.c	/^put_cmd_name(command, will_mangle)$/
+put_help	showmsg_c.c	/^#define put_help()	PutLine0(LINES-3, 45, put_help_/
+put_prompt	showmsg_c.c	/^#define put_prompt()	PutLine0(LINES-3, 0, Prompt)$/
+qoccurances_of	string2.c	/^qoccurances_of(ch, string)$/
+quit	quit.c	/^quit(prompt)$/
+quit_signal	signals.c	/^quit_signal(sig)$/
+quote_args	strings.c	/^quote_args(out_string,in_string)$/
+read_headers	newmbox.c	/^read_headers(add_new_only)$/
+read_in_file	editmsg.c	/^read_in_file(fd, filename, show_user_filename)$/
+read_in_messages	editmsg.c	/^read_in_messages(fd, buffer)$/
+read_number	in_utils.c	/^read_number(ch, item)$/
+read_rc_file	read_rc.c	/^read_rc_file()$/
+recall_last_msg	mailmsg2.c	/^recall_last_msg(filename, copy_msg, cancelled_msg,/
+remail	remail.c	/^remail()$/
+remove_folder_state_file	syscall.c	/^int remove_folder_state_file()$/
+remove_hostbang	mailmsg2.c	/^remove_hostbang(addrs)$/
+remove_possible_trailing_spaces	string2.c	/^remove_possible_trailing_spaces(string)$/
+reply	reply.c	/^reply()$/
+reply_to_everyone	reply.c	/^reply_to_everyone()$/
+resync	quit.c	/^resync()$/
+resync_aliases	alias.c	/^#define resync_aliases(newaliases)	delete_aliases(/
+return_value_of	curses.c	/^char *return_value_of(termcap_label)$/
+rm_temps_exit	utils.c	/^rm_temps_exit()$/
+save	file.c	/^save(redraw, silently, delete)$/
+save_copy	savecopy.c	/^save_copy(to, cc, bcc, filename, copy_file, form)$/
+save_message	file.c	/^save_message(number, filename, fd, pause, appendin/
+save_options	save_opts.c	/^save_options()$/
+save_user_options	save_opts.c	/^save_user_options(elminfo_fd, newelmrc)$/
+scan_calendar	calendar.c	/^scan_calendar()$/
+segv_signal	signals.c	/^segv_signal(sig)$/
+send_msg	mailmsg1.c	/^send_msg(given_to, given_cc, given_subject, edit_m/
+set_central_message	out_utils.c	/^set_central_message(string, arg)$/
+set_error	out_utils.c	/^set_error(s)$/
+setup	encode.c	/^setup()$/
+show_alias_menu	a_screen.c	/^show_alias_menu()$/
+show_current	screen.c	/^show_current()$/
+show_headers	screen.c	/^show_headers()$/
+show_last_error	out_utils.c	/^show_last_error()$/
+show_line	showmsg.c	/^show_line(buffer, buf_len, builtin)$/
+show_menu	screen.c	/^show_menu()$/
+show_msg	showmsg.c	/^show_msg(number)$/
+show_msg_status	delete.c	/^show_msg_status(msg)$/
+show_msg_tag	delete.c	/^show_msg_tag(msg)$/
+show_new_status	delete.c	/^show_new_status(msg)$/
+show_status	screen.c	/^char *show_status(status)$/
+showscreen	screen.c	/^showscreen()$/
+sig_return_from_user_stop	signals.c	/^sig_return_from_user_stop(sig)$/
+sig_user_stop	signals.c	/^sig_user_stop(sig)$/
+silently_exit	utils.c	/^silently_exit()$/
+skip_re	sort.c	/^char *skip_re(string)$/
+softkeys_off	softkeys.c	/^softkeys_off()	$/
+softkeys_on	softkeys.c	/^softkeys_on()	$/
+sort_aliases	a_sort.c	/^sort_aliases(entries, visible, are_in_aliases)$/
+sort_mailbox	sort.c	/^sort_mailbox(entries, visible)$/
+sort_name	sort.c	/^char *sort_name(type)$/
+sort_one_liner	options.c	/^sort_one_liner(sorting_by)$/
+split_word	strings.c	/^split_word(buffer, first, rest)$/
+start_builtin	builtin.c	/^start_builtin(lines_in_message)$/
+store_msg	showmsg_c.c	/^#define store_msg(a)	(void)strcpy(msg_line,a)$/
+str_opt	save_opts.c	/^static char *str_opt(x, f)$/
+str_opt_nam	save_opts.c	/^char *str_opt_nam(s, f)$/
+strip_commas	strings.c	/^char *strip_commas(string)$/
+subject_matches	pattern.c	/^subject_matches(message_number, pat)$/
+subshell	syscall.c	/^subshell()$/
+superceed_system	alias.c	/^superceed_system(this_alias, buffer)$/
+switch_user_level	options.c	/^switch_user_level(ulevel, x, y)$/
+system_call	syscall.c	/^int system_call(string, options)$/
+tag_message	delete.c	/^tag_message(update_screen)$/
+tail_of_string	strings.c	/^char *tail_of_string(string, maxchars)$/
+term_signal	signals.c	/^term_signal(sig) $/
+tilde_help	editmsg.c	/^tilde_help()$/
+title_for_page	builtin.c	/^title_for_page(page)$/
+translate_return	addr_util.c	/^translate_return(addr, ret_addr)$/
+transmit_functions	curses.c	/^transmit_functions(newstate)$/
+ttgetattr	curses.c	/^#define	ttgetattr(fd,where)	tcgetattr((fd),(where)/
+ttsetattr	curses.c	/^#define	ttsetattr(fd,where)	tcsetattr((fd),TCSADRA/
+unblock_signals	leavembox.c	/^unblock_signals()$/
+undelete_msg	delete.c	/^undelete_msg(update_screen)$/
+unlock	lock.c	/^unlock()$/
+update_title	screen.c	/^update_title()$/
+usr1_signal	signals.c	/^usr1_signal(sig)$/
+usr2_signal	signals.c	/^usr2_signal(sig)$/
+uucp_hops	bouncebk.c	/^uucp_hops(to)$/
+verify_bounceback	mailmsg2.c	/^verify_bounceback()$/
+verify_transmission	mailmsg2.c	/^verify_transmission(filename, form_p, need_redraw_/
+visible_to_index	limit.c	/^visible_to_index(message)$/
+want_to	in_utils.c	/^want_to(question, dflt, where, clear_and_center)$/
+weedout	read_rc.c	/^weedout(string)$/
+winch_signal	signals.c	/^winch_signal(sig)$/
+wrapped_enter	wordwrap.c	/^wrapped_enter(string, tail, x, y, edit_fd, append_/
+write_header_info	mailmsg2.c	/^write_header_info(filename, long_to, long_cc, long/

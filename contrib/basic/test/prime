@@ -1,0 +1,12 @@
+  1 rem variable dictionary
+  2 rem   n -- number to test for primality
+  3 rem   i -- the potential divisor
+  5 print "what number do yo wish to test"
+ 10 input n
+ 20 for i=2 to n-1
+ 30   if n/i = int(n/i) then 100
+ 40 next i
+ 50 print n;" is prime"
+ 60 stop
+100 print n;" is not prime, it is divisible by ";i
+110 end

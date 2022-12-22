@@ -1,0 +1,15 @@
+F COMMON.H;1                        	common.h
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/pcnfsd
+F PCNFSD.8;1                        	pcnfsd.8
+F PCNFSD.H;1                        	pcnfsd.h
+F PCNFSD_0.C;1                      	pcnfsd_cache.c
+F PCNFSD_1.C;1                      	pcnfsd_misc.c
+F PCNFSD_2.C;1                      	pcnfsd_print.c
+F PCNFSD_3.C;1                      	pcnfsd_svc.c
+F PCNFSD_4.C;1                      	pcnfsd_v1.c
+F PCNFSD_5.C;1                      	pcnfsd_v2.c
+F PCNFSD_6.C;1                      	pcnfsd_xdr.c
+F README.;1                         	README
+F TAGS.;1                           	tags

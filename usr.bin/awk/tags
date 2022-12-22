@@ -1,0 +1,298 @@
+BUFPUSH	regex.c	/^#define BUFPUSH(ch)							\\$/
+CALLOC	dfa.c	/^#define CALLOC(p, t, n) ((p) = (t *) xcalloc((MALL/
+Ceil	builtin.c	/^#define Ceil(n) ceil((n) * (1.0 + DBL_EPSILON))$/
+DOUBLE_STACK	regex.c	/^#define DOUBLE_STACK(stackx,stackb,len) \\$/
+EXTRACT_NUMBER	regex.c	/^#define EXTRACT_NUMBER(destination, source)				\\$/
+EXTRACT_NUMBER_AND_INCR	regex.c	/^#define EXTRACT_NUMBER_AND_INCR(destination, sourc/
+FETCH	dfa.c	/^#define FETCH(c, eoferr)   	      \\$/
+FREE_AND_RETURN	regex.c	/^#define FREE_AND_RETURN(stackb,val)	return(val)$/
+FREE_AND_RETURN_VOID	regex.c	/^#define FREE_AND_RETURN_VOID(stackb)	return$/
+Floor	builtin.c	/^#define Floor(n) floor((n) * (1.0 + DBL_EPSILON))$/
+GET_BUFFER_SPACE	regex.c	/^#define GET_BUFFER_SPACE(n)						\\$/
+GET_UNSIGNED_NUMBER	regex.c	/^#define GET_UNSIGNED_NUMBER(num) 					\\$/
+IS_ACTIVE	regex.c	/^#define IS_ACTIVE(R)  ((R).is_active)$/
+IS_A_LETTER	regex.c	/^#define IS_A_LETTER(d)							\\$/
+IS_IN_FIRST_STRING	regex.c	/^#define IS_IN_FIRST_STRING(ptr) 					\\$/
+MALLOC	dfa.c	/^#define MALLOC(p, t, n) ((p) = (t *) xmalloc((MALL/
+MATCHED_SOMETHING	regex.c	/^#define MATCHED_SOMETHING(R)  ((R).matched_somethi/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+Miop	iop.c	/^main(argc, argv)$/
+Mmain	main.c	/^main(argc, argv)$/
+Mregex	regex.c	/^main ()$/
+PATFETCH	regex.c	/^#define PATFETCH(c)							\\$/
+PATFETCH_RAW	regex.c	/^#define PATFETCH_RAW(c)							\\$/
+POP_FAILURE_POINT	regex.c	/^#define POP_FAILURE_POINT()						\\$/
+PUSH_BINDING	eval.c	/^#define PUSH_BINDING(stack, x, val) (memcpy ((char/
+PUSH_FAILURE_POINT	regex.c	/^#define PUSH_FAILURE_POINT(pattern_place, string_p/
+REALLOC	regex.c	/^#define REALLOC(p,s) realloc(p, (size_t) (s))$/
+REALLOC_IF_NECESSARY	dfa.c	/^#define REALLOC_IF_NECESSARY(p, t, nalloc, index) /
+RESTORE_BINDING	eval.c	/^#define RESTORE_BINDING(stack, x, val) (memcpy ((c/
+SET_LIST_BIT	regex.c	/^#define SET_LIST_BIT(c)  (b[(c) \/ BYTEWIDTH] |= 1/
+SIGN_EXTEND_CHAR	regex.c	/^#define SIGN_EXTEND_CHAR(c) ((c)>(char)127?(c)-256/
+STORE_NUMBER	regex.c	/^#define STORE_NUMBER(destination, number)				\\$/
+STORE_NUMBER_AND_INCR	regex.c	/^#define STORE_NUMBER_AND_INCR(destination, number)/
+SYNTAX	regex.c	/^#define SYNTAX(c) re_syntax_table[c]$/
+S_ISDIR	io.c	/^#define	S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)$/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+action	awk.y	/^action$/
+addlists	dfa.c	/^addlists(old, new)$/
+addtok	dfa.c	/^addtok(t)$/
+append_right	awk.y	/^append_right(list, new)$/
+arg_assign	main.c	/^arg_assign(arg)$/
+assoc_clear	array.c	/^assoc_clear(symbol)$/
+assoc_find	array.c	/^assoc_find(symbol, subs, hash1)$/
+assoc_lookup	array.c	/^assoc_lookup(symbol, subs)$/
+assoc_next	array.c	/^assoc_next(lookat)$/
+assoc_scan	array.c	/^assoc_scan(symbol, lookat)$/
+atom	dfa.c	/^atom()$/
+bchunk	builtin.c	/^#define bchunk(s,l) if(l) {\\$/
+branch	dfa.c	/^branch()$/
+build_state	dfa.c	/^build_state(s, r)$/
+build_state_zero	dfa.c	/^build_state_zero(r)$/
+catchsig	main.c	/^catchsig(sig, code)$/
+charset_index	dfa.c	/^charset_index(s)$/
+chksize	builtin.c	/^#define chksize(l)  if((l)>ofre) {\\$/
+close_io	io.c	/^close_io ()$/
+close_one	io.c	/^close_one()$/
+close_redir	io.c	/^close_redir(rp)$/
+closure	dfa.c	/^closure()$/
+clrbit	dfa.c	/^clrbit(b, c)$/
+cmdline_fs	main.c	/^cmdline_fs(str)$/
+cmp_nodes	eval.c	/^cmp_nodes(t1, t2)$/
+comma	awk.y	/^comma	: ',' opt_nls	{ yyerrok; }$/
+comsubs	dfa.c	/^comsubs(left, right)$/
+concat_exp	array.c	/^concat_exp(tree)$/
+copy	dfa.c	/^copy(src, dst)$/
+copyleft	main.c	/^copyleft ()$/
+copyset	dfa.c	/^copyset(src, dst)$/
+def_parse_field	field.c	/^def_parse_field(up_to, buf, len, fs, rp, set, n)$/
+delete	dfa.c	/^delete(p, s)$/
+devopen	io.c	/^devopen(name, mode)$/
+do_atan2	builtin.c	/^do_atan2(tree)$/
+do_close	io.c	/^do_close(tree)$/
+do_cos	builtin.c	/^do_cos(tree)$/
+do_delete	array.c	/^do_delete(symbol, tree)$/
+do_exp	builtin.c	/^do_exp(tree)$/
+do_getline	io.c	/^do_getline(tree)$/
+do_gsub	builtin.c	/^do_gsub(tree)$/
+do_index	builtin.c	/^do_index(tree)$/
+do_input	io.c	/^do_input()$/
+do_int	builtin.c	/^do_int(tree)$/
+do_length	builtin.c	/^do_length(tree)$/
+do_log	builtin.c	/^do_log(tree)$/
+do_match	builtin.c	/^do_match(tree)$/
+do_nextfile	io.c	/^do_nextfile()$/
+do_pathopen	io.c	/^do_pathopen (file)$/
+do_print	builtin.c	/^do_print(tree)$/
+do_printf	builtin.c	/^do_printf(tree)$/
+do_rand	builtin.c	/^do_rand(tree)$/
+do_sin	builtin.c	/^do_sin(tree)$/
+do_split	field.c	/^do_split(tree)$/
+do_sprintf	builtin.c	/^do_sprintf(tree)$/
+do_sqrt	builtin.c	/^do_sqrt(tree)$/
+do_srand	builtin.c	/^do_srand(tree)$/
+do_strftime	builtin.c	/^do_strftime(tree)$/
+do_sub	builtin.c	/^do_sub(tree)$/
+do_substr	builtin.c	/^do_substr(tree)$/
+do_system	builtin.c	/^do_system(tree)$/
+do_systime	builtin.c	/^do_systime(tree)$/
+do_tolower	builtin.c	/^do_tolower(tree)$/
+do_toupper	builtin.c	/^do_toupper(tree)$/
+dupnode	node.c	/^dupnode(n)$/
+efwrite	builtin.c	/^efwrite(ptr, size, count, fp, from, rp, flush)$/
+enlist	dfa.c	/^enlist(cpp, new, len)$/
+epsclosure	dfa.c	/^epsclosure(s, r)$/
+equal	dfa.c	/^equal(s1, s2)$/
+err	msg.c	/^err(s, emsg, argp)$/
+error	regex.c	/^error (string)$/
+eval_condition	eval.c	/^eval_condition(tree)$/
+exchange	getopt.c	/^exchange (argv)$/
+exp	builtin.c	/^#define exp(x) (*Exp)(x)$/
+expression_list	awk.y	/^expression_list$/
+fatal	msg.c	/^fatal(va_alist)$/
+flush_io	io.c	/^flush_io ()$/
+fmt_index	eval.c	/^fmt_index(n)$/
+fmt_ok	eval.c	/^fmt_ok(n)$/
+freelist	dfa.c	/^freelist(cpp)$/
+freenode	node.c	/^freenode(it)$/
+func_call	eval.c	/^func_call(name, arg_list)$/
+func_install	awk.y	/^func_install(params, def)$/
+func_name	awk.y	/^func_name$/
+function_body	awk.y	/^function_body$/
+function_prologue	awk.y	/^function_prologue$/
+fw_parse_field	field.c	/^fw_parse_field(up_to, buf, len, fs, rp, set, n)$/
+gawk_name	main.c	/^gawk_name(filespec)$/
+gawk_option	main.c	/^gawk_option(optstr)$/
+gawk_pclose	io.c	/^gawk_pclose(rp)$/
+gawk_popen	io.c	/^gawk_popen(cmd, rp)$/
+get_a_record	iop.c	/^get_a_record(out, iop, grRS, errcode)$/
+get_field	field.c	/^get_field(requested, assign)$/
+get_src_buf	awk.y	/^get_src_buf()$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+gfmt	builtin.c	/^gfmt(g, prec, buf)$/
+grow_fields_arr	field.c	/^grow_fields_arr(num)$/
+hash	array.c	/^hash(s, len)$/
+icatalloc	dfa.c	/^icatalloc(old, new)$/
+icpyalloc	dfa.c	/^icpyalloc(string)$/
+if_statement	awk.y	/^if_statement$/
+ifree	dfa.c	/^ifree(cp)$/
+in_array	array.c	/^in_array(symbol, subs)$/
+inboth	dfa.c	/^inboth(left, right)$/
+init_args	main.c	/^init_args(argc0, argc, argv0, argv)$/
+init_syntax_once	regex.c	/^init_syntax_once ()$/
+init_vars	main.c	/^init_vars()$/
+input_redir	awk.y	/^input_redir$/
+inrec	io.c	/^inrec(iop)$/
+insert	dfa.c	/^insert(p, s)$/
+insert_jump	regex.c	/^insert_jump (op, from, to, current_end)$/
+insert_jump_n	regex.c	/^insert_jump_n (op, from, to, current_end, n)$/
+insert_op_2	regex.c	/^insert_op_2 (op, there, current_end, num_1, num_2)/
+install	awk.y	/^install(name, value)$/
+int	field.c	/^static int (*parse_field) P((int, char **, int, NO/
+interpret	eval.c	/^interpret(tree)$/
+iop_alloc	iop.c	/^iop_alloc(fd)$/
+iop_close	io.c	/^iop_close(iop)$/
+iop_open	io.c	/^iop_open(name, mode)$/
+isgraph	regex.c	/^#define isgraph(c) (isprint((c)) && !isspace((c)))/
+istrstr	dfa.c	/^istrstr(lookin, lookfor)$/
+l_brace	awk.y	/^l_brace$/
+lex	dfa.c	/^lex()$/
+lex_builtin	awk.y	/^lex_builtin$/
+load_environ	main.c	/^load_environ()$/
+log	builtin.c	/^#define log(x) (*Log)(x)$/
+lookup	awk.y	/^lookup(name)$/
+make_for_loop	awk.y	/^make_for_loop(init, cond, incr)$/
+make_param	awk.y	/^make_param(name)$/
+make_regexp	re.c	/^make_regexp(s, len, ignorecase, dfa)$/
+make_str_node	node.c	/^make_str_node(s, len, flags)$/
+match_op	eval.c	/^match_op(tree)$/
+memcmp_translate	regex.c	/^memcmp_translate (s1, s2, len, translate)$/
+merge	dfa.c	/^merge(s1, s2, m)$/
+mk_number	node.c	/^mk_number(x, flags)$/
+mk_rexp	awk.y	/^mk_rexp(exp)$/
+mkrangenode	awk.y	/^mkrangenode(cpair)$/
+more_nodes	node.c	/^more_nodes()$/
+msg	msg.c	/^msg(va_alist)$/
+my_index	getopt.c	/^my_index (str, chr)$/
+nextc	awk.y	/^nextc() {$/
+nextfile	io.c	/^nextfile(skipping)$/
+nls	awk.y	/^nls$/
+node	awk.y	/^node(left, op, right)$/
+node_common	awk.y	/^node_common(op)$/
+non_post_simp_exp	awk.y	/^non_post_simp_exp$/
+nostalgia	main.c	/^nostalgia()$/
+notset	dfa.c	/^notset(s)$/
+op_assign	eval.c	/^op_assign(tree)$/
+opt_exp	awk.y	/^opt_exp$/
+opt_expression_list	awk.y	/^opt_expression_list$/
+opt_nls	awk.y	/^opt_nls$/
+opt_param_list	awk.y	/^opt_param_list$/
+opt_rexpression_list	awk.y	/^opt_rexpression_list$/
+opt_semi	awk.y	/^opt_semi$/
+opt_variable	awk.y	/^opt_variable$/
+optimal_bufsize	iop.c	/^optimal_bufsize(fd)$/
+output_redir	awk.y	/^output_redir$/
+param_list	awk.y	/^param_list$/
+parse_escape	node.c	/^parse_escape(string_ptr)$/
+parse_next_arg	builtin.c	/^#define parse_next_arg() {\\$/
+pathopen	io.c	/^pathopen (file)$/
+pattern	awk.y	/^pattern$/
+pclose	io.c	/^#define pclose(f)		os_pclose(f)$/
+pidopen	io.c	/^pidopen(iop, name, mode)$/
+pop_params	awk.y	/^pop_params(params)$/
+pop_var	awk.y	/^pop_var(np, freeit)$/
+popen	io.c	/^#define popen(c,m)	os_popen(c,m)$/
+pre_assign	main.c	/^pre_assign(v)$/
+print	awk.y	/^print$/
+print_buf	regex.c	/^print_buf (bufp)$/
+printchar	regex.c	/^printchar (c)$/
+program	awk.y	/^program$/
+pushback	awk.y	/^#define pushback() (lexptr && lexptr > lexptr_begi/
+r_brace	awk.y	/^r_brace$/
+r_force_number	node.c	/^r_force_number(n)$/
+r_force_string	node.c	/^r_force_string(s)$/
+r_get_lhs	eval.c	/^r_get_lhs(ptr, assign)$/
+r_paren	awk.y	/^r_paren$/
+r_tree_eval	eval.c	/^r_tree_eval(tree)$/
+re_comp	regex.c	/^re_comp (s)$/
+re_compile_fastmap	regex.c	/^re_compile_fastmap (bufp)$/
+re_compile_pattern	regex.c	/^re_compile_pattern (pattern, size, bufp)$/
+re_exec	regex.c	/^re_exec (s)$/
+re_match	regex.c	/^re_match (pbufp, string, size, pos, regs)$/
+re_match_2	regex.c	/^re_match_2 (pbufp, string1_arg, size1, string2_arg/
+re_parse_field	field.c	/^re_parse_field(up_to, buf, len, fs, rp, set, n)$/
+re_search	regex.c	/^re_search (pbufp, string, size, startpos, range, r/
+re_search_2	regex.c	/^re_search_2 (pbufp, string1, size1, string2, size2/
+re_set_syntax	regex.c	/^re_set_syntax (syntax)$/
+re_update	re.c	/^re_update(t)$/
+rebuild_record	field.c	/^rebuild_record()$/
+redirect	io.c	/^redirect(tree, errflg)$/
+refree	re.c	/^refree(rp)$/
+reg_error	re.c	/^reg_error(s)$/
+reg_free	dfa.c	/^reg_free(r)$/
+reganalyze	dfa.c	/^reganalyze(r, searchflag)$/
+regcompile	dfa.c	/^regcompile(s, len, r, searchflag)$/
+regexecute	dfa.c	/^regexecute(r, begin, end, newline, count, backref)/
+regexp	dfa.c	/^regexp()$/
+reginit	dfa.c	/^reginit(r)$/
+regmust	dfa.c	/^regmust(r)$/
+regparse	dfa.c	/^regparse(s, len, r)$/
+regstate	dfa.c	/^regstate(s, r, trans)$/
+regsyntax	dfa.c	/^regsyntax(bits, fold)$/
+research	re.c	/^research(rp, str, start, len, need_start)$/
+reset_record	field.c	/^reset_record()$/
+resetmust	dfa.c	/^resetmust(mp)$/
+resetup	re.c	/^resetup()$/
+rexp	awk.y	/^rexp	$/
+rexpression_list	awk.y	/^rexpression_list$/
+rule	awk.y	/^rule$/
+sc_parse_field	field.c	/^sc_parse_field(up_to, buf, len, fs, rp, set, n)$/
+semi	awk.y	/^semi$/
+set_CONVFMT	eval.c	/^set_CONVFMT()$/
+set_FIELDWIDTHS	field.c	/^set_FIELDWIDTHS()$/
+set_FNR	io.c	/^set_FNR()$/
+set_FS	field.c	/^set_FS()$/
+set_IGNORECASE	eval.c	/^set_IGNORECASE()$/
+set_NF	field.c	/^set_NF()$/
+set_NR	io.c	/^set_NR()$/
+set_OFMT	eval.c	/^set_OFMT()$/
+set_OFS	eval.c	/^set_OFS()$/
+set_ORS	eval.c	/^set_ORS()$/
+set_RS	field.c	/^set_RS()$/
+set_element	field.c	/^set_element(num, s, len, n)$/
+set_field	field.c	/^set_field(num, str, len, dummy)$/
+set_record	field.c	/^set_record(buf, cnt, freeold)$/
+setbit	dfa.c	/^setbit(b, c)$/
+simp_exp	awk.y	/^simp_exp$/
+snode	awk.y	/^snode(subn, op, idx)$/
+spec_setup	io.c	/^spec_setup(iop, len, allocate)$/
+specfdopen	io.c	/^specfdopen(iop, name, mode)$/
+state_index	dfa.c	/^state_index(r, s, newline, letter)$/
+statement	awk.y	/^statement$/
+statement_term	awk.y	/^statement_term$/
+statements	awk.y	/^statements$/
+store_jump	regex.c	/^store_jump (from, opcode, to)$/
+store_jump_n	regex.c	/^store_jump_n (from, opcode, to, n)$/
+str2mode	io.c	/^str2mode(mode)$/
+sub_common	builtin.c	/^sub_common(tree, global)$/
+tmp_string	node.c	/^tmp_string(s, len)$/
+tokadd	awk.y	/^#define	tokadd(x) (*token++ = (x), token == tokend/
+tokexpand	awk.y	/^tokexpand()$/
+tstbit	dfa.c	/^tstbit(b, c)$/
+unref	node.c	/^unref(tmp)$/
+usage	main.c	/^usage(exitval)$/
+useropen	io.c	/^useropen(iop, name, mode)$/
+variable	awk.y	/^variable$/
+version	main.c	/^version()$/
+wait_any	io.c	/^wait_any(interesting)$/
+warning	msg.c	/^warning(va_alist)$/
+xcalloc	dfa.c	/^xcalloc(n, s)$/
+xmalloc	dfa.c	/^xmalloc(n)$/
+xrealloc	dfa.c	/^xrealloc(p, n)$/
+yyerror	awk.y	/^yyerror(va_alist)$/
+yylex	awk.y	/^yylex()$/
+yyparse	awk.y	/^%%$/
+zeroset	dfa.c	/^zeroset(s)$/

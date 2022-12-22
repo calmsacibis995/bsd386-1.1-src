@@ -1,0 +1,50 @@
+[ Also see:  README.TOO ]
+
+Vax-Basic
+
+The files in this directory are:
+
+	Makefile	A makefile for the reconstruction of Vax-Basic.
+	basic.l 	Manual page for basic.  Usually installed in
+			/usr/man/manl.  At the moment, this is the only
+			documentation available for Vax-Basic.  Sorry.
+	exec/*.c	The run-time routines for Basic.
+	h/*.h		Include files for the source.
+	lex/*.c		The lexical analysis routines.
+	lines/*.c	The workspace-management routines.
+	linpack/*.[fc]	LINPACK routines for matrix inversion and determinants.
+	main/*.c	Driver routines.
+	misc/*.c	Miscellaneous junk.
+	parser/*.[cy]	YACC parser for Basic.
+	strings/*.c	Routines that handle the saving of strings.
+	symbols/*.c	Symbol-table manager.
+	test/*		Basic test programs, including things that have
+			syntax and run-time errors.  Some have been taken
+			from other places, and haven't been tested yet.
+	trees/*.c	Routines that manipulate the parse tree.
+	update*		A program to selectively update .h files only
+			when the contents of the file changes.  This
+			is useful with the -d option of yacc, and keeps
+			'make' from remaking everything each time I tweak
+			the grammar.
+
+
+Although support for this beast is not on-going, I will try to help
+people if they have problems installing Vax-Basic, or extending it.
+I would like to know about bugs, and electronic or US mail is preferable
+to phone calls.  Also, if anyone bothers to add file i/o and print-using,
+I'd be glad to see it.
+					Good Luck,
+					Gary Klimowicz
+					University of New Mexico
+					Albuquerque, NM 87131
+					(505) 277-2141
+
+					uucp address: ucbvax!unmvax!gary
+
+NOTE:
+	Gary Klimowicz, the author of this basic system, is no longer at
+	UNM.  Please mail to me (ucbvax!lbl-csam!lanl-a!unm-ivax!bob)
+	instead (or in addition to Gary's account) if you want to
+	reach somebody.  Also see: README.TOO.
+

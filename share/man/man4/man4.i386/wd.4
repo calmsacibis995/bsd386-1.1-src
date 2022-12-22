@@ -1,0 +1,40 @@
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd October 9, 1992
+.Dt WD 4 i386
+.Os
+.Sh NAME
+.Nm wd
+.Nd
+PC Compatible Hard Disk Driver
+.Sh SYNOPSIS
+.Cd "controller wdc0 at isa? port 0x1f0"
+.Cd "disk wd0 at wdc0 drive 0"
+.Sh DESCRIPTION
+This is a driver for standard MFM and RLL disks using the ST-506 interface.
+It uses a block of 8 io ports which must be aligned on an 8 port boundary.
+The hardware interrupt level is detected during autoconfiguration.
+.Pp
+The disk should be labeled with
+.Xr disklabel 8
+before use.  Bad sectors are identified and remapped using
+.Xr diskdefect 8 .
+.Pp
+The disk may optionally contain a DOS fdisk label, and portions of the
+disk may be reserved for other operating systems.
+.Sh FILES
+.Bl -tag -width /dev/rwd[0-1][a-h] -compact
+.It Pa /dev/wd[0-1][a-h]
+block files
+.It Pa /dev/rwd[0-1][a-h]
+raw files
+.El
+.Sh SEE ALSO
+.Xr diskdefect 8 ,
+.Xr bad144 8 ,
+.Xr disklabel 8
+.Sh HISTORY
+The
+.Nm
+driver first appeared in Berkeley Networking-2.

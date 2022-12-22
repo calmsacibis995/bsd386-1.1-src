@@ -1,0 +1,157 @@
+#!/bin/sh
+# Check wdiff against some simple test cases.
+# Copyright (C) 1992 Free Software Foundation, Inc.
+
+wdiff=./wdiff
+input1=/tmp/wd.$$a
+input2=/tmp/wd.$$b
+expect=/tmp/wd.$$c
+output=/tmp/wd.$$d
+
+fail="echo; echo Check FAILED; rm -f $input1 $input2 $expect $output; exit 1"
+trap "$fail" 1 2 3 14 15
+
+cat > $input1 <<END_OF_FILE
+This is input1
+The quick brown fox jumps over the lazy dog.
+The hurried orange fox jumps over the lazy dog.
+A slow green panda walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+
+cat > $input2 <<END_OF_FILE
+This is input2
+The quick brown fox jumps over the lazy dog.
+The slow red fox jumps over the lazy dog.
+A slow, short green giraffe walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+
+echo "Checking wdiff"
+cat > $expect <<END_OF_FILE
+This is [-input1-] {+input2+}
+The quick brown fox jumps over the lazy dog.
+The [-hurried orange-] {+slow red+} fox jumps over the lazy dog.
+A [-slow-] {+slow, short+} green [-panda-] {+giraffe+} walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+$wdiff $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -1"
+cat > $expect <<END_OF_FILE
+This is {+input2+}
+The quick brown fox jumps over the lazy dog.
+The {+slow red+} fox jumps over the lazy dog.
+A {+slow, short+} green {+giraffe+} walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+$wdiff -1 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -2"
+cat > $expect <<END_OF_FILE
+This is [-input1-]
+The quick brown fox jumps over the lazy dog.
+The [-hurried orange-] fox jumps over the lazy dog.
+A [-slow-] green [-panda-] walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+$wdiff -2 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -3"
+cat > $expect <<END_OF_FILE
+
+======================================================================
+ [-input1-] {+input2+}
+======================================================================
+ [-hurried orange-] {+slow red+}
+======================================================================
+ [-slow-] {+slow, short+}
+======================================================================
+ [-panda-] {+giraffe+}
+======================================================================
+END_OF_FILE
+$wdiff -3 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -12"
+cat > $expect <<END_OF_FILE
+This is
+======================================================================
+
+The quick brown fox jumps over the lazy dog.
+The
+======================================================================
+ fox jumps over the lazy dog.
+A
+======================================================================
+ green
+======================================================================
+ walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+$wdiff -12 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -13"
+cat > $expect <<END_OF_FILE
+
+======================================================================
+ input2
+======================================================================
+ slow red
+======================================================================
+ slow, short
+======================================================================
+ giraffe
+======================================================================
+END_OF_FILE
+$wdiff -13 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -23"
+cat > $expect <<END_OF_FILE
+
+======================================================================
+ input1
+======================================================================
+ hurried orange
+======================================================================
+ slow
+======================================================================
+ panda
+======================================================================
+END_OF_FILE
+$wdiff -23 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -123"
+cat > $expect <<END_OF_FILE
+END_OF_FILE
+$wdiff -123 $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -123s"
+cat > $expect <<END_OF_FILE
+$input1: 39 words  34 87% common  0 0% deleted  5 12% changed
+$input2: 40 words  34 85% common  0 0% inserted  6 15% changed
+END_OF_FILE
+$wdiff -123s $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+echo "Checking wdiff -wxyz"
+cat > $expect <<END_OF_FILE
+This is (input1) <<input2>>
+The quick brown fox jumps over the lazy dog.
+The (hurried orange) <<slow red>> fox jumps over the lazy dog.
+A (slow) <<slow, short>> green (panda) <<giraffe>> walks around a sleeping cat.
+The middling red fox jumps over the lazy dog.
+END_OF_FILE
+$wdiff -w\( -x\) -y\<\< -z\>\> $input1 $input2 > $output
+diff $expect $output || eval "$fail"
+
+rm -f $input1 $input2 $expect $output
+echo
+echo All checks successful

@@ -1,0 +1,2 @@
+masm ldpack;
+link ldpack;

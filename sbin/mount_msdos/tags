@@ -1,0 +1,2 @@
+Mmount_msdos	mount_msdos.c	/^main(argc, argv)$/
+usage	mount_msdos.c	/^usage()$/

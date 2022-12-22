@@ -1,0 +1,68 @@
+HASH_EMPTY_P	../ispell/access.c	/^#define HASH_EMPTY_P(h) (H_TO_HTE(h)->next == HASH/
+HASH_NEXT	../ispell/access.c	/^#define HASH_NEXT(h) (H_TO_HTE(h)->next)$/
+H_TO_FLAGS	../ispell/access.c	/^#define H_TO_FLAGS(h) (ftbls[(h)\/FLAGS_PER_TABLE]/
+H_TO_HTE	../ispell/access.c	/^#define H_TO_HTE(h) (htbls[(h)\/HTE_PER_TABLE] + (/
+INDEX_TO_STRING	../ispell/access.c	/^#define INDEX_TO_STRING(index) (stbls[(index)\/BYT/
+Mbuild	build.c	/^main (argc, argv)$/
+Mmklextbl	mklextbl.c	/^main (argc, argv)$/
+Mnextprime	../ispell/nextprime.c	/^main ()$/
+add_flag	../ispell/suf.c	/^add_flag (h, flag)$/
+alloc	../ispell/access.c	/^alloc (n)$/
+alloc_tables	../ispell/access.c	/^alloc_tables (hsize, ssize)$/
+build	build.c	/^build (in)$/
+copy_out_string	../ispell/access.c	/^copy_out_string (s, n)$/
+d_ending	../ispell/suf.c	/^d_ending (w, len)$/
+downcase	../ispell/downcase.c	/^downcase (p, q)$/
+dumphashstat	../ispell/access.c	/^dumphashstat (NOARGS)$/
+e_ending	../ispell/suf.c	/^e_ending (w, len)$/
+expand	../ispell/exp.c	/^expand (w)$/
+find_flags	../ispell/access.c	/^find_flags (h)$/
+find_hte	../ispell/access.c	/^find_hte (h)$/
+find_slot	build.c	/^find_slot (hindex)$/
+find_string	../ispell/access.c	/^find_string (index)$/
+g_ending	../ispell/suf.c	/^g_ending (w, len)$/
+get_bitvec	build.c	/^get_bitvec (bitvec, n)$/
+get_flags	../ispell/access.c	/^get_flags (hindex)$/
+h_ending	../ispell/suf.c	/^h_ending (w, len)$/
+hash	../ispell/hash.c	/^hash (p)$/
+hash_awrite	../ispell/access.c	/^hash_awrite (out)$/
+hash_emptyp	../ispell/access.c	/^hash_emptyp (h)$/
+hash_ewrite	../ispell/access.c	/^hash_ewrite (out)$/
+hash_find_end	../ispell/access.c	/^hash_find_end (index)$/
+hash_init	../ispell/access.c	/^hash_init (name)$/
+hash_lookup	../ispell/access.c	/^hash_lookup (string, alen)$/
+hash_retrieve	../ispell/access.c	/^hash_retrieve (index, htep)$/
+hash_set_next	../ispell/access.c	/^hash_set_next (index, new_next)$/
+hash_store	../ispell/access.c	/^hash_store (index, htep)$/
+hash_write	../ispell/access.c	/^hash_write (f)$/
+hashchainlen	../ispell/access.c	/^hashchainlen (h)$/
+htetostr	../ispell/access.c	/^htetostr (htep, h)$/
+lexalloc	../ispell/lexfsm.c	/^lexalloc (NOARGS)$/
+lexdump	../ispell/lexfsm.c	/^lexdump (f)$/
+lexload	../ispell/lexfsm.c	/^lexload (f, nlet)$/
+lexprint	../ispell/lexfsm.c	/^lexprint (out, verbose)$/
+lexsize	../ispell/lexfsm.c	/^lexsize (NOARGS)$/
+lexword	../ispell/lexfsm.c	/^lexword (in, len, out)$/
+lookup	../ispell/suf.c	/^lookup (w)$/
+make_hash_table_entry	build.c	/^make_hash_table_entry (string, len)$/
+min	../ispell/access.c	/^#define min(a,b) ((a) < (b) ? (a) : (b))$/
+mklextbl	mklextbl.c	/^mklextbl (name, outf)$/
+n_ending	../ispell/suf.c	/^n_ending (w, len)$/
+nextprime	../ispell/nextprime.c	/^nextprime (x)$/
+parse_flags	build.c	/^parse_flags (word, p)$/
+prhashchain	../ispell/access.c	/^prhashchain ()$/
+r_ending	../ispell/suf.c	/^r_ending (w, len)$/
+reap	../ispell/suf.c	/^reap (h)$/
+reapall	../ispell/suf.c	/^reapall ()$/
+reapone	../ispell/suf.c	/^reapone (n)$/
+s_ending	../ispell/suf.c	/^s_ending (w, len)$/
+set_bitvec	../ispell/access.c	/^set_bitvec (bitvec, n)$/
+store_flags	../ispell/access.c	/^store_flags (hindex, flags)$/
+sufcheck	../ispell/suf.c	/^sufcheck (w, len)$/
+t_ending	../ispell/suf.c	/^t_ending (w, len)$/
+toomanywords	build.c	/^toomanywords ()$/
+write_ascii	build.c	/^write_ascii (name)$/
+write_binary	build.c	/^write_binary (name)$/
+xcalloc	../ispell/util.c	/^xcalloc (nblocks, nbytes)$/
+xmalloc	../ispell/util.c	/^xmalloc (nbytes)$/
+y_ending	../ispell/suf.c	/^y_ending (w, len)$/

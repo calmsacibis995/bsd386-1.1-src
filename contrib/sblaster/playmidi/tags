@@ -1,0 +1,70 @@
+Mgetopt	../cdsp/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../cdsp/getopt1.c	/^main (argc, argv)$/
+Mplaymidi	playmidi.c	/^main (int argc, char **argv)$/
+WriteVarLen	midifile.c	/^WriteVarLen(long unsigned int value)$/
+_getopt_internal	../cdsp/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_event	playmidi.c	/^add_event (int count, sbBYTE data1, sbBYTE data2, /
+badbyte	midifile.c	/^badbyte(int c)$/
+biggermsg	midifile.c	/^biggermsg(void)$/
+chanmessage	midifile.c	/^chanmessage(int status, int c1, int c2)$/
+compare	playmidi.c	/^int compare (event *one, event *two)$/
+do_arbitrary	playmidi.c	/^do_arbitrary (int leng, char *mess)$/
+do_chanpressure	playmidi.c	/^do_chanpressure (int chan, int press)$/
+do_header	playmidi.c	/^do_header (format, ntrks, ldivision)$/
+do_keysig	playmidi.c	/^do_keysig (int sf, int mi)$/
+do_metaeot	playmidi.c	/^do_metaeot (void)$/
+do_metamisc	playmidi.c	/^do_metamisc (int type, int leng, char *mess)$/
+do_metaseq	playmidi.c	/^do_metaseq (int num)$/
+do_metaspecial	playmidi.c	/^do_metaspecial (int type, int leng, char *mess)$/
+do_metatext	playmidi.c	/^do_metatext (int type, int leng, char *mess)$/
+do_noteoff	playmidi.c	/^do_noteoff (int chan, int pitch, int vol)$/
+do_noteon	playmidi.c	/^do_noteon (int chan, int pitch, int vol)$/
+do_parameter	playmidi.c	/^do_parameter (int chan, int control, int value)$/
+do_pitchbend	playmidi.c	/^do_pitchbend (int chan, int msb, int lsb)$/
+do_pressure	playmidi.c	/^do_pressure (int chan, int pitch, int press)$/
+do_program	playmidi.c	/^do_program (int chan, int program)$/
+do_smpte	playmidi.c	/^do_smpte (int hr, int mn, int se, int fr, int ff)$/
+do_sysex	playmidi.c	/^do_sysex (int leng, char *mess)$/
+do_tempo	playmidi.c	/^do_tempo (int microsecs)$/
+do_timesig	playmidi.c	/^do_timesig (int nn, int dd, int cc, int bb)$/
+do_trackend	playmidi.c	/^do_trackend (void)$/
+do_trackstart	playmidi.c	/^do_trackstart (void)$/
+egetc	midifile.c	/^egetc(void)			\/* read a single character and abor/
+eputc	midifile.c	/^eputc(unsigned char c)$/
+error	playmidi.c	/^error (char    *s)$/
+exchange	../cdsp/getopt.c	/^exchange (argv)$/
+getopt	../cdsp/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../cdsp/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../cdsp/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+metaevent	midifile.c	/^metaevent(int type)$/
+mf_sec2ticks	midifile.c	/^mf_sec2ticks(float secs, int division, unsigned in/
+mf_ticks2sec	midifile.c	/^mf_ticks2sec(long unsigned int ticks, int division/
+mf_write_header_chunk	midifile.c	/^mf_write_header_chunk(int format, int ntracks, int/
+mf_write_meta_event	midifile.c	/^mf_write_meta_event(long unsigned int delta_time, /
+mf_write_midi_event	midifile.c	/^mf_write_midi_event(long unsigned int delta_time, /
+mf_write_tempo	midifile.c	/^mf_write_tempo(long unsigned int tempo)$/
+mf_write_track_chunk	midifile.c	/^mf_write_track_chunk(int which_track, FILE *fp)$/
+mferror	midifile.c	/^mferror(char *s)$/
+mfread	midifile.c	/^mfread(void)	 	\/* The only non-static function in/
+mfwrite	midifile.c	/^mfwrite(int format, int ntracks, int division, FIL/
+midifile	midifile.c	/^midifile(void)$/
+midigetc	playmidi.c	/^midigetc (void)$/
+msg	midifile.c	/^msg(void)$/
+msgadd	midifile.c	/^msgadd(int c)$/
+msginit	midifile.c	/^msginit(void)$/
+msgleng	midifile.c	/^msgleng(void)$/
+my_bcopy	../cdsp/getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	../cdsp/getopt.c	/^my_index (string, chr)$/
+read16bit	midifile.c	/^read16bit(void)$/
+read32bit	midifile.c	/^read32bit(void)$/
+readheader	midifile.c	/^readheader(void)		\/* read a header chunk *\/$/
+readmt	midifile.c	/^readmt(char *s)		\/* read through the "MThd" or "M/
+readtrack	midifile.c	/^readtrack(void)		 \/* read a track chunk *\/$/
+readvarinum	midifile.c	/^readvarinum(void)$/
+send	playmidi.c	/^send (unsigned char data)$/
+sysex	midifile.c	/^sysex(void)$/
+to16bit	midifile.c	/^to16bit(int c1, int c2)$/
+to32bit	midifile.c	/^to32bit(int c1, int c2, int c3, int c4)$/
+wait_until	playmidi.c	/^wait_until (unsigned long currtime)$/
+write16bit	midifile.c	/^write16bit(int data)$/
+write32bit	midifile.c	/^write32bit(long unsigned int data)$/

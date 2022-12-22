@@ -1,0 +1,32 @@
+MailUser	recover.c	/^MailUser(rec)$/
+Mrecover	recover.c	/^main(argc, argv)$/
+UNMACRO	recover.c	/^extern int	UNMACRO(getuid) proto((void));$/
+add_name	recover.c	/^add_name(dp)$/
+ask_del	recover.c	/^ask_del(prompt, fp)$/
+catch	recover.c	/^catch(junk)$/
+closedir	recover.c	/^closedir(dp)$/
+copystr	recover.c	/^copystr(s)$/
+del_files	recover.c	/^del_files(fp)$/
+doit	recover.c	/^doit(fp)$/
+dump_file	recover.c	/^dump_file(which, out)$/
+get	recover.c	/^get(src, dest)$/
+get_files	recover.c	/^get_files(dirname)$/
+getaddr	recover.c	/^getaddr(fp)$/
+getblock	recover.c	/^getblock(atl)$/
+getdest	recover.c	/^getdest()$/
+getline	recover.c	/^getline(tl, buf)$/
+getsrc	recover.c	/^getsrc()$/
+list	recover.c	/^list()$/
+lookup	recover.c	/^lookup(dir)$/
+makblist	recover.c	/^makblist()$/
+opendir	recover.c	/^opendir(dir)$/
+options	recover.c	/^options()$/
+read_rec	recover.c	/^read_rec(recptr)$/
+readdir	recover.c	/^readdir(dp)$/
+readword	recover.c	/^readword(buf)$/
+restore	recover.c	/^restore()$/
+savetmps	recover.c	/^savetmps()$/
+scandir	recover.c	/^scandir(dir, nmptr, qualify, sorter)$/
+scanvec	recover.c	/^scanvec(args, str)$/
+seekto	recover.c	/^seekto(which)$/
+tellme	recover.c	/^tellme(quest, answer)$/

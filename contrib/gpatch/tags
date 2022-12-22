@@ -1,0 +1,82 @@
+ISDIGIT	backupfile.c	/^#define ISDIGIT(c) (isdigit ((unsigned char) (c)))/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+Mpatch	patch.c	/^main(argc,argv)$/
+NLENGTH	backupfile.c	/^#define NLENGTH(direct) (strlen((direct)->d_name))/
+REAL_DIR_ENTRY	backupfile.c	/^#define REAL_DIR_ENTRY(dp) 1$/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+abort_hunk	patch.c	/^abort_hunk()$/
+addext	backupfile.c	/^addext (filename, ext, e)$/
+another_hunk	pch.c	/^another_hunk()$/
+apply_hunk	patch.c	/^apply_hunk(where)$/
+argmatch	backupfile.c	/^argmatch (arg, optlist)$/
+ask	util.c	/^ask(pat) char *pat; { ; }$/
+basename	backupfile.c	/^basename (name)$/
+concat	backupfile.c	/^concat (str1, str2)$/
+copy_file	util.c	/^copy_file(from,to)$/
+copy_till	patch.c	/^copy_till(lastline)$/
+dirname	backupfile.c	/^dirname (path)$/
+do_ed_script	pch.c	/^do_ed_script()$/
+dump_line	patch.c	/^dump_line(line)$/
+exchange	getopt.c	/^exchange (argv)$/
+fatal	util.c	/^fatal(pat) char *pat; { ; }$/
+fetchname	util.c	/^fetchname(at,strip_leading,assume_exists)$/
+find_backup_file_name	backupfile.c	/^find_backup_file_name (file)$/
+get_some_switches	patch.c	/^get_some_switches()$/
+get_version	backupfile.c	/^get_version (version)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+grow_hunkmax	pch.c	/^grow_hunkmax()$/
+ifetch	inp.c	/^ifetch(line,whichbuf)$/
+ignore_signals	util.c	/^ignore_signals()$/
+init_output	patch.c	/^init_output(name)$/
+init_reject	patch.c	/^init_reject(name)$/
+intuit_diff_type	pch.c	/^intuit_diff_type()$/
+invalid_arg	backupfile.c	/^invalid_arg (kind, value, problem)$/
+locate_hunk	patch.c	/^locate_hunk(fuzz)$/
+make_version_name	backupfile.c	/^make_version_name (file, version)$/
+makedirs	util.c	/^makedirs(filename,striplast)$/
+malformed	pch.c	/^malformed ()$/
+max_backup_version	backupfile.c	/^max_backup_version (file, dir)$/
+move_file	util.c	/^move_file(from,to)$/
+my_bcopy	getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_exit	patch.c	/^my_exit(status)$/
+my_index	getopt.c	/^my_index (str, chr)$/
+next_intuit_at	pch.c	/^next_intuit_at(file_pos,file_line)$/
+open_patch_file	pch.c	/^open_patch_file(filename)$/
+patch_match	patch.c	/^patch_match(base, offset, fuzz)$/
+pch_char	pch.c	/^pch_char(line)$/
+pch_context	pch.c	/^pch_context()$/
+pch_end	pch.c	/^pch_end()$/
+pch_first	pch.c	/^pch_first()$/
+pch_hunk_beg	pch.c	/^pch_hunk_beg()$/
+pch_line_len	pch.c	/^pch_line_len(line)$/
+pch_newfirst	pch.c	/^pch_newfirst()$/
+pch_ptrn_lines	pch.c	/^pch_ptrn_lines()$/
+pch_repl_lines	pch.c	/^pch_repl_lines()$/
+pch_swap	pch.c	/^pch_swap()$/
+pfatal	util.c	/^pfatal(pat) char *pat; { ; }$/
+pfetch	pch.c	/^pfetch(line)$/
+pgets	pch.c	/^pgets(bf,sz,fp)$/
+plan_a	inp.c	/^plan_a(filename)$/
+plan_b	inp.c	/^plan_b(filename)$/
+private_strerror	util.c	/^private_strerror (errnum)$/
+re_input	inp.c	/^re_input()$/
+re_patch	pch.c	/^re_patch()$/
+reinitialize_almost_everything	patch.c	/^reinitialize_almost_everything()$/
+rename	rename.c	/^rename (from, to)$/
+rev_in_string	inp.c	/^rev_in_string(string)$/
+savestr	util.c	/^savestr(s)$/
+say	util.c	/^say(pat) char *pat; { ; }$/
+scan_input	inp.c	/^scan_input(filename)$/
+set_hunkmax	pch.c	/^set_hunkmax()$/
+set_signals	util.c	/^set_signals(reset)$/
+similar	patch.c	/^similar(a,b,len)$/
+skip_to	pch.c	/^skip_to(file_pos,file_line)$/
+spew_output	patch.c	/^spew_output()$/
+there_is_another_patch	pch.c	/^there_is_another_patch()$/
+try	inp.c	/^#define try(f,a1,a2) (Sprintf(s + pathlen, f, a1, /
+version	version.c	/^version()$/
+version_number	backupfile.c	/^version_number (base, backup, base_length)$/
+xmalloc	util.c	/^xmalloc (size)$/

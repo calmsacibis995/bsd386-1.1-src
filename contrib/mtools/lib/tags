@@ -1,0 +1,43 @@
+DWORD	init.c	/^#define DWORD(x) ((boot->x)[0] + ((boot->x)[1] << /
+WORD	init.c	/^#define WORD(x) ((boot->x)[0] + ((boot->x)[1] << 8/
+descend	subdir.c	/^descend(path)$/
+dir_flush	dir_write.c	/^dir_flush()$/
+dir_grow	dir_make.c	/^dir_grow(fat)$/
+dir_read	dir_read.c	/^dir_read(num)$/
+dir_write	dir_write.c	/^dir_write(num, dir)$/
+disk_flush	buf_write.c	/^disk_flush()$/
+disk_read	buf_read.c	/^disk_read(start, buf, len)$/
+disk_write	buf_write.c	/^disk_write(start, buf, len)$/
+dos_name	dir_write.c	/^dos_name(filename, verbose)$/
+expand	expand.c	/^expand(input)$/
+fat_decode	fat_read.c	/^fat_decode(num)$/
+fat_encode	fat_write.c	/^fat_encode(num, code)$/
+fat_free	fat_free.c	/^fat_free(fat)$/
+fat_read	fat_read.c	/^fat_read(start)$/
+fat_write	fat_write.c	/^fat_write()$/
+file_read	file_read.c	/^file_read(fp, fat, textmode, stripmode, size)$/
+file_write	file_write.c	/^file_write(fp, firstfat, filesize, textmode)$/
+fill_chain	dir_read.c	/^fill_chain(num)$/
+fix_mcwd	init.c	/^fix_mcwd()$/
+get_drive	parse.c	/^get_drive(filename)$/
+get_name	parse.c	/^get_name(filename)$/
+get_path	parse.c	/^get_path(filename)$/
+init	init.c	/^init(drive, mode)$/
+init_sparc	devices.c	/^init_sparc(fd, ntracks, nheads, nsect)$/
+init_unixpc	devices.c	/^init_unixpc(fd, ntracks, nheads, nsect)$/
+initdevicefile	devices.c	/^initdevicefile (file, devices, olddevs)$/
+initdevices	devices.c	/^initdevices ()$/
+is_dir	is_dir.c	/^is_dir(path)$/
+lock_dev	init.c	/^lock_dev(fd)$/
+match	match.c	/^match(s, p)$/
+memcpy	expand.c	/^memcpy(s1, s2, n)$/
+memset	expand.c	/^memset(s, c, n)$/
+mk_entry	dir_write.c	/^mk_entry(filename, attr, fat, size, date)$/
+next_fat	dir_make.c	/^next_fat(last)$/
+put_cluster	file_write.c	/^put_cluster(fp, num, filesize, textmode)$/
+read_boot	init.c	/^read_boot()$/
+read_cyl	buf_write.c	/^read_cyl(sector)$/
+reset_chain	dir_read.c	/^reset_chain(code)$/
+strpbrk	expand.c	/^strpbrk(string, brkset)$/
+subdir	subdir.c	/^subdir(drive, pathname)$/
+unix_name	dir_read.c	/^unix_name(name, ext)$/

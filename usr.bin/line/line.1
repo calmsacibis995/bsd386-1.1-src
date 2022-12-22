@@ -1,0 +1,27 @@
+.\" Copyright (c) 1991 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: line.1,v 1.1.1.1 1993/03/08 06:43:33 polk Exp $
+.\"
+.Dd February 16, 1993
+.Dt LINE 1
+.Os
+.Sh NAME
+.Nm line
+.Nd read one line
+.Sh SYNOPSIS
+.Nm line
+.Sh DESCRIPTION
+The
+.Nm line
+utility reads one line
+(up to and including the first newline)
+from the standard input
+and writes it on the standard output.
+If EOF is encountered before any newline,
+.Nm line
+writes any input and appends a newline,
+and exits with nonzero status.
+.Sh SEE ALSO
+.Xr sh 1

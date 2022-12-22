@@ -1,0 +1,3 @@
+Muname	uname.c	/^main(argc, argv)$/
+P	uname.c	/^#define P(F,M)				\\$/
+Usage	uname.c	/^Usage()$/

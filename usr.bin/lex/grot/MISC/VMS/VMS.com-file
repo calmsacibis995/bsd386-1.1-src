@@ -1,0 +1,76 @@
+(Message inbox:139)
+Date:     Thu, 9 May 1991 16:47:07 EDT
+From:  YOUNG@TATTOO.CS.WIDENER.EDU
+To:  vern@horse.ee.lbl.gov
+X-Vmsmail-To:  SMTP%"vern@horse.ee.lbl.gov"
+
+    vern@horse.ee.lbl.gov
+
+Vern,
+
+	Some time ago I had written to you mentioning that
+	FLEX could not find the FLEX.SKEL.  I realized I had re-built
+	the source at one time ( the MMS did not quite work for me ) and 
+	that is when it was having problems finding FLEX.SKEL.  To make
+	it find FLEX.SKEL look at the /define below when it compiles
+	main.  Thought this little com might come in handy for those
+	that don't have MMS.  For debugging purposes I had put in a 
+	different target for each source as there were minor things
+	that needed to be done and rather rebuild the whole thing just
+	passed in the source as a parameter. 
+
+			Rob Young
+
+$ temp = f$environment("procedure")
+$ this_dir = f$extract(0,f$locate("]",temp) + 1,temp)
+$ set default 'this_dir'
+$ wr = "WRITE SYS$OUTPUT"
+$ if p1 .nes. "" then goto 'p1'
+$ alloca:
+$ wr "Building alloca.."
+$ macro alloca
+$ bcopy:
+$ wr "Building bcopy.."
+$ macro bcopy
+$ ccl:
+$ wr "Building ccl.."
+$ cc/define=(VMS,USG) ccl.c
+$ dfa:
+$ wr "Building dfa.."
+$ cc/define=(VMS,USG) dfa.c 
+$ ecs:
+$ wr "Building ecs.."
+$ cc/define=(VMS,USG) ecs.c
+$ gen:
+$ wr "Building gen.."
+$ cc/define=(VMS,USG) gen.c
+$ main:
+$ wr "Building main.."
+$ cc/define=(VMS,USG,DEFAULT_SKELETON_FILE = """tools$$library:FLEX.SKEL""") ma
+in.c
+$ misc:
+$ wr "Building misc.."
+$ cc/define=(VMS,USG) misc.c
+$ nfa:
+$ wr "Building nfa.."
+$ cc/define=(VMS,USG) nfa.c
+$ parse:
+$ wr "Building parse.."
+$ cc/define=(VMS,USG) parse.c	! made with Unix yacc/define=(VMS,USG) -d bison
+ will work too.
+$ scan:
+$ wr "Building scan.."
+$ cc/define=(VMS,USG) scan.c
+$ sym:
+$ wr "Building sym.."
+$ cc/define=(VMS,USG) sym.c
+$ tblcmp:
+$ wr "Building tblcmp.."
+$ cc/define=(VMS,USG) tblcmp.c
+$ yylex:
+$ wr "Building yylex.."
+$ cc/define=(VMS,USG) yylex.c
+$ link:
+$ link/exec=flex alloca,bcopy,ccl,dfa,ecs,gen,main,misc,nfa,parse,scan -
+                 ,sym,tblcmp,yylex,sys$input/opt
+sys$share:vaxcrtl.exe/share

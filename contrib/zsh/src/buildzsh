@@ -1,0 +1,632 @@
+#! /bin/sh
+echo
+echo 'Trying to determine host type...'
+
+headerdir=/usr/include
+arch=`(uname) 2>/dev/null`
+case "$arch" in
+"")	case `(head -2 /etc/motd) 2>/dev/null` in
+	*"HP-UX"*)	HPUX=yep; machid=hp9000;;
+	*"Iris"*)	SGI=yep; host=iris4d;;
+	*"Ultrix"*)	ULTRIX=yep; host=vax;;
+	*"RISC iX"*)	ARM=yep; host=arm;;
+	*"Umax 4.2"*)	ENCORE=yep; host=encore;;
+	*"Alliant Concentrix"*) ALLIANT=yep; host=alliant;;
+	*"FPS Model 500"*) FPS=yep; host=fps500;;
+	*"HCX/UX"*)	HARRIS=yep; host=harris;;
+	*"nX Operating System"*)	BBN=yep; host=`arch`;;
+	*)
+		if test -d ${headerdir}/caif
+		then AIX=yep; host=ibm032
+		elif test -d /sys/node_data
+		then APOLLO=yep; host=apollo-$ISP
+		elif test -f /bin/pyr && /bin/pyr
+		then PYR=yes; host=pyr
+		elif test -d /NextApps
+		then host=next
+                      if test -d /NextDeveloper/Headers/bsd
+                      then NEXT=3.x; headerdir=${headerdir}/bsd
+                      else NEXT=2.x
+                      fi
+		elif test -f /etc/comply
+		then SUN=yes; host=sun3
+		elif test -f /bin/hinv
+		then SGI=yep; host=iris4d
+		elif grep ULTRIX ${headerdir}/stdio.h >/dev/null 2>&1
+		then ULTRIX=yep; host=vax
+		elif grep 'Property of IBM' ${headerdir}/stdio.h >/dev/null 2>&1
+		then AIX=yep
+		else host=`(tcsh -fc 'echo $HOSTTYPE' || arch || machine || mach || echo $machine) 2>/dev/null`
+		fi;;
+	esac;;
+HP-UX)	HPUX=`uname -r 2>/dev/null || echo yep`; machid=`uname -m`
+	case "$machid" in
+	"") host=hp9000;;
+	9000/[0-9][0-9][0-9])
+		host=`echo "hp$machid" | sed 's,/\(.\)..,s\100,'`;;
+	*) host=hp-unknown;;
+	esac;;
+AIX*)	AIX=yep; machid=`uname -m`
+	case "$machid" in
+	00*) host=rs6000;;
+	10*) host=ibm032;;
+	20*) host=ibm032;;
+	esac;;
+A/UX)	MAC=yep; host=macII;;
+dgux)	DGUX=yep; machid=`uname -m`
+	case "$machid" in
+	AViiON) host=aviion;;
+	esac;;
+SunOS)	machid=`uname -m`
+	SUN=yep; case "$machid" in
+	sun3*) host=sun3;;
+	sun4*) host=sun4;;
+	*) host=$machid;;
+	esac;;
+ULTRIX)	machid=`uname -m`
+	ULTRIX=yep; case "$machid" in
+	VAX) host=vax;;
+	*) host=$machid;;
+	esac;;
+IRIX)	SGI=yep; host=iris4d;;
+OSF1)	OSF=yep; host=alpha;;
+*)	machid=`uname -m`
+	case "$machid" in
+	mips|IP6|IP7) MIPS=yep; host=mips;;
+	*) host=`(tcsh -fc 'echo $HOSTTYPE' || arch || machine || mach || echo $machine || echo $machid) 2>/dev/null`
+	esac;;
+esac
+if test "$host"
+then echo "...looks like a $host"
+	case $host in
+	mips) if test -d /usr/include/bsd43; then headerdir=/usr/include/bsd43; fi;;
+	esac
+else echo "...no luck on that score.  Continuing..."
+fi
+echo '
+Building config.h...
+'
+exec >config.h
+cat <<'foo'
+/* this file is created automatically by buildzsh */
+
+/* define this if you are sysvish */
+foo
+if test -f ${headerdir}/sys/resource.h -a ! -f ${headerdir}/sys/elf.h
+then echo '/* #define SYSV */'; echo 'looks like a BSDish system...' >&2
+else echo '#define SYSV'; echo 'looks like a SYSVish system...' >&2
+ PATH=/usr/bin:$PATH; export PATH; echo 'forcing /usr/bin early in PATH' >&2
+ if test -f ${headerdir}/sys/elf.h
+ then echo '#define SYSVR4'; echo 'looks like a SYSVR4 system...' >&2
+ fi
+fi
+echo
+if test "$ULTRIX"
+then echo '#define ULTRIX
+/* ULTRIX termios is weird... */
+/* #define TERMIOS */'; echo 'using sgttyb...' >&2
+else
+if test -f ${headerdir}/termios.h -a -z "$HPUX" -a -z "$APOLLO" -a -z "$BBN"
+then echo '#define TERMIOS
+/* #define TTY_NEEDS_DRAINING */
+/* #define CLOBBERS_TYPEAHEAD */'
+echo 'using termios...' >&2
+else
+if grep sgttyb ${headerdir}/sys/ioctl.h >/dev/null 2>&1
+then echo '/* #define TERMIO */'
+else echo '#define TERMIO'
+echo 'using termio...' >&2
+fi
+echo '#define TTY_NEEDS_DRAINING
+#define CLOBBERS_TYPEAHEAD'
+echo 'using sgttyb...' >&2
+fi
+fi
+echo
+if test -f ${headerdir}/dirent.h -a -z "$ULTRIX"
+then echo '#define HAS_DIRENT'; echo 'using <dirent.h>...' >&2
+else echo '/*#define HAS_DIRENT*/'; echo 'not using <dirent.h>...' >&2
+fi
+echo
+if test -f ${headerdir}/unistd.h
+then echo '#define HAS_UNISTD'; echo 'using <unistd.h>...' >&2
+else echo '/*#define HAS_UNISTD*/'; echo 'not using <unistd.h>...' >&2
+fi
+echo
+if test -f ${headerdir}/stdlib.h &&
+	grep alloc ${headerdir}/stdlib.h >/dev/null 2>&1
+then echo '#define HAS_STDLIB'; echo 'using <stdlib.h>...' >&2
+elif test -n "${NEXT}"
+then echo '#define HAS_STDLIB'; echo 'using <stdlib.h> (where NeXT hid it) ...' >&2
+else echo '/*#define HAS_STDLIB*/'; echo 'not using <stdlib.h>...' >&2
+fi
+echo
+if test -f ${headerdir}/string.h
+then echo '#define HAS_STRING'; echo 'using <string.h>...' >&2
+else echo '/*#define HAS_STRING*/'; echo 'using <strings.h>...' >&2
+if test "${NEXT}" != "3.x"
+then echo '#define strchr	index
+#define strrchr	rindex'
+fi
+fi
+echo
+if test -f ${headerdir}/memory.h
+then echo '#define HAS_MEMORY'; echo 'using <memory.h>...' >&2
+else echo '/*#define HAS_MEMORY*/'; echo 'not using <memory.h>...' >&2
+if grep memset ${headerdir}/string.h >/dev/null 2>&1
+then echo 'using memcpy,memset,memcmp from <string.h>...' >&2
+else echo 'redefining memcpy,memset,memcmp...' >&2
+echo '#define memcpy(dst, src, n)	bcopy(src, dst, n)
+#define memset(dst, ch, n)	do {\
+	char *__DST__ = (char *)(dst);\
+	int __N__ = (int)(n), __CH__ = (int)(ch);\
+	while (__N__--) { __DST__[__N__] = __CH__; } } while(0)
+#define memcmp(s1, s2, n)	bcmp(s1, s2, n)'
+fi
+fi
+echo
+if test -f ${headerdir}/locale.h
+then echo '#define HAS_LOCALE'; echo 'using <locale.h>...' >&2
+else echo '/*#define HAS_LOCALE*/'; echo 'not using <locale.h>...' >&2
+fi
+echo
+if test -f ${headerdir}/utmpx.h
+then echo '#define HAS_UTMPX'; echo 'using <utmpx.h>...' >&2
+utmphdr=${headerdir}/utmpx.h
+else echo '/*#define HAS_UTMPX*/'; echo 'not using <utmpx.h>...' >&2
+utmphdr=${headerdir}/utmp.h
+fi
+echo
+if grep ut_host $utmphdr >/dev/null 2>&1 && test "$host" != mips
+then echo '#define UTMP_HOST'; echo 'host field in utmp...' >&2
+else echo '/* #define UTMP_HOST */'; echo 'no host field in utmp...' >&2
+fi
+echo
+if test -f ${headerdir}/time.h && 
+	grep timeval ${headerdir}/time.h >/dev/null 2>&1
+then echo '#define HAS_TIME'; echo 'using <time.h>...' >&2
+else echo '/*#define HAS_TIME*/'; echo 'using <sys/time.h>...' >&2
+fi
+echo
+if test -f ${headerdir}/wait.h
+then echo '#define HAS_WAIT'; echo 'using <wait.h>...' >&2
+else echo '/*#define HAS_WAIT*/'; echo 'using <sys/wait.h>...' >&2
+fi
+echo
+echo '/* define this if you have WAITPID */'
+if man 2 wait 2>/dev/null | sed 's/_.//g' | grep waitpid >/dev/null || \
+ grep 'waitpid.*(' ${headerdir}/wait.h >/dev/null 2>&1 || \
+ grep 'waitpid.*(' ${headerdir}/sys/wait.h >/dev/null 2>&1
+then echo '#define WAITPID'; echo 'using waitpid()...' >&2
+else echo '/* #define WAITPID */'; echo 'not using waitpid()...' >&2
+fi
+echo
+echo '/* define this if you have SELECT */'
+if grep FD_SET ${headerdir}/sys/types.h >/dev/null 2>&1 ||
+	test -f ${headerdir}/sys/select.h
+then echo '#define HAS_SELECT'; echo 'using select()...' >&2
+else echo '/* #define HAS_SELECT */'; echo 'not using select()...' >&2
+fi
+echo
+echo '/* define this if you have <sys/select.h> */'
+if test -f ${headerdir}/sys/select.h
+then echo '#define HAS_SYS_SELECT'
+else echo '/* #define HAS_SYS_SELECT */'
+fi
+echo "
+/* we can't just test for S_IFIFO or check to see if the mknod worked,
+   because the NeXTs sold by a vendor which will remain nameless will
+   happily create the FIFO for you, and then panic when you try to do
+	something weird with them, because they aren't supported by the OS. */
+"
+if test -n "$NEXT" -a "$NEXT" = "2.x"
+then echo '#define NO_FIFOS'; echo 'no FIFOs...' >&2
+else echo '/* #define NO_FIFOS */'; echo 'using FIFOs...' >&2
+fi
+echo
+echo '/* define this if you have strftime() */'
+if test "$host" != mips &&
+	man 3 strftime 2>/dev/null | grep return >/dev/null
+then echo '#define HAS_STRFTIME'; echo 'using strftime()...' >&2
+else echo '/* #define HAS_STRFTIME */'; echo 'not using strftime()...' >&2
+fi
+echo
+if test "$host" != mips &&
+	man tcsetpgrp 2>/dev/null | grep process >/dev/null || \
+	grep tcsetpgrp ${headerdir}/unistd.h >/dev/null 2>&1
+then echo '#define HAS_TCSETPGRP'; echo 'using tcsetpgrp()...' >&2
+else echo '/* #define HAS_TCSETPGRP */'; echo 'not using tcsetpgrp()...' >&2
+fi
+echo
+if grep tcgetattr ${headerdir}/termios.h >/dev/null 2>&1 ||
+	grep tcgetattr ${headerdir}/sys/termios.h >/dev/null 2>&1 ||
+	grep tcgetattr ${headerdir}/sys/termio.h >/dev/null 2>&1
+then echo '#define HAS_TCCRAP'; echo 'using tcgetattr() and friends...' >&2
+else echo '/* #define HAS_TCCRAP */'; echo 'not using tcgetattr()...' >&2
+fi
+echo
+if test "$SGI" -o "$MIPS"
+then echo '/* SGI setpgid() is weird...  setpgrp() is better anyway */
+/* #define HAS_SETPGID */'; echo 'using setpgrp()...' >&2
+elif man setpgid 2>/dev/null | grep process >/dev/null
+then echo '#define HAS_SETPGID'; echo 'using setpgid()...' >&2
+else echo '/* #define HAS_SETPGID */'; echo 'using setpgrp()...' >&2
+fi
+echo
+if test -z "$HPUX" -a -z "$PYR" -a -z "$MIPS" &&
+	{ man sigrelse 2>/dev/null | grep signal >/dev/null ||
+	grep SIGRELSE ${headerdir}/sys/signal.h > /dev/null 2>&1 ; }
+then echo '#define HAS_SIGRELSE'; echo 'using sigrelse()...' >&2
+else echo '/* #define HAS_SIGRELSE */'; echo 'using sigblock()...' >&2
+fi
+echo
+echo '/* define this if you have RFS */'
+if test -d /../.CONTROL
+then echo '#define HAS_RFS'; echo 'you seem to have RFS...' >&2
+else echo '/* #define HAS_RFS */'; echo 'no RFS, it seems...' >&2
+fi
+echo
+echo '/* define this if you have a working getrusage and wait3 */'
+if test "$HPUX"
+then echo '/* #define HAS_RUSAGE */'; echo 'no getrusage...' >&2
+elif test -f ${headerdir}/sys/resource.h
+then echo '#define HAS_RUSAGE'; echo 'has getrusage...' >&2
+else echo '/* #define HAS_RUSAGE */'; echo 'no getrusage...' >&2
+fi
+if test "$host" = hp9000s700
+then echo '/* kludge RLIM code for HPUX s700 - These limits are all readable,and
+ * some like coredumpsize are settable by users
+ */
+#define RLIMIT_CPU      0               /* cpu time in milliseconds */
+#define RLIMIT_FSIZE    1               /* maximum file size */
+#define RLIMIT_DATA     2               /* data size */
+#define RLIMIT_STACK    3               /* stack size */
+#define RLIMIT_CORE     4               /* core file size */
+#define RLIMIT_RSS      5               /* resident set size */
+
+#define RLIM_INFINITY   0x7fffffff
+'
+fi
+echo '/* define this if you use NIS for your passwd map */'
+if test -f /usr/bin/ypcat && ypcat passwd.byname >/dev/null 2>&1
+then echo '#define HAS_NIS_PASSWD'; echo 'using NIS passwd code...' >&2
+else echo '/* #define HAS_NIS_PASSWD */'; echo 'no NIS passwd map, it seems...' >&2
+fi
+echo '
+/* define this if your signal handlers return void */'
+if egrep 'SIG_DFL|sighandler_t' ${headerdir}/signal.h ${headerdir}/sys/signal.h 2>/dev/null |
+	grep void >/dev/null
+then echo '#define SIGVOID'; echo 'signal handlers return void...' >&2
+else echo '/* #define SIGVOID */'; echo 'signal handlers return int...' >&2
+fi
+cat <<'foo'
+#ifdef sgi
+#undef SIGVOID
+#endif
+foo
+echo
+echo '/* define this if signal handlers need to be reset each time */'
+if grep SIGTSTP ${headerdir}/signal.h >/dev/null 2>&1 ||
+	grep SIGTSTP ${headerdir}/sys/signal.h >/dev/null 2>&1
+then echo '/* #define RESETHANDNEEDED */'
+echo 'signal handlers need no resetting...' >&2
+ if test -z "$HPUX" -a -z "$MIPS" &&
+	man 2 sigset 2>/dev/null | grep handler >/dev/null
+ then echo '#define signal sigset'; echo '.. when installed with sigset()' >&2
+ fi
+else echo '#define RESETHANDNEEDED'
+echo 'signal handlers need to be reset...' >&2
+fi
+echo
+cat <<'foo'
+#ifdef SIGVOID
+#define HANDTYPE void
+#else
+#define HANDTYPE int
+#define INTHANDTYPE
+#endif
+
+/* a string corresponding to the host type */
+foo
+echo '#define HOSTTYPE "' | tr -d '\012'
+if test -z "$host"
+then
+	echo 1>&2 '
+
+I cannot figure out what sort of host this is.  Please enter one
+short alphanumeric string describing this host.  (This will be used
+to set the $HOSTTYPE variable, so '"you don't have to be very
+accurate if you're not in a multivendor environment.)
+"
+	 echo "? " | tr -d '\012' 1>&2
+	 read host
+	 echo ' ' 1>&2
+fi
+echo $host'"'
+echo "using host type $host..." >&2
+echo
+echo '/* the default editor for the fc builtin */'
+echo '#define DEFFCEDIT "vi"'
+echo
+if egrep 'UTMP_FILE|_PATH_UTMP' ${headerdir}/utmp.h >/dev/null 2>&1
+then :
+else 
+echo '/* the path of wtmp */'
+echo '#define WTMP_FILE "' | tr -d '\012'
+if test -f /etc/wtmp
+then echo /etc/wtmp
+elif test -f /usr/etc/wtmp
+then echo /usr/etc/wtmp
+elif test -f /var/adm/wtmp
+then echo /var/adm/wtmp
+elif test -f /usr/adm/wtmp
+then echo /usr/adm/wtmp
+else echo /dev/null
+fi | tr -d '\012'
+echo '"
+
+/* the path of utmp */
+#define UTMP_FILE "/etc/utmp"
+'
+fi
+cat <<'foo'
+/* default prefix for temporary files */
+#define DEFTMPPREFIX "/tmp/zsh"
+
+/* define if you prefer "suspended" to "stopped" */
+#define USE_SUSPENDED
+
+/* the file to source absolutely first whenever zsh is run; if undefined,
+      don't source anything */
+#define GLOBALZSHENV "/etc/zshenv"
+
+/* the file to source whenever zsh is run; if undefined, don't source
+	anything */
+#define GLOBALZSHRC "/etc/zshrc"
+
+/* the file to source whenever zsh is run as a login shell; if
+	undefined, don't source anything */
+#define GLOBALZLOGIN "/etc/zlogin"
+
+/* the file to source whenever zsh is run as a login shell, before
+	zshrc is read; if undefined, don't source anything */
+#define GLOBALZPROFILE "/etc/zprofile"
+
+/* the default HISTSIZE */
+#define DEFAULT_HISTSIZE 30
+
+#define _BSD_SIGNALS   /* this could be an iris, you never know */
+#define _BSD           /* this could be HP-UX, you never know */
+#define _BSD_INCLUDES  /* this could be AIX, you never know */
+#define _BBN_POSIX_SUPPORT	/* this could be nX, you never know */
+
+/* if your compiler doesn't like void *, change this to char *
+	and ignore all the warnings.
+*/
+
+typedef void *vptr;
+
+#define JOB_CONTROL
+foo
+exec 1>&2
+echo
+echo 'Building signals.h...' | tr -d '\012'
+echo `csh -fc 'kill -l'` | tr ' ' '\012' >signals.h
+lct=`wc -l < signals.h`
+cp signals.h signams.h
+(
+echo '/* this file is created automatically by buildzsh */
+/* if all this is wrong, blame csh ;-) */
+
+#define SIGCOUNT '"$lct"'
+
+#ifdef GLOBALS
+
+char *sigmsg[SIGCOUNT+2] = {
+	"done",'
+sed -e 's/^/SIG/' -e '/SIGHUP/s//hangup/
+/SIGINT/s//interrupt/
+/SIGQUIT/s//quit/
+/SIGILL/s//illegal instruction/
+/SIGTRAP/s//trace trap/
+/SIGIOT/s//IOT instruction/
+/SIGABRT/s//abort/
+/SIGEMT/s//EMT instruction/
+/SIGFPE/s//floating point exception/
+/SIGKILL/s//killed/
+/SIGBUS/s//bus error/
+/SIGSEGV/s//segmentation fault/
+/SIGSYS/s//bad system call/
+/SIGPIPE/s//broken pipe/
+/SIGTERM/s//terminated/
+/SIGPWR/s//power fail/
+/SIGVTALRM/s//virtual time alarm/
+/SIGCONT/s//continued/
+/SIGXCPU/s//cpu limit exceeded/
+/SIGXFSZ/s//filesize limit exceeded/' -e 's/.*/	"&",/' signals.h
+echo '	NULL
+};
+
+char *sigs[SIGCOUNT+4] = {
+	"EXIT",' ) >sigtmp.h
+mv sigtmp.h signals.h
+if grep SIGSTOP signals.h >/dev/null
+then ed signals.h <<'foo' >/dev/null 2>&1
+/SIGSTOP/c
+#ifdef USE_SUSPENDED
+	"suspended (signal)",
+#else
+	"stopped (signal)",
+#endif
+.
+/SIGTSTP/c
+#ifdef USE_SUSPENDED
+	"suspended",
+#else
+	"stopped",
+#endif
+.
+/SIGTTIN/c
+#ifdef USE_SUSPENDED
+	"suspended (tty input)",
+#else
+	"stopped (tty input)",
+#endif
+.
+/SIGTTOU/c
+#ifdef USE_SUSPENDED
+	"suspended (tty output)",
+#else
+	"stopped (tty output)",
+#endif
+.
+w
+q
+foo
+fi
+(sed 's/.*/	"&",/' signams.h
+echo '	"ERR",
+	"DEBUG",
+	NULL
+};
+
+#else
+
+extern char *sigs[SIGCOUNT+4],*sigmsg[SIGCOUNT+2];
+
+#endif') >>signals.h
+rm signams.h
+echo done
+echo 'Building Makefile...' | tr -d '\012'
+exec >Makefile
+cat <<'foo'
+#! /bin/make -f
+# Makefile for zsh
+# generated by buildzsh
+
+AUX=buildzsh
+
+SRC=builtin.c cond.c exec.c glob.c hist.c init.c jobs.c lex.c loop.c \
+math.c mem.c params.c parse.c subst.c table.c text.c utils.c watch.c \
+zle_bindings.c zle_hist.c zle_main.c zle_misc.c zle_move.c zle_refresh.c \
+zle_tricky.c zle_utils.c zle_vi.c zle_word.c
+
+HEADER=funcs.h zle.h zsh.h ztype.h
+
+PROTO=builtin.pro cond.pro exec.pro glob.pro hist.pro init.pro jobs.pro \
+lex.pro loop.pro math.pro mem.pro params.pro parse.pro subst.pro table.pro \
+text.pro utils.pro watch.pro zle_bindings.pro zle_hist.pro zle_main.pro \
+zle_misc.pro zle_move.pro zle_refresh.pro zle_tricky.pro zle_utils.pro \
+zle_vi.pro zle_word.pro
+
+OBJS=builtin.o cond.o exec.o glob.o hist.o init.o jobs.o lex.o loop.o \
+math.o mem.o params.o parse.o subst.o table.o text.o utils.o watch.o \
+zle_bindings.o zle_hist.o zle_main.o zle_misc.o zle_move.o zle_refresh.o \
+zle_tricky.o zle_utils.o zle_vi.o zle_word.o
+
+BINDIR=/usr/local/bin
+MANDIR=/usr/local/man/man1
+
+# Debugging flags
+DFLAGS = # -DQDEBUG
+
+# For gcc 2.3.3
+#CC=gcc -fpcc-struct-return
+#CFLAGS= -O2 -g -Wall -Wno-implicit -Wno-parentheses -Wno-comment $(DFLAGS)
+
+foo
+if test "$MIPS"
+then echo 'CC=cc -systype bsd43'
+else echo 'CC=cc'
+fi
+if test "$APOLLO"
+then echo 'CFLAGS= -O -A nansi'
+elif test "$HPUX"
+then export HPUX; echo "CFLAGS= -O `[ "$HPUX" = "7.03" ] && echo -Wc,-Ns5000`"
+elif test "$ULTRIX"
+then echo 'CFLAGS= -O -Olimit 600'
+elif test "$MIPS"
+then echo 'CFLAGS= -O -Olimit 1000 -Wf,-XNd5000 -Wf,-XNl4096'
+elif test "$OSF"
+then echo 'CFLAGS= -O -I/usr/sys/include  -I/usr/sys/BINARY -D__rpc_types_h -Dbool_t=int -Denum_t=int'
+elif test -f ${headerdir}/ndir.h -a ! -f /usr/lib/libBSD.a
+then echo 'CFLAGS= -O -Aa'
+elif strings /usr/bin/cc 2>/dev/null | grep cckr >/dev/null 2>&1
+then echo 'CFLAGS= -O -cckr'
+elif cc -v 2>&1 | egrep '^gcc version (1\.9|[2-9])' >/dev/null 2>&1
+then echo 'CFLAGS= -O2 -pipe'
+else echo 'CFLAGS= -O'
+fi
+if test "$SGI"
+then
+if grep '^\+' /etc/passwd >/dev/null 2>&1
+then echo 'LIBS= -lcurses -lmalloc -lbsd -lsun'
+else echo 'LIBS= -lcurses -lmalloc -lbsd'
+fi
+elif test "$BBN"
+then echo 'LIBS= -ltermcap -lposix'
+elif test "$HPUX"
+then echo 'LIBS= -ltermcap -lBSD'
+elif test -f /usr/lib/libcposix.a
+then echo 'LIBS= -lcposix -ltermcap'
+elif test -f /usr/lib/libBSD.a
+then echo 'LIBS= -ltermcap -lBSD'
+elif test -f /usr/lib/libtermcap.a -o -f /usr/ucblib/libtermcap.a
+then
+	if test "$AIX"
+	then echo 'LIBS= -lcurses'
+	else echo 'LIBS= -ltermcap'
+	fi
+else echo 'LIBS= -lcurses'
+fi
+cat <<'foo'
+
+ZSHPATH=zsh
+
+.SUFFIXES: .c .o .pro
+
+.c.o:
+	$(CC) $(CFLAGS) $(DFLAGS) -c $<
+
+.c.pro:
+	sed -n '/\/\*\*\/$$/{N;s/^\([^(]*\).*\/\*\*\/.\(.*\)/\1 DCLPROTO((\2))/p;}' $< | sed -e 's/;/,/g' -e 's/,))$$/));/' -e 's/(({))$$/((void));/' >$@
+
+all: $(PROTO) $(ZSHPATH)
+
+$(ZSHPATH): $(OBJS)
+	$(CC) -o $(ZSHPATH) $(OBJS) $(LIBS) $(LFLAGS)
+	
+tags: /tmp
+	ctags *.[cy]
+
+# I hate this next line
+$(OBJS): config.h zsh.h zle.h signals.h ztype.h funcs.h
+
+params.o: version.h
+
+clean:
+	rm -f *.o *.pro zsh core 
+
+cleanall:
+	rm -f *.o *.pro zsh core Makefile signals.h config.h
+
+install: zsh
+	install -s -m 755 zsh $(BINDIR)
+	install -m 444 ../man/man1/zsh.1 $(MANDIR)
+foo
+exec 1>&2
+echo done
+cat <<'foo'
+done
+
+You may want to look at the files I just created (config.h, Makefile,
+and signals.h) to make sure they are correct.  Or you may just want
+to go ahead and try running make now to see what happens.
+
+foo
+echo 'Shall I execute make now?' | tr -d '\012' 
+read reply
+echo
+case "$reply" in
+[yY]*) exec make ;;
+esac

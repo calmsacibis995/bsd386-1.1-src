@@ -1,0 +1,73 @@
+.\" Copyright (c) 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd January 30, 1994
+.Dt MSDOSFS 4
+.Os BSD 4
+.Sh NAME
+.Nm msdosfs
+.Nd DOS FAT-12/FAT-16 file system
+.Sh SYNOPSIS
+.Nm mount
+.Fl Ar t msdos
+.Op Fl o Ar opts
+.Ar special
+.Ar node
+.Sh DESCRIPTION
+The
+.Nm msdosfs
+file system supports mounting DOS format floppies and 
+disk partitions as part of the file system hierarchy.
+.Pp
+Since the underlying file system doesn't support owners, groups
+or permissions in the 
+.Bx 
+sense, all files appear to be owned 
+by user
+.Em root 
+and group 
+.Em wheel , 
+and are readable and executable
+by everyone.  The write bit is used to indicate whether the 
+file is 
+.Em hidden
+or not.  
+.Em Hidden
+files (in the DOS sense) will lack write permission; they 
+will be visible in the 
+.Bx 
+file system hierarchy.
+.Pp
+Since the FAT file system only supports modification times, 
+inode change time and last access time will be reported 
+the same as the modification time.  Additionally, since the
+FAT file system does not maintain directory modification 
+time, directories always appear to have been modified.
+.Pp
+The FAT file system limits the form of names to a 
+maximum of 8 characters with a 3 letter extension.  The 
+.Nm msdosfs
+file system will silently truncate names to conform with 
+this requirement.  
+.Nm Msdosfs
+will also fold all names to lower case.
+.Pp
+Since all files are readable, writable, and executable by everyone,
+it is probably a good idea to mount DOS file systems read-only on
+multi-user systems.  Likewise, they should be mounted under an
+appropriately protected directory if additional access restrictions
+are desired.
+.Pp
+The
+.Nm msdosfs
+file system is exportable via NFS.
+.Sh BUGS
+.Pp
+While checks are performed to ensure names conform to length and 
+case specifications, there isn't any clear standard which defines
+what characters are legal in FAT file system file names.  No additional
+checks are performed to ensure all characters in file names are 
+legal for any particular version of DOS, so it is possible to create
+files that are not accessible from some versions of DOS.  This is 
+usually not a problem since most (all?) versions of DOS will ignore
+such files \- they simply won't be visible to DOS commands.

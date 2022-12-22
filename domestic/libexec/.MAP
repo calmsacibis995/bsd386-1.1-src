@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+D RLOGIND                           	rlogind
+D RSHD                              	rshd
+D TELNETD                           	telnetd

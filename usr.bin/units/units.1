@@ -1,0 +1,56 @@
+.\" $Id: units.1,v 1.1.1.1 1993/03/08 06:46:48 polk Exp $
+.TH UNITS 1 "" ""
+.SH NAME
+units \- convert among units
+.SH SYNOPSIS
+.B units
+.SH DESCRIPTION
+The
+.B units
+program prints conversion factors between two sets of units.  It reads
+two input lines and then prints the result:
+.nf
+	You have:  \fByard\fP
+	You want:  \fBmeter\fP
+	        * 9.144000e-01
+	        / 1.093613e+00
+.fi
+The first output line displays the constant to multiply the `have'
+quantity by to obtain the `want quantity; the second shows the
+constant by which to divide.
+.PP
+The
+.B units
+program knows about a number of units, including compound units:
+.nf
+	you have: \fB3600 rpm\fP
+	you want: \fBradian/sec\fP
+	        * 3.769911e+02
+	        / 2.652582e-03
+	you have: \fB65 mph\fP
+	you want: \fBfurlongs/fortnight\fP
+	        * 1.747200e+05
+	        / 5.723443e-06
+.fi
+It also understands currency conversions, though they are only updated
+occasionally.  Currencies are specified by the name of the country
+followed by an underscore followed by the name of the currency:
+.nf
+	you have: \fB100 dollars\fP
+	you want: \fBzaire_zaire\fP
+	        * 2.652000e+08
+	        / 3.770739e-09
+.fi
+.PP
+See a complete list of all units and conversions by reading the
+program itself, which is a perl script.
+.SH COPYRIGHT
+Copyright (c) 1993 BSDI
+.br
+All rights reserved.
+.SH BUGS
+.PP
+The program's conversion data has not been thoroughly tested.
+.PP
+While some conversion factors are relatively constant (e.g., the speed
+of light), the currency conversion factors change on a daily basis.

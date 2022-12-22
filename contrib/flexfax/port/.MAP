@@ -1,0 +1,14 @@
+D 386BSD                            	386bsd
+D 4_4BSD                            	4.4bsd
+D AIX32                             	aix32
+D BSDI                              	bsdi
+D FREEBSD                           	freebsd
+D GENERIC                           	generic
+D HPUX                              	hpux
+D LINUX                             	linux
+D SCO                               	sco
+D SGI                               	sgi
+D SOLARIS2                          	solaris2
+D SUN                               	sun
+D SVR4                              	svr4
+D ULTRIX                            	ultrix

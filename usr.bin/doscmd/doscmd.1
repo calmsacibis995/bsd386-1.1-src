@@ -1,0 +1,153 @@
+.\"
+.\" Copyright (c) 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"  
+.\"	Krystal $Id: doscmd.1,v 1.5 1994/01/31 00:50:45 polk Exp $
+.\"
+.Dd January 11, 1994
+.Dt DOSCMD 1
+.Os
+.Sh NAME
+.Nm doscmd
+.Nd run a real-mode, text-only dos program
+.Sh SYNOPSIS
+.Nm doscmd
+.Op Ar cmd [args ...]
+.Sh DESCRIPTION
+.Nm Doscmd 
+emulates a subset of DOS and runs the single command
+.Ar cmd
+.Ar args .
+.Pp
+Although 
+.Nm doscmd
+only provides a subset of DOS, it is sufficient to run a variety of
+programs, including, but not limited to, compiliers, assemblers and
+linker-loaders.
+.Pp
+When starting up,
+.Nm doscmd
+attempts to read a configuration file.  First the file
+.Cm .doscmdrc
+in the current directory.  If not found there, the
+.Cm $HOME
+directory is searched.  If still not found, the file
+.Cm /etc/doscmdrc
+is used.
+.Pp
+In the configuration file, a comment is started with the \fB#\fP character.
+Blank lines are ignored.
+Non empty lines either are environment variables
+or commands which configure devices.
+Any line which has an \fB=\fP before any white space is considered to be
+an environment variable assignment and is added to the DOS environment.
+The rest of the lines are one the of the following
+.Bl -tag -width XXXXX
+.It Cm "assign [A-Z]: [-ro] path"
+Assigns the
+.Nm BSDI
+directory
+.Cm path
+to be assigned as the specified drive.  If the
+.Fl ro
+flag is specified, it is a read only file system.
+.It Cm "setver command version"
+Cause doscmd, when emulating DOS, to report
+.Cm version
+as the version number of DOS when called from the program named
+.Cm command .
+The format of
+.Cm version
+is the same as of the
+.Cm MS_VERSION
+variable described below.
+.El
+.Pp
+If not already assigned,
+.Cm C:
+will be assigned to the root directory (/) and the current directory
+for
+.Cm C:
+will be set the the actual current directory.
+Note that this means that invocations such as:
+.sp
+	doscmd ../foo
+.sp
+will not work as the
+.Cm C:
+directory will start with the current path.
+Also, the following environment variables will be defined if not
+already defined:
+
+.nf
+.Cm "COMSPEC=C:\eCOMMAND.COM
+.Cm "PATH=C:\e
+.Cm "PROMPT=DOS> 
+.fi
+
+The
+.Cm PATH
+variable is also used to find
+.Ar cmd .
+Like DOS, first
+.Ar cmd.com
+will be looked for and then
+.Ar cmd.exe .
+.Sh "CONFIGURATION VARIABLES"
+.Pp
+There are several variables in the 
+.Cm .doscmdrc
+file which are internal to doscmd and do not actually get inserted into
+the DOS environment.  These are:
+.Bl -tag -width MS_VERSION
+.It Cm MS_VERSION
+The value of this variable is used to determine the version of DOS that
+should be reported by
+.Nm doscmd .
+Note that
+.Nm doscmd
+will not change the way
+it works, just the way it reports.  By default this value is
+.Cm 410 ,
+which corresponds to
+.Nm "MS DOS
+version
+.Nm 4.1 .
+To change it to version 3.2 (the default in previous versions of
+.Nm doscmd )
+use the value of
+.Cm 320 .
+.El
+.Sh FILE TRANSLATION
+.Nm Doscmd
+translates
+.Nm BSDI
+file names into 
+.Nm DOS
+file names by converting to all upper case and eliminating any invalid
+character.  It does not make any attempt to convert ASCII files into
+the
+.Cm <CR><LF>
+format favored in the DOS world.  Use the program
+.Xr bsd2dos 1
+to convert ASCII files.
+.Sh DIAGNOSTICS
+.Pp
+If
+.Nm doscmd
+encounters an interrupt which is unimplemented, it will print a message
+such as:
+.sp
+	Unknown interrupt 21 function 99
+.sp
+and exit.
+.Sh AUTHOR
+Pace Willisson
+.br
+Paul Borman
+.Sh HISTORY
+The
+.Nm doscmd
+program first appeared in BSD/386.

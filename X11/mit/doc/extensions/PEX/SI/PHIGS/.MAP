@@ -1,0 +1,9 @@
+F COVER_PH.GZ;1                     	cover.phigs.gz
+D DRAFT                             	draft
+F INDEX_MA.GZ;1                     	index.macros.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+D MAN3                              	man3
+D MAN7                              	man7
+F NAMES_MA.GZ;1                     	names.make.gz
+F PHIGS_MA.GZ;1                     	phigs.macros.gz
+F README.GZ;1                       	README.gz

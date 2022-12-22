@@ -1,0 +1,94 @@
+/* Written  6:24 pm  Oct 29, 1986 by lwall@sdcrdcf.UUCP in mirror:net.sources.bu */
+/* ---------- "patch 2.0 patch #1" ---------- */
+System: patch version 2.0
+Patch #: 1
+Priority: MEDIUM
+Subject: Backwards scan for place to insert hunk can give up prematurely
+From: dorab@ucla-cs.uucp (Dorab Patel)
+
+Description:
+	Under certain circumstances patch can fail to find the correct
+	location to install a hunk.  If the proper place to insert a hunk
+	is more lines backwards than the number of lines left in the input
+	file from the place it first starts searching from, patch gives up
+	because of a more-or-less typographical error.
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+Index: patchlevel.h
+Prereq: 0
+1c1
+< #define PATCHLEVEL 0
+---
+> #define PATCHLEVEL 1
+ 
+Index: patch.c
+Prereq: 2.0
+*** patch.c.old	Wed Oct 29 13:50:40 1986
+*** patch.c	Wed Oct 29 13:50:45 1986
+***************
+*** 1,5
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch1,v 1.2 1992/01/04 19:03:16 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+
+--- 1,5 -----
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch1,v 1.2 1992/01/04 19:03:16 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+***************
+*** 9,14
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch1,v $
+# Revision 1.2  1992/01/04  19:03:16  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:37:32  lwall
+   * Baseline for netwide release.
+   * 
+
+--- 9,17 -----
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch1,v $
+# Revision 1.2  1992/01/04  19:03:16  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.1  86/10/29  13:10:22  lwall
++  * Backwards search could terminate prematurely.
++  * 
+   * Revision 2.0  86/09/17  15:37:32  lwall
+   * Baseline for netwide release.
+   * 
+***************
+*** 454,460
+  	return first_guess;
+      for (offset = 1; ; offset++) {
+  	Reg5 bool check_after = (offset <= max_pos_offset);
+! 	Reg6 bool check_before = (offset <= max_pos_offset);
+  
+  	if (check_after && patch_match(first_guess, offset, fuzz)) {
+  #ifdef DEBUGGING
+
+--- 457,463 -----
+  	return first_guess;
+      for (offset = 1; ; offset++) {
+  	Reg5 bool check_after = (offset <= max_pos_offset);
+! 	Reg6 bool check_before = (offset <= max_neg_offset);
+  
+  	if (check_after && patch_match(first_guess, offset, fuzz)) {
+  #ifdef DEBUGGING
+/* End of text from mirror:net.sources.bu */

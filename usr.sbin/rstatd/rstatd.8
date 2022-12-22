@@ -1,0 +1,50 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	@(#) BSDI $Id: rstatd.8,v 1.2 1994/01/28 00:33:34 sanders Exp $
+.\"
+.\" @(#)rstat_svc.8c	2.2 88/08/03 4.0 RPCSRC; from 1.10 87/09/09 SMI
+.\"
+.Dd January 26, 1993
+.Dt RSTATD 8
+.Os
+.Sh NAME
+.Nm rstatd
+.Nd system statistics daemon
+.Sh SYNOPSIS
+.Nm rstatd
+.Sh DESCRIPTION
+The
+.Nm rstatd
+program provides an RPC
+interface to kernel statistics.
+The server reply includes
+CPU, virtual memory, network and disk statistics.
+.Pp
+To enable
+.Nm rstatd
+to be started at boot time from
+.Pa /etc/rc ,
+edit
+.Pa /etc/netstart
+and change
+.Bd -literal -offset indent
+rstatd=NO
+.Ed
+to
+.Bd -literal -offset indent
+rstatd=YES
+.Ed
+.Sh SEE ALSO
+.Xr rc 8 ,
+.Xr rstat 1 ,
+.Xr rpc 5 ,
+.Xr portmap 8
+.Sh AUTHORS
+.Nm Rstatd
+is derived from the Sun Microsystems public RPC distribution.
+.Sh BUGS
+When running, the daemon grabs statistics from the kernel once per second.
+The overhead is not insubstantial.

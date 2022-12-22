@@ -1,0 +1,38 @@
+*** v41/file_io.c Mon May 20 22:01:51 1991
+--- v41a/file_io.c Mon May 20 22:53:32 1991
+***************
+*** 719,727 ****
+  #ifdef BSD
+      static struct timeb tbp;
+  #else
+      extern long timezone;
+  #endif
+! 
+  
+      close(outfd);
+  
+--- 720,731 ----
+  #ifdef BSD
+      static struct timeb tbp;
+  #else
++ #ifdef AMIGA
++     extern char *_TZ;
++ #else
+      extern long timezone;
+  #endif
+! #endif
+  
+      close(outfd);
+  
+***************
+*** 794,799 ****
+--- 798,806 ----
+     ftime(&tbp);
+     m_time += tbp.timezone * 60L;
+  #else                                   /* !BSD */
++ #ifdef AMIGA
++     _TZ = getenv("TZ");
++ #endif
+      tzset();                            /* Set `timezone'. */
+      m_time += timezone;                 /* account for timezone differences */
+  #endif

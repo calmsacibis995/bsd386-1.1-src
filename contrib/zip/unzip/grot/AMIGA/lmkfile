@@ -1,0 +1,49 @@
+# Makefile for UnZip 5.x using SAS/C 5.10a                       24 June 1992
+#
+# Not tested since UnZip 4.1.  May need to change directory names for stat.c
+# and utime.c.
+
+#####################
+# MACRO DEFINITIONS #
+#####################
+
+CRYPTF =
+CRYPTO =
+# Uncomment following two lines for decryption version:
+#CRYPTF = -DCRYPT
+#CRYPTO = crypt.o
+
+CC = lc
+CFLAGS = -O -DUNIX $(CRYPTF) -v -m0t -cuaisfr -rr
+LD = blink
+LDFLAGS = TO unzip FROM LIB:c.o
+LDFLAGS2 = LIB LIB:lc.lib LIB:amiga.lib
+EXE =
+O = .o
+OBJS = unzip$O $(CRYPTO) envargs$O explode$O extract$O file_io$O inflate$O\
+       mapname$O match$O misc$O unreduce$O unshrink$O utime$O stat$O
+
+###############################################
+# BASIC COMPILE INSTRUCTIONS AND DEPENDENCIES #
+###############################################
+
+.c$O :
+        $(CC) -o$@ $(CFLAGS) $*.c
+
+unzip$(EXE):    $(OBJS)
+        $(LD) $(LDFLAGS) $(OBJS) $(LDFLAGS2)
+
+crypt$O:        crypt.c unzip.h zip.h	# may or may not be in distribution
+envargs$O:      envargs.c unzip.h
+explode$O:      explode.c unzip.h
+extract$O:      extract.c unzip.h
+file_io$O:      file_io.c unzip.h
+inflate$O:      inflate.c unzip.h
+mapname$O:      mapname.c unzip.h
+match$O:        match.c unzip.h
+misc$O:         misc.c unzip.h
+unreduce$O:     unreduce.c unzip.h
+unshrink$O:     unshrink.c unzip.h
+unzip$O:        unzip.c unzip.h
+stat$O:         amiga/stat.c	# may need to change or remove directory name
+utime$O:        amiga/utime.c	# may need to change or remove directory name

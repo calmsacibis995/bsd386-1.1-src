@@ -1,0 +1,13 @@
+F ACCESS_C.GZ;1                     	access.c.gz
+F CONFIGST.GZ;1                     	configstr.h.gz
+F CONFIG_C.GZ;1                     	config.c.gz
+F CONFIG_H.GZ;1                     	config.h.gz
+F CONNECTI.GZ;1                     	connection.c.gz
+F ERROR_C.GZ;1                      	error.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F IO_C.GZ;1                         	io.c.gz
+F OSDEP_H.GZ;1                      	osdep.h.gz
+F OSGLUE_C.GZ;1                     	osglue.c.gz
+F OSINIT_C.GZ;1                     	osinit.c.gz
+F UTILS_C.GZ;1                      	utils.c.gz
+F WAITFOR_.GZ;1                     	waitfor.c.gz

@@ -1,0 +1,40 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: vga.4,v 1.1 1993/03/23 22:56:27 polk Exp $
+.Dd March 23, 1993
+.Dt VGA 4 i386
+.Os
+.Sh NAME
+.Nm vga
+.Nd VGA/SVGA display driver
+.Sh SYNOPSIS
+.Cd "device vga0 at isa? port 0x3c0 iomem 0xa0000 iosiz 65536"
+.Sh DESCRIPTION
+The
+.Nm
+driver supports standard PC VGA and SVGA display cards
+as well as various accelerated graphics boards.
+It provides a simple interface to allow programs to map the device memory
+using
+.Xr mmap 2 .
+It does not directly manipulate the display hardware, and does not
+support I/O operations.
+.Pp
+The
+.Nm
+device is usually used in conjunction with the
+.Pa kbd
+device (see
+.Xr pccons 4 ) .
+While these devices are open, normal text-mode access to the display
+via the console devices
+.Ns ( Xr pccons 4
+and possibly
+.Xr cons 4 )
+is suspended.
+.Sh FILES
+.Pa /dev/vga
+.Sh SEE ALSO
+.Xr cons 4 ,
+.Xr pccons 4

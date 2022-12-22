@@ -1,0 +1,8 @@
+Mioport	ioport.c	/^main(argc, argv)$/
+SET	ioport.c	/^#define	SET(x) (op == UNSET ? (op = (x), mode = (c/
+abled	ioport.c	/^#define	abled(map, bit)	(((map)[(bit) >> 3] & (1 </
+display	ioport.c	/^display(mode, rp)$/
+map	ioport.c	/^map(verbose, noexec, mode, rp)$/
+print_it	ioport.c	/^#define	print_it(mode, v) \\$/
+usage	ioport.c	/^usage()$/
+val	ioport.c	/^val(s)$/

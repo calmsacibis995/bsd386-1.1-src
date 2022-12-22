@@ -1,0 +1,4 @@
+echo before calling f
+../bash ./f
+this line for f
+echo finished with f

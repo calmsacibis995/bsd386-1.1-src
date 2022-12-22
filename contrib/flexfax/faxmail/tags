@@ -1,0 +1,28 @@
+Font	faxmail.c++	/^Font::Font()$/
+Mfaxmail.c++	faxmail.c++	/^main(int argc, char** argv)$/
+calculateHeaderStop	faxmail.c++	/^faxMailApp::calculateHeaderStop()$/
+defineFont	faxmail.c++	/^faxMailApp::defineFont(FILE* fd, const char* psnam/
+endLogicalPage	faxmail.c++	/^faxMailApp::endLogicalPage(FILE* fd)$/
+faxMailApp	faxmail.c++	/^faxMailApp::faxMailApp()$/
+flushHeaderLine	faxmail.c++	/^faxMailApp::flushHeaderLine(FILE* fd, const fxStr&/
+flushOutput	faxmail.c++	/^faxMailApp::flushOutput(FILE* fd)$/
+fontWarn	faxmail.c++	/^faxMailApp::fontWarn(const fxStr& name)$/
+formatMail	faxmail.c++	/^faxMailApp::formatMail(FILE* fd)$/
+getAFMLine	faxmail.c++	/^Font::getAFMLine(FILE* fp, char* buf, int bsize)$/
+hmove	faxmail.c++	/^faxMailApp::hmove(FILE* fd, float pos)$/
+initialize	faxmail.c++	/^faxMailApp::initialize(int argc, char** argv)$/
+lineBreak	faxmail.c++	/^faxMailApp::lineBreak(FILE* fd)$/
+loadBodyFont	faxmail.c++	/^faxMailApp::loadBodyFont(FILE* fd, const char* fil/
+lookForBodyFont	faxmail.c++	/^faxMailApp::lookForBodyFont(const char* sender)$/
+okToShowHeader	faxmail.c++	/^faxMailApp::okToShowHeader(const char* tag)$/
+open	faxmail.c++	/^faxMailApp::open()$/
+openFile	faxmail.c++	/^Font::openFile(fxStr& pathname)$/
+readMetrics	faxmail.c++	/^Font::readMetrics(float pointsize)$/
+setDefaultMetrics	faxmail.c++	/^Font::setDefaultMetrics(float pointsize)$/
+setupPageSize	faxmail.c++	/^faxMailApp::setupPageSize(const char* name)$/
+show	faxmail.c++	/^Font::show(FILE* fd, const char* val, int len)$/
+showWrapItalic	faxmail.c++	/^faxMailApp::showWrapItalic(FILE* fd, const char* c/
+startLogicalPage	faxmail.c++	/^faxMailApp::startLogicalPage(FILE* fd)$/
+strwidth	faxmail.c++	/^Font::strwidth(const char* cp)$/
+tab	faxmail.c++	/^faxMailApp::tab(FILE* fd)$/
+usage	faxmail.c++	/^faxMailApp::usage()$/

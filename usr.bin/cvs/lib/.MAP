@@ -1,0 +1,21 @@
+F ARGMATCH.C;1                      	argmatch.c
+F ERROR.C;1                         	error.c
+F FNMATCH.C;1                       	fnmatch.c
+F FNMATCH.H;1                       	fnmatch.h
+F GETDATE.Y;1                       	getdate.y
+F GETOPT.C;1                        	getopt.c
+F GETOPT.H;1                        	getopt.h
+F GETOPT1.C;1                       	getopt1.c
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/cvs/lib
+F REGEX.C;1                         	regex.c
+F REGEX.H;1                         	regex.h
+F SIGHANDL.C;1                      	sighandle.c
+F STRIPPAT.C;1                      	strippath.c
+F STRIPSLA.C;1                      	stripslash.c
+F SYSTEM.H;1                        	system.h
+F TAGS.;1                           	tags
+F WAIT.H;1                          	wait.h
+F YESNO.C;1                         	yesno.c
+F _CVSIGNO.;1                       	.cvsignore

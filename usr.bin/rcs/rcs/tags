@@ -1,0 +1,26 @@
+Mrcs	rcs.c	/^main(argc, argv)$/
+branchpoint	rcs.c	/^branchpoint(strt, tail)$/
+breaklock	rcs.c	/^breaklock(delta)$/
+buildeltatext	rcs.c	/^buildeltatext(deltas)$/
+buildtree	rcs.c	/^buildtree()$/
+cleanup	rcs.c	/^cleanup()$/
+doaccess	rcs.c	/^doaccess()$/
+doassoc	rcs.c	/^doassoc()$/
+dolocks	rcs.c	/^dolocks()$/
+domessages	rcs.c	/^domessages()$/
+exiterr	rcs.c	/^exiterr()$/
+getaccessor	rcs.c	/^getaccessor(opt, command)$/
+getassoclst	rcs.c	/^getassoclst(flag, sp)$/
+getchaccess	rcs.c	/^getchaccess(login, command)$/
+getdelrev	rcs.c	/^getdelrev(sp)$/
+getmessage	rcs.c	/^getmessage(option)$/
+getstates	rcs.c	/^getstates(sp)$/
+go	rcs.c	/^#define go(p,e) {int p P((int,char**)); void e P((/
+mainProg	rcs.c	/^mainProg(rcsId, "rcs", "$Id: rcs.c,v 1.1.1.1 1993/
+rcs_setstate	rcs.c	/^rcs_setstate(rev,status)$/
+removerevs	rcs.c	/^removerevs()$/
+rmnewlocklst	rcs.c	/^rmnewlocklst(which)$/
+scanlogtext	rcs.c	/^scanlogtext(delta,edit)$/
+searchcutpt	rcs.c	/^searchcutpt(object, length, store)$/
+sendmail	rcs.c	/^sendmail(Delta, who)$/
+setlock	rcs.c	/^setlock(rev)$/

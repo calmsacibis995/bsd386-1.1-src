@@ -1,0 +1,25 @@
+#	BSDI $Id: Makefile.i386,v 1.1.1.1 1992/08/27 17:03:49 trent Exp $
+
+CONFIGSRCS=	i386-tdep.c i386bsd-tdep.c i386bsd-xdep.c i386-pinsn.c \
+		ieee-float.c remote-sl.c remote-fp.c dbxread.c
+BFDSRCS+=	cpu-i386.c
+
+tm.h:
+	ln -s $(.CURDIR)/config/tm-i386bsd.h tm.h
+xm.h:
+	ln -s $(.CURDIR)/config/xm-i386bsd.h xm.h
+sysdep.h:
+	ln -s $(.CURDIR)/../bfd/hosts/i386bsd.h sysdep.h
+
+#
+# Generate the constructor
+#
+init.c:		$(CONFIGSRCS) $(GDBSRCS) $(KGDBSRCS) $(READLINESRCS)
+	-((cd $(.CURDIR)/config; \
+		egrep -h '^_initialize_[^ ]* *\(\)' $(CONFIGSRCS)); \
+	  (cd $(.CURDIR); egrep -h '^_initialize_[^ ]* *\(\)' \
+	  	$(GDBSRCS) $(KGDBSRCS) | egrep -v kernel_u_addr); \
+	  (cd $(.CURDIR)/../readline; \
+		egrep -h '^_initialize_[^ ]* *\(\)' $(READLINESRCS))) | \
+	(echo 'void initialize_all_files () {'; sed -e 's/$$/;/'; echo '}') \
+		> init.c

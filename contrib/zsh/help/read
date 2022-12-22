@@ -1,0 +1,16 @@
+     read [ -rzp ] [ -un ] [ name?prompt ] [ name ...  ]
+          Read one line and break it into fields using the  char-
+          acters  in  IFS as separators.  In raw mode, -r, a \ at
+          the end of a line does not signify  line  continuation.
+          If  the  -z  flag  is  set, read from the editor buffer
+          stack.  The first field is assigned to the first  name,
+          the  second  field to the second name, etc., with left-
+          over fields assigned to the  last  name.   If  name  is
+          omitted  then REPLY is used.  If -un is specified, then
+          input is read from file descriptor n; if -p  is  speci-
+          fied,  then input is read from the coprocess.  The exit
+          status is 0 unless end-of-file is encountered.  If  the
+          first argument contains a ?, the remainder of this word
+          is used as a prompt on standard error when the shell is
+          interactive.   The  exit  status is 0 unless an end-of-
+          file is encountered.

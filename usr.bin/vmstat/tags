@@ -1,0 +1,21 @@
+ADJ_STRING	vmstat.c	/^#define	ADJ_STRING(info, field)	{ \\$/
+CPSTRUCT	vmstat.c	/^#define CPSTRUCT(src,dst)					\\$/
+Mvmstat	vmstat.c	/^main(argc, argv)$/
+PCT	vmstat.c	/^#define	PCT(top, bot) pct((long)(top), (long)(bot)/
+Perror	vmstat.c	/^Perror(fmt, va_alist)$/
+cpustats	vmstat.c	/^cpustats()$/
+dkstats	vmstat.c	/^dkstats()$/
+domem	vmstat.c	/^domem()$/
+dosum	vmstat.c	/^dosum()$/
+dovmstat	vmstat.c	/^dovmstat(interval, reps)$/
+getcpustats	vmstat.c	/^getcpustats(struct _disk *dp)$/
+getdiskstats	vmstat.c	/^getdiskstats(struct _disk *dp)$/
+getdrivedata	vmstat.c	/^getdrivedata(argv)$/
+getuptime	vmstat.c	/^getuptime()$/
+getvmstats	vmstat.c	/^getvmstats()$/
+needhdr	vmstat.c	/^needhdr()$/
+pct	vmstat.c	/^pct(top, bot)$/
+pgtok	vmstat.c	/^#define pgtok(a) ((a) * pagesize >> 10)$/
+printhdr	vmstat.c	/^printhdr()$/
+rate	vmstat.c	/^#define	rate(x)	(((x) + halfuptime) \/ uptime)	\/*/
+usage	vmstat.c	/^usage()$/

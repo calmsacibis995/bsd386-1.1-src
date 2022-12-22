@@ -1,0 +1,49 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.rockwell,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for a Rockwell-based Class 2 modem.
+#    Boca M1440E		firmware V1.270 or newer
+#    Dallas Fax			(throw it away!)
+#    Hayes Optima 24+Fax96	firmware TR00-J260-001 XXX or newer
+#    SupraFAX v.32bis		firmware V1.200-C or newer
+#    Twincom 144/DF		firmware revision V1.200 or newer
+# (and others)
+#
+# This configuration file sets up the modem to run at 19.2 for
+# sending and for receiving.  XON/XOFF flow control is used on
+# the tty port.  RTS/CTS can be used by switching the flow control
+# setup, but beware of modems that do not support it during
+# facsimile operations.  Also beware that the adaptive-answer
+# facility, when supported, is usually unreliable.
+#
+# CONFIG: CLASS2: ROCKWELL*
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class2		# use class 2 interface
+ModemRate:		19200		# fax send is locked at 19.2
+#ModemResetCmds:	&F2		# what you want for a Supra
+# NB: enable this only if you're setup for dialins
+#GettyArgs:		"-h %l dx_%s"	# locked at receive rate (for SGI)
+#GettyArgs:		"std.%s -"	# locked at receive rate (for SunOS)
+ModemFlowControl:	xonxoff
+ModemFlowControlCmd:	&K4		# software flow control
+ModemSetupDTRCmd:	&D3		# DTR off causes modem to reset
+ModemSetupDCDCmd:	&C1		# DCD follows carrier
+ModemSetupAACmd:	+FAA=1		# enable in current class
+#
+ModemSendFillOrder:	LSB2MSB		# as expected
+ModemRecvFillOrder:	MSB2LSB		# opposite of what makes sense
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence

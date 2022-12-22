@@ -1,0 +1,57 @@
+.Dd April 29, 1991
+.Dt MTOOLSRC 5
+.Os
+.Sh NAME
+.Nm mtoolsrc
+.Nd format of mtools configuration file
+.Sh DESCRIPTION
+The
+.Nm mtoolsrc
+files are files consisting of newline separated records
+which describe disk devices for use with the 
+.Ar mtools 
+package.
+Each line consists of the following whitespace separated fields:
+.Bl -tag -width mtoolsrc -offset indent
+.It drive
+The single letter drive identifier 'A' - 'Z'.
+.It path
+The path to the file or device (e.g., /dev/rfd0c).
+.It offset
+The offset, from the beginning of the device, of the DOS filesystem.
+.It FAT
+The FAT table encoding scheme (either 12 or 16 bit).
+.It oflags
+Any special flags which to pass to open(2).
+.It tracks
+The number of tracks on the device (Note: this is the number of tracks
+not the number of cylinders).
+.It heads
+The number of heads (tracks/cylinder) on the device.
+.It sectors
+The number of sectors per track on the device.
+.El
+.Pp
+Blank lines (lines consisting only of white space) and anything
+following a `#' on a line are ignored.
+.Pp
+Multiple lines may be used to specify multiple drive geomtries for
+a single drive identifier.  If multiple geometries are specified, 
+.Ar mtools
+attempts to initialize the drive with them in the order they 
+are found in the file.  The first one to succeed is used; if none
+succeed, an error is returned.
+.Sh SEE ALSO
+.Xr mattrib 1 , 
+.Xr mcd 1 ,
+.Xr mdel 1 ,
+.Xr mformat 1 ,
+.Xr mrd 1 ,
+.Xr mren 1 ,
+.Xr mtype 1 ,
+.Xr mcopy 1 ,
+.Xr mdir 1 ,
+.Xr mlabel 1 ,
+.Xr mmd 1 ,
+.Xr mread 1 ,
+.Xr mwrite 1

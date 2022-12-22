@@ -1,0 +1,4 @@
+D BACKGAMM                          	backgammon
+D COMMON_S                          	common_source
+F MAKEFILE.;1                       	Makefile
+D TEACHGAM                          	teachgammon

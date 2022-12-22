@@ -1,0 +1,221 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: pppconfig.8,v 1.1.1.1 1993/03/09 15:17:53 polk Exp $
+.Dd February 24, 1993
+.Dt PPPCONFIG 8
+.Os
+.Sh NAME
+.Nm pppconfig
+.Nd configure Point-to-Point Protocol parameters
+.Sh SYNOPSIS
+.Nm pppconfig
+.Ar interface
+.Op Ar parameters
+.Sh DESCRIPTION
+.Nm Pppconfig
+is used to examine and/or set parameters of a point-to-point
+protocol link.
+When called without
+.Ar parameters ,
+.Nm pppconfig
+will print up to three sets of parameters:
+the initial parameters as used before negotiating
+the PPP options, the current negotiated parameters if
+the link is active,
+and the non-negotiated parameters which
+do not require the negotiation between the local and remote side.
+.Pp
+.Nm Pppconfig
+can be used to change the initial and
+non-negotiated parameters at any time (superuser permissions
+required);
+however it is not possible to change the negotiated parameters
+.Dq "on the fly"
+\- the connection should be terminated and
+reestablished for the new parameters to take effect.
+If the link is not active the negotiated parameters
+assume the initial values.
+.Pp
+The
+.Ar interface
+parameter is a string of the form
+.Dq name unit ,
+for example,
+.Dq rn0 .
+.Pp
+The following parameters may be set with 
+.Nm pppconfig :
+.Bl -tag -width cmap_charmap
+.It Cm cmap Ar charmap
+Specify which control characters should be avoided on
+asynchronous lines in case the equipment uses some
+of them for flow control or link control or inserts
+characters for time fill.
+The
+.Ar charmap
+may be specified as a 32-bit hexadecimal or octal number
+(if it starts with 0x or 0 respectively), in which
+case the least significant bit corresponds to the null
+character and the most significant bit to the character
+with code 037 (US).
+Alternatively, it may be specified as a string of
+letters corresponding the control characters, for example
+.Dq @QS
+will represent mask with bits 0, 17 and 19 set.
+The default all-zero mask will allow transmission of
+all control characters.
+.It Cm mru Ar size
+Specify the maximal packet size the local side is willing
+to receive.
+This option can be useful on packet-switching links
+to prevent link-level packet fragmentation or in case
+of problems with hardware flow control.
+The default value for
+.Cm mru
+is 1500 bytes.
+.It Cm pfc
+Enable protocol field compression.
+This option eliminates an extra byte in PPP packet header,
+which can be useful on slow links but can cause computing
+overhead on fast synchronous links.
+This option is default on asynchronous lines.
+.It Fl pfc
+Disable protocol field compression.
+This option is default on synchronous lines.
+.It Cm acfc
+Enable address and control fields compression.
+This option reduces the size of a PPP packet header by two bytes,
+which can be useful on slow links but can cause computing
+overhead on fast synchronous links.
+This option is default on asynchronous lines.
+.It Fl acfc
+Disable address and control fields compression.
+This option is default on synchronous lines.
+.It Cm tcpc
+Enable Van Jacobson's TCP header compression.
+This option enables compression of TCP headers by
+eliminating redundant information in the headers
+of consecutive TCP packets, reducing the protocol
+overhead by up to 100 bytes per packet, which may be
+really critical to the performance of interactive
+.Nm telnet
+or
+.Nm rlogin
+sessions.
+However, VJ TCP compression requires the system to keep
+state information about every TCP session on both
+ends (up to 16 simultaneous sessions) and is not
+really useful on fast links connecting large networks.
+TCP compression does not affect UDP and ICMP packets.
+This option is default on asynchronous lines.
+.It Fl tcpc
+Disable Van Jacobson's TCP header compression.
+This option is default on synchronous lines.
+.It Cm ftel
+Enable high-priority queueing of
+.Dq interactive
+TCP packets
+(with source or destination ports assigned to
+services like
+.Xr telnet
+or control connection of
+.Xr ftp 1 ) ,
+effectively giving them precedence over all other IP packets.
+This can reduce response time on links with mixed
+file transfer and interactive traffic.
+This function is a temporary and limited substitute for the
+still unsupported IP low delay TOS (type of service).
+This option is default on asynchronous lines.
+.It Fl ftel
+Disable the
+.Dq "fast telnet"
+option.
+This is default on synchronous lines.
+.It Cm trace
+Enable printing of trace information for PPP control packets and protocol
+finite state machine transitions.
+This option is effective only if the kernel is configured to
+include the PPP trace printing code.
+The default value for this option is defined by the kernel
+configuration.
+.It Fl trace
+Disable printing of trace information for PPP control packets and protocol
+finite state machine transitions.
+.It Cm idletime Ar n
+Set the idle timer to drop the connection if no outgoing
+data packets were processed during the last
+.Ar n
+seconds (the maximal time is 32767 seconds).
+.It Fl idletime
+Disable the idle timer.
+This option is default.
+.It Cm maxconf Ar n
+Set the limit on attempts to negotiate PPP control protocol
+options to
+.Ar n .
+After the specified number of unsuccessful attempts the connection
+will be dropped.
+This option is useful on dial-up links to force the connection to drop
+when there is a malfunction on the remote side.
+The default value on asynchronous lines is 10.
+The maximal value of
+.Cm maxconf
+is 255.
+.It Fl maxconf
+Allow unlimited attempts to negotiate PPP options.
+This option should be used on dedicated lines and is default
+on synchronous lines.
+.It Cm maxterm Ar n
+Set the limit on attempts to terminate the link gracefully
+to
+.Ar n.
+The default is 3 attempts before unilaterally dropping the
+connection.
+The maximal value of
+.Cm maxterm
+is 255.
+.It Cm timeout Ar n
+Specify the interval between attempts to configure/terminate
+the link in tenths of a second.
+The default value is 30 (3 seconds), the maximal value is 255
+(25.5 seconds).
+.El
+.Pp
+Only the super-user may modify the configuration of a network interface.
+.Pp
+If the interface supports more than one link-level protocol
+(for example, a synchronous link), the PPP protocol should be selected before
+configuring the PPP parameters (see
+.Xr ppp 4
+and
+.Xr ifconfig 8 ) .
+The default values will be loaded when the link-level protocol
+is switched to PPP from some other protocol.
+.Sh DIAGNOSTICS
+Messages indicating the specified interface does not exist, the
+requested address is unknown, or the user is not privileged and
+tried to alter an interface's PPP configuration.
+.Sh SEE ALSO
+.Xr ifconfig 8 ,
+.Xr ppp 4 ,
+.Xr pppattach 8 ,
+.Xr ppp 8 ,
+.Xr rn 4 ,
+.Xr rh 4 ,
+.Xr appp 4
+.br
+.Pp
+W. Simpson,
+The Point-to-Point Protocol (PPP) for the Transmission of
+Multi-protocol Datagrams over Point-to-Point Links, RFC\ 1331,
+May 1992.
+.Pp
+G. McGregor,
+The PPP Internet Protocol Control Protocol (IPCP), RFC\ 1332,
+May 1992.
+.Sh HISTORY
+The
+.Nm pppconfig
+command is
+.Ud .

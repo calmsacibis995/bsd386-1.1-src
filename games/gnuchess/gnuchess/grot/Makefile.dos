@@ -1,0 +1,360 @@
+#
+# Makefile for GNU Chess
+#
+# Copyright (c) 1992 Free Software Foundation
+#
+# This file is part of GNU CHESS.
+#
+# GNU Chess is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# GNU Chess is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with GNU Chess; see the file COPYING.  If not, write to
+# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+#
+# gnuchess  is a curses-based chess.
+# gnuchessn is a fancy-display-curses-based chess.
+# gnuchessr is a plain dumb-terminal chess (but with full variation output)
+# gnuchessc is suitable for chesstool use (mimics /usr/games/chess output)
+# gnuchessx is the xchess based chess.
+#
+
+# The version number of this GNU and Xboard release
+VERS=	4.0
+XVERS = 2.0
+
+# Relevant file areas.
+DIST=	../README ../README.lang ../doc ../misc ../src ../test
+
+# Distribution directory
+DISTDIR=/tmp_mnt/home/fsf/cracraft/gnuchess-4.0
+
+# Programs being distributed
+PROGS=gnuchess-$(VERS) xboard-$(XVERS)
+#PROGS=gnuchess-$(VERS)
+
+LIBS = 
+
+# Change these to something less transitory, like /usr/games, and then
+# compile. Ask your system admin / unix guru to put gnuchess.{hash,lang,book}
+# in $(LIBDIR).
+# Where the binaries live.
+BINDIR= /games/gnu40/bin
+BINDIR1 = \games\gnu40\bin
+
+# Where language description, our book, and the persistent hash live.
+LIBDIR= /games/gnu40/misc
+LIBDIR1 = \games\gnu40\misc
+
+# Display routines.
+LCURSES=-lcurses -ltermcap
+
+#compile options for gnuchess
+# -DAG[0-4]  selects a set of values for SpaceBonus tables
+# -DQUIETBACKGROUND don't print post information in background ( easy OFF)
+# -DNOMEMSET if your machine does not support memset
+# -DNOMATERIAL don't call it a draw when no pawns and both sides < rook
+# -DNODYNALPHA don't dynamically adjust alpha
+# -DHISTORY use history killer hueristic 
+# -DKILLT use killt killer hueristic 
+# -DHASGETTIMEOFDAY use gettimeofday for more accurate timing
+# -DCLIENT create client version for use with ICS
+# -DNOSCORESPACE don't use Scorespace heuristic
+# -DOLDXBOARD don't generate underpromote moves
+# -DGNU3 don't generate underpromote moves
+# -DLONG64 if you have 64bit longs
+# -DSYSV   if you are using SYSV
+# -DCACHE  Cache static evaluations 
+# -DE4OPENING always open e4 if white and respond to e4 with e5 if black
+# -DQUIETBOOKGEN Don't print errors while loading a book or generating a binbook
+# -DSEMIQUIETBOOKGEN Print less verbose errors while reading book or generating binbook
+# -DGDX  use random file based book
+# -DNULLMOVE include null move heuristic
+# some debug options
+# -DDEBUG8 dump board,movelist,input move to /tmp/DEBUG if illegal move
+# -DDEBUG9 dump move list from test command
+# -DDEBUG10 dump board and move after search before !easy begins
+# -DDEBUG11 dump board when the move is output
+# -DDEBUG12 dump boards between moves
+# -DDEBUG13 dump search control information for each move to /tmp/DEBUG
+# -DDEBUG40 include extra values of variables for debugging  in game list
+# -DDEBUG41 dump post output to /tmp/DEBUG
+# the rest of the debug options are tied to the debuglevel command
+# -DDEBUG -DDEBUG4 set up code for debuglevel command
+#          debuglevel
+#               1 always force evaluation in evaluate
+#               4 print move list after search
+#               8 print move list after book before search
+#              16 print move list after each ply of search
+#              32 print adds to transposition table
+#              64 print returns from transposition table lookups
+#	      256 print search tree as it is generated
+#	      512 debug trace
+#	     1024 interactive tree print
+#			debug? p#  where # is no. of plys to print from top of tree (default all plys)
+#			       XXXX moves specifying branch of tree to print (default all branches)
+#			       return terminates input
+#	     2048 non-interactive trace print
+
+# gnufour
+#OPT= -DHASGETTIMEOFDAY -DGNU3 -DHISTORY -DSEMIQUIETBOOKGEN -DQUIETBACKGROUND -DGDX  -DNULLMOVE -DCACHE -DCLIENT
+# normal
+OPT= -DQUIETBACKGROUND -DGNU3 -DHISTORY -DGDX -DSEMIQUIETBOOKGEN -DNULLMOVE
+
+# The hashfile is a record of positions seen. It is used by
+# GNU Chess to avoid making the same mistakes, a form of learning.
+HASH=	-DHASHFILE=\"$(LIBDIR)/gnuchess.hash\"
+
+# The "book" is a record of the first few moves, for playing good
+# moves easily and quickly, saving time, and irritating the human
+# opponent.
+#BOOK=	-DBOOK=\"$(LIBDIR)/gnuchess.book\"
+BOOK=	
+BINBOOK = -DBINBOOK=\"$(LIBDIR)/gnuchess.data\"
+
+# The language file describes capabilities of the program. Perhaps
+# it is useful for non-English speaking countries and customizing
+# for their convenience and chess happiness.
+LANG= -DLANGFILE=\"$(LIBDIR)/gnuchess.lang\"
+
+# The compiler used for compiling this software.
+# Use this for a plain C compiler 
+#CC= cc $(OPT)
+# Use this for DEC's ANSI C compiler on Ultrix
+#CC= c89 $(OPT)
+# Use this if you are lucky enough to have GNU CC.
+#CC=     gcc -W  $(OPT)
+#CC=	/contrib/system/bin/gcc -W $(OPT)
+# Use this if you are using Microsoft C 7.0 for MSDOS
+CC= cl
+
+# Miscellaneous CFLAGS. Uncomment the one you need and comment 
+# the other.
+#CFLAGS= -p -Dinline=""	 -traditional-cpp
+#CFLAGS= -O4 -Qpath .  # SunOS cc using unprotoize
+#CFLAGS= -O4 # Sun acc
+#CFLAGS= -g -traditional-cpp  # debug
+#CFLAGS= -O2 # DEC ANSI C (c89) on Ultrix.
+#CFLAGS= +O3 -Aa -D_HPUX_SOURCE -DSYSV # HPUX cc 
+#CFLAGS= -O   -finline-functions -fstrength-reduce -D__mips -D__LANGUAGE_C # gnu cc 1.40 on DS5000
+#CFLAGS= -O   -finline-functions -fstrength-reduce  # gnu cc 1.40 on others
+#CFLAGS= -O2 -funroll-loops -D__mips -D__LANGUAGE_C # gnu cc 2.00 on DS5000
+#CFLAGS= -O2 -D__alpha -D__LANGUAGE_C # gnu cc 2.00 on Flamingo
+#CFLAGS= -O2 -funroll-loops -traditional-cpp  # gnu cc  2.00 on SunOS
+#CFLAGS= -O2 -funroll-loops  # gnu cc  2.00 on others
+CFLAGS= /AH /Ox /G2 /W3 $(OPT) # Microsoft C 7.0
+
+all : gnuchess.exe gnuchesr.exe gnuchesn.exe postprint.exe gnuan.exe game.exe bincheckr.exe checkgame.exe
+
+gnuchess.exe: mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomN.obj uxdsp.obj
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) /Fegnuchess.exe mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomN.obj uxdsp.obj $(LIBS) /F 2000
+<<
+
+gnuan.exe: mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj gnuan.obj
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) /Fegnuan.exe mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj gnuan.obj $(LIBS) /F 2000
+<<
+
+Dgnuchesr.exe: mainDR.obj bookN.obj genmoveN.obj ataks.obj utilDR.obj evalDR.obj init.obj searchDR.obj dspcomDR.obj nondspDR.obj
+        $(CC) @<<
+        -DDEBUG  -DDEBUG4 $(CFLAGS) $(HASH) $(LANG) $(BOOK) /Fe gnuchesr.exe mainDR.obj bookN.obj genmoveN.obj ataks.obj utilDR.obj evalDR.obj init.obj searchDR.obj dspcomDR.obj nondspDR.obj $(LIBS) /F 2000
+<<
+
+gnuchesr.exe: mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomR.obj nondspR.obj
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) /Fegnuchesr.exe mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomR.obj nondspR.obj /F 2000
+<<
+
+gnuchesn.exe: mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomN.obj nuxdsp.obj
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) /Fegnuchesn.exe mainN.obj bookN.obj genmoveN.obj ataks.obj util.obj evalN.obj init.obj searchN.obj dspcomN.obj nuxdsp.obj /F 2000
+<<
+
+game.exe: game.c gnuchess.h
+        $(CC) $(CFLAGS) game.c
+	
+postprint.exe: postprint.obj
+        $(CC) @<<
+        $(CFLAGS) $(HASH) postprint.obj
+<<
+	
+bincheckr.exe: bincheckr.obj
+        $(CC) $(CFLAGS) bincheckr.obj
+	
+checkgame.exe: checkgame.obj
+        $(CC) $(CFLAGS) checkgame.obj
+
+gnuan.obj: gnuan.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c gnuan.c
+<<
+
+mainN.obj: main.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) $(BINBOOK) -c main.c
+<<
+        del mainN.obj
+        rename main.obj mainN.obj
+mainDR.obj: main.c gnuchess.h version.h
+        $(CC)  @<<
+        -DDEBUG -DDEBUG4 $(CFLAGS) $(HASH) $(LANG) $(BOOK) $(BINBOOK) \
+		-c main.c
+<<
+        del mainDR.obj
+        rename main.obj mainDR.obj
+
+genmoveN.obj: genmove.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c genmove.c
+<<
+        del genmoveN.obj
+        rename genmove.obj genmoveN.obj
+
+bookN.obj: book.c gnuchess.h version.h ataks.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) $(BINBOOK) -c book.c
+<<
+        del bookN.obj
+        rename book.obj bookN.obj
+
+ataks.obj: ataks.h ataks.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c ataks.c
+<<
+
+util.obj: util.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c util.c
+<<
+
+evalN.obj: eval.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c eval.c
+<<
+        del evalN.obj
+        rename eval.obj evalN.obj
+evalDR.obj: eval.c gnuchess.h version.h
+        $(CC)  @<<
+        -DDEBUG4 -DDEBUG $(CFLAGS) $(HASH) $(LANG) $(BOOK) \
+                -c eval.c
+<<
+        del evalDR.obj
+        rename eval.obj evalDR.obj
+utilDR.obj: util.c gnuchess.h version.h
+        $(CC)  @<<
+        -DDEBUG4 -DDEBUG $(CFLAGS) $(HASH) $(LANG) $(BOOK) \
+                -c util.c
+<<
+        del utilDR.obj
+        rename util.obj utilDR.obj
+
+init.obj: init.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c init.c
+<<
+
+searchN.obj: search.c gnuchess.h version.h debug512.h debug10.h debug13.h debug16.h debug256.h debug4.h debug40.h debug41.h debug64.h debug8.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c search.c
+<<
+        del searchN.obj
+        rename search.obj searchN.obj
+searchDR.obj: search.c gnuchess.h version.h debug512.h debug10.h debug13.h debug16.h debug256.h debug4.h debug40.h debug41.h debug64.h debug8.h
+        $(CC)  @<<
+        -DDEBUG4 -DDEBUG $(CFLAGS) $(HASH) $(LANG) $(BOOK) \
+                -c search.c
+<<
+        del searchDR.obj
+        rename search.obj searchDR.obj
+
+uxdsp.obj: uxdsp.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c uxdsp.c
+<<
+
+nuxdsp.obj: nuxdsp.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c nuxdsp.c
+<<
+
+nondspR.obj: nondsp.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -DNONDSP \
+                -c nondsp.c
+<<
+        del nondspR.obj
+        rename nondsp.obj nondspR.obj
+nondspDR.obj: nondsp.c gnuchess.h version.h
+        $(CC) @<<
+        -DDEBUG4 -DDEBUG $(CFLAGS) $(HASH) $(LANG) $(BOOK) -DNONDSP \
+		 -c nondsp.c 
+<<
+        del nondspDR.obj
+        rename nondsp.obj nondspDR.obj
+
+dspcomN.obj: dspcom.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -c dspcom.c
+<<
+        del dspcomN.obj
+        rename dspcom.obj dspcomN.obj
+dspcomR.obj: dspcom.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) $(LANG) $(BOOK) -DNONDSP \
+                -c dspcom.c
+<<
+        del dspcomR.obj
+        rename dspcom.obj dspcomR.obj
+dspcomDR.obj: dspcom.c gnuchess.h version.h
+        $(CC)  @<<
+        -DDEBUG -DDEBUG4 $(CFLAGS) $(HASH) $(LANG) $(BOOK) -DNONDSP \
+                -c dspcom.c
+<<
+        del dspcomDR.obj
+        rename dspcom.obj dspcomDR.obj
+
+postprint.obj: postprint.c gnuchess.h version.h
+        $(CC) @<<
+        $(CFLAGS) $(HASH) -c postprint.c
+<<
+
+distribution:
+	-patchlevel=`cat $(DISTDIR)/gnuchess-$(VERS)/src/version.h|grep patchlevel|sed -e 's/[^0-9]//g'` ;\
+	echo "GNU patchlevel is $$patchlevel" ;\
+	xpatchlevel=`cat $(DISTDIR)/xboard-$(XVERS)/patchlevel.h|sed -e "s/#define PATCHLEVEL //"` ;\
+	cd $(DISTDIR) ;\
+	rm -f gnuchess.tar.$(VERS).Z* gnuchess.tar.$(VERS).Z.uu* ;\
+	tar cf - $(PROGS) | compress > $(DISTDIR)/gnuchess-$(VERS).pl$$patchlevel.tar.Z ;\
+	uuencode gnuchess-$(VERS).pl$$patchlevel.tar.Z gnuchess-$(VERS).pl$$patchlevel.tar.Z > gnuchess-$(VERS).pl$$patchlevel.tar.Z.uu ;\
+	rm -f x?? ;\
+	split -2500 gnuchess-$(VERS).pl$$patchlevel.tar.Z.uu ;\
+	for i in x??; do \
+          rename $$i $(DISTDIR)/GNU_Chess_$$i; \
+	done
+
+install:
+        -copy gnuchesr.exe $(BINDIR1)\gnuchesr.exe
+        -copy gnuchesn.exe $(BINDIR1)\gnuchesn.exe
+        -copy postprint.exe $(BINDIR1)\postprint.exe
+        -copy gnuan.exe $(BINDIR1)\gnuan.exe
+        -copy gnuchess.exe $(BINDIR1)\gnuchess.exe
+        -copy bincheckr.exe $(BINDIR1)\bincheckr.exe
+        -copy checkgame.exe $(BINDIR1)\checkgame.exe
+        -copy ../misc/gnuchess.book $(LIBDIR1)\gnuchess.book
+        -copy ../misc/gnuchess.lang $(LIBDIR1)\gnuchess.lang
+
+clean:
+	-rm -f gnuchessx gnuchessc gnuchess gnuchessr gnuchessn gnuchessd postprint gnuan bincheckr checkgame game
+	-echo $(DISTDIR)
+	-rm -f $(DISTDIR)/gnuchess-4.0/misc/gnuchess.book.data
+        -find $(DISTDIR) \( -name '*.obj' -o -name '*~' -o -name 'CL*' -o -name 'PATCH*' -o -name '#*#' -o -name '%*%' -o -name '*orig' \) -exec rm -f {} \;

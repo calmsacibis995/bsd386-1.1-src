@@ -1,0 +1,29 @@
+CHK	tset.c	/^#define	CHK(val, dft)	(val<=0 ? dft : val)$/
+CNTL	tset.c	/^#define	CNTL(c)		((c)&037)$/
+Mtset	tset.c	/^main(argc, argv)$/
+WHITE	tset.c	/^#define	WHITE(c)	(c == ' ' || c == '\\t')$/
+_CTRL	tset.c	/^#define	_CTRL(c) ((c) & 0x1f)$/
+add_mapping	tset.c	/^add_mapping(p)$/
+baudrate	tset.c	/^baudrate(p)$/
+cancelled	tset.c	/^cancelled(cap)$/
+cat	tset.c	/^cat(file)$/
+flush	tset.c	/^flush()$/
+get_termcap_entry	tset.c	/^get_termcap_entry()$/
+get_tty_type	tset.c	/^get_tty_type()$/
+isalias	tset.c	/^isalias(ident)$/
+makealias	tset.c	/^makealias(buf)$/
+mapped	tset.c	/^mapped(type)$/
+output_initializations	tset.c	/^output_initializations()$/
+parse_char	tset.c	/^parse_char(s, type)$/
+prc	tset.c	/^prc(c)$/
+prs	tset.c	/^prs(s)$/
+putbuf	tset.c	/^putbuf(ptr, str)$/
+reportek	tset.c	/^reportek(name, new, old, def)$/
+reset_mode	tset.c	/^reset_mode()$/
+set_control_chars	tset.c	/^set_control_chars()$/
+set_conversions	tset.c	/^set_conversions(command)$/
+set_mode	tset.c	/^set_mode(flag)$/
+settabs	tset.c	/^settabs()$/
+stypeof	tset.c	/^stypeof(ttyid)$/
+usage	tset.c	/^usage()$/
+wrtermcap	tset.c	/^wrtermcap(bp)$/

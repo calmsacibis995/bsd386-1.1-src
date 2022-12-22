@@ -1,0 +1,235 @@
+.\"
+.V= $Id: uucp.1,v 1.2 1994/01/31 01:27:01 donn Exp $
+.\"
+.ds S1 UUCP
+.ds S2 \fIUucp\fP
+.ds S3 \fIuucp\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uucp
+.TH \*(S1 1 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uucp \- unix to unix copy program
+.SH SYNOPSIS
+.B uucp
+.RI [\- flags ]
+source-file \fB...\fP destination-file
+.SH DESCRIPTION
+.I Uucp
+copies files named by the source-file arguments
+to the destination-file argument.
+A file name may be a pathname on your machine, or may 
+have the form
+.PP
+.RS 4
+.nf
+.if t .ft CW
+system-name!pathname
+.if t .ft
+.fi
+.RE
+.PP
+where `system-name' is taken from a list of system names that
+.I uucp
+knows about.
+Shell metacharacters \fB?*[]\fP appearing in the pathname part
+will be expanded on the appropriate system.
+.PP
+Pathnames may be one of:
+.if n .ds tw 4
+.if t .ds tw \w'\(buX'u
+.TP "\*(tw"
+\(bu
+a full pathname;
+.TP
+\(bu
+a pathname preceded by
+.BI ~ user /\c
+, where
+.I user
+is a userid on the specified system
+and is replaced by that user's login directory;
+.TP
+\(bu
+a pathname prefixed by
+.BR ~/ ,
+where the
+.B ~
+is expanded into the system's public directory (usually /var/spool/uucppublic);
+.TP
+\(bu
+a partial pathname, which is prefixed by the pathname of the current directory.
+.PP
+If the result is an erroneous pathname for the remote system,
+the copy will fail.
+If the destination-file is a directory, the last part of the
+source-file name is used.
+.PP
+.I Uucp
+preserves execute permissions across the transmission
+and gives mode 0666 read and write permissions (see
+.IR chmod (2)).
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-M\fP\fIminsize\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.B \-c
+Use the source file when copying out rather than
+copying the file to the spool directory.
+(This is the default.)
+.TP
+.B \-C
+Copy the source file to the spool directory and transmit
+the copy.
+.TP 
+.B \-d
+Make all necessary directories for the file copy.
+(This is the default.)
+.TP
+.BI \-e node
+Invoke
+.IR uux (1)
+to arrange for the file transfer to be done on
+.IR node .
+.TP
+.B \-f
+Do not make intermediate directories for the file copy.
+.TP
+.BI \-g grade
+.I Grade
+is a single letter/number; lower ASCII sequence characters
+will cause a job to be transmitted earlier during a particular conversation.
+Default is `n'. By way of comparison,
+.IR uux (1)
+defaults to `A'; mail is usually sent at `C'.
+.TP 
+.B \-m
+Send mail to the requester when the copy is complete.
+.TP
+.BI \-M minsize
+Abort if input data size is less than
+.IR minsize .
+.TP
+.BI \-n user
+Notify
+.I user
+on remote system (i.e., send
+.I user
+mail) that a file was sent.
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.B \-r
+Do not start the transfer, just queue the job.
+.TP
+.BI \-s spool
+Use
+.I spool
+as the spool directory instead of the default.
+.TP
+.BI \-S spool
+Equivalent to \fB\-s\fP.
+.TP
+.BI \-x debug
+Turn on the debugging at level
+.I debug.
+.SH FILES
+.PD 0
+.TP \w'\f(CW/etc/uucp/CONFIG\fPX'u
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all \*(S5 programs (see
+.IR uuparams (5)).
+.TP
+\s-1LOGDIR\s0/errors
+\*(S5 error log.
+.TP
+\s-1LOGDIR\s0/uucp/\fInode\fP
+\*(S2 log for
+.IR node .
+.TP
+\s-1PARAMSDIR\s0/L.aliases
+Aliases for remote system names.
+.TP
+\s-1PARAMSDIR\s0/L.sys
+Remote system names.
+.PD
+.SH SEE ALSO
+.BR mail (1),
+.BR uusend (1),
+.BR uux (1),
+.BR uuparams (5).
+.PP
+D. A. Nowitz and M. E. Lesk,
+.IR "A Dial-Up Network of UNIX Systems" .
+.PP
+D. A. Nowitz,
+.IR "Uucp Implementation Description" .
+.SH WARNING
+The domain of remotely accessible files can
+(and for obvious security reasons, usually should)
+be severely restricted.
+You will very likely not be able to fetch files
+by pathname;
+ask a responsible person on the remote system to
+send them to you.
+For the same reasons you will probably not be able
+to send files to arbitrary pathnames.
+.SH BUGS
+.br
+All files received by
+.I uucp
+will be owned by the uucp administrator (usually UID 66).
+.PP
+The 
+.B \-m
+option will only work sending files or receiving
+a single file.
+(Receiving multiple files specified by special shell
+characters \fB?*[]\fP will not activate
+the
+.B \-m
+option.)
+.PP
+At present
+.I uucp
+cannot copy to a system several `hops' away, that is, a command of
+the form
+.PP
+.RS 4
+.nf
+.if t .ft CW
+uucp myfile system1!system2!system3!yourfile
+.if t .ft
+.fi
+.RE
+.PP
+is not permitted. Use
+.IR uusend (1)
+instead.
+.PP
+When invoking
+.I uucp
+from
+.IR csh (1),
+the `!' character must be prefixed by the `\e' escape to inhibit
+.IR csh 's
+history mechanism. (Quotes are not sufficient.)
+.PP
+.I Uucp
+refuses to copy a file that does not give read access to `other';
+that is, the file must have at least 0444 modes.
+.PP
+.I Uucp
+currently cannot copy multiple files in one command invocation.
+For now, use one
+.I uucp
+command for each file you wish to copy.

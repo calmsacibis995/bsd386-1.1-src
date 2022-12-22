@@ -1,0 +1,31 @@
+ENTRY	md5drvr.c	/^#define ENTRY(str) {(BYTE *)str, sizeof(str)-1}$/
+F	md5.c	/^#define F(x, y, z) ((z) ^ ((x) & ((y) ^ (z))))$/
+FF	md5.c	/^#define FF(a, b, c, d, x, s, ac) \\$/
+G	md5.c	/^#define G(x, y, z) ((y) ^ ((z) & ((x) ^ (y))))$/
+GG	md5.c	/^#define GG(a, b, c, d, x, s, ac) \\$/
+H	md5.c	/^#define H(x, y, z) ((x) ^ (y) ^ (z))$/
+HH	md5.c	/^#define HH(a, b, c, d, x, s, ac) \\$/
+I	md5.c	/^#define I(x, y, z) ((y) ^ ((x) | (~z)))$/
+II	md5.c	/^#define II(a, b, c, d, x, s, ac) \\$/
+MD5Data	md5drvr.c	/^MD5Data(pre_str, pre_len, inString, in_len, dig)$/
+MD5File	md5drvr.c	/^MD5File(pre_str, pre_len, filename, dig)$/
+MD5Final	md5.c	/^MD5Final(mdContext)$/
+MD5Help	md5drvr.c	/^MD5Help()$/
+MD5Init	md5.c	/^MD5Init(mdContext)$/
+MD5Output	md5drvr.c	/^MD5Output(str, quot, dig)$/
+MD5PreFileRead	md5drvr.c	/^MD5PreFileRead(pre_file, buf)$/
+MD5Print	md5drvr.c	/^MD5Print(MD5Info)$/
+MD5Stream	md5drvr.c	/^MD5Stream(pre_str, pre_len, stream, dig)$/
+MD5TestSuite	md5drvr.c	/^MD5TestSuite()$/
+MD5TimeTrial	md5drvr.c	/^MD5TimeTrial()$/
+MD5Transform	md5.c	/^MD5Transform(buf, in)$/
+MD5Update	md5.c	/^MD5Update(mdContext, inBuf, count)$/
+MD5fullUpdate	md5.c	/^MD5fullUpdate(mdContext, inBuf, count)$/
+Mmd5drvr	md5drvr.c	/^main(argc, argv)$/
+ROT	md5.c	/^#define ROT(X,n) (((X)<<(n)) | ((X)>>(32-(n))))$/
+dualData	md5dual.c	/^dualData(pre_str, pre_len, inString, in_len, even,/
+dualFile	md5dual.c	/^dualFile(pre_str, pre_len, filename, even, odd)$/
+dualMain	md5dual.c	/^dualMain(argc, argv, pre_str, pre_len, data_str)$/
+dualOutput	md5dual.c	/^dualOutput(str, quot, even, odd)$/
+dualStream	md5dual.c	/^dualStream(pre_str, pre_len, stream, even, odd)$/
+dualTest	md5dual.c	/^dualTest()$/

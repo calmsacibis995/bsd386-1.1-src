@@ -1,0 +1,44 @@
+Mgetopt	../diff/getopt.c	/^main (argc, argv)$/
+Mgetopt1	../diff/getopt1.c	/^main (argc, argv)$/
+Msdiff	sdiff.c	/^main (argc, argv)$/
+_getopt_internal	../diff/getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+catchsig	sdiff.c	/^catchsig (s)$/
+checksigs	sdiff.c	/^checksigs ()$/
+ck_fclose	sdiff.c	/^ck_fclose (f)$/
+ck_fdopen	sdiff.c	/^ck_fdopen (fd, type)$/
+ck_fflush	sdiff.c	/^ck_fflush (f)$/
+ck_fopen	sdiff.c	/^ck_fopen (fname, type)$/
+ck_fread	sdiff.c	/^ck_fread (buf, size, f)$/
+ck_fwrite	sdiff.c	/^ck_fwrite (buf, size, f)$/
+cleanup	sdiff.c	/^cleanup ()$/
+diffarg	sdiff.c	/^diffarg (a)$/
+diraccess	sdiff.c	/^diraccess (dir)$/
+edit	sdiff.c	/^edit (left, lenl, right, lenr, outfile)$/
+exchange	../diff/getopt.c	/^exchange (argv)$/
+execdiff	sdiff.c	/^execdiff (differences_only, option, file1, file2)$/
+exists	sdiff.c	/^exists (file)$/
+exiterr	sdiff.c	/^exiterr ()$/
+expand_name	sdiff.c	/^expand_name (name, isdir, other_name)$/
+fatal	sdiff.c	/^fatal (msg)$/
+flush_line	sdiff.c	/^flush_line ()$/
+getopt	../diff/getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	../diff/getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	../diff/getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+give_help	sdiff.c	/^give_help ()$/
+initial_handler	sdiff.c	/^#define initial_handler(i) (initial_action[i].sa_h/
+interact	sdiff.c	/^interact (diff, left, right, outfile)$/
+lf_copy	sdiff.c	/^lf_copy (lf, lines, outfile)$/
+lf_init	sdiff.c	/^lf_init (lf, infile)$/
+lf_refill	sdiff.c	/^lf_refill (lf)$/
+lf_skip	sdiff.c	/^lf_skip (lf, lines)$/
+lf_snarf	sdiff.c	/^lf_snarf (lf, buffer, bufsize)$/
+memchr	sdiff.c	/^memchr (s, c, n)$/
+my_index	../diff/getopt.c	/^my_index (str, chr)$/
+perror_fatal	sdiff.c	/^perror_fatal (msg)$/
+private_tempnam	sdiff.c	/^private_tempnam (dir, pfx, dir_search, lenptr)$/
+skip_white	sdiff.c	/^skip_white ()$/
+trapsigs	sdiff.c	/^trapsigs ()$/
+untrapsig	sdiff.c	/^untrapsig (s)$/
+usage	sdiff.c	/^usage (status)$/
+waitpid	sdiff.c	/^waitpid (pid, stat_loc, options)$/
+xmalloc	sdiff.c	/^xmalloc (size)$/

@@ -1,0 +1,2 @@
+     precmd
+          Executed before each prompt.

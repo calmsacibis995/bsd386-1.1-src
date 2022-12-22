@@ -1,0 +1,28 @@
+FaxRecvStatus	RecvStatus.c++	/^FaxRecvStatus::FaxRecvStatus() {}$/
+FaxSendAtStatus	SendStatus.c++	/^FaxSendAtStatus::FaxSendAtStatus()$/
+FaxSendStatus	SendStatus.c++	/^FaxSendStatus::FaxSendStatus()$/
+FaxServerStatus	ServerStatus.c++	/^FaxServerStatus::FaxServerStatus() { }$/
+FaxStatClient	FaxStatClient.c++	/^FaxStatClient::~FaxStatClient()$/
+Mfaxstat.c++	faxstat.c++	/^main(int argc, char** argv)$/
+addAllHosts	faxstat.c++	/^faxStatApp::addAllHosts()$/
+compare	RecvStatus.c++	/^FaxRecvStatus::compare(const FaxRecvStatus* other)/
+handleEof	FaxStatClient.c++	/^FaxStatClient::handleEof(const int err, const fxBo/
+if	faxstat.c++	/^    if (optind < argc) {$/
+isCmd	FaxStatClient.c++	/^#define	isCmd(s)	(strcasecmp(s, cmd) == 0)$/
+nextTag	SendStatus.c++	/^#define nextTag(s, what)					\\$/
+parse	RecvStatus.c++	/^FaxRecvStatus::parse(const char* tag)$/
+parseRecvStatus	FaxStatClient.c++	/^FaxStatClient::parseRecvStatus(const char* tag)$/
+parseSendAtStatus	FaxStatClient.c++	/^FaxStatClient::parseSendAtStatus(const char* tag)$/
+parseSendStatus	FaxStatClient.c++	/^FaxStatClient::parseSendStatus(const char* tag)$/
+print	RecvStatus.c++	/^FaxRecvStatus::print(FILE* fp, fxBool showHost)$/
+printHeader	RecvStatus.c++	/^FaxRecvStatus::printHeader(FILE* fp, fxBool showHo/
+printRecvStatus	faxstat.c++	/^faxStatApp::printRecvStatus(FILE* fp)$/
+printSendStatus	faxstat.c++	/^faxStatApp::printSendStatus(FILE* fp)$/
+printServerStatus	faxstat.c++	/^faxStatApp::printServerStatus(FILE* fp)$/
+recvConf	FaxStatClient.c++	/^FaxStatClient::recvConf(const char* cmd, const cha/
+recvEof	FaxStatClient.c++	/^FaxStatClient::recvEof()$/
+recvError	FaxStatClient.c++	/^FaxStatClient::recvError(const int err)$/
+scan	RecvStatus.c++	/^FaxRecvStatus::scan(const char* buf)$/
+serverStatus	FaxStatClient.c++	/^    , serverStatus(va)$/
+setupUserIdentity	faxstat.c++	/^faxStatApp::setupUserIdentity()$/
+start	FaxStatClient.c++	/^FaxStatClient::start(fxBool debug)$/

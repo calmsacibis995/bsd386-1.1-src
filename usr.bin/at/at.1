@@ -1,0 +1,225 @@
+.\"
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	@(#)at.1	1.1 (BSDI) 08/26/92
+.\"
+.Dd August 26, 1992
+.Dt AT 1
+.Os
+.Sh NAME
+.Nm at
+.Nd schedule execution of commands `at' a given time
+.Sh SYNOPSIS
+.Nm at
+.Op Fl csm
+.Ar time
+.Op Ar date
+.Op Ar incr
+.Op Ar command_file
+.Nm at
+.Fl l
+.Op Ar job...
+.Nm at
+.Fl r
+.Ar job...
+.Nm atq
+.Op Ar job...
+.Nm atrm
+.Ar job...
+.Sh DESCRIPTION
+.Nm At
+schedules execution of commands at the specified time. The commands
+may be given to
+.Nm at
+via the
+.Ar command_file
+or accepted from the standard
+input.
+.Nm At
+will pass these commands to the appropriate shell at the requested time.
+While awaiting execution, the jobs reside in a spool directory and
+may be examined by the
+.Xr atq 1
+program.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl c
+.Ar Command_file
+contains
+.Xr csh 1
+commands.
+.It Fl s
+.Ar Command_file
+contains
+.Xr sh 1
+commands.
+.It Fl m
+Mail will be sent to the user after the job has been run. If
+errors occur during execution of the job, then a copy of the error
+diagnostics will be sent to the user. If no errors occur, then a
+short message is sent informing the user that no errors occurred.
+.It Fl l
+List jobs in the queue.  This is the same as
+.Nm atq.
+.It Fl r
+Remove jobs from the queue.  This is the same as
+.Nm atrm.
+.It noarg
+When run by root with no arguments it checks the queue to see if any items
+are ready to run.
+.El
+.Pp
+If a
+.Ar command_file
+is not specified, at prompts for commands from standard
+input until a `^D' (control-D) is typed.
+.Pp
+The format of the spool file is as follows: A six line header that includes
+the owner of the job, the name of the job, the shell
+used to run the job, whether mail will be sent after the job is executed,
+and a group ID list.  The job id and the time specified to execute the
+job are extracted from the filename.
+.Pp
+The header is followed by the environment variables then a cd command to
+the current directory and a umask command to set the modes on any files
+created by the job.
+.Pp
+When the script is run it uses the user and group ID of the creator
+of the spool file.
+.Pp
+The time and date parsing code is very forgiving.  It should accept just
+about anything reasonable you throw at it.  It is meant to be compatible
+with various known at date/time formats.  Here are some guidelines:
+.Pp
+The time is either a 24 hour military time hhmm, where hh is hour and mm
+is minutes, or the traditional 12 hour time with qualifying options:
+am, a; pm, p; noon, n; midnight, m.
+.Pp
+The time can be abbreviated as shown below in EXAMPLES.
+.Pp
+The date can be either: a day of the week specified by the first
+two, three, or all letters of its name; or a month and/or day and/or year.
+Examples: Mon; aug 12, 1993; aug 12; aug 1993.  Months may be spelled
+out or abbreviated to the first three letters.
+.Pp
+The increment is simply a unit or the keyword ``next'' followed by
+a unit or a plus sign ``+'' followed by an amount followed by a unit.
+Units are minutes (or min), hours (or hr), days, weeks (or wk),
+fortnights, months, or years with or without the ``s''.
+Examples:  week; next wk; +10 weeks.
+.Pp
+You may add spaces and commas as you like, for example:
+8am aug 24, 1993; 8am,aug,24,1993,,,,; ,,,,8am,,,,,tue,,,,
+.Pp
+Access control is implemented via the
+.Pa /usr/libexec/at_allowed
+script.  You can modify this script to customize access control
+to your needs.  The program is passed the user name as the only argument
+and should return a 0 if access is allowed; a 1 if access is denied.
+The default script provided has the following properties: if neither
+.Pa /var/spool/at/at.allow
+nor
+.Pa /var/spool/at/at.deny
+exist everyone is allowed access (this is the way it should be configured
+when you first install); if either exist then access control is enabled
+and only the users listed in
+.Pa /var/spool/at/at.allow
+are given access (unless that file exists but is empty, then all users
+are given acess), negated by the list of users in
+.Pa /var/spool/at/at.deny.
+.Pp
+The format of
+.Pa /var/spool/at/at.allow
+and
+.Pa /var/spool/at/at.deny
+is user names listed one to a line.
+.Sh ENVIRONMENT
+If a shell is not specified, the current environment variable
+.Ev SHELL
+is used.
+.Sh EXAMPLES
+.Bl -tag -width "at 10p    "
+.It "at 10p"
+Execute at 10pm today, or tomorrow if 10pm has past. Use the
+shell found in the environment variable SHELL.
+.It "at -c -m 1705 Mon"
+Execute at 5:05pm on Monday using
+.Xr csh 1
+and send mail upon
+completion or termination of the job.
+.It "at -s -m 1200n week"
+Use
+.Xr sh 1 ,
+send mail upon completetion, start at noon o'clock,
+one week from today.
+.It "at -s 8a apr 1"
+Ideally this would be given late in March.  The commands would be
+run at 8 am on April first, using the
+.Xr sh 1 .
+.It "at 8a aug 27 + 1 fortnight /etc/spring_cleaning"
+At 8am + 1 fortnight the next Aug 27th run the command script
+.Pa /etc/spring_cleaning.
+Not to be confused with at 8am the next
+Aug 27th + 1 fortnight run the command.  This means that the
+year will be incremented unless 8a aug 27 is after the current
+date.  Hours and minutes work just the opposite, if you say
+``at 8a + 10 min'' and it's 8:05 the command will run in 5 minutes
+instead of 1 day + 5 minutes.  You can always override this
+behaviour by specifying the date more exactly (e.g. at 8:10 + 1 day).
+.Sh ERRORS
+Errors must be collected via the
+.Fl m
+option or by redirecting the standard
+output from inside the
+.Ar command_file.
+.Sh FILES
+.Bl -tag -width "/var/spool/at/at.counterxxx" -compact
+.It Pa /var/spool/at
+spooling area
+.It Pa /var/spool/at/job#.when
+job file
+.It Pa /var/spool/at/past
+directory where jobs are executed from
+.It Pa /var/spool/at/at.counter
+job counter
+.It Pa /var/spool/at/at.allow
+access control file
+.It Pa /var/spool/at/at.deny
+access control file
+.It Pa /usr/libexec/at_allowed
+access control script
+.El
+.Sh SEE ALSO
+.Xr calendar 1 ,
+.Xr sleep 1 ,
+.Xr cron 8
+.Sh DIAGNOSTICS
+Complains about various syntax errors and times out of range.
+.Sh BUGS
+The queueing mechanism
+is scheduled by
+.Xr cron 8 .
+Job time granularity is limited to how often it is run.
+.Pp
+If the system crashes, mail is not sent to the user informing them that
+the job was not completed.
+.Pp
+Sometimes old spool files are not removed from the directory
+.Pa /var/spool/at/past.
+This is usually due to a system crash, and requires
+that they be removed by hand.
+.Pp
+Every attempt possible was made to accept a wide range of date
+inputs compatible with various versions of at.  For maximum
+portability use fewer features.
+.Pp
+.Sh HISTORY
+An
+.Nm at
+command appeared in Version 7 AT&T UNIX.
+This
+.Nm at
+command was rewritten for BSDI.

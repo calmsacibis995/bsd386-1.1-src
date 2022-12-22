@@ -1,0 +1,3 @@
+     shift [ n ]
+          The positional parameters from $n+1 ... are renamed $1,
+          where n is an arithmetic expression that defaults to 1.

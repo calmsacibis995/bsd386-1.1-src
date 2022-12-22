@@ -1,0 +1,47 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.dsi-scout+,v 1.1.1.1 1994/01/14 23:09:38 torek Exp $
+#
+# Configuration for using the Class 1 command interface with
+# a Digicom Systems, Inc (DSI) Scout+ modem.  Firmware version
+# 2A19/2931 (ati1?) or newer.
+#
+# XON/XOFF flow control must be used in firmware revisions before
+# 3507/3506 because the modem does not honor RTS/CTS during page
+# transfers.  Later revisions permit the configuration of RTS/CTS
+# flow control through a new (undocument) register, S24:
+#
+# Value	Meaning
+#   0	use XON/XOFF in fax mode
+#   1	use RTS/CTS in fax mode
+#   2	use what is specified by *F in fax mode
+#
+# Note also that the value of S24 is not permanent.  It is reset
+# after each disconnect.  On power on S24 is 0.  S24 is unchanged
+# by the &F command.
+#
+# CONFIG: CLASS1: 961: Manufacturer=Digicom Model=Scout+
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class1		# hint to override class 2
+ModemMaxRate:		38400		# could probably run 57600
+ModemFlowControl:	xonxoff
+ModemFlowControlCmd:	*F2		# software flow control
+ModemSetupDTRCmd:	&D3		# DTR off causes modem to reset
+ModemSetupDCDCmd:	&C1		# DCD follows carrier
+ModemMfrQueryCmd:	!Digicom
+ModemModelQueryCmd:	!Scout+
+ModemRevQueryCmd:	I1
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence

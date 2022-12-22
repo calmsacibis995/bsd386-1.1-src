@@ -1,0 +1,66 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: ktrace.2,v 1.2 1993/03/08 16:30:17 polk Exp $
+.\" 
+.Dd February 28, 1993
+.Dt KTRACE 2
+.Os
+.Sh NAME
+.Nm ktrace
+.Nd enable kernel process tracing
+.Sh SYNOPSIS
+.Fd #include <sys/ktrace.h>
+.Ft int
+.Fn ktrace "const char *fname" "int ops" "int facs" "pid_t pid"
+.Sh DESCRIPTION
+The
+.Fn ktrace
+function is used to enable or disable kernel trace logging for the specified
+file, process, or process group.  The kernel operations that can be traced
+include system calls, namei translations, signal processing, and I/O.
+Once tracing is enabled, trace data will be logged until either the process
+exits or the trace point is cleared.
+.Pp
+Process groups are specified by passing a negative value as the pid.
+Kernel trace data is logged to the file specified by
+.Ar fname .
+The
+.Va ops
+variable is one of:
+.Dv KTROP_SET ,
+.Dv KTROP_CLEAR ,
+.Dv KTROP_CLEARFILE .
+The
+.Va facs
+variable is a mask of the following options that specify what you want logged:
+.Dv KTRFAC_SYSCALL ,
+.Dv KTRFAC_SYSRET ,
+.Dv KTRFAC_NAMEI ,
+.Dv KTRFAC_GENIO ,
+.Dv KTRFAC_PSIG .
+.Sh RETURN VALUES
+Zero is returned if the operation was successful; -1 is returned if an
+error occurs, with a more specific error code being placed in the global
+variable
+.Va errno .
+.Sh ERRORS
+.Fn Ktrace
+will fail if and the file will remain unchanged if:
+.Pp
+.Bl -tag -width "[ENAMETOOLONG]"
+.It Bq Er EACCES
+The file cannot be written.
+.It Bq Er EPERM
+You do not have permission to access the process or process group.
+.It Bq Er EINVAL
+The
+.Va facs
+flag is invalid.
+.It Bq Er ESRCH
+The process id or process group was not found.
+.El
+.Sh SEE ALSO
+.Xr ktrace 1

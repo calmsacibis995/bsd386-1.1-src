@@ -1,0 +1,275 @@
+This is the 2.4 (USENET) version of the Elm Mail System
+
+See the NOTICE and Instruct files for further details.
+
+It is IMPERATIVE that all users rerun newalias after installing
+Elm 2.4 when upgrading from a previous version.  Elm's behavior
+with aliases could be unpredictable if this step is not performed.
+
+Where to find more info on Elm:
+   Much discussion on Elm including interim bug fixes, work arounds
+and future plans occurs in the Usenet news group comp.mail.elm.  Also
+a monthly status report on Elm is posted there.  This status report
+lists the archive sites that have the patches to Elm as well as the
+latest version.
+
+Patches to Elm are posted to comp.mail.elm and comp.sources.bugs as
+soon as they are released.  They are posted to comp.sources.unix shortly
+thereafter, to allow time for feedback of problems in the patches.
+Patches should be available from the archive sites, or from the
+archive server.  Mail archive-server@DSI.COM for details on how to
+use the archive server program.  Ask it for help.
+
+In addition, ftp.uu.net maintains a mirror of the Elm release files
+in /networking/mail/elm.  Patches are available in that directory
+shortly after release.  Other sites also keep mirrors of the Elm
+distribution.  There are sites in Europe, Australia, Taiwan and the UK
+in addition to several in the US.  Send the message
+
+	send elm elm.ftp
+
+to archive-server@dsi.com for a current list of ftp mirror sites.
+
+
+Limitations/Problems you might encounter in compiling and installing Elm:
+	
+From comp.mail.elm, dws@ssec.wisc.edu (DaviD W. Sanderson) writes:
+>... whoever wrote the default termcap
+>and/or terminfo descriptions for xterm included in the ti/te strings
+>the special escape sequences to make xterm switch between the normal
+>and alternate screen buffers.  These sequences are:
+>
+>	\E[?47h		- use alternate screen buffer
+>	\E[?47l		- use normal screen buffer
+>...
+>The elm code is just fine as it is.  If you change it so that it
+>doesn't ever send ti/te, you'll just break elm for somebody else.  Fix
+>your termcap/terminfo definition instead.
+
+	On some Unix 5.3.2 systems, if only a runtime version of the
+O/S has been installed, not all the include files exist for compiling
+curses.c.  The ptem.h include file contains the window sizing structure
+on this version.  Either comment out the window sizing code, or install
+the remaining include files from the development system.
+
+	If you run a nonstandard configuration of Mail, such as Xenix
+running smail, Configure can get confused as to where to place items.
+Be sure and check the config.sh file for the correct placement before
+continuing.  If changes are necessary, rerun Configure and fix the
+file before exiting.
+
+	On SCO Xenix, if you are all mail is from user anonymous,
+this is because the mail delivery agent should be
+/usr/lib/mail/execmail instead of /usr/bin/rmail or /bin/rmail.
+
+	On Next's NeXTStep 3.0, use the compile flags 
+-bsd -fwritable-strings, specify the include file directory
+as /usr/include/bsd, and change, at the 'edit the config.sh'
+file prompt, the value of d_memcpy to undef and sigtype to int.
+(From: Jess Anderson)
+
+	From: Manuel Alberto Ricart <alberto@parsec.mixcom.com>, 
+for Next's version 1.0 it is necessary to answer -bsd for the
+Any additional cc flags? question and -lsys_s for the
+Any additional libraries? question within Configure.
+At "If you need to edit config.sh, do it as a shell escape here:"
+Change d_voidsig from 'define' to 'undef'
+Change passcat from 'cat /etc/passwd' to 'nidump passwd /'
+  if you're not using YP/NIS, and don't have more than two levels
+  of NetInfo hierarchy.  (Consult a NeXTpert otherwise!)
+
+	on Next's 2.0/2.1 systems: same as above, except
+For "Any additional libraries?" just hit RETURN
+For "What is the full name of your C library?" specify /lib/libsys_s.a
+Also for additional linker ld flags, recommend -object.
+This will make the binaries as small as possible. Otherwise
+if the smallest binary will be 16K or more.
+
+	On IBM RISC 6000 AIX, 3.2 or newer, to compile Elm during
+Configure, -U__STR__ is no longer needed.  Elm should now compile with
+no changes.
+
+	On IBM RISC 6000 AIX, prior to 3.2, you might get string
+function errors on the compile.  The solution is to do the following:
+> Look at /usr/lpp/bos/bsdsport. It tells you
+> to add following lines to /etc/xlc.cfg
+>  
+> * BSD 4.3 c compiler stanza
+> bsdcc:	use	   = DEFLT
+> 	crt	   = /lib/crt0.o
+> 	mcrt	   = /lib/mcrt0.o
+> 	gcrt	   = /lib/gcrt0.o
+> 	libraries  = -lbsd, -lc
+> 	proflibs   = -L/lib/profiled,-L/usr/lib/profiled
+> 	options	   = -H512,-T512, -qlanglvl=extended, -qnoro, -D_BSD, -D_NONSTD_TYPES, -D_NO_PROTO, -D_BSD_INCLUDES, -bnodelcsect, -U__STR__, -U__MATH__
+> 
+> And then link bsdcc to xlc and use bsdcc instead of cc.
+> 
+> --
+>   Mika Koistinen      ------- Opinions are my own-- -----  WARNING:  
+>   Myll{rintie 57 F 62 | Internet: mmkoisti@luotsi.uku.fi |  Effect has no code
+>   70780  KUOPIO       | Bitnet: mmkoisti@FINKUO          |  in function main
+>   FINLAND             | tel 358-71-162805                |  
+>         
+
+	Also on IBM RS/6000 AIX (Possibly only prior to 3.2)
+> If you want elm to make use of the NLS options documented for
+> sendmail (using sendmail.nl) you have to use the UNDOCUMENTED -x flag
+> on sendmail. See article in comp.unix.aix
+> 
+> Since Configure doesn't ask for additional sendmail flags you
+> have to add -x in the smflags entry in hdrs/sysdefs.SH (hdrs/sysdefs.h)
+> 
+> I guess that this should go into the FAQ entry on IBM AIX.
+> 
+> -- 
+> Bjorn Brox, CORENA A/S, P.O. Box 448, 3601 Kongsberg, NORWAY
+> E-mail : brox@dms.corena.no , Phone : +47 3 73 66 11 , Fax : +47 3 73 52 62 
+
+From: gordonb@mcil.comm.mot.com (Gordon Berkley)
+On HP/Apollo Domain OS:
+	Apollo TAR is screwey in creating directories.
+	Need to create directories before un-taring
+	DIRS="utils test src nls nls/C nls/C/C nls/C/C/C nls/gencat \
+		lib hdrs filter doc"
+	for dir in $DIRS
+	do
+		mkdir $dir
+	done
+
+
+	On some systems, especially those based on the AT&T Port to
+286's the -O flag of the compiler produces improper code causing
+segmentation violations.  If this happens, recompile the code without
+the -O flag.  This has been seen with Microport SysV/AT type systems.
+
+	The Configuration script has been known to exercise an old bug
+on HP-UX's version of /bin/sh.  This shows up as part of the variable
+setting section showing up on your screen, and configure aborting on errors.
+If this happens, try using ksh instead of sh as in:
+	ksh Configure
+this will usually solve the problem.
+
+	The Configuration script has been known to exceed the default
+stack size in Unix 286 sh's.  If Configure does not run correctly on
+this type of machine increase the stack size and rerun it.  On
+Microport SysV/AT machines, Configure might run correctly under ksh.
+Obtain ksh from Microport (available to current version owners without
+additional charge) and rerun Configure using it.  Xenix 286 users may
+have the same problem, but they can work around it by changing the
+stack size within the shell as reported a Xenix 286 Elm user:
+> I had the same problems as everyone else is reporting on Microports *nix under
+> SCO XENIX 2.2.1.
+> 
+> The solution is simple, up the stack size for /bin/sh. I used 
+> 
+> # mv /bin/sh /bin/sh.old
+> # cp /bin/sh.old /bin/sh
+> # fixhdr -F 8000 /bin/sh
+> 
+> This may seem a bit over the top, but I put it back after!
+> 
+> # mv /bin/sh /bin/sh.rm
+> # mv /bin/sh.old /bin/sh
+> 
+> Then wait till nobody is using /bin/sh.rm then
+> 
+> # rm /bin/sh.rm
+> 
+> That way you preserve your old shell, ( i.e. you don't break it ), but you
+> get to use Configure without bus errors etc.
+> 
+> I hope that of use
+> 
+> Keith
+> -- 
+> UUCP ..!uunet!mcvax!ukc!slxsys!g4lzv!keith  | Keith Brazington
+> Smart mail  keith@g4lzv.co.uk		    | 5b Northgate Rochester Kent UK
+> Ampanet  [44.131.8.1] and [44.131.8.3]	    | +44 634 811594 Voice
+> Packet  G4LZV @ GB7UWS -- G4LZV USENET BB --| +44 634 401210 Data v22,v22bis
+You might have to try values from 7000 to 8800.
+
+	Also on Microport SysV/AT Machines, the C compiler produces
+improper code for one of the arithmetic calls.  To fix this problem it
+is necessary to reduce the complexity of the statement, as reported by
+one of our testers here is the symptom and his patch.  Being this is a
+compiler bug on only one system, we make the information available, but
+not incorporate it in the main release.  Note, this may effect other
+areas of Elm, and in the future, Microport may even fix this problem.
+> I finally tracked down the bug that was causing the lengthy delays when
+> the first message was displayed.  The Microport 80286 C compiler was
+> generating bad code for the computation of padding in showmsg.c.  The
+> compiler generated scratch variables in the expression were being
+> located at weird offsets in the stack segment.  This caused the program
+> to stall while the kernel attempted to grow the stack segment to a size
+> that was large enough to contain the scratch variables.  This explains
+> why it only happened the first time a message was displayed.  Here is a
+> patch that fixes the problem:
+> 
+> *** showmsg.c.dist	Fri Mar 17 21:08:37 1989
+> --- showmsg.c	Sat Mar 18 06:14:04 1989
+> ***************
+> *** 280,289
+>   	           atoi(current_header->year), current_header->time);
+>   
+>   	  /* truncate or pad title2 portion on the right
+> ! 	   * so that line fits exactly */
+> ! 	  padding =
+> ! 	    COLUMNS -
+> ! 	    (strlen(title1) + (buf_len=strlen(title2)) + strlen(title3));
+>   
+>   	  sprintf(titlebuf, "%s%-*.*s%s\n", title1, buf_len+padding,
+>   	      buf_len+padding, title2, title3);
+> 
+> --- 280,292 -----
+>   	           atoi(current_header->year), current_header->time);
+>   
+>   	  /* truncate or pad title2 portion on the right
+> ! 	   * so that line fits exactly, expression has been
+> ! 	   * simplified to avoid bug in Microport 80286
+> ! 	   * C compiler */
+> ! 	  padding = COLUMNS;
+> ! 	  padding -= strlen(title1);
+> ! 	  padding -= (buf_len = strlen(title2));
+> ! 	  padding -= strlen(title3);
+>   
+>   	  sprintf(titlebuf, "%s%-*.*s%s\n", title1, buf_len+padding,
+>   	      buf_len+padding, title2, title3);
+> 
+> -- 
+> John A. Limpert
+> UUCP:	johnl@n3dmc.UUCP, johnl@n3dmc.UU.NET, uunet!n3dmc!johnl
+
+
+	Some versions of GNUmake are slightly incompatible with
+standard make.  If you plan on using GNUmake instead of standard make,
+you might need to change instances of:
+	-$(MAKEFLAGS)
+to:
+	$(MAKEFLAGS)
+in all Makefiles that contain that construct.
+
+
+  On some systems (at least MIPS RiscOs 4.52, and CDC EP/IX 1.4.x) there
+is an stdlib.h with ANSI Constructs, but the normally supplied Compiler
+did not handle ANSI-C. If you use the bundled compiler (cc2.11 or cc2.20),
+you should edit config.h after configuring, and remove the define for 
+I_STDLIB. With gcc or the separate ANSI C Compiler there should be no problem.
+
+On many systems with the Microsoft UNIX C Compilers, compiling with
+optimization breaks the code.  One symptom is that aliases do not
+work.  On those machines do not compile any of Elm with optimizations.
+To accomplish that, set all occurrences of "OPTIMIZE" in the makefiles
+to "-Od" - then it works.  From: mrbulli@btoy1.UUCP (Thomas Bullinger)
+
+SCO uses the Microsoft C compiler in its products.  For releases of the
+SCO Development system prior to 3.2v4.2 or ODT 3.0, it is probably wise
+to disable optimization.  Elm 2.4 has however been tested with -Oe
+optimization under SCO Unix 3.2v4.2 and ODT 3.0 development systems.
+This level of optimization can safely be specified in Configure when
+you are asked for compiler flags.  From: larryp@sco.com (Larry Philps)
+
+					Syd Weinstein
+					Elm Coordinator
+					elm@DSI.COM
+					(dsinc!elm)

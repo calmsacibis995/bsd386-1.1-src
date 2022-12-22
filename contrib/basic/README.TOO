@@ -1,0 +1,32 @@
+Gary Klimowicz, the author of this basic system, is no longer at UNM.
+Please mail to me (ucbvax!lbl-csam!lanl-a!unm-ivax!bob) instead (or
+in addition to Gary's account) if you want to reach somebody.
+
+This basic system is known to work on VAX 4.1 bsd systems.  Somebody
+inside Bell Labs has had problems putting it up on their System V (like)
+system.  If you put it up I would appreciate mail on any problems you
+encounter, bugs you notice (fixed or not), and improvements you make
+(esp. adding file and formatted I/O).
+
+I would also like to know of a mail path to you (from ucbvax or purdue)
+so that I can mail to you if we or anybody else adds these improvements.
+Look through ./KNOWN.install for your name to see if we already have it.
+
+IMPORTANT:
+	As with any software generated at a UNIX site licensed with a
+	Bell Educational type license (which is the case here) this
+	software is in the public domain and can't appear on any
+	distribution for which there is a charge other than normal
+	reproduction costs.
+
+					Good Luck,
+					Bob Tomlinson
+					University of New Mexico
+					Computing Center
+					2701 Campus Blvd.
+					Albuquerque, NM  87106
+					(505) 277-6131
+
+					ucbvax!lbl-csam!lanl-a!unm-ivax!bob
+				    or
+					pur-ee!purdue!lanl-a!unm-ivax!bob

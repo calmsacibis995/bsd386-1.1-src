@@ -1,0 +1,57 @@
+Argify	../cshar/parser.c	/^Argify(ArgV)$/
+BSclean	../cshar/glue.c	/^BSclean()$/
+BinSh	../cshar/glue.c	/^BinSh(Name, Stream, Pushback)$/
+Catch	findsrc.c	/^Catch(s)$/
+CopyRange	../cshar/parser.c	/^CopyRange(Start, End)$/
+Cwd	../cshar/lcwd.c	/^Cwd(p, i)$/
+DoASSIGN	../cshar/parser.c	/^DoASSIGN(Name)$/
+DoCASE	../cshar/parser.c	/^DoCASE(ac, av)$/
+DoCAT	../cshar/parser.c	/^DoCAT(ac, av)$/
+DoCD	../cshar/parser.c	/^DoCD(ac, av)$/
+DoCP	../cshar/parser.c	/^DoCP(ac, av)$/
+DoECHO	../cshar/parser.c	/^DoECHO(ac, av)$/
+DoEXIT	../cshar/parser.c	/^DoEXIT(ac, av)$/
+DoEXPORT	../cshar/parser.c	/^DoEXPORT(ac, av)$/
+DoFOR	../cshar/parser.c	/^DoFOR(ac, av)$/
+DoIF	../cshar/parser.c	/^DoIF(ac, av)$/
+DoIT	../cshar/parser.c	/^DoIT(ac, av)$/
+DoMKDIR	../cshar/parser.c	/^DoMKDIR(ac, av)$/
+DoSED	../cshar/parser.c	/^DoSED(ac, av)$/
+DoTEST	../cshar/parser.c	/^DoTEST(ac, av)$/
+DoUntil	../cshar/parser.c	/^DoUntil(Terminator, NewVal)$/
+ERR	../cshar/llib.c	/^#define ERR(s, c)	if(opterr){\\$/
+Ermsg	../cshar/llib.c	/^Ermsg(e)$/
+Exec	../cshar/parser.c	/^Exec(av)$/
+Execute	../cshar/lexec.c	/^Execute(av)$/
+Expand	../cshar/parser.c	/^Expand(p)$/
+FORK	../cshar/lexec.c	/^#define FORK()		 vfork()$/
+Fexecute	../cshar/lfiles.c	/^Fexecute(p)$/
+Fsize	../cshar/lfiles.c	/^Fsize(p)$/
+Ftype	../cshar/lfiles.c	/^Ftype(p)$/
+GetLine	../cshar/parser.c	/^GetLine(Flag)$/
+GetStat	../cshar/lfiles.c	/^GetStat(p)$/
+GetVar	../cshar/parser.c	/^GetVar(Name)$/
+Host	../cshar/lhost.c	/^Host()$/
+ISdubl	../cshar/parser.c	/^#define ISdubl(c)	(SynTable[(c)] == C_DUBL)$/
+ISletr	../cshar/parser.c	/^#define ISletr(c)	(SynTable[(c)] == C_LETR)$/
+ISmeta	../cshar/parser.c	/^#define ISmeta(c)	(SynTable[(c)] == C_META)$/
+ISquot	../cshar/parser.c	/^#define ISquot(c)	(SynTable[(c)] == C_QUOT)$/
+ISterm	../cshar/parser.c	/^#define ISterm(c)	(SynTable[(c)] == C_TERM)$/
+ISwhit	../cshar/parser.c	/^#define ISwhit(c)	(SynTable[(c)] == C_WHIT)$/
+ISword	../cshar/parser.c	/^#define ISword(c)	(SynTable[(c)] == C_WORD)$/
+Matches	../cshar/parser.c	/^Matches(p, text)$/
+Mfindsrc	findsrc.c	/^main(ac, av)$/
+Note	../cshar/parser.c	/^Note(text, arg)$/
+Pid	../cshar/lexec.c	/^Pid()$/
+Process	findsrc.c	/^Process(p, level)$/
+SetSigs	../cshar/lexec.c	/^SetSigs(What, Func)$/
+SetVar	../cshar/parser.c	/^SetVar(Name, Value)$/
+SynErr	../cshar/parser.c	/^SynErr(text)$/
+User	../cshar/luser.c	/^User()$/
+W_VAL	../cshar/lexec.c	/^#define W_VAL(w)	 ((w).w_retcode)$/
+Wanted	findsrc.c	/^Wanted(Name)$/
+getmem	../cshar/lmem.c	/^getmem(i, j)$/
+getopt	../cshar/llib.c	/^getopt(argc, argv, opts)$/
+mkdir	../cshar/llib.c	/^mkdir(name, mode)$/
+qsort	../cshar/llib.c	/^qsort(Table, Number, Width, Compare)$/
+rename	../cshar/llib.c	/^rename(from, to)$/

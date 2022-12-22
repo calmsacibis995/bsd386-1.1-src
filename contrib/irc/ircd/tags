@@ -1,0 +1,351 @@
+DupNewString	note.c	/^#define DupNewString(x,y) if (!StrEq(x,y)) { MyFre/
+IsOperHere	note.c	/^#define IsOperHere(sptr) (IsOper(sptr) && MyConnec/
+Key	note.c	/^#define Key(sptr) KeyFlags(sptr,-1)$/
+KeyFlags	note.c	/^static int KeyFlags(sptr, flags) $/
+Message	note.c	/^#define Message(msgclient) get_msg(msgclient, 'm')/
+Mircd	ircd.c	/^int	main(argc, argv)$/
+MyEq	note.c	/^#define MyEq(x,y) (!myncmp(x,y,strlen(x)))$/
+MyFree	../common/support.c	/^void	MyFree(x)$/
+MyMalloc	../common/support.c	/^char	*MyMalloc(x)$/
+MyRealloc	../common/support.c	/^char    *MyRealloc(x, y)$/
+UserName	note.c	/^static char *UserName(sptr)$/
+Usermycmp	note.c	/^#define Usermycmp(x,y) mycmp(x,y)$/
+add_banid	channel.c	/^static	int	add_banid(cptr, chptr, banid)$/
+add_class	class.c	/^void	add_class(class, ping, confreq, maxli, sendq)/
+add_client_to_list	list.c	/^void	add_client_to_list(cptr)$/
+add_connection	s_bsd.c	/^aClient	*add_connection(cptr, fd)$/
+add_history	whowas.c	/^void	add_history(cptr)$/
+add_invite	channel.c	/^static	void	add_invite(cptr, chptr)$/
+add_listener	s_bsd.c	/^int	add_listener(aconf)$/
+add_local_domain	s_bsd.c	/^void	add_local_domain(hname, size)$/
+add_request	res.c	/^static	int	add_request(new)$/
+add_to_cache	res.c	/^static	aCache	*add_to_cache(ocp)$/
+add_to_channel_hash_table	hash.c	/^int	add_to_channel_hash_table(name, chptr)$/
+add_to_client_hash_table	hash.c	/^int	add_to_client_hash_table(name, cptr)$/
+add_unixconnection	s_bsd.c	/^static	void	add_unixconnection(cptr, fd)$/
+add_user_to_channel	channel.c	/^static	void	add_user_to_channel(chptr, who, flags)/
+alias_send	note.c	/^static int alias_send(sptr, option, flags, msg, ti/
+antiwall	note.c	/^static void antiwall(sptr)$/
+atol	note.c	/^static long atol(c)$/
+attach_Iline	s_conf.c	/^int	attach_Iline(cptr, hp, sockhost)$/
+attach_conf	s_conf.c	/^int	attach_conf(cptr, aconf)$/
+attach_confs	s_conf.c	/^aConfItem *attach_confs(cptr, name, statmask)$/
+attach_confs_host	s_conf.c	/^aConfItem *attach_confs_host(cptr, host, statmask)/
+bad_command	ircd.c	/^static	int	bad_command()$/
+can_join	channel.c	/^static	int	can_join(sptr, chptr, key)$/
+can_send	channel.c	/^int	can_send(cptr, chptr)$/
+cancel_clients	../common/parse.c	/^static	int	cancel_clients(cptr, sptr, cmd)$/
+canonize	s_user.c	/^char	*canonize(buffer)$/
+change_chan_flag	channel.c	/^static	void	change_chan_flag(lp, chptr)$/
+channel_modes	channel.c	/^static	void	channel_modes(cptr, mbuf, pbuf, chptr)/
+check_channelmask	channel.c	/^static	int	check_channelmask(sptr, cptr, chname)$/
+check_class	class.c	/^void	check_class()$/
+check_client	s_bsd.c	/^int	check_client(cptr)$/
+check_command	note.c	/^void check_command(info, command, par1, par2, par3/
+check_flags	note.c	/^static char *check_flags(aptr, sptr, qptr, nick, n/
+check_init	s_bsd.c	/^static	int	check_init(cptr, sockn)$/
+check_lastclient	note.c	/^static int check_lastclient(sptr, mode, clock, spt/
+check_messages	note.c	/^static void check_messages(aptr, sptr, info, mode)/
+check_pings	ircd.c	/^static	time_t	check_pings(currenttime)$/
+check_registered	s_misc.c	/^int	check_registered(sptr)$/
+check_registered_user	s_misc.c	/^int	check_registered_user(sptr)$/
+check_server	s_bsd.c	/^int	check_server(cptr, hp, c_conf, n_conf, estab)$/
+check_server_init	s_bsd.c	/^int	check_server_init(cptr)$/
+check_string	channel.c	/^static	char	*check_string(s)$/
+check_time_interval	s_conf.c	/^static	int	check_time_interval(interval, reply)$/
+checklist	s_misc.c	/^void	checklist()$/
+clean_channelname	channel.c	/^void	clean_channelname(cn)$/
+clean_spychar	note.c	/^static char *clean_spychar(string)$/
+clear_channel_hash_table	hash.c	/^void	clear_channel_hash_table()$/
+clear_client_hash_table	hash.c	/^void	clear_client_hash_table()$/
+close_connection	s_bsd.c	/^void	close_connection(cptr)$/
+close_listeners	s_bsd.c	/^void	close_listeners()$/
+completed_connection	s_bsd.c	/^static	int completed_connection(cptr)$/
+connect_inet	s_bsd.c	/^static	struct	sockaddr *connect_inet(aconf, cptr, /
+connect_server	s_bsd.c	/^int	connect_server(aconf, by, hp)$/
+connect_unix	s_bsd.c	/^static	struct	sockaddr *connect_unix(aconf, cptr, /
+count_channels	channel.c	/^int	count_channels(sptr)$/
+count_cnlines	s_conf.c	/^aConfItem	*count_cnlines(lp)$/
+count_whowas_memory	whowas.c	/^void	count_whowas_memory(wwu, wwa, wwam)$/
+cres_mem	res.c	/^u_long	cres_mem(sptr)$/
+date	s_misc.c	/^char	*date(clock) $/
+dbuf_alloc	../common/dbuf.c	/^static dbufbuf *dbuf_alloc()$/
+dbuf_delete	../common/dbuf.c	/^int	dbuf_delete(dyn,length)$/
+dbuf_free	../common/dbuf.c	/^static	void	dbuf_free(ptr)$/
+dbuf_get	../common/dbuf.c	/^int	dbuf_get(dyn, buf, length)$/
+dbuf_getmsg	../common/dbuf.c	/^int	dbuf_getmsg(dyn, buf, length)$/
+dbuf_malloc_error	../common/dbuf.c	/^static int dbuf_malloc_error(dyn)$/
+dbuf_map	../common/dbuf.c	/^char	*dbuf_map(dyn,length)$/
+dbuf_put	../common/dbuf.c	/^int	dbuf_put(dyn, buf, length)$/
+dead_link	../common/send.c	/^static	int	dead_link(to, notice)$/
+debug	s_debug.c	/^void	debug(level, form, p1, p2, p3, p4, p5, p6, p7/
+del_banid	channel.c	/^static	int	del_banid(chptr, banid)$/
+del_from_channel_hash_table	hash.c	/^int	del_from_channel_hash_table(name, chptr)$/
+del_from_client_hash_table	hash.c	/^int	del_from_client_hash_table(name, cptr)$/
+del_invite	channel.c	/^void	del_invite(cptr, chptr)$/
+del_queries	res.c	/^void	del_queries(cp)$/
+deliver_it	../common/bsd.c	/^int	deliver_it(cptr, str, len)$/
+det_confs_butmask	s_conf.c	/^void	det_confs_butmask(cptr, mask)$/
+detach_conf	s_conf.c	/^int	detach_conf(cptr, aconf)$/
+dgets	../common/support.c	/^int	dgets(fd, buf, num)$/
+display_flags	note.c	/^static void display_flags(flags, c, mode)$/
+do_dns_async	s_bsd.c	/^static	void	do_dns_async()$/
+do_nick_name	s_user.c	/^static	int do_nick_name(nick)$/
+do_numeric	s_numeric.c	/^int	do_numeric(numeric, cptr, sptr, parc, parv)$/
+do_query_name	res.c	/^static	int	do_query_name(lp, name, rptr)$/
+do_query_number	res.c	/^static	int	do_query_number(lp, numb, rptr)$/
+do_who	s_user.c	/^static	void	do_who(sptr, acptr, repchan)$/
+dopacket	../common/packet.c	/^int	dopacket(cptr, buffer, length)$/
+dummy	../common/bsd.c	/^VOIDSIG dummy()$/
+dumpcore	../common/support.c	/^void	dumpcore(msg, p1, p2, p3, p4, p5, p6, p7, p8,/
+elements_inhost	note.c	/^static int elements_inhost(host)$/
+err_str	s_err.c	/^char	*err_str(numeric)$/
+exit_client	s_misc.c	/^int	exit_client(cptr, sptr, from, comment)$/
+exit_one_client	s_misc.c	/^static	void	exit_one_client(cptr, sptr, from, comm/
+expire_cache	res.c	/^time_t	expire_cache(now)$/
+find_admin	s_conf.c	/^aConfItem *find_admin()$/
+find_cache_name	res.c	/^static	aCache	*find_cache_name(rptr, name)$/
+find_cache_number	res.c	/^static	aCache	*find_cache_number(rptr, numb)$/
+find_channel	channel.c	/^aChannel *find_channel(chname, chptr)$/
+find_chasing	channel.c	/^static	aClient *find_chasing(sptr, user, chasing)$/
+find_class	class.c	/^aClass	*find_class(cclass)$/
+find_client	../common/parse.c	/^aClient *find_client(name, cptr)$/
+find_conf	s_conf.c	/^aConfItem *find_conf(lp, name, statmask)$/
+find_conf_entry	s_conf.c	/^aConfItem *find_conf_entry(aconf, mask)$/
+find_conf_exact	s_conf.c	/^aConfItem *find_conf_exact(name, user, host, statm/
+find_conf_host	s_conf.c	/^aConfItem *find_conf_host(lp, host, statmask)$/
+find_conf_ip	s_conf.c	/^aConfItem *find_conf_ip(lp, ip, user, statmask)$/
+find_conf_name	s_conf.c	/^aConfItem *find_conf_name(name, statmask)$/
+find_id	res.c	/^static	ResRQ	*find_id(id)$/
+find_kill	s_conf.c	/^int	find_kill(cptr)$/
+find_me	s_conf.c	/^aConfItem *find_me()$/
+find_name	../common/parse.c	/^aClient *find_name(name, cptr)$/
+find_nickserv	../common/parse.c	/^aClient	*find_nickserv(name, cptr)$/
+find_person	../common/parse.c	/^aClient *find_person(name, cptr)$/
+find_restrict	s_conf.c	/^int	find_restrict(cptr)$/
+find_server	../common/parse.c	/^aClient *find_server(name, cptr)$/
+find_user_link	list.c	/^Link	*find_user_link(lp, ptr)$/
+find_userhost	../common/parse.c	/^aClient *find_userhost(user, host, cptr, count)$/
+first_fnl_indexnode	note.c	/^static int first_fnl_indexnode(fromname)$/
+first_tnl_indexnode	note.c	/^static int first_tnl_indexnode(name)$/
+flag_len_error	note.c	/^static int flag_len_error(sptr, flag_s)$/
+flag_send	note.c	/^static char *flag_send(aptr, sptr, qptr, nick, msg/
+flush_cache	res.c	/^void	flush_cache()$/
+flush_connections	../common/send.c	/^void	flush_connections(fd)$/
+fnl_msgclient	note.c	/^static int fnl_msgclient(msgclient)$/
+free	../common/support.c	/^#define	free(x)	MyFree(x)$/
+free_class	list.c	/^void	free_class(tmp)$/
+free_client	list.c	/^void	free_client(cptr)$/
+free_conf	list.c	/^void	free_conf(aconf)$/
+free_link	list.c	/^void	free_link(lp)$/
+free_user	list.c	/^void	free_user(user, cptr)$/
+get_channel	channel.c	/^static	aChannel *get_channel(cptr, chname, flag)$/
+get_client_class	class.c	/^int	get_client_class(acptr)$/
+get_client_name	s_misc.c	/^char	*get_client_name(sptr, showip)$/
+get_client_ping	class.c	/^int	get_client_ping(acptr)$/
+get_con_freq	class.c	/^int	get_con_freq(clptr)$/
+get_conf_class	class.c	/^int	get_conf_class(aconf)$/
+get_conf_ping	class.c	/^static	int	get_conf_ping(aconf)$/
+get_history	whowas.c	/^aClient	*get_history(nick, timelimit)$/
+get_msg	note.c	/^static char *get_msg(msgclient, field)$/
+get_my_name	s_bsd.c	/^void	get_my_name(cptr, name, len)$/
+get_res	res.c	/^struct	hostent	*get_res(lp)$/
+get_sendq	class.c	/^long	get_sendq(cptr)$/
+get_sockerr	s_bsd.c	/^int	get_sockerr(cptr)$/
+get_sockhost	s_misc.c	/^void	get_sockhost(cptr, host)$/
+getfield	../common/parse.c	/^char	*getfield(newline)$/
+gethost_byaddr	res.c	/^struct	hostent	*gethost_byaddr(addr, lp)$/
+gethost_byname	res.c	/^struct	hostent	*gethost_byname(name, lp)$/
+has_voice	channel.c	/^int	has_voice(cptr, chptr)$/
+hash_channel_name	hash.c	/^int	hash_channel_name(hname)$/
+hash_find_channel	hash.c	/^aChannel	*hash_find_channel(name, chptr)$/
+hash_find_client	hash.c	/^aClient	*hash_find_client(name, cptr)$/
+hash_find_nickserver	hash.c	/^aClient	*hash_find_nickserver(name, cptr)$/
+hash_find_server	hash.c	/^aClient	*hash_find_server(server, cptr)$/
+hash_name	res.c	/^static	int	hash_name(name)$/
+hash_nick_name	hash.c	/^int	hash_nick_name(nname)$/
+hash_number	res.c	/^static	int	hash_number(ip)$/
+host_check	note.c	/^static int host_check(host1,host2)$/
+hunt_server	s_user.c	/^int	hunt_server(cptr, sptr, command, server, parc,/
+inet_addr	../common/support.c	/^unsigned long inet_addr(host)$/
+inet_netof	../common/support.c	/^int inet_netof(in)$/
+inetntoa	../common/support.c	/^char	*inetntoa(in)$/
+inetport	s_bsd.c	/^int	inetport(cptr, name, port)$/
+init_messages	note.c	/^static void init_messages()$/
+init_resolver	res.c	/^int	init_resolver(op)$/
+init_sys	s_bsd.c	/^void	init_sys()$/
+initclass	class.c	/^void	initclass()$/
+initconf	s_conf.c	/^int 	initconf(opt)$/
+initlists	list.c	/^void	initlists()$/
+initstats	s_misc.c	/^void	initstats()$/
+initwhowas	whowas.c	/^void	initwhowas()$/
+is_attached	s_conf.c	/^static	int	is_attached(aconf, cptr)$/
+is_banned	channel.c	/^static	Link	*is_banned(cptr, chptr)$/
+is_chan_op	channel.c	/^int	is_chan_op(cptr, chptr)$/
+last_fnl_indexnode	note.c	/^static int last_fnl_indexnode(fromname)$/
+last_tnl_indexnode	note.c	/^static int last_tnl_indexnode(name)$/
+list_length	channel.c	/^static	int	list_length(lp)$/
+local_check	note.c	/^static int local_check(sptr, msgclient, passwd, fl/
+local_host	note.c	/^static char *local_host(host)$/
+lookup_confhost	s_conf.c	/^static	int	lookup_confhost(aconf)$/
+ltoa	note.c	/^static char *ltoa(i)$/
+m_admin	s_serv.c	/^int	m_admin(cptr, sptr, parc, parv)$/
+m_away	s_user.c	/^int	m_away(cptr, sptr, parc, parv)$/
+m_close	s_serv.c	/^int	m_close(cptr, sptr, parc, parv)$/
+m_connect	s_serv.c	/^int	m_connect(cptr, sptr, parc, parv)$/
+m_die	s_serv.c	/^int	m_die(cptr, sptr, parc, parv)$/
+m_dns	res.c	/^int	m_dns(cptr, sptr, parc, parv)$/
+m_error	s_serv.c	/^int	m_error(cptr, sptr, parc, parv)$/
+m_hash	hash.c	/^int	m_hash(cptr, sptr, parc, parv)$/
+m_help	s_serv.c	/^int	m_help(cptr, sptr, parc, parv)$/
+m_info	s_serv.c	/^int	m_info(cptr, sptr, parc, parv)$/
+m_invite	channel.c	/^int	m_invite(cptr, sptr, parc, parv)$/
+m_ison	s_user.c	/^int	m_ison(cptr, sptr, parc, parv)$/
+m_join	channel.c	/^int	m_join(cptr, sptr, parc, parv)$/
+m_kick	channel.c	/^int	m_kick(cptr, sptr, parc, parv)$/
+m_kill	s_user.c	/^int	m_kill(cptr, sptr, parc, parv)$/
+m_links	s_serv.c	/^int	m_links(cptr, sptr, parc, parv)$/
+m_list	channel.c	/^int	m_list(cptr, sptr, parc, parv)$/
+m_lusers	s_serv.c	/^int	 m_lusers(cptr, sptr, parc, parv)$/
+m_message	s_user.c	/^static	int	m_message(cptr, sptr, parc, parv, notic/
+m_mode	channel.c	/^int	m_mode(cptr, sptr, parc, parv)$/
+m_motd	s_serv.c	/^int	m_motd(cptr, sptr, parc, parv)$/
+m_names	channel.c	/^int	m_names(cptr, sptr, parc, parv)$/
+m_nick	s_user.c	/^int	m_nick(cptr, sptr, parc, parv)$/
+m_note	s_user.c	/^int	m_note(cptr, sptr, parc, parv)$/
+m_notice	s_user.c	/^int	m_notice(cptr, sptr, parc, parv)$/
+m_oper	s_user.c	/^int	m_oper(cptr, sptr, parc, parv)$/
+m_part	channel.c	/^int	m_part(cptr, sptr, parc, parv)$/
+m_pass	s_user.c	/^int	m_pass(cptr, sptr, parc, parv)$/
+m_ping	s_user.c	/^int	m_ping(cptr, sptr, parc, parv)$/
+m_pong	s_user.c	/^int	m_pong(cptr, sptr, parc, parv)$/
+m_private	s_user.c	/^int	m_private(cptr, sptr, parc, parv)$/
+m_quit	s_user.c	/^int	m_quit(cptr, sptr, parc, parv)$/
+m_rehash	s_serv.c	/^int	m_rehash(cptr, sptr, parc, parv)$/
+m_restart	s_serv.c	/^int	m_restart(cptr, sptr, parc, parv)$/
+m_server	s_serv.c	/^int	m_server(cptr, sptr, parc, parv)$/
+m_server_estab	s_serv.c	/^int	m_server_estab(cptr)$/
+m_squit	s_serv.c	/^int	m_squit(cptr, sptr, parc, parv)$/
+m_stats	s_serv.c	/^int	m_stats(cptr, sptr, parc, parv)$/
+m_summon	s_serv.c	/^int	m_summon(cptr, sptr, parc, parv)$/
+m_time	s_serv.c	/^int	m_time(cptr, sptr, parc, parv)$/
+m_topic	channel.c	/^int	m_topic(cptr, sptr, parc, parv)$/
+m_trace	s_serv.c	/^int	m_trace(cptr, sptr, parc, parv)$/
+m_umode	s_user.c	/^int	m_umode(cptr, sptr, parc, parv)$/
+m_user	s_user.c	/^int	m_user(cptr, sptr, parc, parv)$/
+m_userhost	s_user.c	/^int	m_userhost(cptr, sptr, parc, parv)$/
+m_users	s_serv.c	/^int	m_users(cptr, sptr, parc, parv)$/
+m_version	s_serv.c	/^int	m_version(cptr, sptr, parc, parv)$/
+m_wallops	s_serv.c	/^int	m_wallops(cptr, sptr, parc, parv)$/
+m_who	s_user.c	/^int	m_who(cptr, sptr, parc, parv)$/
+m_whois	s_user.c	/^int	m_whois(cptr, sptr, parc, parv)$/
+m_whowas	whowas.c	/^int	m_whowas(cptr, sptr, parc, parv)$/
+make_cache	res.c	/^static	aCache	*make_cache(rptr)$/
+make_class	list.c	/^aClass	*make_class()$/
+make_client	list.c	/^aClient	*make_client(from)$/
+make_conf	list.c	/^aConfItem	*make_conf()$/
+make_link	list.c	/^Link	*make_link()$/
+make_nick_user_host	channel.c	/^static	char *make_nick_user_host(nick, name, host)/
+make_request	res.c	/^static	ResRQ	*make_request(lp)$/
+make_server	list.c	/^aServer	*make_server(cptr)$/
+make_user	list.c	/^anUser	*make_user(cptr)$/
+matches	../common/match.c	/^int	matches(ma, na)$/
+msg_flag	note.c	/^static void msg_flag(sptr, passwd, flag_s, id_s, n/
+msg_list	note.c	/^static void msg_list(sptr, arg, passwd, flag_s, id/
+msg_news	note.c	/^static void msg_news(sptr, silent, passwd, flag_s,/
+msg_remove	note.c	/^static void msg_remove(sptr, passwd, flag_s, id_s,/
+msg_save	note.c	/^static void msg_save(sptr)$/
+msg_send	note.c	/^static int msg_send(sptr, silent, passwd, flag_s, /
+msg_sent	note.c	/^static void msg_sent(sptr, arg, name, time_s, dele/
+msg_stats	note.c	/^static void msg_stats(sptr, arg, value)$/
+my_name_for_link	s_misc.c	/^char	*my_name_for_link(name, aconf)$/
+mycmp	../common/parse.c	/^int	mycmp(s1, s2)$/
+myctime	s_misc.c	/^char	*myctime(value)$/
+myitoa	note.c	/^static char *myitoa(value)$/
+myncmp	../common/parse.c	/^int	myncmp(str1, str2, n)$/
+mytime	note.c	/^static char *mytime(value)$/
+name_len_error	note.c	/^static int name_len_error(sptr, name)$/
+new	note.c	/^static aMsgClient *new(passwd,fromnick,fromname,fr/
+next_client	s_user.c	/^aClient *next_client(next, ch)$/
+number_fromname	note.c	/^static int number_fromname()$/
+numeric	note.c	/^static int numeric(string)$/
+numeric_host	note.c	/^static int numeric_host(host)$/
+off_history	whowas.c	/^void	off_history(cptr)$/
+only_wildcards	note.c	/^static int only_wildcards(string)$/
+open_debugfile	ircd.c	/^static	void	open_debugfile()$/
+openconf	s_conf.c	/^int	openconf()$/
+outofmemory	list.c	/^void	outofmemory()$/
+parse	../common/parse.c	/^int	parse(cptr, buffer, bufend, mptr)$/
+polludp	s_bsd.c	/^static	void	polludp()$/
+prepbuf	s_err.c	/^static	char	*prepbuf(buffer, num, tail)$/
+proc_answer	res.c	/^static	int	proc_answer(rptr, hptr, buf, eob)$/
+query_name	res.c	/^static	int	query_name(name, class, type, rptr)$/
+r_code	note.c	/^static void r_code(string,fp)$/
+read_authports	s_auth.c	/^void	read_authports(cptr)$/
+read_message	s_bsd.c	/^int	read_message(delay)$/
+read_packet	s_bsd.c	/^static	int	read_packet(cptr, rfd)$/
+register_user	s_user.c	/^static	int	register_user(cptr, sptr, nick, usernam/
+rehash	s_conf.c	/^int	rehash(cptr, sptr, sig)$/
+relative_time	note.c	/^static char *relative_time(seconds)$/
+rem_cache	res.c	/^static	void	rem_cache(ocp)$/
+rem_request	res.c	/^static	void	rem_request(old)$/
+remove_client_from_list	list.c	/^void	remove_client_from_list(cptr)$/
+remove_msg	note.c	/^static void remove_msg(msgclient)$/
+remove_unknown	../common/parse.c	/^static	void	remove_unknown(cptr, sender)$/
+remove_user_from_channel	channel.c	/^void	remove_user_from_channel(sptr, chptr)$/
+report_classes	class.c	/^void	report_classes(sptr)$/
+report_configured_links	s_serv.c	/^static	void	report_configured_links(sptr, mask)$/
+report_error	s_bsd.c	/^void	report_error(text, cptr)$/
+resend_query	res.c	/^static	void	resend_query(rptr)$/
+restart	ircd.c	/^void	restart(mesg)$/
+rpl_str	s_err.c	/^char	*rpl_str(numeric)$/
+s_die	ircd.c	/^VOIDSIG s_die()$/
+s_monitor	ircd.c	/^VOIDSIG	s_monitor()$/
+s_rehash	ircd.c	/^static VOIDSIG s_rehash()$/
+s_restart	ircd.c	/^VOIDSIG s_restart()$/
+save_messages	note.c	/^void save_messages()$/
+send_authports	s_auth.c	/^void	send_authports(cptr)$/
+send_channel_modes	channel.c	/^void	send_channel_modes(cptr, chptr)$/
+send_flag	note.c	/^static int send_flag(flags)$/
+send_listinfo	list.c	/^void	send_listinfo(cptr, name)$/
+send_message	../common/send.c	/^static	int	send_message(to, msg, len)$/
+send_mode_list	channel.c	/^static	void	send_mode_list(cptr, chname, top, mask/
+send_queued	../common/send.c	/^int	send_queued(to)$/
+send_res_msg	res.c	/^static	int	send_res_msg(msg, len, rcount)$/
+send_umode	s_user.c	/^void	send_umode(cptr, sptr, old, sendmask, umode_b/
+send_umode_out	s_user.c	/^void	send_umode_out(cptr, sptr, old)$/
+send_user_joins	channel.c	/^void	send_user_joins(cptr, user)$/
+sendto_one	../common/send.c	/^void	sendto_one(to, pattern, p1, p2, p3, p4, p5, p/
+server_reboot	ircd.c	/^void	server_reboot()$/
+set_date	note.c	/^static long set_date(sptr,time_s)$/
+set_flags	note.c	/^static int set_flags(sptr, string, flags, mode, ty/
+set_mode	channel.c	/^static	int	set_mode(cptr, sptr, chptr, parc, parv,/
+set_non_blocking	s_bsd.c	/^void	set_non_blocking(fd, cptr)$/
+set_sock_opts	s_bsd.c	/^static	void	set_sock_opts(fd, cptr)$/
+setup_ping	s_bsd.c	/^int	setup_ping()$/
+setup_signals	ircd.c	/^static	void	setup_signals()$/
+setvar	note.c	/^static void setvar(sptr,msg,l,value)$/
+split	note.c	/^static void split(string, nick, name, host)$/
+split_string	note.c	/^static char *split_string(string, field, n)$/
+start_auth	s_auth.c	/^void	start_auth(cptr)$/
+strerror	../common/support.c	/^char *strerror(err_no)$/
+strtok	../common/support.c	/^char *strtok(str, fs)$/
+strtoken	../common/support.c	/^char *strtoken(save, str, fs)$/
+sub1_from_channel	channel.c	/^static	void	sub1_from_channel(chptr)$/
+summon	s_bsd.c	/^void	summon(who, namebuf, linebuf, chname)$/
+timegm	note.c	/^static long timegm(tm)$/
+timeout_query_list	res.c	/^time_t	timeout_query_list(now)$/
+tnl_msgclient	note.c	/^static int tnl_msgclient(msgclient)$/
+try_connections	ircd.c	/^static	time_t	try_connections(currenttime)$/
+tstats	s_misc.c	/^void	tstats(cptr, name)$/
+unixport	s_bsd.c	/^int	unixport(cptr, path, port)$/
+update_list	res.c	/^static	void	update_list(rptr, cachep)$/
+update_spymsg	note.c	/^static void update_spymsg(msgclient)$/
+utmp_close	s_bsd.c	/^int	utmp_close(fd)$/
+utmp_open	s_bsd.c	/^int	utmp_open()$/
+utmp_read	s_bsd.c	/^int	utmp_read(fd, name, line, host, hlen)$/
+valid_elements	note.c	/^static int valid_elements(host)$/
+w_code	note.c	/^static void w_code(string,fp)$/
+wild_fromnick	note.c	/^static char *wild_fromnick(nick, msgclient)$/
+wildcards	note.c	/^static char *wildcards(string)$/
+write_pidfile	s_bsd.c	/^void	write_pidfile()$/

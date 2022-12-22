@@ -1,0 +1,52 @@
+
+SOX: Sound Tools installation
+
+May 18, 1992
+
+The sox program is just a batch utility that reads & writes
+files.  It's very easy to port to new computers.
+
+This distribution will compile and run on most Unix systems.
+It was developed on a Unix/386 machine running AT&T V.3.2.
+It has been ported to many AT&T V.3- and V.4-flavored Unixes,
+and many BSD-derived Unixes as well.  There is a DOS port,
+and VMS and Amiga ones are on the way.
+
+For V.3 and V.4 Unix, the Makefile should work as is.
+For SUN, NeXT, and other Unixes derived from Berkeley Unix,
+you'll need to comment out these four lines in the Makefile:
+	
+	CFLAGS    = $O -DSYSV 
+	CC        = cc
+	AR        = ar r
+	RANLIB    = ar ts
+
+and uncomment the following ones:
+
+	# CFLAGS    = $O 
+	# CC        = cc
+	# AR        = ar r
+	# RANLIB    = ranlib
+
+After successfully compiling SOX, try translating a sound file.
+If you can play one of the supported sound file formats,
+translate 'monkey.voc' to your format (we'll use 'xxx'):
+
+	sox monkey.voc monkey.xxx
+
+You may have to give the word size and rate for the file.
+For example, this command will make a sound file with a data rate of
+12,500 samples per second and the data formatted as signed shorts:
+
+	sox monkey.voc -r 12500 -s -w monkey.xxx 
+
+If monkey.xxx plays properly (it's a very short monkey screech),
+congratulations!  SOX works.  Now you should run the 'tests.sh'
+shell script to exercise various test scenarios.  It should
+print nothing out.  You can only run this script under Unix.
+It shows alternate uses of the (far too) many options to sox.
+
+After testing with a sound file, try compiling sox with the
+optimizer (-O instead of -g).  It should run a little faster.
+
+Lance Norskog

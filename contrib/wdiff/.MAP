@@ -1,0 +1,15 @@
+F CBARS.SH;1                        	cbars.sh
+F COPYING.;1                        	COPYING
+F ERROR.C;1                         	error.c
+F GETOPT.C;1                        	getopt.c
+F GETOPT.H;1                        	getopt.h
+F GETOPT1.C;1                       	getopt1.c
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/wdiff
+F PATHMAX.H;1                       	pathmax.h
+F READPIPE.C;1                      	readpipe.c
+F TAGS.;1                           	tags
+F WDIFF.1;1                         	wdiff.1
+F WDIFF.C;1                         	wdiff.c
+F WRITEPIP.C;1                      	writepipe.c

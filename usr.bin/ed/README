@@ -1,0 +1,73 @@
+  Copyright (c) 1992 The Regents of the University of California.
+  All rights reserved.
+ 
+  This code is derived from software contributed to Berkeley by
+  Rodney Ruddock of the University of Guelph.
+ 
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+  2. Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+  3. All advertising materials mentioning features or use of this software
+     must display the following acknowledgement:
+ 	This product includes software developed by the University of
+ 	California, Berkeley and its contributors.
+  4. Neither the name of the University nor the names of its contributors
+     may be used to endorse or promote products derived from this software
+     without specific prior written permission.
+ 
+  THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+  SUCH DAMAGE.
+
+For compiling:
+	There are several flag options for compiling 'ed' into executable.
+All valid combinations for these flags are in the Makefile: choose the
+combination you want; the default is BSD and STDIO.
+
+This table briefly describes the flags used in compilation:
+
+	BSD | POSIX
+		specifies over-riding behaviour in historical terms:
+		BSD=> BSD behaviour when confilicting with P1003.2,
+		POSIX=> as P1003.2 specified when conflicting with BSD.
+
+	STDIO | DBI | MEMORY
+		specifies which method is to be used for the buffer.
+                Be sure to understand that there are trade-offs with
+                any of the methods:
+		STDIO=> standard I/O temp file,
+		DBI=> BSD recno database file (db(3)),
+		MEMORY=> ye olde silicon.
+
+	One of each compile flag option _must_ be chosen to get a sensible
+	compile.
+
+One define not listed above, yet used as a flag, is RE_STARTEND. This
+is used to automagically check if you are using the real BSD RE interfaces.
+See regex(3) (4.4BSD) for a description of RE_STARTEND; an extension to
+P1003.2 B.5. If you happen to be using another POSIX regex(3) this
+automatically taken care of; the old RE interfaces are unsupported.
+
+This implementation of `ed' is a superset of the POSIX 1003.2 description
+for `ed' to remain compatible with earlier (BSD) versions of `ed'.
+Hence, any BSD 'ed'isms that do not conflict with P1003.2 are available
+to the user even under the POSIX flag compilation. Likewise, any POSIX
+'ed'isms that do not conflict with historical BSD behaviour are available
+to the user.
+
+Refer to the man page ed(1) for information about using `ed'.
+
+-Rodney

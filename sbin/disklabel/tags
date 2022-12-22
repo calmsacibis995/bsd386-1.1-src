@@ -1,0 +1,8 @@
+Mdisklabel	disklabel.c	/^main(argc, argv)$/
+dkcksum	dkcksum.c	/^dkcksum(lp)$/
+edit	disklabel.c	/^edit(lp, f)$/
+l_perror	disklabel.c	/^l_perror(s)$/
+makebootarea	disklabel.c	/^makebootarea(boot, dp)$/
+makelabel	disklabel.c	/^makelabel(type, name, lp)$/
+readlabel	disklabel.c	/^readlabel(f)$/
+writelabel	disklabel.c	/^writelabel(f, boot, lp, op)$/

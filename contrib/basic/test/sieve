@@ -1,0 +1,47 @@
+ 10 rem sieve of eratosthenes
+ 20 rem written by       henry d. shapiro
+ 30 rem                  cs 150  sec 007
+ 40 rem                  10/26/81
+ 50
+ 60 rem find all prime numbers less than or equal to 5000
+ 70
+ 80 rem variable dictionary
+ 90 rem   p(5000) - p(i)=1 if i is prime (so far).  p(i)=0 if i is not
+100 rem             prime.  in the end p(i) tells whether i is prime or not.
+110 rem   i       - 'next' prime
+120 rem   j       - multiples of i to be marked as not prime
+130 rem   k       - number of primes printed on line
+140
+150 dim p(5000)
+160
+170 let p(1)=0
+180 for i=2 to 5000
+190   let p(i)=1
+200 next i
+210
+220 for i=2 to sqr(5000)
+230   if p(i)=0 then 310
+240   rem i is the next prime
+250   for j=i*i to 5000 step i
+260                                rem start with 2*i, all multiples of i
+270                                rem less than i*i have been marked out
+280                                rem already).
+290     let p(j)=0
+300   next j
+310 next i
+320
+330 rem print the answers (15 to a line)
+340 print "the primes less than or equal to 5000 are:"
+350 let k=0
+360 for i=1 to 5000
+370   if p(i)=0 then 450
+380   print i;" ";
+400   let k=k+1
+410   if k<15 then 450
+420   rem force the carriage return
+430   print
+440   let k=0
+450 next i
+460 rem are we in the middle of a line, if so then print a carriage return
+470 if k<>0 then print
+480 end

@@ -1,0 +1,19 @@
+F AT.1;1                            	at.1
+F AT.C;1                            	at.c
+F AT.H;1                            	at.h
+F AT_ALLOW.;1                       	at_allowed
+F AT_COUNT.;1                       	at.counter
+F DATELEX.L;1                       	datelex.l
+F DATEYACC.Y;1                      	dateyacc.y
+F ERRLIB.C;1                        	errlib.c
+F ERRLIB.H;1                        	errlib.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/at
+F PATHNAME.H;1                      	pathnames.h
+F QUEUEJOB.C;1                      	queuejob.c
+F READQUEU.C;1                      	readqueue.c
+F SCHED.C;1                         	sched.c
+F TAGS.;1                           	tags
+F UTILS.C;1                         	utils.c
+F WHEN.C;1                          	when.c
+F WHEN.H;1                          	when.h

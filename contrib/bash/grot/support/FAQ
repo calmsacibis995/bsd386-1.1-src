@@ -1,0 +1,202 @@
+This Frequently Asked Questions file is edited in -*- indented-text -*- mode.
+
+If you are viewing this text in a GNU Emacs Buffer, you can type "M-2 C-x $" to
+get an overview of just the questions.  Then, when you want to look at the text
+of the answers, just type "C-x $".
+
+To search for a question numbered XXX, type "M-C-s ^XXX:", followed by a C-r if
+that doesn't work, then type ESC to end the search.
+
+1: How do I convert all of my Csh aliases over to Bash aliases?
+  Bash uses a different syntax to support aliases than Csh does.  The
+  details can be found in the documentation.  We have provided a shell
+  script which does most of the work of conversion for you; this
+  script can be found in ./examples/alias-conv.sh.  Here is how you
+  use it:
+  
+      Start Csh in the normal way for you.  (e.g., "csh")
+  
+      Pipe the output of "alias" through "alias-conv.sh", saving the
+      results into "bash_aliases":
+  
+        alias | alias-conv.sh >.bash_aliases
+  
+      Edit "bash_aliases" carefully reading through any created
+      functions.  You will need to change the names of Csh specific
+      variables (like $cwd) to the Bash equivalents (like $PWD).  You
+      will also need to remove recursive references to commands which
+      are defined as functions.  For example, the Csh alias:
+  
+	alias cd 'cd \!*;echo $cwd'
+  
+      is converted to the Bash function:
+  
+	cd () 
+	{ 
+	  cd $*;
+	  echo $cwd
+	}
+  
+      This function contains a self-pointing reference to "cd", which
+      should be changed to use the "builtin" version.  It also uses
+      the Csh variable `$cwd' which has an equivalent in Bash.
+      Precede the recursive reference with the word "builtin", and
+      change the name of the variable:
+  
+        cd () { builtin cd $*; echo $PWD }
+  
+      Merge the edited file into your ~/.bashrc.
+  
+2: Background jobs have staggered output, as if there was no CR before the LF.
+  This is a result of bash using the BSD-style tty driver on Ultrix.  The BSD
+  driver ties input and output carriage return translation together with the
+  CRMOD bit.  (The CRMOD bit causes CR->LF translation on input and LF->CRLF
+  translation on output.)  Unless the CRMOD bit is cleared, it is impossible
+  to get a literal ^M in an input line.  Unfortunately, one of the effects of
+  clearing it is the loss of output processing you've observed. 
+  
+  The Ultrix Posix-style tty driver can't be used because it has serious
+  problems with losing typeahead when ICANON is switched on and off.  These
+  characters seem to reappear later without warning, usually when a
+  program that uses the BSD-style ioctls turns on CBREAK (e.g., `more').
+  
+3: Bash's "test" different from "/bin/test"? ([ ! x -o x ] -> false)
+   Bash's builtin "test" implements the Posix.2 spec, which can be
+   summarized as follows (the wording is due to David Korn):
+   
+    Here is the set of rules for processing test arguments.
+  
+    0 Args: False
+    1 Arg:  True iff argument is not null.
+    2 Args: If first arg is !, True iff second argument is null.
+	    If first argument is unary, then true if unary test is true
+	    Otherwise error.
+    3 Args: If second argument is a binary operator, do binary test of $1 $3
+	    If first argument is !, negate two argument test of $2 $3
+	    Otherwise error.
+    4 Args: If first argument is !, negate three argument test of $2 $3 $4.
+	    Otherwise unspecified
+    5 or more Args: unspecified.  (Historical shells would used their
+    current algorithm).
+   
+    The operators -a and -o are considered binary operators for the purpose
+    of the 3 Arg case.
+   
+   As you can see, the test becomes (not (x or x)), which is false.
+   
+4: Completion listings can differ from `ls' in the number of columns output.
+  This can happen because `ls' calls stat () on every file before
+  listing the output, while GNU Readline only calls stat () on the
+  files when they are being printed.  This means that `ls' knows how
+  many characters will be added to each filename in advance, and can
+  accurately calculate the maximum length, while Bash must assume that
+  each filename will have characters added to it.
+  
+5: Bash crashes when I do "cd".
+  If you have `cd' defined as a function, it is likely that the
+  function is recursively calling itself.  See the answer to question
+  1 above.
+  
+6: Why does Bash sometimes say "Broken pipe"?
+  If a sequence of commands appear in a pipeline, and one of the
+  reading commands finishes before the writer has finished, the writer
+  receives a SIGPIPE signal.  Many other shells special-case SIGPIPE as
+  an exit status in the pipeline and do not report it.  For example,
+  in:
+  
+      ps -aux | head
+  
+  `head' can finish before `ps' writes all of its output.  In that case,
+  Bash will print `Broken pipe' to stderr on behalf of the `ps'
+  command.
+  
+7: How can I use `!' to reinvoke a command starting with a digit?
+  If you had issued a command such as `8086engine foo', and then at a
+  later time wished to reinvoke the command, typing `!80' would probably
+  not work since Bash would think you meant the 80'th command in the
+  history, not the command starting with `80'.  You can type `!?80',
+  which says to re-execute the most recent command containing `80'.
+
+Questions About Input Line Editing:
+
+1: What do things like this mean: C-h, M-C-a, RET, etc.?
+  
+  C-a means press the "a" key while holding down the "Control" key.  The
+  ASCII code this sends will generally be the value that would be sent by
+  pressing just "a" minus 96 or 64.  Either way it will be a number from 0
+  to 31.
+  
+  M-a means press the "a" key while holding down the "Meta" key.  The
+  ASCII code this sends is the sum of the ASCII code that would be sent by
+  pressing just "a" and 128.
+  
+  M-C-a means press the "a" key while holding down both the "Control" key
+  and the "Meta" key.  C-M-a is a synonym for M-C-a.
+  
+  * RET means press the "Return" key.  RET is the same as C-m.  This sends
+    ASCII code 13.
+  
+  * LFD means press the "Linefeed" key.  LFD is also the same as C-j.  This
+    sends ASCII code 10.  Under Unix, ASCII code 10 is more often called
+    "Newline".
+  
+  * DEL means press the "Delete" key.  DEL is the same as C-?.  This sends
+    ASCII code 127.  (WARNING: It is a misnomer to call C-? a "control" key,
+    since 127 has both bits 6 and 7 turned ON, and the rule for control keys
+    is that they have 6 and 7 turned OFF.  Also, on very few keyboards does
+    Control-? generate ASCII code 127.  In fact, Control-? (which is
+    actually Control-Shift-/) is more likely to generate C-_, ASCII code
+    31!)
+  
+  * ESC means press the "Escape" key.  ESC is the same as C-[.  This sends
+    ASCII code 27.
+  
+  * SPC means press the "Space" key.  This send ASCII code 32.
+  
+  * TAB means press the "Tab" key.  TAB is the same as C-i.  This send ASCII
+    code 9.
+  
+  For C-@ and C-^, usually you don't have to hold down the shift key and you
+  can type Control-2 or Control-6 instead.  For C-_, you may have to hold
+  down the shift key, typing Control-Shift-Hyphen.  C-@ can often be
+  generated by typing Control-Space.  C-@ is often called the NUL character,
+  and has ASCII value 0.  C-_ can often be generated by typing Control-7 or 
+  Control-/.  Try Control with all of the digits on your keyboard to see
+  what gets generated.
+  
+  To read more about this online, type "C-h i m emacs RET m characters
+  RET", and also "C-h i m emacs RET m keys RET".
+  
+2: What do you mean when you write things like this: type "ESC a"?
+  
+  I will enclose key sequences that are longer than one key inside double
+  quotes.  These notations refer to single key strokes (some with
+  modifiers):
+  
+    C-x, M-x, M-C-x
+    RET, LFD, DEL, ESC, SPC, TAB
+  
+  I separate these from other keys within double quotes by spaces.  Any
+  real spaces that I write inside double quotes can be ignored, only SPC
+  means press the space key.  All other characters within double quotes
+  represent single keys (some shifted).
+  
+3: What if I don't have a Meta key?
+  
+  Instead of typing M-a, you can type "ESC a" instead.  In fact, Emacs
+  converts M-a internally into "ESC a" anyway (depending on the value of
+  meta-prefix-char).
+  
+4: What if I don't have an Escape key?
+  
+  Type C-[ instead.  This should send ASCII code 27 just like an Escape
+  key would.
+  
+5: What does "M-x command" mean?
+  
+  "M-x command" means type M-x, then type the name of the command, then
+
+
+Local Variables:
+eval: (set-selective-display 2)
+End:

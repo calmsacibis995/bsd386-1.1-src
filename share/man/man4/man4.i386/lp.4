@@ -1,0 +1,40 @@
+.\" Copyright (c) 1992, 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: lp.4,v 1.2 1993/03/08 16:21:24 polk Exp $
+.Dd February 27, 1993
+.Dt LP 4 i386
+.Os
+.Sh NAME
+.Nm lp
+.Nd parallel printer driver
+.Sh SYNOPSIS
+.Cd "device lp0 at isa? port 0x378 flags 1"
+.Sh DESCRIPTION
+The
+.Nm lp
+driver supports standard PC compatible parallel output ports.
+Each device uses a block of 4 i/o ports.  The block must be aligned on
+an 4 port boundary.  Each device should have its own interrupt.  The
+driver attempts to detect the hardware interrupt level at
+autoconfiguration; however, this may fail if the printer is off line.
+If no interrupt is detected, then the default of 7 is used if the
+device is at the standard LPT1 address, otherwise, no interrupt is
+used.  You may specify an explicit interrupt number in the kernel
+config file if desired.  The driver polls the device periodically, so
+if the printer has a reasonable sized buffer, throughput will be
+acceptable even without using an interrupt.
+.Pp
+Newline is translated to carriage-return/linefeed if the
+.Ar flags
+field in the kernel config file is set to 0.
+This
+translation is prevented by setting
+.Ar flags
+to 1 in the kernel config file.
+Translation of newlines is likely to be removed from future versions
+of this driver, with any translation being done in user-level software.
+.Sh FILES
+.Bl -tag -width Pa
+.It Pa /dev/lp[0-1]
+.El

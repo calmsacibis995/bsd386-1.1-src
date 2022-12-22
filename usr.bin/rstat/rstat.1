@@ -1,0 +1,62 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: rstat.1,v 1.1.1.1 1993/03/08 06:50:46 polk Exp $
+.\"
+.\" from @(#)rstat.1	2.1 88/08/03 4.0 RPCSRC
+.\"
+.Dd January 26, 1993
+.Dt RSTAT 1
+.Os
+.Sh NAME
+.Nm rstat
+.Nd remote status display
+.Sh SYNOPSIS
+.Nm rstat
+.Ar host
+.Sh DESCRIPTION
+.Nm Rstat
+displays a summary of the current system status of a particular
+.Ar host .
+The output shows the current time of day, how long the system has
+been up, and the load averages.
+The load average numbers give the number of jobs in the run queue
+averaged over 1, 5 and 15 minutes.
+.Pp
+The
+.Xr rstatd 8
+daemon must be running on the remote host for this command to work.
+.Nm Rstat
+communicates to the daemon using an RPC protocol.
+.Sh EXAMPLE
+.Bd -literal -offset indent -compact
+example% rstat otherhost
+7:36am  up 6 days, 16:45,  load average: 0.20, 0.23, 0.18
+.Ed
+.Sh DIAGNOSTICS
+.Bl -tag -width Ds -compact
+.It "rstat: RPC: Program not registered"
+The
+.Nm rstatd
+daemon has not been started on the remote host.
+.It "rstat: RPC: Timed out"
+A communication error occurred.  Either the network is
+excessively congested, or the
+.Nm rstatd
+daemon has terminated on the remote host.
+.It "rstat: RPC: Port mapper failure - RPC: Timed out"
+The remote host is not running the portmapper (see
+.Xr portmap 8 ) ,
+and cannot accomodate any RPC-based services.  The host may be down.
+.El
+.Sh "SEE ALSO"
+.Xr rpc 5 ,
+.Xr rstatd 8
+.Sh AUTHORS
+.Nm Rstat
+is derived from the Sun Microsystems public RPC distribution.
+.Sh BUGS
+.Nm Rstat
+doesn't take advantage of the extended statistics reported by
+.Xr rstatd 8 .

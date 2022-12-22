@@ -1,0 +1,29 @@
+ENTRY	shsdrvr.c	/^#define ENTRY(str) {(BYTE *)str, sizeof(str)-1}$/
+Mshsdrvr	shsdrvr.c	/^main(argc, argv)$/
+ROT	shs.c	/^#define ROT(X,n)  (((X)<<(n)) | ((X)>>(32-(n))))$/
+dualData	shsdual.c	/^dualData(pre_str, pre_len, inString, in_len, even,/
+dualFile	shsdual.c	/^dualFile(pre_str, pre_len, filename, even, odd)$/
+dualMain	shsdual.c	/^dualMain(argc, argv, pre_str, pre_len, data_str)$/
+dualOutput	shsdual.c	/^dualOutput(str, quot, even, odd)$/
+dualStream	shsdual.c	/^dualStream(pre_str, pre_len, stream, even, odd)$/
+dualTest	shsdual.c	/^dualTest()$/
+exor	shs.c	/^#define exor(W,i) (W[(i)&15] ^= W[(i)-14&15] ^ W[(/
+f1	shs.c	/^#define f1(x,y,z)       (z ^ (x&(y^z)))		\/* Round/
+f2	shs.c	/^#define f2(x,y,z)       (x^y^z)			\/* Rounds 20-39/
+f3	shs.c	/^#define f3(x,y,z)       ((x&y) | (z&(x|y)))	\/* Ro/
+f4	shs.c	/^#define f4(x,y,z)       (x^y^z)			\/* Rounds 60-79/
+shsData	shsdrvr.c	/^shsData(pre_str, pre_len, inString, in_len, dig)$/
+shsFile	shsdrvr.c	/^shsFile(pre_str, pre_len, filename, dig)$/
+shsFinal	shs.c	/^shsFinal(shsInfo)$/
+shsHelp	shsdrvr.c	/^shsHelp()$/
+shsInit	shs.c	/^shsInit(shsInfo)$/
+shsOutput	shsdrvr.c	/^shsOutput(str, quot, dig)$/
+shsPreFileRead	shsdrvr.c	/^shsPreFileRead(pre_file, buf)$/
+shsPrint	shsdrvr.c	/^shsPrint(shsInfo)$/
+shsStream	shsdrvr.c	/^shsStream(pre_str, pre_len, stream, dig)$/
+shsTestSuite	shsdrvr.c	/^shsTestSuite()$/
+shsTimeTrial	shsdrvr.c	/^shsTimeTrial()$/
+shsTransform	shs.c	/^shsTransform(digest, W)$/
+shsUpdate	shs.c	/^shsUpdate(shsInfo, buffer, count)$/
+shsfullUpdate	shs.c	/^shsfullUpdate(shsInfo, buffer, count)$/
+subRound	shs.c	/^#define subRound(a, b, c, d, e, f, k, data) \\$/

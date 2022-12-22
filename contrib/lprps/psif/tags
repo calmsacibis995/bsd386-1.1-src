@@ -1,0 +1,2 @@
+Mpsif	psif.c	/^main(argc, argv)$/
+sys_error	psif.c	/^void sys_error(s)$/

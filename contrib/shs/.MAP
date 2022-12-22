@@ -1,0 +1,10 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/shs
+F README.SHS;1                      	README.shs
+F SHS.1;1                           	shs.1
+F SHS.C;1                           	shs.c
+F SHS.H;1                           	shs.h
+F SHSDRVR.C;1                       	shsdrvr.c
+F SHSDUAL.C;1                       	shsdual.c
+F TAGS.;1                           	tags
+D TESTS                             	tests

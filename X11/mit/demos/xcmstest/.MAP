@@ -1,0 +1,17 @@
+F CMDTBL_H.GZ;1                     	CmdTbl.h.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F LIBTEST0.GZ;1                     	LibTest.c.gz
+F LIBTEST1.GZ;1                     	LibTest.h.gz
+D TC                                	tc
+F TEKCMSG0.GZ;1                     	TekCMSglob.c.gz
+F TEKCMSG1.GZ;1                     	TekCMSglob.h.gz
+F TEKCMSU0.GZ;1                     	TekCMSutil.c.gz
+F TEKCMSU1.GZ;1                     	TekCMSutil.h.gz
+F TEKCMS_0.GZ;1                     	TekCMS_LT.c.gz
+F TEKCMS_1.GZ;1                     	TekCMS_LT.h.gz
+F TEKCMS_2.GZ;1                     	TekCMS_TCI.c.gz
+F TEKCMS_3.GZ;1                     	TekCMS_TCI.h.gz
+F TESTINI0.GZ;1                     	TestInit.c.gz
+F TESTINI1.GZ;1                     	TestInit.h.gz
+F XCMSTEST.GZ;1                     	xcmstest.man.gz
+F XCMS_TXT.GZ;1                     	Xcms.txt.gz

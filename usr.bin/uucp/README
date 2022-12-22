@@ -1,0 +1,22 @@
+*****************************************************************
+*	Copyright 1992 UUNET Technologies Inc.			*
+*	All rights reserved.					*
+*	Use of this software is subject to a licence agreement.	*
+*****************************************************************
+
+	This is yet another uucp rewrite.
+
+Each program is in its own directory, except for some administration commands
+which are in "admin".  Common library routines are in "lib", non-uucp-specific
+routines are in "libc", the argument processing routines are in "args",
+include files are in "i", and manuals are in "man".
+
+All site-specific details are in "i/site.h", most of them are run-time
+re-configurable in the file "/etc/uucp/CONFIG" (which pathname must
+be hard-wired in "site.h" - but see all programs' "-P" parameter).
+Please look at "i/site.h" and "Makefile.inc" before compiling.
+
+The Makefile targets are:
+	"all"		make all libraries, programs, catman pages
+	"install"	install programs and manuals
+	"clean"		remove ".o" files, binaries, catman pages

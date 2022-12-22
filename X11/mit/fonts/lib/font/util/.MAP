@@ -1,0 +1,12 @@
+F ATOM_C.GZ;1                       	atom.c.gz
+F BITMAPUT.GZ;1                     	bitmaputil.c.gz
+F FONTACCE.GZ;1                     	fontaccel.c.gz
+F FONTNAME.GZ;1                     	fontnames.c.gz
+F FONTUTIL.GZ;1                     	fontutil.c.gz
+F FONTXLFD.GZ;1                     	fontxlfd.c.gz
+F FORMAT_C.GZ;1                     	format.c.gz
+F FSFUNCS_.GZ;1                     	fsfuncs.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MISCUTIL.GZ;1                     	miscutil.c.gz
+F PATCACHE.GZ;1                     	patcache.c.gz
+F PRIVATE_.GZ;1                     	private.c.gz

@@ -1,0 +1,84 @@
+$Id: README,v 1.1.1.1 1993/02/10 18:05:35 sanders Exp $
+
+README for nenscript version 1.12
+Craig Southeren 20-August-1992
+---------------------------------
+
+This directory contains the sources for nenscript, a clone of the
+proprietary enscript program from Adobe Systems. For those who have
+never used enscript, it is a good ASCII to Postscript converter. 
+
+nenscript was written by me over a period of several months whilst
+I was working at Computer Sciences of Australia as a contractor. 
+As a regular net-watcher, I saw that several people had (over the
+years) asked for a public domain version of enscript. Seeing as I
+had got tons of useful stuff off the net, I though this looked like
+a good opportunity to pay back the net community. So I convinced
+my manager that this would be a Good Thing.
+
+The main features of enscript/nenscript are:
+
+	. produces Postscript output which fully conforms to
+	  the Document Structuring Conventions
+	. support for normal and "gaudy" output
+	. support for single or double column output
+	. allows insertion of titles and headers in any font.
+	. multiple copies of a document
+
+Features additional to nenscript are:
+	. automatic wrapping of long lines
+	. availability under MSDOS 
+	. executable is self contained - no additional files required
+
+The main feature that is NOT supported by nenscript is the ability
+to use fonts other than Courier for text output. This would require
+access to full font tables which I don't have have.
+
+nenscript has been extensively used for over six months on a Sun-3/Sun-4
+network with over 50 users. No major problems are currently outstanding.
+This version is identical with the addition of support for MSDOS.
+
+Installation
+------------
+
+For Unix:
+	The makefile provided will install nenscript in /usr/local/bin, with
+	the man page in /usr/local/man/man1. It selects the date to be in
+	US format (i.e. MM DD YY) via the US_DATE define.
+
+For MSDOS:
+	A .MAK file is provided that operate with Microsoft QuickC for Windows
+	version 1. The makefile.msc works with Microsoft C version 7
+	
+
+Features I would like to add:
+-----------------------------
+
+Please send me your suggestions. I can't guarantee that I will do anything
+about themm but if you don't tell me, I definitely won't!!!
+
+1. Support for the ISO-Latin character set. At the moment, characters are
+   just sent down to the printer.
+
+2. Binary file detection. enscript attempts to detect binary files and will
+   will reject them (unless forced to print)
+
+3. Display of control characters. Control characters other than ^L (page
+   break), ^I (tab) and newline are not trapped.
+
+4. Only A4 size paper is currently supported, but it wouldn;t be very
+   difficult to add other paper sizes to defs.h. If only I new what was
+   wanted.....
+
+
+If you want to modify nenscript...
+----------------------------------
+
+All of the definitions which might want to be changed are in defs.h.
+Using this file, you can change the papaer size, default printer, 
+environment variable names, etc. If you want to hack the code, best
+of luck!! nenscript started off as a quick hack to fix an immediate
+problem (don't all programs??) and I made the mistake of making
+is visible to management who immediately made it public. So I make no 
+apologies for lack of comments etc. 
+

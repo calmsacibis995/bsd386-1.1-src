@@ -1,0 +1,55 @@
+CONFIRMOK	interactive.c	/^#define CONFIRMOK(d) \\$/
+CTRL	interactive.c	/^#define CTRL(x) ((x)&037)$/
+GETORIGNORE	interactive.c	/^#define GETORIGNORE(a1,a2) checkget(a1, a2); IGNOR/
+ISDOS	interactive.c	/^#define ISDOS(n) ((n) == MBS_DOS12 || (n) == MBS_D/
+Mdisksetup	disksetup.c	/^main(argc, argv)$/
+WARNIF	interactive.c	/^#define WARNIF(bool,mesg)  if (bool) { warn(mesg);/
+WARNIF2	interactive.c	/^#define WARNIF2(bool,m1,m2)  if (bool) { warn(m1,m/
+adjstart	interactive.c	/^adjstart(m)$/
+atosectors	interactive.c	/^atosectors(line, n)$/
+checkdosgeom	disksetup.c	/^checkdosgeom(dlp, dl)$/
+checkdoslabel	disksetup.c	/^checkdoslabel(dlp, lp)$/
+checkget	checkget.c	/^checkget(linelen, buf)$/
+cleanup	checkget.c	/^cleanup()$/
+cleanup2	checkget.c	/^cleanup2()$/
+cleanup3	checkget.c	/^cleanup3()$/
+cleanupleave	checkget.c	/^cleanupleave()$/
+clearline	interactive.c	/^clearline(line)$/
+confirm	checkget.c	/^confirm(message)$/
+diocwlabel	disksetup.c	/^diocwlabel(f, flag)$/
+disktypetostring	interactive.c	/^disktypetostring(disktype)$/
+dkcksum	dkcksum.c	/^dkcksum(lp)$/
+edit	disksetup.c	/^edit()$/
+editit	disksetup.c	/^editit()$/
+erasechars	checkget.c	/^erasechars(n)$/
+getcurrentlabels	disksetup.c	/^getcurrentlabels(dfd)$/
+getfirstlabel	disksetup.c	/^getfirstlabel(diskfd)$/
+getnumber	disksetup.c	/^getnumber(promptstring)$/
+interactive	interactive.c	/^interactive(dos_parts, bsd_parts)$/
+interactive2	interactive.c	/^interactive2(bsd_parts)$/
+interrupt	checkget.c	/^interrupt()$/
+kludgedos	disksetup.c	/^kludgedos(doslp, bsdlp)$/
+l_perror	disksetup.c	/^l_perror(s)$/
+makebsdbootarea	disksetup.c	/^makebsdbootarea(boot, dp, xxbootsec)$/
+makelabel	disksetup.c	/^makelabel(type, name, lp)$/
+makepartitions	disksetup.c	/^makepartitions (lp)$/
+phase1	interactive.c	/^phase1(dos_parts, bsd_parts)$/
+phase2	interactive.c	/^phase2(dos_parts, bsd_parts)$/
+prompt	disksetup.c	/^prompt(s)$/
+promptforlabel	disksetup.c	/^promptforlabel()$/
+readlabel	disksetup.c	/^readlabel(f, startsector)$/
+removefrombsdindos	interactive.c	/^removefrombsdindos(partition)$/
+rootpart	disksetup.c	/^rootpart(mp)$/
+setblank	checkget.c	/^setblank(ly, lx, xstandout, len)$/
+setdostype	interactive.c	/^setdostype(m)$/
+setup	checkget.c	/^setup()$/
+setupmbr	disksetup.c	/^setupmbr()$/
+showgeometry	disksetup.c	/^showgeometry(label)$/
+showline	checkget.c	/^showline(ly, lx, xstandout, line)$/
+sorttheparts	interactive.c	/^sorttheparts(dos_parts, bsd_parts, sortparts)$/
+systemtostring	interactive.c	/^systemtostring(sys)$/
+tolc	interactive.c	/^tolc(p)$/
+usage	disksetup.c	/^usage()$/
+warn	checkget.c	/^warn(va_alist) va_dcl$/
+writelabel	disksetup.c	/^writelabel(f, boot, lp, offset)$/
+z	z.c	/^z(va_alist) va_dcl$/

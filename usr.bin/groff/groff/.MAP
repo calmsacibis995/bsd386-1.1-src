@@ -1,0 +1,10 @@
+F GROFF.CC;1                        	groff.cc
+F GROFF.MAN;1                       	groff.man
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/groff
+F PIPELINE.C;1                      	pipeline.c
+F PIPELINE.H;1                      	pipeline.h
+F PSROFF.;1                         	psroff
+F TAGS.;1                           	tags
+F XROFF.;1                          	xroff

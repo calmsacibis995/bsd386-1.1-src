@@ -1,0 +1,49 @@
+Mcron	cron.c	/^main(argc, argv)$/
+TMAX	database.c	/^#define TMAX(a,b) ((a)>(b)?(a):(b))$/
+acquire_daemonlock	misc.c	/^acquire_daemonlock(closeflag)$/
+allowed	misc.c	/^allowed(username)$/
+arpadate	misc.c	/^arpadate(clock)$/
+child_process	do_command.c	/^child_process(e, u)$/
+cron_pclose	popen.c	/^cron_pclose(iop)$/
+cron_popen	popen.c	/^cron_popen(program, type)$/
+do_command	do_command.c	/^do_command(e, u)$/
+do_univ	do_command.c	/^do_univ(u)$/
+env_copy	env.c	/^env_copy(envp)$/
+env_free	env.c	/^env_free(envp)$/
+env_get	env.c	/^env_get(name, envp)$/
+env_init	env.c	/^env_init()$/
+env_set	env.c	/^env_set(envp, envstr)$/
+find_user	database.c	/^find_user(db, name)$/
+first_word	misc.c	/^first_word(s, t)$/
+free_entry	entry.c	/^free_entry(e)$/
+free_user	user.c	/^free_user(u)$/
+get_char	misc.c	/^get_char(file)$/
+get_list	entry.c	/^get_list(bits, low, high, names, ch, file)$/
+get_number	entry.c	/^get_number(numptr, low, names, ch, file)$/
+get_range	entry.c	/^get_range(bits, low, high, names, ch, file)$/
+get_string	misc.c	/^get_string(string, size, file, terms)$/
+in_file	misc.c	/^in_file(string, file)$/
+job_add	job.c	/^job_add(e, u)$/
+job_runqueue	job.c	/^job_runqueue()$/
+link_user	database.c	/^link_user(db, u)$/
+load_database	database.c	/^load_database(old_db)$/
+load_entry	entry.c	/^load_entry(file, error_func, pw, envp)$/
+load_env	env.c	/^load_env(envstr, f)$/
+load_user	user.c	/^load_user(crontab_fd, pw, name)$/
+log_close	misc.c	/^log_close() {$/
+log_it	misc.c	/^log_it(username, xpid, event, detail)$/
+mkprint	misc.c	/^mkprint(dst, src, len)$/
+mkprints	misc.c	/^mkprints(src, len)$/
+process_crontab	database.c	/^process_crontab(uname, fname, tabname, statbuf, ne/
+set_cron_cwd	misc.c	/^set_cron_cwd()$/
+set_cron_uid	misc.c	/^set_cron_uid()$/
+set_debug_flags	misc.c	/^set_debug_flags(flags)$/
+set_element	entry.c	/^set_element(bits, low, high, number)$/
+skip_comments	misc.c	/^skip_comments(file)$/
+strcmp_until	misc.c	/^strcmp_until(left, right, until)$/
+strdtb	misc.c	/^strdtb(s)$/
+swap_uids	misc.c	/^int swap_uids() { save_euid = geteuid(); return se/
+swap_uids_back	misc.c	/^int swap_uids_back() { return seteuid(save_euid); /
+unget_char	misc.c	/^unget_char(ch, file)$/
+unlink_user	database.c	/^unlink_user(db, u)$/
+usage	cron.c	/^usage() {$/

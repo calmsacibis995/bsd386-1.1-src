@@ -1,0 +1,103 @@
+BADOPT	getopt.c	/^#define	BADOPT(mess, ch)	if (opterr) { \\$/
+DESauth1crypt	auth12crypt.c	/^DESauth1crypt(keyno, pkt, length)$/
+DESauth2crypt	auth12crypt.c	/^DESauth2crypt(keyno, pkt, length)$/
+DESauth_des	authdes.c	/^DESauth_des(data, subkeys)$/
+DESauth_parity	authparity.c	/^DESauth_parity(key)$/
+DESauth_setkey	authkeys.c	/^DESauth_setkey(keyno, key)$/
+DESauth_subkeys	authdes.c	/^DESauth_subkeys(key, encryptkeys, decryptkeys)$/
+DESauthdecrypt	authdecrypt.c	/^DESauthdecrypt(keyno, pkt, length)$/
+DESauthencrypt	authencrypt.c	/^DESauthencrypt(keyno, pkt, length)$/
+F	md5.c	/^#define F(x, y, z) (((x) & (y)) | ((~x) & (z)))$/
+FF	md5.c	/^#define FF(a, b, c, d, x, s, ac) \\$/
+FindConfig	findconfig.c	/^FindConfig(base)$/
+G	md5.c	/^#define G(x, y, z) (((x) & (z)) | ((y) & (~z)))$/
+GG	md5.c	/^#define GG(a, b, c, d, x, s, ac) \\$/
+H	md5.c	/^#define H(x, y, z) ((x) ^ (y) ^ (z))$/
+HH	md5.c	/^#define HH(a, b, c, d, x, s, ac) \\$/
+I	md5.c	/^#define I(x, y, z) ((y) ^ ((x) | (~z)))$/
+II	md5.c	/^#define II(a, b, c, d, x, s, ac) \\$/
+KEYHASH	authkeys.c	/^#define	KEYHASH(keyid)	((keyid) & HASHMASK)$/
+MD5Final	md5.c	/^void MD5Final (mdContext)$/
+MD5Init	md5.c	/^void MD5Init (mdContext)$/
+MD5Update	md5.c	/^void MD5Update (mdContext, inBuf, inLen)$/
+MD5auth1crypt	a_md512crypt.c	/^MD5auth1crypt(keyno, pkt, length)$/
+MD5auth2crypt	a_md512crypt.c	/^MD5auth2crypt(keyno, pkt, length)$/
+MD5auth_setkey	authkeys.c	/^MD5auth_setkey(keyno, key)$/
+MD5authdecrypt	a_md5decrypt.c	/^MD5authdecrypt(keyno, pkt, length)$/
+MD5authencrypt	a_md5encrypt.c	/^MD5authencrypt(keyno, pkt, length)$/
+MULBY10	clocktime.c	/^#define	MULBY10(x)	(((x)<<3) + ((x)<<1))$/
+MULBY24	clocktime.c	/^#define	MULBY24(x)	(((x)<<4) + ((x)<<3))$/
+MULBY60	clocktime.c	/^#define	MULBY60(x)	(((x)<<6) - ((x)<<2))	\/* watch/
+ROTATE_LEFT	md5.c	/^inline UINT4 ROTATE_LEFT(UINT4 x, int n)$/
+Transform	md5.c	/^static void Transform (buf, in)$/
+adj_systime	systime.c	/^adj_systime(ts)$/
+atoint	atoint.c	/^atoint(str, ival)$/
+atolfp	atolfp.c	/^atolfp(str, lfp)$/
+atouint	atouint.c	/^atouint(str, uval)$/
+auth1crypt	authkeys.c	/^auth1crypt(keyno, pkt, length)$/
+auth2crypt	authkeys.c	/^auth2crypt(keyno, pkt, length)$/
+auth_delkeys	authkeys.c	/^auth_delkeys()$/
+auth_findkey	authkeys.c	/^auth_findkey(keyno)$/
+auth_havekey	authkeys.c	/^auth_havekey(keyno)$/
+auth_moremem	authkeys.c	/^auth_moremem()$/
+authdecrypt	authkeys.c	/^authdecrypt(keyno, pkt, length)$/
+authencrypt	authkeys.c	/^authencrypt(keyno, pkt, length)$/
+authhavekey	authkeys.c	/^authhavekey(keyno)$/
+authistrusted	authkeys.c	/^authistrusted(keyno)$/
+authreadkeys	authreadkeys.c	/^authreadkeys(file)$/
+authtrust	authkeys.c	/^authtrust(keyno, trust)$/
+authusekey	authusekey.c	/^authusekey(keyno, keytype, str)$/
+bcmp	machines.c	/^bcmp(a, b, count)$/
+bcopy	machines.c	/^bcopy(from, to, count)$/
+buftvtots	buftvtots.c	/^buftvtots(bufp, ts)$/
+bzero	machines.c	/^bzero(area, count)$/
+caljulian	caljulian.c	/^caljulian(ntptime, jt)$/
+calleapwhen	calleapwhen.c	/^calleapwhen(ntpdate, leaplast, leapnext)$/
+caltontp	caltontp.c	/^caltontp(jt)$/
+calyearstart	calyearstart.c	/^calyearstart(dateinyear)$/
+clockname	clocktypes.c	/^clockname(num)$/
+clocktime	clocktime.c	/^clocktime(yday, hour, minute, second, tzoff, rec_u/
+decodenetnum	decodenetnum.c	/^decodenetnum(num, netnum)$/
+dofptoa	dofptoa.c	/^dofptoa(fpv, neg, ndec, msec)$/
+dolfptoa	dolfptoa.c	/^dolfptoa(fpi, fpv, neg, ndec, msec)$/
+emalloc	emalloc.c	/^emalloc(size)$/
+fptoa	fptoa.c	/^fptoa(fpv, ndec)$/
+fptoms	fptoms.c	/^fptoms(fpv, ndec)$/
+get_systime	systime.c	/^get_systime(ts)$/
+getdtablesize	machines.c	/^getdtablesize()$/
+getopt_l	getopt.c	/^getopt_l(argc, argv, optstring)$/
+gettimeofday	machines.c	/^int gettimeofday(tvp)$/
+gettstamp	gettstamp.c	/^gettstamp(ts)$/
+hextoint	hextoint.c	/^hextoint(str, ival)$/
+hextolfp	hextolfp.c	/^hextolfp(str, lfp)$/
+humandate	humandate.c	/^humandate(ntptime)$/
+humanlogtime	humandate.c	/^humanlogtime()$/
+index	machines.c	/^*index(s, c)$/
+init_auth	authkeys.c	/^init_auth()$/
+init_lib	lib_strbuf.c	/^init_lib()$/
+init_random	ranny.c	/^init_random()$/
+inttoa	inttoa.c	/^inttoa(ival)$/
+mfptoa	mfptoa.c	/^mfptoa(fpi, fpf, ndec)$/
+mfptoms	mfptoms.c	/^mfptoms(fpi, fpf, ndec)$/
+modetoa	modetoa.c	/^modetoa(mode)$/
+mstolfp	mstolfp.c	/^mstolfp(str, lfp)$/
+msyslog	msyslog.c	/^void msyslog(va_alist)$/
+nexttok	authreadkeys.c	/^nexttok(str)$/
+numtoa	numtoa.c	/^numtoa(num)$/
+numtohost	numtohost.c	/^numtohost(netnum)$/
+octtoint	octtoint.c	/^octtoint(str, ival)$/
+prettydate	prettydate.c	/^prettydate(ts)$/
+ranny	ranny.c	/^ranny(m)$/
+ranp2	ranny.c	/^ranp2(m)$/
+refnumtoa	refnumtoa.c	/^refnumtoa(num)$/
+rindex	machines.c	/^*rindex(s, c)$/
+setlinebuf	machines.c	/^setlinebuf(a_stream)$/
+settimeofday	machines.c	/^int settimeofday(tvp)$/
+signal_no_reset	syssignal.c	/^signal_no_reset(sig, func)$/
+step_systime	systime.c	/^step_systime(ts)$/
+step_systime_real	systime.c	/^step_systime_real(ts)$/
+tsftomsu	tsftomsu.c	/^tsftomsu(tsf, round)$/
+tvtoa	tvtoa.c	/^tvtoa(tv)$/
+uglydate	uglydate.c	/^uglydate(ts)$/
+uinttoa	uinttoa.c	/^uinttoa(uval)$/
+utvtoa	utvtoa.c	/^utvtoa(tv)$/

@@ -1,0 +1,8 @@
+F BUILDM4.;1                        	buildm4
+F CHANGELO.;1                       	ChangeLog
+D CRYPT                             	crypt
+F MAKEFILE.;1                       	Makefile
+F RES_COMP.C;1                      	res_comp.c
+F RES_INIT.C;1                      	res_init.c
+F RES_MKQU.C;1                      	res_mkquery.c
+F VERSION_.SH;1                     	version.c.SH

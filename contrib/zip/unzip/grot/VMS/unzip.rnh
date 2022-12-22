@@ -1,0 +1,134 @@
+.!
+.!  File:	UNZIP.RNH
+.!
+.!  Author:	Hunter Goatley
+.!
+.!  Date:	October 23, 1991
+.!
+.!  Description:
+.!
+.!	RUNOFF source file for portable UNZIP on-line help for VMS.
+.!	Adapted from UNZIP.MAN, distributed with UNZIP.
+.!
+.!	To build:	$ RUNOFF UNZIP.RNH
+.!			$ LIBR/HELP/INSERT libr UNZIP
+.!
+.!  Modification history:
+.!
+.!	01-001		Hunter Goatley		23-OCT-1991 09:21
+.!		Genesis.
+.!	01-002		Cave Newt		16-MAR-1992 22:37
+.!		Update for UnZip 4.2.
+.!	01-003		Igor Mandrichenko	23-MAY-1992 22:14
+.!		Add -X option to command syntax.
+.!	01-004		Cave Newt		24-MAY-1992 13:30
+.!		Add UNZIP_OPTS environment variable help.
+.!
+.noflags
+.lm4 .rm72
+.indent -4
+1 UNZIP
+.br
+UnZip is used to extract files compressed and packaged by Zip (see HELP ZIP
+for information on ZIP).
+.sk
+For a brief help on Zip and Unzip, run each without specifying any
+parameters on the command line.
+.sk
+UNZIP will list, test, or extract from a ZIP archive.  ZIP archives are commonly
+found on MS-DOS systems; a VMS version of ZIP can also be found here.
+.sk
+Archive member extraction is implied by the absence of the -c, -p, -t, -l, -v or
+-z options.  All archive members are processed unless a filespec is provided to
+specify a subset of the archive members.  The filespec is similar to an egrep
+expression, and may contain:
+.sk
+.literal
+     *       matches a sequence of 0 or more characters
+     ?       matches exactly 1 character
+     \nnn    matches the character having octal code nnn
+     [...]   matches any single character found inside the brackets;
+             ranges are specified by a beginning character,
+             a hyphen, and an ending character.  If a '!' follows
+             the left bracket, then the range of characters
+             matched is complemented with respect to the ASCII
+             character set.
+.end literal
+.sk
+Format:
+.sk;.lm+1;.literal
+UNZIP [-cflptuvxz[ajnoqUVX]] file[.zip] [filespec...]
+.end literal;.lm-1
+.!------------------------------------------------------------------------------
+.indent -4
+2 Parameters
+.sk;.indent -4
+file[.zip]
+.sk
+File specification for the ZIP archive.  The suffix .ZIP is applied if the
+specified file does not exist.  Note that self-extracting ZIP files are
+supported; just specify the .EXE suffix yourself.
+.sk;.indent -4
+[filespec]
+.sk
+An optional list of archive members to be processed.  Expressions may be
+used to match multiple members.  Expressions should be enclosed in double-quotes
+to prevent interpretation by DCL.  Multiple filenames should be separated by
+blanks.
+.!------------------------------------------------------------------------------
+.indent -4
+2 Options
+.br
+The default action of UnZip is to extract all zipfile entries.  The following
+options and modifiers can be provided:
+.sk;.literal
+   -c   extract files to SYS$OUTPUT (terminal)
+   -f   freshen existing files (replace if newer); create none
+   -l   list archive files (short format)
+   -p   extract files to SYS$OUTPUT; no informational messages
+   -t   test archive files
+   -u   update existing files; create new ones if needed
+   -v   list archive files (verbose format)
+   -x   extract files in archive (default)
+   -z   display only the archive comment
+.end literal;.sk;.literal
+ MODIFIERS
+   -a   convert to VMS textfile format (only use for TEXT files!)
+   -j   junk paths (don't recreate archive's directory structure)
+   -n   never overwrite existing files; don't prompt
+   -o   OK to overwrite files without prompting
+   -q   perform operations quietly (-qq => even quieter)
+   -U   leave filenames uppercase if created under MS-DOS, VMS, etc.
+   -V   retain (VMS) file version numbers
+   -X   restore owner/protection info (may require privileges)
+.end literal;.sk
+! [this should probably be a separate section]:
+In addition, default options may be specified via the UNZIP_OPTS logical.
+For example, the following will cause UnZip to restore owner/protection
+information and perform all operations at quiet-level 1 by default:
+.sk;.literal
+    define UNZIP_OPTS "-qX"
+.end literal;.sk
+Note that the quotation marks are required to preserve lowercase options.
+To negate a default option on the command line, add one or more minus 
+signs before the option letter, in addition to the leading switch character
+`-':
+.sk;.literal
+    unzip --ql zipfile
+.end literal
+or
+.literal
+    unzip -l-q zipfile
+.end literal;.sk
+At present it is not possible to decrement an option below zero--that is,
+more than a few minuses have no effect.
+.sk
+UNZIP_OPTS may be defined as a symbol rather than a logical, but if both
+are defined, the logical is used.
+.!-----------------------------------------------------------------------------
+.indent -4
+2 Authors
+.br
+Samuel H. Smith, Usenet contributors, and Info-ZIP.
+.sk
+VMS on-line help ported from UNZIP.MAN by Hunter Goatley.

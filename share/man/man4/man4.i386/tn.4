@@ -1,0 +1,74 @@
+.\"  tn.4 Copyright 1993, South Coast Computing Services, Inc.
+.\"  Released for unrestricted use, provided the file is not modified.
+.Dd July 22, 1993
+.Dt TN 4 i386
+.Os BSD 4.3
+.Sh NAME
+.Nm tn
+.Nd
+.Tn TNIC-1500
+.Tn ISA bus
+10 Mb/s Ethernet interface
+.Sh SYNOPSIS
+.Cd "device tn0 at isa? port 0x320 drq 6 flags 0x44108A04"
+.Cd "options TNDEBUG"
+.Cd "ifconfig tn0 [-]debug"
+.Sh DESCRIPTION
+The
+.Nm tn
+interface provides access to a 10 Mb/s Ethernet network through
+the
+.Tn TNIC-1500
+.Tn ISA bus
+controller.  The controller is based on the AMD Am79C960 PCnet-ISA
+chip in bus master DMA mode.  The cards are available through
+.Tn South Coast Computing Services, Inc.
+.Pp
+The driver provides a standard ethernet device interface.
+In addition, it will provide a diagnostic dump when the
+ifconfig debug command is issued.  If the TNDEBUG option was configured
+into the kernel, the ifconfig debug command will cause per-packet
+and other trace information to be printed.  The trace can be
+deactivated by issuing an ifconfig -debug command.
+.Pp
+The driver discovers the irq setting, but the DMA channel
+number must be configured in.  The recommended settings of
+port 0x320, drq 6, and irq 12 minimize conflicts with other
+standard devices.  In particular, the Adaptec SCSI host adapter
+use drq 5 and irq 11 by default.
+.Pp
+The flags field of the configuration line is used to set DMA
+read and write pulse widths and to define the LED functions.
+Unused portions may be left at zero, in which case the chip's
+defaults are used.  The low-order three bytes are the LED1-3 enable
+masks; the low-order byte is LED1.  See the include file
+i386/isa/ic/am79c960.h for the bit assignments.
+.Pp
+The high-order byte of the flags word is the
+DMA pulse width control, with the first digit specifying the
+read pulse width and the second digit specifying the write
+pulse width.  The numbers are in fifty nanosecond units with a default
+value of five (250ns).  Reducing these values will reduce the
+bus overhead, but many motherboards will not let you get away with it.
+.Sh ADVERTISEMENT
+For information or to order TNIC-1500 boards, contact South Coast
+by any of the following means:
+.br
+Email sales@sccsi.com
+.br
+Telephone +1 713 661 3301
+.br
+FAX +1 713 661 0633
+.br
+Mail P.O. Box 270355 Houston, TX 77277 USA
+.Sh SEE ALSO
+.Xr netintro 4 ,
+.Xr inet 4 ,
+.Xr arp 4 ,
+The Am79c960 datasheet
+.Sh HISTORY
+The
+.Nm tn
+driver was written by Steve Nuchia of South Coast Computing Services, Inc.
+and published in July of 1993.  See the source file /sys/i386/isa/if_tn.c
+for copyright information.

@@ -1,0 +1,2 @@
+../bash ./glob-test | grep -v '^expect' > xx
+diff xx glob-test.right && rm -f xx

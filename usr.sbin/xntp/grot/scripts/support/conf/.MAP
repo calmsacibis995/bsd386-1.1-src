@@ -1,0 +1,17 @@
+F HP300.HP3;1                       	hp300.hp300
+F HP700.HP7;1                       	hp700.hp700
+F HP700_HP.FAU;1                    	hp700.hp700.faui47
+F HP800.HP8;1                       	hp800.hp800
+F NTP_CONF.;1                       	ntp.conf
+F NTP_KEYS.;1                       	ntp.keys
+F NTP_KEYS.DUM;1                    	ntp.keys.dumb
+F SUN3.SUN;1                        	sun3.sun3
+F SUN40.SUN;1                       	sun4.sun4c
+F SUN41.SUN;1                       	sun4.sun4m
+F SUN4_SU0.FAU;1                    	sun4.sun4.faui01
+F SUN4_SU1.FAU;1                    	sun4.sun4.faui10
+F SUN4_SU2.FAU;1                    	sun4.sun4.faui45
+F SUN4_SU3.FAU;1                    	sun4.sun4m.faui42
+F SUN4_SU4.FAU;1                    	sun4.sun4m.faui45m
+F SUN4_SUN.LUC;1                    	sun4.sun4c.Lucifer
+F TICKCONF.;1                       	tickconf

@@ -1,0 +1,13 @@
+F BIOS_DEV.GZ;1                     	bios_devmem.c.gz
+F INOUT_S.GZ;1                      	inout.s.gz
+F IOPERM_N.GZ;1                     	ioperm_noop.c.gz
+F IO_UTILS.GZ;1                     	IO_utils.c.gz
+F MAPVT_NO.GZ;1                     	mapVT_noop.c.gz
+F POSIX_TT.GZ;1                     	posix_tty.c.gz
+F STD_KBDE.GZ;1                     	std_kbdEv.c.gz
+F STD_MOUS.GZ;1                     	std_mouse.c.gz
+F STD_MSEE.GZ;1                     	std_mseEv.c.gz
+F SYSV_KBD.GZ;1                     	sysv_kbd.c.gz
+F SYSV_TTY.GZ;1                     	sysv_tty.c.gz
+F VTSW_NOO.GZ;1                     	VTsw_noop.c.gz
+F VTSW_USL.GZ;1                     	VTsw_usl.c.gz

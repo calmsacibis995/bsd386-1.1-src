@@ -1,0 +1,5 @@
+F CRT0.C;1                          	crt0.c
+F GMON.C;1                          	gmon.c
+F GMON.H;1                          	gmon.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/lib/csu.i386

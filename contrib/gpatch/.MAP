@@ -1,0 +1,26 @@
+F BACKUPFI.C;1                      	backupfile.c
+F BACKUPFI.H;1                      	backupfile.h
+F COMMON.H;1                        	common.h
+F CONFIG.H;1                        	config.h
+F COPYING.;1                        	COPYING
+F EXTERN.H;1                        	EXTERN.h
+F GETOPT.C;1                        	getopt.c
+F GETOPT.H;1                        	getopt.h
+F GETOPT1.C;1                       	getopt1.c
+F GPATCH.1;1                        	gpatch.1
+D GROT                              	grot
+F INP.C;1                           	inp.c
+F INP.H;1                           	inp.h
+F INTERN.H;1                        	INTERN.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/gpatch
+F PATCH.C;1                         	patch.c
+F PATCHLEV.H;1                      	patchlevel.h
+F PCH.C;1                           	pch.c
+F PCH.H;1                           	pch.h
+F RENAME.C;1                        	rename.c
+F TAGS.;1                           	tags
+F UTIL.C;1                          	util.c
+F UTIL.H;1                          	util.h
+F VERSION.C;1                       	version.c
+F VERSION.H;1                       	version.h

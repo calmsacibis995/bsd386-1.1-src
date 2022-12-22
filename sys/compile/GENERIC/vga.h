@@ -1,0 +1,1 @@
+#define NVGA 1

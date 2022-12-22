@@ -1,0 +1,10 @@
+     source file [ arg ... ]
+     . file [ arg ... ]
+          Read and execute commands  from  file  in  the  current
+          shell  environment.   If file does not contain a slash,
+          the shell looks in the components of path to  find  the
+          directory  containing  file.   If any arguments arg are
+          given, they become the positional parameters;  the  old
+          positional  parameters  are  restored  when the file is
+          done executing.  The exit status is the exit status  of
+          the last command executed.

@@ -1,0 +1,88 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.usr-sportster,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for using the Class 1 command interface with
+# a USR Sportster modem.  Beware that there are apparently two
+# different architectures for the modem.  Also, use of old
+# firmware can result in timing problems.  The following firmware
+# is known to work:
+#
+#		Rev	Date
+# Supervisor	4.1	04/22/93
+# DSP		10	03/23/93
+#
+# If you do not have up-to-date firmware and are experiencing
+# problems, contact USR to get an upgrade (apparently for free).
+#
+# XON/XOFF flow control is used.  RTS/CTS is also known to work.
+#
+# Note that when sending DCD is raised when carrier is first received,
+# but then dropped from the first HDLC receive until the point where the
+# initial training is sent (from that point on DCD is asserted). This
+# can be a problem because there is no way to override this behaviour
+# which means that the host must be capable of ignoring DCD for sending
+# to function correctly.
+#
+# CONFIG: CLASS1: 1444: Manufacturer=USRobotics Model=Sportster
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log session-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# audible confirmation
+RingsBeforeAnswer:	1		# answer on first ring
+#
+# Modem-related stuff: should reflect modem command interface
+# and hardware connection/cabling (e.g. flow control).
+#
+# Note that we setup the modem to idle in class 0 to avoid
+# jinxing dial out programs.  See ModemSetupAACmd, ModemDialCmd
+# and ModemAnswerCmd.
+#
+# NB:  Modem sets &H3&I2 on +FCLASS=1
+#
+ModemType:		Class1		# use this to supply a hint
+ModemRate:		38400		# max rate for DCE-DTE communication
+ModemFlowControl:	xonxoff		# SunOS does CTS but not RTS
+ModemSetupDTRCmd:	&D2		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+ModemSetupAACmd:	+FCLASS=0&H1&I0
+ModemSetVolumeCmd:	"M0 M1 M1 M1 M1"# OFF QUIET LOW MEDIUM HIGH
+#
+#GettyArgs:		"-h %l dx_%s"	# NB: enable this for dialins (SGI)
+#GettyArgs:		"std.%s -"	# NB: enable this for dialins (SunOS)
+#
+# NB: If you need to prefix phone numbers to get through a PBX,
+#     put it in the ModemDialCmd; e.g. "DT9%s@".
+#
+ModemDialCmd:		+FCLASS=1DT%s	# T for tone dialing (XON/XOFF)
+#ModemDialCmd:		+FCLASS=1&H1&I0DT%s	# T for done dialing, (CTS/RTS)
+#
+# A shorter than normal timer is required for incoming calls to
+# avoid timing out most data callers when using adaptive answer.
+#
+Class1RecvIdentTimer:	15000		# shorter timer for incoming ID
+AdaptiveAnswer:		yes		# alternate fax/data answer on error
+ModemAnswerCmd:		+FCLASS=1A	# "generic" answer (counter 0 idle)
+#ModemAnswerCmd:		+FCLASS=1&H1&I0A	# (CTS/RTS)
+#
+# HACK:  Make sure the phone is on on-hook before answering in data mode.
+# This allows a crude adaptive answer capability by taking advantage of
+# the fact that, in the US at least, the phone company won't drop the
+# caller for ten seconds.
+#
+ModemAnswerDataCmd:	H+FCLASS=0A	# data answer (XON/XOFF)
+#ModemAnswerDataCmd:	H+FCLASS=0&H1&I0A	# data answer (RTS/CTS)
+ModemAnswerFaxCmd:	+FCLASS=1A	# fax answer (XON/XOFF)
+#ModemAnswerFaxCmd:	+FCLASS=1&H1&I0A	# fax answer (RTS/CTS)
+#
+ModemMfrQueryCmd:	!USR		# US Robotics
+ModemModelQueryCmd:	I3
+ModemRevQueryCmd:	I7

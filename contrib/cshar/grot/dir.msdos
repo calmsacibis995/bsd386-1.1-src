@@ -1,0 +1,284 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of shell archive."
+# Contents:  msd_dir.c msd_dir.h
+# Wrapped by rsalz@fig.bbn.com on Thu May 26 16:06:31 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'msd_dir.c' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'msd_dir.c'\"
+else
+echo shar: Extracting \"'msd_dir.c'\" \(4114 characters\)
+sed "s/^X//" >'msd_dir.c' <<'END_OF_FILE'
+X/*
+X * @(#)msd_dir.c 1.4 87/11/06	Public Domain.
+X *
+X *  A public domain implementation of BSD directory routines for
+X *  MS-DOS.  Written by Michael Rendell ({uunet,utai}michael@garfield),
+X *  August 1897
+X */
+X
+X#include	<sys/types.h>
+X#include	<sys/stat.h>
+X#include	<sys/dir.h>
+X#include	<malloc.h>
+X#include	<string.h>
+X#include	<dos.h>
+X
+X#ifndef	NULL
+X# define	NULL	0
+X#endif	/* NULL */
+X
+X#ifndef	MAXPATHLEN
+X# define	MAXPATHLEN	255
+X#endif	/* MAXPATHLEN */
+X
+X/* attribute stuff */
+X#define	A_RONLY		0x01
+X#define	A_HIDDEN	0x02
+X#define	A_SYSTEM	0x04
+X#define	A_LABEL		0x08
+X#define	A_DIR		0x10
+X#define	A_ARCHIVE	0x20
+X
+X/* dos call values */
+X#define	DOSI_FINDF	0x4e
+X#define	DOSI_FINDN	0x4f
+X#define	DOSI_SDTA	0x1a
+X
+X#define	Newisnull(a, t)		((a = (t *) malloc(sizeof(t))) == (t *) NULL)
+X#define	ATTRIBUTES		(A_DIR | A_HIDDEN | A_SYSTEM)
+X
+X/* what find first/next calls look use */
+typedef struct {
+X	char		d_buf[21];
+X	char		d_attribute;
+X	unsigned short	d_time;
+X	unsigned short	d_date;
+X	long		d_size;
+X	char		d_name[13];
+X} Dta_buf;
+X
+static	char	*getdirent();
+static	void	setdta();
+static	void	free_dircontents();
+X
+static	Dta_buf		dtabuf;
+static	Dta_buf		*dtapnt = &dtabuf;
+static	union REGS	reg, nreg;
+X
+X#if	defined(M_I86LM)
+static	struct SREGS	sreg;
+X#endif
+X
+DIR	*
+opendir(name)
+X	char	*name;
+X{
+X	struct	stat		statb;
+X	DIR			*dirp;
+X	char			c;
+X	char			*s;
+X	struct _dircontents	*dp;
+X	char			nbuf[MAXPATHLEN + 1];
+X	
+X	if (stat(name, &statb) < 0 || (statb.st_mode & S_IFMT) != S_IFDIR)
+X		return (DIR *) NULL;
+X	if (Newisnull(dirp, DIR))
+X		return (DIR *) NULL;
+X	if (*name && (c = name[strlen(name) - 1]) != '\\' && c != '/')
+X		(void) strcat(strcpy(nbuf, name), "\\*.*");
+X	else
+X		(void) strcat(strcpy(nbuf, name), "*.*");
+X	dirp->dd_loc = 0;
+X	setdta();
+X	dirp->dd_contents = dirp->dd_cp = (struct _dircontents *) NULL;
+X	if ((s = getdirent(nbuf)) == (char *) NULL)
+X		return dirp;
+X	do {
+X		if (Newisnull(dp, struct _dircontents) || (dp->_d_entry =
+X			malloc((unsigned) (strlen(s) + 1))) == (char *) NULL)
+X		{
+X			if (dp)
+X				free((char *) dp);
+X			free_dircontents(dirp->dd_contents);
+X			return (DIR *) NULL;
+X		}
+X		if (dirp->dd_contents)
+X			dirp->dd_cp = dirp->dd_cp->_d_next = dp;
+X		else
+X			dirp->dd_contents = dirp->dd_cp = dp;
+X		(void) strcpy(dp->_d_entry, s);
+X		dp->_d_next = (struct _dircontents *) NULL;
+X	} while ((s = getdirent((char *) NULL)) != (char *) NULL);
+X	dirp->dd_cp = dirp->dd_contents;
+X
+X	return dirp;
+X}
+X
+void
+closedir(dirp)
+X	DIR	*dirp;
+X{
+X	free_dircontents(dirp->dd_contents);
+X	free((char *) dirp);
+X}
+X
+struct direct	*
+readdir(dirp)
+X	DIR	*dirp;
+X{
+X	static	struct direct	dp;
+X	
+X	if (dirp->dd_cp == (struct _dircontents *) NULL)
+X		return (struct direct *) NULL;
+X	dp.d_namlen = dp.d_reclen =
+X		strlen(strcpy(dp.d_name, dirp->dd_cp->_d_entry));
+X	dp.d_ino = 0;
+X	dirp->dd_cp = dirp->dd_cp->_d_next;
+X	dirp->dd_loc++;
+X
+X	return &dp;
+X}
+X
+void
+seekdir(dirp, off)
+X	DIR	*dirp;
+X	long	off;
+X{
+X	long			i = off;
+X	struct _dircontents	*dp;
+X
+X	if (off < 0)
+X		return;
+X	for (dp = dirp->dd_contents ; --i >= 0 && dp ; dp = dp->_d_next)
+X		;
+X	dirp->dd_loc = off - (i + 1);
+X	dirp->dd_cp = dp;
+X}
+X
+long
+telldir(dirp)
+X	DIR	*dirp;
+X{
+X	return dirp->dd_loc;
+X}
+X
+static	void
+free_dircontents(dp)
+X	struct	_dircontents	*dp;
+X{
+X	struct _dircontents	*odp;
+X
+X	while (dp) {
+X		if (dp->_d_entry)
+X			free(dp->_d_entry);
+X		dp = (odp = dp)->_d_next;
+X		free((char *) odp);
+X	}
+X}
+X
+static	char	*
+getdirent(dir)
+X	char	*dir;
+X{
+X	if (dir != (char *) NULL) {		/* get first entry */
+X		reg.h.ah = DOSI_FINDF;
+X		reg.h.cl = ATTRIBUTES;
+X#if	defined(M_I86LM)
+X		reg.x.dx = FP_OFF(dir);
+X		sreg.ds = FP_SEG(dir);
+X#else
+X		reg.x.dx = (unsigned) dir;
+X#endif
+X	} else {				/* get next entry */
+X		reg.h.ah = DOSI_FINDN;
+X#if	defined(M_I86LM)
+X		reg.x.dx = FP_OFF(dtapnt);
+X		sreg.ds = FP_SEG(dtapnt);
+X#else
+X		reg.x.dx = (unsigned) dtapnt;
+X#endif
+X	}
+X#if	defined(M_I86LM)
+X	intdosx(&reg, &nreg, &sreg);
+X#else
+X	intdos(&reg, &nreg);
+X#endif
+X	if (nreg.x.cflag)
+X		return (char *) NULL;
+X
+X	return dtabuf.d_name;
+X}
+X
+static	void
+setdta()
+X{
+X	reg.h.ah = DOSI_SDTA;
+X#if	defined(M_I86LM)
+X	reg.x.dx = FP_OFF(dtapnt);
+X	sreg.ds = FP_SEG(dtapnt);
+X	intdosx(&reg, &nreg, &sreg);
+X#else
+X	reg.x.dx = (int) dtapnt;
+X	intdos(&reg, &nreg);
+X#endif
+X}
+END_OF_FILE
+if test 4114 -ne `wc -c <'msd_dir.c'`; then
+    echo shar: \"'msd_dir.c'\" unpacked with wrong size!
+fi
+# end of 'msd_dir.c'
+fi
+if test -f 'msd_dir.h' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'msd_dir.h'\"
+else
+echo shar: Extracting \"'msd_dir.h'\" \(954 characters\)
+sed "s/^X//" >'msd_dir.h' <<'END_OF_FILE'
+X/*
+X * @(#)msd_dir.h 1.4 87/11/06	Public Domain.
+X *
+X *  A public domain implementation of BSD directory routines for
+X *  MS-DOS.  Written by Michael Rendell ({uunet,utai}michael@garfield),
+X *  August 1897
+X */
+X
+X#define	rewinddir(dirp)	seekdir(dirp, 0L)
+X
+X#define	MAXNAMLEN	12
+X
+struct direct {
+X	ino_t	d_ino;			/* a bit of a farce */
+X	int	d_reclen;		/* more farce */
+X	int	d_namlen;		/* length of d_name */
+X	char	d_name[MAXNAMLEN + 1];		/* garentee null termination */
+X};
+X
+struct _dircontents {
+X	char	*_d_entry;
+X	struct _dircontents	*_d_next;
+X};
+X
+typedef struct _dirdesc {
+X	int		dd_id;	/* uniquely identify each open directory */
+X	long		dd_loc;	/* where we are in directory entry is this */
+X	struct _dircontents	*dd_contents;	/* pointer to contents of dir */
+X	struct _dircontents	*dd_cp;	/* pointer to current position */
+X} DIR;
+X
+extern	DIR		*opendir();
+extern	struct direct	*readdir();
+extern	void		seekdir();
+extern	long		telldir();
+extern	void		closedir();
+END_OF_FILE
+if test 954 -ne `wc -c <'msd_dir.h'`; then
+    echo shar: \"'msd_dir.h'\" unpacked with wrong size!
+fi
+# end of 'msd_dir.h'
+fi
+echo shar: End of shell archive.
+exit 0

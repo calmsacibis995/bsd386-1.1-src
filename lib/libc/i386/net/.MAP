@@ -1,0 +1,4 @@
+F HTONL.S;1                         	htonl.s
+F HTONS.S;1                         	htons.s
+F NTOHL.S;1                         	ntohl.s
+F NTOHS.S;1                         	ntohs.s

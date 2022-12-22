@@ -1,0 +1,6 @@
+F COMPRESS.1;1                      	compress.1
+F COMPRESS.C;1                      	compress.c
+D DOC                               	doc
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/compress
+F TAGS.;1                           	tags

@@ -1,0 +1,16 @@
+#!/bin/sh
+# checkalias: part of the Elm mail system
+# @(#): checkalias.SH,v 5.2 1993/04/12 02:11:05 syd Exp 
+#		Copyright (c) 1988-1992 USENET Community Trust
+# 		Copyright (c) 1986,1987 Dave Taylor
+ 
+
+if [ $# -eq 0 ] ; then
+	echo "usage: $0 alias ..." 1>&2
+	exit 1
+fi
+
+elmalias -en $@ | \
+	/usr/contrib/lib/elm/prlong -w 78 -1 "Expands to: " -l "	" -f ", "
+exit $?
+

@@ -1,0 +1,10 @@
+F CHECKGET.C;1                      	checkget.c
+F INSTALLS.8;1                      	installsw.8
+F INSTALLS.C;1                      	installsw.c
+F INSTALLS.H;1                      	installsw.h
+F INTERACT.C;1                      	interactive.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/installsw
+F PATHNAME.H;1                      	pathnames.h
+F TAGS.;1                           	tags
+F Z.C;1                             	z.c

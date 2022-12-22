@@ -1,0 +1,6 @@
+
+	-L	Only call `local' sites [LOCAL/DIR/TCP].
+	-R	Reverse roles, remote sends jobs first.
+	-c	Call only if messages to send.
+	-?	Explain arguments.
+	-#	Show version.

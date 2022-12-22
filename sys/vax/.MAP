@@ -1,0 +1,13 @@
+D BI                                	bi
+D CASSETTE                          	cassette
+D CONF                              	conf
+D CONSOLER                          	consolerl
+D DIST                              	dist
+D FLOPPY                            	floppy
+D IF                                	if
+D INCLUDE                           	include
+D INLINE                            	inline
+F MAKEFILE.;1                       	Makefile
+D STAND                             	stand
+D UBA                               	uba
+D VAX                               	vax

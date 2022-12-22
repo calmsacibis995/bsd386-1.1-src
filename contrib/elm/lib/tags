@@ -1,0 +1,161 @@
+BIAS	ndbz.c	/^#define	BIAS(o)		((o)+1)		\/* make any valid of_t /
+CANTAG	ndbz.c	/^#define	CANTAG(o)	(((o)&db->dbz_tagboth) == 0)$/
+CORRUPT	msgcat.c	/^#define CORRUPT() {fprintf(stderr, "%s: corrupt fi/
+ERR	opt_utils.c	/^#define ERR(s, c)	if(opterr){\\$/
+GETNUM	mcprtlib.c	/^#define	GETNUM(x)	x = 0; \\$/
+HASTAG	ndbz.c	/^#define	HASTAG(o)	((o)&db->dbz_taghere)$/
+IS822_ATOMCH	rfc822tlen.c	/^#define IS822_ATOMCH(c)	(!IS822_SPECIAL(c) && !IS8/
+IS822_CTL	rfc822tlen.c	/^#define IS822_CTL(c)	((c) <= 037 || (c) >= 0177)$/
+IS822_SPACE	rfc822tlen.c	/^#define IS822_SPACE(c) ((c) == ' ' || (c) == '\\t'/
+IS822_SPECIAL	rfc822tlen.c	/^#define IS822_SPECIAL(c) ( \\$/
+IsLeapYear	date_util.c	/^#define IsLeapYear(yr)	((yr % 4 == 0) && ((yr % 10/
+MAPIN	aliasdb.c	/^#define	MAPIN(o)	((db->dbz_bytesame) ? (of_t) (o) /
+MAPOUT	aliasdb.c	/^#define	MAPOUT(o)	((db->dbz_bytesame) ? (of_t) (o)/
+MCGetMsg	msgcat.c	/^MCMsgT	*MCGetMsg( set, msgId)$/
+MCGetSet	msgcat.c	/^MCSetT	*MCGetSet( cat, setId)$/
+MCPrintFree	mcprtlib.c	/^void MCPrintFree(rock)$/
+MCPrintInit	mcprtlib.c	/^MCRockT	*MCPrintInit(fmt)$/
+MCPrintParse	mcprtlib.c	/^int	MCPrintParse(rock)$/
+MCfprintf	mcprt.c	/^int	MCfprintf(fptr, fmt, va_alist)$/
+MCprintf	mcprt.c	/^int	MCprintf(fmt, va_alist)$/
+MCsprintf	mcprt.c	/^int	MCsprintf(cptr, fmt, va_alist)$/
+MKTAG	ndbz.c	/^#define	MKTAG(v)	(((v)<<db->dbz_conf.tagshift)&db-/
+Matonum	atonum.c	/^main()$/
+Mdate_util	date_util.c	/^main()$/
+Mget_tz	get_tz.c	/^main()$/
+Mgetword	getword.c	/^main()$/
+Mlen_next	len_next.c	/^main()$/
+Mparsarpdat	parsarpdat.c	/^main()$/
+Mrealfrom	realfrom.c	/^main()$/
+Mrfc822tlen	rfc822tlen.c	/^main()$/
+Mstrfcpy	strfcpy.c	/^main()$/
+Mstriparens	striparens.c	/^main()$/
+NOSPACE	msgcat.c	/^#define NOSPACE() {fprintf(stderr, "%s: no more me/
+NOTAG	ndbz.c	/^#define	NOTAG(o)	((o)&~db->dbz_tagboth)$/
+TAG	ndbz.c	/^#define	TAG(o)		((o)&db->dbz_tagbits)$/
+UNBIAS	ndbz.c	/^#define	UNBIAS(o)	((o)-1)		\/* reverse BIAS() effe/
+add_site	add_site.c	/^add_site(buffer, site, lastsite)$/
+add_to_hash_table	mk_aliases.c	/^add_to_hash_table(word, offset)$/
+add_to_table	mk_aliases.c	/^add_to_table(data, aliases, lastn, firstn, comment/
+adddecl	strftime.c	/^#define adddecl(stuff)	stuff$/
+addr_matches_user	addrmchusr.c	/^addr_matches_user(addr,user)$/
+atonum	atonum.c	/^int atonum(str)$/
+bytemap	aliasdb.c	/^bytemap(ino, map1, map2)$/
+can_access	can_access.c	/^can_access(file, mode)$/
+can_open	can_open.c	/^can_open(file, mode)$/
+catclose	msgcat.c	/^void		catclose( catd)$/
+catgets	msgcat.c	/^char		*catgets( catd, setId, msgId, dflt)$/
+catopen	msgcat.c	/^nl_catd 	catopen( name, type)$/
+charlen	rfc822tlen.c	/^#define charlen(s)	((s)[0] == '\\\\' && (s)[1] != /
+check_address	mk_aliases.c	/^check_address(addresses)$/
+check_alias	mk_aliases.c	/^check_alias(aliases)$/
+chloc	chloc.c	/^chloc(string, ch)$/
+crcinit	ndbz.c	/^crcinit()$/
+cuserid	opt_utils.c	/^char *cuserid(uname)$/
+cvt_dayname_to_daynum	date_util.c	/^int cvt_dayname_to_daynum(str, day_p)$/
+cvt_mmddyy_to_dayofyear	date_util.c	/^int cvt_mmddyy_to_dayofyear(month, dayofmon, year,/
+cvt_monthname_to_monthnum	date_util.c	/^int cvt_monthname_to_monthnum(str, month_p)$/
+cvt_numtz_to_mins	date_util.c	/^int cvt_numtz_to_mins(str)$/
+cvt_timestr_to_hhmmss	date_util.c	/^int cvt_timestr_to_hhmmss(str, hours_p, mins_p, se/
+cvt_timezone_to_offset	date_util.c	/^int cvt_timezone_to_offset(str, mins_p)$/
+cvt_yearstr_to_yearnum	date_util.c	/^int cvt_yearstr_to_yearnum(str, year_p)$/
+dbz_again	ndbz.c	/^dbz_again(name, oldname)$/
+dbz_cancel	ndbz.c	/^dbz_cancel(db)$/
+dbz_close	ndbz.c	/^dbz_close(db)$/
+dbz_fetch	ndbz.c	/^dbz_fetch(db, key)$/
+dbz_fresh	ndbz.c	/^dbz_fresh(name, size, fs, tagmask)$/
+dbz_incore	ndbz.c	/^dbz_incore(value)$/
+dbz_open	ndbz.c	/^dbz_open(name, mode, flags)$/
+dbz_store	ndbz.c	/^dbz_store(db, key, data)$/
+dbz_sync	ndbz.c	/^dbz_sync(db)$/
+dbzdebug	ndbz.c	/^dbzdebug(value)$/
+dbzsize	ndbz.c	/^dbzsize(contents)$/
+de_escape	mk_aliases.c	/^de_escape(the_string)$/
+delete_alias_files	mk_aliases.c	/^delete_alias_files(dataname, fromelm)$/
+dflt_safe_malloc_fail_handler	safemalloc.c	/^void dflt_safe_malloc_fail_handler(proc, len)$/
+do_newalias	mk_aliases.c	/^do_newalias(inputname, dataname, fromelm, textwarn/
+elm_fgetline	ldstate.c	/^static char *elm_fgetline(buf, buflen, fp)$/
+enstring	ndbz.c	/^enstring(s1, s2)$/
+error_description	errno.c	/^char *error_description(errnumber)$/
+expand	expand.c	/^expand(filename)$/
+expand_define	expand.c	/^char *expand_define(maildir)$/
+expand_maildir	expand.c	/^expand_maildir(rcfile, filename, buffer)$/
+fetch_alias	aliasdb.c	/^struct alias_rec *fetch_alias(db, alias)$/
+figure_out_addressee	figadrssee.c	/^figure_out_addressee(buffer, mail_to)$/
+gcos_name	gcos_name.c	/^gcos_name(gcos_field, logname)$/
+get_address_from	getaddrfrm.c	/^get_address_from(line, buffer)$/
+get_alias	mk_aliases.c	/^get_alias(file, fromelm)$/
+get_arpa_date	getarpdate.c	/^get_arpa_date()$/
+get_full_name	getfullnam.c	/^get_full_name(logname)$/
+get_line	mk_aliases.c	/^get_line(file, buffer, first_line, fromelm)$/
+get_parens	striparens.c	/^char *get_parens(src)$/
+get_tz_mins	get_tz.c	/^int get_tz_mins(tm)$/
+get_tz_name	get_tz.c	/^char *get_tz_name(tm)$/
+get_word	getword.c	/^int get_word(buffer, start, word, wordlen)$/
+getconf	ndbz.c	/^getconf(df, pf, cp)$/
+getcore	ndbz.c	/^getcore(db)$/
+gethostdomain	opt_utils.c	/^gethostdomain(hostdom, size)    \/* get domain of /
+gethostname	opt_utils.c	/^gethostname(cur_hostname,size) \/* get name of cur/
+getitem	date_util.c	/^int getitem(prompt, item)$/
+getno	ndbz.c	/^getno(f, ep)$/
+getopt	opt_utils.c	/^getopt(argc, argv, opts)$/
+group	mk_aliases.c	/^#define group(string)		(index(string,',') != NULL)/
+hash	ndbz.c	/^hash(name, size)$/
+header_cmp	header_cmp.c	/^header_cmp(header, prefix, suffix)$/
+in_list	in_list.c	/^in_list(list, target)$/
+in_string	in_string.c	/^in_string(buffer, pattern)$/
+iso8601wknum	strftime.c	/^iso8601wknum(timeptr)$/
+isprime	ndbz.c	/^isprime(x)$/
+istrcmp	istrcmp.c	/^istrcmp(s1,s2)$/
+latebase	ndbz.c	/^latebase(db)$/
+len_next_part	len_next.c	/^len_next_part(str)$/
+loadCat	msgcat.c	/^static nl_catd loadCat( catpath, type)$/
+loadSet	msgcat.c	/^static nl_catd loadSet( cat, set)$/
+load_folder_state_file	ldstate.c	/^int load_folder_state_file(fst)$/
+mail_gets	mail_gets.c	/^mail_gets(buffer, size, mailfile)$/
+make_gmttime	date_util.c	/^long make_gmttime(year, month, day, hours, mins, s/
+maximum	strftime.c	/^maximum(a, b)$/
+minimum	strftime.c	/^minimum(a, b)$/
+mk_lockname	mk_lockname.c	/^char * mk_lockname(file_to_lock)$/
+move_left	move_left.c	/^move_left(string, chars)$/
+mybytemap	ndbz.c	/^mybytemap(map)$/
+next_addr_in_list	aliasdb.c	/^char *next_addr_in_list(aptr)$/
+okay_address	okay_addr.c	/^okay_address(address, return_address)$/
+okayvalue	ndbz.c	/^okayvalue(db, value)$/
+parse_arpa_date	parsarpdat.c	/^int parse_arpa_date(str, entry)$/
+parse_arpa_who	parsarpwho.c	/^parse_arpa_who(buffer, newfrom, is_really_a_to)$/
+put_alias	mk_aliases.c	/^put_alias(data)$/
+putconf	ndbz.c	/^putconf(f, cp)$/
+putcore	ndbz.c	/^putcore(db)$/
+putenv	putenv.c	/^putenv(var)			\/* put var in the environment *\/$/
+qchloc	chloc.c	/^qchloc(string, ch)$/
+qstrcspn	qstrings.c	/^qstrcspn(source, keys)$/
+qstrpbrk	qstrings.c	/^char *qstrpbrk(source, keys)$/
+qstrspn	qstrings.c	/^qstrspn(source, keys)$/
+range	strftime.c	/^#define range(low, item, hi)	maximum(low, minimum(/
+read_one_alias	aliasdb.c	/^read_one_alias(db, adr)$/
+real_from	realfrom.c	/^real_from(buffer, entry)$/
+remove_first_word	remfirstwd.c	/^remove_first_word(string)$/
+remove_header_keyword	remfirstwd.c	/^remove_header_keyword(string)$/
+reverse	reverse.c	/^reverse(string)$/
+rfc822_toklen	rfc822tlen.c	/^int rfc822_toklen(str)$/
+safe_malloc	safemalloc.c	/^malloc_t safe_malloc(len)$/
+safe_realloc	safemalloc.c	/^malloc_t safe_realloc(p, len)$/
+safe_strdup	safemalloc.c	/^char *safe_strdup(s)$/
+search	ndbz.c	/^search(db)$/
+set	ndbz.c	/^set(db, value)$/
+shift_lower	shiftlower.c	/^char *shift_lower(string)$/
+start	ndbz.c	/^start(db, kp, osp)$/
+strcspn	opt_utils.c	/^strcspn(source, keys)$/
+strfcpy	strfcpy.c	/^char *strfcpy(dest, src, len)$/
+strftime	strftime.c	/^strftime(s, maxsize, format, timeptr)$/
+strincmp	strincmp.c	/^strincmp(s1,s2,n)$/
+strip_parens	striparens.c	/^char *strip_parens(src)$/
+strpbrk	opt_utils.c	/^char *strpbrk(source, keys)$/
+strspn	opt_utils.c	/^strspn(source, keys)$/
+strtok	opt_utils.c	/^char *strtok(source, keys)$/
+strtokq	strtokq.c	/^char *strtokq(source, keys, flag)$/
+tail_of	tail_of.c	/^tail_of(from, buffer, to)$/
+tempnam	opt_utils.c	/^char *tempnam( dir, pfx)$/
+valid_name	validname.c	/^valid_name(name)$/
+weeknumber	strftime.c	/^weeknumber(timeptr, firstweekday)$/

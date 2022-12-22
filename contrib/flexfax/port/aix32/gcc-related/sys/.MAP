@@ -1,0 +1,5 @@
+F FCNTL.H;1                         	fcntl.h
+F SELECT.H;1                        	select.h
+F STAT.H;1                          	stat.h
+F TIME.H;1                          	time.h
+F WAIT.H;1                          	wait.h

@@ -1,0 +1,136 @@
+BRscan	../gnuchess/eval.c	/^BRscan (register short int sq, short int *mob)$/
+BVerifyMove	../gnuchess/book.c	/^BVerifyMove (char *s, short unsigned int *mv, int /
+Balgbr	../gnuchess/book.c	/^Balgbr (short int f, short int t, short int flag)$/
+BishopValue	../gnuchess/eval.c	/^BishopValue (register short int sq, short int side/
+BlendBoard	../gnuchess/eval.c	/^BlendBoard (const short int a[64], const short int/
+CB	../gnuchess/search.c	/^#define CB(i) (unsigned char) ((color[2 * (i)] ? 0/
+CaptureList	../gnuchess/genmoves.c	/^CaptureList (register short int side, short int pl/
+ChangeAlphaWindow	nuxdsp.c	/^ChangeAlphaWindow (void)$/
+ChangeBetaWindow	nuxdsp.c	/^ChangeBetaWindow (void)$/
+ChangeHashDepth	nuxdsp.c	/^ChangeHashDepth (void)$/
+ChangeSearchDepth	nuxdsp.c	/^ChangeSearchDepth (void)$/
+ChangeXwindow	nuxdsp.c	/^ChangeXwindow (void)$/
+CheckEETable	../gnuchess/eval.c	/^CheckEETable (short int side)$/
+ClearMessage	nuxdsp.c	/^ClearMessage (void)$/
+ClrEoln	nuxdsp.c	/^ClrEoln (void)$/
+ClrScreen	nuxdsp.c	/^ClrScreen (void)$/
+CopyBoard	../gnuchess/eval.c	/^CopyBoard (const short int a[64], short int b[64])/
+Die	nuxdsp.c	/^Die (int Sig)$/
+DoDebug	nuxdsp.c	/^DoDebug (void)$/
+DoTable	nuxdsp.c	/^DoTable (short table[64])$/
+DrawCoords	nuxdsp.c	/^DrawCoords (void)$/
+DrawPiece	nuxdsp.c	/^DrawPiece (short int sq)$/
+DrawSquare	nuxdsp.c	/^DrawSquare (short int sq)$/
+EditBoard	nuxdsp.c	/^EditBoard (void)$/
+ElapsedTime	../gnuchess/dspcom.c	/^ElapsedTime (short int iop)$/
+EnPassant	../gnuchess/search.c	/^EnPassant (short int xside, short int f, short int/
+ExaminePosition	../gnuchess/eval.c	/^ExaminePosition (void)$/
+ExitChess	nuxdsp.c	/^ExitChess (void)$/
+Fbdcmp	../gnuchess/util.c	/^int Fbdcmp(char *a,char *b)$/
+GenMoves	../gnuchess/genmoves.c	/^GenMoves (register short int ply, register short i/
+GetGame	../gnuchess/dspcom.c	/^GetGame (void)$/
+GetOpenings	../gnuchess/book.c	/^GetOpenings (void)$/
+GetXGame	../gnuchess/dspcom.c	/^GetXGame (void)$/
+GiveHint	nuxdsp.c	/^GiveHint (void)$/
+InitConst	../gnuchess/init.c	/^InitConst (char *lang)$/
+Initialize	nuxdsp.c	/^Initialize (void)$/
+InitializeStats	../gnuchess/search.c	/^InitializeStats (void)$/
+Initialize_dist	../gnuchess/init.c	/^Initialize_dist (void)$/
+Initialize_killt	../gnuchess/init.c	/^Initialize_killt (void)$/
+Initialize_moves	../gnuchess/init.c	/^Initialize_moves (void)$/
+Initialize_ttable	../gnuchess/init.c	/^Initialize_ttable ()$/
+InputCommand	../gnuchess/dspcom.c	/^InputCommand (void)$/
+KingValue	../gnuchess/eval.c	/^KingValue (register short int sq, short int side)$/
+KnightValue	../gnuchess/eval.c	/^KnightValue (register short int sq, short int side/
+Link	../gnuchess/genmoves.c	/^#define Link(from,to,flag,s) \\$/
+LinkMove	../gnuchess/genmoves.c	/^LinkMove (short int ply, short int f,$/
+ListGame	../gnuchess/dspcom.c	/^ListGame (void)$/
+MakeMove	../gnuchess/search.c	/^MakeMove (short int side,$/
+Mmain	../gnuchess/main.c	/^main (int argc, char **argv)$/
+MoveList	../gnuchess/genmoves.c	/^MoveList (short int side, register short int ply)$/
+NewGame	../gnuchess/init.c	/^NewGame (void)$/
+ONormal	nuxdsp.c	/^ONormal ()$/
+OReverse	nuxdsp.c	/^OReverse ()$/
+OpeningBook	../gnuchess/book.c	/^OpeningBook (unsigned short *hint, short int side)/
+OutputMove	nuxdsp.c	/^OutputMove (void)$/
+PawnValue	../gnuchess/eval.c	/^PawnValue (register short int sq, short int side)$/
+ProbeEETable	../gnuchess/eval.c	/^ProbeEETable (short int side, short int *score)$/
+ProbeFTable	../gnuchess/util.c	/^ProbeFTable (short int side,$/
+ProbeTTable	../gnuchess/search.c	/^ProbeTTable (short int side,$/
+PutInEETable	../gnuchess/eval.c	/^PutInEETable (short int side,int score)$/
+PutInFTable	../gnuchess/util.c	/^PutInFTable (short int side,$/
+QueenValue	../gnuchess/eval.c	/^QueenValue (register short int sq, short int side)/
+RESET	../gnuchess/book.c	/^RESET (void)$/
+RookValue	../gnuchess/eval.c	/^RookValue (register short int sq, short int side)$/
+SaveGame	../gnuchess/dspcom.c	/^SaveGame (void)$/
+ScoreK1PK	../gnuchess/eval.c	/^ScoreK1PK (short int side,$/
+ScoreKBNK	../gnuchess/eval.c	/^ScoreKBNK (short int winner, short int king1, shor/
+ScoreKPK	../gnuchess/eval.c	/^ScoreKPK (short int side,$/
+ScoreLoneKing	../gnuchess/eval.c	/^ScoreLoneKing (short int side)$/
+ScorePosition	../gnuchess/eval.c	/^ScorePosition (register short int side)$/
+SearchStartStuff	nuxdsp.c	/^SearchStartStuff (short int side)$/
+SelectLevel	nuxdsp.c	/^SelectLevel (char *sx)$/
+SelectMove	../gnuchess/search.c	/^SelectMove (short int side, short int iop)$/
+SetAnalysis	nuxdsp.c	/^SetAnalysis (void)$/
+SetContempt	nuxdsp.c	/^SetContempt (void)$/
+SetMachineTime	../gnuchess/dspcom.c	/^SetMachineTime (char *s)$/
+SetOppTime	../gnuchess/dspcom.c	/^SetOppTime (char *s)$/
+SetTimeControl	../gnuchess/dspcom.c	/^SetTimeControl (void)$/
+ShowCurrentMove	nuxdsp.c	/^ShowCurrentMove (short int pnt, short int f, short/
+ShowDepth	nuxdsp.c	/^ShowDepth (char ch)$/
+ShowHeader	nuxdsp.c	/^ShowHeader (void)$/
+ShowLine	nuxdsp.c	/^ShowLine (short unsigned int *bstline)$/
+ShowMessage	nuxdsp.c	/^ShowMessage (char *s)$/
+ShowNodeCnt	nuxdsp.c	/^ShowNodeCnt (long int NodeCnt)$/
+ShowPlayers	nuxdsp.c	/^ShowPlayers (void)$/
+ShowPostnValue	nuxdsp.c	/^ShowPostnValue (short int sq)$/
+ShowPostnValues	nuxdsp.c	/^ShowPostnValues (void)$/
+ShowPrompt	nuxdsp.c	/^ShowPrompt (void)$/
+ShowResults	nuxdsp.c	/^ShowResults (short int score, short unsigned int */
+ShowScore	nuxdsp.c	/^ShowScore (short score)$/
+ShowSidetoMove	nuxdsp.c	/^ShowSidetoMove (void)$/
+TerminateChess	../gnuchess/main.c	/^TerminateChess (int sig)$/
+TerminateSearch	nuxdsp.c	/^TerminateSearch (int Sig)$/
+TimeCalc	../gnuchess/main.c	/^TimeCalc ()$/
+Undo	../gnuchess/dspcom.c	/^Undo (void)$/
+UnmakeMove	../gnuchess/search.c	/^UnmakeMove (short int side,$/
+UpdateClocks	nuxdsp.c	/^UpdateClocks (void)$/
+UpdateDisplay	nuxdsp.c	/^UpdateDisplay (short int f, short int t, short int/
+UpdatePieceList	../gnuchess/search.c	/^UpdatePieceList (short int side, short int sq, sho/
+UpdateWeights	../gnuchess/eval.c	/^UpdateWeights (void)$/
+VIR_C	nuxdsp.c	/^#define VIR_C(s)  ((flag.reverse) ? 7-column(s) : /
+VIR_R	nuxdsp.c	/^#define VIR_R(s)  ((flag.reverse) ? 7-row(s) : row/
+VSQ_X	nuxdsp.c	/^#define VSQ_X(x)  ((flag.reverse) ? SQW + 1 - (x) /
+VSQ_Y	nuxdsp.c	/^#define VSQ_Y(y)  ((flag.reverse) ? SQH + 1 - (y) /
+Vblack	nuxdsp.c	/^#define Vblack(s) (!((VIR_C(s) + VIR_R(s)) % 2))$/
+Vcoord	nuxdsp.c	/^#define Vcoord(s,x,y) \\$/
+VcoordI	nuxdsp.c	/^#define VcoordI(s,x,y) \\$/
+VcoordR	nuxdsp.c	/^#define VcoordR(s,x,y) \\$/
+VerifyMove	../gnuchess/dspcom.c	/^VerifyMove (char *s, short int iop, short unsigned/
+Vparse	../gnuchess/book.c	/^Vparse (FILE * fd, unsigned short *mv, short int s/
+ZeroRPT	../gnuchess/util.c	/^ZeroRPT (void)$/
+ZeroTTable	../gnuchess/util.c	/^ZeroTTable (void)$/
+algbr	../gnuchess/dspcom.c	/^algbr (short int f, short int t, short int flag)$/
+ataks	../gnuchess/ataks.c	/^ataks (short int side, short int *a)$/
+bkalloc	../gnuchess/book.c	/^bkalloc (unsigned bksize)$/
+bkdisplay	../gnuchess/book.c	/^bkdisplay (s, cnt, moveno)$/
+castle	../gnuchess/search.c	/^castle (short int side, short int kf, short int kt/
+dist_	../gnuchess/eval.c	/^inline short dist_ (short f1, short r1, short f2, /
+evaluate	../gnuchess/eval.c	/^evaluate (register short int side,$/
+gotoXY	nuxdsp.c	/^gotoXY (short int x, short int y)$/
+gsrand	../gnuchess/main.c	/^gsrand (unsigned int seed)$/
+help	nuxdsp.c	/^help (void)$/
+kpkbv_	../gnuchess/eval.c	/^kpkbv_ (short pf, short pr, short wf, short wr, sh/
+kpkwv_	../gnuchess/eval.c	/^kpkwv_ (short pf, short pr, short wf, short wr, sh/
+lts	../gnuchess/book.c	/^#define lts(x) (((x>>48)&0xfffe)|side)$/
+param	nuxdsp.c	/^param (short n)$/
+parse	../gnuchess/util.c	/^parse (FILE * fd, short unsigned int *mv, short in/
+parser	../gnuchess/dspcom.c	/^parser (char *f, int side)$/
+pick	../gnuchess/search.c	/^pick (short int p1, short int p2)$/
+refresh	nuxdsp.c	/^#define refresh() fflush(stdout)$/
+repetition	../gnuchess/search.c	/^repetition ()$/
+search	../gnuchess/search.c	/^search (short int side,$/
+skip	nuxdsp.c	/^skip ()$/
+skipb	nuxdsp.c	/^skipb ()$/
+trapped	../gnuchess/eval.c	/^trapped (register short int sq)$/
+urand	../gnuchess/main.c	/^urand (void)$/

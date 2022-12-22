@@ -1,0 +1,183 @@
+.\"	BSDI $Id: exports.5,v 1.2 1994/02/01 04:15:55 donn Exp $
+.\"
+.\" Copyright (c) 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\" Copyright (c) 1989, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)exports.5	5.2 (Berkeley) 5/10/91
+.\"
+.Dd January 31, 1994
+.Dt EXPORTS 5
+.Os
+.Sh NAME
+.Nm exports
+.Nd define remote mount points for
+.Tn NFS
+mount requests
+.Sh SYNOPSIS
+.Nm exports
+.Sh DESCRIPTION
+The
+.Nm exports
+file
+specifies remote mount points for the
+.Tn NFS
+mount protocol per the
+.Tn NFS
+server specification; see
+.%T "Network File System Protocol Specification \\*(tNRFC\\*(sP 1094" .
+.Pp
+Blank lines and lines beginning with
+.Li #
+are treated as comments and are ignored.
+Each non-comment line in the file specifies one remote mount point.
+The first field is the mount point directory path followed
+optionally by export options and specific hosts separated by white space.
+Only the first entry for a given local file system may specify the export
+options, since these are handled on a
+.Em per local file system
+basis.
+If no specific hosts are specified,
+the mount point is exported to all hosts.
+.Pp
+Each listed mount point must be an absolute pathname; symbolic links
+are not allowed for any component of the name.
+However, clients may mount directories using a name containing symbolic links.
+When a client mount request is processed, any symbolic names in
+the requested path are translated before checking the name against
+the export list.
+For example, if
+.Pa /sys
+is a symbolic link to
+.Pa /usr/src/sys ,
+and if
+.Pa /usr/src/sys
+is exported, a client can mount
+.Pa /usr/src/sys
+using either name.
+.Pp
+The export options are as follows:
+.Pp
+.Sm off
+.Fl root No = Aq Sy uid
+.Sm on
+specifies how to map root's uid (default 65534).
+The option
+.Fl r
+is synonyms for
+.Fl root
+in an effort to be backward compatible with older export file formats.
+.Pp
+.Fl ro
+specifies that the file system should be exported Read-only
+(default Read/Write).
+The option
+.Fl o
+is synonyms for
+.Fl ro
+in an effort to be backward compatible with older export file formats.
+.Pp
+.Fl alldirs
+specifies that all directories in the listed file system should be exported.
+The path name must be the root of a locally mounted file system.
+.Pp
+.Fl subdirs
+specifies that the listed directory and all directories below the listed
+directory within the same local file system should be exported.
+.Pp
+For example:
+.Bd -literal -offset indent
+/usr -root=0 rickers snowhite.cis.uoguelph.ca
+/usr/local -subdirs 131.104.48.16
+/u -root=5
+/u2 -ro -alldirs
+.Ed
+.Pp
+Given that
+.Sy /usr ,
+.Sy /u
+and
+.Sy /u2
+are
+local file system mount points, the above example specifies the following:
+.Bd -filled -offset indent
+.Sy /usr
+is exported to hosts
+.Em rickers
+and
+.Em snowhite.cis.uoguelph.ca
+with
+root mapped to root.
+.Pp
+.Sy /usr/local
+and all of its subdirectories
+are exported to host
+.Em 131.104.48.16
+with root mapped to root.
+.Pp
+.Sy /u
+is exported to all hosts with root mapped to uid 5.
+.Pp
+All directories in
+.Sy /u2
+are exported to all hosts Read-only with root mapped to 65534.
+.Ed
+.Pp
+Note that
+.Dq Li "/usr/local -root=5"
+would have been incorrect,
+as
+.Sy /usr
+and
+.Sy /usr/local
+reside in the same local file system.
+.Sh FILES
+.Bl -tag -width /etc/exports -compact
+.It Pa /etc/exports
+The remote mount point file
+.Nm exports
+resides in
+.Pa /etc .
+.El
+.Sh SEE ALSO
+.Xr mountd 8 ,
+.Xr nfsd 8 ,
+.Xr showmount 8
+.Sh BUGS
+It would be nice if the export options were not tied to local mount points.
+.Sh HISTORY
+The
+.Nm
+file format is
+.Ud .

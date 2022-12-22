@@ -1,0 +1,281 @@
+DECODE_ErrorStatus	print-snmp.c	/^#define DECODE_ErrorStatus(e) \\$/
+DECODE_GenericTrap	print-snmp.c	/^#define DECODE_GenericTrap(t) \\$/
+ETHER_aton	nametoaddr.c	/^ETHER_aton(s)$/
+ETHER_hostton	nametoaddr.c	/^ETHER_hostton(name)$/
+EXTRACT_LONG	bpf_filter.c	/^#define EXTRACT_LONG(p)		(ntohl(*(u_long *)p))$/
+EXTRACT_SHORT	bpf_filter.c	/^#define EXTRACT_SHORT(p)	((u_short)ntohs(*(u_short/
+F	optimize.c	/^F(code, v0, v1)$/
+ISLOOPBACK	inet.c	/^#define ISLOOPBACK(p) ((p)->ifr_flags & IFF_LOOPBA/
+ISPORT	print-udp.c	/^#define ISPORT(p) (up->uh_dport == (p) || up->uh_s/
+JMP	gencode.c	/^#define JMP(c) ((c)|BPF_JMP|BPF_K)$/
+K	optimize.c	/^#define K(i) F(BPF_LD|BPF_IMM|BPF_W, i, 0L)$/
+LS_PRINT	print-ospf.c	/^#define	LS_PRINT(lsp, type) switch (type) { \\$/
+MAX	optimize.c	/^#define MAX(a,b) ((a)>(b)?(a):(b))$/
+MINDEX	bpf_filter.c	/^#define MINDEX(m, k) \\$/
+Mark	optimize.c	/^#define Mark(p) ((p)->mark = cur_mark)$/
+Mtcpdump	tcpdump.c	/^main(argc, argv)$/
+OBJ_PRINT	print-snmp.c	/^#define OBJ_PRINT(o, suppressdot) \\$/
+SET_DELETE	optimize.c	/^#define SET_DELETE(p, a) \\$/
+SET_INSERT	optimize.c	/^#define SET_INSERT(p, a) \\$/
+SET_INTERSECT	optimize.c	/^#define SET_INTERSECT(a, b, n)\\$/
+SET_MEMBER	optimize.c	/^#define SET_MEMBER(p, a) \\$/
+SET_SUBTRACT	optimize.c	/^#define SET_SUBTRACT(a, b, n)\\$/
+SET_UNION	optimize.c	/^#define SET_UNION(a, b, n)\\$/
+TCHECK	print-bootp.c	/^#define TCHECK(var, l) if ((u_char *)&(var) > ep -/
+YY_INPUT	tcplex.l	/^#define YY_INPUT(buf, result, max)\\$/
+alloc_reg	gencode.c	/^alloc_reg()$/
+and	tcpgram.y	/^and:	  AND			{ $$ = $<blk>0; }$/
+and_pullup	optimize.c	/^and_pullup(b)$/
+aqual	tcpgram.y	/^aqual:	  HOST			{ $$ = Q_HOST; }$/
+arp_print	print-arp.c	/^arp_print(ap, length, caplen)$/
+arth	tcpgram.y	/^arth:	  pnum			{ $$ = gen_loadi($1); }$/
+asn1_decode	print-snmp.c	/^asn1_decode(p, length)$/
+asn1_parse	print-snmp.c	/^asn1_parse(p, len, elem)$/
+asn1_print	print-snmp.c	/^asn1_print(elem)$/
+ataddr_string	print-atalk.c	/^ataddr_string(atnet, athost)$/
+atoin	nametoaddr.c	/^atoin(s)$/
+atomdef	optimize.c	/^atomdef(s)$/
+atomuse	optimize.c	/^atomuse(s)$/
+atp_bitmap_print	print-atalk.c	/^atp_bitmap_print(bm)$/
+atp_print	print-atalk.c	/^atp_print(ap, length)$/
+backpatch	gencode.c	/^backpatch(list, target)$/
+bootp_print	print-bootp.c	/^bootp_print(bp, length, sport, dport)$/
+bpf_dump	bpf_dump.c	/^bpf_dump(p, option)$/
+bpf_filter	bpf_filter.c	/^bpf_filter(pc, p, wirelen, buflen)$/
+bpf_image	bpf_image.c	/^bpf_image(p, n)$/
+bpf_open	pcap.c	/^bpf_open()$/
+bpf_stats	pcap.c	/^bpf_stats(fd)$/
+bpf_validate	bpf_filter.c	/^bpf_validate(f, len)$/
+bswap	print-nfs.c	/^bswap(bp, n)$/
+byteop	tcpgram.y	/^byteop:	  '&'			{ $$ = '&'; }$/
+cleanup	tcpdump.c	/^cleanup()$/
+clock_sigfigs	md.c	/^clock_sigfigs()$/
+cmu_print	print-bootp.c	/^cmu_print(bp, length)$/
+compressed_sl_print	print-sl.c	/^compressed_sl_print(chdr, ip, length, dir)$/
+compute_local_ud	optimize.c	/^compute_local_ud(b)$/
+convert_code_r	optimize.c	/^convert_code_r(p)$/
+copy_argv	util.c	/^copy_argv(argv)$/
+count_blocks	optimize.c	/^count_blocks(p)$/
+count_stmts	optimize.c	/^count_stmts(p)$/
+ddp_print	print-atalk.c	/^ddp_print(dp, length)$/
+deadstmt	optimize.c	/^deadstmt(s, last)$/
+default_print	tcpdump.c	/^default_print(sp, length)$/
+defineCLASS	print-snmp.c	/^#define defineCLASS(x) { "x", x, sizeof(x)\/sizeof/
+dqual	tcpgram.y	/^dqual:	  SRC			{ $$ = Q_SRC; }$/
+egp_print	print-egp.c	/^egp_print(egp, length, ip)$/
+egpnrprint	print-egp.c	/^egpnrprint(egp, length)$/
+eq_blk	optimize.c	/^eq_blk(b0, b1)$/
+eq_slist	optimize.c	/^eq_slist(x, y)$/
+error	util.c	/^error(va_alist)$/
+ether_if_print	print-ether.c	/^ether_if_print(p, tvp, length, caplen)$/
+ether_print	print-ether.c	/^ether_print(ep, length)$/
+etheraddr_string	addrtoname.c	/^etheraddr_string(ep)$/
+etherproto_string	addrtoname.c	/^etherproto_string(port)$/
+expr	tcpgram.y	/^expr:	  term$/
+fddi_if_print	print-fddi.c	/^fddi_if_print(p, tvp, length, caplen)$/
+fddi_print	print-fddi.c	/^fddi_print(p, length)$/
+find_closure	optimize.c	/^find_closure(root)$/
+find_dom	optimize.c	/^find_dom(root)$/
+find_edom	optimize.c	/^find_edom(root)$/
+find_inedges	optimize.c	/^find_inedges(root)$/
+find_levels	optimize.c	/^find_levels(root)$/
+find_levels_r	optimize.c	/^find_levels_r(b)$/
+find_ud	optimize.c	/^find_ud(root)$/
+finish_parse	gencode.c	/^finish_parse(p)$/
+fold_edge	optimize.c	/^fold_edge(child, ep)$/
+fold_op	optimize.c	/^fold_op(s, v0, v1)$/
+free_reg	gencode.c	/^free_reg(n)$/
+freechunks	gencode.c	/^freechunks()$/
+gen_and	gencode.c	/^gen_and(b0, b1)$/
+gen_arth	gencode.c	/^gen_arth(code, a0, a1)$/
+gen_bcmp	gencode.c	/^gen_bcmp(offset, size, v)$/
+gen_broadcast	gencode.c	/^gen_broadcast(proto)$/
+gen_byteop	gencode.c	/^gen_byteop(op, idx, val)$/
+gen_cmp	gencode.c	/^gen_cmp(offset, size, v)$/
+gen_ecode	gencode.c	/^gen_ecode(eaddr, q)$/
+gen_ehostop	gencode.c	/^gen_ehostop(eaddr, dir)$/
+gen_false	gencode.c	/^gen_false()$/
+gen_gateway	gencode.c	/^gen_gateway(eaddr, alist, proto, dir)$/
+gen_greater	gencode.c	/^gen_greater(n)$/
+gen_host	gencode.c	/^gen_host(addr, mask, proto, dir)$/
+gen_hostop	gencode.c	/^gen_hostop(addr, mask, dir, proto, src_off, dst_of/
+gen_ipfrag	gencode.c	/^gen_ipfrag()$/
+gen_len	gencode.c	/^gen_len(jmp, n)$/
+gen_less	gencode.c	/^gen_less(n)$/
+gen_linktype	gencode.c	/^gen_linktype(proto)$/
+gen_load	gencode.c	/^gen_load(proto, index, size)$/
+gen_loadi	gencode.c	/^gen_loadi(val)$/
+gen_loadlen	gencode.c	/^gen_loadlen()$/
+gen_mcmp	gencode.c	/^gen_mcmp(offset, size, v, mask)$/
+gen_multicast	gencode.c	/^gen_multicast(proto)$/
+gen_ncode	gencode.c	/^gen_ncode(v, q)$/
+gen_neg	gencode.c	/^gen_neg(a)$/
+gen_not	gencode.c	/^gen_not(b)$/
+gen_or	gencode.c	/^gen_or(b0, b1)$/
+gen_port	gencode.c	/^gen_port(port, ip_proto, dir)$/
+gen_portatom	gencode.c	/^gen_portatom(off, v)$/
+gen_portop	gencode.c	/^gen_portop(port, proto, dir)$/
+gen_proto	gencode.c	/^gen_proto(v, proto, dir)$/
+gen_proto_abbrev	gencode.c	/^gen_proto_abbrev(proto)$/
+gen_relation	gencode.c	/^gen_relation(code, a0, a1, reversed)$/
+gen_retblk	gencode.c	/^gen_retblk(v)$/
+gen_scode	gencode.c	/^gen_scode(name, q)$/
+gen_true	gencode.c	/^gen_true()$/
+gen_uncond	gencode.c	/^gen_uncond(rsense)$/
+getc	tcplex.l	/^#define getc(fp)  (*in_buffer == 0 ? EOF : *in_buf/
+getname	addrtoname.c	/^getname(ap)$/
+head	tcpgram.y	/^head:	  pqual dqual aqual	{ QSET($$.q, $1, $2, $3)/
+icmp_print	print-icmp.c	/^icmp_print(dp, ip)$/
+icode_to_fcode	optimize.c	/^icode_to_fcode(root, lenp)$/
+id	tcpgram.y	/^id:	  nid$/
+igmp_print	print-ip.c	/^igmp_print(cp, len, ip)$/
+init_addrtoname	addrtoname.c	/^init_addrtoname(fflag, localnet, mask)$/
+init_eprotoarray	addrtoname.c	/^init_eprotoarray()$/
+init_etherarray	addrtoname.c	/^init_etherarray()$/
+init_linktype	gencode.c	/^init_linktype(type)$/
+init_servarray	addrtoname.c	/^init_servarray()$/
+init_val	optimize.c	/^init_val()$/
+initdevice	pcap.c	/^initdevice(device, pflag, linktype)$/
+intern_blocks	optimize.c	/^intern_blocks(root)$/
+intoa	addrtoname.c	/^intoa(addr)$/
+ip_optprint	print-ip.c	/^ip_optprint(cp, length)$/
+ip_print	print-ip.c	/^ip_print(ip, length)$/
+ip_printroute	print-ip.c	/^ip_printroute(type, cp, length)$/
+ipaddrtonetmask	inet.c	/^ipaddrtonetmask(addr)$/
+irelop	tcpgram.y	/^irelop:	  LEQ			{ $$ = BPF_JGT; }$/
+isMarked	optimize.c	/^#define isMarked(p) ((p)->mark == cur_mark)$/
+lex_init	tcplex.l	/^lex_init(buf)$/
+link_inedge	optimize.c	/^link_inedge(parent, child)$/
+lookup_device	inet.c	/^lookup_device()$/
+lookup_emem	addrtoname.c	/^lookup_emem(ep)$/
+lookup_net	inet.c	/^lookup_net(device, netp, maskp)$/
+lookup_proto	gencode.c	/^lookup_proto(name, proto)$/
+m_xhalf	bpf_filter.c	/^m_xhalf(m, k, err)$/
+m_xword	bpf_filter.c	/^m_xword(m, k, err)$/
+make_marks	optimize.c	/^make_marks(p)$/
+mark_code	optimize.c	/^mark_code(p)$/
+merge	gencode.c	/^merge(b0, b1)$/
+narth	tcpgram.y	/^narth:	  pname '[' arth ']'		{ $$ = gen_load($1, $/
+nbp_name_print	print-atalk.c	/^nbp_name_print(tp, ep)$/
+nbp_print	print-atalk.c	/^nbp_print(np, length, dp)$/
+nbp_tuple_print	print-atalk.c	/^nbp_tuple_print(tp, ep, dp)$/
+ndaqual	tcpgram.y	/^ndaqual:  GATEWAY 		{ $$ = Q_GATEWAY; }$/
+net_mask	util.c	/^net_mask(addr)$/
+new_block	gencode.c	/^new_block(code)$/
+new_stmt	gencode.c	/^new_stmt(code)$/
+newchunk	gencode.c	/^newchunk(n)$/
+next_etherent	etherent.c	/^next_etherent(fp)$/
+nfs_printfh	print-nfs.c	/^nfs_printfh(dp)$/
+nfs_printfn	print-nfs.c	/^nfs_printfn(cp, len)$/
+nfsreply_print	print-nfs.c	/^nfsreply_print(rp, length, ip)$/
+nfsreq_print	print-nfs.c	/^nfsreq_print(rp, length, ip)$/
+nid	tcpgram.y	/^nid:	  ID			{ $$.b = gen_scode($1, $$.q = $<blk>0
+nohostname	addrtoname.c	/^nohostname()$/
+not	tcpgram.y	/^not:	  '!'			{ $$ = $<blk>0; }$/
+ns_nprint	print-domain.c	/^ns_nprint(cp, bp, ep)$/
+ns_nskip	print-domain.c	/^ns_nskip(cp)$/
+ns_print	print-domain.c	/^ns_print(np, length)$/
+ns_qprint	print-domain.c	/^ns_qprint(cp, bp, ep)$/
+ns_rprint	print-domain.c	/^ns_rprint(cp, bp, ep)$/
+ntp_print	print-ntp.c	/^ntp_print(bp, length)$/
+null	tcpgram.y	/^null:	  \/* null *\/		{ $$.q = qerr; }$/
+null_if_print	print-null.c	/^null_if_print(p, tvp, length, caplen)$/
+null_print	print-null.c	/^null_print(p, ip, length)$/
+number_blks_r	optimize.c	/^number_blks_r(p)$/
+opt_blk	optimize.c	/^opt_blk(b, do_stmts)$/
+opt_blks	optimize.c	/^opt_blks(root, do_stmts)$/
+opt_cleanup	optimize.c	/^opt_cleanup()$/
+opt_deadstores	optimize.c	/^opt_deadstores(b)$/
+opt_dump	optimize.c	/^opt_dump(root)$/
+opt_init	optimize.c	/^opt_init(root)$/
+opt_j	optimize.c	/^opt_j(ep)$/
+opt_loop	optimize.c	/^opt_loop(root, do_stmts)$/
+opt_not	optimize.c	/^opt_not(b)$/
+opt_peep	optimize.c	/^opt_peep(b)$/
+opt_root	optimize.c	/^opt_root(b)$/
+opt_stmt	optimize.c	/^opt_stmt(s, val, alter)$/
+optimize	optimize.c	/^optimize(rootp)$/
+or	tcpgram.y	/^or:	  OR			{ $$ = $<blk>0; }$/
+or_pullup	optimize.c	/^or_pullup(b)$/
+ospf_print	print-ospf.c	/^ospf_print(dat, length, ip)$/
+ospf_print_bits	print-ospf.c	/^ospf_print_bits(bp, options)$/
+ospf_print_lsa	print-ospf.c	/^ospf_print_lsa(lsap, end)$/
+ospf_print_lshdr	print-ospf.c	/^ospf_print_lshdr(lshp, end)$/
+ospf_print_seqage	print-ospf.c	/^ospf_print_seqage(seq, us)$/
+other	tcpgram.y	/^other:	  pqual TK_BROADCAST	{ $$ = gen_broadcast($/
+p_ntp_delta	print-ntp.c	/^p_ntp_delta(olfp, lfp)$/
+p_ntp_time	print-ntp.c	/^p_ntp_time(lfp)$/
+p_sfix	print-ntp.c	/^p_sfix(sfp)$/
+paren	tcpgram.y	/^paren:	  '('			{ $$ = $<blk>0; }$/
+parse	gencode.c	/^parse(buf, Oflag, linktype, mask)$/
+parsefh	print-nfs.c	/^parsefh(dp)$/
+parsefhn	print-nfs.c	/^parsefhn(dp)$/
+parsefn	print-nfs.c	/^parsefn(dp)$/
+parsereq	print-nfs.c	/^parsereq(rp, length)$/
+pid	tcpgram.y	/^pid:	  nid$/
+pname	tcpgram.y	/^pname:	  LINK			{ $$ = Q_LINK; }$/
+pnum	tcpgram.y	/^pnum:	  NUM$/
+ppp_if_print	print-ppp.c	/^ppp_if_print(p, tvp, length, caplen)$/
+pqual	tcpgram.y	/^pqual:	  pname$/
+print_cstring	print-atalk.c	/^print_cstring(cp, ep)$/
+print_sl_change	print-sl.c	/^print_sl_change(str, cp)$/
+print_sl_winchange	print-sl.c	/^print_sl_winchange(cp)$/
+printfn	util.c	/^printfn(s, ep)$/
+prog	tcpgram.y	/^prog:	  null expr$/
+propedom	optimize.c	/^propedom(ep)$/
+qid	tcpgram.y	/^qid:	  pnum			{ $$.b = gen_ncode((u_long)$1, $/
+read_infile	util.c	/^read_infile(fname)$/
+readloop	pcap.c	/^readloop(cnt, if_fd, fp, printit)$/
+relop	tcpgram.y	/^relop:	  '>'			{ $$ = BPF_JGT; }$/
+rfc1048_print	print-bootp.c	/^rfc1048_print(bp, length)$/
+rip_entry_print	print-rip.c	/^rip_entry_print(ni)$/
+rip_print	print-rip.c	/^rip_print(dat, length)$/
+rterm	tcpgram.y	/^rterm:	  head id		{ $$ = $2; }$/
+s_nametoaddr	nametoaddr.c	/^s_nametoaddr(name)$/
+s_nametoeproto	nametoaddr.c	/^s_nametoeproto(s)$/
+s_nametonetaddr	nametoaddr.c	/^s_nametonetaddr(name)$/
+s_nametoport	nametoaddr.c	/^s_nametoport(name, port, proto)$/
+s_nametoproto	nametoaddr.c	/^s_nametoproto(str)$/
+sappend	gencode.c	/^sappend(s0, s1)$/
+sf_err	savefile.c	/^sf_err(code)$/
+sf_next_packet	savefile.c	/^sf_next_packet(hdr, buf, buflen)$/
+sf_read	savefile.c	/^sf_read(filtp, cnt, snaplen, printit)$/
+sf_read_init	savefile.c	/^sf_read_init(fname, linktypep, thiszonep, snaplenp/
+sf_write	savefile.c	/^sf_write(sp, tvp, length, caplen)$/
+sf_write_header	savefile.c	/^sf_write_header(fp, linktype, thiszone, snaplen, p/
+sf_write_init	savefile.c	/^sf_write_init(fname, linktype, thiszone, snaplen, /
+skip_line	etherent.c	/^skip_line(f)$/
+skip_space	etherent.c	/^skip_space(f)$/
+sl_if_print	print-sl.c	/^sl_if_print(p, tvp, length, caplen)$/
+slength	optimize.c	/^slength(s)$/
+sliplink_print	print-sl.c	/^sliplink_print(p, ip, length)$/
+snmp_print	print-snmp.c	/^snmp_print (np, length)$/
+snmppdu_print	print-snmp.c	/^snmppdu_print (pduid, np, length)$/
+stoi	util.c	/^stoi(s)$/
+stripdir	util.c	/^stripdir(s)$/
+sunrpcrequest_print	print-sunrpc.c	/^sunrpcrequest_print(rp, length, ip)$/
+swap_hdr	savefile.c	/^swap_hdr(hp)$/
+syntax	gencode.c	/^syntax()$/
+tcp_print	print-tcp.c	/^tcp_print(tp, length, ip)$/
+tcpport_string	addrtoname.c	/^tcpport_string(port)$/
+term	tcpgram.y	/^term:	  rterm$/
+tftp_print	print-tftp.c	/^tftp_print(tp, length)$/
+this_op	optimize.c	/^this_op(s)$/
+trap_print	print-snmp.c	/^trap_print (np, length)$/
+ts_print	util.c	/^ts_print(tvp)$/
+udp_print	print-udp.c	/^udp_print(up, length, ip)$/
+udpport_string	addrtoname.c	/^udpport_string(port)$/
+unMarkAll	optimize.c	/^#define unMarkAll() cur_mark += 1$/
+usage	tcpdump.c	/^usage()$/
+use_conflict	optimize.c	/^use_conflict(b, succ)$/
+varbind_print	print-snmp.c	/^varbind_print (pduid, np, length, error)$/
+vfprintf	util.c	/^vfprintf(f, fmt, args)$/
+vstore	optimize.c	/^vstore(s, valp, newval, alter)$/
+warning	util.c	/^warning(va_alist)$/
+wrapup	pcap.c	/^wrapup(fd)$/
+xdtoi	etherent.c	/^xdtoi(c)$/
+xfer_to_a	gencode.c	/^xfer_to_a(a)$/
+xfer_to_x	gencode.c	/^xfer_to_x(a)$/
+yylex	tcplex.l	/^%%$/
+yyparse	tcpgram.y	/^%%$/
+yywrap	tcplex.l	/^yywrap()$/

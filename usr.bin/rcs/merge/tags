@@ -1,0 +1,5 @@
+badoption	merge.c	/^badoption(a)$/
+exiterr	merge.c	/^exiterr()$/
+libId	merger.c	/^libId(mergerId, "$Id: merger.c,v 1.1.1.1 1993\/12/
+mainProg	merge.c	/^mainProg(mergeId, "merge", "$Id: merge.c,v 1.1.1.1/
+merge	merger.c	/^merge(tostdout, label, argv)$/

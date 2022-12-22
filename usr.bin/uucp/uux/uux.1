@@ -1,0 +1,285 @@
+.\"
+.V= $Id: uux.1,v 1.2 1994/01/31 01:27:20 donn Exp $
+.\"
+.ds S1 UUX
+.ds S2 \fIUux\fP
+.ds S3 \fIuux\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uux
+.TH \*(S1 1 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uux \- unix to unix command execution
+.SH SYNOPSIS
+.B uux
+.RB [ \- ]
+.RI [\- flags ]
+.I command-string
+.SH DESCRIPTION
+\*(S2 will gather zero or more files from various systems,
+execute a command on a specified system
+and then send standard output to a file on a specified system.
+.PP
+The
+.I command-string
+is made up of one or more arguments that look
+like a Shell command line,
+except that the command and file names
+may be prefixed by
+.IB system-name !\fR.\fP
+A null \fIsystem-name\fP is interpreted as the local system.
+.PP
+File names may be one of
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'(5)X'u
+.TP "\*(tw"
+(1)
+a full path name;
+.TP
+(2)
+a path name preceded by \fB\e\fP (the \fB\\\fP is removed);
+.TP
+(3)
+a path name preceded by \fB~\fP\fIuser\fP where
+.I user
+is a login name on the specified system
+and is replaced by that user's login directory;
+.TP
+(4)
+a path name prefixed by \fB~/\fP where \fB~\fP
+is expanded to the system's public directory (usually /var/spool/uucppublic);
+.TP
+(5)
+a partial pathname, which is prefixed by the current directory.
+.RE
+.PP
+As an example, the command
+.PP
+.RS 2
+.if t .ft CW
+\*(S6 "\^!diff usg!/usr/dan/file1 pwba!/a4/dan/file2 > !~/dan/file.diff\^"
+.if t .ft
+.RE
+.PP
+will get the \fBfile1\fP and \fBfile2\fP files
+from the `usg' and `pwba' machines,
+execute a
+.IR diff (1)
+command
+and put the results in \fBfile.diff\fP in the 
+local /var/spool/uucppublic/dan/ directory.
+.PP
+\*(S2 will attempt to get all files to the execution system.
+.PP
+Any special shell characters, such as \fB<>;|\fP, should be quoted either
+by quoting the entire \fIcommand-string\fP, or quoting the special
+characters as individual arguments.
+.PP
+Arguments that contain characters meaningful to \*(S3
+that are meant to be interpreted remotely
+must be quoted with parentheses.
+For example, the command
+.PP
+.RS 2
+.if t .ft CW
+\*(S6 a!mail \e(c!user\e)
+.if t .ft
+.RE
+.PP
+will execute the command
+.if t \f(CWmail c!user\fP
+.if n ``mail c!user''
+on system `a'.
+.PP
+\*(S2 will notify you by mail if the requested command on the remote
+system was disallowed.
+This notification can be turned off by the \fB\-n\fP option.
+.PP
+\*(S2 reads the 
+.SM UUCP
+configuration file
+.if t \f(CW/etc/uucp/CONFIG\fP
+.if r ``/etc/uucp/CONFIG''
+on start-up \(em but see `\fB\-P\fP' below.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-M\fP\fIminsize\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-
+The standard input to \*(s3
+is made the standard input to the
+.IR command-string .
+.TP
+.BI \-a name
+Use
+.I name
+as the user identification replacing the initiator user-id.
+.TP
+.BI \-c
+Do not copy local file to the spool directory for transfer to the remote
+machine (this is the default).
+.TP
+.BI \-C
+Force the copy of local files to the spool directory for transfer.
+.TP
+.BI \-d spool
+Change the spool directory from the default [SPOOLDIR].
+This should be either
+.SM SPOOLDIR,
+or one of the directories named in
+.SM SPOOLALTDIRS
+(see
+.IR uuparams (5)).
+.TP
+.BI \-g grade[incr]
+.I Grade
+is a single letter/number, from
+.B 0
+to
+.BR 9 ,
+.B A
+to
+.BR Z ,
+or
+.B a
+to
+.BR z ;
+.B 0
+is the highest, and
+.B z
+is the lowest grade.
+The default is 
+.BR A ;
+by comparison
+.IR uucp (1C)
+defaults to
+.B n
+and mail is usually sent at grade
+.BR C .
+Lower grades should be specified for high-volume jobs, such as news.
+The optional
+.I incr
+is a number used to downgrade the job one grade for each 
+.I incr 
+bytes in the data.
+.TP
+.BI \-l
+Try and make a link from the original file to the spool directory.
+If the link cannot be made, copy the file.
+.TP
+.BI \-L
+Start up
+.I uucico
+with the \fB-L\fP flag. This will force
+calls to be made to local sites only (see
+.IR uucico (8C)).
+.TP
+.BI \-m minsize
+Abort if input data size is less than
+.IR minsize .
+.TP
+.BI \-M minsize
+Equivalent to \fB\-m\fP.
+.TP
+.BI \-n
+Do not notify the user when the command completes.
+.TP
+.BI \-p
+Same as \fB\-\fP.
+The standard input to \*(S3
+is made the standard input to the
+.IR command-string .
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+(See
+.IR uuparams (5)
+for details.)
+.TP
+.BI \-r
+Do not start the file transfer, just queue the job.
+.TP
+.BI \-S spool
+Equivalent to \fB\-d\fP.
+.TP
+.BI \-T \fR[\fPlevel\fR]\fP
+Turns on routine tracing at
+.I level
+[default: 1].
+If tracing is not compiled in,
+this flag will have no effect.
+.TP
+.BI \-x debug
+Produce debugging output on stdout.
+.I debug
+is a number between 0 and 9;
+higher numbers give more detailed information. Debugging is permitted
+only for privileged users (specifically, those with read access to
+.IR L.sys (5)).
+.TP
+.BI \-z
+Notify the user only if the command fails.
+.SH FILES
+.PD 0
+.TP \w'\f(CW/etc/uucp/CONFIG\fPX'u
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all \*(S5 programs (see
+.IR uuparams (5)).
+.TP
+\s-1LOGDIR\s0/errors
+\*(S5 error log.
+.TP
+\s-1LOGDIR\s0/uux/\fInode\fP
+\*(S2 log for
+.IR node .
+.TP
+\s-1PARAMSDIR\s0/L.aliases
+Aliases for remote system names.
+.TP
+\s-1PARAMSDIR\s0/L.sys
+Remote system names.
+.PD
+.SH "SEE ALSO"
+.BR uucp (1),
+.BR uuparams (5),
+.BR uucico (8),
+.BR uuxqt (8).
+.SH WARNING
+For security reasons, many installations
+limit the list of
+commands executable on behalf of an incoming request from \*(S3.
+Many sites permit little more than
+the receipt of mail via \*(S3
+(see
+.IR mail (1)).
+.SH BUGS
+Only the first command of a shell pipeline may
+have a
+.IB system-name !\fR.
+All other commands are executed on the system of the first
+command.
+.PP
+The use of the shell metacharacter
+.B \(**
+will probably not do what you want it to do.
+.PP
+The shell tokens
+.B <<
+and
+.B >>
+are not implemented.
+.PP
+When invoking \*(S3 from
+.IR csh (1),
+the `!' character must be prefixed by the `\\' escape to inhibit
+.IR csh 's
+history mechanism. (Quotes are not sufficient.)

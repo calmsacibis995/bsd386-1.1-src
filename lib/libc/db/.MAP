@@ -1,0 +1,14 @@
+D BTREE                             	btree
+D BUILD                             	build
+D DB                                	db
+D DOC                               	doc
+D HASH                              	hash
+F MAKEFILE.INC;1                    	Makefile.inc
+D MAN                               	man
+D MPOOL                             	mpool
+D PORT                              	port
+D RECNO                             	recno
+D TEST                              	test
+F TODO.;1                           	TODO
+F UPDATE_1.93;1                     	UPDATE.10.Jan.93
+F VERSION.;1                        	VERSION

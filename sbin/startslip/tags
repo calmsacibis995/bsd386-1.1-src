@@ -1,0 +1,7 @@
+Mstartslip	startslip.c	/^main(argc, argv)$/
+getline	startslip.c	/^getline(buf, size, fd)$/
+set_disc	startslip.c	/^set_disc(fd, disc)$/
+setproctitle	startslip.c	/^void setproctitle() { \/* empty *\/; }$/
+sigalrm	startslip.c	/^sigalrm()$/
+sighup	startslip.c	/^sighup()$/
+usage	startslip.c	/^usage()$/

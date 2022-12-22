@@ -1,0 +1,152 @@
+README file for GNU wdiff, last updated December 21, 1992.
+Copyright (C) 1992 Free Software Foundation, Inc.
+Written by Francois Pinard <pinard@iro.umontreal.ca>.
+
+Subject: Release of GNU wdiff, version 0.04
+Subject: GNU wdiff 0.0 - Patch 4, brings 0.03 to 0.04
+
+The program wdiff, version 0.04, is now available on prep.ai.mit.edu,
+in directory pub/gnu, as file wdiff-0.04.tar.Z.  All reported bugs
+have been fixed.  Some bugs surely remain.  Your feedback will help me
+to make wdiff better and more portable.  Please report any wdiff
+problems to me or to bug-gnu-utils@prep.ai.mit.edu.  Thanks to all
+those who contributed comments or suggestions.
+
+Read the file NEWS for an inventory of user visible changes, and file
+ChangeLog for a detailed list of all changes.  You will find below a
+description of wdiff, how to get its documentation, how to apply the
+current patch, a few installation notes you should read and, finally,
+the answer to some frequently asked questions.
+
+Installation has been simplified.  Flex is not anymore required for
+non ANSI-C compilers.  wdiff uses the first found of gnudiff, diffgnu,
+gdiff or diff.  Some other portability problems have been alleviated.
+
+James Ganong <jeg@ced.berkeley.edu> wrote collatew.el, generalizing
+the Emacs LISP compare-windows function in the spirit of wdiff;
+however, his package is not part of the wdiff distribution.  Email to
+James or me for a copy.
+
+Colin Brough <cmb@epcc.ed.ac.uk> contributed a man page, describing
+wdiff at level 0.04.  The man page will be distributed and installed
+along with wdiff as long as Colin will want to maintain it.
+
+.------------------.
+|  What is wdiff?  |
+`------------------'
+
+The program wdiff is a front end to diff for comparing files on a word
+per word basis.  A word is anything between whitespace.  This program
+is particularily useful for comparing two texts in which a few words
+have been changed and for which paragraphs have been refilled.  wdiff
+is free software.  See files COPYING and COPYING.LIB for copying
+conditions.
+
+This program does not require termcap, but takes advantage of it.  If
+your system does not have termcap, you might feel like getting and
+installing GNU termcap first.  Grab termcap-1.1.tar.Z in /pub/gnu from
+prep.ai.mit.edu.
+
+.-----------------.
+|  Documentation  |
+`-----------------'
+
+Calling just wdiff, without arguments, will summarize its usage.  The
+true documentation is in Texinfo format.  You can look at the file
+wdiff.info using any ASCII editor, or even print the file as is.  You
+may browse it from inside GNU Emacs by typing:
+
+	C-u M-x info RET wdiff.info RET
+
+or, using the standalone Info reader, through the command:
+
+	info -f wdiff.info
+
+If you have TeX, execute the command:
+
+	tex wdiff.texi
+
+then process and print wdiff.dvi the usual way.  You can find makeinfo
+and the standalone info reader in file texinfo-2.15.tar.Z in /pub/gnu
+from prep.ai.mit.edu: just unpack it and look into the C subdirectory.
+
+.----------------------.
+|  Applying the Patch  |
+`----------------------'
+
+This section is for you only if you received this as an introduction
+to a patch in diff format.  Apply this patch to wdiff-0.03 to get
+wdiff-0.04.  It is a unified diff, you can apply it using a recent
+version of the patch program, like patch-2.0.12g8.tar.Z in /pub/gnu
+from prep.ai.mit.edu.  Given you have it, first save this article in
+file THIS_ARTICLE, then execute the following commands:
+
+	cd wdiff-0.03
+	patch < THIS_ARTICLE
+
+If you just patched wdiff, or if you received it whole in shar format,
+the time stamps might be improper.  You might somewhat alleviate the
+problem with the two following commands:
+
+	touch configure    <- if you forget this, you need autoconf!
+	touch wdiff.info   <- if you forget this, you need makeinfo!
+
+.----------------------.
+|  Installation notes  |
+`----------------------'
+
+See the file INSTALL for building and installation instructions.
+However, beware of these peculiarities:
+
+* There is a simple minded change bars producer in wdiff, which is not
+installed by default, nor documented.  If you nevertheles want it, one
+way to get it is requesting, at the final installation step:
+
+	make install PROGS='wdiff cbars'
+
+* If you have both more and less, you prefer more to less, your PAGER
+environment variable does not tell about more, then prefix the call to
+configure with your pager selection, as in:
+
+	PAGER=more sh configure
+
+* If you have termcap emulation routines in libcurses.a and you do not
+have libtermcap.a, and until I find a way to do better, please use:
+
+	LIBS=-lcurses sh configure
+
+.------------------------------.
+|  Frequently Asked Questions  |
+`------------------------------'
+
+Q: How is wdiff different from diff -w?
+
+wdiff finds word differences, ignoring spaces, tabs and newlines,
+while diff -w finds *line* differences, ignoring spaces and tabs.
+Also, each program uses its own output format.
+
+Q: How about spiff by Dan Nachbar <nachbar@bellcore.com>?
+
+spiff is far more general than wdiff.  On the other end, wdiff is a
+lot faster, needs almost no memory, and can afford handling big files
+in reasonnable time.  Despite its lack of generality, wdiff does one
+of the most usual jobs, so it is quite useful after all.  I might try
+retrofitting some of spiff features into wdiff, but not on short term.
+
+Q: How much memory wdiff exactly needs?
+
+wdiff uses a fixed amount of memory.  Long lines or long files are no
+handicap.  All the true work is done by diff under the scene, and diff
+needs memory itself.  GNU diff swallows both files in memory first.
+
+Q: Why not simply apply diff to files split one word per line?
+
+You like the way wdiff formats its output.  And it's speedier too.
+
+Q: Why calling an external diff?  Could not diff be built in wdiff?
+
+It's not fruitful to rewrite another diff.  I'd rather see wdiff
+integrated in GNU diff than the other way around.  This might come.
+When wdiff will have matured enough, it *might* be integrated into GNU
+diff distribution, or in GNU diff itself.
+

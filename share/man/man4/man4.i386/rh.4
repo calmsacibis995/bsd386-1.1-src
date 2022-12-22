@@ -1,0 +1,91 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: rh.4,v 1.1 1993/03/08 16:21:26 polk Exp $
+.\"
+.Dd March 1, 1993
+.Dt RH 4 i386
+.Os
+.Sh NAME
+.Nm rh
+.Nd
+.Tn SDL Communications
+RISCom/H2 dual high-speed synchronous interface
+.Sh SYNOPSIS
+.Cd "device rh0 at isa? port 0x240 drq 6"
+.Sh DESCRIPTION
+The
+.Nm rh
+interface provides two point-to-point bit-synchronous serial connections
+with speeds up to 4 Mb/s using HDLC frame format.
+It uses a switch-selectable block of 8 I/O ports in the range
+0x200 through 0x3f0.
+The block must be aligned on a 16 port boundary.
+The jumper-selectable interrupt level is
+detected at autoconfiguration time or alternatively can be
+specified in the system configuration file.
+Supported IRQs are: 3, 4, 5, 6, 10, 11, 12 and 15.
+No I/O memory is used.
+A 16-bit DMA channel should be specified in the kernel
+configuration file and selected by on-board jumpers; supported
+DRQs are 5, 6 and 7.
+The RISCom/H2 board should be installed in a 16-bit slot.
+.Pp
+Currently the
+.Nm rh
+interface supports synchronous Point-to-Point Protocol (PPP)
+and Cisco
+.Tn HDLC
+encapsulation with SLARP.
+The link-level protocol is selected by the
+.Dv IFF_LINK0
+flag with an
+.Dv SIOCSIFFLAGS
+.Xr ioctl 2
+(see
+.Xr ifconfig 8 ) .
+To select PPP set the
+.Dv IFF_LINK0
+interface flag; clearing it selects Cisco
+.Tn HDLC
+encapsulation.
+.Pp
+To include PPP and Cisco
+.Tn HDLC
+code, the kernel configuration file should specify
+.Li "options PPP"
+and/or
+.Li "options CISCO_HDLC"
+respectively.
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It rh%d: illegal base address %x
+.br
+Invalid port specification in kernel config file.
+.It rh%d: illegal drq %d
+.br
+Invalid DRQ specification in kernel config file.
+.It rh%d: illegal IRQ %d
+.br
+Invalid IRQ specification in kernel config file.
+.It rh%d: no memory for the channel 1 data
+.br
+The attach routine cannot allocate memory for the
+channel 1.
+Should never happen.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr ppp 4 ,
+.Xr cisco_hdlc 4 ,
+.Xr ifconfig 8
+.Sh BUGS
+The RISCom/H2 board uses cascade DMA mode which is known
+not to work on some motherboards.
+Make sure your motherboard works correctly with the RISCom/H2
+using the manufacturer-supplied test program.
+.Pp
+The maximal transmission speed may vary depending on the
+processor speed and ISA bus timing parameters.

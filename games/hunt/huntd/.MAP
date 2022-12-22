@@ -1,0 +1,14 @@
+F ANSWER.C;1                        	answer.c
+F DRAW.C;1                          	draw.c
+F DRIVER.C;1                        	driver.c
+F EXECUTE.C;1                       	execute.c
+F EXPL.C;1                          	expl.c
+F EXTERN.C;1                        	extern.c
+F HUNT.H;1                          	hunt.h
+F HUNTD.6;1                         	huntd.6
+F MAKEFILE.;1                       	Makefile
+F MAKEMAZE.C;1                      	makemaze.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/games/hunt/huntd
+F SHOTS.C;1                         	shots.c
+F TAGS.;1                           	tags
+F TERMINAL.C;1                      	terminal.c

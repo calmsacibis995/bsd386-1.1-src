@@ -1,0 +1,12 @@
+F ACTIONS.C;1                       	actions.c
+F AUDIT.C;1                         	audit.c
+F FILTER.C;1                        	filter.c
+F LOCK.C;1                          	lock.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/elm/filter
+F PARSE.C;1                         	parse.c
+F REGEXP.C;1                        	regexp.c
+F RULES.C;1                         	rules.c
+F SUMMARIZ.C;1                      	summarize.c
+F TAGS.;1                           	tags
+F UTILS.C;1                         	utils.c

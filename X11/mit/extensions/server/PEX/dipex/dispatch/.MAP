@@ -1,0 +1,7 @@
+F DIPEXBUF.GZ;1                     	dipexBuf.c.gz
+F DIPEXEXT.GZ;1                     	dipexExt.c.gz
+F DIPEXPAR.GZ;1                     	dipexParse.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F PEXDUMP_.GZ;1                     	pexDump.c.gz
+F PEXERROR.GZ;1                     	pexError.c.gz
+F PEXUTILS.GZ;1                     	pexUtils.c.gz

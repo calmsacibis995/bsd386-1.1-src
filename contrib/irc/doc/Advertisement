@@ -1,0 +1,37 @@
+                 The Internet Relay Chat Program  -  IRC
+
+                      Author: Jeff Trim, April '89
+              Revised: Greg Lindahl, Oct '90 (gl8f@virginia.edu)
+
+Have you ever wanted to talk with other computer users in other parts
+of the world?  Well guess what?  You can!  The program is called IRC
+and it is networked much over North America, Europe, and Asia.
+This program is a substitution for talk(1), chat(1), vco(1) and many
+other multiple talk programs you might have read about.  When you are
+talking in IRC, everything you type will instantly be transmitted
+around the world to other users that might be watching their terminals
+at the time - they can then type something and RESPOND to your
+messages - and vise versa.  I should warn you that the program can be
+very addictive once you begin to make friends and contacts on IRC ;-)
+especially when you learn how to cuss in 14 languages.
+
+Topics of discussion on IRC are varied, just like the topics of Usenet
+newsgroups are varied. Technical and political discussions are
+popular, especially when world events are in progress. IRC is also a
+way to expand your horizons, as people from many countries and
+cultures are on, 24 hours a day. Most conversations are in English,
+but there are always channels in German, Japanese, and Finnish, and
+occasionally other languages.
+
+                       How To Get IRC (technical)
+
+IRC is a fully-distributed client-server system, much like
+NNTP-Usenet, with several clients availble in C and elisp. You may ftp
+the irc server from tolsun.oulu.fi, and the most popular client from
+rvw2.hhs.ri.cmu.edu. If you have any questions about IRC installation,
+write to the address given in the "networking" document in the IRC
+server distribution.
+
+
+
+

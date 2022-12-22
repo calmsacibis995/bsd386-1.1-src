@@ -1,0 +1,9 @@
+Mpsrev	psrev.c	/^main(argc, argv)$/
+copy_and_exit	psrev.c	/^void copy_and_exit(fp)$/
+get_line	psrev.c	/^int get_line(lb, fp)$/
+put_line	psrev.c	/^void put_line(lb, fp)$/
+strprefix	psrev.c	/^int strprefix(s1, s2)$/
+sys_error	psrev.c	/^void sys_error(message, arg)$/
+usage	psrev.c	/^void usage()$/
+xmalloc	psrev.c	/^char *xmalloc(size)$/
+xrealloc	psrev.c	/^char *xrealloc(ptr, size)$/

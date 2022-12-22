@@ -1,0 +1,4280 @@
+\input texinfo.tex @c -*- texinfo -*-
+@c %**start of header
+@setfilename zsh.info
+@settitle    zsh
+@c %**end of header
+@c v0.1, July 8th 1992.  Added documentation for Rick's
+@c (pclink@@qld.tne.oz.au) four new glob qualifiers (a/m/c/L)
+@c v0.2, August 11th 1992.  Added documentation for the new PSVAR
+@c variable, the f E and I flags for the fc command, and the
+@c appendhistory and extendedhistory options.  Also corrected a typo in
+@c the description of the ${ := } modifier.  Now current to zsh2.3beta
+@c (patch level 28).
+@c v0.3, August 21 1992.  Unified to the zsh.1 (patchlevel 30) patches
+@c supplied by Hans Albertsson.  This meant rewriting most of the extra
+@c text I added in v0.1 and v0.2, in order to match Hans'.  Corrected
+@c some more typos ("is has" in several places). 
+@c       [ added to the archive sometime around here ]
+@c v0.4, November 1 1992.  Added up-line-or-search to complement
+@c down-line-or-search.  Moved information about availability and the
+@c mailing list to the end of the file, to match zsh.1.  Should now be
+@c current to patchlevel 65.
+@c v0.5, February 5 1993.  Has been kept mostly up-do-date by denizens
+@c of the mailing list.  Final clean-up to conform to the new release
+@c of zsh version 2.3 (man page dated 1 February 1993), and to the new
+@c Texinfo standards (but should remain compatible with old Texinfo).
+@c Eventually I want to rewrite to use the new features of Texinfo v2.0
+@c and above, but we'll have to wait for the rest of the world to catch
+@c up first.  <sigh>
+
+@setchapternewpage on
+
+@ifinfo
+This is a texinfo version of the man page for the Z Shell, by Paul
+Falstad.  It was converted from the original @code{zsh.1} file
+distributed with zsh v2.2.0.  The conversion was done by Jonathan
+Hardwick, @code{jch@@cs.cmu.edu}, who would love to hear of any errors
+he introduced or texinfo rules he broke.  The text remains the work of
+Paul Falstad.@refill
+@end ifinfo
+
+@titlepage
+@sp 4
+@center @titlefont{The Z Shell}
+@sp 2
+@center Paul Falstad
+@center pf@@ttisms.com
+@sp 2
+@center 1 February 1993
+@page
+@vskip 0pt plus 1filll
+This is a texinfo version of the man page for the Z Shell, by Paul
+Falstad.  It was converted from the original @code{zsh.1} file
+distributed with zsh v2.2.0.  The conversion was done by Jonathan
+Hardwick, @code{jch@@cs.cmu.edu}, who would love to hear of any errors
+he introduced or texinfo rules he broke.  The text remains the work of
+Paul Falstad.
+@end titlepage
+
+@node Top, Shell Grammar, (dir), (dir)
+@top zsh
+
+@menu
+* Shell Grammar::               
+* Expansion::                   
+* Redirection::                 
+* Command Execution::           
+* Functions::                   
+* Jobs & Signals::              
+* History::                     
+* Arithmetic Evaluation::       
+* Conditional Expressions::     
+* Zsh Line Editor::             
+* Parameters::                  
+* Options::                     
+* Shell Builtin Commands::      
+* Invocation::                  
+* Wrapping Up::                 
+* Concept Index::               
+* Variables Index::             
+* Options Index::               
+* Functions Index::             
+* Editor Functions Index::      
+* Keystroke Index::             
+
+ --- The Detailed Node Listing ---
+
+Shell Grammar
+
+* Simple Commands & Pipelines::  
+* Complex Commands::            
+* Reserved Words::              
+* Comments::                    
+* Aliasing::                    
+* Quoting::                     
+
+Expansion
+
+* Filename Expansion::          
+* Process Substitution::        
+* Parameter Expansion::         
+* Command Substitution::        
+* Arithmetic Expansion::        
+* Brace Expansion::             
+* Filename Generation::         
+
+History
+
+* Event Designators::           
+* Word Designators::            
+* Modifiers::                   
+
+Zsh Line Editor
+
+* Movement::                    
+* History Control::             
+* Modifying Text::              
+* Arguments::                   
+* Completion::                  
+* Miscellaneous::               
+
+Parameters
+
+* Array Parameters::            
+* Positional Parameters::       
+* Parameters Set By The Shell::  
+* Parameters Used By The Shell::  
+
+Wrapping Up
+
+* See Also::                    
+* Files Used::                  
+* Availability::                
+* Undocumented Features::       
+@end menu
+
+@node Shell Grammar, Expansion, Top, Top
+@chapter Shell Grammar
+@cindex shell grammar
+@cindex grammar, shell
+
+@menu
+* Simple Commands & Pipelines::  
+* Complex Commands::            
+* Reserved Words::              
+* Comments::                    
+* Aliasing::                    
+* Quoting::                     
+@end menu
+
+@node Simple Commands & Pipelines, Complex Commands,  , Shell Grammar
+@section Simple Commands
+@cindex simple commands
+@cindex commands, simple
+
+@noindent
+A @dfn{simple command} is a sequence of optional parameter assignments
+followed by blank-separated words, with optional redirections
+interspersed.  The first word is the command to be executed, and the
+remaining words, if any, are arguments to the command.  If a command
+name is given, the parameter assignments modify the environment of the
+command when it is executed.  The value of a simple command is its exit
+status, or 128 plus the signal number if terminated by a signal.
+
+@findex exec
+@findex command
+@findex noglob
+@findex nocorrect
+@noindent
+If a simple command is preceded by the word @code{exec}, it is executed
+in the parent shell without forking.  If preceded by @code{command}, the
+command word is taken to be the name of an external command, rather than
+a shell function or builtin.  If preceded by @code{noglob}, filename
+generation is not performed on any of the words.  If preceded by a
+@code{-}, the command is executed with a @code{-} prepended to its
+@code{argv[0]} string. If preceded by @code{nocorrect}, spelling
+correction is not done on any of the words.@refill
+
+@cindex pipeline
+@noindent
+A @dfn{pipeline} is a sequence of one or more commands separated by
+@code{|} or @code{|&}.  @code{|&} is shorthand for @code{2>&1 |}.  The
+standard output of each command is connected to the standard input of
+the next command in the pipeline.@refill
+
+@cindex pipeline, value of
+@noindent
+The value of a pipeline is the value of the last command.  If a pipeline
+is preceded by a @code{!}, the value of that pipeline is the logical NOT
+of the value of the last command.
+
+@findex coproc
+@cindex coprocesses
+@noindent
+If a pipeline is preceded by @code{coproc}, it is executed as a
+coprocess; a two-way pipe is established between it and the parent
+shell.  The shell can read from or write to the coprocess by means of
+the @code{>&p} and @code{<&p} redirection operators.@refill
+
+@cindex sublist
+@noindent
+A @dfn{sublist} is a sequence of one or more pipelines separated by
+@code{&&} or @code{||}.  If two pipelines are separated by @code{&&},
+the second pipeline is executed only if the first is successful (returns
+a zero value).  If two pipelines are separated by @code{||}, the second
+is executed only if the first is unsuccessful (returns a nonzero
+value).@refill
+
+@cindex list
+@noindent
+A @dfn{list} is a sequence of one or more sublists separated by, and
+optionally terminated by, @code{;}, @code{&}, or a newline.  Normally
+the shell waits for each list to finish before executing the next one.
+If a list is terminated by a @code{&}, the shell executes it in the
+background, and does not wait for it to finish.@refill
+
+@node Complex Commands, Reserved Words, Simple Commands & Pipelines, Shell Grammar
+@section Complex Commands
+@cindex complex commands
+@cindex commands, complex
+
+@noindent
+A @dfn{complex command} is one of the following:
+
+@table @code
+@cindex for loops
+@cindex loops, for
+@findex for
+@item for @var{name} [ in @var{word} @dots{} ]
+@itemx do @var{list}
+@itemx done
+Expand the list of @var{word}s, and set the parameter @var{name} to each
+of them in turn, executing @var{list} each time.  If the @code{in}
+@var{word} is omitted, use the positional parameters instead of the
+@var{word}s.@refill
+
+@item for @var{name} [ in @var{word} @dots{} ] ; @var{sublist}
+This is a shorthand for @code{for}.  Though it may cause confusion, it
+is included for convenience; its use in scripts is discouraged, unless
+@var{sublist} is a command of the form @{ @var{list} @}.@refill
+
+@findex foreach
+@item foreach @var{name} ( @var{word} @dots{} )
+@itemx @var{list}
+@itemx end
+Another form of @code{for}.
+
+@item for @var{name} in @var{word} @dots{}
+@itemx @{
+@itemx @var{list}
+@itemx @}
+Another form of @code{for}.
+
+@item for @var{name} ( @var{word} @dots{} ) @{
+@itemx @var{list}
+@itemx @}
+Another form of @code{for}.
+
+@item for @var{name} ( @var{word} @dots{} ) @var{sublist}
+Another form of @code{for}.
+
+@cindex selection, user
+@cindex user selection
+@findex select
+@item select @var{name} [ in @var{word} @dots{} ]
+@itemx do @var{list}
+@itemx done
+Print the set of @var{word}s, each preceded by a number.  If the
+@code{in} @var{word} is omitted, use the positional parameters.  The
+@code{PROMPT3} prompt is printed and a line is read from standard input.
+If this line consists of the number of one of the listed @var{word}s,
+then the parameter @var{name} is set to the @var{word} corresponding to
+this number.  If this line is empty, the selection list is printed
+again.  Otherwise, the value of the parameter @var{name} is set to null.
+The contents of the line read from standard input is saved in the
+parameter @code{REPLY}.  @var{list} is executed for each selection until
+a break or end-of-file is encountered.@refill
+
+@item select @var{name} [ in @var{word} ] ; @var{sublist}
+A short form of @code{select}.
+
+@findex case
+@cindex case selection
+@cindex selection, case
+@item case @var{word} in [ @var{pattern} ) @var{list} ;; ] @dots{}
+@itemx esac
+Execute the @var{list} associated with the first @var{pattern} that
+matches @var{word}, if any.  The form of the patterns is the same as
+that used for filename generation.  @xref{Filename Generation}.@refill
+
+@item case @var{word} @{ [ @var{pattern} ) @var{list} ;; ] @dots{}
+@itemx @}
+Another form of @code{case}.
+
+@findex if
+@cindex if construct
+@item if @var{list}
+@itemx then @var{list}
+@itemx [ elif @var{list} ; then @var{list} ] @dots{}
+@itemx [ else @var{list} ]
+@itemx fi
+The @code{if} @var{list} is executed, and, if it returns a zero exit
+status, the @code{then} @var{list} is executed.  Otherwise, the
+@code{elif} @var{list} is executed and, if its value is zero, the
+@code{then} @var{list} is executed.  If each @code{elif} @var{list}
+returns nonzero, the @code{else} @var{list} is executed.@refill
+
+@item if ( @var{list} ) @var{sublist}
+A short form of @code{if}.
+
+@item if ( @var{list} ) @{
+@itemx @var{list}
+@itemx @} elif ( @var{list} ) @{
+@itemx @var{list}
+@itemx @} @dots{} else @{
+@itemx @var{list}
+@itemx @}
+An alternate form of @code{if}.
+
+@findex while
+@cindex while loops
+@cindex loops, while
+@item while @var{list}
+@itemx do @var{list}
+@itemx done
+Execute the @code{do} @var{list} as long as the @code{while} @var{list}
+returns a zero exit status.@refill
+
+@item while ( @var{list} ) @{
+@itemx @var{list}
+@itemx @}
+An alternate form of @code{while}.
+
+@findex until
+@cindex until loops
+@cindex loops, until
+@item until @var{list}
+@itemx do @var{list}
+@itemx done
+Execute the @code{do} @var{list} as long as @code{until} @var{list}
+returns a nonzero exit status.@refill
+
+@findex repeat
+@cindex repeat loops
+@cindex loops, repeat
+@item repeat @var{word}
+@itemx do @var{list}
+@itemx done
+@var{word} is expanded and treated as an arithmetic expression, which
+must evaluate to a number @var{n}.  @var{list} is then executed @code{n}
+times.@refill
+
+@item repeat @var{word} @var{sublist}
+This is a short form of @code{repeat}.
+
+@cindex subshells
+@item ( @var{list} )
+Execute @var{list} in a subshell.
+
+@item @{ @var{list} @}
+Execute @var{list}.
+
+@item function @var{word} [ () ] @dots{} @{ @var{list} @}
+@itemx @var{word} @dots{} () @{ @var{list} @}
+@itemx @var{word} @dots{} () @var{sublist}
+Define a function which is referenced by any one of @var{word}.
+Normally, only one @var{word} is provided; multiple @var{word}s are
+usually only useful for setting traps.  The body of the function is the
+@var{list} between the @code{@{} and @code{@}}.
+@xref{Functions}.@refill
+
+@cindex timing
+@item time [ @var{pipeline} ]
+The @var{pipeline} is executed, and timing statistics are reported on
+the standard error in the form specified by the @code{TIMEFMT}
+parameter.  If @var{pipeline} is omitted, print statistics about the
+shell process and its children.@refill
+
+@cindex testing conditional expression
+@item [[ @var{exp} ]]
+Evaluates the conditional expression @var{exp} and return a zero exit
+status if it is true.  @xref{Conditional Expressions}, for a description
+of @var{exp}.@refill
+@end table
+
+@node Reserved Words, Comments, Complex Commands, Shell Grammar
+@section Reserved Words
+@cindex reserved words
+
+@findex unalias, use of
+@noindent
+The following words are recognized as @dfn{reserved words} when used as
+the first word of a command unless quoted or removed using the
+@code{unalias} builtin:@refill
+
+@noindent
+@code{do} @code{done} @code{esac} @code{then} @code{elif} @code{else}
+@code{fi} @code{for} @code{case} @code{if} @code{while} @code{function}
+@code{repeat} @code{code} @code{time} @code{until} @code{exec}
+@code{command} @code{select} @code{coproc} @code{noglob} @code{-}
+@code{nocorrect} @code{foreach} @code{end} @refill
+
+@node Comments, Aliasing, Reserved Words, Shell Grammar
+@section Comments
+@cindex comments
+
+@vindex HISTCHARS, use of
+@pindex INTERACTIVE_COMMENTS, use of
+@noindent
+In noninteractive shells, or in interactive shells with the
+@code{INTERACTIVE_COMMENTS} option set, a word beginning with the third
+character of the @code{HISTCHARS} parameter (@code{#} by default) causes
+that word and all the following characters up to a newline to be
+ignored.@refill
+
+@node Aliasing, Quoting, Comments, Shell Grammar
+@section Aliasing
+@cindex aliasing
+
+@findex alias, use of
+@cindex aliases, global
+@noindent
+Every token in the shell input is checked to see if there is an alias
+defined for it.  If so, it is replaced by the text of the alias if it is
+in command position (if it could be the first word of a simple command),
+or if the alias is global.  If the text ends with a space, the next word
+in the shell input is treated as though it were in command position for
+purposes of alias expansion.  An alias is defined using the @code{alias}
+builtin; global aliases may be defined using the @code{-g} option to
+that bulitin.@refill
+
+@noindent
+Alias substitution is done on the shell input before any other
+substitution except history substitution.  Therefore, if an alias is
+defined for the word @samp{foo}, alias substitution may be avoided by
+quoting part of the word, e.g. @samp{\foo}.  But there is nothing to
+prevent an alias being defined for @samp{\foo} as well.@refill
+
+@node Quoting,  , Aliasing, Shell Grammar
+@section Quoting
+@cindex quoting
+
+@noindent
+A character may be @dfn{quoted} (that is, made to stand for itself) by
+preceding it with a @code{\}.  @code{\} followed by a newline is
+ignored.  All characters enclosed between a pair of single quotes
+(@code{''}) are quoted.  A single quote cannot appear within single
+quotes.  Inside double quotes (@code{""}), parameter and command
+substitution occurs, and @code{\} quotes the characters @code{\},
+@code{`}, @code{"}, and @code{$}. @refill
+
+@node Expansion, Redirection, Shell Grammar, Top
+@chapter Expansion
+@cindex expansion
+
+@menu
+* Filename Expansion::          
+* Process Substitution::        
+* Parameter Expansion::         
+* Command Substitution::        
+* Arithmetic Expansion::        
+* Brace Expansion::             
+* Filename Generation::         
+@end menu
+
+@noindent
+Expansion is performed on the command line after it has been parsed.
+The types of expansions performed are @dfn{filename expansion},
+@dfn{process substitution}, @dfn{parameter expansion}, @dfn{command
+substitution}, @dfn{arithmetic expansion}, @dfn{brace expansion}, and
+@dfn{filename generation}.@refill
+
+@node Filename Expansion, Process Substitution,  , Expansion
+@section Filename Expansion
+@cindex filename expansion
+@cindex expansion, filename
+
+@noindent
+Each word is checked to see if it begins with an unquoted @code{~}.  If
+it does, then the word up to a @code{/} is checked to see if it matches
+the name of a named directory.  If so, then the @code{~} and the matched
+portion are replaced with the value of the named directory.  A @code{~}
+by itself or followed by a @code{/} is replaced by the value of the
+@code{HOME} parameter.  A @code{~} followed by a @code{+} or a @code{-}
+is replaced by the value of @code{PWD} or @code{OLDPWD},
+respectively.@refill
+
+@cindex directories, named
+@cindex named directories
+@noindent
+Named directories are typically login directories for users on the
+system.  They may also be defined if the text after the @code{~} is the
+name of a string shell parameter whose value begins with a @code{/}.  In
+certain circumstances (in prompts, for instance), when the shell prints
+a path, the path is checked to see if it has a named directory as its
+prefix.  If so, then the prefix portion is replaced with a @code{~}
+followed by the name of the directory.  The longest match is preferred.
+
+@noindent
+If a word begins with an unquoted @code{=} and the @code{NO_EQUALS}
+option is not set, the remainder of the word is taken as the name of a
+command or alias.  If a command exists by that name, the word is
+replaced by the full pathname of the command.  If an alias exists by
+that name, the word is replaced with the text of the alias.  Otherwise
+the word is checked up to a @code{/} to see if it is a number or a
+@code{-}.  If so, the matched portion is replaced with the @var{n}th
+directory in the directory stack, where @var{n} is the number matched,
+or the last directory in the directory stack if a @code{-} is
+matched.@refill
+
+@node Process Substitution, Parameter Expansion, Filename Expansion, Expansion
+@section Process Substitution
+@cindex process substitution
+@cindex substitution, process
+
+@noindent
+Each command argument of the form @code{<(@var{list})} or
+@code{>(@var{list})} or @code{=(@var{list})} is subject to process
+substitution.  In the case of the @code{<} or @code{>} forms, the shell
+will run process @var{list} asynchronously connected to a named pipe
+(FIFO).  The name of this pipe will become the argument to the command.
+If the form with @code{>} is selected then writing on this file will
+provide input for @var{list}.  If @code{<} is used, then the file passed
+as an argument will be a named pipe connected to the output of the
+@var{list} process.  For example,@refill
+
+@code{paste <(cut -f1 @var{file1}) <(cut -f3 @var{file2}) | tee >(@var{process1}) >(@var{process2}) >/dev/null}
+
+@noindent
+@code{cut}s fields 1 and 3 from the files @var{file1} and @var{file2}
+respectively, @code{paste}s the results together, and sends it to the
+processes @var{process1} and @var{process2}.  Note that the file, which
+is passed as an argument to the command, is a system pipe so programs
+that expect to @code{lseek(2)} on the file will not work.  Also note
+that the previous example can be more compactly and efficiently written
+as:@refill
+
+@code{paste <(cut -f1 @var{file1}) <(cut -f3 @var{file2}) >>(@var{process1}) >>(@var{process2})}
+
+@noindent
+The shell uses pipes instead of FIFOs to implement the latter two
+process substitutions in the above example.
+
+@cindex temporary files
+@cindex files, temporary
+@noindent
+If @code{=} is used, then the file passed as an argument will be the name
+of a temporary file containing the output of the @var{list} process.
+This may be used instead of the @code{<} form for a program that expects
+to @code{lseek(2)} on the input file.@refill
+
+@node Parameter Expansion, Command Substitution, Process Substitution, Expansion
+@section Parameter Expansion
+@cindex parameter expansion
+@cindex expansion, parameter
+
+@noindent
+The character @code{$} is used to introduce parameter expansions.
+@xref{Parameters}, for a description of parameters.@refill
+
+@table @code
+@item $@{@var{name}@}
+The value, if any, of the parameter @var{name} is substituted.  The
+braces are required if @var{name} is followed by a letter, digit, or
+underscore that is not to be interpreted as part of its name.  If
+@var{name} is an array parameter, then the values of each element of
+@var{name} is substituted, one element per word.  Otherwise, the
+expansion results in one word only; no word splitting is done on the
+result.@refill
+
+@item $@{@var{name}:-@var{word}@}
+If @var{name} is set and is non-null then substitute its value;
+otherwise substitute @var{word}.@refill
+
+@item $@{@var{name}:=@var{word}@}
+If @var{name} is unset or is null then set it to @var{word}; the value
+of the parameter is then substituted.@refill
+
+@item $@{@var{name}:?@var{word}@}
+If @var{name} is set and is non-null, then substitute its value;
+otherwise, print @var{word} and exit from the shell.  If @var{word} is
+omitted, then a standard message is printed.@refill
+
+@item $@{@var{name}:+@var{word}@}
+If @var{name} is set and is non-null then substitute @var{word};
+otherwise substitute nothing.@refill
+
+@item $@{@var{name}#@var{pattern}@}
+@itemx $@{@var{name}##@var{pattern}@}
+If the @var{pattern} matches the beginning of the value of @var{name},
+then substitute the value of @var{name} with the matched portion
+deleted; otherwise, just substitute the value of @var{name}.  In the
+first form, the smallest matching pattern is preferred; in the second
+form, the largest matching pattern is preferred.@refill
+
+@item $@{@var{name}%@var{pattern}@}
+@itemx $@{@var{name}%%@var{pattern}@}
+If the @var{pattern} matches the end of the value of @var{name}, then
+substitute the value of @var{name} with the matched portion deleted;
+otherwise, just substitute the value of @var{name}.  In the first form,
+the smallest matching pattern is preferred; in the second form, the
+largest matching pattern is preferred.@refill
+
+@item $@{#@var{spec}@}
+If @var{spec} is one of the above substitutions, substitute the length
+in characters of the result instead of the result itself.  If @var{spec}
+is an array expression, substitute the number of elements of the
+result.@refill
+
+@cindex rc, array expansion style
+@cindex array expansion, rc style
+@pindex RC_EXPAND_PARAM, use of
+@item $@{^@var{spec}@}
+Toggle the value of the @code{RC_EXPAND_PARAM} option for the evaluation
+of @var{spec}.  When this option is set, array expansions of the form
+@samp{foo$@{xx@}bar}, where the parameter @samp{xx} is set to @samp{(a b
+c)}, are substituted with @samp{fooabar foobbar foocbar} instead of the
+default @samp{fooa b cbar}.@refill
+
+@cindex word splitting, sh style
+@cindex sh, word splitting style
+@pindex SH_WORD_SPLIT, use of
+@vindex IFS, use of
+@item $@{=@var{spec}@}
+Toggle the value of the @code{SH_WORD_SPLIT} option for the evaluation
+of @var{spec}.  When this option is set, parameter values are split into
+separate words using @code{IFS} as a delimiter before substitution.
+This is done by default in most other shells.@refill
+@end table
+
+@noindent
+If the colon is omitted from one of the above expressions containing a
+colon, then the shell only checks whether @var{name} is set or not, not
+whether it is null.@refill
+
+@node Command Substitution, Arithmetic Expansion, Parameter Expansion, Expansion
+@section Command Substitution
+@cindex command substitution
+@cindex substitution, command
+
+@vindex IFS, use of
+@noindent
+A command enclosed in parentheses preceded by a dollar sign, like so:
+@code{$(@dots{})} or quoted with grave accents: @code{`@dots{}`} is replaced
+with its standard output.  If the substitution is not enclosed in double
+quotes, the output is broken into words using the @code{IFS} parameter.
+The substitution @code{$(cat foo)} may be replaced by the equivalent but
+faster @code{$(<foo)}.@refill
+
+@node Arithmetic Expansion, Brace Expansion, Command Substitution, Expansion
+@section Arithmetic Expansion
+@cindex arithmetic expansion
+@cindex expansion, arithmetic
+
+@noindent
+A string of the form @code{$[@var{exp}]} is substituted with the value
+of the arithmetic expression @var{exp}.  @var{exp} is treated as if it
+were within single quotes.  @xref{Arithmetic Evaluation}.@refill
+
+@node Brace Expansion, Filename Generation, Arithmetic Expansion, Expansion
+@section Brace Expansion
+@cindex brace expansion
+@cindex expansion, brace
+
+@noindent
+A string of the form @samp{foo@{xx,yy,zz@}bar} is expanded to the
+individual words @samp{fooxxbar}, @*@samp{fooyybar}, and @samp{foozzbar}.
+Left-to-right order is preserved.  This construct may be nested.
+Malformed brace expansion expressions, including expressions without a
+comma, are left unchanged by the shell.@refill
+
+@noindent
+An expression of the form @code{@{x-y@}}, where @code{x} and @code{y}
+are single characters, is expanded to every character between @code{x}
+and @code{y}, inclusive.@refill
+
+@node Filename Generation,  , Brace Expansion, Expansion
+@section Filename Generation
+@cindex filename generation
+
+@cindex globbing
+@pindex NO_GLOB, use of
+@pindex EXTENDED_GLOB, use of
+@pindex NULL_GLOB, use of
+@pindex NO_NOMATCH, use of
+@pindex GLOB_DOTS, use of
+@noindent
+If a word contains an unquoted instance of one of the characters
+@code{*}, @code{|}, @code{<}, @code{[}, or @code{?}, it is regarded as a
+pattern for filename generation, unless the @code{NO_GLOB} option is
+set.  If the @code{EXTENDED_GLOB} option is set, the @code{^} and
+@code{#} characters also denote a pattern; otherwise they are not
+treated specially by the shell.  The word is replaced with a list of
+sorted filenames that match the pattern.  If no matching pattern is
+found, the shell gives an error message, unless the @code{NULL_GLOB}
+option is set, in which case the word is deleted; or unless the
+@code{NO_NOMATCH} option is set, in which case the word is left
+unchanged.  In filename generation, the character @code{/} must be
+matched explicitly; also, a @code{.} must be matched explicitly at the
+beginning of a pattern or after a @code{/}, unless the @code{GLOB_DOTS}
+option is set.  No filename generation pattern matches the files
+@file{.} or @file{..}.  In other instances of pattern matching, the
+@code{/} and @code{.} are not treated specially.@refill
+
+@table @code
+@item *
+matches any string, including the null string.
+@item ?
+matches any character.
+@item [@dots{}]
+matches any of the enclosed characters.
+@item [^@dots{}]
+matches any character except the enclosed characters.
+@item <x-y>
+matches any number in the range @code{x} to @code{y}, inclusive.  If
+@code{x} is omitted, the number must be less than or equal to @code{y}.
+If @code{y} is omitted, the number must be greater than or equal to
+@code{x}.  A pattern of the form @code{<->} or simply @code{<>} matches
+any number.@refill
+@item ^x
+matches anything except the pattern @code{x}.
+@item x|y
+matches either @code{x} or @code{y}.
+@item x#
+matches zero or more occurrences of the pattern @code{x}.
+@item x##
+matches one or more occurrences of the pattern @code{x}.
+@end table
+
+@noindent
+Parentheses may be used for grouping.  Note that the @code{|} character
+must be within parentheses, so that the lexical analyzer does not think
+it is a pipe character.  Also note that @code{/} has a higher precedence
+than @code{^}; that is:@refill
+
+@code{ls ^foo/bar}
+
+@noindent
+will search directories in @file{.} except @file{./foo} for a file named
+@file{bar}.@refill
+
+@noindent
+A pathname component of the form @code{(@var{foo}/)#} matches a path
+consisting of zero or more directories matching the pattern @var{foo}.
+As a shorthand, @code{**/} is equivalent to @code{(*/)#}.  Thus:@refill
+
+@code{ls (*/)#bar}
+
+@noindent
+or
+
+@code{ls **/bar}
+
+@noindent
+does a recursive directory search for files named @file{bar}.
+
+@cindex exclusion, globbing
+@cindex globbing, excluding patterns
+@noindent
+If used for filename generation, a pattern may contain an exclusion
+specifier.  Such patterns are of the form @var{pat1}~@var{pat2}.
+This pattern will generate all files matching @var{pat1}, but which do
+not match @var{pat2}.  For example, @samp{*.c~lex.c} will match all
+files ending in @file{.c}, except the file @file{lex.c}.@refill
+
+@cindex qualifiers, globbing
+@cindex globbing, qualifiers
+@noindent
+Patterns used for filename generation may also end in a list of
+qualifiers enclosed in parentheses.  The qualifiers specify which
+filenames that otherwise match the given pattern will be inserted in the
+argument list.  A qualifier may be any one of the following:
+
+@table @code
+@item /
+directories
+@item .
+plain files
+@item @@
+symbolic links
+@item =
+sockets
+@item p
+named pipes (FIFOs)
+@item *
+executable plain files (0100)
+@item %
+device files (character or block special)
+@item r
+readable files (0400)
+@item w
+writable files (0200)
+@item x
+executable files (0100)
+@item R
+world-readable files (0004)
+@item W
+world-writable files (0002)
+@item X
+world-executable files (0001)
+@item s
+setuid files (04000)
+@item S
+setgid files (02000)
+@item d@var{dev}
+files on the device @var{dev}
+@item l@var{ct}
+files having a link count of @var{ct}
+@item U
+files owned by the effective user id
+@item G
+files owned by the effective group id
+@item u@var{num}
+files owned by user id @var{num}
+@item g@var{num}
+files owned by group id @var{num}
+@item a[+-]@var{n}
+files accessed within last @var{n} days (@code{-}), more than @var{n}
+days ago (@code{+}), or exactly @var{n} days ago.@refill
+@item m[+-]@var{n}
+files modified within last @var{n} days (@code{-}), more than @var{n}
+days ago (@code{+}), or exactly @var{n} days ago.@refill
+@item c[+-]@var{n}
+files whose inode changed within last @var{n} days (@code{-}), more than
+@var{n} days ago (@code{+}), or exactly @var{n} days ago.@refill
+@item L[+-]@var{bytes}
+files less than @var{n} bytes (@code{-}), more than @var{n} bytes
+(@code{+}), or exactly @var{n} bytes in length.@refill
+@item ^
+negates all qualifiers following it
+@item M
+@pindex MARK_DIRS, setting in pattern
+sets the @code{MARK_DIRS} option for the current pattern
+@item N
+@pindex NULL_GLOB, setting in pattern
+sets the @code{NULL_GLOB} option for the current pattern
+@item D
+@pindex GLOB_DOTS, setting in pattern
+sets the @code{GLOB_DOTS} option for the current pattern
+@end table
+
+@noindent
+Thus:
+
+@code{ls *(%W)}
+
+@noindent
+lists all world-writable device files in the current directory,
+and@refill
+
+@code{ls /tmp/foo*(u0^@@)}
+
+@noindent
+lists all root-owned files beginning with the string @samp{foo} in
+@file{/tmp}, ignoring symlinks, and@refill
+
+@code{ls *.*~(lex|parse).[ch](^D^l1)}
+
+@noindent
+lists all files having a link count of one whose names contain a dot
+(but not those starting with a dot, since @code{GLOB_DOTS} is explicitly
+switched off) except for @file{lex.c}, @file{lex.h}, @file{parse.c}, and
+@file{parse.h}.  A @code{/} at the end of a pattern is equivalent to
+@code{(/)}.@refill
+
+@node Redirection, Command Execution, Expansion, Top
+@chapter Redirection
+@cindex redirection
+
+@cindex file descriptors
+@cindex descriptors, file
+@noindent
+Before a command is executed, its input and output may be redirected.
+The following may appear anywhere in a simple-command or may precede or
+follow a complex command.  Substitution occurs before @var{word} is used
+except as noted below.  If the result of substitution on @var{word}
+produces more than one filename, redirection occurs for each separate
+filename in turn.@refill
+
+@table @code
+@item < @var{word}
+Open file @var{word} as standard input.
+
+@item > @var{word}
+@pindex NO_CLOBBER, use of
+Open file @var{word} as standard output.  If the file does not exist
+then it is created.  If the file exists, and the @code{NO_CLOBBER}
+option is set, this causes an error; otherwise, it is truncated to zero
+length.@refill
+
+@item >! @var{word}
+Same as @code{>}, except that the file is truncated to zero length if it
+exists, even if @code{NO_CLOBBER} is set.@refill
+
+@item >> @var{word}
+Open file @var{word} as standard output.  If the file exists then output
+is appended to it.  If the file does not exist, and the
+@code{NO_CLOBBER} option is set, this causes an error; otherwise, the
+file is created.@refill
+
+@item >>! @var{word}
+Same as @code{>>}, except that the file is created if it does not exist,
+even if @code{NO_CLOBBER} is set.@refill
+
+@item <<[-] @var{word}
+The shell input is read up to a line that is the same as @var{word}, or
+to an end-of-file.  No parameter substitution, command substitution or
+filename generation is performed on @var{word}.  The resulting document,
+called a @dfn{here-document}, becomes the standard input.  If any
+character of @var{word} is quoted with single or double quotes
+or a @code{\}, no interpretation is placed
+upon the characters of the document.  Otherwise, parameter and command
+substitution occurs, @code{\} followed by a newline is removed, and
+@code{\} must be used to quote the characters @code{\}, @code{$},
+@code{`}, and the first character of @var{word}.  If @code{<<-} is used,
+then all leading tabs are stripped from @var{word} and from the
+document.@refill
+
+@item <<< @var{word}
+Open a file containing @var{word}, after expansion, as standard input.
+
+@item <& @var{digit}
+The standard input is duplicated from file descriptor @var{digit} (see
+@code{dup(2)}).  Similarly for standard output using
+@code{>&@var{digit}}.@refill
+
+@item >& @var{word}
+Same as @code{> @var{word} 2>&1}.
+
+@item >>& @var{word}
+Same as @code{>> @var{word} 2>&1}.
+
+@item <&-
+Close the standard input.
+
+@item >&-
+Close the standard output.
+
+@item <&p
+The input from the coprocess is moved to the standard input.
+
+@item >&p
+The output to the coprocess is moved to the standard output.
+@end table
+
+@noindent
+If one of the above is preceded by a digit, then the file descriptor
+referred to is that specified by the digit (instead of the default 0 or
+1).  The order in which redirections are specified is significant.  The
+shell evaluates each redirection in terms of the (@var{file descriptor},
+@var{file}) association at the time of evaluation.  For example:@refill
+
+@code{@dots{} 1>@var{fname} 1>&1}
+
+@noindent
+first associates file descriptor 1 with file @var{fname}.  It then
+associates file descriptor 2 with the file associated with file
+descriptor 1 (that is, @var{fname}).  If the order of redirections were
+reversed, file descriptor 2 would be associated with the terminal
+(assuming file descriptor 1 had been) and then file descriptor 1 would
+be associated with file @var{fname}.@refill
+
+@noindent
+If the user tries to open a file descriptor for writing more than once,
+the shell opens the file descriptor as a pipe to a process that copies
+its input to all the specified outputs, similar to @code{tee(1)}.  Thus:
+
+@code{date >foo >bar}
+
+@noindent
+writes the date to two files, named @file{foo} and @file{bar}.  Note
+that a pipe is an implicit indirection; thus
+
+@code{date >foo | cat}
+
+@noindent
+writes the date to the file @file{foo}, and also pipes it to @code{cat}.
+
+@noindent
+If the user tries to open a file descriptor for reading more than once,
+the shell opens the file descriptor as a pipe to a process that copies
+all the specified inputs to its output in the order specified, similar
+to @code{cat(1)}.  Thus
+
+@code{sort <foo <fubar}
+
+@noindent
+or even
+
+@code{sort <f@{oo,ubar@}}
+
+@noindent
+is equivalent to @samp{cat foo fubar | sort}.  Note that a pipe is an
+implicit indirection; thus@refill
+
+@code{cat bar | sort <foo}
+
+@noindent
+is equivalent to @samp{cat bar foo | sort} (note the order of the inputs).
+
+@noindent
+If a simple command consists of one or more redirection operators and
+zero or more parameter assignments, but no command name, the command
+@code{cat} is assumed.  Thus
+
+@code{< file}
+
+@noindent
+prints the contents of @code{file}.
+
+@noindent
+If a command is followed by @code{&} and job control is not active, then
+the default standard input for the command is the empty file
+@file{/dev/null}.  Otherwise, the environment for the execution of a
+command contains the file descriptors of the invoking shell as modified
+by input/output specifications.@refill
+
+@node Command Execution, Functions, Redirection, Top
+@chapter Command Execution
+@cindex command execution
+@cindex execution, of commands
+
+@noindent
+If a command name contains no slashes, the shell attempts to locate it.
+If there exists a shell function by that name, the function is invoked
+as described below (@pxref{Functions}).  If there exists a shell builtin
+by that name, the builtin is invoked.
+
+@vindex path, use of
+@noindent
+Otherwise, the shell searches each element of @code{path} for a directory
+containing an executable file by that name.  If the search is
+unsuccessful, the shell prints an error message and returns a nonzero
+exit status.
+
+@noindent
+If execution fails because the file is not in executable format, and the
+file is not a directory, it is assumed to be a shell script.
+@code{/bin/sh} is spawned to execute it.  If the program is a file
+beginning with @code{#!}, the remainder of the first line specifies an
+interpreter for the program.  The shell will execute the specified
+interpreter on operating systems that do not handle this executable
+format in the kernel.@refill
+
+@node Functions, Jobs & Signals, Command Execution, Top
+@chapter Functions
+@cindex functions
+
+@findex function
+@noindent
+The @code{function} reserved word is used to define shell functions.
+Shell functions are read in and stored internally.  Alias names are
+resolved when the function is read.  Functions are executed like
+commands with the arguments passed as positional parameters.@refill
+
+@noindent
+Functions execute in the same process as the caller and share all files
+and present working directory with the caller.  A trap on @code{EXIT}
+set inside a function is executed after the function completes in the
+environment of the caller.@refill
+
+@findex return, use of
+@noindent
+The @code{return} builtin is used to return from function calls.
+
+@findex functions, use of
+@findex unfunction, use of
+@noindent
+Function identifiers can be listed with the @code{functions} builtin.
+Functions can be undefined with the @code{unfunction} builtin.@refill
+
+@noindent
+The following functions, if defined, have special meaning to the shell:
+
+@table @code
+@findex chpwd
+@item chpwd
+Executed whenever the current working directory is changed.
+
+@findex precmd
+@item precmd
+Executed before each prompt.
+
+@vindex PERIOD
+@findex periodic
+@item periodic
+If the parameter @code{PERIOD} is set, this function is executed every
+@code{PERIOD} seconds, just before a prompt.@refill
+
+@findex TRAPERR
+@findex TRAPDEBUG
+@findex TRAPEXIT
+@cindex signals, trapping
+@cindex trapping signals
+@item TRAP@var{xxx}
+If defined and non-null, this function will be executed whenever the
+shell catches a signal @code{SIG@var{xxx}}, where @var{xxx} is a signal
+name as specified for the @code{kill} builtin 
+(@pxref{Shell Builtin Commands}).  
+In addition, @code{TRAPERR} is executed whenever a command
+has a non-zero exit status, @code{TRAPDEBUG} is executed after each
+command, and @code{TRAPEXIT} is executed when the shell exits, or when
+the current function exits if defined inside a function.  If a function
+of this form is defined and null, the shell and processes spawned by it
+will ignore @code{SIG@var{xxx}}.@refill
+@end table
+
+@node Jobs & Signals, History, Functions, Top
+@chapter Jobs & Signals
+@cindex jobs
+
+@findex jobs, use of
+@pindex MONITOR, use of
+@noindent
+If the @code{MONITOR} option is set, an interactive shell associates a
+@dfn{job} with each pipeline.  It keeps a table of current jobs,
+printed by the @code{jobs} command, and assigns them small integer
+numbers.  When a job is started asynchronously with @code{&}, the shell
+prints a line which looks like:@refill
+
+@code{[1] 1234}
+
+@noindent
+indicating that the job which was started asynchronously was job number
+1 and had one (top-level) process, whose process id was 1234.
+
+@kindex CTRL-Z
+@cindex jobs, suspending
+@cindex suspending jobs
+@findex fg, use of
+@findex bg, use of
+@noindent
+If you are running a job and wish to do something else you may hit the
+key @ctrl{Z} (control-Z) which sends a @code{STOP} signal to the current
+job.  The shell will then normally indicate that the job has been
+@dfn{suspended}, and print another prompt.  You can then manipulate the
+state of this job, putting it in the background with the @code{bg}
+command, or run some other commands and then eventually bring the job
+back into the foreground with the foreground command @code{fg}.  A
+@ctrl{Z} takes effect immediately and is like an interrupt in that
+pending output and unread input are discarded when it is typed.@refill
+
+@cindex jobs, background, IO
+@cindex background jobs, IO
+@noindent
+A job being run in the background will suspend if it tries to read from
+the terminal.  Background jobs are normally allowed to produce output,
+but this can be disabled by giving the command @code{stty tostop}.  If
+you set this tty option, then background jobs will suspend when they try
+to produce output like they do when they try to read input.@refill
+
+@cindex jobs, referring to
+@cindex referring to jobs
+@noindent
+There are several ways to refer to jobs in the shell.  A job can be
+referred to by the process id of any process of the job or by one of the
+following:
+
+@table @code
+@item %@var{number}
+The job with the given number.
+@item %@var{string}
+Any job whose command line begins with @var{string}.
+@item %?@var{string}
+Any job whose command line contains @var{string}.
+@item %%
+Current job.
+@item %+
+Equivalent to @code{%%}.
+@item %-
+Previous job.
+@end table
+
+@findex notify, use of
+@noindent
+The shell learns immediately whenever a process changes state.  It
+normally informs you whenever a job becomes blocked so that no further
+progress is possible.  If @code{notify} is not set, it waits until just
+before it prints a prompt before it informs you.@refill
+
+@noindent
+When the monitor mode is on, each background job that completes triggers
+any trap set for @code{CHLD}.
+
+@findex disown, use of
+@cindex jobs, disowning
+@cindex disowning jobs
+@noindent
+When you try to leave the shell while jobs are running or suspended, you
+will be warned that @samp{You have suspended (running) jobs}.  You may
+use the @code{jobs} command to see what they are.  If you do this or
+immediately try to exit again, the shell will not warn you a second
+time; the suspended jobs will be terminated, and the running jobs will
+be sent a @code{SIGHUP} signal.  To avoid having the shell terminate the
+running jobs, either use the @code{nohup(1)} command or the
+@code{disown} builtin (@pxref{Shell Builtin Commands}).@refill
+
+@cindex signals
+@noindent
+The @code{INT} and @code{QUIT} signals for an invoked command are
+ignored if the command is followed by @code{&} and the job @code{monitor}
+option is not active.  Otherwise, signals have the values inherited by
+the shell from its parent (but @xref{Functions}, for the
+@code{TRAP@var{xxx}} special functions).@refill
+
+@node History, Arithmetic Evaluation, Jobs & Signals, Top
+@chapter History
+@cindex history
+
+@vindex HISTSIZE, use of
+@noindent
+History substitution allows you to use words from previous command lines
+in the command line you are typing.  This simplifies spelling
+corrections and the repetition of complicated commands or arguments.
+Command lines are saved in the history list, the size of which is
+controlled by the @code{HISTSIZE} variable.  The most recent command is
+retained in any case.  A history substitution begins with a @code{!} and
+may occur anywhere on the command line; history substitutions do not
+nest.  The @code{!} can be escaped with @code{\} to suppress its special
+meaning.  Single or double quotes will @emph{not} work for this.@refill
+
+@noindent
+Input lines containing history substitutions are echoed on the terminal
+after being expanded, but before any other substitutions take place or
+the command gets executed.
+
+@menu
+* Event Designators::           
+* Word Designators::            
+* Modifiers::                   
+@end menu
+
+@node Event Designators, Word Designators,  , History
+@section Event Designators
+@cindex history event designators
+@cindex event designators, history
+
+@noindent
+An event designator is a reference to a command line entry in the
+history list.
+
+@table @code
+@item !
+Start a history substitution, except when followed by a blank, newline,
+@code{=}, or @code{(}.
+@item !!
+Refer to the previous command.  By itself, this substitution repeats the
+previous command.
+@item !n
+Refer to command line @var{n}.
+@item !-n
+Refer to the current command line minus @var{n}.
+@item !str
+Refer to the most recent command starting with @var{str}.
+@item !?@var{str}[?]
+Refer to the most recent command containing @var{str}.
+@item !#
+Refer to the current command line typed in so far.
+@item !@{@dots{}@}
+Insulate a history reference from adjacent characters (if necessary).
+@end table
+
+@node Word Designators, Modifiers, Event Designators, History
+@section Word Designators
+@cindex history word designators
+@cindex word designators, history
+
+@noindent
+A @code{:} separates the event specification from the word designator.
+It can be omitted if the word designator begins with a @code{,},
+@code{$}, @code{*}, @code{-} or @code{%}.  If the word is to be selected
+from the previous command, the second @code{!} character can be omitted
+from the event specification.  For instance, @code{!!:1} and @code{!:1}
+both refer to the first word of the previous command, while @code{!!$}
+and @code{!$} both refer to the last word in the previous command.  Word
+designators include:@refill
+
+@table @code
+@item 0
+The first input word (command).
+@item @var{n}
+The @var{n}'th argument.
+@item ^
+The first argument, that is, @code{1}.
+@item $
+The last argument.
+@item %
+The word matched by (the most recent) @code{?}s search.
+@item @var{x}-@var{y}
+A range of words;  @code{-@var{y}} abbreviates @code{0-@var{y}}.
+@item *
+All the arguments, or a null value if there is just one word in the
+event.
+@item @var{x}*
+Abbreviates @code{@var{x}-$}.
+@item @var{x}
+Like @code{@var{x}*} but omitting word @code{$}.
+@end table
+
+@node Modifiers,  , Word Designators, History
+@section Modifiers
+@cindex modifiers, history
+@cindex history modifiers
+
+@noindent
+After the optional word designator, you can add a sequence of one or
+more of the following modifiers, each preceded by a @code{:}.  These
+modifiers also work on the result of filename and parameter
+expansion.@refill
+
+@table @code
+@item h
+Remove a trailing pathname component, leaving the head.
+@item r
+Remove a trailing suffix of the form @code{.@var{xxx}}, leaving the
+basename.@refill
+@item e
+Remove all but the suffix.
+@item t
+Remove all leading pathname components, leaving the tail.
+@item &
+Repeat the previous substitution.
+@item g
+Apply the change to the first occurrence of a match in each word, by
+prefixing the above (for example, @code{g&}).
+@item p
+Print the new command but do not execute it.
+@item q
+Quote the substituted words, escaping further substitutions.
+@item x
+Like @code{q}, but break into words at each blank.
+@item l
+Convert the words to all lowercase.
+@item u
+Convert the words to all uppercase.
+@item s/@var{l}/@var{r}[/]
+Substitute @var{r} for @var{l}.
+@end table
+
+@noindent
+Unless preceded by a @code{g}, the substitution is done only for the
+first string that matches @var{l}.
+
+@noindent
+The left-hand side of substitutions are not regular expressions, but
+character strings.  Any character can be used as the delimiter in place
+of @code{/}.  A backslash quotes the delimiter character.  The character
+@code{&}, in the right-hand side, is replaced by the text from the
+left-hand side.  The @code{&} can be quoted with a backslash.  A null
+@var{l} uses the previous string either from a @var{l} or from a
+contextual scan string @var{s} from @code{!?@var{s}}.  You can omit the
+rightmost delimiter if a newline immediately follows @var{r}; the
+rightmost @code{?} in a context scan can similarly be omitted.@refill
+
+@noindent
+Without an event specification, a history reference refers either to the
+previous command, or to a previous history reference on the command line
+(if any).
+
+@noindent
+The character sequence @samp{^foo^bar} repeats the last command,
+replacing the string @samp{foo} with the string @samp{bar}.@refill
+
+@cindex history, disabling
+@cindex disabling history
+@noindent
+If the shell encounters the character sequence @code{!"} in the input,
+the history mechanism is temporarily disabled until the current list is
+fully parsed.  The @code{!"} is removed from the input, and any
+subsequent @code{!} characters have no special significance.@refill
+
+@findex fc, use of
+@noindent
+A less convenient but more comprehensible form of command history
+support is provided by the @code{fc} builtin 
+(@pxref{Shell Builtin Commands}).
+
+@node Arithmetic Evaluation, Conditional Expressions, History, Top
+@chapter Arithmetic Evaluation
+@cindex arithmetic evaluation
+@cindex evaluation, arithmetic
+
+@noindent
+An ability to perform integer arithmetic is provided with the builtin
+@code{let}.  Evaluations are performed using @emph{long} arithmetic.
+Constants are of the form @code{[@var{base}#]@var{n}} where @var{base}
+is a decimal number between two and thirty-six representing the
+arithmetic base and @var{n} is a number in that base.  If @var{base} is
+omitted then base 10 is used.@refill
+
+@cindex arithmetic operators
+@cindex operators, arithmetic
+@noindent
+An arithmetic expression uses nearly the same syntax, precedence, and
+associativity of expressions in C.  The following operators are
+supported (listed in decreasing order of precedence):
+
+@table @code
+@item + - ! ~ ++ --
+unary plus/minus, logical NOT, complement, @{pre,post@}@{in,de@}crement
+@item &
+logical AND
+@item ^
+logical XOR
+@item |
+logical OR
+@item * / %
+multiplication, division, remainder
+@item + -
+addition, subtraction
+@item << >>
+logical shift left, shift right
+@item < > <= >=
+comparison
+@item == !=
+equality and inequality
+@item &&
+boolean AND
+@item || ^^
+boolean OR, XOR
+@item ? :
+ternary operator
+@item = += -= *= /= %= &= ^= |= <<= >>= &&= ||= ^^=
+assignment
+@item ,
+comma operator
+@end table
+
+@noindent
+The operators @code{&&}, @code{||}, @code{&&=}, and @code{||=} are
+short-circuiting, and only one of the latter two expressions in a
+ternary operator is evaluated.  Note the precedence of the logical AND,
+OR, and XOR operators.@refill
+
+@noindent
+Named parameters can be referenced by name within an arithmetic
+expression without using the parameter substitution syntax.
+
+@cindex parameters, integer
+@cindex integer parameters
+@findex integer, use of
+@noindent
+An internal integer representation of a named parameter can be specified
+with the @code{integer} builtin.  Arithmetic evaluation is performed on
+the value of each assignment to a named parameter declared integer in
+this manner.@refill
+
+@findex let, use of
+@noindent
+Since many of the arithmetic operators require quoting, an alternative
+form of the @code{let} command is provided.  For any command which
+begins with a @code{((}, all the characters until a matching @code{))}
+are treated as a quoted expression.  More precisely, @code{(( @dots{} ))} is
+equivalent to @code{let "@dots{}"}.@refill
+
+@node Conditional Expressions, Zsh Line Editor, Arithmetic Evaluation, Top
+@chapter Conditional Expressions
+@cindex conditional expressions
+@cindex expressions, conditional
+
+@noindent
+A @dfn{conditional expression} is used with the @code{[[} compound
+command to test attributes of files and to compare strings.  Each
+expression can be constructed from one or more of the following unary or
+binary expressions:@refill
+
+@table @code
+@item -a @var{file}
+true if @var{file} exists.
+@item -b @var{file}
+true if @var{file} exists and is a block special file.
+@item -c @var{file}
+true if @var{file} exists and is a character special file.
+@item -d @var{file}
+true if @var{file} exists and is a directory.
+@item -e @var{file}
+true if @var{file} exists.
+@item -f @var{file}
+true if @var{file} exists and is an ordinary file.
+@item -g @var{file}
+true if @var{file} exists and has its setgid bit set.
+@item -h @var{file}
+true if @var{file} exists and is a symbolic link.
+@item -k @var{file}
+true if @var{file} exists and has its sticky bit set.
+@item -n @var{string}
+true if length of @var{string} is non-zero.
+@item -o @var{option}
+true if option named @var{option} is on.
+@item -p @var{file}
+true if @var{file} exists and is a fifo special file or a pipe.
+@item -r @var{file}
+true if @var{file} exists and is readable by current process.
+@item -s @var{file}
+true if @var{file} exists and has size greater than zero.
+@item -t @var{fd}
+true if file descriptor number @var{fd} is open and associated with a
+terminal device (note: @var{fd} is not optional).@refill
+@item -u @var{file}
+true if @var{file} exists and has its setuid bit set.
+@item -w @var{file}
+true if @var{file} exists and is writable by current process.
+@item -x @var{file}
+true if @var{file} exists and is executable by current process.  If
+@var{file} exists and is a directory, then the current process has
+permission to search in the directory.@refill
+@item -z @var{string}
+true if length of @var{string} is zero.
+@item -L @var{file}
+true if @var{file} exists and is a symbolic link.
+@item -O @var{file}
+true if @var{file} exists and is owned by the effective user id of this
+process.
+@item -G @var{file}
+true if @var{file} exists and its group matches the effective group id
+of this process.
+@item -S @var{file}
+true if @var{file} exists and is a socket.
+@item @var{file1} -nt @var{file2}
+true if @var{file1} exists and is newer than @var{file2}.
+@item @var{file1} -ot @var{file2}
+true if @var{file1} exists and is older than @var{file2}.
+@item @var{file1} -ef @var{file2}
+true if @var{file1} and @var{file2} exist and refer to the same file.
+@item @var{string} = @var{pattern}
+true if @var{string} matches @var{pattern}.
+@item @var{string} != @var{pattern}
+true if @var{string} does not match @var{pattern}.
+@item @var{string1} < @var{string2}
+true if @var{string1} comes before @var{string2} based on ASCII value of
+their characters.@refill
+@item @var{string1} > @var{string2}
+true if @var{string1} comes after @var{string2} based on ASCII value of
+their characters.@refill
+@item @var{exp1} -eq @var{exp2}
+true if @var{exp1} is equal to @var{exp2}.
+@item @var{exp1} -ne @var{exp2}
+true if @var{exp1} is not equal to @var{exp2}.
+@item @var{exp1} -lt @var{exp2}
+true if @var{exp1} is less than @var{exp2}.
+@item @var{exp1} -gt @var{exp2}
+true if @var{exp1} is greater than @var{exp2}.
+@item @var{exp1} -le @var{exp2}
+true if @var{exp1} is less than or equal to @var{exp2}.
+@item @var{exp1} -ge @var{exp2}
+true if @var{exp1} is greater than or equal to @var{exp2}.
+@item ( @var{exp} )
+true if @var{exp} is true.
+@item ! @var{exp}
+true if @var{exp} is false.
+@item @var{exp1} && @var{exp2}
+true if @var{exp1} and @var{exp2} are both true.
+@item @var{exp1} || @var{exp2}
+true if either @var{exp1} or @var{exp2} is true.
+@end table
+
+@noindent
+In each of the above expressions, if @var{file} is of the form
+@samp{/dev/fd/@var{n}}, where @var{n} is an integer, then the test
+applied to the open file whose descriptor number is @var{n} , even if
+the underlying system does not support the @file{/dev/fd}
+directory.@refill
+
+@node Zsh Line Editor, Parameters, Conditional Expressions, Top
+@chapter Zsh Line Editor
+@cindex line editor
+@cindex editor, line
+
+@pindex ZLE, use of
+@noindent
+If the @code{ZLE} option is set (it is by default) and the shell input is
+attached to the terminal, the user is allowed to edit command lines.@refill
+
+@vindex TERM
+@pindex SINGLE_LINE_ZLE, use of
+@cindex ksh, editor mode
+@cindex editor, modes
+@noindent
+There are two display modes.  The first, multiline mode, is the default.
+It only works if the @code{TERM} parameter is set to a valid terminal
+type that can move the cursor up.  The second, single line mode, is used
+if @code{TERM} is invalid or incapable of moving the cursor up, or if the
+@code{SINGLE_LINE_ZLE} option is set.  This mode is similar to ksh, and
+uses no termcap sequences.@refill
+
+@cindex bindings, key
+@cindex key bindings
+@findex bindkey, use of
+@vindex VISUAL
+@vindex EDITOR
+@noindent
+Command bindings may be set using the @code{bindkey} builtin.  There are
+two keymaps---the main keymap and the alternate keymap.  The alternate
+keymap is bound to @code{vi} command mode.  The main keymap is bound to
+@code{emacs} mode by default.  To bind the main keymap to @code{vi}
+insert mode, use @code{bindkey -v}, or set one of the @code{VISUAL} or
+@code{EDITOR} environment variables to a string containing
+@code{vi}.@refill
+
+@noindent
+The following is a list of all the key commands and their default
+bindings in emacs and vi command mode.
+
+@menu
+* Movement::                    
+* History Control::             
+* Modifying Text::              
+* Arguments::                   
+* Completion::                  
+* Miscellaneous::               
+@end menu
+
+@node Movement, History Control,  , Zsh Line Editor
+@section Movement
+
+@table @code
+@tindex vi-backward-blank-word
+@kindex B
+@item vi-backward-blank-word (unbound) (B)
+Move backward one word, where a word is defined as a series of non-blank
+characters.
+@tindex backward-char
+@kindex CTRL-B
+@kindex ESC-[D
+@item backward-char (@ctrl{B} @key{ESC}-[D) (unbound)
+Move backward one character.
+@tindex vi-backward-char
+@kindex ESC-B
+@kindex ESC-b
+@item vi-backward-char (unbound) (h)
+Move backward one character, without changing lines.
+@tindex backward-word
+@item backward-word (@key{ESC}-B @key{ESC}-b) (unbound)
+Move to the beginning of the previous word.
+@tindex emacs-backward-word
+@item emacs-backward-word
+Move to the beginning of the previous word.
+@tindex vi-backward-word
+@kindex b
+@item vi-backward-word (unbound) (b)
+Move to the beginning of the previous word, vi-style.
+@tindex beginning-of-line
+@kindex CTRL-A
+@kindex 0
+@item beginning-of-line (@ctrl{A}) (0)
+Move to the beginning of the line.  If already at the beginning of the
+line, move to the beginning of the previous line, if any.
+@tindex vi-beginning-of-line
+@item vi-beginning-of-line
+Move to the beginning of the line, without changing lines.
+@tindex end-of-line
+@kindex CTRL-E
+@item end-of-line (@ctrl{E})
+Move to the end of the line.  If already at the end of the line, move to
+the end of the next line, if any.
+@tindex vi-end-of-line
+@kindex $
+@item vi-end-of-line (unbound) ($)
+Move to the end of the line.
+@tindex vi-forward-blank-word
+@kindex W
+@item vi-forward-blank-word (unbound) (W)
+Move forward one word, where a word is defined as a series of non-blank
+characters.
+@tindex vi-forward-blank-word-end
+@kindex E
+@item vi-forward-blank-word-end (unbound) (E)
+Move to the end of the current word, or, if at the end of the current
+word, to the end of the next word, where a word is defined as a series
+of non-blank characters.
+@tindex forward-char
+@kindex CTRL-F
+@kindex ESC-[C
+@item forward-char (@ctrl{F} @key{ESC}-[C)
+Move forward one character.
+@tindex vi-forward-char
+@kindex l
+@kindex SPACE
+@item vi-forward-char (unbound) (space l)
+Move forward one character.
+@tindex vi-find-next-char
+@kindex CTRL-X CTRL-F
+@kindex f
+@item vi-find-next-char (@ctrl{X}@ctrl{F}) (f)
+Read a character from the keyboard, and move to the next occurrence of
+it in the line.
+@tindex vi-find-next-char-skip
+@kindex t
+@item vi-find-next-char-skip (unbound) (t)
+Read a character from the keyboard, and move to the position just before
+the next occurrence of it in the line.
+@tindex vi-find-prev-char
+@kindex F
+@item vi-find-prev-char (unbound) (F)
+Read a character from the keyboard, and move to the previous occurrence
+of it in the line.
+@tindex vi-find-prev-char-skip
+@kindex T
+@item vi-find-prev-char-skip (unbound) (T)
+Read a character from the keyboard, and move to the position just after
+the previous occurrence of it in the line.
+@tindex vi-first-non-blank
+@kindex ^
+@item vi-first-non-blank (unbound) (^)
+Move to the first non-blank character in the line.
+@tindex vi-forward-word
+@kindex w
+@item vi-forward-word (unbound) (w)
+Move forward one word, vi-style.
+@tindex forward-word
+@kindex ESC-F
+@kindex ESC-f
+@item forward-word (@key{ESC}-F @key{ESC}-f) (unbound)
+Move to the beginning of the next word.  The editor's idea of a word is
+specified with the @code{WORDCHARS} parameter.
+@tindex emacs-forward-word
+@item emacs-forward-word
+Move to the end of the next word.
+@tindex vi-forward-word-end
+@kindex e
+@item vi-forward-word-end (unbound) (e)
+Move to the end of the next word.
+@tindex vi-goto-column
+@kindex ESC-|
+@kindex |
+@item vi-goto-column (@key{ESC}-|) (|)
+Move to the column specified by the numeric argument.
+@tindex vi-goto-mark
+@kindex `
+@item vi-goto-mark (unbound) (`)
+Move to the specified mark.
+@tindex vi-goto-mark-line
+@kindex '
+@item vi-goto-mark-line (unbound) (')
+Move to beginning of the line containing the specified mark.
+@tindex vi-repeat-find
+@kindex ;
+@item vi-repeat-find (unbound) (;)
+Repeat the last @code{vi-find} command.
+@tindex vi-rev-repeat-find
+@kindex ,
+@item vi-rev-repeat-find (unbound) (,)
+Repeat the last @code{vi-find} command in the opposite direction.
+@end table
+
+@node History Control, Modifying Text, Movement, Zsh Line Editor
+@section History Control
+
+@table @code
+@kindex ESC-<
+@tindex beginning-of-buffer-or-history
+@item beginning-of-buffer-or-history (@key{ESC}-<)
+Move to the beginning of the buffer, or if already there, move to the
+first event in the history list.
+@tindex beginning-of-line-hist
+@item beginning-of-line-hist
+Move to the beginning of the line.  If already at the beginning of the
+buffer, move to the previous history line.
+@tindex beginning-of-history
+@item beginning-of-history
+Move to the first event in the history list.
+@tindex down-line-or-history
+@kindex CTRL-N
+@kindex ESC-[B
+@kindex +
+@kindex j
+@item down-line-or-history (@ctrl{N} @key{ESC}-[B) (+ j)
+Move down a line in the buffer, or if already at the bottom line, move
+to the next event in the history list.
+@tindex down-line-or-search
+@item down-line-or-search
+Move down a line in the buffer, or if already at the bottom line,
+search forward in the history for a line beginning with the first
+word in the buffer.
+@tindex down-history
+@kindex CTRL-N
+@item down-history (unbound) (@ctrl{N})
+Move to the next event in the history list.
+@tindex end-of-buffer-or-history
+@kindex ESC->
+@item end-of-buffer-or-history (@key{ESC}->)
+Move to the end of the buffer, or if already there, move to the last
+event in the history list.
+@tindex end-of-line-hist
+@item end-of-line-hist
+Move to the end of the line.  If already at the end of the buffer, move
+to the next history line.
+@tindex end-of-history
+@item end-of-history
+Move to the last event in the history list.
+@tindex vi-fetch-history
+@kindex G
+@item vi-fetch-history (unbound) (G)
+Fetch the history line specified by the numeric argument.
+@tindex history-incremental-search-backward
+@kindex CTRL-R
+@kindex CTRL-X r
+@item history-incremental-search-backward (@ctrl{R} @ctrl{X}r)
+Search backward incrementally for a specified string.  The string may
+begin with @code{^} to anchor the search to the beginning of the line.
+@tindex history-incremental-search-forward
+@kindex CTRL-S
+@kindex CTRL-X s
+@item history-incremental-search-forward (@ctrl{S} @ctrl{X}s)
+Search forward incrementally for a specified string.  The string may
+begin with @code{^} to anchor the search to the beginning of the line.
+@tindex history-search-backward
+@kindex ESC-P
+@kindex ESC-p
+@kindex K
+@item history-search-backward (@key{ESC}-P @key{ESC}-p) (K)
+Search backward in the history for a line beginning with the first word
+in the buffer.
+@tindex vi-history-search-backward
+@kindex /
+@item vi-history-search-backward (unbound) (/)
+Search backward in the history for a specified string.  The string may
+begin with @code{^} to anchor the search to the beginning of the line.
+@tindex history-search-forward
+@kindex ESC-N
+@kindex ESC-n
+@kindex J
+@item history-search-forward (@key{ESC}-N @key{ESC}-n) (J)
+Search forward in the history for a line beginning with the first word
+in the buffer.
+@tindex vi-history-search-forward
+@kindex ?
+@item vi-history-search-forward (unbound) (?)
+Search forward in the history for a specified string.  The string may
+begin with @code{^} to anchor the search to the beginning of the line.
+@tindex infer-next-history
+@kindex CTRL-X CTRL-N
+@item infer-next-history (@ctrl{X}@ctrl{N})
+Search in the history list for a line matching the current one and fetch
+the event following it.
+@tindex insert-last-word
+@kindex ESC-_
+@kindex ESC-.
+@item insert-last-word (@key{ESC}-_ @key{ESC}-.)
+Insert the last word from the previous history event at the cursor
+position.
+@tindex vi-repeat-search
+@kindex n
+@item vi-repeat-search (unbound) (n)
+Repeat the last vi history search.
+@tindex vi-rev-repeat-search
+@kindex N
+@item vi-rev-repeat-search (unbound) (N)
+Repeat the last vi history
+search, but in reverse.
+@tindex toggle-literal-history
+@pindex HIST_LIT, use of
+@kindex ESC-R
+@kindex ESC-r
+@item toggle-literal-history (@key{ESC}-R @key{ESC}-r)
+Toggle between literal and lexical history.  The default is lexical
+history unless the @code{HIST_LIT} option is set.
+@kindex CTRL-P
+@kindex ESC-[A
+@kindex -
+@kindex k
+@tindex up-line-or-history
+@item up-line-or-history (@ctrl{P} @key{ESC}-[A) (- k)
+Move up a line in the buffer, or if already at the top line, move to the
+previous event in the history list.
+@tindex up-line-or-search
+@item up-line-or-search
+Move up a line in the buffer, or if already at the top line, search
+backward in the history for a line beginning with the first word in the
+buffer.
+@tindex up-history
+@kindex CTRL-P
+@item up-history (unbound) (@ctrl{P})
+Move to the previous event in the history list.
+@end table
+
+@node Modifying Text, Arguments, History Control, Zsh Line Editor
+@section Modifying Text
+
+@table @code
+@tindex vi-add-eol
+@kindex A
+@item vi-add-eol (unbound) (A)
+Move to the end of the line and enter insert mode.
+@tindex vi-add-next
+@kindex a
+@item vi-add-next (unbound) (a)
+Move forward one character and enter insert mode.
+@tindex backward-delete-char
+@kindex CTRL-H
+@kindex CTRL-?
+@item backward-delete-char (@ctrl{H} @ctrl{?}) (@ctrl{?})
+Delete the character behind the cursor.
+@tindex vi-backward-delete-char
+@kindex X
+@item vi-backward-delete-char (unbound) (X)
+Delete the character behind the cursor, without changing lines.
+@tindex backward-delete-word
+@item backward-delete-word
+Delete the word behind the cursor.
+@tindex backward-kill-line
+@item backward-kill-line
+Kill from the beginning of the line to the cursor position.
+@tindex backward-kill-word
+@kindex CTRL-W
+@kindex ESC-CTRL-H
+@kindex ESC-CTRL-?
+@item backward-kill-word (@ctrl{W} @key{ESC}-@ctrl{H} @key{ESC}-@ctrl{?})
+Kill the word behind the cursor.
+@tindex vi-backward-kill-word
+@kindex CTRL-W
+@item vi-backward-kill-word (unbound) (@ctrl{W})
+Kill the word behind the cursor.
+@tindex capitalize-word
+@kindex ESC-C
+@kindex ESC-c
+@item capitalize-word (@key{ESC}-C @key{ESC}-c)
+Capitalize the current word and move past it.
+@tindex vi-change
+@kindex c
+@item vi-change (unbound) (c)
+Read a movement command from the keyboard, and kill from the cursor
+position to the endpoint of the movement.  Then enter insert mode.  If
+the command is @code{vi-change}, kill the current line.
+@tindex vi-change-eol
+@kindex C
+@item vi-change-eol (unbound) (C)
+Kill to the end of the line and enter insert mode.
+@tindex vi-change-whole-line
+@kindex S
+@kindex s
+@item vi-change-whole-line (unbound) (S s)
+Kill the current line and enter insert mode.
+@tindex copy-region-as-kill
+@kindex ESC-W
+@kindex ESC-w
+@item copy-region-as-kill (@key{ESC}-W @key{ESC}-w)
+Copy the area from the cursor to the mark to the kill buffer.
+@tindex copy-prev-word
+@kindex ESC-CTRL-_
+@item copy-prev-word (@key{ESC}-@ctrl{_})
+Duplicate the word behind the cursor.
+@tindex vi-delete
+@kindex d
+@item vi-delete (unbound) (d)
+Read a movement command from the keyboard, and kill from the cursor
+position to the endpoint of the movement.  If the command is
+@code{vi-delete}, kill the current line.@refill
+@tindex delete-char
+@kindex x
+@item delete-char (unbound) (x)
+Delete the character under the cursor.
+@tindex vi-delete-char
+@item vi-delete-char (unbound) (x)
+Delete the character under the cursor.
+@tindex delete-word
+@kindex ESC-D
+@kindex ESC-d
+@item delete-word (@key{ESC}-D @key{ESC}-d)
+Delete the current word.
+@tindex down-case-word
+@kindex ESC-L
+@kindex ESC-l
+@item down-case-word (@key{ESC}-L @key{ESC}-l)
+Convert the current word to all lowercase and move past it.
+@tindex kill-word
+@item kill-word
+Kill the current word.
+@tindex gosmacs-transpose-chars
+@item gosmacs-transpose-chars
+Exchange the two characters behind the cursor.
+@kindex >
+@tindex vi-indent
+@item vi-indent (unbound) (>)
+Indent a number of lines.
+@kindex i
+@tindex vi-insert
+@item vi-insert (unbound) (i)
+Enter insert mode.
+@kindex I
+@tindex vi-insert-bol
+@item vi-insert-bol (unbound) (I)
+Move to the beginning of the line and enter insert mode.
+@tindex vi-join
+@kindex CTRL-X CTRL-J
+@item vi-join (@ctrl{X}@ctrl{J})
+Join the current line with the next one.
+@tindex kill-line
+@kindex CTRL-K
+@kindex D
+@item kill-line (@ctrl{K}) (D)
+Kill from the cursor to the end of the line.
+@tindex kill-region
+@item kill-region
+Kill from the cursor to the mark.
+@tindex kill-buffer
+@kindex CTRL-X CTRL-K
+@kindex CTRL-U
+@item kill-buffer (@ctrl{X}@ctrl{K}) (@ctrl{U})
+Kill the entire buffer.
+@tindex kill-whole-line
+@kindex CTRL-U
+@item kill-whole-line (@ctrl{U}) (unbound)
+Kill the current line.
+@tindex vi-match-bracket
+@kindex CTRL-X CTRL-B
+@kindex %
+@item vi-match-bracket (@ctrl{X}@ctrl{B}) (%)
+Move to the bracket character (one of @code{@{@}}, @code{()}, or
+@code{[]}) that matches the one under the cursor.@refill
+@tindex vi-open-line-above
+@kindex O
+@item vi-open-line-above (unbound) (O)
+Open a line above the cursor and enter insert mode.
+@tindex vi-open-line-below
+@kindex o
+@item vi-open-line-below (unbound) (o)
+Open a line below the cursor and enter insert mode.
+@tindex vi-oper-swap-case
+@item vi-oper-swap-case
+Read a movement command from the keyboard, and swap the case of all
+characters from the cursor position to the endpoint of the movement.  If
+the movement command is @code{vi-oper-swap-case}, swap the case of all
+characters on the current line.@refill
+@tindex overwrite-mode
+@kindex CTRL-X CTRL-O
+@item overwrite-mode (@ctrl{X}@ctrl{O})
+Toggle between overwrite mode and insert mode.
+@tindex vi-put-after
+@kindex p
+@item vi-put-after (unbound) (p)
+Insert the contents of the kill buffer after the cursor.
+@tindex quoted-insert
+@kindex CTRL-V
+@item quoted-insert (@ctrl{V})
+Insert the next character typed into the buffer literally.
+@tindex quote-line
+@kindex ESC-'
+@item quote-line (@key{ESC}-')
+Quote the current line; that is, put a @code{'} character at the
+beginning and the end, and convert all @code{'} characters to @code{\'} @refill .
+@tindex quote-region
+@kindex ESC-"
+@item quote-region (@key{ESC}-")
+Quote the region from the cursor to the mark.
+@tindex vi-replace
+@kindex R
+@item vi-replace (unbound) (R)
+Enter overwrite mode.
+@tindex vi-repeat-change
+@kindex .
+@item vi-repeat-change (unbound) (.)
+Repeat the last vi mode text modification.
+@tindex vi-replace-chars
+@kindex r
+@item vi-replace-chars (unbound) (r)
+Replace the character under the cursor with a character read from the
+keyboard.
+@tindex self-insert
+@item self-insert (printable characters)
+Put a character in the buffer at the cursor position.
+@tindex self-insert-unmeta
+@kindex ESC-CTRL-I
+@kindex ESC-CTRL-J
+@kindex ESC-CTRL-M
+@item self-insert-unmeta (@key{ESC}-@ctrl{I} @key{ESC}-@ctrl{J} @key{ESC}-@ctrl{M})
+Put a character in the buffer after stripping the meta bit and
+converting @ctrl{M} to @ctrl{J}.
+@tindex vi-substitute
+@kindex s
+@item vi-substitute (unbound) (s)
+Substitute the next character(s).
+@tindex vi-swap-case
+@kindex ~
+@item vi-swap-case (unbound) (~)
+Swap the case of the character under the cursor and move past it.
+@tindex transpose-chars
+@kindex CTRL-T
+@item transpose-chars (@ctrl{T})
+Exchange the two characters to the left of the cursor if at end of line,
+else exchange the character under the cursor with the character to the
+left.
+@tindex transpose-words
+@kindex ESC-T
+@kindex ESC-t
+@item transpose-words (@key{ESC}-T @key{ESC}-t)
+Exchange the current word with the one before it.
+@tindex vi-unindent
+@kindex <
+@item vi-unindent (unbound) (<)
+Unindent a number of lines.
+@tindex up-case-word
+@kindex ESC-U
+@kindex ESC-u
+@item up-case-word (@key{ESC}-U @key{ESC}-u)
+Convert the current word to all caps and move past it.
+@tindex yank
+@kindex CTRL-Y
+@kindex P
+@item yank (@ctrl{Y}) (P)
+Insert the contents of the kill buffer at the cursor position.
+@tindex yank-pop
+@kindex ESC-y
+@item yank-pop (@key{ESC}-y) (unbound)
+Remove the text just yanked, rotate the kill-ring, and yank the new top.
+Only works following @code{yank} or @code{yank-pop}.
+@tindex vi-yank
+@kindex y
+@item vi-yank (unbound) (y)
+Read a movement command from the keyboard, and copy the region from the
+cursor position to the endpoint of the movement into the kill buffer.
+If the command is @code{vi-yank}, copy the current line.
+@kindex Y
+@tindex vi-yank-eol
+@item vi-yank-eol (unbound) (Y)
+Copy the region from the cursor position to the end of the line into the
+kill buffer.
+@end table
+
+@node Arguments, Completion, Modifying Text, Zsh Line Editor
+@section Arguments
+
+@table @code
+@tindex digit-argument
+@kindex ESC-0
+@kindex ESC-9
+@kindex 0
+@kindex 9
+@item digit-argument (@key{ESC}-0@dots{}@key{ESC}-9) (0-9)
+Start a new numeric argument, or add to the current one.
+@tindex universal-argument
+@item universal-argument
+Multiply the argument of the next command by 4.
+@end table
+
+@node Completion, Miscellaneous, Arguments, Zsh Line Editor
+@section Completion
+
+@table @code
+@tindex accept-and-menu-complete
+@item accept-and-menu-complete
+In a menu completion, insert the current completion into the buffer, and
+advance to the next possible completion.
+@tindex complete-word
+@kindex \
+@item complete-word (unbound) (\)
+Attempt completion on the current word.
+@tindex delete-char-or-list
+@kindex CTRL-D
+@item delete-char-or-list (@ctrl{D})
+Delete the character under the cursor.  If the cursor is at the end of
+the line, list possible completions for the current word.
+@tindex execute-named-cmd
+@kindex ESC-x
+@item execute-named-cmd (@key{ESC}-x)
+Read the name of a editor command and execute it.
+@tindex execute-last-named-cmd
+@kindex ESC-z
+@item execute-last-named-cmd (@key{ESC}-z)
+Redo the last function executed
+with @code{execute-named-cmd}.
+@tindex expand-cmd-path
+@item expand-cmd-path
+Expand the current command to its full pathname.
+@tindex expand-or-complete
+@kindex TAB
+@kindex CTRL-X
+@item expand-or-complete (@key{TAB}) (@key{TAB} @ctrl{X})
+Attempt shell expansion on the current word.  If that fails, attempt
+completion.
+@tindex expand-history
+@kindex ESC-SPACE
+@kindex ESC-!
+@item expand-history (@key{ESC}-@key{SPACE} @key{ESC}-!)
+Perform history expansion on the edit buffer.
+@tindex expand-word
+@kindex CTRL-X *
+@item expand-word (@ctrl{X}*)
+Attempt shell expansion on the current word.
+@tindex list-choices
+@kindex ESC-CTRL-D
+@kindex CTRL-D
+@kindex =
+@item list-choices (@key{ESC}-@ctrl{D}) (@ctrl{D} =)
+List possible completions for the current word.
+@tindex list-expand
+@kindex CTRL-X g
+@kindex CTRL-X G
+@kindex CTRL-G
+@item list-expand (@ctrl{X}g @ctrl{X}G) (@ctrl{G})
+List the expansion of the current word.
+@tindex magic-space
+@item magic-space
+Perform history expansion and insert a space into the buffer.  This is
+intended to be bound to space.
+@tindex menu-complete
+@pindex MENU_COMPLETE, use of
+@item menu-complete
+Like @code{complete-word}, except that menu completion is used.
+@xref{Options}, for the @code{MENU_COMPLETE} option.@refill
+@tindex menu-expand-or-complete
+@item menu-expand-or-complete
+Like @code{expand-or-complete}, except that menu completion is used.
+@tindex reverse-menu-complete
+@item reverse-menu-complete
+@xref{Options}, for the @code{MENU_COMPLETE} option.
+@end table
+
+@node Miscellaneous,  , Completion, Zsh Line Editor
+@section Miscellaneous
+
+@table @code
+@tindex accept-and-hold
+@kindex ESC-A
+@kindex ESC-a
+@item accept-and-hold (@key{ESC}-A @key{ESC}-a)
+Push the contents of the buffer on the buffer stack and execute it.
+@tindex accept-and-infer-next-history
+@item accept-and-infer-next-history
+Execute the contents of the buffer.  Then search the history list for a
+line matching the current one and push the event following onto the
+buffer stack.
+@tindex accept-line
+@kindex CTRL-J
+@kindex CTRL-M
+@item accept-line (@ctrl{J} @ctrl{M})
+Execute the contents of the buffer.
+@tindex accept-line-and-down-history
+@kindex CTRL-O
+@item accept-line-and-down-history (@ctrl{O})
+Execute the current line, and push the next history event on the the
+buffer stack.
+@tindex vi-cmd-mode
+@kindex CTRL-X CTRL-V
+@kindex CTRL-[
+@item vi-cmd-mode (@ctrl{X}@ctrl{V}) (@ctrl{[})
+Enter command mode; that is, use the alternate keymap.  Yes, this is
+bound by default in emacs mode.
+@tindex vi-caps-lock-panic
+@kindex H
+@kindex K
+@item vi-caps-lock-panic (unbound) (H K)
+Hang until any lowercase key is pressed.  This is for @code{vi} users
+without the mental capacity to keep track of their caps lock key (like
+the author).@refill
+@tindex clear-screen
+@kindex CTRL-L
+@kindex ESC-CTRL-L
+@item clear-screen (@ctrl{L} @key{ESC}-@ctrl{L})
+Clear the screen and redraw the prompt.
+@tindex exchange-point-and-mark
+@kindex CTRL-X CTRL-X
+@item exchange-point-and-mark (@ctrl{X}@ctrl{X})
+Exchange the cursor position with the position of the mark.
+@tindex get-line
+@kindex ESC-G
+@kindex ESC-g
+@item get-line (@key{ESC}-G @key{ESC}-g)
+Pop the top line off the buffer stack and insert it at the cursor
+position.
+@tindex pound-insert
+@kindex #
+@pindex INTERACTIVE_COMMENTS, use of
+@item pound-insert (unbound) (#)
+If there is no @code{#} character at the beginning of the current line,
+add one.  If there is one, remove it.  In either case, accept the
+current line.  The @code{INTERACTIVE_COMMENTS} option must be set for
+this to have any usefulness.@refill
+@tindex push-line
+@kindex CTRL-Q
+@kindex ESC-Q
+@kindex ESC-q
+@item push-line (@ctrl{Q} @key{ESC}-Q @key{ESC}-q)
+Push the current buffer onto the buffer stack and clear the buffer.
+Next time the editor starts up, the buffer will be popped off the top of
+the buffer stack and loaded into the editing buffer.
+@tindex redisplay
+@kindex CTRL-R
+@item redisplay (unbound) (@ctrl{R})
+Redisplays the edit buffer.
+@tindex run-help
+@kindex ESC-H
+@kindex ESC-h
+@item run-help (@key{ESC}-H @key{ESC}-h)
+Push the buffer onto the buffer stack, and execute the command
+@code{run-help @var{cmd}}, where @var{cmd} is the current command.
+@code{run-help} is normally aliased to @code{man}.@refill
+@tindex send-break
+@kindex CTRL-C
+@item send-break (@ctrl{C})
+Abort the parsing of the current line.
+@tindex vi-set-buffer
+@kindex "
+@item vi-set-buffer (unbound) (")
+Specify a buffer to be used in the following command.
+@tindex vi-set-mark
+@kindex m
+@item vi-set-mark (unbound) (m)
+Set the specified mark at the cursor position.
+@tindex set-mark-command
+@kindex CTRL-@@
+@item set-mark-command (@ctrl{@@})
+Set the mark at the cursor position.
+@tindex spell-word
+@kindex ESC-$
+@kindex ESC-S
+@kindex ESC-s
+@item spell-word (@key{ESC}-$ @key{ESC}-S @key{ESC}-s)
+Attempt spelling correction on the current word.
+@tindex undefined-key
+@item undefined-key
+Beep.
+@tindex undo
+@kindex CTRL-_
+@kindex CTRL-X CTRL-U
+@kindex CTRL-X u
+@kindex u
+@item undo (@ctrl{_} @ctrl{X}@ctrl{U} @ctrl{X}u) (u)
+Incrementally undo the last text modification.
+@tindex which-command
+@kindex ESC-?
+@item which-command (@key{ESC}-?)
+Push the buffer onto the buffer stack, and execute the command
+@code{which-command @var{cmd}}, where @var{cmd} is the current command.
+@code{which-command} is normally aliased to @code{whence}.
+@end table
+
+@node Parameters, Options, Zsh Line Editor, Top
+@chapter Parameters
+@cindex parameters
+
+@findex typeset, use of
+@findex set, use of
+@noindent
+A parameter has a name, a value, and a number of attributes.  A name may
+be any sequence of alphanumeric characters and @code{_}'s, or the single
+characters @code{*}, @code{@@}, @code{#}, @code{?}, @code{-}, @code{$},
+or @code{!}.  The value may be either a @var{scalar} (a string), an
+integer, or an array.  To assign a scalar or integer value to a
+parameter, use the @code{typeset} builtin.  To assign an array value,
+use @samp{set -A @var{name} @var{value} @dots{}}.  The value of a parameter
+may also be assigned by writing:@refill
+
+@code{@var{name}=@var{value} @dots{}}
+
+@noindent
+If the integer attribute, @code{-i}, is set for @var{name}, the
+@var{value} is subject to arithmetic evaluation.@refill
+
+@menu
+* Array Parameters::            
+* Positional Parameters::       
+* Parameters Set By The Shell::  
+* Parameters Used By The Shell::  
+@end menu
+
+@node Array Parameters, Positional Parameters,  , Parameters
+@section Array Parameters
+
+@noindent
+The value of an array parameter may be assigned by writing:
+
+@var{name}=(@var{value} @dots{}) @dots{}
+
+@cindex array elements
+@noindent
+Individual elements of an array may be selected using a subscript.  A
+subscript of the form @code{[@var{exp}]} selects the single element
+@var{exp}, where @var{exp} is an arithmetic expression.  The elements
+are numbered beginning with 1.  A subscript of the form @code{[*]} or
+@code{[@@]} evaluates to all elements of an array; there is no
+difference between the two except when they appear within double quotes.
+@samp{$foo[*]} evaluates to @samp{$foo[1] $foo[2] @dots{}}, while
+@samp{$foo[@@]} evaluates to @samp{$foo[1]} @samp{$foo[2]}, etc.  A
+subscript of the form @code{[@var{exp1},@var{exp2}]} selects all
+elements in the range @var{exp1} to @var{exp2}, inclusive.  If one of
+the subscripts evaluates to a negative number, say @code{-@var{n}}, then
+the @var{n}th element from the end of the array is used.  Thus
+@samp{$foo[-3]} is the third element from the end of the array
+@code{foo}, and @samp{$foo[1,-1]} is the same as @samp{$foo[*]}.@refill
+
+@cindex substrings
+@noindent
+Subscripting may also be performed on non-array values, in which case
+the subscripts specify a substring to be extracted.  For example, if
+@code{FOO} is set to @code{foobar}, then @code{echo $FOO[2,5]} prints
+@code{ooba}.@refill
+
+@node Positional Parameters, Parameters Set By The Shell, Array Parameters, Parameters
+@section Positional Parameters
+
+@noindent
+Positional parameters are set by the shell on invocation, by the
+@code{set} builtin, or by direct assignment.  The parameter @var{n},
+where @var{n} is a number, is the @var{n}th positional parameter.  The
+parameters @code{*}, @code{@@}, and @code{argv} are arrays containing all
+the positional parameters; thus @code{argv[@var{n}]}, etc., is equivalent
+to simply @var{n}.@refill
+
+@node Parameters Set By The Shell, Parameters Used By The Shell, Positional Parameters, Parameters
+@section Parameters Set By The Shell
+
+@noindent
+The following parameters are automatically set by the shell:
+
+@table @code
+@vindex !
+@item !
+The process id of the last background command invoked.
+@vindex #
+@item #
+The number of positional parameters in decimal.
+@vindex ARGC
+@item ARGC
+Same as @code{#}.
+@vindex $
+@item $
+The process id of this shell.
+@vindex -
+@item -
+Flags supplied to the shell on invocation or by the @code{set} or
+@code{setopt} commands.
+@vindex *
+@item *
+An array containing the positional parameters.
+@vindex argv
+@item argv
+Same as @code{*}.
+@vindex @@
+@item @@
+Same as @code{argv[@@]}.
+@vindex ?
+@item ?
+The exit value returned by the last command.
+@vindex status
+@item status
+Same as @code{?}.
+@vindex _
+@item _
+The last argument of the previous command.  Also, this parameter is set
+in the environment of every command executed to the full pathname of the
+command.
+@vindex ERRNO
+@item ERRNO
+The value of errno as set by the most recently failed system call.  This
+value is system dependent and is intended for debugging purposes.
+@vindex GID
+@item GID
+The group id of the shell process.
+@vindex HOST
+@item HOST
+The current hostname.
+@vindex HOSTTYPE
+@item HOSTTYPE
+A string corresponding to the type of the host the shell is running on.
+@vindex LINENO
+@item LINENO
+The line number of the current line within the current script being
+executed.
+@vindex OLDPWD
+@item OLDPWD
+The previous working directory.
+@vindex OPTARG
+@item OPTARG
+The value of the last option argument processed by the @code{getopts}
+command.
+@vindex OPTIND
+@item OPTIND
+The index of the last option argument processed by the @code{getopts}
+command.
+@vindex PPID
+@item PPID
+The process id of the parent of the shell.
+@vindex PWD
+@item PWD
+The present working directory.
+@vindex RANDOM
+@item RANDOM
+A random integer from 0 to 32767, newly generated each time this
+parameter is referenced.  The random number generator can be seeded by
+assigning a numeric value to @code{RANDOM}.
+@vindex SECONDS
+@item SECONDS
+The number of seconds since shell invocation.  If this parameter is
+assigned a value, then the value returned upon reference will be the
+value that was assigned plus the number of seconds since the assignment.
+@vindex SHLVL
+@item SHLVL
+Incremented by one each time a new shell is started.
+@vindex signals
+@item signals
+An array containing the names of the signals.
+@vindex TTY
+@item TTY
+The name of the tty associated with the shell, if any.
+@vindex UID
+@item UID
+The user id of the shell process.
+@vindex USERNAME
+@item USERNAME
+@vindex LOGNAME
+@itemx LOGNAME
+The username corresponding to the user id of the shell process.
+@vindex VERSION
+@item VERSION
+The version number of this @code{zsh}.
+@end table
+
+@node Parameters Used By The Shell,  , Parameters Set By The Shell, Parameters
+@section Parameters Used By The Shell
+
+@noindent
+The following parameters are used by the shell:
+
+@table @code
+@vindex BAUD
+@item BAUD
+The baud rate of the current connection.  Used by the line editor update
+mechanism to compensate for a slow terminal by delaying updates until
+necessary.  This may be profitably set to a lower value in some
+circumstances, e.g. for slow modems dialing into a communications server
+which is connected to a host via a fast link; in this case, this
+variable would be set by default to the speed of the fast link, and not
+the modem.  This parameter should be set to the baud rate of the slowest
+part of the link for best performance.
+@vindex bindcmds
+@item bindcmds
+An write-only array of command names which take line editor function
+names as arguments, and which therefore should allow binding completion.
+@vindex cdpath
+@vindex CDPATH
+@item cdpath (CDPATH)
+An array (colon-separated list) of directories specifying the search
+path for the @code{cd} command.
+@vindex COLUMNS
+@item COLUMNS
+The number of columns for this terminal session.  Used for printing
+select lists and for the line editor.
+@vindex DIRSTACKSIZE
+@pindex AUTO_PUSHD, use of
+@item DIRSTACKSIZE
+The maximum size of the directory stack.  If the stack gets larger than
+this, it will be truncated automatically.  This is useful with the
+@code{AUTO_PUSHD} option.
+@vindex FCEDIT
+@item FCEDIT
+The default editor for the @code{fc} builtin.
+@vindex fignore
+@vindex FIGNORE
+@item fignore (FIGNORE)
+An array (colon-separated list) containing the suffixes of files to be
+ignored during filename completion.
+@vindex fpath
+@vindex FPATH
+@item fpath (FPATH)
+An array (colon-separated list) of directories specifying the search
+path for function definitions.  This path is searched when a function
+with the @code{-u} attribute is referenced.  If an executable file is
+found, then it is read and executed in the current environment.
+@vindex HISTCHARS
+@item HISTCHARS
+Three characters used by the shell's history and lexical analysis
+mechanism.  The first character signals the start of a history
+substitution (default @code{!}).  The second character signals the start
+of a quick history substitution (default @code{^}).  The third character
+is the comment character (default @code{#}).@refill
+@vindex HISTFILE
+@item HISTFILE
+The file to save the history in when an interactive shell exits.  If
+unset, the history is not saved.
+@vindex HISTSIZE
+@item HISTSIZE
+The maximum size of the history list.
+@vindex HOME
+@item HOME
+The default argument for the @code{cd} command.
+@vindex hostcmds
+@item hostcmds
+An write-only array of command names which take hostnames as arguments,
+and which should therefore allow hostname completion.  This sort of
+completion is also used in words containing a @code{@@} character.
+@vindex hosts
+@vindex HOSTS
+@item hosts (HOSTS)
+An array (colon-separated list) of hostnames to use for hostname
+completion.
+@vindex IFS
+@item IFS
+Internal field separators, normally space, tab, and newline, that are
+used to separate words which result from command or parameter
+substitution and words read by the @code{read} builtin.
+@vindex LINES
+@item LINES
+The number of lines for this terminal session.  Used for printing select
+lists and for the line editor.
+@vindex LISTMAX
+@item LISTMAX
+In the line editor, the number of filenames to list without asking
+first.
+@vindex LITHISTSIZE
+@item LITHISTSIZE
+The maximum size of the literal history list (before history expansion).
+@vindex LOGCHECK
+@item LOGCHECK
+The interval in seconds between checks for login/logout activity using
+the @code{watch} parameter.
+@vindex MAIL
+@item MAIL
+If this parameter is set and @code{mailpath} is not set, the shell looks
+for mail in the specified file.
+@vindex MAILCHECK
+@item MAILCHECK
+The interval in seconds between checks for new mail.
+@vindex mailpath
+@vindex MAILPATH
+@item mailpath (MAILPATH)
+An array (colon-separated list) of filenames to check for new mail.
+Each filename can be followed by a @code{?} and a message that will be
+printed.  The sequence @code{$_} in the message will be replaced by the
+name of the mail file.  The default message is @samp{You have new
+mail}.@refill
+@vindex manpath
+@vindex MANPATH
+@item manpath (MANPATH)
+An array (colon-separated list) whose value is not used by the shell.
+The @code{manpath} array can be useful, however, since setting it also
+sets @code{MANPATH}, and vice versa.
+@vindex NULLCMD
+@item NULLCMD
+The command name to assume if a redirection is specified with no
+command.  Defaults to @code{cat}.  For sh/ksh-like behavior, change this
+to @code{:}.  For csh-like behavior, unset this parameter; the shell will
+print an error message if null commands are entered.
+@vindex optcmds
+@item optcmds
+An write-only array of commands which take options as arguments, and
+which therefore should allow option completion.
+@vindex path
+@vindex PATH
+@item path (PATH)
+An array (colon-separated list) of directories to search for commands.
+When this parameter is set, each directory is scanned and all files
+found are put in a hash table.
+@vindex POSTEDIT
+@item POSTEDIT
+This string is output whenever the line editor exits.  It usually
+contains termcap strings to reset the terminal.
+@vindex PROMPT
+@item PROMPT
+The primary prompt string, printed before a command is read; the default
+is @samp{%m%# }.  If the escape sequence takes an optional
+integer, it should appear between the @samp{%} and the next character of the
+sequence.  The following escape sequences are recognized:
+
+@table @code
+@item %d, %/
+Present working directory (@code{$PWD}).
+@item %~
+@code{$PWD}.  If it has a named directory as its prefix, that part is
+replaced by a @code{~} followed by the name of the directory.  If it
+starts with @code{$HOME}, that part is replaced by a @code{~}.@refill
+@item %c, %, %C
+Trailing component of @code{$PWD}.  An integer may follow the @samp{%} to get 
+more than one component.  Unless @code{%C} is used, tilde expansion is
+performed first.@refill
+@item !, %h, %!
+Current history event number
+@item %M
+The full machine hostname.
+@item %m
+The hostname up to the first @samp{.}.  An integer may follow the @samp{%} to
+specify how many components of the hostname are desired.@refill
+@item %S (%s)
+Start (stop) standout mode.
+@item %U (%u)
+Start (stop) underline mode.
+@item %B (%b)
+Start (stop) boldface mode.
+@item %t
+@itemx %@@
+Current time of day, in 12-hour, am/pm format.
+@item %T
+Current time of day, in 24-hour format.
+@item %*
+Current time of day in 24-hour format, with seconds.
+@item %n
+@code{$USERNAME}.
+@item %w
+The date in day-dd format.
+@item %W
+The date in mm/dd/yy format.
+@item %D
+The date in yy-mm-dd format.
+@item %D @{@var{string}@}
+@var{string} is formatted using the @code{strftime} function.  See
+@code{strftime(3)} for more details, if your system has it.@refill
+@item %l
+The line (tty) the user is logged in on.
+@item %?
+The return code of the last command executed just before the prompt.
+@item %#
+A @code{#} if the shell is running as root, a @code{%} if not.
+@item %v
+The value of the first element of the @code{psvar} array
+parameter.  Following the @samp{%} with an integer gives that element 
+of the array.@refill
+@item %@{@dots{}%@}
+Include a string as a literal escape sequence.  The string within the
+braces should not change the cursor position.
+@end table
+
+@vindex PROMPT2
+@item PROMPT2
+The secondary prompt, printed when the shell needs more information to
+complete a command.  Recognizes the same escape sequences as
+@code{PROMPT}.  The default is @samp{> }.@refill
+@vindex PROMPT3
+@item PROMPT3
+Selection prompt used within a @code{select} loop.  Recognizes the same
+escape sequences as @code{PROMPT}.  The default is @samp{?# }.@refill
+@vindex PROMPT4
+@item PROMPT4
+The execution trace prompt.  Default is @samp{+ }.
+@vindex PS1
+@vindex PS2
+@vindex PS3
+@vindex PS4
+@item PS1, PS2, PS3, PS4
+Same as @code{PROMPT}, @code{PROMPT2}, @code{PROMPT3}, and @code{PROMPT4},
+respectively.@refill
+@vindex psvar
+@vindex PSVAR
+@item psvar (PSVAR)
+An array (colon-separated list) whose first nine values can be used in
+@code{PROMPT} strings.  Setting @code{psvar} also sets @code{PSVAR}, and vice
+versa.
+@vindex prompt
+@item prompt
+Same as @code{PROMPT}.
+@vindex READNULLCMD
+@item READNULLCMD
+The command name to assume if a single input redirection is specified
+with no command.  Defaults to @code{more}.
+@vindex REPORTTIME
+@item REPORTTIME
+If nonzero, commands whose combined user and system execution times
+(measured in seconds) are greater than this value have timing statistics
+printed for them.
+@vindex RPROMPT
+@vindex RPS1
+@item RPROMPT, RPS1
+This prompt is displayed on the right-hand side of the screen when the
+primary prompt is being displayed on the left.  This does not work if
+the @code{SINGLE_LINE_ZLE} option is set.  Recognizes the same escape
+sequences as @code{PROMPT}, except that termcap sequences like
+@code{%s}, etc., will not work.@refill
+@vindex SAVEHIST
+@item SAVEHIST
+The maximum number of history events to save in the history file.
+@vindex SPROMPT
+@item SPROMPT
+The prompt used for spelling correction.  The sequence @code{%R} expands
+to the string which presumably needs spelling correction, and @code{%r}
+expands to the proposed correction.  All other @code{PROMPT} escapes are
+also allowed.@refill
+@vindex STTY
+@item STTY
+If this parameter is set in a command's environment, the shell runs the
+@code{stty} command with the value of this parameter as arguments in
+order to set up the terminal before executing the command.@refill
+@vindex TIMEFMT
+@item TIMEFMT
+The format of process time reports with the @code{time} keyword.  The
+default is @samp{%E real %U user %S system %P}.  Recognizes the
+following escape sequences:@refill
+
+@table @code
+@item %U
+CPU seconds spent in user mode.
+@item %S
+CPU seconds spent in kernel mode.
+@item %E
+Elapsed time in seconds.
+@item %P
+The CPU percentage, computed as (%U+%S)/%E.
+@item %W
+Number of times the process was swapped.
+@item %X
+The average amount in (shared) text space used in Kbytes.
+@item %D
+The average amount in (unshared) data/stack space used in Kbytes.
+@item %K
+The total space used (%X+%D) in Kbytes.
+@item %M
+The maximum memory the process had in use at any time in Kbytes.
+@item %F
+The number of major page faults (page needed to be brought from
+disk).@refill
+@item %R
+The number of minor page faults.
+@item %I
+The number of input operations.
+@item %O
+The number of output operations.
+@item %r
+The number of socket messages received.
+@item %s
+The number of socket messages sent.
+@item %k
+The number of signals received.
+@item %w
+Number of voluntary context switches (waits).
+@item %c
+Number of involuntary context switches.
+@item %J
+The name of this job.
+@end table
+
+@vindex TMOUT
+@item TMOUT
+If this parameter is nonzero, the shell will terminate if a command is
+not entered within the specified number of seconds after issuing a
+prompt.
+@vindex TMPPREFIX
+@item TMPPREFIX
+A pathname prefix which the shell will use for all temporary files.
+@vindex varcmds
+@item varcmds
+An write-only array of command names which take parameter names as
+arguments, and which therefore should allow parameter completion.
+@vindex watch
+@vindex WATCH
+@item watch (WATCH)
+An array (colon-separated list) of login/logout events to report.  If it
+contains the single word @samp{all}, then all login/logout events are
+reported.  If it contains the single word @samp{notme}, then all
+login/logout events are reported except for those originating from
+@code{$USERNAME}.  An entry in this list may consist of a username, an
+@code{@@} followed by a remote hostname, and a @code{%} followed by a
+line (tty).  Any or all of these components may be present in an entry;
+if a login/logout event matches all of them, it is reported.@refill
+@vindex WATCHFMT
+@item WATCHFMT
+The format of login/logout reports if the @code{watch} parameter is set.
+Default is @samp{%n has %a %l from %m}.  Recognizes the following escape
+sequences:@refill
+
+@table @code
+@item %n
+The name of the user that logged in/out.
+@item %a
+The observed action, i.e. @samp{logged on} or @samp{logged off}.
+@item %l
+The line (tty) the user is logged in on.
+@item %M
+The full hostname of the remote host.
+@item %m
+The hostname up to the first @samp{.}.  If only the ip address is
+available or the utmp field contains the name of an X-windows display,
+the whole name is printed.@refill
+@item %S (%s)
+Start (stop) standout mode.
+@item %U (%u)
+Start (stop) underline mode.
+@item %B (%b)
+Start (stop) boldface mode.
+@item %t
+@itemx %@@
+The time, in 12-hour, am/pm format.
+@item %T
+The time, in 24-hour format.
+@item %w
+The date in day-dd format.
+@item %W
+The date in mm/dd/yy format.
+@item %D
+The date in yy-mm-dd format.
+@end table
+
+@vindex WORDCHARS
+@item WORDCHARS
+A list of nonalphanumeric characters considered part of a word by the
+line editor.
+@vindex ZDOTDIR
+@item ZDOTDIR
+The directory to search for shell startup files (@file{.zshrc}, etc), if
+not @code{$HOME}.@refill
+@end table
+
+@node Options, Shell Builtin Commands, Parameters, Top
+@chapter Options
+@cindex options
+
+@noindent
+The following options may be set upon invocation of the shell, or with
+the @code{set} or @code{setopt} builtins:@refill
+
+@table @code
+@cindex export, automatic
+@pindex ALLEXPORT
+@item ALLEXPORT (-a)
+All parameters subsequently defined are automatically exported.
+@cindex history, appending to file
+@pindex APPEND_HISTORY
+@item APPEND_HISTORY
+If this is set, zsh sessions will append their history list to the
+history file, rather than overwrite it.  Thus, multiple parallel zsh
+sessions will all have their history lists added to the history file, in
+the order they are killed.  @xref{Shell Builtin Commands}, for the
+@code{fc} command.@refill
+@cindex cd, automatic
+@pindex AUTO_CD
+@item AUTO_CD (-J)
+If a command is not in the hash table, and there exists an executable
+directory by that name, perform the @code{cd} command to that directory.
+@cindex completion, listing choices
+@pindex AUTO_LIST
+@item AUTO_LIST (-9)
+Automatically list choices on an ambiguous completion.
+@cindex completion, menu, on TAB
+@pindex AUTO_MENU
+@item AUTO_MENU
+Automatically use menu completion if the @key{TAB} key is pressed
+repeatedly.@refill
+@cindex cd, behaving like pushd
+@cindex pushd, making cd behave like
+@pindex AUTO_PUSHD
+@item AUTO_PUSHD (-N)
+Make @code{cd} act like @code{pushd}.
+@cindex slash, removing trailing
+@pindex AUTO_REMOVE_SLASH
+@item AUTO_REMOVE_SLASH
+When the last character resulting from a completion is a slash and the next
+character typed is a word delimiter, remove the slash.
+@cindex jobs, resuming automatically
+@cindex resuming jobs automatically
+@pindex AUTO_RESUME
+@item AUTO_RESUME (-W)
+Treat single word simple commands without redirection as candidates for
+resumption of an existing job.
+@cindex jobs, background priority
+@cindex background jobs, priority of
+@pindex BGNICE
+@item BGNICE (-6)
+Run all background jobs at a lower priority.  This option is set by
+default.
+@cindex brace expansion, extending
+@cindex expansion, brace, extended
+@pindex BRACECCL
+@item BRACECCL
+Allow brace expansions of the form @code{@{a-zA-Z@}}, etc.
+@cindex cd, to parameter
+@pindex CDABLEVARS
+@item CDABLEVARS (-T)
+If the argument to a @code{cd} command is not a directory, but a
+parameter exists by the same name whose value begins with a @code{/},
+try to change to the directory specified by the parameter's
+value.@refill
+@cindex links, symbolic
+@cindex symbolic links
+@pindex CHASELINKS
+@item CHASELINKS (-w)
+Resolve symbolic links to their true values.
+@cindex correction, spelling
+@cindex spelling correction
+@pindex CORRECT
+@item CORRECT (-0)
+Try to correct the spelling of commands.
+@pindex CORRECT_ALL
+@item CORRECT_ALL (-O)
+Try to correct the spelling of all arguments in a line.
+@cindex csh, loop style
+@cindex loop style, csh
+@pindex CSH_JUNKIE_LOOPS
+@item CSH_JUNKIE_LOOPS
+Allow loop bodies to take the form @samp{@var{list}; end} instead of
+@samp{do @var{list}; done}.
+@cindex csh, quoting style
+@cindex quoting style, csh
+@pindex CSH_JUNKIE_QUOTES
+@item CSH_JUNKIE_QUOTES
+Complain if a quoted expression runs off the end of a line; prevent
+quoted expressions from containing unescaped newlines.
+@cindex csh, null globbing style
+@cindex null globbing, csh style
+@cindex globbing, null, csh style
+@pindex CSH_NULL_GLOB
+@item CSH_NULL_GLOB
+If a pattern for filename generation has no matches, delete the pattern
+from the argument list; do not report an error unless all the patterns
+in a command have no matches.  Overrides @code{NULL_GLOB}.
+@cindex exit status, trapping
+@pindex ERREXIT
+@item ERREXIT (-e)
+If a command has a non-zero exit status, execute the @code{ERR} trap, if
+set, and exit.
+@cindex globbing, extended
+@pindex EXTENDED_GLOB
+@item EXTENDED_GLOB
+Treat the @code{#} and @code{^} characters as part of patterns for
+filename generation, etc.@refill
+@cindex history, timestamping
+@pindex EXTENDED_HISTORY
+@item EXTENDED_HISTORY
+Save beginning and ending timestamps to the history file.  The format of
+these timestamps is @code{:@var{beginning time}:@var{ending
+time}:@var{command}}.@refill
+@pindex GLOB_COMPLETE
+@item GLOB_COMPLETE
+Like @code{MENU_COMPLETE}, except that the current word is expanded
+using normal shell expansion instead of completion.  If no matches are
+found, a @code{*} is added to the end of the word, and expansion is
+attempted again.@refill
+@cindex globbing, of . files
+@pindex GLOB_DOTS
+@item GLOB_DOTS (-4)
+Do not require a leading @code{.} in a filename to be matched
+explicitly.@refill
+@cindex hashing, of commands
+@cindex command hashing
+@pindex HASH_CMDS
+@item HASH_CMDS
+Place the location of each command in the hash table the first time it
+is executed.  If this option is unset, no path hashing will be done at
+all.
+@cindex hashing, of directories
+@cindex directories, hashing
+@pindex HASH_DIRS
+@item HASH_DIRS
+Whenever a command is executed, hash the directory containing it, as
+well as all directories that occur earlier in the path.  Has no effect
+if @code{HASH_CMDS} is unset.
+@pindex HASH_LIST_ALL
+@item HASH_LIST_ALL
+Whenever a command completion is attempted, make sure the entire command
+path is hashed first.  This makes the first completion slower.
+@cindex history, ignoring duplicates
+@pindex HIST_IGNORE_DUPS
+@item HIST_IGNORE_DUPS (-h)
+Do not enter command lines into the history list if they are duplicates
+of the previous event.
+@cindex history, ignoring spaces
+@pindex HIST_IGNORE_SPACE
+@item HIST_IGNORE_SPACE (-g)
+Do not enter command lines into the history list if they begin with a
+blank.
+@cindex history, storing as literal
+@pindex HIST_LIT
+@item HIST_LIT (-j)
+Use literal (unparsed) versions of the history lines in the editor.
+@pindex HIST_NO_STORE
+@item HIST_NO_STORE
+Remove the @code{history} (@code{fc} @code{-l}) command from the history
+when invoked.
+@cindex history, verifying substitution
+@pindex HIST_VERIFY
+@item HIST_VERIFY
+Whenever the user enters a line with history substitution, don't execute
+the line directly; instead, perform history substitution and reload the
+line into the editing buffer.
+@cindex brace expansion, disabling
+@cindex expansion, brace, disabling
+@cindex disabling brace expansion
+@pindex IGNORE_BRACES
+@item IGNORE_BRACES (-I)
+Do not perform brace expansion.
+@cindex EOF, ignoring
+@pindex IGNOR_EEOF
+@item IGNORE_EOF (-7)
+Do not exit on end-of-file.  Require the use of @code{exit} or
+@code{logout} instead.@refill
+@pindex INTERACTIVE
+@item INTERACTIVE (-i)
+This is an interactive shell.
+@cindex comments, in interactive shells
+@pindex INTERACTIVE_COMMENTS
+@item INTERACTIVE_COMMENTS (-k)
+Allow comments even in interactive shells.
+@cindex ksh, option printing style
+@cindex option printing, ksh style
+@pindex KSH_OPTION_PRINT
+@item KSH_OPTION_PRINT
+Alters the way options settings are printed.
+@cindex files, marking type of
+@cindex marking file types
+@pindex LIST_TYPES
+@item LIST_TYPES (-X)
+When listing files that are possible completions, show the type of each
+file with a trailing identifying mark.
+@pindex LOGIN
+@item LOGIN (-l)
+This is a login shell.
+@cindex jobs, list format
+@cindex list format, of jobs
+@pindex LONG_LIST_JOBS
+@item LONG_LIST_JOBS (-R)
+List jobs in the long format by default.
+@cindex mail, warning of arrival
+@pindex MAIL_WARNING
+@item MAIL_WARNING (-U)
+Print a warning message if a mail file has been accessed since the shell
+last checked.
+@cindex directories, marking
+@cindex marking directories
+@pindex MARK_DIRS
+@item MARK_DIRS (-8)
+Append a trailing @code{/} to all directory names resulting from filename
+generation (globbing).@refill
+@cindex completion, menu
+@pindex MENU_COMPLETE
+@item MENU_COMPLETE (-Y)
+On an ambiguous completion, instead of listing possibilities, insert the
+first match.  Then when completion is requested again, remove the first
+match and insert the second match, etc.  When there are no more matches,
+go back to the first one again.  @code{reverse-menu-complete} may be
+used to loop through the list in the other direction.@refill
+@cindex beep, menu completion
+@pindex MENU_COMPLETE_BEEP
+@item MENU_COMPLETE_BEEP
+Beep on an ambiguous menu completion.
+@cindex job control, allowing
+@pindex MONITOR
+@item MONITOR (-m)
+Allow job control.  Set by default in interactive shells.
+@cindex globbing, malformed pattern
+@pindex NO_BAD_PATTERN
+@item NO_BAD_PATTERN (-2)
+If a pattern for filename generation is badly formed, leave it unchanged
+in the argument list instead of printing an error.
+@cindex history, disabling substitution
+@cindex disabling history substitution
+@pindex NO_BANG_HIST
+@item NO_BANG_HIST (-K)
+Do not perform textual history substitution.  Do not treat the @code{!}
+character specially.
+@cindex beep, disabling
+@cindex disabling the beep
+@pindex NO_BEEP
+@item NO_BEEP (-B)
+Do not beep.
+@cindex file clobbering, preventing
+@cindex clobbering, of files
+@pindex NO_CLOBBER
+@item NO_CLOBBER (-1)
+Prevents @code{>} redirection from truncating existing files.  @code{>!}
+may be used to truncate a file instead.  Also prevents @code{>>} from
+creating files.  @code{>>!} may be used instead.@refill
+@cindex filename substitution, =
+@pindex NO_EQUALS
+@item NO_EQUALS
+Don't perform @code{=} filename substitution.
+@cindex command execution, preventing
+@pindex NO_EXEC
+@item NO_EXEC (-n)
+Read commands and check them for syntax errors, but do not execute them.
+@cindex globbing, disabling
+@cindex disabling globbing
+@pindex NO_GLOB
+@item NO_GLOB (-F)
+Disable filename generation.
+@cindex history, beeping
+@cindex beep, history
+@pindex NO_HIST_BEEP
+@item NO_HIST_BEEP
+Don't beep when an attempt is made to access a history entry which isn't
+there.
+@cindex jobs, nohup
+@pindex NO_HUP
+@item NO_HUP
+Don't send the @code{HUP} signal to running jobs when the shell exits.
+@cindex completion, beep on ambiguous
+@cindex beep, ambiguous completion
+@pindex NO_LIST_BEEP
+@item NO_LIST_BEEP
+Don't beep on an ambiguous completion.
+@cindex globbing, no matches
+@pindex NO_NOMATCH
+@item NO_NOMATCH (-3)
+If a pattern for filename generation has no matches, leave it unchanged
+in the argument list instead of printing an error.
+@cindex prompt, without CR
+@pindex NO_PROMPT_CR
+@item NO_PROMPT_CR (-V)
+Don't print a carriage return just before printing a prompt in the line
+editor.
+@cindex startup files, sourcing
+@pindex NO_RCS
+@item NO_RCS (-f)
+Source only the @file{/etc/zshenv} file.
+Do not source the @file{.zshenv}, @file{/etc/zprofile}, @file{.zprofile},
+@file{/etc/zshrc}, @file{.zshrc}, @file{/etc/zlogin}, @file{.zlogin}, or 
+@file{.zlogout} files.@refill
+@pindex NO_SHORT_LOOPS
+@item NO_SHORT_LOOPS
+Disallow the short forms of @code{for}, @code{select}, @code{if}, and
+@code{function} constructs.@refill
+@cindex background jobs, notification
+@cindex notification of background jobs
+@pindex NOTIFY
+@item NOTIFY (-5)
+Report the status of background jobs immediately, rather than waiting
+until just before printing a prompt.
+@cindex parameters, error on substituting unset
+@cindex unset parameters, error on substituting
+@pindex NO_UNSET
+@item NO_UNSET (-u)
+Treat unset parameters as an error when substituting.
+@cindex globbing, no matches
+@pindex NULL_GLOB
+@item NULL_GLOB (-G)
+If a pattern for filename generation has no matches, delete the pattern
+from the argument list instead of reporting an error.  Overrides
+@code{NO_NOMATCH}.@refill
+@cindex sorting, numerically
+@pindex NUMERIC_GLOBSORT
+@item NUMERIC_GLOBSORT
+If numeric filenames are matched by a filename generation pattern, sort
+the filenames numerically rather than lexicographically.
+@cindex editor, overstrike mode
+@cindex overstrike mode, of editor
+@pindex OVERSTRIKE
+@item OVERSTRIKE
+Start up the line editor in overstrike mode.
+@cindex path search, extended
+@pindex PATH_DIRS
+@item PATH_DIRS (-Q)
+Perform a path search even on command names with slashes in them.  Thus
+if @*@samp{/usr/local/bin} is in the user's path, and he types
+@samp{X11/xinit}, the command @samp{/usr/local/bin/X11/xinit} will be
+executed (assuming it exists).@refill
+@cindex exit status, printing
+@pindex PRINT_EXIT_VALUE
+@item PRINT_EXIT_VALUE (-C)
+Print the exit value of programs with non-zero exit status.
+@cindex directory stack, ignoring dups
+@pindex PUSHD_IGNORE_DUPS
+@item PUSHD_IGNORE_DUPS
+Don't push multiple copies of the same directory onto the directory
+stack.
+@cindex popd, controlling syntax
+@pindex PUSHD_MINUS
+@item PUSHD_MINUS
+@xref{Shell Builtin Commands}, for the @code{popd} command.
+@cindex directory stack, silencing
+@pindex PUSHD_SILENT
+@item PUSHD_SILENT (-E)
+Do not print the directory stack after @code{pushd} or @code{popd}.
+@cindex pushd, to home
+@pindex PUSHD_TO_HOME
+@item PUSHD_TO_HOME (-D)
+Have @code{pushd} with no arguments act like @code{pushd $HOME}.
+@pindex RC_EXPAND_PARAM
+@item RC_EXPAND_PARAM (-P)
+@xref{Parameter Expansion}.
+@cindex rc, quoting style
+@cindex quoting style, rc
+@pindex RC_QUOTES
+@item RC_QUOTES
+Allow the character sequence @code{''} to signify a single quote within
+singly quoted strings.
+@cindex completion, exact matches
+@pindex RECEXACT
+@item RECEXACT (-S)
+In completion, recognize exact matches even if they are ambiguous.
+@cindex rm *, querying before
+@cindex querying before rm *
+@pindex RMSTARSILENT
+@item RMSTARSILENT (-H)
+Do not query the user before executing @code{rm *} or @code{rm path/*}.
+@pindex SHINSTDIN
+@item SHINSTDIN (-s)
+Read commands from the standard input.
+@cindex sh, word splitting style
+@cindex word splitting, sh style
+@pindex SH_WORD_SPLIT
+@item SH_WORD_SPLIT (-y)
+@xref{Parameter Expansion}.
+@cindex editor, single line mode
+@pindex SINGLE_LINE_ZLE
+@item SINGLE_LINE_ZLE (-M)
+Use single-line command line editing instead of multi-line.
+@cindex sun keyboard, annoying
+@cindex annoying keyboard, sun
+@pindex SUN_KEYBOARD_HACK
+@item SUN_KEYBOARD_HACK (-L)
+If a line ends with a backquote, and there are an odd number of
+backquotes on the line, ignore the trailing backquote.  This is useful
+on some keyboards where the return key is too small, and the backquote
+key lies annoyingly close to it.
+@cindex tracing, of input lines
+@pindex VERBOSE
+@item VERBOSE (-v)
+Print shell input lines as they are read.
+@cindex tracing, of commands
+@pindex XTRACE
+@item XTRACE (-x)
+Print commands and their arguments as they are executed.
+@cindex editor, disabling
+@cindex disabling the editor
+@pindex ZLE
+@item ZLE (-Z)
+Use the zsh line editor.
+@end table
+
+@node Shell Builtin Commands, Invocation, Options, Top
+@chapter Shell Builtin Commands
+@cindex builtin commands
+
+@table @code
+@findex .
+@item . @var{file} [ @var{arg} @dots{} ]
+Read and execute commands from @var{file} in the current shell
+environment.  If @var{file} does not contain a slash, the shell looks in
+the components of @code{path} to find the directory containing
+@var{file}.  If any arguments @var{arg} are given, they become the
+positional parameters; the old positional parameters are restored when
+the @var{file} is done executing.  The exit status is the exit status of
+the last command executed.@refill
+
+@cindex parameters, expanding
+@cindex expanding parameters
+@item : [ @var{arg} @dots{} ]
+This command only expands parameters.  A zero exit code is returned.
+
+@cindex alias
+@findex alias
+@item alias [ @code{-g} ] [ @var{name}[=@var{value}]] @dots{}
+With no arguments, print the list of aliases in the form
+@code{@var{name}=@var{value}} on the standard output.  For each
+@var{name} with a corresponding @var{value}, define an alias with that
+value.  A trailing space in @var{value} causes the next word to be
+checked for alias substitution.  If the @code{-g} flag is present,
+define a global alias; global aliases are expanded even if they do not
+occur in command position.  For each @var{name} with no @var{value},
+print the value of @var{name}, if any.  The exit status is nonzero if a
+@var{name} (with no @var{value}) given for which no alias has been
+defined.@refill
+
+@cindex functions, autoloading
+@cindex autoloading functions
+@findex autoload
+@item autoload [ @var{name} @dots{} ]
+For each of the @var{name}s (which are names of functions), create a
+function marked undefined.  The @code{fpath} variable will be searched
+to find the actual function definition when the function is first
+referenced.@refill
+
+@findex bg
+@item bg [ @var{job} @dots{} ]
+@itemx @var{job} @dots{} @code{&}
+Put each specified @var{job} in the background, or the current job if
+none is specified.
+
+@cindex rebinding the keys
+@cindex keys, rebinding
+@findex bindkey
+@item bindkey -mevd
+@itemx bindkey @code{-r} @var{in-string} @dots{}
+@itemx bindkey [ @code{-a} ] @var{in-string} [ @var{command} ] @dots{}
+@itemx bindkey @code{-s} [ @code{-a} ] @var{in-string} @var{out-string} @dots{}
+If one of the @code{-e}, @code{-v}, or @code{-d} options is given, reset
+the keymaps for emacs mode, vi mode, or the default mode, respectively;
+if the @code{-m} option is also given, allow the use of a meta key.  If
+the @code{-r} option is given, remove any binding for each
+@var{in-string}.  If the @code{-s} option is not specified, bind each
+@var{in-string} to a specified @var{command}.  If no @var{command} is
+specified, print the binding of @var{in-string} if it is bound, or
+return a nonzero exit code if it is not bound.  If the @code{-s} option
+is specified, bind each @var{in-string} to each specified
+@var{out-string}.  When @var{in-string} is typed, @var{out-string} will
+be pushed back and treated as input to the line editor.  If the
+@code{-a} option is specified, bind the @var{in-string}s in the
+alternative keymap instead of the standard one.  The alternative keymap
+is used in vi command mode.@refill
+
+@noindent
+For either @var{in-string} or @var{out-string}, control characters may
+be specified in the form @code{^X}, and the backslash may be used to
+introduce one of the following escape sequences:@refill
+
+@table @code
+@item \a
+bell character
+@item \n
+linefeed (newline)
+@item \b
+backspace
+@item \t
+horizontal tab
+@item \v
+vertical tab
+@item \f
+form feed
+@item \r
+carriage return
+@item \e
+escape
+@item \nnn
+character code in octal
+@item \M-xxx
+character or escape sequence with meta bit set
+@end table
+
+In all other cases, @code{\} escapes the following character.  Delete is
+written as @code{^?}.@refill
+
+@cindex loops, exitting
+@cindex exitting loops
+@findex break
+@item break [ @var{n} ]
+Exit from an enclosing @code{for}, @code{while}, @code{until},
+@code{select}, or @code{repeat} loop.  If @var{n} is specified, then
+break @var{n} levels instead of just one.@refill
+
+@findex builtin
+@item builtin @var{name} [ @var{args} ] @dots{}
+Executes the builtin @var{name}, with the given @var{args}.
+
+@findex bye
+@item bye
+Same as @code{exit}.
+
+@cindex directories, changing
+@findex cd
+@item cd [ @var{arg} ]
+@itemx cd @var{old} @var{new}
+@itemx cd +-n
+Change the current directory.  In the first form, change the current
+directory to @var{arg}, or to the value of @code{HOME} if @var{arg} is
+not specified.  If @var{arg} is @code{-}, change to the value of
+@code{OLDPWD}, the previous directory.  If a directory named @var{arg}
+is not found in the current directory and @var{arg} does not begin with
+a slash, search each component of the shell parameter @code{cdpath}.  If
+the option @code{CDABLEVARS} is set, and a parameter named @var{arg}
+exists whose value begins with a slash, treat its value as the
+directory.@refill
+
+@noindent
+The second form of @code{cd} substitutes the string @var{new} for the
+string @var{old} in the name of the current directory, and tries to
+change to this new directory.@refill
+
+@noindent
+The third form of @code{cd} is equivalent to @code{popd}.
+
+@findex chdir
+@item chdir
+Same as @code{cd}.
+
+@cindex completion, controlling
+@findex compctl
+@item compctl [ -cfhovbCD ] [ -k @var{name} ] [ @var{arg} @dots{} ]
+Control the editor's completion behavior when one of @var{arg} is the
+current command.  With the @code{-D} flag, control default completion
+behavior for commands not assigned any special behavior; with @code{-C},
+control completion when there is no current command.  The remaining
+options specify the type of command arguments to look for during
+completion.  For example, @samp{compctl -hf rlogin} is equivalent to
+@samp{hostcmds=(rlogin)}.@refill
+
+@table @code
+@item -c
+Expect command names.
+@item -f
+Expect filenames, named directories, and filesystem paths.
+@item -h
+Expect hostnames taken from the @code{$hosts} variable.
+@item -o
+Expect option names.
+@item -v
+Expect variable names.
+@item -b
+Expect key binding names.
+@item -k @var{name}
+Expect names taken from the elements of @code{$name}.
+@end table
+
+@cindex loops, continuing
+@cindex continuing loops
+@findex continue
+@item continue [ @var{num} ]
+Resume the next iteration of the enclosing @code{for}, @code{while},
+@code{until}, @code{select}, or @code{repeat} loop.  If @var{n} is
+specified, break out of @var{n}-1 loops and resume at the @var{n}th
+enclosing loop.@refill
+
+@findex declare
+@item declare [ @var{arg} @dots{} ]
+Same as @code{typeset}.
+
+@cindex directory stack, printing
+@findex dirs
+@item dirs [ @code{-v} ] [ @var{arg} @dots{} ]
+With no arguments, print the contents of the directory stack.  If the
+@code{-v} option is given, number the directories in the stack when
+printing.  Directories are added to this stack with the @code{pushd}
+command, and removed with the @code{cd} or @code{popd} commands.  If
+arguments are specified, load them onto the directory stack, replacing
+anything that was there, and push the current directory onto the
+stack.@refill
+
+@cindex disabling commands
+@cindex commands, disabling
+@findex disable
+@item disable @var{arg} @dots{}
+Disable the builtin @var{arg} temporarily.  This allows you to use an
+external command with the same name as a shell builtin.  Actually the
+same as @code{unhash}.  Builtins can be enabled with the @code{enable}
+command.@refill
+
+@findex disown
+@item disown @var{job} @dots{}
+Remove the specified jobs from the job table; the shell will no longer
+report their status, and will not complain if you try to exit an
+interactive shell with them running or stopped.
+
+@findex echo
+@item echo [ @code{-n} ] [ @var{arg} @dots{} ]
+Write each @var{arg} on the standard output, with a space separating
+each one.  If the @code{-n} flag is not present, print a newline at the
+end.  @code{echo} recognizes the following escape sequences:@refill
+
+@table @code
+@item \b
+backspace
+@item \c
+don't print an ending newline
+@item \e
+escape
+@item \f
+form feed
+@item \n
+newline
+@item \r
+carriage return
+@item \t
+horizontal tab
+@item \v
+vertical tab
+@item \\
+backslash
+@item \xxx
+character code in octal
+@end table
+
+@cindex termcap string, printing
+@findex echotc
+@item echotc @var{cap} [ @var{arg} @dots{} ]
+Output the termcap string corresponding to the capability @var{cap},
+with optional arguments.@refill
+
+@findex enable
+@item enable @var{arg} @dots{}
+Enable the specified builtin commands, presumably disabled earlier with
+@code{disable}.
+
+@cindex evaluating arguments as commands
+@findex eval
+@item eval [ @var{arg} @dots{} ]
+Read the arguments as input to the shell and execute the resulting
+command(s) in the current shell process.
+
+@pindex IGNORE_EOF, use of
+@findex exit
+@item exit [ @var{n} ]
+Exit the shell with the exit code specified by @var{n}; if none is
+specified, use the exit code from the last command executed.  An
+@code{EOF} condition will also cause the shell to exit, unless the
+@code{IGNORE_EOF} option is set.@refill
+
+@findex export
+@item export [ @var{name}[=@var{value}] @dots{} ]
+The specified @var{name}s are marked for automatic export to the
+environment of subsequently executed commands.@refill
+
+@findex false
+@item false
+Do nothing and return an exit code of 1.
+
+@cindex history, editting
+@cindex editting the history
+@findex fc
+@item fc [ -e @var{ename} ] [ -nlrdDfE ] [ @var{old}=@var{new} @dots{} ] [ @var{first} [ @var{last} ]]
+@itemx fc -ARWI [ @var{filename} ]
+Select a range of commands from @var{first} to @var{last} from the
+history list.  The arguments @var{first} and @var{last} may be specified
+as a number or as a string.  A negative number is used as an offset to
+the current history event number.  A string specifies the most recent
+event beginning with the given string.  All substitutions
+@var{old}=@var{new}, if any, are then performed on the commands.  If the
+@code{-l} flag is given, the resulting commands are listed on standard
+output.  Otherwise the editor program @var{ename} is invoked on a file
+containing these history events.  If @var{ename} is not given, the value
+of the parameter @code{FCEDIT} is used.  If @var{ename} is @code{-}, no
+editor is invoked.  When editing is complete, the edited command(s) is
+executed.  If @var{first} is not specified, it will be set to -1 (the
+most recent event), or to -16 if the @code{-l} flag is given.  If
+@var{last} is not specified, it will be set to @var{first}, or to -1 if
+the @code{-l} flag is given.  The flag @code{-r} reverses the order of
+the commands and the flag @code{-n} suppresses command numbers when
+listing.  Also when listing, @code{-d} prints timestamps for each
+command, @code{-f} prints full time and date stamps, and @code{-D}
+prints elapsed times.  Adding the @code{-E} flag causes the dates
+to be printed in the European format (@var{dd.mm.yyyy}).  With the
+@code{-D} flag, @code{fc} prints elapsed times.@refill
+
+@cindex history, file
+@cindex file, history
+@noindent
+@code{fc -R} reads the history from the given file, @code{fc -W} writes
+the history out to the given file, and @code{fc -A} appends the history
+to the given file.  @code{fc -AI} (@code{-WI}) appends (writes) only
+those events that are new since the last incremental append (write) to
+the history file.
+
+@findex fg
+@item fg [ @var{job} @dots{} ]
+@itemx @var{job} @dots{}
+Bring the specified @var{job}s to the foreground.  If no @var{job} is
+specified, use the current job.@refill
+
+@findex functions
+@item functions [ +-tu ] [ @var{name} @dots{} ]
+Equivalent to @code{typeset -f}.
+
+@cindex line, reading
+@cindex reading a line
+@findex getln
+@item getln @var{name} @dots{}
+Read the top value from the buffer stack and put it in the shell
+parameter @var{name}.  Equivalent to @code{read -zr}.
+
+@cindex options, processing
+@findex getopts
+@item getopts @var{optstring} @var{name} [ @var{arg} @dots{} ]
+Checks @code{arg} for legal options.  If @var{arg} is omitted, use the
+positional parameters.  A valid option argument begins with a @code{+}
+or a @code{-}.  An argument not beginning with a @code{+} or a @code{-},
+or the argument @code{--}, ends the options.  @var{optstring} contains
+the letters that @code{getopts} recognizes.  If a letter is followed by
+a @code{:}, that option is expected to have an argument.  The options
+can be separated from the argument by blanks.@refill
+
+@vindex OPTIND, use of
+@vindex OPTARG, use of
+@noindent
+Each time it is invoked, @code{getopts} places the option letter it
+finds in the shell parameter @var{name}, prepended with a @code{+} when
+@var{arg} begins with a @code{+}.  The index of the next @var{arg} is
+stored in @code{OPTIND}.  The option argument, if any, is stored in
+@code{OPTARG}.@refill
+
+@noindent
+A leading @code{:} in @var{optstring} causes @code{getopts} to store the
+letter of the invalid option in @code{OPTARG}, and to set @var{name} to
+@code{?} for an unknown option and to @code{:} when a required option is
+missing.  Otherwise, @code{getopts} prints an error message.  The exit
+status is nonzero when there are no more options.@refill
+
+@findex hash
+@item hash @var{name} @var{path}
+Puts @var{name} in the command hash table, associating it with the
+pathname @var{path}.  Whenever @var{name} is used as a command argument,
+the shell will try to execute the file given by @var{path}.@refill
+
+@findex history
+@item history [ -nr ] [ @var{first} [ @var{last} ]]
+Same as @code{fc -l}.
+
+@findex integer
+@item integer
+Same as @code{typeset -i}.
+
+@findex jobs
+@item jobs [ -lp ] [ @var{job} @dots{} ]
+Lists information about each given job, or all jobs if @var{job} is
+omitted.  The @code{-l} flag lists process ids, and the @code{-p} flag
+lists process groups.@refill
+
+@cindex jobs, killing
+@cindex killing jobs
+@findex kill
+@item kill [ -@var{sig} ] @var{job} @dots{}
+@itemx kill @code{-l}
+Sends either @code{SIGTERM} or the specified signal to the given jobs or
+processes.  Signals are given by number or by names (with the prefix
+@code{SIG} removed).  If the signal being sent is not @code{KILL} or
+@code{CONT}, then the job will be sent a @code{CONT} signal if it is
+stopped.  The argument @var{job} can be the process id of a job not in
+the job list.  In the second form, @code{kill} @code{-l}, the signal
+names are listed.@refill
+
+@findex let
+@item let @var{arg} @dots{}
+Evaluate each @var{arg} as an arithmetic expression.
+@c
+@c Why does the next line cause Info-validate to say "invalid reference"?
+@c
+@xref{Arithmetic Evaluation}, for a description of arithmetic
+expressions.  The exit status is 0 if the value of the last expression
+is nonzero, and 1 otherwise.@refill
+
+@cindex resource limits
+@cindex limits, resource
+@findex limit
+@item limit [ -h ] [ @var{resource} [ @var{limit} ]] @dots{}
+@itemx limit @code{-s}
+Limit the resource consumption of children of the current shell.  If
+@var{limit} is not specified, print the current limit placed on
+@var{resource}; otherwise set the limit to the specified value.  If the
+@code{-h} flag is given, use hard limits instead of soft limits.  If no
+@var{resource} is given, print all limits.@refill
+
+@var{resource} is one of:
+
+@table @code
+@item cputime
+Maximum CPU seconds per process.
+@item filesize
+Largest single file allowed.
+@item datasize
+Maximum data size (including stack) for each process.
+@item stacksize
+Maximum stack size for each process.
+@item coredumpsize
+Maximum size of a core dump.
+@item resident
+Maximum resident set size.
+@item descriptors
+Maximum value for a file descriptor.
+@end table
+
+@var{limit} is a number, with an optional scaling factor, as follows:
+
+@table @code
+@item @var{n}h
+hours.
+@item @var{n}k
+kilobytes.  This is the default for all but cputime.
+@item @var{n}m
+megabytes or minutes.
+@item @var{mm}:@code{ss}
+minutes and seconds.
+@end table
+
+@findex local
+@item local
+Same as @code{typeset}.
+
+@cindex users, watching
+@cindex watching users
+@vindex watch, use of
+@findex log
+@item log
+List all users currently logged in who are affected by the current
+setting of the @code{watch} parameter.
+
+@findex logout
+@item logout
+Exit the shell, if this is a login shell.
+
+@pindex PUSHD_MINUS, use of
+@findex popd
+@item popd [ +-@var{n} ]
+Removes entries from the directory stack.  With no arguments, removes
+the top directory from the stack, and performs a @code{cd} to the new
+top directory.  With an argument of the form @code{+@var{n}}, remove the
+@var{n}th entry counting from the left of the list shown by the
+@code{dirs} command, starting with zero, and change to that directory.
+With an argument of the form @code{-@var{n}}, remove the @var{n}th entry
+counting from the right.  If the @code{PUSHD_MINUS} option is set, the
+meanings of @code{+} and @code{-} in this context are swapped.@refill
+
+@findex print
+@item print [ -RnrslzpNDP ] [ -u@var{n} ] [ @var{arg} @dots{} ]
+With no flags or with flag @code{-}, the arguments are printed on the
+standard output as described by @code{echo}.@refill
+
+@table @code
+@item -R, -r
+ignore the escape conventions of @code{echo}.  The @code{-R} option
+will print all subsequent arguments and options.@refill
+@item -s
+place the results in the history list instead of on the standard
+output.@refill
+@item -n
+do not add a newline to the output.
+@item -l
+print the arguments separated by newlines instead of spaces.
+@item -N
+print the arguments separated and terminated by nulls.
+@item -u@var{n}
+print the arguments to file descriptor @var{n}.
+@item -p
+print the arguments to the input of the coprocess.
+@item -z
+push the arguments onto the editing buffer stack, separated by spaces;
+no escape sequences are recognized.@refill
+@item -D
+treat the arguments as directory names, replacing prefixes with @code{~}
+expressions, as appropriate.
+@item -P
+recognize the same escape sequences as in the @code{PROMPT} parameter.
+@end table
+
+@findex pushd
+@pindex PUSHD_TO_HOME, use of
+@pindex CDABLEVARS, use of
+@pindex PUSHD_SILENT, use of
+@item pushd [ @var{arg} ]
+@itemx pushd @var{old} @var{new}
+@itemx pushd +-@var{n}
+Change the current directory, and push the old current directory onto
+the directory stack.  In the first form, change the current directory to
+@var{arg}.  If @var{arg} is not specified, change to the second
+directory on the stack (that is, exchange the top two entries), or
+change to the value of @code{HOME} if the @code{PUSHD_TO_HOME} option is
+set or if there is only one entry on the stack.  If @var{arg} is
+@code{-}, change to the value of @code{OLDPWD}, the previous directory.
+If a directory named @var{arg} is not found in the current directory and
+@var{arg} does not contain a slash, search each component of the shell
+parameter @code{cdpath}.  If the option @code{CDABLEVARS} is set, and a
+parameter named @var{arg} exists whose value begins with a slash, treat
+its value as the directory.  If the option @code{PUSHD_SILENT} is not
+set, the directory stack will be printed after a @code{pushd} is
+performed.@refill
+
+@noindent
+The second form of @code{pushd} substitutes the string @var{new} for the
+string @var{old} in the name of the current directory, and tries to
+change to this new directory.@refill
+
+@noindent
+The third form of @code{pushd} is equivalent to @code{popd}.
+
+@findex pwd
+@item pwd
+Equivalent to @code{print -R $PWD}.
+
+@findex r
+@item r
+Equivalent to @code{fc -e -}.
+
+@vindex IFS
+@findex read
+@item read [ -rzp ] [ -u@var{n} ] [ @var{name}?@var{prompt} ] [ @var{name} @dots{} ]
+Read one line and break it into fields using the characters in
+@code{IFS} as separators.  In raw mode, @code{-r}, a @code{\} at the end
+of a line does not signify line continuation.  If the @code{-z} flag is
+set, read from the editor buffer stack.  The first field is assigned to
+the first @var{name}, the second field to the second @var{name}, etc,
+with leftover fields assigned to the last @var{name}.  If @var{name} is
+omitted then @code{REPLY} is used.  If @code{-u@var{n}} is specified,
+then input is read from file descriptor @var{n}; if @code{-p} is
+specified, then input is read from the coprocess.  The exit status is 0
+unless end-of-file is encountered.  If the first argument contains a
+@code{?}, the remainder of this word is used as a @var{prompt} on
+standard error when the shell is interactive.  The exit status is 0
+unless an end-of-file is encountered.@refill
+
+@cindex parameters, marking readonly
+@findex readonly
+@item readonly [ @var{name}[=@var{value}]] @dots{}
+The given @var{names} are marked readonly; these names cannot be changed
+by subsequent assignment.@refill
+
+@findex rehash
+@item rehash [ @code{-f} ]
+Throw out the command hash table and start over.  If the @code{-f}
+option is set, rescan the command path immediately, instead of
+rebuilding the hash table incrementally.@refill
+
+@cindex functions, returning from
+@findex return
+@item return [ @var{n} ]
+Causes a shell function or @code{.} script to return to the invoking
+script with the return status specified by @var{n}.  If @var{n} is
+omitted then the return status is that of the last command
+executed.@refill
+
+@cindex timed execution
+@cindex execution, timed
+@findex sched
+@item sched [+]@var{hh}:@var{mm} @var{command} @dots{}
+@itemx sched [ -@var{item} ]
+Make an entry in the scheduled list of commands to execute.  The time
+may be specified in either absolute or relative time.  With no
+arguments, prints the list of scheduled commands.  With the argument
+@code{-@var{item}}, removes the given item from the list.@refill
+
+@cindex parameters, positional
+@cindex parameters, array
+@cindex array parameter, declaring
+@findex set
+@item set [ +-@var{options} ] [ +-o @var{option name} ] @dots{} [ -A @var{name} ] [ @var{arg} ] @dots{}
+Set the options for the shell and/or set the positional parameters, or
+declare an array.  @xref{Options}, for the meaning of the flags.  Flags
+may be specified by name using the @code{-o} option.  If the @code{-A}
+flag is specified, @var{name} is set to an array containing the given
+@var{arg}s.  Otherwise the positional parameters are set.  If no
+arguments are given, then the names and values of all parameters are
+printed on the standard output.  If the only argument is @code{+}, the
+names of all parameters are printed.@refill
+
+@cindex options, setting
+@findex setopt
+@item setopt [ +-@var{options} ] [ @var{name} @dots{} ]
+Set the options for the shell.  All options specified either with flags
+or by name are set.  If no arguments are supplied, the names of all
+options currently set are printed.  In option names, case is
+insignificant, and all underscore characters are ignored.
+
+@cindex parameters, positional
+@findex shift
+@item shift [ @var{n} ]
+The positional parameters from @code{$@var{n}+1} @dots{} are renamed
+@code{$1}, where @var{n} is an arithmetic expression that defaults to
+1.@refill
+
+@findex source
+@item source
+Same as @samp{.}.
+
+@cindex shell, suspending
+@findex suspend
+@item suspend [ -f ]
+Suspend the execution of the shell (send it a @code{SIGTSTP}) until it
+receives a @code{SIGCONT}.  If the @code{-f} option is not given,
+complain if this is a login shell.@refill
+
+@findex test
+@item test @var{arg} @dots{}
+@itemx [ @var{arg} @dots{} ]
+Like the system version of @code{test}.  Added for compatibility; use
+conditional expressions instead.@refill
+
+@cindex shell, timing
+@cindex timing the shell
+@findex times
+@item times
+Print the accumulated user and system times for the shell and for
+processes run from the shell.
+
+@cindex signals, trapping
+@cindex trapping signals
+@findex trap
+@item trap [ @var{arg} ] [ @var{sig} ] @dots{}
+@var{arg} is a command to be read and executed when the shell receives
+@var{sig}.  Each @var{sig} can be given as a number or as the name of a
+signal.  If @var{arg} is @code{-}, then all traps @var{sig} are reset to
+their default values.  If @var{arg} is the null string, then this signal
+is ignored by the shell and by the commands it invokes.  If @var{sig} is
+@code{ERR} then @var{arg} will be executed after each command.  If
+@var{sig} is @code{0} or @code{EXIT} and the @code{trap} statement is
+executed inside the body of a function, then the command @var{arg} is
+executed after the function completes.  If @var{sig} is @code{0} or
+@code{EXIT} and the @code{trap} statement is not executed inside the
+body of a function, then the command @var{arg} is executed when the
+shell terminates.  The @code{trap} command with no arguments prints a
+list of commands associated with each signal.@refill
+
+@findex true
+@item true
+Do nothing and return an exit code of 0.
+
+@cindex tty, freezing
+@findex ttyctl
+@item ttyctl -fu
+The @code{-f} option freezes the tty, and @code{-u} unfreezes it.  When
+the tty is frozen, no changes made to the tty settings by external
+programs will be honored by the shell; the shell will simply reset the
+settings to their previous values as soon as each command exits.  Thus,
+@code{stty} and similar programs have no effect when the tty is
+frozen.@refill
+
+@findex type
+@item type
+Same as @code{whence} @code{-v}.
+
+@cindex parameters, setting
+@findex typeset
+@item typeset [ +-LRZfilrtux [@var{n}]] [ @var{name}[=@var{value}]] @dots{}
+Set attributes and values for shell parameters.  When invoked inside a
+function, if @var{name} is not already defined, a new parameter is
+created which will be unset when the function completes.  The following
+attributes are valid:@refill
+
+@table @code
+@item -L
+Left justify and remove leading blanks from @var{value}.  If @var{n} is
+nonzero, it defines the width of the field; otherwise it is determined
+by the width of the value of the first assignment.  When the parameter
+is printed, it is filled on the right with blanks or truncated if
+necessary to fit the field.  Leading zeros are removed if the @code{-Z}
+flag is also set.@refill
+@item -R
+Right justify and fill with leading blanks.  If @var{n} is nonzero if
+defines the width of the field; otherwise it is determined by the width
+of the value of the first assignment.  When the parameter is printed,
+the field is left filled with blanks or truncated from the end.@refill
+@item -Z
+Right justify and fill with leading zeros if the first non-blank
+character is a digit and the @code{-L} flag has not been set.  If
+@var{n} is nonzero it defines the width of the field; otherwise it is
+determined by the width of the value of the first assignment.@refill
+@item -f
+The names refer to functions rather than parameters.  No assignments can
+be made, and the only other valid flags are @code{-t} and @code{-u}.
+The flag @code{-t} turns on execution tracing for this function.  The
+flag @code{-u} causes this function to be marked for autoloading.  The
+@code{fpath} parameter will be searched to find the function definition
+when the function is first referenced.@refill
+@item -i
+Use an internal integer representation.  If @code{i} is nonzero it
+defines the output arithmetic base, otherwise it is determined by the
+first assignment.@refill
+@item -l
+Convert to lower case.
+@item -r
+The given @var{name}s are marked readonly.
+@item -t
+Tags the named parameters.  Tags have no special meaning to the
+shell.@refill
+@item -u
+Convert to upper case.
+@item -x
+Mark for automatic export to the environment of subsequently executed
+commands.@refill
+@end table
+
+@noindent
+Using @code{+} rather than @code{-} causes these flags to be turned off.
+If no arguments are given but flags are specified, a list of named
+parameters which have these flags set is printed.  Using @code{+}
+instead of @code{-} keeps their values from being printed.  If no
+arguments or options are given, the names and attributes of all
+parameters are printed.@refill
+
+@cindex resource limits
+@cindex limits, resource
+@findex ulimit
+@item ulimit [ -HSacdfmnt ] [ @var{limit} ]
+Set or display a resource limit.  The value of limit can be a number in
+the unit specified below or the value @code{unlimited}.  The @code{H}
+and @code{S} flags specify whether the hard limit or the soft limit for
+the given resource is set.@refill
+
+@table @code
+@item -a
+Lists all of the current resource limits.
+@item -c
+The number of 512-byte blocks on the size of core dumps.
+@item -d
+The number of K-bytes on the size of the data segment.
+@item -f
+The number of 512-byte blocks on the size of files written.
+@item -m
+The number of K-bytes on the size of physical memory.
+@item -n
+The number of file descriptors.
+@item -s
+The number of K-bytes on the size of the stack.
+@item -t
+The number of CPU seconds to be used.
+@end table
+
+@cindex umask
+@findex umask
+@item umask [ @var{mask} ]
+The umask is set to @var{mask}.  @var{mask} can be either an octal
+number or a symbolic value as described in @code{chmod(1)}.  If
+@var{mask} is omitted, the current value is printed.@refill
+
+@cindex aliases, removing
+@findex unalias
+@item unalias @var{name} @dots{}
+The alias definition, if any, for each @var{name} is removed.
+
+@cindex functions, removing
+@findex unfunction
+@item unfunction @var{name} @dots{}
+The function definition, if any, for each @var{name} is removed.
+
+@findex unhash
+@item unhash @var{name} @dots{}
+The entry in the command hash table, if any, for each @var{name} is
+removed.@refill
+
+@cindex limits, resource
+@cindex resource limits
+@findex unlimit
+@item unlimit [ -h ] @var{resource} @dots{}
+The resource limit for each @var{resource} is set to the hard limit.  If
+the @code{-h} flag is given and the shell is running as root, the hard
+resource limit for each @var{resource} is removed.@refill
+
+@cindex parameters, unsetting
+@findex unset
+@item unset @var{name} @dots{}
+Each named parameter is unset.
+
+@cindex options, unsetting
+@findex unsetopt
+@item unsetopt [ +-@var{options} ] [ @var{name} @dots{} ]
+Unset the options for the shell.  All options specified either with
+flags or by name are unset.@refill
+
+@cindex parameters, editting
+@cindex editting parameters
+@findex vared
+@item vared @var{name}
+The value of the parameter @var{name} is loaded into the edit buffer,
+and the line editor is invoked.  When the editor exits, @var{name} is
+set to the string value returned by the editor.@refill
+
+@cindex jobs, waiting for
+@cindex waiting for jobs
+@findex wait
+@item wait [ @var{job} @dots{} ]
+Wait for the specified jobs or processes.  If @var{job} is not given
+then all currently active child processes are waited for.  Each
+@var{job} can be either a job specification or the process-id of a job
+in the job table.  The exit status from this command is that of the job
+waited for.@refill
+
+@findex whence
+@item whence [ -acpv ] @var{name} @dots{}
+For each name, indicate how it would be interpreted if used as a command
+name.  The @code{-v} flag produces a more verbose report.  The @code{-p}
+flag does a path search for @var{name} even if it is a shell function,
+alias, or reserved word.  The @code{-c} flag prints the results in a
+csh-like format.  The @code{-a} flag does a search for all occurences of
+@var{name} throughout the command path.@refill
+
+@findex which
+@item which
+Same as @code{whence -c}.
+@end table
+
+@node Invocation, Wrapping Up, Shell Builtin Commands, Top
+@chapter Invocation
+@cindex invocation
+
+@code{zsh [ +-@var{options} ] [ +-o @var{option} ] @dots{}  [ -c @var{string} ] [ @var{arg} @dots{} ]}
+
+@pindex NO_RCS, use of
+@cindex files, startup
+@cindex startup files
+@noindent
+Commands are first read from @file{/etc/zshenv}.  Then, if the
+@code{NO_RCS} option is unset, commands are read from
+@file{$ZDOTDIR/.zshenv} (if @code{ZDOTDIR} is unset, @code{HOME} is used
+instead).  If the first character of argument zero passed to the shell is 
+@code{-}, or if the @code{-l} flag is present, then
+the shell is assumed to be a login shell, and commands are read from
+@file{/etc/zprofile} and then @file{$ZDOTDIR/.zprofile}.
+Then, if the shell is interactive and the @code{NO_RCS} option is unset,
+commands are read from @file{/etc/zshrc} and then @file{$ZDOTDIR/.zshrc}.
+Finally, if the shell is a login shell, @file{/etc/zlogin} and 
+@file{$ZDOTDIR/.zlogin} are read.@refill
+
+If the @code{NO_RCS} option is set within @file{/etc/zshenv}, then only
+@file{/etc/zprofile}, @file{/etc/zshrc}, and @file{/etc/zlogin} are read,
+and the @code{$ZDOTDIR} files are skipped.  If the @code{-f} flag is present,
+only @file{/etc/zshenv} is read, and all other initialization files are 
+skipped.
+
+If the @code{-s} flag is not present and an argument is given,
+the first argument is taken to be the pathname of a script to execute.
+The remaining arguments are assigned to the positional parameters.  The
+following flags are interpreted by the shell when invoked:@refill
+
+@cindex flags, shell
+@cindex shell flags
+@table @code
+@item -c @var{string}
+Read commands from @var{string}.
+@item -s
+Read command from the standard input.
+@item -i
+If this flag is present or the shell input and output are attached to a
+terminal, this shell is interactive.
+@end table
+
+@node Wrapping Up, Concept Index, Invocation, Top
+@chapter Wrapping Up
+
+@menu
+* See Also::                    
+* Files Used::                  
+* Availability::                
+* Undocumented Features::       
+@end menu
+
+@node See Also, Files Used,  , Wrapping Up
+@section See Also
+
+@noindent
+sh(1), csh(1), tcsh(1), itcsh(1), rc(1), bash(1), ash(1), ksh(1),
+clam(1), strftime(3).
+
+@node Files Used, Availability, See Also, Wrapping Up
+@section Files Used
+@cindex files used
+
+@noindent
+$ZDOTDIR/.zshenv@*
+@noindent
+$ZDOTDIR/.zprofile@*
+@noindent
+$ZDOTDIR/.zshrc@*
+@noindent
+$ZDOTDIR/.zlogin@*
+@noindent
+$ZDOTDIR/.zlogout@*
+@noindent
+/tmp/zsh*@*
+@noindent
+/etc/zshenv@*
+@noindent
+/etc/zprofile@*
+@noindent
+/etc/zshrc@*
+@noindent
+/etc/zlogin
+
+@node Availability, Undocumented Features, Files Used, Wrapping Up
+@section Availability
+@cindex availability
+
+@noindent
+The latest official release of zsh is available via anonymous ftp from
+@code{cs.ucsd.edu} (132.239.51.3), in the directory
+@code{pub/zsh}.  The beta release of zsh 2.4 is available from
+@code{carlo.phys.uva.nl} (145.18.220.25), in the directory
+@code{pub/bas/zsh}.  This man page is current to zsh 2.3.1.@refill
+
+@node Undocumented Features,  , Availability, Wrapping Up
+@section Undocumented Features
+@cindex undocumented features
+
+@noindent
+Known only to the recipients of the zsh mailing list,
+@code{zsh-list@@cs.uow.edu.au}.  If you run into problems, please send
+your questions and patches to the mailing list.  To join the list, send
+email to @code{zsh-request@@cs.uow.edu.au}.@refill
+
+
+@node Concept Index, Variables Index, Wrapping Up, Top
+@unnumbered Concept Index
+
+@printindex cp
+
+@node Variables Index, Options Index, Concept Index, Top
+@unnumbered Variables Index
+
+@printindex vr
+
+@node Options Index, Functions Index, Variables Index, Top
+@unnumbered Options Index
+
+@printindex pg
+
+@node Functions Index, Editor Functions Index, Options Index, Top
+@unnumbered Functions Index
+
+@printindex fn
+
+@node Editor Functions Index, Keystroke Index, Functions Index, Top
+@unnumbered Editor Functions Index
+
+@printindex tp
+
+@node Keystroke Index,  , Editor Functions Index, Top
+@unnumbered Keystroke Index
+
+@printindex ky
+
+
+@contents
+@bye

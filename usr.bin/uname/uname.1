@@ -1,0 +1,50 @@
+.\" Copyright (c) 1991 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: uname.1,v 1.1.1.1 1993/03/08 06:43:54 polk Exp $
+.\"
+.Dd February 16, 1993
+.Dt UNAME 1
+.Os
+.Sh NAME
+.Nm uname
+.Nd print system name and other information
+.Sh SYNOPSIS
+.Nm uname
+.Op Fl amnrsv
+.Sh DESCRIPTION
+The
+.Nm uname
+utility prints various identifying attributes of the current BSD system
+on its standard output, as provided by the
+.Xr uname 3
+function.
+By default
+.Nm uname
+prints the name of the operating
+system; command-line options can be used to force other information to
+be printed.  There are several options:
+.Bl -tag -width flag
+.It Fl a
+Print all of the available information.
+.It Fl m
+Print the CPU hardware type.
+.It Fl n
+Print the nodename (which is \s-2POSIX\s+2-speak for ``hostname'').
+.It Fl r
+Print the operating system release string.
+.It Fl s
+Print the name of the operating system (this is the default).
+.It Fl v
+Print the operating system version number.
+.El
+.Pp
+When more than one item is printed, the order used is
+operating system name,
+node name,
+release,
+version number
+and CPU type.
+.Sh SEE ALSO
+.Xr uname 3

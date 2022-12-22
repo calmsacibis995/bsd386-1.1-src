@@ -1,0 +1,3 @@
+     eval [ arg ... ]
+          Read the arguments as input to the  shell  and  execute
+          the resulting command(s) in the current shell process.

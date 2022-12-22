@@ -1,0 +1,93 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd January 27, 1994
+.Dt EF 4 i386
+.Os
+.Sh NAME
+.Nm ef
+.Nd
+.Tn 3Com
+EtherLink III (3C509, 3C509-TP, 3C509-Combo, 3c579) Ethernet interface
+.Sh SYNOPSIS
+.Cd "device ef0 at isa? port 0x250"
+.Sh DESCRIPTION
+The
+.Nm ef
+interface provides access to a 10 Mb/s Ethernet network.
+It supports the 3Com 3C509-series ISA bus cards and the 3C579
+EISA card.
+It uses a
+block of 16 i/o ports in range 0x200 through 0x3f0.
+Each card is programmed to use the address in the system configuration file.
+The block must be aligned on a 16 port boundary.
+The card also uses port 0x100 to configure the base port.
+The hardware interrupt level (IRQ) is also programmed by the system.
+The IRQ can be specified in the system configuration file,
+or a free IRQ will automatically be selected during autoconfiguration.
+Supported irqs are: 2(9), 3, 5, 7, 10, 11, 12, 15.
+The 3C509 should be installed in a 16-bit slot.
+The initialization routine
+will assign sequential unit numbers to 3C509 cards according to their
+Ethernet station addresses.
+.Pp
+The 3C509 supports software-selectable 10BASE-2/BNC and AUI/DIX interfaces.
+3C509-TP has 10BASE-T (twisted pair) interface instead of AUI/DIX,
+and the 3C509-Combo supports all three interfaces.
+The interface flag
+.Dv IFF_LINK0
+selects BNC (thin Ethernet) when set
+(using the
+.Li link0
+option to
+.Xr ifconfig 8 ) .
+The flag
+.Dv IFF_LINK1
+selects the twisted pair connection.
+If neither flag is set, the AUI connector is used if it is present,
+otherwise the twisted pair interface if present; otherwise the BNC
+connection is used.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr ef
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Pp
+The use of ``trailer'' encapsulation to minimize copying data on
+input and output is supported by the interface.
+The use of trailers is negotiated with
+.Tn ARP .
+This negotiation may be disabled, on a per-interface basis,
+by setting the
+.Dv IFF_NOTRAILERS
+flag with an
+.Dv SIOCSIFFLAGS
+.Xr ioctl .
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It ef%d: invalid i/o base address %x
+.sp
+Invalid port specification in kernel config file.
+.It ef%d: no irq available
+.sp
+Automatic interrupt selection was enabled, but all usable interrupts
+had already been claimed by other devices.
+.It ef%d: invalid IRQ number %d
+.sp
+Invalid irq specification in kernel config file.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh HISTORY
+The
+.Nm ef
+driver first appeared in BSDI.

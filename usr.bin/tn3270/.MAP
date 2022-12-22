@@ -1,0 +1,11 @@
+D API                               	api
+D ASCII                             	ascii
+D CTLR                              	ctlr
+D GENERAL                           	general
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.ORI;1                    	makefile.ORIG
+D MSET                              	mset
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/tn3270
+D SYS_CURS                          	sys_curses
+D TELNET                            	telnet
+D TOOLS                             	tools

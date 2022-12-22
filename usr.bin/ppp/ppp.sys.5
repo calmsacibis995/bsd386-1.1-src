@@ -1,0 +1,243 @@
+.\"	BSDI $Id: ppp.sys.5,v 1.3 1994/01/28 00:30:33 sanders Exp $
+.Dd January 13, 1994
+.Dt PPP.SYS 5
+.Os BSD/386
+.Sh NAME
+.Nm ppp.sys
+.Nd PPP remote host description file
+.Sh DESCRIPTION
+The systems known by
+.Xr ppp 8
+and their attributes are stored in an
+.Tn ASCII
+file which
+is structured somewhat like the
+.Xr termcap 5
+file.
+Each line in the file provides a description for a single
+.Xr system .
+Fields are separated by a colon (``:'').
+Lines ending in a \e character with an immediately following newline are
+continued on the next line.
+.Pp
+The first entry is the name(s) of the host system.  If there is more
+than one name for a system, the names are separated by vertical bars.
+After the name of the system comes the fields of the description.  A
+field name followed by an `=' sign indicates a string value follows.  A field
+name followed by a `#' sign indicates a following numeric value.
+.Pp
+A number of capabilities is devoted to the description of
+the log-in sequence which consists of up to ten steps
+(numbered starting from 0).
+At each step
+.Xr ppp 8
+will first send the
+.Em n Ns Li -th
+string and then will wait for the
+.Em n Ns Li -th
+expected string to be sent from the remote side during
+some configurable period of time (the default is 15 seconds).
+If the expected string was not received before the timer expired the
+.Em n Ns Li -th
+auxilary send string will be sent (if specified) and waiting
+for the expected responce will be repeated.
+The second failure to get the expected string will result in
+terminating the login sequence and dropping the connection.
+If the expected string was successfully received the login
+automaton moves on to the next step.
+If no expected string is specified for the
+.Em n Ns Li -th
+step the automaton will either go ahead immediately or
+(if the timeout period is specified) will delay for the
+duration of the timeout period.
+.Sh CAPABILITIES
+Capabilities are either strings (str), numbers (num), or boolean
+flags (bool).  A string capability is specified by 
+.Em capability Ns Ar = Ns Em value ;
+for example, ``dv=/dev/tty01''.  A numeric capability is specified by
+.Em capability Ns Ar # Ns Em value ;
+for example, ``id#99''.  A boolean capability is specified by simply listing
+the capability.
+.Bl -tag -width indent
+.It Cm \&at
+(str)
+Auto call unit type.
+.It Cm \&br
+(num)
+The baud rate used in establishing
+a connection to the remote host.
+This is a decimal number. 
+If the baud rate is not specified the line speed
+will remain unchanged.
+.It Cm \&cm
+(str)
+Map of the special characters which should be avoided
+in case if the equipment uses some
+of them for flow control or link control or inserts
+the characters for time fill.
+The map
+can be specified as a 32-bit hexadecimal or octal number
+(if it starts from 0x or 0 respectively) in which
+case the least significant bit corresponds to the null
+character and the most significant bit - to the character
+with code 037 (US).
+Alternatively, it can be specified as the string of
+letters corresponding the control characters, for example
+.Dq @QS
+will represent mask with bits 0, 17 and 19 set.
+The default all-zero mask will allow transmission of
+all control characters.
+.It Cm \&cu
+(str)
+Call unit if making a phone call.
+Default is the same as the `dv' field.
+.It Cm \&di
+(bool)
+Dial-in (answering mode) allowed.
+.It Cm \&do
+(bool)
+Dial-out (originating mode) allowed.
+.It Cm \&du
+(bool)
+This host is on a dial-up line. 
+.It Cm \&dv
+(str)
+.Tn BSD
+device(s) to open to establish a connection. 
+If this file refers to a terminal line,
+.Xr ppp 8
+attempts to perform an exclusive open on the device to insure only
+one user at a time has access to the port.
+.It Cm \&e0-e9
+(str)
+String to wait for on the
+.Em n Ns Li -th
+step of log-in sequence.
+.It Cm \&f0-f9
+(str)
+Auxilary string to send on the
+.Em n Ns Li -th
+step of log-in sequence in case if the correspoding
+expected string was not received.
+.It Cm \&id
+(num)
+The idle timer period in seconds.
+If the value is equal zero the idle timer
+will be disabled.
+.It Cm \&if
+(str)
+The space-separated list of arguments to call
+.Xr ifconfig 8
+with before initiating the connection.
+The interface name should
+.Em not
+be included in the list.
+.It Cm \&in
+(num)
+The interface number for the system.
+Interface names for the asynchronous PPP links are
+composed from the prefix
+.Dq ppp
+and the decimal number of the interface, for example
+.Dq ppp7 .
+It is recommended to specify the interface numbers
+explicitly because "migrating" network addresses
+can confuse some routing software.
+If interface number is not specified the first
+interface which is down will be allocated.
+.It Cm \&mc
+(num)
+The number of PPP protocol option negotiation
+attempts before giving up.
+The default value is 10; setting this parameter
+to zero will remove limit on the number of attempts.
+.It Cm \%mr
+(num)
+The maximal packet size the local side is willing
+to receive.
+This option can be useful on packet-switching links
+to prevent link-level packet fragmentation or in case
+of problems with hardware flow control.
+The default value is 1500 (bytes).
+.It Cm \&mt
+(num)
+The number of attempts to terminate the connection
+gracefully before hanging up.
+The default value is 3.
+.It Cm \&pf
+(str)
+The comma-separated list of PPP option flags (\c
+.Cm pfc ,
+.Cm acfc ,
+.Cm tcpc ,
+.Cm ftel ;
+a flag can be preceded with
+.Fl \&
+to negate its effect).
+See detailed discussion of the flags in
+.Xr pppconfig 8 .
+On the asynchronous links all the listed flags
+are set by default.
+.It Cm \&pn
+(str)
+Telephone number(s) for this host.
+.It Cm \%s0-s9
+(str)
+String to send on the
+.Em n Ns Li -th
+step of log-in sequence.
+.It Cm \%t0-t9
+(num)
+Timeout (in seconds) for the receiving the
+expected string on the
+.Em n Ns Li -th
+step of log-in sequence.
+The default timeout is 15 seconds.
+.It Cm \&tc
+(str)
+Indicates that the list of capabilities is continued
+in the named description.  This is used
+primarily to share common capability information.
+.It Cm \&to
+(num)
+PPP configure/terminate retry timeout (in 1/10 seconds).
+The default timeout is 3 sec.
+.El
+.Pp
+Here is a short example showing the use of the capability continuation
+feature:
+.Bd -literal
+modem0:du:at=hayes:dv=/dev/tty00:br#38400:
+
+dialout:\e
+	:in#0:id#600:do:\e
+	:if=inet 99.99.99.99 88.88.88.88 netmask 0xfffffffc:\e
+	:pn=PHONE_NUMBER_HERE:\e
+	:s0=^M:\e
+	:e0=ogin\e::\e
+	:s1=YOURLOGIN^M:\e
+	:e1=word\e::\e
+	:s2=YOURPASSWD^M:\e
+	:tc=modem0:
+
+dialin:\e
+	:in#1:di:if=inet 77.77.77.77 66.66.66.66 netmask 0xfffffffc:
+.Ed
+.Sh FILES
+.Bl -tag -width /etc/ppp.sys -compact
+.It Pa /etc/ppp.sys
+The
+.Nm ppp
+remote host description (system) file
+resides in
+.Pa /etc .
+.El
+.Sh SEE ALSO
+.Xr ppp 8 ,
+.Xr pppconfig 8 ,
+.Xr ifconfig 8 ,
+.Xr ppp 4
+.Sh HISTORY
+The
+.Nm ppp.sys
+file format appeared in BSDI.

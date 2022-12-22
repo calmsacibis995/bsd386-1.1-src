@@ -1,0 +1,21 @@
+% $Id: banner.ps,v 1.2 1994/01/13 17:53:32 sanders Exp $
+% This prints a banner.
+% psof.c will prepend definitions of Job, User, Class, and Date.
+
+/point-size 36 def
+/line-spacing point-size 1.2 mul def
+/left-margin 18 def
+/first-baseline 720 def
+
+/Helvetica findfont point-size scalefont setfont
+
+
+/i 0 def
+
+[User Job Class Date] {
+	left-margin first-baseline i line-spacing mul sub moveto
+	show
+	/i i 1 add def
+} forall
+
+showpage

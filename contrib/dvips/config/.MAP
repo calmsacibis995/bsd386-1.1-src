@@ -1,0 +1,8 @@
+F CONFIG.EPS;1                      	config.epsf
+F CONFIG.FAX;1                      	config.fax
+F CONFIG.LIN;1                      	config.lino
+F CONFIG.POS;1                      	config.post3x3
+F CONFIG.PS;1                       	config.ps
+F CONFIG.TES;1                      	config.test
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/dvips/config

@@ -1,0 +1,4 @@
+catch_fatal_signals	signal.c	/^void catch_fatal_signals()$/
+dir_name_max	dirnamemax.c	/^long dir_name_max(dir)$/
+handle_fatal_signal	signal.c	/^static RETSIGTYPE handle_fatal_signal(signum)$/
+ignore_fatal_signals	signal.c	/^void ignore_fatal_signals()$/

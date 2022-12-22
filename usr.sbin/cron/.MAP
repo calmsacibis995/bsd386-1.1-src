@@ -1,0 +1,27 @@
+F CHANGES.;1                        	CHANGES
+F COMPAT.H;1                        	compat.h
+F CONFIG.H;1                        	config.h
+F CRON.8;1                          	cron.8
+F CRON.C;1                          	cron.c
+F CRON.H;1                          	cron.h
+F DATABASE.C;1                      	database.c
+F DO_COMMA.C;1                      	do_command.c
+F ENTRY.C;1                         	entry.c
+F ENV.C;1                           	env.c
+F EXTERNS.H;1                       	externs.h
+F FEATURES.;1                       	FEATURES
+D GROT                              	grot
+F INSTALL.VIX;1                     	INSTALL.vixie
+F JOB.C;1                           	job.c
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.VIX;1                    	Makefile.vixie
+F MISC.C;1                          	misc.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/cron
+F PATHNAME.H;1                      	pathnames.h
+F POPEN.C;1                         	popen.c
+F README.VIX;1                      	README.vixie
+F ROOTTAB.SRC;1                     	roottab.src
+F TAGS.;1                           	tags
+F TESTTAB.SRC;1                     	testtab.src
+F THANKS.;1                         	THANKS
+F USER.C;1                          	user.c

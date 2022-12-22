@@ -1,0 +1,117 @@
+/* Written  9:06 pm  Nov  3, 1986 by lwall@sdcrdcf.UUCP in mirror:net.sources.bu */
+/* ---------- "patch 2.0 patch #3" ---------- */
+System: patch version 2.0
+Patch #: 3
+Priority: HIGH
+Subject: new-style diff with deletion can trigger spurious assertion failure
+From: cope.ucsf.edu!goldman (Eric Goldman)
+
+Description:
+	A 4.3-style context diff that does deletions can cause patch to die
+	of an assertion failure.  Interestingly enough, if the assertion
+	weren't there patch would work fine.
+
+Repeat-By:
+	Easy.  Try applying a new-style context diff with deletions.
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.  [Yah, I know that's funny because you already have
+	patch, but it is text produced by a generic patch generator, and
+	I haven't gotten around to special casing patch.]
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,hplabs,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 NUM ...
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and NUM
+	is the number of one or more patches you need, separated by spaces.
+	You can also get them by anonymous FTP from sdc-camarillo.arpa.
+
+Index: patchlevel.h
+Prereq: 2
+1c1
+< #define PATCHLEVEL 2
+---
+> #define PATCHLEVEL 3
+ 
+Index: pch.c
+Prereq: 2.0.1.1
+*** pch.c.old	Mon Nov  3 17:53:21 1986
+*** pch.c	Mon Nov  3 17:53:54 1986
+***************
+*** 1,4
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch3,v 1.2 1992/01/04 19:03:31 kolstad Exp $
+   *
+   * $Log: patch3,v $
+# Revision 1.2  1992/01/04  19:03:31  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  86/10/29  15:52:08  lwall
+
+--- 1,4 -----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch3,v 1.2 1992/01/04 19:03:31 kolstad Exp $
+   *
+   * $Log: patch3,v $
+# Revision 1.2  1992/01/04  19:03:31  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.2  86/11/03  17:49:52  lwall
+***************
+*** 1,6
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch3,v 1.2 1992/01/04 19:03:31 kolstad Exp $
+   *
+   * $Log: patch3,v $
+# Revision 1.2  1992/01/04  19:03:31  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  86/10/29  15:52:08  lwall
+   * Could falsely report new-style context diff.
+   * 
+
+--- 1,9 -----
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch3,v 1.2 1992/01/04 19:03:31 kolstad Exp $
+   *
+   * $Log: patch3,v $
+# Revision 1.2  1992/01/04  19:03:31  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.2  86/11/03  17:49:52  lwall
++  * New-style delete triggers spurious assertion error.
++  * 
+   * Revision 2.0.1.1  86/10/29  15:52:08  lwall
+   * Could falsely report new-style context diff.
+   * 
+***************
+*** 629,635
+  		p_len[filldst] = p_len[fillsrc];
+  		fillsrc++; filldst++;
+  	    }
+! 	    while (fillsrc <= p_end && p_char[fillsrc] != ' ')
+  		fillsrc++;
+  #ifdef DEBUGGING
+  	    if (debug & 64)
+
+--- 632,639 -----
+  		p_len[filldst] = p_len[fillsrc];
+  		fillsrc++; filldst++;
+  	    }
+! 	    while (fillsrc <= p_end && fillsrc != repl_beginning &&
+! 	      p_char[fillsrc] != ' ')
+  		fillsrc++;
+  #ifdef DEBUGGING
+  	    if (debug & 64)
+/* End of text from mirror:net.sources.bu */

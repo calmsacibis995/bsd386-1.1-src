@@ -1,0 +1,110 @@
+# Makefile for unzip and zipinfo for Borland C++ 3.0             Alvin Koh
+# Version: 5.0                                                26 June 1992
+#
+# Toad Hall: Works great for BC++ v2.0 too!  [some spaces should be tabs?]
+
+# make definitions
+
+CC = bcc
+TASM = tasm
+TLINK = tlink
+MODEL = s               # small model
+
+CRYPTO =
+CRYPTF =
+# definitions for crypt version
+#CRYPTO = crypt.obj
+#CRYPTF = -DCRYPT
+
+# compiler flags
+
+GENFLAGS = -m$(MODEL) -ff- -k- -wamb -wamp -wasm -wpro -wdef -wnod -wstv \
+           -wucp -wuse -P-.C
+CFLAGS = $(GENFLAGS) $(CRYPTF)
+ZIFLAGS = $(GENFLAGS) -K -d -wcln -wsig -DZIPINFO
+
+# implicit rules
+
+.c.obj:
+        $(CC) -c $(CFLAGS) {$< }
+
+# list macros
+
+unzip_dependencies = \
+        unzip.obj $(CRYPTO) \
+        envargs.obj \
+        explode.obj \
+        extract.obj \
+        file_io.obj \
+        inflate.obj \
+        mapname.obj \
+        match.obj \
+        misc.obj \
+        unreduce.obj \
+        unshrink.obj
+
+zipinfo_dependencies = \
+        zipinfo.obj \
+        envargs.obj \
+        match.obj \
+        misc_.obj
+
+# explicit rules
+
+all:    unzip.exe zipinfo.exe
+
+unzip.exe:      $(unzip_dependencies)
+        $(TLINK) /x/n/c/d/P- @&&|
+c0$(MODEL).obj+
+unzip.obj $(CRYPTO)+
+envargs.obj+
+explode.obj+
+extract.obj+
+file_io.obj+
+inflate.obj+
+mapname.obj+
+match.obj+
+misc.obj+
+unreduce.obj+
+unshrink.obj
+unzip.exe
+                # no map file
+emu.lib+
+math$(MODEL).lib+
+c$(MODEL).lib
+|
+
+zipinfo.exe:    $(zipinfo_dependencies)
+        $(TLINK) /x/n/c/d/P- @&&|
+c0$(MODEL).obj+
+zipinfo.obj+
+envargs.obj+
+match.obj+
+misc_.obj
+zipinfo.exe
+                # no map file
+emu.lib+
+math$(MODEL).lib+
+c$(MODEL).lib
+|
+
+# individual file dependencies
+
+unzip.obj:      unzip.c unzip.h
+crypt.obj:      crypt.c unzip.h zip.h
+envargs.obj:    envargs.c unzip.h
+explode.obj:    explode.c unzip.h
+extract.obj:    extract.c unzip.h
+file_io.obj:    file_io.c unzip.h
+inflate.obj:    inflate.c unzip.h
+mapname.obj:    mapname.c unzip.h
+match.obj:      match.c unzip.h
+misc.obj:       misc.c unzip.h
+unreduce.obj:   unreduce.c unzip.h
+unshrink.obj:   unshrink.c unzip.h
+
+zipinfo.obj:    zipinfo.c unzip.h
+        $(CC) -c $(ZIFLAGS) zipinfo.c
+
+misc_.obj:      misc.c unzip.h
+        $(CC) -c $(ZIFLAGS) -omisc_.obj misc.c

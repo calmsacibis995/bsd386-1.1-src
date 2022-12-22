@@ -1,0 +1,44 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.telebit-wb,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for a Telebit modem with rev LA7.01 or newer
+# firmware.  WorldBlazer, T3000, and QBlazer models with
+# fax support should work.
+#
+# The modem is run at 19.2 for both sending and receiving and
+# XON/XOFF flow control is used.  The modem has also been used
+# on an SGI Indigo running at 38.4 with RTS/CTS flow control.
+#
+# CONFIG: CLASS2: Telebit*
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log server-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# machine's are already too loud
+RingsBeforeAnswer:	1		# answer on first ring
+#
+# Modem-related stuff: should reflect modem command interface
+# and hardware connection/cabling (e.g. flow control).
+#
+ModemType:		Class2		# use class 2 interface
+ModemRate:		19200		# rate for DCE-DTE communication
+ModemFlowControl:	xonxoff		# XON/XOFF flow control assumed
+ModemFlowControlCmd:	S58=3		# set desired flow control method
+ModemSetupDTRCmd:	&D3		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+#
+ModemSendFillOrder:	LSB2MSB		# as expected
+ModemRecvFillOrder:	MSB2LSB		# opposite of what makes sense
+#
+# NB: If you need to prefix phone numbers to get through a PBX,
+#     put it in the ModemDialCmd; e.g. "DT9%s".
+#
+ModemDialCmd:		DT%s		# T for tone dialing

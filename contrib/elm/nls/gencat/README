@@ -1,0 +1,208 @@
+First a note on the copyright.  This is the same one used by the
+X Consortium (fortunately no one has started copyrighting copyrights),
+so if your lawyers don't mind that one, they shouldn't mind this one.
+Simply put, you can do what you want with this, although if you are
+so inclined we'd appreciate it if you sent us back any enhancements,
+bug fixes, or other related material, so we can make it available to
+everyone else.  But if you don't want to, you don't have to.  So be it.
+
+So.  What's here?  It's an implementation of the Message Catalog System,
+as described in the X/Open Portability Guide (XSI Supplementary Definitions,
+X/Open Company, Ltd, Prentice Hall, Englewood Cliffs, New Jersey 07632,
+ISBN: 0-13-685850-3).  Included is a version of gencat, to generate
+message catalogs, as well as the routines catgets, catopen, and catclose.
+There is also the beginings of an X/Open compliant set of print routines,
+but we'll talk about those later.
+
+I haven't done a man page yet (sorry, but I've got a product to get out
+the door, the pretty stuff has to come later).  However you can use the
+definitions in the X/Open docs and it should all work.  I have, however,
+added a series of pretty significant enhancements, particularly to gencat.
+
+As follows:
+
+Use: gencat [-new] [-or] [-lang C|C++|ANSIC] catfile msgfile [-h <header-file>]...
+
+This version of gencat accepts a number of flags.
+    -new	Erase the msg catalog and start a new one.
+		The default behavior is to update the catalog with the
+		specified msgfile(s).  This will instead cause the old
+		one to be deleted and a whole new one started.
+    -h <hfile>	Output identifiers to the specified header files.
+		This creates a header file with all of the appropriate
+		#define's in it.  Without this it would be up to you to
+		ensure that you keep your code in sync with the catalog file.
+		The header file is created from all of the previous msgfiles
+		on the command line, so the order of the command line is
+		important.  This means that if you just put it at the end of
+		the command line, all the defines will go in one file
+		    gencat foo.m bar.m zap.m -h all.h
+		If you prefer to keep your dependencies down you can specify
+		one after each message file, and each .h file will receive
+		only the identifiers from the previous message file
+		    gencat foo.m -h foo.h bar.m -h bar.h zap.m -h zap.h
+		As an added bonus, if you run the following sequence:
+		    gencat foo.m -h foo.h
+		    gencat foo.m -h foo.h
+		the file foo.h will NOT be modified the second time.  gencat
+		checks to see if the contents have changed before modifying
+		things.  This means that you won't get spurious rebuilds of
+		your source everytime you change a message.  You can thus use
+		a Makefile rule such as:
+
+		MSGSRC=foo.m bar.m
+		GENFLAGS=-or -lang C
+		GENCAT=gencat
+		NLSLIB=nlslib/OM/C
+		$(NLSLIB):	$(MSGSRC)
+			@for i in $?; do cmd="$(GENCAT) $(GENFLAGS) $@ $$i -h `basename $$i .m`.H"; echo $$cmd; $$cmd; done
+
+		foo.o:	foo.h
+
+		The for-loop isn't too pretty, but it works.  For each .m
+		file that has changed we run gencat on it.  foo.o depends on
+		the result of that gencat (foo.h) but foo.h won't actually
+		be modified unless we changed the order (or added new members)
+		to foo.m.  (I hope this is clear, I'm in a bit of a rush.)
+
+    -lang <l>	This governs the form of the include file.
+		Currently supported is C, C++ and ANSIC.  The latter two are
+		identical in output.  This argument is position dependent,
+		you can switch the language back and forth inbetween include
+		files if you care to.
+
+    -or		This is a hack, but a real useful one.
+		MessageIds are ints, and it's not likely that you are going
+		to go too high there if you generate them sequentially.
+		catgets takes a msgId and a setId, since you can have multiple
+		sets in a catalog.  What -or does is shift the setId up to
+		the high end of a long, and put the msgId in the low half.
+		Assuming you don't go over half a long (usually 2 bytes 
+		nowadays) in either your set or msg ids, this will work great.
+		Along with this are generated several macros for extracting
+		ids and putting them back together.  You can then easily
+		define a macro for catgets which uses this single number
+		instead of the two.  Note that the form of the generated
+		constants is somewhat different here.
+		
+		Take the file aboutMsgs.m
+
+		$ aboutMsgs.m
+		$ OmegaMail User Agent About Box Messages
+		$
+
+		$set 4 #OmAbout
+
+		$			 About Box message and copyrights
+		$ #Message
+		# Welcome to OmegaMail(tm)
+		$ #Copyright
+		# Copyright (c) 1990 by Alphalpha Software, Inc.
+		$ #CreatedBy
+		# Created by:
+		$ #About
+		# About...
+		# A
+		#
+		#
+		$ #FaceBitmaps
+		# /usr/lib/alphalpha/bitmaps/%s
+
+		Here is the the output from: gencat foo aboutMsgs.m -h foo.h
+
+		#define OmAboutSet      0x4
+		#define OmAboutMessage  0x1
+		#define OmAboutCopyright        0x2
+		#define OmAboutCreatedBy        0x3
+		#define OmAboutAbout    0x4
+		#define OmAboutFaceBitmaps      0x8
+
+		and now from: gencat -or foo aboutMsgs.m -h foo.h
+
+		/* Use these Macros to compose and decompose setId's and msgId's */
+		#ifndef MCMakeId
+		# define MCMakeId(s,m)  (unsigned long)(((unsigned short)s<<(sizeof(short)*8))\
+							|(unsigned short)m)
+		# define MCSetId(id)    (unsigned int) (id >> (sizeof(short) * 8))
+		# define MCMsgId(id)    (unsigned int) ((id << (sizeof(short) * 8))\
+							>> (sizeof(short) * 8))
+		#endif
+
+		#define OmAboutSet      0x4
+		#define OmAboutMessage  0x40001
+		#define OmAboutCopyright        0x40002
+		#define OmAboutCreatedBy        0x40003
+		#define OmAboutAbout    0x40004
+		#define OmAboutFaceBitmaps      0x40008
+
+
+Okay, by now, if you've read the X/Open docs, you'll see I've made
+a bunch of other extensions to the format of the msg catalog as well.
+Note that you don't have to use any of these and, with one exception,
+they are all compatible with the standard format.
+
+$set 4 #OmAbout
+    In the standard the third argument is a comment.  Here if the
+    comment begins with a # then it is used to generate the setId constant
+    (with the word "Set" appended).  This constant is also prepended onto
+    all of the msgId constants for this set.  Anything after the first
+    token is treated as a comment.
+
+$ #Message
+    As with set, I've modified the comment to indicate an identifier.
+    There are cleaner ways to do this, but I was trying to retain a
+    modicom of compatibility.  The identifier after # will be retained
+    and used as the identifier for the next message (unless overridden
+    before we get there).  If a message has no previous identifier then
+    no identifier is generated in the include file (I use this quite a
+    bit myself, the first identifier is a Menu item, the next three are
+    accelerator, accelerator-text and mnemonic - I don't need identifiers
+    for them, I just add 1, 2 and 3).
+
+# Welcome to OmegaMail(tm)
+    Finally the one incompatible extension.  If a line begins with #
+    a msgId number is automatically generated for it by adding one to
+    the previous msgId.  This wouldn't have been useful in the standard,
+    since it didn't generate include files, but it's wonderful for this
+    version.  It makes it easy to reorder the message file to put things
+    where they belong and not have to worry about renumber anything (although
+    of course you'll have to recompile).
+
+That's about all for that.
+
+Now, what about the print routines?  These are embarassing.  They are
+a first pass.  They support only %[dxo] and %[s], although they support
+*all* of the modifiers on those arguments (I had no idea there were
+so many!).  They also, most importantly, support the position arguments
+that allow you to reference arguments out of order.  There's a terrible
+hack macro to handle varargs which I wrote because I wasn't sure if it
+was okay to pass the address of the stack to a subroutine.  I've since
+seen supposedly portable code that in fact does this, so I guess it's
+okay.  If that's the case the code could become a lot simpler.  I welcome
+anyone who would like to fix it up.  I just don't know when I'll get
+the chance; it works, it's just ugly.
+
+
+One last comment.  You probably want to know how reliable it is.  I've tested
+the print routines pretty well.  I've used the msgcat routines intensely,
+but I haven't exercised all of the options in the message catalog file
+(like all of the \ characters) although I have implemented them all.
+I'm pretty confident that all the basic stuff works, beyond that it's
+possible that there are bugs.  As for portability, I've run it under
+BSD4.3 (Apollo) and SYSV-hybrid (SCO).  (And I never want to see the
+words "System V with BSD extensions" again in my life.)  I don't believe
+that there are any heavy dependencies on Unix, although using another
+system would probably require #ifdef's.
+
+I apologize for the state of the documentation, the lack of comments,
+the lack of testing, and all of the other things.  This project is
+subsidiary to my primary goal (Graphical Email for Unix) and I'm afraid
+I haven't been able to spend the time on it that I would have liked.
+However I'll happily answer any questions that you may have, and will
+be glad to serve as a distribution point for future revisions.  So if
+you make any changes or add more X/Open functions, send me a copy and
+I'll redistribute them.
+
+Best of luck!
+				    Kee Hinckley
+				    September 12, 1990

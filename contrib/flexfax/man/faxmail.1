@@ -1,0 +1,221 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxmail.1,v 1.1.1.1 1994/01/14 23:10:10 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXMAIL 1 "May 12, 1993"
+.SH NAME
+faxmail \- convert a mail message to PostScript\(tm for sending as facsimile
+.SH SYNOPSIS
+.B faxmail
+[
+.B \-b
+.I bold-font
+] [
+.B \-i
+.I italic-font
+] [
+.B \-f
+.I font-name
+] [
+.B \-F
+.I font-file
+] [
+.B -p
+.IR pointsize
+] [
+.B \-n
+] [
+.B \-s
+.I pagesize-name
+] [
+.B \-w
+] [
+.B \-1234
+] [
+.B \-x
+.I x-margin
+] [
+.B \-y
+.I y-margin
+] [
+.B \-H
+.I page-height
+] [
+.B \-W
+.I page-width
+]
+.SH DESCRIPTION
+.I Faxmail
+takes an electronic mail message on standard input
+and generates a PostScript\(tm
+document on the standard output that is suitable
+for transmission as a facsimile.
+The resultant document fills the area of a default page and
+is created in a stylized format that is described below.
+.I Faxmail
+is intended to be invoked directly by the mail system.
+For example, mail aliases may be created to automatically
+transmit electronic mail; e.g.
+.PP
+.nf
+.ti +0.5i
+sam: "|${BIN}/faxmail | ${BIN}/sendfax \-d sam@5551212 \-n"
+.fi
+.PP
+.I Faxmail
+formats a mail message according to the following rules.
+First, it strips all header information except the following:
+.nf
+.in +0.5i
+.ta \w'Keywords    'u +\w'Keywords    'u +\w'Keywords    'u
+From	To	Cc	Subject
+Date	Summary	Keywords
+.in -0.5i
+.fi
+.PP
+(The 
+.I Summary
+and
+.I Keywords
+header lines are useful when forwarding news articles.)
+Header lines that are kept have the 
+.I tag
+set in a ``Helvetica-Bold'' font and the
+.I value
+set in a ``Helvetica-Oblique'' font.
+The
+.B \-b
+and
+.B \-i
+options can be used to override the bold and italic
+fonts used to set the header lines.
+.PP
+The body of the mail message is wrapped at line boundaries
+(unless the
+.B \-w
+option is specified) and set in a 
+.IR "body font" .
+By default,
+.I faxmail
+searches for a file containing a personalized body font
+by using the account name specified in the
+.I From
+address line of the header.
+If a
+.I From
+line is found,
+.I faxmail
+will look for a file 
+.I .faxfont.ps
+in the sender's home directory.
+This file should contain a PostScript
+description for a font whose name is the name of the account.
+For example, if the following line, is encountered,
+.PP
+.ti +0.5i
+From: Sam Leffler <sam@sgi.com>
+.PP
+.I faxmail
+will look for the file
+.I ~sam/.faxfont.ps
+on the current machine.
+If this file exists, it should contain a description for
+a font named ``sam''.
+.PP
+If no personalized body font is found, or if the
+.B \-n
+option is specified on the command line,
+.I faxmail
+will set the body of the mail message in a ``Courier-Bold'' font.
+The
+.B \-f
+option can be used to specify an alternate default
+PostScript font name to use.
+The
+.B \-F
+option can be used to specify the name of a file containing a
+PostScript font description.
+In the latter case, the font's PostScript name should be the
+same as the filename; e.g.
+.I "/tmp/MyFont.ps"
+must define a font named ``MyFont''.
+.PP
+By default,
+.I faxmail
+sets all text in 12 point type on an 8.5" by 11" page
+with .5" top and bottom margins and .35" left and right
+hand margins.
+The
+.B \-p
+option may be used to specify an alternate point size.
+The
+.B \-x
+and
+.B \-y
+options can be used to specify alternate margins (in inches).
+The
+.B \-s
+option can be used to specify a non-default page size by name
+or the
+.B \-W
+and
+.B \-H
+options can be used to specify specific page dimensions in inches.
+.PP
+.I Faxmail
+can also format multiple pages of text in an 
+.IR n -up
+format; where
+.I n
+is 1, 2, 3, or 4.
+That is, 1-up generates 1 ouput page per input page
+(default),
+2-up generates 1 output page for each 4 input pages,
+3-up generates 1 output page for each 9 input pages,
+and
+4-up generates 1 output page for reach 16 input pages.
+.SH NOTES
+The personalized body fonts are intended to be
+fonts that represent a person's handwriting.
+As such, 
+.I faxmail
+should inject some randomness into the formatting of
+the body in order to make the result look more realistic.
+.SH BUGS
+The set of header lines accepted and stripped is fixed.
+The rule for deducing body font names can be error prone
+(it depends on the user's account name).
+It would be nice to set some of the formatting parameters,
+such as the 
+.IR n -up
+control, according to header information.
+.SH FILES
+.ta \w'${LIBDATA}/pagesizes    'u
+${LIBDATA}/pagesizes	page size database
+.br
+${AFMDIR}	for font metrics
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1)

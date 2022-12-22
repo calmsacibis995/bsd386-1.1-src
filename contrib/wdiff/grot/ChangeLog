@@ -1,0 +1,301 @@
+Wed Dec 23 11:10:32 1992  Francois Pinard  (pinard at icule)
+
+	From Thorsten Ohl <ohl@physics.harvard.edu>:
+	* wdiff.c (split_file_into_words): Call tmpnam just before opening
+	the file.  On the Next, successive calls to tmpnam will return
+	different values only if the file is opened in between.
+	(main): Allocate temp_name statically, and initialize it to "".
+	On certain systems, tmpnam(NULL) causes a segmentation violation.
+	Length will be L_tmpman or else, PATH_MAX+1 from pathmax.h.  Check
+	temp_name before unlinking, in case of an intervening signal.
+	* pathmax.h: New, from elsewhere.
+	* Makefile.in: Distribute pathmax.h, adjust dependencies.
+	* xstrdup.c, xmalloc.c: Deleted, not needed anymore.
+
+	* Makefile.in: Some cleanup before the release.
+	* (dvi, wdiff.dvi): New goals.
+	* (_wdiff.o): Use -I$(srcdir).
+
+	From Thorsten Ohl <ohl@physics.harvard.edu>:
+	* wdiff.c: Added two missing `break;'.
+
+	* check_it: New script, using test data from a bug report by
+	Robert J. Chassell <bob@gnu.ai.mit.edu>.
+	* testinput1, testinput2, testoutput: Deleted.
+	* Makefile.in: Adjusted.
+
+Tue Dec 22 00:02:41 1992  Francois Pinard  (pinard at icule)
+
+	* Makefile.in: Remove $(CPPDEFS) from the implicit rules.
+
+Mon Dec 21 23:24:39 1992  Francois Pinard  (pinard at icule)
+
+	* Makefile.in: Distribute the THANKS file.
+
+	From Colin Brough <cmb@epcc.ed.ac.uk>:
+	* wdiff.1: New for 0.04, replaces the previous copy.
+	* Makefile.in: Install the man page.
+
+	Makefile.in: Do not distribute collate.el, which lacks the
+	required Copyright assignment to the FSF.
+
+Wed Dec  9 08:43:47 1992  Francois Pinard  (pinard at icule)
+
+	* From David D `zoo' Zuhn <zoo@cygnus.com>:
+	configure.in, wdiff.c: Replace USG by HAVE_STRING_H.
+
+	* From David D `zoo' Zuhn <zoo@cygnus.com>:
+	Makefile.in (configure): Go to $(srcdir) before autoconf.
+
+Sat Dec  5 15:45:25 1992  Francois Pinard  (pinard at icule)
+
+	* wdiff.c: Initialize the version[] string.
+	* version.c: Deleted.
+	* Makefile.in: Adjusted.
+
+	* From Paul Eggert <eggert@twinsun.com>:
+	readpipe.c: Beware that file descriptor 1 might not be opened.
+	writepipe.c: Beware that file descriptor 0 might not be opened.
+
+	* From David D `zoo' Zuhn <zoo@cygnus.com>:
+	Makefile.in: Define MAKEINFO as makeinfo, use it.
+
+	* From Karl Berry <karl@cs.umb.edu>:
+	Makefile.in (realclean): Remove wdiff.info.
+
+	Makefile.in (realclean): Remove configure.
+
+	* From Karl Berry <karl@cs.umb.edu>:
+	configure.in: Use AC_ISC_POSIX for defining -posix if necessary.
+
+Sat Nov 28 12:13:04 1992  Francois Pinard  (pinard at icule)
+
+	* From Pierre Gaumond <gaumondp@ere.umontreal.ca>:
+	Makefile.in (clean, distclean): Remove clutter for ansi2knr.
+
+	* Makefile.in (texclean): New.
+
+	* Makefile.in (check): Add a `Check successful' message.
+
+	From Colin M. Brough <cmb@epcc.ed.ac.uk>:
+	* wdiff.1: New.  This man page reflects wdiff at 0.03 level.
+	* Makefile.in: Distribute it.
+
+Mon Nov 23 08:48:41 1992  Francois Pinard  (pinard at icule)
+
+	* Makefile.in (dist): Get .fname from the current directory name,
+	instead of from version.c.  I need updating many files manually,
+	when the version changes, version.c is just one of them.
+
+	* cbars.sh: New.  By default, cbars is not part of PROGS.
+	* Makefile.in: Prepare, install, and distribute it.
+
+Sun Nov 22 08:54:43 1992  Francois Pinard  (pinard at icule)
+
+	From Per Cederqvist <ceder@lysator.liu.se>:
+	* wdiff.c (usage_and_exit): Use OLD_FILE and NEW_FILE in usage
+	message, instead of FILE_1 and FILE_2.
+
+	From Richard Stallman <rms@prep.ai.mit.edu>:
+	* Never launch pager by default.  So, I'm adding option -a.
+
+	* wdiff.c: New -a option and autopager variable.
+	(main): Initialize and decode it.
+	(usage_and_exit): Announce it.
+	(launch_output_program): Implement it.
+
+	* wdiff.c: New -l option.
+	Rename pager_is_less to overstrike_for_less.
+	(main): Initialized and decode it.
+	(usage_and_exit): Announce it.
+	* wdiff.c: Rename is_printer to overstrike.
+	* wdiff.c: Rename is_display to find_termcap.
+	(main): Delay its initialization, so -l can force it to 0.
+
+	From Joe Wells <jbw@cs.bu.edu>:
+	* wdiff.c: New -n option and no_wrapping variable.
+	(main): Initialize and decode it.
+	(usage_and_exit): Announce it.
+	(copy_whitespace): Implement it.
+
+Sat Nov 21 16:35:15 1992  Francois Pinard  (pinard at icule)
+
+	* configure.in: Use AC_CONST.
+	* wdiff.c: Never define const as empty, let configure do it.  Also
+	remove volatile declaration as empty, it is unused.
+	* wdiff.c, version.c: Add a few const's.
+
+	From Roland McGrath <roland@gnu.ai.mit.edu>:
+	* wdiff.c: Remove `const' to `char *strstr();' declaration.
+
+	From Jim Meyering <meyering@cs.utexas.edu>:
+	* configure.in: Avoid gdiff for X as found on SGI systems.  The
+	test presumes gdiff returns non-zero status if DISPLAY is defined
+	to be empty.
+
+Thu Nov 19 10:29:20 CST 1992  Jim Meyering  (meyering@idefix.comco.com)
+
+	* configure.in: Add AC_UNISTD_H.  Fix test for ANSI-ness.
+
+	* readpipe.c writepipe.c: Include unistd.h.
+	Parenthesize assignment used in boolean context.
+
+	* version.c: Remove copyright and print_copyright.
+
+	* wdiff.c: Add declaration of error.
+	(print_copyright): Moved copyright stuff here and declared static.
+	(reformat_diff_output): Add a do-nothing case for COPY_NORMAL
+	and a default that aborts to avoid warnings form gcc -Wall.
+	(complete_output_program): Add a default clause that aborts
+	to avoid warnings form gcc -Wall.
+
+Wed Nov 18 09:28:12 1992  Jim Meyering  (meyering@idefix.comco.com)
+
+	* Makefile.in: Add another layer of double quotes so PAGER
+	and DIFF may contain spaces.  Before, with PAGER='less -i'
+	compilation failed with unterminated string.
+
+Tue Nov 17 18:47:23 1992  Francois Pinard  (pinard at icule)
+
+	From Larry W. Virden <lvirden@cas.org>:
+	* Makefefile.in (check): Warn that `exit status 1' is expected.
+
+Fri Nov 13 00:01:25 1992  Francois Pinard  (pinard at icule)
+
+	* Makefile.in (dist): chmod a+r before making the tar file.
+
+	* aclocal.m4: Update FP_STDC_CHECK, replacing by FP_PROTOTYPES.
+	* configure.in: Adjust accordingly.
+
+Tue Oct  6 12:55:10 1992  Francois Pinard  (pinard at icule)
+
+	* Makefile.in: Use exec_prefix.  Add `uninstall'.
+
+Sun Aug 23 08:30:30 1992  Francois Pinard  (pinard at icule)
+
+	* configure.in: Split FP_STDC_CHECK out into aclocal.m4.
+	* aclocal.m4: New.
+	* Makefile.in: Distribute aclocal.m4.
+
+Thu Aug 20 08:13:12 1992  Francois Pinard  (pinard at icule)
+
+	* wdiff.c: With STDC_HEADERS, use <string.h>, not <strings.h>.
+
+Wed Aug 19 11:45:52 1992  Francois Pinard  (pinard at icule)
+
+	From James Ganong <jeg@ced.berkeley.edu>:
+	* collatew.el: New, generalizes Emacs LISP `compage-windows'.
+	* Makefile.in: Distribute collatew.el.
+
+	* configure.in: To define DIFF, also try gnudiff and diffgnu, not
+	only gdiff and diff.
+
+	* ansi2knr.c: New, from Ghostscript distribution.
+	* unproto.l: Deleted.
+	* Makefile.in: Use ansi2knr instead of unproto.
+	* configure.in: Do not check anymore for `lex' or bad `const's.
+	* wdiff.c: Undefine `const' and `volatile' if not __STDC__.
+
+	* wdiff.c: Do not declare tgetstr without HAVE_TPUTS.
+
+Tue Aug 18 03:57:06 1992  Francois Pinard  (pinard at icule)
+
+	* Version 0.03 released to alt.sources and ftp.uu.net:/tmp.
+
+	* Makefile.in: Correct check goal to ignore error from wdiff.
+
+	* unproto.l: New, from ~/src.  Note that flex is required.
+	* configure.in: Add FP_STDC_CHECK, then use it.  Add AC_PROG_LEX.
+	* Makefile.in: Add U, apply unproto to wdiff.c and version.c if
+	not __STDC__.
+
+	* Makefile.in: Various corrections for being truly able to make in
+	subdirectories.
+
+Mon Aug 17 14:00:03 1992  Francois Pinard  (pinard at icule)
+
+	* configure.in: Check for improper `const' support.
+
+	* wdiff.c: Insure exit code values: 0 if no differences found, 1
+	if any difference found, 2 for other reasons or errors.  Execute
+	`diff' even in the case absolutely no output will result.
+
+	* wdiff.c: Removed spurious comma after last enum item.
+
+	* alloca.c: New, from other GNU sources.
+	* configure.in: Check for alloca.
+	* Makefile.in: Distribute alloca.c, compile it if necessary.
+
+Sun Aug 16 09:28:50 1992  Francois Pinard  (pinard at icule)
+
+	* wdiff.c (usage_and_exit): Added -s description.
+
+Sat Aug 15 09:27:31 1992  Francois Pinard  (pinard at icule)
+
+	* Version 0.02 released to alt.sources and ftp.uu.net:/tmp.
+
+	* wdiff.c: Added -s option to produce statistics at end of output.
+
+	* wdiff.c: Copy common code from the left side instead of the
+	right side if only the common code and deleted words are wanted;
+	this makes the output spacing nicer.  Also, correct a bug by which
+	added words were shown as common code for this option set.
+
+	* wdiff.c: PAGER_PROGRAM was previously defaulted to "more", it is
+	now left undefined.  As currently set, the auto-configurator will
+	pick one, however, and force it into the program.
+
+	* wdiff.c: Avoid all emphasis if all of the output would be
+	emphasized the same way.
+
+	* wdiff.c: Avoid overstriking whitespace unless the pager is less.
+
+	* wdiff.c: Do termcap initialization and completion strings.  If a
+	pager is used, insure they are sent to stdout, never to the pager.
+
+	* wdiff.c: If PAGER is defined, but to the empty string, avoid
+	using any pager, instead of using a default PAGER.
+
+Fri Aug 14 19:22:30 1992  Francois Pinard  (pinard at icule)
+
+	* wdiff.c: Remove the `signal (SIGCLD, SIG_IGN);' which is a
+	System V-ism, and rather wait() explicitely.
+
+	* wdiff.c: Declare tgetstr if <termcap.h> not included.
+
+	* Makefile.in: Have check goal works, now that -d is gone.
+
+Wed Aug 12 01:01:37 1992  Francois Pinard  (pinard at icule)
+
+	* Version 0.01 released to alt.sources and ftp.uu.net:/tmp.
+
+	* wdiff.c(setup_signals): Do not intercept SIGQUIT.
+
+	* wdiff.c: Automatically pipe through `more' or `less' if writing
+	to terminal, using environment variable $PAGER to override PAGER
+	definition.  Force terminal mode, but if the pager is `less', use
+	printer mode.  Modify copy_whitespace for overstriking whitespace
+	with itself in printer mode: `less' understands this.
+	* strstr.c: Borrowed somewhere from GNU.
+	* writepipe.c: New, provided by David Mackenzie.
+	* configure.in: Try defining PAGER to less or more.  Also use our
+	strstr if necessary.
+	* Makefile.in: Transmit PAGER to program.  Also handle strstr.c.
+
+	* configure.in: Try defining DIFF to gdiff or diff.
+	* Makefile.in: Transmit DIFF to wdiff.c, which handles it already.
+
+	* wdiff.c: Options -wxyz renamed from old -1234.  New options -123
+	acting a little like in GNU comm utility, old -d option deleted.
+
+	* wdiff.c: Check for HAVE_TPUTS instead of HAVE_TERMCAP_H in many
+	places.
+	* configure.in: Use -ltermlib on LIBS for Xenix, -ltermcap
+	otherwise; once this done, test for `tputs' availability.
+
+	* COPYING.LIB: New.
+	* Makefile.in: Distributing COPYING.LIB.
+
+Tue Aug 11 15:10:37 1992  Francois Pinard  (pinard at icule)
+
+	* Version 0.0 released to alt.sources.

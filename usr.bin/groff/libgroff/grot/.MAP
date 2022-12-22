@@ -1,0 +1,8 @@
+F FMOD.C;1                          	fmod.c
+F GETCWD.C;1                        	getcwd.c
+F MAKEFILE.DEP;1                    	Makefile.dep
+F MAKEFILE.SUB;1                    	Makefile.sub
+F MATHERR.C;1                       	matherr.c
+F PUTENV.C;1                        	putenv.c
+F STRERROR.C;1                      	strerror.c
+F STRTOL.C;1                        	strtol.c

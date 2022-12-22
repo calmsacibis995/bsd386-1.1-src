@@ -1,0 +1,41 @@
+CTRL	interactive.c	/^#define CTRL(x) ((x)&037)$/
+Minstallsw	installsw.c	/^main(argc, argv)$/
+build_extract_command	installsw.c	/^build_extract_command(struct package *pkg, char *t/
+checkget	checkget.c	/^checkget(linelen, buf)$/
+checkhost	installsw.c	/^checkhost(host)$/
+cleanup	checkget.c	/^cleanup()$/
+cleanup2	checkget.c	/^cleanup2()$/
+cleanup3	checkget.c	/^cleanup3()$/
+cleanup_and_exit	installsw.c	/^cleanup_and_exit (int code)$/
+cleanupleave	checkget.c	/^cleanupleave()$/
+clearline	interactive.c	/^clearline(line)$/
+clearselected	installsw.c	/^clearselected(pkgs, numpkgs)$/
+confirm	checkget.c	/^confirm(va_alist) va_dcl$/
+determine_name_mapping	installsw.c	/^determine_name_mapping ()$/
+doinstall	installsw.c	/^doinstall(pkgs, numpkgs, root)$/
+erasechars	checkget.c	/^erasechars(n)$/
+fixpackages	installsw.c	/^fixpackages(pkgs, numpkgs, root)$/
+get_remote_file	installsw.c	/^get_remote_file (char *rname, char *lname, int ver/
+getpackages	installsw.c	/^getpackages(pkgfile, pkgs, numpkgsp)$/
+hide_meta	installsw.c	/^hide_meta(char *name)$/
+installpkg	installsw.c	/^installpkg(pkg, root)$/
+interactive	interactive.c	/^interactive()$/
+interrupt	checkget.c	/^interrupt()$/
+isdir	installsw.c	/^isdir(name)$/
+labelscreen	interactive.c	/^labelscreen()$/
+lookup	interactive.c	/^lookup(x)$/
+make_remote_cd_filename	installsw.c	/^make_remote_cd_filename (struct package *pkg)$/
+map_name	installsw.c	/^map_name (char *raw_name)$/
+nxtword	installsw.c	/^nxtword(cpp)$/
+query	installsw.c	/^query(prompt, deflt, choices)$/
+remote_command	installsw.c	/^remote_command (char *cmd, char *host)$/
+remote_local_command	installsw.c	/^remote_local_command (char *remote, char *local, c/
+setblank	checkget.c	/^setblank(ly, lx, xstandout, len)$/
+setup	checkget.c	/^setup()$/
+showline	checkget.c	/^showline(ly, lx, xstandout, line)$/
+showpkgs	interactive.c	/^showpkgs()$/
+strip	installsw.c	/^strip(cp)$/
+tape_seek	installsw.c	/^tape_seek(int n, int pkgfile)$/
+usage	installsw.c	/^usage()$/
+warn	checkget.c	/^warn(va_alist) va_dcl$/
+z	z.c	/^z(va_alist) va_dcl$/

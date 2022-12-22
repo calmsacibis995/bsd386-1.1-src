@@ -1,0 +1,84 @@
+.\" -*- nroff -*-
+.TH TEXTPS 1
+.\" $Id: textps.1,v 1.2 1994/01/13 17:53:47 sanders Exp $
+.SH NAME
+textps \- text to PostScript filter
+.SH SYNOPSIS
+.B textps
+[
+.BI \-c n
+]
+[
+.BI \-l n
+]
+[
+.BI \-m n
+]
+[
+.BI \-t n
+]
+[
+.BI \-v n
+]
+[
+.I filename\|.\|.\|.
+]
+.SH DESCRIPTION
+.B textps
+is a simple text to PostScript filter.
+It is usually invoked automatically by a spooler.
+Input files can use ISO Latin-1.
+Two or more identical overstruck characters are rendered using a bold font.
+Tabs are assumed to be set every 8 character positions.
+.B textps
+is designed to produce good output with
+.B lpr\ \-p
+or
+.BR pr\ |\ lpr ;
+if you print unpaginated text,
+you will need to increase the
+.B \-t
+option and decrease the
+.B \-v
+or
+.B \-l
+option.
+.SH OPTIONS
+The arguments for all options except
+.B \-l
+are floating-point numbers.
+The argument for
+.B \-l
+must be a positive integer.
+.TP
+.BI \-c n
+Use
+.I n
+characters to the inch.
+.TP
+.BI \-l n
+Use
+.I n
+lines per page.
+.TP
+.BI \-m n
+Use a left margin of
+.I n
+points.
+.TP
+.BI \-t n
+Position the baseline of the first line of text
+.I n
+points below the top of the page.
+.TP
+.BI \-v n
+Use a vertical spacing of
+.I n
+points.
+.LP
+The default behaviour is
+.BR \-c12\ \-l66\ \-m18\ \-t8\ \-v12 .
+.SH "SEE ALSO"
+.BR psrev (1),
+.BR lprps (8),
+.BR psif (8)

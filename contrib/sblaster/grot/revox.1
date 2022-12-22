@@ -1,0 +1,58 @@
+.TH revox 1 "12 June 1992"
+.IX revox
+.SH NAME
+.PP
+revox \- reverse the bytes of a file, beginning to end
+
+.SH SYNOPSIS
+.PP
+\f3revox\f1
+[\f3-help \f1]
+[\f3-direct \f1]
+[\f3-input \f2filename\f1]
+[\f3-output \f2filename\f1]
+
+.SH DESCRIPTION
+.PP
+
+\fIrevox\fP reads a file of bytes and outputs them in reverse order.
+This useful for playing sound files in reverse, or undoing a reversal.
+The length of the input file is unlimited, but it must be seekable.
+For this reason, such streams as command pipes and the /dev/sb_dsp
+device may not be used for input.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.  Arguments without options are assumed to be the input file and output file, in that order.
+.TP
+.B -help
+Display some help on command options.
+.TP
+.B -direct
+Send the resulting data directly to /dev/sb_dsp instead of stdout.
+.TP
+.B -input \f2filename\f1
+Read input from \f2filename\f1 instead of stdin.
+.TP
+.B -output \f2filename\f1
+Write results to \f2filename\f1 instead of stdout.
+.SH EXAMPLES
+.B revox hello olleh
+
+.B revox < hello -o olleh
+
+.B revox -in hello > olleh
+
+These all write out the file \fIhello\fP in reverse to \fIolleh\fP.
+
+.B myprocess score | revox > nothing
+
+This is what you \fIcan not\fP do, since the process is not seekable.
+.SH BUGS
+
+Perhaps it should be able to cope with non-seekable streams by writing
+them out to a temporar file.  This would get very big for something
+like /dev/sb_dsp, but that's not my problem.
+
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

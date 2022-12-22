@@ -1,0 +1,4 @@
+bskip	genbsubs.c	/^bskip(s1, n, b)$/
+bunequal	genbsubs.c	/^bunequal(s1, s2, n)$/
+init_system	globals.c	/^init_system()$/
+memNSchr	genbsubs.c	/^memNSchr(s, c, n, and, stride)$/

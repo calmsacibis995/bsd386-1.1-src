@@ -1,0 +1,5 @@
+F MAKEFILE.OS2;1                    	makefile.os2
+F MATCH32.ASM;1                     	match32.asm
+F OS2ZIP.C;1                        	os2zip.c
+F OS2ZIP.H;1                        	os2zip.h
+F ZIP.DEF;1                         	zip.def

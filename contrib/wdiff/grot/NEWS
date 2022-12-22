@@ -1,0 +1,37 @@
+GNU wdiff NEWS - User visible changes.
+Copyright (C) 1992 Free Software Foundation, Inc.
+Francois Pinard <pinard@iro.umontreal.ca>, 1992.
+
+Version 0.04 - 21 December 1992, by Franc,ois Pinard
+
+* Add -a for automatic pager call, disallow this by default.
+* Add -l for less-like overstriking.
+* Add -n to forbid wrapping of differences.
+* New cbars script for producing change bars.
+* man page for wdiff 0.04.  Contributed and supported by contributor.
+
+
+Version 0.03 - 18 August 1992, by Franc,ois Pinard
+
+* Provide more useful exit codes.
+* Increase portability.
+
+
+Version 0.02 - 15 August 1992, by Franc,ois Pinard
+
+* Avoid calling pager if PAGER is in environment, but empty.
+* Correct disposition problems, and avoid useless overstrikes.
+* Add -s for statistics.
+
+
+Version 0.01 - 12 August 1992, by Franc,ois Pinard
+
+* Rename old -1234 into -wxyz for selecting strings.
+* Add new -123 resembling comm, delete -d.
+* Automatically pipe through `more' or `less' when writing to terminal.
+
+
+Version 0.00 - 11 August 1992, by Franc,ois Pinard
+
+* Initial release.
+

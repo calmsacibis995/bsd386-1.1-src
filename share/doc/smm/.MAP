@@ -1,0 +1,17 @@
+F 00_CONTE.;1                       	00.contents
+D 01_SETUP                          	01.setup
+D 02_CONFI                          	02.config
+D 04_QUOTA                          	04.quotas
+D 05_FSCK                           	05.fsck
+D 06_LPD                            	06.lpd
+D 07_SENDM                          	07.sendmailop
+D 08_TIMED                          	08.timedop
+D 10_NEWSO                          	10.newsop
+D 11_NAMED                          	11.named
+D 14_FASTF                          	14.fastfs
+D 15_NET                            	15.net
+D 16_SENDM                          	16.sendmail
+D 20_TERMD                          	20.termdesc
+D 22_TIMED                          	22.timed
+F MAKEFILE.;1                       	Makefile
+F TITLE.;1                          	Title

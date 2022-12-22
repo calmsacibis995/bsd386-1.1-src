@@ -1,0 +1,803 @@
+CONTROL	hist.c	/^#define CONTROL(x)		((char)(((int)(x)) & 0x1f))$/
+ELEMSIZE	assocfunc.c	/^#define	ELEMSIZE(n)	(sizeof(ASSOCELEM) + (sizeof(V/
+HASHSYM	symbol.c	/^#define HASHSYM(n, s) ((unsigned)((n)[0]*123 + (n)/
+HISTLEN	hist.c	/^#define	HISTLEN(hp)	((((hp)->len + INTROUND) & ~IN/
+HISTOFFSET	hist.c	/^#define	HISTOFFSET(hp)	(((char *) (hp)) - histbuf)/
+Mcalc	calc.c	/^main(argc, argv)$/
+Mhist	hist.c	/^main(argc, argv)$/
+NEXTHIST	hist.c	/^#define	NEXTHIST(hp)	((HIST *) (((char *) (hp)) + /
+PRINTF1	qio.c	/^#define	PRINTF1(fmt, a1)	math_fmt(fmt, a1)$/
+PRINTF2	qio.c	/^#define	PRINTF2(fmt, a1, a2)	math_fmt(fmt, a1, a2)/
+PUTCHAR	qio.c	/^#define	PUTCHAR(ch)		math_chr(ch)$/
+PUTSTR	qio.c	/^#define	PUTSTR(str)		math_str(str)$/
+absvalue	value.c	/^absvalue(v1, v2, vres)$/
+addelement	obj.c	/^addelement(name)$/
+addglobal	symbol.c	/^addglobal(name, isstatic)$/
+addlabel	label.c	/^addlabel(name)$/
+addliteral	string.c	/^addliteral(str)$/
+addlocal	symbol.c	/^addlocal(name)$/
+addnumber	const.c	/^addnumber(str)$/
+addop	addop.c	/^addop(op)$/
+addopfunction	addop.c	/^addopfunction(op, index, count)$/
+addoplabel	addop.c	/^addoplabel(op, label)$/
+addopone	addop.c	/^addopone(op, arg)$/
+addopptr	addop.c	/^addopptr(op, ptr)$/
+addoptwo	addop.c	/^addoptwo(op, arg1, arg2)$/
+addparam	symbol.c	/^addparam(name)$/
+addqconstant	const.c	/^addqconstant(q)$/
+addstr	string.c	/^addstr(hp, str)$/
+adduserfunc	addop.c	/^adduserfunc(name)$/
+addvalue	value.c	/^addvalue(v1, v2, vres)$/
+alloc	zmath.c	/^alloc(len)$/
+allocStat	zmath.c	/^allocStat()$/
+alloccheck	alloc.c	/^alloccheck()$/
+allocitem	alloc.c	/^allocitem(fp)$/
+allocwatch	alloc.c	/^allocwatch(cp)$/
+arrow_key	hist.c	/^arrow_key()$/
+assert	alloc.c	/^#define assert(x,v) if ((x)==0) assertfailed(v)$/
+assertfailed	alloc.c	/^assertfailed(n)$/
+assocalloc	assocfunc.c	/^assocalloc(initsize)$/
+assoccmp	assocfunc.c	/^assoccmp(ap1, ap2)$/
+assoccopy	assocfunc.c	/^assoccopy(oldap)$/
+assocfindex	assocfunc.c	/^assocfindex(ap, index)$/
+assocfree	assocfunc.c	/^assocfree(ap)$/
+assochash	assocfunc.c	/^assochash(ap)$/
+associndex	assocfunc.c	/^associndex(ap, create, dim, indices)$/
+assocprint	assocfunc.c	/^assocprint(ap, max_print)$/
+assocrsearch	assocfunc.c	/^assocrsearch(ap, vp, index)$/
+assocsearch	assocfunc.c	/^assocsearch(ap, vp, index)$/
+atoq	qio.c	/^atoq(s)$/
+atoz	zio.c	/^atoz(s, res)$/
+back_over_char	hist.c	/^back_over_char(ch)$/
+backspace	hist.c	/^backspace()$/
+backward_char	hist.c	/^backward_char()$/
+backward_history	hist.c	/^backward_history()$/
+backward_kill_char	hist.c	/^backward_kill_char()$/
+backward_word	hist.c	/^backward_word()$/
+beep	hist.c	/^beep()$/
+beginfunc	addop.c	/^beginfunc(name, newflag)$/
+broundvalue	value.c	/^broundvalue(v1, v2, vres)$/
+builtincheck	func.c	/^builtincheck(index, count)$/
+builtinfunc	func.c	/^builtinfunc(index, argcount, stck)$/
+builtinname	func.c	/^builtinname(index)$/
+builtinopcode	func.c	/^builtinopcode(index)$/
+cadd	commath.c	/^cadd(c1, c2)$/
+caddq	commath.c	/^caddq(c, q)$/
+calculate	opcodes.c	/^calculate(fp, argcount)$/
+cbround	comfunc.c	/^cbround(c, places)$/
+ccmp	commath.c	/^ccmp(c1, c2)$/
+cconj	commath.c	/^cconj(c)$/
+ccos	comfunc.c	/^ccos(c, epsilon)$/
+cdiv	commath.c	/^cdiv(c1, c2)$/
+cdivq	commath.c	/^cdivq(c, q)$/
+cexp	comfunc.c	/^cexp(c, epsilon)$/
+cfrac	commath.c	/^cfrac(c)$/
+charstr	string.c	/^charstr(ch)$/
+chartoint	input.c	/^#define chartoint(ch)	((ch) & 0xff)	\/* make sure /
+chash	comfunc.c	/^chash(c)$/
+checklabels	label.c	/^checklabels()$/
+checkobject	obj.c	/^checkobject(name)$/
+cimag	commath.c	/^cimag(c)$/
+cint	commath.c	/^cint(c)$/
+cinv	commath.c	/^cinv(c)$/
+clearlabel	label.c	/^clearlabel(lp)$/
+clearopt	addop.c	/^clearopt()$/
+cln	comfunc.c	/^cln(c, epsilon)$/
+closeid	file.c	/^closeid(id)$/
+closeinput	input.c	/^closeinput()$/
+cmodq	commath.c	/^cmodq(c, q)$/
+cmul	commath.c	/^cmul(c1, c2)$/
+cmulq	commath.c	/^cmulq(c, q)$/
+cneg	commath.c	/^cneg(c)$/
+comalloc	commath.c	/^comalloc()$/
+comfree	commath.c	/^comfree(c)$/
+compareindices	assocfunc.c	/^compareindices(v1, v2, dim)$/
+comparevalue	value.c	/^comparevalue(v1, v2)$/
+comprint	comfunc.c	/^comprint(c)$/
+configtype	config.c	/^configtype(name)$/
+conjvalue	value.c	/^conjvalue(vp, vres)$/
+constvalue	const.c	/^constvalue(index)$/
+copyvalue	value.c	/^copyvalue(oldvp, newvp)$/
+cpolar	comfunc.c	/^cpolar(q1, q2, epsilon)$/
+cpower	comfunc.c	/^cpower(c1, c2, epsilon)$/
+cpowi	comfunc.c	/^cpowi(c, q)$/
+cprintfr	comfunc.c	/^cprintfr(c)$/
+cquoq	commath.c	/^cquoq(c, q)$/
+creal	commath.c	/^creal(c)$/
+croot	comfunc.c	/^croot(c, q, epsilon)$/
+cround	comfunc.c	/^cround(c, places)$/
+cscale	commath.c	/^cscale(c, n)$/
+cshift	commath.c	/^cshift(c, n)$/
+csin	comfunc.c	/^csin(c, epsilon)$/
+csqrt	comfunc.c	/^csqrt(c, epsilon)$/
+csquare	commath.c	/^csquare(c)$/
+csub	commath.c	/^csub(c1, c2)$/
+csubq	commath.c	/^csubq(c, q)$/
+dadd	zmath.c	/^dadd(z1, z2, y, n)$/
+decrement_end	hist.c	/^decrement_end(n)$/
+decvalue	value.c	/^decvalue(vp, vres)$/
+definelabel	label.c	/^definelabel(name)$/
+defineobject	obj.c	/^defineobject(name, indices, count)$/
+definesymbol	codegen.c	/^definesymbol(name, symtype)$/
+delete_char	hist.c	/^delete_char()$/
+divvalue	value.c	/^divvalue(v1, v2, vres)$/
+dmul	zmath.c	/^dmul(z, mul, dest)$/
+do_bind_line	hist.c	/^do_bind_line(map, line)$/
+do_default_line	hist.c	/^do_default_line(map, line)$/
+do_map_line	hist.c	/^do_map_line(line)$/
+domul	zmul.c	/^domul(v1, size1, v2, size2, ans)$/
+dosquare	zmul.c	/^dosquare(vp, size, ans)$/
+dsub	zmath.c	/^dsub(z1, z2, y, n)$/
+dumpop	opcodes.c	/^dumpop(pc)$/
+eatcomment	token.c	/^eatcomment()$/
+eatnumber	token.c	/^eatnumber()$/
+eatstring	token.c	/^eatstring(quotechar)$/
+eatsymbol	token.c	/^eatsymbol()$/
+echo_char	hist.c	/^echo_char(ch)$/
+echo_rest_of_line	hist.c	/^echo_rest_of_line()$/
+echo_string	hist.c	/^echo_string(str, len)$/
+elemalloc	listfunc.c	/^elemalloc()$/
+elemfree	assocfunc.c	/^elemfree(ep)$/
+elemindex	assocfunc.c	/^elemindex(ap, index)$/
+end_of_line	hist.c	/^end_of_line()$/
+endfunc	addop.c	/^endfunc()$/
+enterfilescope	symbol.c	/^enterfilescope()$/
+enterfuncscope	symbol.c	/^enterfuncscope()$/
+eofid	file.c	/^eofid(id)$/
+erasechar	hist.c	/^erasechar()$/
+errorid	file.c	/^errorid(id)$/
+evaluate	codegen.c	/^evaluate(nestflag)$/
+exitfilescope	symbol.c	/^exitfilescope()$/
+exitfuncscope	symbol.c	/^exitfuncscope()$/
+f_arg	func.c	/^f_arg(count, vals)$/
+f_assoc	func.c	/^f_assoc(count, vals)$/
+f_avg	func.c	/^f_avg(count, vals)$/
+f_bround	func.c	/^f_bround(count, vals)$/
+f_btrunc	func.c	/^f_btrunc(count, vals)$/
+f_ceil	func.c	/^f_ceil(val)$/
+f_cfsim	func.c	/^f_cfsim(val)$/
+f_char	func.c	/^f_char(vp)$/
+f_cos	func.c	/^f_cos(count, vals)$/
+f_cp	func.c	/^f_cp(v1, v2)$/
+f_det	func.c	/^f_det(vp)$/
+f_digit	func.c	/^f_digit(val1, val2)$/
+f_digits	func.c	/^f_digits(val)$/
+f_dp	func.c	/^f_dp(v1, v2)$/
+f_eval	func.c	/^f_eval(vp)$/
+f_exp	func.c	/^f_exp(count, vals)$/
+f_faccnt	func.c	/^f_faccnt(val1, val2)$/
+f_fclose	func.c	/^f_fclose(vp)$/
+f_feof	func.c	/^f_feof(vp)$/
+f_ferror	func.c	/^f_ferror(vp)$/
+f_fflush	func.c	/^f_fflush(vp)$/
+f_fgetc	func.c	/^f_fgetc(vp)$/
+f_fgetline	func.c	/^f_fgetline(vp)$/
+f_files	func.c	/^f_files(count, vals)$/
+f_floor	func.c	/^f_floor(val)$/
+f_fopen	func.c	/^f_fopen(v1, v2)$/
+f_fprintf	func.c	/^f_fprintf(count, vals)$/
+f_gcd	func.c	/^f_gcd(count, vals)$/
+f_hash	func.c	/^f_hash(count, vals)$/
+f_highbit	func.c	/^f_highbit(val)$/
+f_hmean	func.c	/^f_hmean(count, vals)$/
+f_ilog	func.c	/^f_ilog(val1, val2)$/
+f_ilog10	func.c	/^f_ilog10(val)$/
+f_ilog2	func.c	/^f_ilog2(val)$/
+f_ismult	func.c	/^f_ismult(val1, val2)$/
+f_isrel	func.c	/^f_isrel(val1, val2)$/
+f_isset	func.c	/^f_isset(val1, val2)$/
+f_issquare	func.c	/^f_issquare(vp)$/
+f_lcm	func.c	/^f_lcm(count, vals)$/
+f_legtoleg	func.c	/^f_legtoleg(val1, val2)$/
+f_list	func.c	/^f_list(count, vals)$/
+f_listappend	func.c	/^f_listappend(v1, v2)$/
+f_listdelete	func.c	/^f_listdelete(v1, v2)$/
+f_listinsert	func.c	/^f_listinsert(v1, v2, v3)$/
+f_listpop	func.c	/^f_listpop(vp)$/
+f_listpush	func.c	/^f_listpush(v1, v2)$/
+f_listremove	func.c	/^f_listremove(vp)$/
+f_ln	func.c	/^f_ln(count, vals)$/
+f_lowbit	func.c	/^f_lowbit(val)$/
+f_matdim	func.c	/^f_matdim(vp)$/
+f_matfill	func.c	/^f_matfill(count, vals)$/
+f_matmax	func.c	/^f_matmax(v1, v2)$/
+f_matmin	func.c	/^f_matmin(v1, v2)$/
+f_mattrans	func.c	/^f_mattrans(vp)$/
+f_max	func.c	/^f_max(count, vals)$/
+f_meq	func.c	/^f_meq(val1, val2, val3)$/
+f_min	func.c	/^f_min(count, vals)$/
+f_mne	func.c	/^f_mne(val1, val2, val3)$/
+f_near	func.c	/^f_near(count, vals)$/
+f_open	input.c	/^f_open(name, mode)$/
+f_ord	func.c	/^f_ord(vp)$/
+f_places	func.c	/^f_places(val)$/
+f_polar	func.c	/^f_polar(count, vals)$/
+f_poly	func.c	/^f_poly(count, vals)$/
+f_power	func.c	/^f_power(count, vals)$/
+f_primetest	func.c	/^f_primetest(val1, val2)$/
+f_printf	func.c	/^f_printf(count, vals)$/
+f_prompt	func.c	/^f_prompt(vp)$/
+f_root	func.c	/^f_root(count, vals)$/
+f_round	func.c	/^f_round(count, vals)$/
+f_rsearch	func.c	/^f_rsearch(count, vals)$/
+f_runtime	func.c	/^f_runtime()$/
+f_search	func.c	/^f_search(count, vals)$/
+f_sin	func.c	/^f_sin(count, vals)$/
+f_size	func.c	/^f_size(vp)$/
+f_sqrt	func.c	/^f_sqrt(count, vals)$/
+f_ssq	func.c	/^f_ssq(count, vals)$/
+f_str	func.c	/^f_str(vp)$/
+f_strcat	func.c	/^f_strcat(count, vals)$/
+f_strlen	func.c	/^f_strlen(vp)$/
+f_strprintf	func.c	/^f_strprintf(count, vals)$/
+f_substr	func.c	/^f_substr(v1, v2, v3)$/
+f_trunc	func.c	/^f_trunc(count, vals)$/
+f_xor	func.c	/^f_xor(count, vals)$/
+find_event	hist.c	/^find_event(pat, len)$/
+find_func	hist.c	/^find_func(name)$/
+find_map	hist.c	/^find_map(map)$/
+findbucket	alloc.c	/^findbucket(freep, srchlen)$/
+findelement	obj.c	/^findelement(name)$/
+findfunc	addop.c	/^findfunc(index)$/
+findglobal	symbol.c	/^findglobal(name)$/
+findid	file.c	/^findid(id, mode)$/
+findlocal	symbol.c	/^findlocal(name)$/
+findparam	symbol.c	/^findparam(name)$/
+findstr	string.c	/^findstr(hp, str)$/
+fitprint	symbol.c	/^fitprint(num, digits, width)$/
+flush_input	hist.c	/^flush_input()$/
+flushid	file.c	/^flushid(id)$/
+forward_char	hist.c	/^forward_char()$/
+forward_history	hist.c	/^forward_history()$/
+forward_kill_char	hist.c	/^forward_kill_char()$/
+forward_kill_word	hist.c	/^forward_kill_word()$/
+forward_word	hist.c	/^forward_word()$/
+fracvalue	value.c	/^fracvalue(vp, vres)$/
+freeh	zmath.c	/^freeh(h)$/
+freeitem	alloc.c	/^freeitem(fp, ip)$/
+freevalue	value.c	/^freevalue(vp)$/
+get_event	hist.c	/^get_event(n)$/
+getaltcond	codegen.c	/^getaltcond()$/
+getandcond	codegen.c	/^getandcond()$/
+getandexpr	codegen.c	/^getandexpr()$/
+getassignment	codegen.c	/^getassignment()$/
+getbody	codegen.c	/^getbody(contlabel, breaklabel, nextcaselabel, defa/
+getbuiltinfunc	func.c	/^getbuiltinfunc(name)$/
+getcallargs	codegen.c	/^getcallargs(name)$/
+getcharid	file.c	/^getcharid(id)$/
+getcommands	codegen.c	/^getcommands(toplevel)$/
+getcondition	codegen.c	/^getcondition()$/
+getconfig	config.c	/^getconfig(type, vp)$/
+getdeclarations	codegen.c	/^getdeclarations()$/
+getelement	codegen.c	/^getelement()$/
+getexprlist	codegen.c	/^getexprlist()$/
+getfilename	codegen.c	/^getfilename(name, msg_ok)$/
+getfunction	codegen.c	/^getfunction()$/
+getid	codegen.c	/^getid(buf)$/
+getidexpr	codegen.c	/^getidexpr(okmat, autodef)$/
+getinitlist	codegen.c	/^getinitlist()$/
+getmatargs	codegen.c	/^getmatargs()$/
+getmatdeclaration	codegen.c	/^getmatdeclaration(symtype)$/
+getobjdeclaration	codegen.c	/^getobjdeclaration(symtype)$/
+getobjvars	codegen.c	/^getobjvars(name, symtype)$/
+getonedeclaration	codegen.c	/^getonedeclaration(type)$/
+getorcond	codegen.c	/^getorcond()$/
+getorexpr	codegen.c	/^getorexpr()$/
+getproduct	codegen.c	/^getproduct()$/
+getrelation	codegen.c	/^getrelation()$/
+getshiftexpr	codegen.c	/^getshiftexpr()$/
+getshowcommand	codegen.c	/^getshowcommand()$/
+getsimplebody	codegen.c	/^getsimplebody()$/
+getstatement	codegen.c	/^getstatement(contlabel, breaklabel, nextcaselabel,/
+getsum	codegen.c	/^getsum()$/
+getterm	codegen.c	/^getterm()$/
+gettoken	token.c	/^gettoken()$/
+givehelp	calc.c	/^givehelp(type)$/
+globalname	symbol.c	/^globalname(sp)$/
+goto_end_of_line	hist.c	/^goto_end_of_line()$/
+goto_line	hist.c	/^goto_line()$/
+goto_start_of_line	hist.c	/^goto_start_of_line()$/
+hashstr	string.c	/^hashstr(cp)$/
+hashvalue	value.c	/^hashvalue(vp)$/
+hist_getline	hist.c	/^hist_getline(prompt, buf, len)$/
+hist_init	hist.c	/^hist_init(filename)$/
+hist_saveline	hist.c	/^hist_saveline(line, len)$/
+hist_term	hist.c	/^hist_term()$/
+homeexpand	input.c	/^homeexpand(name)$/
+idprintf	file.c	/^idprintf(id, fmt, count, vals)$/
+ignore_char	hist.c	/^ignore_char()$/
+iigcd	zmath.c	/^iigcd(i1, i2)$/
+iitoq	qmath.c	/^iitoq(inum, iden)$/
+in_word	hist.c	/^in_word(ch)$/
+incvalue	value.c	/^incvalue(vp, vres)$/
+indexid	file.c	/^indexid(index)$/
+initenv	calc.c	/^initenv()$/
+initfunctions	addop.c	/^initfunctions()$/
+initglobals	symbol.c	/^initglobals()$/
+initlabels	label.c	/^initlabels()$/
+initlocals	symbol.c	/^initlocals()$/
+initmasks	zmath.c	/^initmasks()$/
+initstack	opcodes.c	/^initstack()$/
+initstr	string.c	/^initstr(hp)$/
+inittokens	token.c	/^inittokens()$/
+inputisterminal	input.c	/^inputisterminal()$/
+inputname	input.c	/^inputname()$/
+insert_char	hist.c	/^insert_char(key)$/
+insert_string	hist.c	/^insert_string(str, len)$/
+insertlistfirst	listfunc.c	/^insertlistfirst(lp, vp)$/
+insertlistlast	listfunc.c	/^insertlistlast(lp, vp)$/
+insertlistmiddle	listfunc.c	/^insertlistmiddle(lp, index, vp)$/
+intint	calc.c	/^intint(arg)$/
+intvalue	value.c	/^intvalue(vp, vres)$/
+invertvalue	value.c	/^invertvalue(vp, vres)$/
+isdigit	token.c	/^#define isdigit(ch)	(((ch) >= '0') && ((ch) <= '9'/
+isletter	token.c	/^#define isletter(ch)	((((ch) >= 'a') && ((ch) <= '/
+issymbol	token.c	/^#define issymbol(ch)	(isletter(ch) || isdigit(ch) /
+itoq	qmath.c	/^itoq(i)$/
+itoz	zmath.c	/^itoz(i, res)$/
+kill_line	hist.c	/^kill_line()$/
+kill_region	hist.c	/^kill_region()$/
+linenumber	input.c	/^linenumber()$/
+list_history	hist.c	/^list_history()$/
+listalloc	listfunc.c	/^listalloc()$/
+listcmp	listfunc.c	/^listcmp(lp1, lp2)$/
+listcopy	listfunc.c	/^listcopy(oldlp)$/
+listelement	listfunc.c	/^listelement(lp, index)$/
+listfindex	listfunc.c	/^listfindex(lp, index)$/
+listfree	listfunc.c	/^listfree(lp)$/
+listhash	listfunc.c	/^listhash(lp)$/
+listprint	listfunc.c	/^listprint(lp, max_print)$/
+listrsearch	listfunc.c	/^listrsearch(lp, vp, index)$/
+listsearch	listfunc.c	/^listsearch(lp, vp, index)$/
+localname	symbol.c	/^localname(n)$/
+lowercase_word	hist.c	/^lowercase_word()$/
+matadd	matfunc.c	/^matadd(m1, m2)$/
+matalloc	matfunc.c	/^matalloc(size)$/
+matbround	matfunc.c	/^matbround(m, places)$/
+matcmp	matfunc.c	/^matcmp(m1, m2)$/
+matconj	matfunc.c	/^matconj(m)$/
+matcopy	matfunc.c	/^matcopy(m)$/
+matcross	matfunc.c	/^matcross(m1, m2)$/
+matdet	matfunc.c	/^matdet(m)$/
+matdot	matfunc.c	/^matdot(m1, m2)$/
+matfill	matfunc.c	/^matfill(m, v1, v2)$/
+matfrac	matfunc.c	/^matfrac(m)$/
+matfree	matfunc.c	/^matfree(m)$/
+math_chr	zio.c	/^math_chr(ch)$/
+math_cleardiversions	zio.c	/^math_cleardiversions()$/
+math_divertio	zio.c	/^math_divertio()$/
+math_error	opcodes.c	/^math_error(VA_ALIST)$/
+math_fill	zio.c	/^math_fill(str, width)$/
+math_flush	zio.c	/^math_flush()$/
+math_fmt	zio.c	/^math_fmt(VA_ALIST)$/
+math_getdivertedio	zio.c	/^math_getdivertedio()$/
+math_setdigits	zio.c	/^math_setdigits(newdigits)$/
+math_setfp	zio.c	/^math_setfp(newfp)$/
+math_setmode	zio.c	/^math_setmode(newmode)$/
+math_str	zio.c	/^math_str(str)$/
+mathash	matfunc.c	/^mathash(m)$/
+matident	matfunc.c	/^matident(m)$/
+matindex	matfunc.c	/^matindex(mp, create, dim, indices)$/
+matint	matfunc.c	/^matint(m)$/
+matinv	matfunc.c	/^matinv(m)$/
+matisident	matfunc.c	/^matisident(m)$/
+matmodval	matfunc.c	/^matmodval(m, vp)$/
+matmul	matfunc.c	/^matmul(m1, m2)$/
+matmulrow	matfunc.c	/^matmulrow(m, row, mulval)$/
+matmulval	matfunc.c	/^matmulval(m, vp)$/
+matneg	matfunc.c	/^matneg(m)$/
+matpowi	matfunc.c	/^matpowi(m, q)$/
+matprint	matfunc.c	/^matprint(m, max_print)$/
+matquoval	matfunc.c	/^matquoval(m, vp)$/
+matround	matfunc.c	/^matround(m, places)$/
+matrsearch	matfunc.c	/^matrsearch(m, vp, index)$/
+matscale	matfunc.c	/^matscale(m, n)$/
+matsearch	matfunc.c	/^matsearch(m, vp, index)$/
+matshift	matfunc.c	/^matshift(m, n)$/
+matsquare	matfunc.c	/^matsquare(m)$/
+matsub	matfunc.c	/^matsub(m1, m2)$/
+matsubrow	matfunc.c	/^matsubrow(m, oprow, baserow, mulval)$/
+matswaprow	matfunc.c	/^matswaprow(m, r1, r2)$/
+mattest	matfunc.c	/^mattest(m)$/
+mattrans	matfunc.c	/^mattrans(m)$/
+mem_alloc	alloc.c	/^mem_alloc(nbytes)$/
+mem_free	alloc.c	/^mem_free(cp)$/
+mem_realloc	alloc.c	/^mem_realloc(cp, nbytes)$/
+mem_stats	alloc.c	/^mem_stats(s)$/
+memrcpy	hist.c	/^memrcpy(dest, src, len)$/
+modename	config.c	/^modename(type)$/
+modetype	config.c	/^modetype(name)$/
+modvalue	value.c	/^modvalue(v1, v2, vres)$/
+morecore	alloc.c	/^morecore(bucket)$/
+mulvalue	value.c	/^mulvalue(v1, v2, vres)$/
+namefunc	addop.c	/^namefunc(index)$/
+namestr	string.c	/^namestr(hp, n)$/
+negvalue	value.c	/^negvalue(vp, vres)$/
+new_line	hist.c	/^new_line()$/
+newline	hist.c	/^newline()$/
+nextchar	input.c	/^nextchar()$/
+nextline	input.c	/^nextline()$/
+nextprime	assocfunc.c	/^nextprime(n)$/
+normvalue	value.c	/^normvalue(vp, vres)$/
+o_abs	opcodes.c	/^o_abs()$/
+o_add	opcodes.c	/^o_add()$/
+o_and	opcodes.c	/^o_and()$/
+o_argvalue	opcodes.c	/^o_argvalue(fp, argcount, args)$/
+o_assign	opcodes.c	/^o_assign()$/
+o_assignpop	opcodes.c	/^o_assignpop()$/
+o_call	opcodes.c	/^o_call(fp, index, argcount)$/
+o_casejump	opcodes.c	/^o_casejump(fp, dojump)$/
+o_cmp	opcodes.c	/^o_cmp()$/
+o_condandjump	opcodes.c	/^o_condandjump(fp, dojump)$/
+o_condorjump	opcodes.c	/^o_condorjump(fp, dojump)$/
+o_conjugate	opcodes.c	/^o_conjugate()$/
+o_debug	opcodes.c	/^o_debug(fp, line)$/
+o_denominator	opcodes.c	/^o_denominator()$/
+o_div	opcodes.c	/^o_div()$/
+o_duplicate	opcodes.c	/^o_duplicate()$/
+o_dupvalue	opcodes.c	/^o_dupvalue()$/
+o_elemaddr	opcodes.c	/^o_elemaddr(fp, index)$/
+o_eleminit	opcodes.c	/^o_eleminit(fp, index)$/
+o_elemvalue	opcodes.c	/^o_elemvalue(fp, index)$/
+o_eq	opcodes.c	/^o_eq()$/
+o_fiaddr	opcodes.c	/^o_fiaddr()$/
+o_fivalue	opcodes.c	/^o_fivalue()$/
+o_frac	opcodes.c	/^o_frac()$/
+o_ge	opcodes.c	/^o_ge()$/
+o_getconfig	opcodes.c	/^o_getconfig()$/
+o_getepsilon	opcodes.c	/^o_getepsilon()$/
+o_getvalue	opcodes.c	/^o_getvalue()$/
+o_globaladdr	opcodes.c	/^o_globaladdr(fp, sp)$/
+o_globalvalue	opcodes.c	/^o_globalvalue(fp, sp)$/
+o_gt	opcodes.c	/^o_gt()$/
+o_im	opcodes.c	/^o_im()$/
+o_imaginary	opcodes.c	/^o_imaginary(fp, arg)$/
+o_indexaddr	opcodes.c	/^o_indexaddr(fp, dim, writeflag)$/
+o_int	opcodes.c	/^o_int()$/
+o_invert	opcodes.c	/^o_invert()$/
+o_isassoc	opcodes.c	/^o_isassoc()$/
+o_iseven	opcodes.c	/^o_iseven()$/
+o_isfile	opcodes.c	/^o_isfile()$/
+o_isint	opcodes.c	/^o_isint()$/
+o_islist	opcodes.c	/^o_islist()$/
+o_ismat	opcodes.c	/^o_ismat()$/
+o_isnull	opcodes.c	/^o_isnull()$/
+o_isnum	opcodes.c	/^o_isnum()$/
+o_isobj	opcodes.c	/^o_isobj()$/
+o_isodd	opcodes.c	/^o_isodd()$/
+o_isreal	opcodes.c	/^o_isreal()$/
+o_issimple	opcodes.c	/^o_issimple()$/
+o_isstr	opcodes.c	/^o_isstr()$/
+o_istype	opcodes.c	/^o_istype()$/
+o_jump	opcodes.c	/^o_jump(fp, dojump)$/
+o_jumpeq	opcodes.c	/^o_jumpeq(fp, dojump)$/
+o_jumpne	opcodes.c	/^o_jumpne(fp, dojump)$/
+o_le	opcodes.c	/^o_le()$/
+o_leftshift	opcodes.c	/^o_leftshift()$/
+o_localaddr	opcodes.c	/^o_localaddr(fp, locals, index)$/
+o_localvalue	opcodes.c	/^o_localvalue(fp, locals, index)$/
+o_lt	opcodes.c	/^o_lt()$/
+o_matcreate	opcodes.c	/^o_matcreate(fp, dim)$/
+o_mod	opcodes.c	/^o_mod()$/
+o_mul	opcodes.c	/^o_mul()$/
+o_ne	opcodes.c	/^o_ne()$/
+o_negate	opcodes.c	/^o_negate()$/
+o_nop	opcodes.c	/^o_nop()$/
+o_norm	opcodes.c	/^o_norm()$/
+o_not	opcodes.c	/^o_not()$/
+o_number	opcodes.c	/^o_number(fp, arg)$/
+o_numerator	opcodes.c	/^o_numerator()$/
+o_objcreate	opcodes.c	/^o_objcreate(fp, arg)$/
+o_oldvalue	opcodes.c	/^o_oldvalue()$/
+o_one	opcodes.c	/^o_one()$/
+o_or	opcodes.c	/^o_or()$/
+o_paramaddr	opcodes.c	/^o_paramaddr(fp, argcount, args, index)$/
+o_paramvalue	opcodes.c	/^o_paramvalue(fp, argcount, args, index)$/
+o_pop	opcodes.c	/^o_pop()$/
+o_postdec	opcodes.c	/^o_postdec()$/
+o_postinc	opcodes.c	/^o_postinc()$/
+o_power	opcodes.c	/^o_power()$/
+o_predec	opcodes.c	/^o_predec()$/
+o_preinc	opcodes.c	/^o_preinc()$/
+o_print	opcodes.c	/^o_print(fp, flags)$/
+o_printeol	opcodes.c	/^o_printeol()$/
+o_printresult	opcodes.c	/^o_printresult()$/
+o_printspace	opcodes.c	/^o_printspace()$/
+o_printstring	opcodes.c	/^o_printstring(fp, cp)$/
+o_quit	opcodes.c	/^o_quit(fp, cp)$/
+o_quo	opcodes.c	/^o_quo()$/
+o_quomod	opcodes.c	/^o_quomod()$/
+o_re	opcodes.c	/^o_re()$/
+o_return	opcodes.c	/^o_return()$/
+o_rightshift	opcodes.c	/^o_rightshift()$/
+o_save	opcodes.c	/^o_save(fp)$/
+o_scale	opcodes.c	/^o_scale()$/
+o_setconfig	opcodes.c	/^o_setconfig()$/
+o_setepsilon	opcodes.c	/^o_setepsilon()$/
+o_sgn	opcodes.c	/^o_sgn()$/
+o_square	opcodes.c	/^o_square()$/
+o_string	opcodes.c	/^o_string(fp, cp)$/
+o_sub	opcodes.c	/^o_sub()$/
+o_swap	opcodes.c	/^o_swap()$/
+o_undef	opcodes.c	/^o_undef()$/
+o_usercall	opcodes.c	/^o_usercall(fp, index, argcount)$/
+o_zero	opcodes.c	/^o_zero()$/
+objalloc	obj.c	/^objalloc(index)$/
+objcall	obj.c	/^objcall(action, v1, v2, v3)$/
+objcmp	obj.c	/^objcmp(op1, op2)$/
+objcopy	obj.c	/^objcopy(op)$/
+objfree	obj.c	/^objfree(op)$/
+objhash	obj.c	/^objhash(op)$/
+objoffset	obj.c	/^objoffset(op, index)$/
+objpowi	obj.c	/^objpowi(vp, q)$/
+objprint	obj.c	/^objprint(op)$/
+objtest	obj.c	/^objtest(op)$/
+objuncache	obj.c	/^objuncache()$/
+openfile	input.c	/^openfile(name)$/
+openid	file.c	/^openid(name, mode)$/
+opensearchfile	input.c	/^opensearchfile(name, pathlist, extension)$/
+openstring	input.c	/^openstring(str)$/
+openterminal	input.c	/^openterminal()$/
+paramname	symbol.c	/^paramname(n)$/
+powervalue	value.c	/^powervalue(v1, v2, v3, vres)$/
+powivalue	value.c	/^powivalue(v1, v2, vres)$/
+printid	file.c	/^printid(id, flags)$/
+printvalue	value.c	/^printvalue(vp, flags)$/
+qabs	qmath.c	/^qabs(q)$/
+qacos	qtrans.c	/^qacos(q, epsilon)$/
+qacosh	qtrans.c	/^qacosh(q, epsilon)$/
+qadd	qmath.c	/^qadd(q1, q2)$/
+qaddi	qmath.c	/^qaddi(q1, n)$/
+qaddmod	qmod.c	/^qaddmod(q1, q2, q3)$/
+qalloc	qmath.c	/^qalloc()$/
+qand	qmath.c	/^qand(q1, q2)$/
+qasin	qtrans.c	/^qasin(q, epsilon)$/
+qasinh	qtrans.c	/^qasinh(q, epsilon)$/
+qatan	qtrans.c	/^qatan(q, epsilon)$/
+qatan2	qtrans.c	/^qatan2(qy, qx, epsilon)$/
+qatanh	qtrans.c	/^qatanh(q, epsilon)$/
+qbappr	qfunc.c	/^qbappr(q, e)$/
+qbittest	qmath.c	/^qbittest(q, n)$/
+qbitvalue	qmath.c	/^qbitvalue(n)$/
+qbround	qfunc.c	/^qbround(q, places)$/
+qbtrunc	qfunc.c	/^qbtrunc(q1, q2)$/
+qcfappr	qfunc.c	/^qcfappr(q, e)$/
+qcmp	qmath.c	/^qcmp(q1, q2)$/
+qcmpi	qmath.c	/^qcmpi(q, n)$/
+qcmpmod	qmod.c	/^qcmpmod(q1, q2, q3)$/
+qcomb	qfunc.c	/^qcomb(q1, q2)$/
+qcopy	qmath.c	/^qcopy(q)$/
+qcos	qtrans.c	/^qcos(q, epsilon)$/
+qcosh	qtrans.c	/^qcosh(q, epsilon)$/
+qdec	qmath.c	/^qdec(q)$/
+qden	qmath.c	/^qden(q)$/
+qdigit	qfunc.c	/^qdigit(q, n)$/
+qdigits	qfunc.c	/^qdigits(q)$/
+qdiv	qmath.c	/^qdiv(q1, q2)$/
+qdivi	qmath.c	/^qdivi(q, n)$/
+qdivides	qmath.c	/^qdivides(q1, q2)$/
+qexp	qtrans.c	/^qexp(q, epsilon)$/
+qfacrem	qfunc.c	/^qfacrem(q1, q2)$/
+qfact	qfunc.c	/^qfact(q)$/
+qfib	qfunc.c	/^qfib(q)$/
+qfindredc	qmod.c	/^qfindredc(q)$/
+qfrac	qmath.c	/^qfrac(q)$/
+qfreenum	qmath.c	/^qfreenum(q)$/
+qgcd	qfunc.c	/^qgcd(q1, q2)$/
+qgcdrem	qfunc.c	/^qgcdrem(q1, q2)$/
+qhash	qfunc.c	/^qhash(q)$/
+qhypot	qfunc.c	/^qhypot(q1, q2, epsilon)$/
+qilog10	qfunc.c	/^qilog10(q)$/
+qilog2	qfunc.c	/^qilog2(q)$/
+qinc	qmath.c	/^qinc(q)$/
+qint	qmath.c	/^qint(q)$/
+qinv	qmath.c	/^qinv(q)$/
+qiroot	qfunc.c	/^qiroot(q1, q2)$/
+qisqrt	qfunc.c	/^qisqrt(q)$/
+qisset	qfunc.c	/^qisset(q, n)$/
+qissquare	qfunc.c	/^qissquare(q)$/
+qjacobi	qfunc.c	/^qjacobi(q1, q2)$/
+qlcm	qfunc.c	/^qlcm(q1, q2)$/
+qlcmfact	qfunc.c	/^qlcmfact(q)$/
+qlegtoleg	qfunc.c	/^qlegtoleg(q, epsilon, wantneg)$/
+qln	qtrans.c	/^qln(q, epsilon)$/
+qlowfactor	qfunc.c	/^qlowfactor(q1, q2)$/
+qmax	qmath.c	/^qmax(q1, q2)$/
+qmin	qmath.c	/^qmin(q1, q2)$/
+qminmod	qmod.c	/^qminmod(q1, q2)$/
+qminv	qfunc.c	/^qminv(q1, q2)$/
+qmod	qmod.c	/^qmod(q1, q2)$/
+qmul	qmath.c	/^qmul(q1, q2)$/
+qmuli	qmath.c	/^qmuli(q, n)$/
+qmulmod	qmod.c	/^qmulmod(q1, q2, q3)$/
+qnear	qfunc.c	/^qnear(q1, q2, epsilon)$/
+qneg	qmath.c	/^qneg(q)$/
+qnegmod	qmod.c	/^qnegmod(q1, q2)$/
+qnum	qmath.c	/^qnum(q)$/
+qor	qmath.c	/^qor(q1, q2)$/
+qparse	qio.c	/^qparse(cp, flags)$/
+qperm	qfunc.c	/^qperm(q1, q2)$/
+qpfact	qfunc.c	/^qpfact(q)$/
+qpi	qtrans.c	/^qpi(epsilon)$/
+qplaces	qfunc.c	/^qplaces(q)$/
+qpower	qtrans.c	/^qpower(q1, q2, epsilon)$/
+qpowermod	qfunc.c	/^qpowermod(q1, q2, q3)$/
+qpowi	qfunc.c	/^qpowi(q1, q2)$/
+qprecision	qmath.c	/^qprecision(q)$/
+qprimetest	qfunc.c	/^qprimetest(q1, q2)$/
+qprintf	qio.c	/^qprintf(VA_ALIST1)$/
+qprintfb	qio.c	/^qprintfb(q, width)$/
+qprintfd	qio.c	/^qprintfd(q, width)$/
+qprintfe	qio.c	/^qprintfe(q, width, precision)$/
+qprintff	qio.c	/^qprintff(q, width, precision)$/
+qprintfo	qio.c	/^qprintfo(q, width)$/
+qprintfr	qio.c	/^qprintfr(q, width, force)$/
+qprintfx	qio.c	/^qprintfx(q, width)$/
+qprintnum	qio.c	/^qprintnum(q, outmode)$/
+qqtoc	commath.c	/^qqtoc(q1, q2)$/
+qquo	qmath.c	/^qquo(q1, q2)$/
+qquomod	qmod.c	/^qquomod(q1, q2, retqdiv, retqmod)$/
+qreadval	qio.c	/^qreadval(fp)$/
+qredcin	qmod.c	/^qredcin(q1, q2)$/
+qredcmul	qmod.c	/^qredcmul(q1, q2, q3)$/
+qredcout	qmod.c	/^qredcout(q1, q2)$/
+qredcpower	qmod.c	/^qredcpower(q1, q2, q3)$/
+qredcsquare	qmod.c	/^qredcsquare(q1, q2)$/
+qrel	qmath.c	/^qrel(q1, q2)$/
+qreli	qmath.c	/^qreli(q, n)$/
+qroot	qtrans.c	/^qroot(q1, q2, epsilon)$/
+qround	qfunc.c	/^qround(q, places)$/
+qscale	qmath.c	/^qscale(q, pow)$/
+qshift	qmath.c	/^qshift(q, n)$/
+qsign	qmath.c	/^qsign(q)$/
+qsin	qtrans.c	/^qsin(q, epsilon)$/
+qsinh	qtrans.c	/^qsinh(q, epsilon)$/
+qsqrt	qfunc.c	/^qsqrt(q1, epsilon)$/
+qsquare	qmath.c	/^qsquare(q)$/
+qsquaremod	qmod.c	/^qsquaremod(q1, q2)$/
+qsub	qmath.c	/^qsub(q1, q2)$/
+qsubmod	qmod.c	/^qsubmod(q1, q2, q3)$/
+qtan	qtrans.c	/^qtan(q, epsilon)$/
+qtanh	qtrans.c	/^qtanh(q, epsilon)$/
+qtest	qmath.c	/^qtest(q)$/
+qtoi	qmath.c	/^qtoi(q)$/
+qtrunc	qfunc.c	/^qtrunc(q1, q2)$/
+quote_char	hist.c	/^quote_char()$/
+quovalue	value.c	/^quovalue(v1, v2, vres)$/
+qxor	qmath.c	/^qxor(q1, q2)$/
+raw_bind_key	hist.c	/^raw_bind_key(map, key, func, next_map)$/
+read_bindings	hist.c	/^read_bindings(bindfile)$/
+read_key	hist.c	/^read_key()$/
+readid	file.c	/^readid(id, retptr)$/
+refresh_line	hist.c	/^refresh_line()$/
+relvalue	value.c	/^relvalue(v1, v2)$/
+remove_char	hist.c	/^remove_char(ch)$/
+removelistelement	listfunc.c	/^removelistelement(lp, ep)$/
+removelistfirst	listfunc.c	/^removelistfirst(lp, vp)$/
+removelistlast	listfunc.c	/^removelistlast(lp, vp)$/
+removelistmiddle	listfunc.c	/^removelistmiddle(lp, index, vp)$/
+reread	input.c	/^reread()$/
+rescantoken	token.c	/^rescantoken()$/
+resetinput	input.c	/^resetinput()$/
+resetscopes	symbol.c	/^resetscopes()$/
+resize	assocfunc.c	/^resize(ap, newsize)$/
+reverse_search	hist.c	/^reverse_search()$/
+rootvalue	value.c	/^rootvalue(v1, v2, v3, vres)$/
+roundvalue	value.c	/^roundvalue(v1, v2, vres)$/
+runrcfiles	input.c	/^runrcfiles()$/
+save_line	hist.c	/^save_line()$/
+save_region	hist.c	/^save_region()$/
+savetext	hist.c	/^savetext(str, len)$/
+scalevalue	value.c	/^scalevalue(v1, v2, vres)$/
+scanerror	token.c	/^scanerror(VA_ALIST)$/
+set_mark	hist.c	/^set_mark()$/
+setconfig	config.c	/^setconfig(type, vp)$/
+setepsilon	qfunc.c	/^setepsilon(q)$/
+setlabel	label.c	/^setlabel(lp)$/
+setprompt	input.c	/^setprompt(str)$/
+shiftvalue	value.c	/^shiftvalue(v1, v2, rightshift, vres)$/
+showbuiltins	func.c	/^showbuiltins()$/
+showfunctions	addop.c	/^showfunctions()$/
+showglobals	symbol.c	/^showglobals()$/
+showobjfuncs	obj.c	/^showobjfuncs()$/
+sqrtvalue	value.c	/^sqrtvalue(v1, v2, vres)$/
+squarevalue	value.c	/^squarevalue(vp, vres)$/
+start_of_line	hist.c	/^start_of_line()$/
+stringindex	string.c	/^stringindex(format, test)$/
+subvalue	value.c	/^subvalue(v1, v2, vres)$/
+swap_chars	hist.c	/^swap_chars()$/
+symboltype	symbol.c	/^symboltype(name)$/
+testvalue	value.c	/^testvalue(vp)$/
+tokenmode	token.c	/^tokenmode(flag)$/
+tokennumber	token.c	/^tokennumber()$/
+tokenstring	token.c	/^tokenstring()$/
+ttychar	input.c	/^ttychar()$/
+unbind_key	hist.c	/^unbind_key(map, key)$/
+unscope	symbol.c	/^unscope()$/
+updateoldvalue	opcodes.c	/^updateoldvalue(fp)$/
+uppercase_word	hist.c	/^uppercase_word()$/
+uselabel	label.c	/^uselabel(lp)$/
+usesymbol	codegen.c	/^usesymbol(name, autodef)$/
+validid	file.c	/^validid(id)$/
+version	version.c	/^version(stream)$/
+writeglobals	symbol.c	/^writeglobals(name)$/
+writeindexop	addop.c	/^writeindexop()$/
+yank	hist.c	/^yank()$/
+zadd	zmath.c	/^zadd(z1, z2, res)$/
+zaddmod	zmod.c	/^zaddmod(z1, z2, z3, res)$/
+zalloctemp	zmul.c	/^zalloctemp(len)$/
+zand	zmath.c	/^zand(z1, z2, res)$/
+zapprox	zfunc.c	/^zapprox(z1, z2, res1, res2)$/
+zbitrev	zmath.c	/^zbitrev(low, high, z, res)$/
+zbitvalue	zmath.c	/^zbitvalue(n, res)$/
+zcmp	zmath.c	/^zcmp(z1, z2)$/
+zcmpmod	zmod.c	/^zcmpmod(z1, z2, z3)$/
+zcomb	zfunc.c	/^zcomb(z1, z2, res)$/
+zcopy	zmath.c	/^zcopy(z, res)$/
+zdigit	zfunc.c	/^zdigit(z1, n)$/
+zdigits	zfunc.c	/^zdigits(z1)$/
+zdiv	zmath.c	/^zdiv(z1, z2, res, rem)$/
+zdivcount	zfunc.c	/^zdivcount(z1, z2)$/
+zdivi	zmath.c	/^zdivi(z, n, res)$/
+zdivides	zmath.c	/^zdivides(z1, z2)$/
+zfacrem	zfunc.c	/^zfacrem(z1, z2, rem)$/
+zfact	zfunc.c	/^zfact(z, dest)$/
+zfib	zfunc.c	/^zfib(z, res)$/
+zgcd	zfunc.c	/^zgcd(z1, z2, res)$/
+zgcdrem	zfunc.c	/^zgcdrem(z1, z2, res)$/
+zhash	zfunc.c	/^zhash(z)$/
+zhighbit	zmath.c	/^zhighbit(z)$/
+zisallbits	zmath.c	/^zisallbits(z)$/
+zisonebit	zmath.c	/^zisonebit(z)$/
+zisset	zmath.c	/^zisset(z, n)$/
+zissquare	zfunc.c	/^zissquare(z)$/
+zjacobi	zfunc.c	/^zjacobi(z1, z2)$/
+zlcm	zfunc.c	/^zlcm(z1, z2, res)$/
+zlcmfact	zfunc.c	/^zlcmfact(z, dest)$/
+zlog	zfunc.c	/^zlog(z1, z2)$/
+zlog10	zfunc.c	/^zlog10(z)$/
+zlowbit	zmath.c	/^zlowbit(z)$/
+zlowfactor	zfunc.c	/^zlowfactor(z, count)$/
+zminmod	zmod.c	/^zminmod(z1, z2, res)$/
+zmod	zmath.c	/^zmod(z1, z2, rem)$/
+zmodi	zmath.c	/^zmodi(z, n)$/
+zmodinv	zfunc.c	/^zmodinv(u, v, res)$/
+zmul	zmath.c	/^zmul(z1, z2, res)$/
+zmuli	zmath.c	/^zmuli(z, n, res)$/
+zmulmod	zmod.c	/^zmulmod(z1, z2, z3, res)$/
+znegmod	zmod.c	/^znegmod(z1, z2, res)$/
+zor	zmath.c	/^zor(z1, z2, res)$/
+zperm	zfunc.c	/^zperm(z1, z2, res)$/
+zpfact	zfunc.c	/^zpfact(z, dest)$/
+zpowermod	zmod.c	/^zpowermod(z1, z2, z3, res)$/
+zpowi	zfunc.c	/^zpowi(z1, z2, res)$/
+zprimetest	zfunc.c	/^zprimetest(z, count)$/
+zprintb	zio.c	/^zprintb(z, width)$/
+zprinto	zio.c	/^zprinto(z, width)$/
+zprintval	zio.c	/^zprintval(z, decimals, width)$/
+zprintx	zio.c	/^zprintx(z, width)$/
+zquo	zmath.c	/^zquo(z1, z2, res)$/
+zredcalloc	zmod.c	/^zredcalloc(z1)$/
+zredcdecode	zmod.c	/^zredcdecode(rp, z1, res)$/
+zredcencode	zmod.c	/^zredcencode(rp, z1, res)$/
+zredcfree	zmod.c	/^zredcfree(rp)$/
+zredcmul	zmod.c	/^zredcmul(rp, z1, z2, res)$/
+zredcpower	zmod.c	/^zredcpower(rp, z1, z2, res)$/
+zredcsquare	zmod.c	/^zredcsquare(rp, z1, res)$/
+zreduce	zmath.c	/^zreduce(z1, z2, z1res, z2res)$/
+zrel	zmath.c	/^zrel(z1, z2)$/
+zrelprime	zfunc.c	/^zrelprime(z1, z2)$/
+zroot	zfunc.c	/^zroot(z1, z2, dest)$/
+zshift	zmath.c	/^zshift(z, n, res)$/
+zshiftl	zmath.c	/^zshiftl(z, n)$/
+zshiftr	zmath.c	/^zshiftr(z, n)$/
+zsqrt	zfunc.c	/^zsqrt(z1, dest)$/
+zsquare	zmul.c	/^zsquare(z, res)$/
+zsquaremod	zmod.c	/^zsquaremod(z1, z2, res)$/
+zsub	zmath.c	/^zsub(z1, z2, res)$/
+zsubmod	zmod.c	/^zsubmod(z1, z2, z3, res)$/
+ztenpow	zfunc.c	/^ztenpow(power, res)$/
+ztest	zmath.c	/^ztest(z)$/
+ztoi	zmath.c	/^ztoi(z)$/
+ztrim	zmath.c	/^ztrim(z)$/
+zxor	zmath.c	/^zxor(z1, z2, res)$/

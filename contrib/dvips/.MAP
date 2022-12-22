@@ -1,0 +1,13 @@
+D AFM2TFM                           	afm2tfm
+D CONFIG                            	config
+D CONTRIB                           	contrib
+D DVIPS                             	dvips
+D GROT                              	grot
+D INCLUDE                           	include
+D INPUTS                            	inputs
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+D MAKETEXP                          	MakeTeXPK
+D MAN                               	man
+D PROLOGUE                          	prologues
+D REENCODE                          	reencode

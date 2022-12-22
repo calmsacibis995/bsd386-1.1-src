@@ -1,0 +1,4 @@
+identExit	ident.c	/^	exiting void identExit() { _exit(EXIT_FAILURE); }/
+mainProg	ident.c	/^mainProg(identId, "ident", "$Id: ident.c,v 1.1.1.1/
+match	ident.c	/^match(fp)   \/* group substring between two KDELIM/
+scanfile	ident.c	/^scanfile(file, name, quiet)$/

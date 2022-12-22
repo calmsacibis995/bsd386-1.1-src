@@ -1,0 +1,2 @@
+Mmformat	mformat.c	/^main(argc, argv)$/
+disk_write	mformat.c	/^void disk_write() {}$/

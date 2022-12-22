@@ -1,0 +1,246 @@
+.ig
+*******************************************************************************
+$Source: /bsdi/MASTER/BSDI_OS/share/man/man7/rs-232.7,v $
+$Revision: 1.1 $  $State: Exp $  $Locker:  $
+
+$Author: polk $  $Date: 1994/01/05 00:26:03 $
+
+RS-232.7 -- RS-232 man page
+
+Copyright (c) 1993 by Stephen G. Diercouff, tfm associates, ltd.
+
+Revision History
+
+Version 1.0 -- /* sgd@tfm.com: Fri Mar 19 22:52:24 PST 1993 */
+               Initial Revision
+
+*******************************************************************************
+..
+.Dd March 18, 1993
+.Os BSD 4.4
+.Dt RS-232 7
+.Sh NAME
+.Nm RS-232
+.Nd RS-232 signal names and connector configurations
+.Sh DESCRIPTION
+The signal names:
+.sp
+.ie n
+\{
+.Bd -literal  -offset left
+
+
+---------------------------------------------------------------------------
+DB-25   DB-9                              Source
+ Pin     Pin   Name    EIA     CCITT    DTE   DCE             Signal
+---------------------------------------------------------------------------
+  1       -      PG      AA     101      -     -         Frame Ground
+  2       3      TD      BA     103      ->              Transmit Data
+  3       2      RD      BB     104            <-        Receive Data
+  4       7      RTS     CA     105      ->             Request To Send
+  5       8      CTS     CB     106            <-        Clear To Send
+  6       6      DSR     CC     107            <-       Data Set Ready
+  7       5      SG      AB     102      -     -         Signal Ground
+  8       1      DCD     DF     109            <-     Data Carrier Detect
+  9       -      POS     -       -             <-  Pos. DC Test Voltage *
+ 10       -      NEG     -       -             <-  Neg. DC Test Voltage *
+ 11       -      -       -       -       -     -          Unassigned
+ 12       -      SDCD    SCF    122            <-  Sec. Data Carrier Detect
+ 13       -      SCTS    SCB    121            <-   Secondary Clear To Send
+ 14       -      STD     SBA    118      ->         Secondary Transmit Data
+ 15       -      TC      DB     114            <-       Transmit Clock
+ 16       -      SRD     SBB    119            <-   Secondary Receive Data
+ 17       -      RC      DD     115            <-        Receive Clock
+ 18       -      LL      LL     141      ->    -        Local Loopback
+ 19       -      SRTS    SCA    120      ->          Sec. Request To Send
+ 20       4      DTR     CD     108.2    ->           Data Terminal Ready
+ 21       -      SQ      CG     110            <-  Signal Quality Detect **
+ 22       9      RI      CE     125            <-       Ring Indicator
+ 23       -       -      CH CI  111 112  ->    <-     Data Rate Selector
+ 24       -      SCTE    DA     113      ->         External Clock Transmit
+ 25       -      TM      TM     142            <-        Test Mode ***
+---------------------------------------------------------------------------
+\}
+.el
+\{
+.ne 28
+.TS
+allbox,center,tab(@);
+c c c c c c s c
+c c ^ ^ ^ c c ^
+n n c c c c c c .
+DB-25@DB-9@Name@EIA@CCITT@Source@Signal
+Pin@Pin@@@@DTE@DCE@
+_
+1@\(en@PG@AA@101@\(en@\(en@Frame Ground
+2@3@TD@BA@103@\(->@@Transmit Data
+3@2@RD@BB@104@@\(<-@Receive Data
+4@7@RTS@CA@105@\(->@@Request To Send
+5@8@CTS@CB@106@@\(<-@Clear To Send
+6@6@DSR@CC@107@@\(<-@Data Set Ready
+7@5@SG@AB@102@\(en@\(en@Signal Ground
+8@1@DCD@DF@109@@\(<-@Data Carrier Detect
+9@\(en@POS@\(en@\(en@@\(<-@Positive DC Test Voltage \(dg
+10@\(en@NEG@\(en@\(en@@\(<-@Negative DC Test Voltage \(dg
+11@\(en@\(en@\(en@\(en@\(en@\(en@Unassigned
+12@\(en@SDCD@SCF@122@@\(<-@Secondary Data Carrier Detect
+13@\(en@SCTS@SCB@121@@\(<-@Secondary Clear To Send
+14@\(en@STD@SBA@118@\(->@@Secondary Transmit Data
+15@\(en@TC@DB@114@@\(<-@Transmit Clock
+16@\(en@SRD@SBB@119@@\(<-@Secondary Receive Data
+17@\(en@RC@DD@115@@\(<-@Receive Clock
+18@\(en@LL@LL@141@\(->@\(en@Local Loopback
+19@\(en@SRTS@SCA@120@\(->@@Secondary Request To Send
+20@4@DTR@CD@108.2@\(->@@Data Terminal Ready
+21@\(en@SQ@CG@110@@\(<-@Signal Quality Detect \(dd
+22@9@RI@CE@125@@\(<-@Ring Indicator
+23@\(en@DRS@CH CI@111 112@\(->@\(<-@Data Rate Selector
+24@\(en@SCTE@DA@113@\(->@@Serial Clock Transmit External
+25@\(en@TM@TM@142@@\(<-@Test Mode \(sc
+_
+.TE
+\}
+.sp
+.ie t
+\{
+.Bl -tag -width 7p
+.It \(dg
+\(en These signals are officially Reserved, but usually used for
+test voltages.
+.It \(dd
+\(en This signal may be used as a remote loopback signal in RS-232-D,
+if it is not being used as SQ.
+.It \(sc
+\(en This signal was Unassigned in RS-232-C, but commonly used
+as BUSY indicator.
+.El
+\}
+.el
+\{
+.Bl -tag -width "*** "
+.It *
+\(en These signals are officially Reserved, but usually used for
+test voltages.
+.It **
+\(en This signal may be used as a local loopback signal in RS-232-D,
+if it is not being used as SQ.
+.It ***
+\(en This signal was Unassigned in RS-232-C, but commonly used
+as BUSY indicator.
+.El
+\}
+.Sh EXPLANATION OF SIGNAL USAGE
+A brief explanation of common signal usage by
+.Ux
+systems, referenced by RS-232-D Signal Name, follows.
+Note that all signals are discussed from the DTE point of view.
+.Ss PRIMARY SIGNALS
+.Bl -tag -width "SDCD "
+.It \fBPG\fP
+\fBProtective Ground\fP (Often referred to as \fBFrame Ground\fP) \(en should be
+connected to the equipment frame, and is where the shield should be connected
+if shielded cable is being used to reduce RFI noise. This signal should only
+be connected at the DTE end.
+.It \fBSG\fP
+\fBSignal Ground\fP \(en provides d.c. reference potential for all signals, including
+data, timing, and control operations. Required for all connections.
+.It \fBTD\fP
+\fBTransmit Data\fP \(en data signals originating by the DTE, including
+signals to be transmitted via a data channel for receiving stations,
+data to be passed to the DCE for testing and maintenance purposes, and
+signals for programming or control of DCE equipment.
+.It \fBRD\fP
+\fBReceive Data\fP \(en data signals from the DCE,
+including responses to data channel
+signals, test signals, and programming or control signals from the DTE equipment.
+.It \fBRTS\fP
+\fBRequest To Send\fP \(en Defined by RS-232-D as a control signal used to
+prepare the DCE for transmission of data. Commonly used by
+.Ux
+systems as \fBReady To Receive\fP, \fIi.e.\fP,
+the DTE is ready to receive data from the DCE when \fBRTS\fP is in the on state.
+.It \fBCTS\fP
+\fBClear to Send\fP \(en the DCE is ready to receive data or control
+transmissions from the DTE.
+.It \fBDCD\fP 
+\fBReceived Line Signal Detector\fP \(en commonly called \fBData Carrier
+Detect\fP. Signal from the DCE indicating its data channel signal is within
+appropriate limits, \fIe.g.\fP when DCE is a modem, carrier signal is
+present and modem is ready to communicate with other modem.
+.It \fBDTR\fP
+\fBData Terminal Ready\fP \(en signal from DTE to place DCE in on-line or
+off-line state.
+.It \fBDSR\fP
+\fBData Set Ready\fP \(en the DCE signals the DTE that it is powered up,
+connected, and ready to receive signals from the DTE (\fIi.e.\fP is not
+currently conducting a data transmission, test, or dial operation).
+Often used in conjunction with the \fBDTR\fP signal.
+.It \fBRI\fP
+\fBRing Indicator\fP \(en signal used by an auto-answer modem to inform the
+DTE that a ring signal is present on the telephone line. Most modern modems
+indicate call-progress on the \fPTD\fP line, and \fBRI\fP is no longer used
+by most RS-232 circuits.
+.El
+.Ss SYNCHRONOUS COMMUNICATION SIGNALS
+.Bl -tag -width "SDCD "
+.It \fBSTD\fP
+\fBSecondary Transmit Data\fP \(en Equivalent to \fBTD\fP, except it is used
+to transmit data over the backward channel in synchronous circuits.
+.It \fBSRD\fP
+\fBSecondary Receive Data\fP \(en Equivalent to \fBRD\fP, except it is used
+to receive data over the backward channel in synchronous circuits.
+.It \fBSRTS\fP
+\fBSecondary Request To Send\fP \(en Equivalent to \fBRTS\fP, except it is used
+to control the backward channel transmit function in synchronous circuits.
+.It \fBSCTS\fP
+\fBSecondary Clear To Send\fP \(en Equivalent to \fBCTS\fP, except it is used
+to control whether the DCE is conditioned to transmit data on the backward
+channel in synchronous circuits.
+.It \fBSDCD\fP
+\fBSecondary Received Line Signal Detector\fP \(en Equivalent to \fBDCD\fP,
+except it is used to indicate whether the backward channel is in appropriate
+limits in synchronous circuits.
+.It \fBTC\fP
+\fBTransmit Clock\fP \(en timing signal from the DTE that should be ON and OFF
+for approximately equal periods of time. The DTE should provide a data signal
+on \fBTR\fP while the \fBTC\fP signal is ON.
+.It \fBRC\fP
+\fBReceive Clock\fP \(en timing signal from the DCE that should be ON and OFF
+for approximately equal periods of time. A transition from ON to OFF should
+coincide with the center of each data segment of the \fBRD\fP circuit.
+.It \fBSCTE\fP
+\fBSerial Clock Transmit External\fP \(en provides DCE with signal timing
+information. This signal should be ON and OFF for approximately equal periods
+of time, and the transition from ON to OFF condition should coincide with the
+center of each data segment of the \fBTD\fP circuit.
+.It \fBDRS\fP
+\fBData Rate Selector\fP \(en signal used by both the DTE and DCE to select
+one of the two data signalling rates of a dual rate synchronous DCE.
+.El
+.Ss TEST SIGNALS
+.Bl -tag -width "SDCD "
+.It \fBPOS\fP
+\fBPositive DC Test Voltage\fP \(en an unofficial use of pin 9 in a DB-25
+RS-232 circuit, used to provide positive test voltage from the DCE.
+.It \fBNEG\fP
+\fBNegative DC Test Voltage\fP \(en an unofficial use of pin 10 in a DB-25
+RS-232 circuit, used to provide negative test voltage from the DCE.
+.It \fBLL\fP
+\fBLocal Loopback\fP \(en new in RS-232-D, initiates a local
+loopback test condition in the DCE.
+.It \fBSQ\fP
+\fBSignal Quality Detect\fP \(en indicates whether there is a probability of
+error in the data received in the data channel. Used prior to RS-232-D.
+If this signal is not being used for \fBSQ\fP, RS-232-D defines its use as
+\fBRemote Loopback\fP.
+.It \fBTM\fP
+\fBTest Mode\fP \(en new in RS-232-D. Signal indicates if a maintenance
+condition exists in the DCE. Prior to RS-232-D, this signal was undefined, 
+but commonly used as a BUSY indicator by the DCE.
+.El
+.Sh SEE ALSO
+EIA Standard EIA-232-D
+.br
+CCITT Fascicle VIII.1\(enV.24
+.Sh AUTHOR
+Stephen Diercouff  (sgd@tfm.com)

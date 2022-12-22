@@ -1,0 +1,6 @@
+F COPYRIGH.;1                       	COPYRIGHT
+F README.;1                         	README
+F REGMAGIC.H;1                      	regmagic.h
+F V8REGERR.C;1                      	v8regerror.c
+F V8REGEXP.C;1                      	v8regexp.c
+F V8REGSUB.C;1                      	v8regsub.c

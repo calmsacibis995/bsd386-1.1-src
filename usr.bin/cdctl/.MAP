@@ -1,0 +1,6 @@
+F CDCTL.1;1                         	cdctl.1
+F CDCTL.C;1                         	cdctl.c
+F CRC.C;1                           	crc.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/cdctl
+F TAGS.;1                           	tags

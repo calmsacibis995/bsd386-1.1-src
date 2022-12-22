@@ -1,0 +1,288 @@
+AsciiUUCPLock	UUCPLock.c++	/^AsciiUUCPLock::~AsciiUUCPLock()$/
+BITCASE	EverexRecv.c++	/^#define	BITCASE(b)			\\$/
+BSDGetty	GettyBSD.c++	/^BSDGetty::~BSDGetty()$/
+BinaryUUCPLock	UUCPLock.c++	/^BinaryUUCPLock::~BinaryUUCPLock()$/
+Class1Modem	Class1.c++	/^Class1Modem::~Class1Modem()$/
+Class2Modem	Class2.c++	/^Class2Modem::~Class2Modem()$/
+Class2Params	Class2Params.c++	/^Class2Params::Class2Params()$/
+DECLARE1	tif_compress.c	/^DECLARE1(findScheme, int, scheme)$/
+DECLARE2	tif_compress.c	/^DECLARE2(TIFFNoEncode, TIFF*, tif, char*, method)$/
+DECLARE4	tif_compress.c	/^DECLARE4(TIFFNoRowEncode, TIFF*, tif, u_char*, pp,/
+EOLcheck	FaxModem.c++	/^#define	EOLcheck(w,mask,code) \\$/
+EverexModem	Everex.c++	/^EverexModem::~EverexModem()$/
+FaxMachineCtlInfo	FaxMachineInfo.c++	/^FaxMachineCtlInfo::FaxMachineCtlInfo()$/
+FaxMachineInfo	FaxMachineInfo.c++	/^FaxMachineInfo::FaxMachineInfo(const fxStr& number/
+FaxMachineLog	FaxMachineLog.c++	/^FaxMachineLog::FaxMachineLog(const fxStr& number, /
+FaxModem	Class1.c++	/^Class1Modem::Class1Modem(FaxServer& s, const Modem/
+FaxRecvInfo	FaxRecvInfo.c++	/^FaxRecvInfo::FaxRecvInfo() {}$/
+FaxRequest	FaxRequest.c++	/^FaxRequest::~FaxRequest()$/
+Getty	Getty.c++	/^Getty::~Getty()$/
+HDLCFrame	HDLCFrame.c++	/^HDLCFrame::HDLCFrame(u_int fo)$/
+ModemConfig	ModemConfig.c++	/^ModemConfig::~ModemConfig()$/
+OSnewGetty	GettyBSD.c++	/^OSnewGetty(const fxStr& dev, const fxStr& speed)$/
+OSnewUUCPLock	UUCPLock.c++	/^OSnewUUCPLock(const char* device)$/
+UUCPLock	UUCPLock.c++	/^UUCPLock::UUCPLock(const char* device)$/
+abort	Class2.c++	/^Class2Modem::abort(long)$/
+abortDataTransfer	Class2Send.c++	/^Class2Modem::abortDataTransfer()$/
+abortReceive	Class1.c++	/^Class1Modem::abortReceive()$/
+abortRequested	FaxModem.c++	/^fxBool FaxModem::abortRequested()$/
+abortSession	FaxServer.c++	/^FaxServer::abortSession()$/
+addParam	Class2Params.c++	/^addParam(char* cp, u_int v)$/
+addc	HDLCFrame.c++	/^HDLCFrame::addc(u_char c)$/
+answerCall	Class1Recv.c++	/^Class1Modem::answerCall(AnswerType type, fxStr& em/
+answerResponse	FaxModem.c++	/^FaxModem::answerResponse(fxStr& emsg)$/
+atCmd	FaxModem.c++	/^FaxModem::atCmd(const fxStr& cmd, ATResponse r, lo/
+atQuery	FaxModem.c++	/^FaxModem::atQuery(const char* what, u_int& v)$/
+atResponse	Class2.c++	/^Class2Modem::atResponse(char* buf, long ms)$/
+beginTimedTransfer	FaxModem.c++	/^void FaxModem::beginTimedTransfer()		{ server.time/
+bestBit	FaxModem.c++	/^bestBit(u_int bits, u_int top, u_int bot)$/
+canonicalizePhoneNumber	FaxServer.c++	/^FaxServer::canonicalizePhoneNumber(const fxStr& ds/
+changeState	FaxServer.c++	/^FaxServer::changeState(FaxServerState s, long time/
+check	UUCPLock.c++	/^UUCPLock::check()$/
+checkFile	FaxRequest.c++	/^FaxRequest::checkFile(const char* file)$/
+childStatus	FaxServer.c++	/^FaxServer::childStatus(int, int status)$/
+class2Cmd	Class2.c++	/^Class2Modem::class2Cmd(const char* cmd)$/
+close	faxServerApp.c++	/^faxServerApp::close()$/
+cmd	Class2Params.c++	/^Class2Params::cmd() const$/
+convertPostScript	faxServerApp.c++	/^faxServerApp::convertPostScript(const fxStr& inFil/
+countPage	FaxModem.c++	/^void FaxModem::countPage()			{ server.npages++; }$/
+create	UUCPLock.c++	/^UUCPLock::create()$/
+data	UUCPLock.c++	/^    data(UUCP_PIDDIGITS+2)$/
+dataService	Class2.c++	/^Class2Modem::dataService()$/
+dataTransfer	Class2Send.c++	/^Class2Modem::dataTransfer()$/
+decodeCSI	Everex.c++	/^EverexModem::decodeCSI(fxStr& ascii, const fxStr& /
+decodeTSI	Class1.c++	/^Class1Modem::decodeTSI(fxStr& ascii, const HDLCFra/
+deduceModem	FaxModem.c++	/^FaxModem::deduceModem(FaxServer& s, const ModemCon/
+destIsBusy	faxServerApp.c++	/^destIsBusy(FaxMachineInfo& info, const fxStr& qfil/
+detachFromTTY	faxServerApp.c++	/^faxServerApp::detachFromTTY()$/
+dial	Class1Send.c++	/^Class1Modem::dial(const char* number)$/
+dialResponse	Class1Send.c++	/^Class1Modem::dialResponse()$/
+discardModem	FaxServer.c++	/^FaxServer::discardModem(fxBool dropDTR)$/
+doQuery	FaxModem.c++	/^FaxModem::doQuery(fxStr& queryCmd, fxStr& result)$/
+dropToNextBR	Class1Send.c++	/^Class1Modem::dropToNextBR(Class2Params& params)$/
+encodeCSI	Everex.c++	/^EverexModem::encodeCSI(fxStr& binary, const fxStr&/
+encodeTSI	Class1.c++	/^Class1Modem::encodeTSI(fxStr& binary, const fxStr&/
+endTimedTransfer	FaxModem.c++	/^void FaxModem::endTimedTransfer()		{}$/
+faxServerApp	faxServerApp.c++	/^faxServerApp::~faxServerApp()$/
+findAnswer	Class1Recv.c++	/^Class1Modem::findAnswer(const char* s)$/
+flushModemInput	FaxModem.c++	/^void FaxModem::flushModemInput()$/
+fromHex	FaxModem.c++	/^FaxModem::fromHex(const char* cp, int n)$/
+getBestPageWidth	FaxModem.c++	/^FaxModem::getBestPageWidth() const$/
+getBestScanlineTime	FaxModem.c++	/^FaxModem::getBestScanlineTime() const$/
+getBestSignallingRate	FaxModem.c++	/^FaxModem::getBestSignallingRate() const$/
+getBestVRes	FaxModem.c++	/^FaxModem::getBestVRes() const$/
+getBoolean	FaxMachineInfo.c++	/^getBoolean(const char* cp)$/
+getDCS	Class2Params.c++	/^Class2Params::getDCS() const$/
+getDIS	HDLCFrame.c++	/^HDLCFrame::getDIS() const$/
+getDataWord	HDLCFrame.c++	/^HDLCFrame::getDataWord() const$/
+getFill	ModemConfig.c++	/^getFill(const char* cp)$/
+getFlow	ModemConfig.c++	/^getFlow(const char* cp)$/
+getHDLCTracing	FaxModem.c++	/^fxBool FaxModem::getHDLCTracing()$/
+getLine	FaxMachineInfo.c++	/^getLine(FILE* fp, char* line, int n, char*& tag, c/
+getModemChar	FaxServer.c++	/^FaxServer::getModemChar(long ms)$/
+getModemLine	FaxServer.c++	/^FaxServer::getModemLine(char rbuf[], long ms)$/
+getModemNumber	FaxServer.c++	/^const fxStr& FaxServer::getModemNumber()	{ return /
+getModemSpeakerVolume	FaxServer.c++	/^SpeakerVolume FaxServer::getModemSpeakerVolume(){ /
+getNum	FaxMachineInfo.c++	/^getNum(const char* s)$/
+getPrologue	Class1Send.c++	/^Class1Modem::getPrologue(Class2Params& params, u_i/
+getProtocolTracing	FaxModem.c++	/^fxBool FaxModem::getProtocolTracing()$/
+getRate	ModemConfig.c++	/^getRate(const char* cp)$/
+getRejectNotice	FaxMachineInfo.c++	/^FaxMachineCtlInfo::getRejectNotice() const$/
+getRingsBeforeAnswer	FaxServer.c++	/^int FaxServer::getRingsBeforeAnswer()		{ return (r/
+getServerTracing	FaxServer.c++	/^int FaxServer::getServerTracing()		{ return (traci/
+getSessionTracing	FaxServer.c++	/^int FaxServer::getSessionTracing()		{ return (logT/
+getTracingLevel	FaxMachineInfo.c++	/^FaxMachineCtlInfo::getTracingLevel(int& l) const$/
+getUUCPGid	UUCPLock.c++	/^gid_t UUCPLock::getUUCPGid() { setupIDs(); return /
+getUUCPUid	UUCPLock.c++	/^uid_t UUCPLock::getUUCPUid() { setupIDs(); return /
+getVol	FaxServer.c++	/^getVol(const char* cp)$/
+getXINFO	HDLCFrame.c++	/^HDLCFrame::getXINFO() const$/
+getbool	FaxServer.c++	/^getbool(const char* cp)$/
+getnum	FaxServer.c++	/^getnum(const char* s)$/
+grow	HDLCFrame.c++	/^HDLCFrame::grow(u_int amount)$/
+hangup	FaxModem.c++	/^FaxModem::hangup()$/
+hangupCause	Class2.c++	/^Class2Modem::hangupCause(const char* code)$/
+initialize	faxServerApp.c++	/^faxServerApp::initialize(int argc, char** argv)$/
+inputReady	FaxServer.c++	/^FaxServer::inputReady(int)$/
+is2D	Class2Params.c++	/^Class2Params::is2D() const$/
+isBSDGetty	GettyBSD.c++	/^BSDGetty::isBSDGetty()$/
+isCapable	Class1Send.c++	/^isCapable(u_int sr, u_int dis)$/
+isCmd	FaxMachineInfo.c++	/^#define	isCmd(s,cmd)	(strcasecmp(s, cmd) == 0)$/
+isLocked	FaxMachineInfo.c++	/^#define	isLocked(b)	(locked & (1<<b))$/
+isNewer	UUCPLock.c++	/^UUCPLock::isNewer(time_t age)$/
+isNoise	Class2Send.c++	/^isNoise(const char* s)$/
+lock	UUCPLock.c++	/^UUCPLock::lock()$/
+log	FaxMachineLog.c++	/^FaxMachineLog::log(const char* fmt, ...)$/
+minScanlineSize	Class2Params.c++	/^Class2Params::minScanlineSize() const$/
+modemDevID	FaxServer.c++	/^    : modemDevice(devName), modemDevID(devID)$/
+modemFaxConfigure	Everex.c++	/^EverexModem::modemFaxConfigure(int bits)$/
+modemFlushInput	FaxServer.c++	/^FaxServer::modemFlushInput()$/
+modemReady	FaxServer.c++	/^fxBool FaxServer::modemReady() const$/
+modemStopOutput	FaxModem.c++	/^fxBool FaxModem::modemStopOutput()$/
+modemSupports2D	FaxServer.c++	/^fxBool FaxServer::modemSupports2D() const$/
+modemSupportsEOLPadding	FaxServer.c++	/^fxBool FaxServer::modemSupportsEOLPadding() const$/
+modemSupportsPageLength	FaxServer.c++	/^fxBool FaxServer::modemSupportsPageLength(u_int l)/
+modemSupportsPageWidth	FaxServer.c++	/^fxBool FaxServer::modemSupportsPageWidth(u_int w) /
+modemSupportsVRes	FaxServer.c++	/^fxBool FaxServer::modemSupportsVRes(float res) con/
+open	faxServerApp.c++	/^faxServerApp::open()$/
+openDevice	FaxServer.c++	/^FaxServer::openDevice(const char* dev)$/
+ownerExists	UUCPLock.c++	/^UUCPLock::ownerExists(int fd)$/
+pageDone	Class2Send.c++	/^Class2Modem::pageDone(u_int ppm, u_int& ppr)$/
+parseATCmd	ModemConfig.c++	/^ModemConfig::parseATCmd(const char* cp)$/
+parseClass2Capabilities	Class2.c++	/^Class2Modem::parseClass2Capabilities(const char* c/
+parseFPTS	Class2Recv.c++	/^Class2Modem::parseFPTS(TIFF* tif, const char* cp, /
+parseItem	ModemConfig.c++	/^ModemConfig::parseItem(const char* tag, const char/
+parseRange	Class2.c++	/^Class2Modem::parseRange(const char* cp, Class2Para/
+pause	FaxModem.c++	/^FaxModem::pause(u_int ms)$/
+pollBegin	Class1Poll.c++	/^Class1Modem::pollBegin(const fxStr& pollID, fxStr&/
+pollFaxPhaseB	FaxPoll.c++	/^FaxServer::pollFaxPhaseB(const char* cig, FaxRecvI/
+prepareDialString	FaxServer.c++	/^FaxServer::prepareDialString(const fxStr& ds)$/
+processDCSFrame	Class1Recv.c++	/^Class1Modem::processDCSFrame(const HDLCFrame& fram/
+processHangup	Class2.c++	/^Class2Modem::processHangup(const char* cp)$/
+processJob	faxServerApp.c++	/^faxServerApp::processJob(Job* job)$/
+processJob1	faxServerApp.c++	/^faxServerApp::processJob1(Job* job, FaxRequest* re/
+put	HDLCFrame.c++	/^HDLCFrame::put(const u_char* c, u_int len)$/
+putBoolean	FaxMachineInfo.c++	/^putBoolean(FILE* fp, const char* tag, fxBool locke/
+putDecimal	FaxMachineInfo.c++	/^putDecimal(FILE* fp, const char* tag, fxBool locke/
+putIfString	FaxMachineInfo.c++	/^putIfString(FILE* fp, const char* tag, fxBool lock/
+putModem	FaxModem.c++	/^fxBool FaxModem::putModem(void* d, int n, long ms)/
+putModemData	FaxModem.c++	/^fxBool FaxModem::putModemData(void* d, int n)$/
+putModemLine	FaxModem.c++	/^void FaxModem::putModemLine(const char* cp)$/
+putString	FaxMachineInfo.c++	/^putString(FILE* fp, const char* tag, fxBool locked/
+qfile	FaxRequest.c++	/^FaxRequest::FaxRequest(const fxStr& qf) : qfile(qf/
+queueDir	faxServerApp.c++	/^faxServerApp::faxServerApp() : queueDir(FAX_SPOOLD/
+raiseToNextBR	Class1Send.c++	/^Class1Modem::raiseToNextBR(Class2Params& params)$/
+readData	UUCPLock.c++	/^AsciiUUCPLock::readData(int fd, pid_t& pid)$/
+readQFile	FaxRequest.c++	/^FaxRequest::readQFile(int fd)$/
+recvBegin	Class1Recv.c++	/^Class1Modem::recvBegin(fxStr& emsg)$/
+recvBit	EverexRecv.c++	/^EverexModem::recvBit()$/
+recvCSI	FaxModem.c++	/^FaxModem::recvCSI(fxStr& csi)$/
+recvCheckTSI	FaxModem.c++	/^FaxModem::recvCheckTSI(const fxStr& tsi)$/
+recvCode	EverexRecv.c++	/^EverexModem::recvCode(int& len, int& code)$/
+recvDCS	Class2Recv.c++	/^Class2Modem::recvDCS(const char* cp)$/
+recvDCSFrames	Class1Recv.c++	/^Class1Modem::recvDCSFrames(HDLCFrame& frame)$/
+recvData	Class1Recv.c++	/^Class1Modem::recvData(TIFF* tif, u_char* bp, int n/
+recvDone	EverexRecv.c++	/^EverexModem::recvDone(TIFF* tif, u_long totbytes, /
+recvEnd	Class1Recv.c++	/^Class1Modem::recvEnd(fxStr&)$/
+recvFax	FaxRecv.c++	/^FaxServer::recvFax()$/
+recvFrame	Everex.c++	/^EverexModem::recvFrame(char* buf, long ms)$/
+recvIdentification	Class1Recv.c++	/^Class1Modem::recvIdentification(u_int f1, const fx/
+recvNSF	FaxModem.c++	/^void FaxModem::recvNSF(u_int nsf)$/
+recvNSS	EverexRecv.c++	/^EverexModem::recvNSS()$/
+recvPPM	Class2Recv.c++	/^Class2Modem::recvPPM(TIFF* tif, int& ppr)$/
+recvPage	Class1Recv.c++	/^Class1Modem::recvPage(TIFF* tif, int& ppm, fxStr& /
+recvPageData	Class2Recv.c++	/^Class2Modem::recvPageData(TIFF* tif)$/
+recvPhaseC	Class1Recv.c++	/^Class1Modem::recvPhaseC(TIFF* tif, fxStr& emsg)$/
+recvResetPage	FaxModem.c++	/^FaxModem::recvResetPage(TIFF* tif)$/
+recvSetupPage	FaxModem.c++	/^FaxModem::recvSetupPage(TIFF* tif, long group3opts/
+recvTSI	EverexRecv.c++	/^EverexModem::recvTSI()$/
+recvTraining	Class1Recv.c++	/^Class1Modem::recvTraining()$/
+reopenDevice	FaxServer.c++	/^FaxServer::reopenDevice()$/
+requestToPoll	Class1Poll.c++	/^Class1Modem::requestToPoll()$/
+reset	Class2.c++	/^Class2Modem::reset(long ms)$/
+restore	FaxMachineInfo.c++	/^FaxMachineCtlInfo::restore(const fxStr& canon)$/
+restoreState	FaxServer.c++	/^FaxServer::restoreState(const fxStr& filename)$/
+restoreStateItem	FaxServer.c++	/^FaxServer::restoreStateItem(const char* b)$/
+revQueryCmd	FaxModem.c++	/^    , revQueryCmd(c.revQueryCmd)$/
+run	Getty.c++	/^Getty::run(int fd, const char* args)$/
+runGetty	FaxServer.c++	/^FaxServer::runGetty(const char* args)$/
+scanQueueDirectory	faxServerApp.c++	/^faxServerApp::scanQueueDirectory()$/
+selectBaudRate	FaxModem.c++	/^FaxModem::selectBaudRate(BaudRate br, FlowControl /
+selectScanlineTime	FaxModem.c++	/^FaxModem::selectScanlineTime(int st) const$/
+selectSignallingRate	FaxModem.c++	/^FaxModem::selectSignallingRate(int br) const$/
+sendBegin	Class1Send.c++	/^Class1Modem::sendBegin()$/
+sendBreak	FaxModem.c++	/^fxBool FaxModem::sendBreak(fxBool pause)$/
+sendClass1Data	Class1.c++	/^Class1Modem::sendClass1Data(const u_char* data, u_/
+sendClientCapabilitiesOK	FaxSend.c++	/^FaxServer::sendClientCapabilitiesOK(FaxMachineInfo/
+sendEOT	Class2Send.c++	/^Class2Modem::sendEOT()$/
+sendEnd	Class1Send.c++	/^Class1Modem::sendEnd()$/
+sendFailed	FaxSend.c++	/^FaxServer::sendFailed(FaxRequest& fax, FaxSendStat/
+sendFax	FaxSend.c++	/^FaxServer::sendFax(FaxRequest& fax, FaxMachineInfo/
+sendFaxPhaseB	FaxSend.c++	/^FaxServer::sendFaxPhaseB(FaxRequest& fax, FaxMachi/
+sendFrame	Everex.c++	/^EverexModem::sendFrame(int f1)$/
+sendJob	faxServerApp.c++	/^faxServerApp::sendJob(FaxRequest* req, FaxMachineI/
+sendPPM	Class1Send.c++	/^Class1Modem::sendPPM(u_int ppm, HDLCFrame& mcf, fx/
+sendPage	Class1Send.c++	/^Class1Modem::sendPage(TIFF* tif, const Class2Param/
+sendPageData	Class1Send.c++	/^Class1Modem::sendPageData(u_char* data, u_int cc, /
+sendPhaseB	Class1Send.c++	/^Class1Modem::sendPhaseB(TIFF* tif, Class2Params& n/
+sendPoll	FaxSend.c++	/^FaxServer::sendPoll(FaxRequest& fax, fxBool remote/
+sendPrologue	Class1Send.c++	/^Class1Modem::sendPrologue(u_int dcs, const fxStr& /
+sendRTC	Class1Send.c++	/^Class1Modem::sendRTC(fxBool is2D)$/
+sendSetupParams	FaxModem.c++	/^fxBool FaxModem::sendSetupParams(TIFF* tif, Class2/
+sendSetupPhaseB	Class1Send.c++	/^Class1Modem::sendSetupPhaseB()$/
+sendTCF	Class1Send.c++	/^Class1Modem::sendTCF(const Class2Params& params, u/
+sendTraining	Class1Send.c++	/^Class1Modem::sendTraining(Class2Params& params, in/
+serverBusy	FaxServer.c++	/^fxBool FaxServer::serverBusy() const$/
+setAnswerRotary	FaxServer.c++	/^FaxServer::setAnswerRotary(const fxStr& value)$/
+setBaudRate	FaxModem.c++	/^FaxModem::setBaudRate(BaudRate r)$/
+setCSI	FaxMachineInfo.c++	/^FaxMachineInfo::setCSI(const fxStr& v)$/
+setCalledBefore	FaxMachineInfo.c++	/^FaxMachineInfo::setCalledBefore(fxBool b)$/
+setDTR	FaxModem.c++	/^fxBool FaxModem::setDTR(fxBool onoff)$/
+setDataTimeout	FaxModem.c++	/^FaxModem::setDataTimeout(long secs, u_int br)$/
+setDialFailures	FaxMachineInfo.c++	/^FaxMachineInfo::setDialFailures(int v)$/
+setDialRules	FaxServer.c++	/^FaxServer::setDialRules(const char* name)$/
+setFlow	FaxServer.c++	/^setFlow(termios& term, FlowControl iflow, FlowCont/
+setFromDCS	Class2Params.c++	/^Class2Params::setFromDCS(u_int dcs, u_int xinfo)$/
+setFromDIS	Class2Params.c++	/^Class2Params::setFromDIS(u_int dis, u_int xinfo)$/
+setInputBuffering	FaxModem.c++	/^fxBool FaxModem::setInputBuffering(fxBool onoff)$/
+setJobInProgress	FaxMachineInfo.c++	/^FaxMachineInfo::setJobInProgress(const fxStr& v)$/
+setLID	Class1.c++	/^Class1Modem::setLID(const fxStr& number)$/
+setLastDialFailure	FaxMachineInfo.c++	/^FaxMachineInfo::setLastDialFailure(const fxStr& v)/
+setLastSendFailure	FaxMachineInfo.c++	/^FaxMachineInfo::setLastSendFailure(const fxStr& v)/
+setMaxPageLength	FaxMachineInfo.c++	/^FaxMachineInfo::setMaxPageLength(int v)$/
+setMaxPageWidth	FaxMachineInfo.c++	/^FaxMachineInfo::setMaxPageWidth(int v)$/
+setMaxSignallingRate	FaxMachineInfo.c++	/^FaxMachineInfo::setMaxSignallingRate(int v)$/
+setModemNumber	FaxServer.c++	/^FaxServer::setModemNumber(const fxStr& number)$/
+setModemSpeakerVolume	FaxServer.c++	/^FaxServer::setModemSpeakerVolume(SpeakerVolume lev/
+setProcessPriority	FaxServer.c++	/^FaxServer::setProcessPriority(FaxServerState s)$/
+setRejectNotice	FaxMachineInfo.c++	/^FaxMachineInfo::setRejectNotice(const fxStr& v)$/
+setRingsBeforeAnswer	FaxServer.c++	/^FaxServer::setRingsBeforeAnswer(int rings)$/
+setSendFailures	FaxMachineInfo.c++	/^FaxMachineInfo::setSendFailures(int v)$/
+setServerStatus	FaxServer.c++	/^FaxServer::setServerStatus(const char* fmt, ...)$/
+setServerTracing	FaxServer.c++	/^void FaxServer::setServerTracing(int level)	{ trac/
+setSessionTracing	FaxServer.c++	/^void FaxServer::setSessionTracing(int level)	{ log/
+setSpeakerVolume	FaxModem.c++	/^FaxModem::setSpeakerVolume(SpeakerVolume l)$/
+setSupports2DEncoding	FaxMachineInfo.c++	/^FaxMachineInfo::setSupports2DEncoding(fxBool b)$/
+setSupportsHighRes	FaxMachineInfo.c++	/^FaxMachineInfo::setSupportsHighRes(fxBool b)$/
+setSupportsPostScript	FaxMachineInfo.c++	/^FaxMachineInfo::setSupportsPostScript(fxBool b)$/
+setTimeout	FaxModem.c++	/^void FaxModem::setTimeout(fxBool b)		{ server.time/
+setVolumeCmds	ModemConfig.c++	/^ModemConfig::setVolumeCmds(const fxStr& tag)$/
+setXONXOFF	FaxModem.c++	/^fxBool FaxModem::setXONXOFF(FlowControl i, FlowCon/
+setupArgv	Getty.c++	/^Getty::setupArgv(const char* args)$/
+setupCall	FaxServer.c++	/^FaxServer::setupCall(AnswerType atype, CallType ct/
+setupClass1Parameters	Class1.c++	/^Class1Modem::setupClass1Parameters()$/
+setupClass2Parameters	Class2.c++	/^Class2Modem::setupClass2Parameters()$/
+setupDCC	Class2.c++	/^Class2Modem::setupDCC()$/
+setupFrame	Everex.c++	/^EverexModem::setupFrame(int f, int v)$/
+setupIDs	UUCPLock.c++	/^UUCPLock::setupIDs()$/
+setupManufacturer	FaxModem.c++	/^FaxModem::setupManufacturer(fxStr& mfr)$/
+setupModel	Class2.c++	/^Class2Modem::setupModel(fxStr& model)$/
+setupModem	Class1.c++	/^Class1Modem::setupModem()$/
+setupRevision	Class2.c++	/^Class2Modem::setupRevision(fxStr& revision)$/
+setupSession	GettyBSD.c++	/^BSDGetty::setupSession(int modemFd)$/
+sigAlarm	FaxServer.c++	/^static void sigAlarm(int)		{ timerExpired = TRUE; /
+sigHUP	Getty.c++	/^sigHUP(int)$/
+speed	Getty.c++	/^    , speed(s)$/
+startTimeout	FaxModem.c++	/^void FaxModem::startTimeout(long ms) { server.star/
+stopTimeout	FaxModem.c++	/^void FaxModem::stopTimeout(const char* w){ server
+streq	ModemConfig.c++	/^#define	streq(a,b)	(strcasecmp(a,b)==0)$/
+stripQuotes	Class2.c++	/^Class2Modem::stripQuotes(const char* cp)$/
+supportsEOLPadding	Everex.c++	/^EverexModem::supportsEOLPadding() const	$/
+sync	FaxModem.c++	/^FaxModem::sync(long ms)$/
+timerExpired	FaxServer.c++	/^FaxServer::timerExpired(long, long)$/
+toHex	FaxModem.c++	/^FaxModem::toHex(int v, int ndigits)$/
+traceModemIO	FaxServer.c++	/^FaxServer::traceModemIO(const char* dir, const u_c/
+transferSize	Class2Params.c++	/^Class2Params::transferSize(u_int ms) const$/
+trimModemLine	FaxModem.c++	/^FaxModem::trimModemLine(char buf[], int& cc)$/
+unlock	UUCPLock.c++	/^UUCPLock::unlock()$/
+update	FaxMachineInfo.c++	/^FaxMachineInfo::update()$/
+vatFaxCmd	FaxModem.c++	/^FaxModem::vatFaxCmd(ATResponse resp, const char* f/
+vlog	FaxMachineLog.c++	/^FaxMachineLog::vlog(const char* fmt0, va_list ap)$/
+voiceService	Class2.c++	/^Class2Modem::voiceService()$/
+vparseRange	FaxModem.c++	/^FaxModem::vparseRange(const char* cp, int nargs .
+vtraceStatus	FaxServer.c++	/^FaxServer::vtraceStatus(int kind, const char* fmt,/
+wait	GettyBSD.c++	/^BSDGetty::wait(int& status, fxBool block)$/
+waitFor	Class2.c++	/^Class2Modem::waitFor(ATResponse wanted, long ms)$/
+waitForCarrierToDrop	EverexSend.c++	/^EverexModem::waitForCarrierToDrop(fxStr& emsg)$/
+waitForRings	FaxModem.c++	/^FaxModem::waitForRings(u_int n)$/
+wasTimeout	FaxModem.c++	/^fxBool FaxModem::wasTimeout()			{ return server.ti/
+writeData	UUCPLock.c++	/^AsciiUUCPLock::writeData(int fd)$/

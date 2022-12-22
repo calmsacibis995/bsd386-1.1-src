@@ -1,0 +1,59 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: cisco_hdlc.4,v 1.1 1993/03/08 16:21:18 polk Exp $
+.\"
+.Dd March 1, 1993
+.Dt CISCO_HDLC 4
+.Os
+.Sh NAME
+.Nm cisco_hdlc
+.Nd Cisco HDLC serial line encapsulation
+.Sh SYNOPSIS
+.Fd #include <sys/types.h>
+.Fd #include <sys/ioctl.h>
+.Fd #include <net/if.h>
+.Fd #include <net/pppioctl.h>
+
+.Cd options CISCO_HDLC
+.Sh DESCRIPTION
+The
+.Dv CISCO_HDLC
+serial line encapsulation
+provides a method for transmitting datagrams over synchronous
+serial point-to-point links.
+The current Cisco
+.Tn HDLC
+implementation includes support for
+the Cisco Serial Line Address Resolution Protocol
+(SLARP).
+.Pp
+The kernel configuration option
+.Dv CISCO_HDLC
+should be defined to include the relevant code in the kernel.
+.Pp
+Cisco
+.Tn HDLC
+encapsulation and SLARP have no
+configurable options.
+.Pp
+Since synchronous interfaces support more than one link-level
+protocol, Cisco
+.Tn HDLC
+should be selected before any data will
+be transmitted through the interface.
+Currently, to select Cisco
+.Tn HDLC
+on synchronous interfaces, the
+interface flag
+.Dv IFF_LINK0
+should be cleared (see
+.Xr ifconfig 8 ) .
+.Sh SEE ALSO
+.Xr ioctl 2 ,
+.Xr socket 2 ,
+.Xr intro 4 ,
+.Xr ifconfig 8 ,
+.Sh BUGS
+Currently only IP transport level is supported;
+future releases may be extended to include OSI and Xerox NS.

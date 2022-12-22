@@ -1,0 +1,48 @@
+.TH playmidi 1 "12 June 1992"
+.IX playmidi
+.SH NAME
+.PP
+playmidi \- read a MIDI file and send it to Sound Blaster MIDI-OUT
+
+.SH SYNOPSIS
+.PP
+\f3playmidi\f1
+[\f3-help \f1]
+[\f3-adjust \f2tempo-adjust\f1]
+[\f3-chan \f2force-channel\f1]
+[\f3-input \f2filename\f1]
+[\f3-output \f2filename\f1]
+
+.SH DESCRIPTION
+.PP
+
+\fIplaymidi\fP tries to read standard Type 0 or Type 1 MIDI data files
+and send the notes in real-time to the MIDI-OUT port.  If you have an
+external MIDI synthesis device, this program can play many of the .mid
+files available at various archive sites.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.
+.TP
+.B -help
+Display some help on usage.
+.TP
+.B -adjust \f2tempo-adjust\f1
+Changes the tempo of the song by a factor of \f2tempo-adjust\f1/1000.
+An adjustment factor of 1000 is normal speed. Smaller values make
+faster tunes, and larger values slow things down.
+.TP
+.B -chan \f2force-channel\f1
+Forces all MIDI events in the data file to go to MIDI channel
+\f2force-channel\f1, instead of their encoded channel.  This is
+convenient if you have a MIDI synthesizer that can only monitor one
+channel, or if you want to merge all the voices into one.
+.TP
+.B -input \f2filename\f1
+Read input from \f2filename\f1 instead of stdin.
+.TP
+.B -output \f2filename\f1
+Write results to \f2filename\f1 instead of /dev/sb_midi.
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

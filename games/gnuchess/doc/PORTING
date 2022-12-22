@@ -1,0 +1,45 @@
+This is a note how to port gnuchess to machines with scarce memory:
+gnuchess minimal requirements are:
+ - approximately 100 kByte memory for the executable program.
+ - at least 200 kByte for data structures.
+You dont want to port gnuchess to a machine with less memory than that.
+
+gnuchess is optmized for speed and that means that memory has been used
+when there has been a tradeoff between memory usage and speed. If you intend
+to run gnuchess on a machine with less than 2 Mbyte memory the size of some
+data structures have to be reduced. Here is a list of the largest data
+structures in gnuchess, their sizes and a small comment on what can
+be done to reduce their size:
+
+The size of these tables is defined in gnuchess.h and can be changed there.
+
+ttable:		4.8	MByte	(#define vttblsz <something small>) size is: 2 * 12 * vttblsz
+etab:		2.6	MByte   (Can be reduced to any size > 101) size is:  2 * 136 * ETABLE
+Tree:		20 	kByte	( can be made smaller ~1000) size is 12 * TREE
+GameList	12.8	kBytes  (default is 200 moves per side, can be less)
+
+nextpos:	32	kByte	(nothing save rewiting all move generation)
+nextdir:	32	kByte	(nothing save rewiting all move generation)
+history:	8	kByte   (default is 0 size: can be removed)
+distdata:	8	kByte	(can be changed to a macro)
+taxidata:	8	kByte	(can be changed to a macro)
+hashcode:	7	kByte   (#define ttblsz 0)
+
+First of all, start by reducing the transposition table and static evaluation 
+cache size, this is done by setting vttblsz and ETABLE in (gnuchess.h). 
+If they do not fit entiely in memory it will have a detrimental effect on performance. 
+
+etab caches the static evaluations, it can be made smaller too but should not
+be zero.
+
+If this isn`t enough, reconsider if you really want to do this port.
+There is`nt really that much to gain by changing the other
+data structures. 
+
+Here are the macros:
+#define taxicab(a,b) (abs(column (a) - column (b)) + abs (row (a) - row (b)))
+#define distance(a,b) \
+	((abs(column (a) - column (b)) > abs (row (a) - row (b)))
+	? abs(column (a) - column (b)) : abs (row (a) - row (b)))
+
+

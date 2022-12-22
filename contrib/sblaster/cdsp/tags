@@ -1,0 +1,12 @@
+IOCTL	cdsp.c	/^#define IOCTL(cmd, arg)	\\$/
+Mcdsp	cdsp.c	/^main (int argc , char *argv[])$/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+PRINT	cdsp.c	/^#define PRINT(x)	do { if (!quiet) printf x; } whil/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+exchange	getopt.c	/^exchange (argv)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+my_bcopy	getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	getopt.c	/^my_index (string, chr)$/

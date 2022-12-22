@@ -1,0 +1,11 @@
+F AUTOCONF.;1                       	autoconf
+F GUESS.SH;1                        	Guess.sh
+F INSTALL.SH;1                      	install.sh
+F MAKECONF.SH;1                     	makeconfig.sh
+F MKLINKS.;1                        	mklinks
+D MONITORI                          	monitoring
+F NTP_GROP.;1                       	ntp-groper
+F NTP_REST.;1                       	ntp-restart
+F README.;1                         	README
+D STATS                             	stats
+D SUPPORT                           	support

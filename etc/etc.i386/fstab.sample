@@ -1,0 +1,32 @@
+#
+# File system mount information belongs in this file.  Each 
+# line is of the form:
+#
+#  device	mount_point	type	flags	dump	fsck_pass
+#
+# Note that multiple flags (when used) are specified as a 
+# comma separated list without spaces.  
+#
+# The `dump' field specifies how often dumps should be done on that
+# filesystem (it is used by dump [wW]; a value of 0 disables this
+# behavior).  
+#
+# See the fstab(5) man page for a complete description of the file
+# format.  See the dump(8) and the fsck(8) man page for descriptions
+# of fsck and dump behavior.
+#
+# Lines beginning with `#' are comments.  Uncomment the appropriate
+# lines below before rebooting.
+#
+# The following are sample entries for wd0 and sd0 root/usr partitions:
+#
+# /dev/wd0a	/		ufs	rw 	0 	1
+# /dev/wd0h	/usr		ufs	rw 	0 	2
+#
+# /dev/sd0a	/		ufs	rw 	0 	1
+# /dev/sd0h	/usr		ufs	rw 	0 	2
+#
+# The following will set up a memory based filesystem for /tmp
+#
+# /dev/wd0b	/tmp		mfs	rw,-s=4000	0 0
+# /dev/sd0b	/tmp		mfs	rw,-s=4000	0 0

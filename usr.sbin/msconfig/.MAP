@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MSCONFIG.8;1                      	msconfig.8
+F MSCONFIG.C;1                      	msconfig.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/msconfig
+F TAGS.;1                           	tags

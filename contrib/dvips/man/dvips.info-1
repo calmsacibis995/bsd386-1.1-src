@@ -1,0 +1,1073 @@
+This is Info file dvips.info, produced by Makeinfo-1.47 from the input
+file dvips.texi.
+
+START-INFO-DIR-ENTRY
+* DVIps: (dvips.info).	 DVI to PostScript translator
+END-INFO-DIR-ENTRY
+
+
+File: dvips.info,  Node: Top,  Next: Why dvips,  Prev: (dir),  Up: (dir)
+
+
+
+   dvips is a program to generate PostScript output from a TeX DVI file.
+It has support for including additional PostScript information into the
+output, and for informing TeX of this.
+
+   The manual corresponds to version 5.490l of dvips.
+
+* Menu:
+
+* Why dvips::                   Why Use dvips?
+* Using dvips::                 Using dvips
+* Paper Size::                  Size and Landscape Mode
+* Including PostScript::        Including PostScript Graphics
+* PostScript fonts::            Using PostScript Fonts
+* Font Naming::                 Font Naming Conventions
+* Command Line Options::        Command Line Options
+* Config File::                 Configuration File Searching
+* Config File Options::         Configuration File Options
+* Font Generation::             Automatic Font Generation
+* Path Interpretation::         Path Interpretation
+* Environment Variables::       Environment Variables
+* Bells and Whistles::          Other nifty things
+* MS-DOS::                      MS-DOS support in dvips
+* Installation::                Installation
+* Problems::                    Diagnosing Problems
+* Color::                       Using Color with dvips
+
+
+File: dvips.info,  Node: Why dvips,  Next: Using dvips,  Prev: Top,  Up: Top
+
+Why Use dvips?
+**************
+
+   The dvips program has a number of features that set it apart from
+other PostScript drivers for TeX.  This rather long section describes
+the advantages of using dvips, and may be skipped if you are just
+interested in learning how to use the program.  Installation is covered
+in section 14 near the end of this document.
+
+   The dvips driver generates excellent, standard PostScript, that can
+be included in other documents as figures or printed through a variety
+of spoolers.  The generated PostScript requires very little printer
+memory, so very complex documents with a lot of fonts can easily be
+printed even on PostScript printers without much memory, such as the
+original Apple LaserWriter.  The PostScript output is also compact,
+requiring less disk space to store and making it feasible as a transfer
+format.
+
+   Even those documents that are too complex to print in their entirety
+on a particular printer can be printed, since dvips will automatically
+split such documents into pieces, reclaiming the printer memory between
+each piece.
+
+   The dvips program supports graphics in a natural way, allowing
+PostScript graphics to be included and automatically scaled and
+positioned in a variety of ways.
+
+   Printers with resolutions other than 300 dpi are also supported,
+even if they have a different resolution in the horizontal and vertical
+directions.  High resolution output is supported for typesetters,
+including an option that compresses the bitmapped fonts so that
+typesetter virtual memory is not exhausted.  This option also
+significantly reduces the size of the PostScript file and decoding in
+the printer is very fast.
+
+   Missing fonts can be automatically generated if METAFONT exists on
+the system, or fonts can be converted from `gf' to `pk' format on
+demand.  If a font cannot be generated, a scaled version of the same
+font at a different size can be used instead, although dvips will
+complain loudly about the poor aesthetics of the resulting output.
+
+   Users will appreciate features such as collated copies and support
+for `tpic', `psfig', `emtex', and `METAPOST'; system administrators
+will love the support for multiple printers, each with their own
+configuration file, and the ability to pipe the output directly to a
+program such as `lpr'.  Support for MS-DOS and VMS in addition to UNIX
+is provided in the standard distribution, and porting to other systems
+is easy.
+
+   One of the most important features is the support of virtual fonts,
+which add an entirely new level of flexibility to TeX.  Virtual fonts
+are used to give dvips its excellent PostScript font support, handling
+all the font remapping in a natural, portable, elegant, and extensible
+way.  The dvips `afm2tfm' driver even comes with its own `afm2tfm'
+program that creates the necessary virtual fonts and TeX font metric
+files automatically from the Adobe font metric files.
+
+   Source is provided and freely distributable, so adding a
+site-specific feature is possible.  Adding such features is made easier
+by the highly modular structure of the program.
+
+   There is really no reason to use another driver, and the more people
+use dvips, the less time will be spent fighting with PostScript and the
+more time will be available to create beautiful documents. So if you
+don't use dvips on your system, get it today.
+
+
+File: dvips.info,  Node: Using dvips,  Next: Paper Size,  Prev: Why dvips,  Up: Top
+
+Using dvips
+***********
+
+   To use dvips, simply type
+
+     eg$ dvips foo
+
+where `foo.dvi' is the output of TeX that you want to print.  If dvips
+has been installed correctly, the document should come out of your
+default printer.
+
+   If you use fonts that have not been used on your system before, they
+may be automatically generated; this process can take a few minutes. 
+The next time that document is printed, these fonts will already exist,
+so printing will go much faster.
+
+   Many options are available; they are described in a later section. 
+For a brief summary of available options, just type
+
+     eg$ dvips
+
+
+File: dvips.info,  Node: Paper Size,  Next: Including PostScript,  Prev: Using dvips,  Up: Top
+
+Paper Size and Landscape Mode
+*****************************
+
+   Most TeX documents at a particular site are designed to use the
+standard paper size (for example, letter size in the United States or
+A4 in Europe.)  The dvips program defaults to these paper sizes and can
+be customized for the defaults at each site or on each printer.
+
+   But many documents are designed for other paper sizes.  For instance,
+you may want to design a document that has the long edge of the paper
+horizontal.  This can be useful when typesetting booklets, brochures,
+complex tables, or many other documents.  This type of paper orientation
+is called landscape orientation (the `normal' orientation is portrait).
+Alternatively, a document might be designed for ledger or A3 paper.
+
+   Since the intended paper size is a document design decision, and not
+a decision that is made at printing time, such information should be
+given in the TeX file and not on the dvips command line.  For this
+reason, dvips supports a `papersize' special.  It is hoped that this
+special will become standard over time for TeX previewers and other
+printer drivers.
+
+   The format of the `papersize' special is
+
+     \special{papersize=8.5in,11in}
+
+where the dimensions given above are for a standard letter sheet. The
+first dimension given is the horizontal size of the page, and the
+second is the vertical size.  The dimensions supported are the same as
+for TeX; namely, in (inches), cm (centimeters), mm (millimeters), pt
+(points), sp (scaled points), bp (big points, the same as the default
+PostScript unit), pc (picas), dd (didot points), and cc (ciceros).
+
+   For a landscape document, the `papersize' comment would be given as
+
+     \special{papersize=11in,8.5in}
+
+An alternate specification of `landscape' is to have a special of the
+form
+
+     \special{landscape}
+
+This is supported for backward compatibility, but it is hoped that
+eventually the `papersize' comment will dominate.
+
+   Of course, using such a command only informs dvips of the desired
+paper size; you must still adjust the `hsize' and `vsize' in your TeX
+document to actually use the full page.
+
+   The `papersize' special must occur somewhere on the first page of
+the document.
+
+
+File: dvips.info,  Node: Including PostScript,  Next: PostScript fonts,  Prev: Paper Size,  Up: Top
+
+Including PostScript Graphics
+*****************************
+
+   Scaling and including PostScript graphics is a breeze--if the
+PostScript file is correctly formed.  Even if it is not, however, the
+file can usually be accommodated with just a little more work.  The
+most important feature of a good PostScript file--from the standpoint
+of including it in another document--is an accurate bounding box
+comment.
+
+* Menu:
+
+* Bounding Box::                The Bounding Box Comment
+* EPSF Macros::                 Using the EPSF Macros
+* Header Files::                Header Files
+* Literal PS::                  Literal PostScript
+* Literal headers::             Literal Headers
+* Graphics Support::            Other Graphics Support
+* Dynamic Creation::            Dynamic Creation of PostScript Graphics Files
+
+
+File: dvips.info,  Node: Bounding Box,  Next: EPSF Macros,  Up: Including PostScript
+
+The Bounding Box Comment
+========================
+
+   Every well-formed PostScript file has a comment describing where on
+the page the graphic is located, and how big that graphic is.  This
+information is given in terms of the lower left and upper right corners
+of a box just enclosing the graphic, and is thus referred to as a
+bounding box. These coordinates are given in PostScript units (there
+are precisely 72 PostScript units to the inch) with respect to the
+lower left corner of the sheet of paper.
+
+   To see if a PostScript file has a bounding box comment, just look at
+the first few lines of the file. (PostScript is standard ASCII, so you
+can use any text editor to do this.) If within the first few dozen
+lines there is a line of the form
+
+     %%BoundingBox: 0 1 2 3
+
+(with any numbers), chances are very good that the file is Encapsulated
+PostScript and will work easily with dvips.  If the file contains
+instead a line like
+
+     %%BoundingBox: (atend)
+
+the file is still probably Encapsulated PostScript, but the bounding
+box (that dvips needs to position the graphic) is at the end of the
+file and should be moved to the position of the line above.  This can be
+done with that same text editor, or with a simple Perl script.
+
+   If the document lacks a bounding box altogether, one can easily be
+added. Simply print the file.  Now, take a ruler, and make the
+following measurements. All measurements should be in PostScript units,
+so measure it in inches and multiply by 72.  Alternatively, the `bbfig'
+program distributed with dvips in the `contrib' directory can be used
+to automate this process.
+
+   >From the left edge of the paper to the leftmost mark on the paper is
+LLX, the first number.  From the bottom edge of the paper to the
+bottommost mark on the paper is LLY, the second number.  From the left
+edge of the paper to the rightmost mark on the paper is URX, the third
+number.  The fourth and final number, URY, is the distance from the
+bottom of the page to the uppermost mark on the paper.
+
+   Now, add a comment of the following form as the second line of the
+document. (The first line should already be a line starting with the two
+characters `%!'; if it is not, the file probably isn't PostScript.)
+
+     %%BoundingBox: LLX LLY URX URY
+
+Or, if you don't want to modify the file, you can simply write these
+numbers down in a convenient place and use them when you import the
+graphic.
+
+   If the document does not have such a bounding box, or if the
+bounding box is given at the end of the document, please complain to
+the authors of the software package that generated the file; without
+such a line, including PostScript graphics can be tedious.
+
+
+File: dvips.info,  Node: EPSF Macros,  Next: Header Files,  Prev: Bounding Box,  Up: Including PostScript
+
+Using the EPSF Macros
+=====================
+
+   Now you are ready to include the graphic into a TeX file.  Simply
+add to the top of your TeX file a line like
+
+     \input epsf
+
+(or, if your document is in LaTeX or SliTeX, add the `epsf' style
+option, as was done to the following line).
+
+     \documentstyle[12pt,epsf]{article}
+
+This only needs to be done once, no matter how many figures you plan to
+include.  Now, at the point you want to include the file, enter a line
+such as
+
+     \epsffile{foo.ps}
+
+If you are using LaTeX or SliTeX, you may need to add a `leavevmode'
+command immediately before the `epsffile' command to get certain
+environments to work correctly.  If your file did not (or does not
+currently) have a bounding box comment, you should supply those numbers
+you wrote down as in the following example:
+
+     \epsffile[100 100 500 500]{foo.ps}
+
+(in the same order they would have been in a normal bounding box
+comment). Now, save your changes and run TeX and dvips; the output
+should have your graphic positioned at precisely the point you
+indicated, with the proper amount of space reserved.
+
+   The effect of the `epsffile' macro is to typeset the figure as a TeX
+`vbox' at the point of the page that the command is executed. By
+default, the graphic will have its `natural' width (namely, the width
+of its bounding box). The TeX box will have depth zero and a `natural'
+height. The graphic will be scaled by any `dvi' magnification in effect
+at the time.
+
+   Any PostScript graphics included by any method in this document
+(except `bop-hook' and its ilk) are scaled by the current `dvi'
+magnification. For graphics included with `epsffile' where the size is
+given in TeX dimensions, this scaling will produce the correct, or
+expected, results. For compatibility with old PostScript drivers, it is
+possible to turn this scaling off with the following TeX command:
+
+     \special{! /magscale false def}
+
+Use of this command is not recommended because it will make the
+`epsffile' graphics the wrong size if global magnification is used in a
+`dvi' document, and it will cause any PostScript graphics to appear
+improperly scaled and out of position if a `dvi' to `dvi' program is
+used to scale or otherwise modify the document.
+
+   You can enlarge or reduce the figure by putting
+
+     \epsfxsize=DIMEN
+
+right before the call to `epsffile'. Then the width of the TeX box will
+be DIMEN and its' height will be scaled proportionately.  Alternatively
+you can force the vertical size to a particular size with
+
+     \epsfysize=DIMEN
+
+in which case the height will be set and the width will be scaled
+proportionally.  If you set both, the aspect ratio of the included
+graphic will be distorted but both size specifications will be honored.
+
+   By default, clipping is disabled for included EPSF images.  This is
+because clipping to the bounding box dimensions often cuts off a small
+portion of the figure, due to slightly inaccurate bounding box
+arguments.  The problem might be subtle; lines around the boundary of
+the image might be half their intended width, or the tops or bottoms of
+some text annotations might be sliced off.  If you want to turn
+clipping on, just use the command
+
+     \epsfclipon
+
+and to turn clipping back off, use
+
+     \epsfclipoff
+
+   A more general facility for sizing is available by defining the
+`epsfsize' macro.   You can redefine this macro to do almost anything. 
+This TeX macro is passed two parameters by `epsffile'.  The first
+parameter is the natural horizontal size of the PostScript graphic, and
+the second parameter is the natural vertical size.  This macro is
+responsible for returning the desired horizontal size of the graph (the
+same as assigning `epsfxsize' above).
+
+   In the definitions given below, only the body is given; it should be
+inserted in
+
+     \def\epsfsize#1#2{BODY}
+
+Some common definitions are:
+
+`epsfxsize'
+     This definition (the default) enables the default features listed
+     above, by setting `epsfxsize' to the same value it had before the
+     macro was called.
+
+`0pt'
+     This definition forces natural sizes for all graphics by setting
+     the width to zero, which turns on horizontal scaling.
+
+`#1'
+     This forces natural sizes too, by returning the first parameter
+     only (the natural width) and setting the width to it.
+
+`hsize'
+     This forces all graphics to be scaled so they are as wide as the
+     current horizontal size.  (In LaTeX, use `textwidth' instead of
+     `hsize'.)
+
+`0.5#1'
+     This scales all figures to half of their natural size.
+
+`\ifnum#1>\hsize\hsize\else#1\fi'
+     This keeps graphics at their natural size, unless the width would
+     be wider than the current `hsize', in which case the graphic is
+     scaled down to `hsize'.
+
+   If you want TeX to report the size of the figure as a message on your
+terminal when it processes each figure, give the command
+
+     \epsfverbosetrue
+
+
+File: dvips.info,  Node: Header Files,  Next: Literal PS,  Prev: EPSF Macros,  Up: Including PostScript
+
+Header Files
+============
+
+   Often in order to get a particular graphic file to work, a certain
+header file might need to be sent first.  Sometimes this is even
+desirable, since the size of the header macros can dominate the size of
+certain PostScript graphics files.  The dvips program provides support
+for this with the `header=' special command.  For instance, to ensure
+that `foo.ps' gets downloaded as part of the header material, the
+following command should be added to the TeX file:
+
+     \special{header=foo.ps}
+
+The dictionary stack will be at the `userdict' level when these header
+files are included.
+
+   For these and all other header files (including the headers required
+by dvips itself and any downloaded fonts), the printer VM budget is
+debited by some value.  If the header file has, in its first 1024 bytes,
+a line of the form
+
+     %%VMusage: MIN MAX
+
+then the maximum value is used.  If it doesn't, then the total size of
+the header file in bytes is used as an approximation of the memory
+requirements.
+
+
+File: dvips.info,  Node: Literal PS,  Next: Literal headers,  Prev: Header Files,  Up: Including PostScript
+
+Literal PostScript
+==================
+
+   For simple graphics, or just for experimentation, literal PostScript
+graphics can be included.  Simply use a special command that starts with
+a double quote (`"').
+
+   For instance, the following (simple) graphic: [ There is a picture
+of a triangle on hardcopy printouts and in the PostScript file
+generated by `dvips'. (Note that you are responsible for leaving space
+for such literal graphics.) Literal graphics are discouraged because of
+their nonportability.
+
+
+File: dvips.info,  Node: Literal headers,  Next: Graphics Support,  Prev: Literal PS,  Up: Including PostScript
+
+Literal Headers
+===============
+
+   Similarly, you can define your own macros for use in such literal
+graphics through the use of literal macros.  Literal macros are defined
+just like literal graphics, only you begin the special with an
+exclamation point instead of a double quote.  These literal macros are
+included as part of the header material in a special dictionary called
+`SDict'.  This dictionary is the first one on the PostScript dictionary
+stack when any PostScript graphic is included, whether by literal
+inclusion or through the `epsffile' macros.
+
+
+File: dvips.info,  Node: Graphics Support,  Next: Dynamic Creation,  Prev: Literal headers,  Up: Including PostScript
+
+Other Graphics Support
+======================
+
+   There are other ways to include graphics with dvips.  One is to use
+an existing package, such as `emtex', `psfig', `tpic', or `METAPOST',
+all of which are supported by dvips.
+
+   Other facilities are available for historical reasons, but their use
+is discouraged, in hope that some `sane' form of PostScript inclusion
+shall become standard.  Note that the main advantage of the `epsffile'
+macros is that they can be adapted for whatever form of special
+eventually becomes standard, and thus only minor modifications to that
+one file need to be made, rather than revising an entire library of TeX
+documents.
+
+   Most of these specials use a flexible key and value scheme:
+
+     \special{psfile=FILENAME.PS[KEY=VALUE]*}
+
+This will download the PostScript file called `filename.ps' such that
+the current point will be the origin of the PostScript coordinate
+system.  The optional key/value assignments allow you to specify
+transformations on the PostScript.
+
+   The possible keys are:
+
+`hoffset'
+     The horizontal offset (default 0)
+
+`voffset'
+     The vertical offset (default 0)
+
+`hsize'
+     The horizontal clipping size (default 612)
+
+`vsize'
+     The vertical clipping size (default 792)
+
+`hscale'
+     The horizontal scaling factor (default 100)
+
+`vscale'
+     The vertical scaling factor (default 100)
+
+`angle'
+     The rotation (default 0)
+
+`clip'
+     Enable clipping to the bounding box
+
+   The dimension parameters are all given in PostScript units. The
+`hscale' and `vscale' are given in non-dimensioned percentage units,
+and the rotation value is specified in degrees. Thus
+
+     \special{psfile=foo.ps hoffset=72 hscale=90 vscale=90}
+
+will shift the graphics produced by file `foo.ps' right by one inch and
+will draw it at 0.9 times normal size.  Offsets are given relative to
+the point of the special command, and are unaffected by scaling or
+rotation.  Rotation is counterclockwise about the origin.  The order of
+operations is to rotate the figure, scale it, then offset it.
+
+   For compatibility with older PostScript drivers, it is possible to
+change the units that `hscale' and `vscale' are given in.  This can be
+done by redefining `@scaleunit' in `SDict' by a TeX command such as
+
+     \special{! /@scaleunit 1 def}
+
+The `@scaleunit' variable, which is by default 100, is what `hscale'
+and `vscale' are divided by to yield an absolute scale factor.
+
+   All of the methods for including graphics we have described so far
+enclose the graphic in a PostScript save/restore pair, guaranteeing that
+the figure will have no effect on the rest of the document.  Another
+type of special command allows literal PostScript instructions to be
+inserted without enclosing them in this protective shield; users of this
+feature are supposed to understand what they are doing (and they
+shouldn't change the PostScript graphics state unless they are willing
+to take the consequences).  This command can take many forms, because it
+has had a torturous history; any of the following will work:
+
+     \special{ps:TEXT}
+     \special{ps::TEXT}
+     \special{ps::[begin]TEXT}
+     \special{ps::[end]TEXT}
+
+(with longer forms taking precedence over shorter forms, when they are
+used).  Note that `ps::' and `ps::[end]' do not do any positioning, so
+they can be used to continue PostScript literals started with `ps:' or
+`ps::[begin]'.  There is also the command
+
+     \special{ps: plotfile FILENAME}
+
+which will copy the commands from FILENAME verbatim into the output
+(but omitting lines that begin with %).  An example of the proper use
+of literal specials can be found in the file `rotate.tex' which makes
+it easy to typeset text turned 90 degrees.
+
+   To finish off this section, the following examples are presented
+without explanation:
+
+     \def\rotninety{\special{ps:currentpoint currentpoint translate 90
+     rotate neg exch neg exch translate}}\font\huge=cmbx10 at 14.4truept
+     \setbox0=\hbox to0pt{\huge A\hss}\vskip16truept\centerline{\copy0
+     \special{ps:gsave}\rotninety\copy0\rotninety\copy0\rotninety
+     \box0\special{ps:grestore}}\vskip16truept
+
+   [ There are 4 `A' characters, each rotated 90 degrees about a  
+common center point ]
+
+     \vbox to 2truein{\special{ps:gsave 0.3 setgray}\hrule height 2in
+     width\hsize\vskip-2in\special{ps:grestore}\font\big=cminch\big
+     \vss\special{ps:gsave 1 setgray}\vbox to 0pt{\vskip2pt
+     \line{\hss\hskip4pt NEAT\hss}\vss}\special{ps:0 setgray}%
+     \hbox{\raise2pt\line{\hss NEAT\hss}\special{ps:grestore}}\vss}
+
+   [ There is a big gray box with the word `NEAT' inside in big letters
+]
+
+   Some caveats are in order when using the above forms.  Make sure that
+each `gsave' on a page is matched with a `grestore' on the same page. 
+Do not use `save' or `restore'.  Use of these macros can interact with
+the PostScript generated by dvips if care is not taken; try to
+understand what the above macros are doing before writing your own. 
+The `rotninety' macro especially has a useful trick that appears again
+and again.
+
+
+File: dvips.info,  Node: Dynamic Creation,  Prev: Graphics Support,  Up: Including PostScript
+
+Dynamic Creation of PostScript Graphics Files
+=============================================
+
+   PostScript is an excellent page description language--but it does
+tend to be rather verbose.  Compressing PostScript graphics files can
+often reduce them by more than a factor of five.  For this reason, if
+the filename parameter to one of the graphics inclusion techniques
+starts with a backtick (``'), the filename is instead interpreted as a
+command to execute that will send the actual file to standard output. 
+Thus,
+
+     \special{psfile="`zcat foo.ps.Z"}
+
+will include the uncompressed version of `foo.ps'.  Since such a
+command is not accessible to TeX, if you use this facility with the
+`EPSF' macros, you need to supply the bounding box parameter yourself,
+as in
+
+     \epsffile[72 72 540 720]{"`zcat screendump.ps.Z"}
+
+to include `screendump.ps'.  Of course, the commands to be executed can
+be anything, including using a file conversion utility such as `tek2ps'
+or whatever is appropriate.
+
+   This extension is not portable to other `dvi2ps' programs.  Yet.
+
+
+File: dvips.info,  Node: PostScript fonts,  Next: Font Naming,  Prev: Including PostScript,  Up: Top
+
+Using PostScript Fonts
+**********************
+
+   Thanks to Donald E. Knuth, the dvips driver now supports PostScript
+fonts through the virtual font capability.  PostScript fonts are (or
+should be) accompanied by a font metric file such as `Times-Roman.afm',
+which describes characteristics of a font called Times-Roman. To use
+such fonts with TeX, we need `tfm' files that contain similar
+information. These can be generated from `afm' files by running the
+program `afm2tfm', supplied with dvips. This program also creates
+virtual fonts with which you can use normal plain TeX conventions.
+
+   Note that non-resident downloaded PostScript fonts tend to use a
+great deal of printer virtual memory.  PostScript printers typically
+have between 130,000 and 400,000 bytes of available virtual memory;
+each downloaded font will require approximately 30,000 bytes of that. 
+For many applications, bitmapped fonts work much better, even at
+typesetter resolutions (with the `-Z' option.)
+
+   Even resident PostScript fonts can take a fair amount of memory, but
+less with this release of dvips than previously.  Also, bitmapped fonts
+tend to image faster than PostScript fonts.
+
+* Menu:
+
+* afm2tfm::                     The afm2tfm Program
+* Changing Encoding::           Changing a Font's Encoding
+* Special Effects::             Special Effects
+* Non-Resident Fonts::          Non-Resident PostScript Fonts
+* Font Aliases::                Font Aliases
+
+
+File: dvips.info,  Node: afm2tfm,  Next: Changing Encoding,  Up: PostScript fonts
+
+The afm2tfm Program
+===================
+
+   The `afm2tfm' program can convert an Adobe `afm' file into a `raw'
+TeX `tfm' file with the command
+
+     eg$ afm2tfm Times-Roman rptmr
+
+This file is raw because it does no character remapping; it simply
+converts the character information on a one-to-one basis to TeX
+characters *with the same code*.
+
+   In the following examples, we will use the font Times-Roman to
+illustrate the conversion process.  For the standard 35 LaserWriter
+fonts, however, it is highly recommended that you use the supplied
+`tfm' and `vf' files that come with dvips (usually in a file called
+`dvipslib.tar.Z', as these files contain some additional changes that
+make them work better with TeX than they otherwise would.
+
+   PostScript fonts have a different encoding scheme from that of plain
+TeX. Although both schemes are based on ASCII, special characters such
+as ligatures and accents are handled quite differently. Therefore we
+obtain best results by using a `virtual font' interface, which makes
+TeX act as if the PostScript font had a standard TeX encoding. Such a
+virtual font can be obtained, for example, by the command
+
+     eg$ afm2tfm Times-Roman -v ptmr rptmr
+
+This produces two outputs, namely the `virtual property list' file
+`ptmr.vpl', and the TeX font metric file `rptmr.tfm'.  The latter file
+describes an `actual font' on which the virtual font is based.
+
+   To use the font in TeX, you should first run
+
+     eg$ vptovf ptmr.vpl ptmr.vf ptmr.tfm
+
+and then install the virtual font file `ptmr.vf' in the virtual font
+directory (by default, this is `/usr/lib/tex/fonts/vf') and install
+`ptmr.tfm' and `rptmr.tfm' in the directory for TeX font metrics (by
+default, `/usr/lib/tex/fonts/tfm').  (This probably has already been
+done for you for the most common PostScript fonts.)  You can also make
+more complex virtual fonts by editing `ptmr.vpl' before running
+`vptovf'; such editing might add the uppercase Greek characters in the
+standard TeX positions, for instance.  Once this has been done, you're
+all set. You can use code like this in TeX henceforth:
+
+     \font\myfont=ptmr at 10pt
+     \myfont Hello, I am being typeset in Times-Roman.
+
+   Note that there are two fonts, one actual (`rpmtr', which is
+analogous to a raw piece of hardware) and one virtual (`pmtr', which has
+typesetting know-how added). You could also say
+
+     \font\TR=rptmr at 10pt
+
+and typeset directly with that, but then you would have no ligatures or
+kerning, and you would have to use Adobe character positions for
+special letters like the ligature 'AE'. The virtual font called `ptmr'
+not only has ligatures and kerning, and most of the standard accent
+conventions of TeX, it also has a few additional features not present
+in the Computer Modern fonts. For example, it includes all the Adobe
+characters (such as the Polish ogonek and the French guillemots).  The
+only things you lose from ordinary TeX text fonts are the dotless j
+(which can be hacked into the VPL file with literal PostScript specials
+if you have the patience) and uppercase Greek letters (which just don't
+exist unless you buy them separately). (1)
+
+   When dvips goes to use a font, it first checks to see if it is one of
+the fonts listed in a file called `psfonts.map'.  If it is mentioned in
+that file, then it is assumed that the font is a resident PostScript
+font and can be found with the PostScript `findfont' operator. This
+file resides by default in `/usr/lib/tex/ps', and consists of a single
+font per line.  Note that only the raw PostScript font names should be
+listed in this file; the `vf' fonts should not be, since they are
+automatically mapped to the raw PostScript fonts by the virtual font
+machinery.  The supplied `psfonts.map' file defines the most common
+PostScript fonts.
+
+   As much as possible, the PostScript fonts follow plain TeX
+conventions for accents.  The two exceptions to this are the Hungarian
+umlaut (which is at position `0x7D' in `cmr10', but position `0xCD' in
+`ptmr') and the dot accent (at positions `0x5F' and `0xC7',
+respectively).  In order to use these accents with PostScript fonts or
+in math mode when `\textfont0' is a PostScript font, you will need to
+use the following definitions.  Note that these definitions will not
+work with normal TeX fonts for the relevant accents; note also that
+these definitions are already part of the distributed `psfonts.sty'. 
+In addition, the `\AA' that is used to typeset the  Swedish A with a
+circle above character must be modified as shown.
+
+     \def\H#1{{\accent"CD #1}}\def\.#1{{\accent"C7 #1}}
+     \def\dot{\mathaccent"70C7 }
+     \newdimen\aadimen
+     \def\AA{\leavevmode\setbox0\hbox{h}\aadimen\ht0
+       \advance\aadimen-1ex\setbox0\hbox{A}\rlap{\raise.67\aadimen
+       \hbox to \wd0{\hss\char'27\hss}}A}
+
+   These PostScript fonts can be scaled to any size.  Go wild!  Note,
+however, that using PostScript fonts does use up a great deal of the
+printer's virtual memory and it does take time. You may find
+downloading the Computer Modern fonts to be faster than using the
+built-in PostScript fonts.
+
+   ---------- Footnotes ----------
+
+   (1)  See Donald E.Knuth, *TUGboat* v. 11, no. 1, Apr. 1990, pp.
+13--23.  "Virtual Fonts: More Fun for Grand Wizards."
+
+
+File: dvips.info,  Node: Changing Encoding,  Next: Special Effects,  Prev: afm2tfm,  Up: PostScript fonts
+
+Changing a Font's Encoding
+==========================
+
+   [*This section is new and may be revised as the program changes.
+--tgr*]
+
+   The `afm2tfm' program also allows you to specify a different
+encoding for a PostScript font.  This should only be done by wizards.
+This can be done at two levels.
+
+   You can specify a different output encoding with `-o'. This only
+applies when you are building a virtual font, and it tells `afm2tfm' to
+attempt to remap the font to match the output encoding as closely as
+possible.  In such an output encoding, you can also specify ligature
+pairs and kerning information that will be used in addition to the
+information in the `afm' file.  This will be the most common
+re-encoding required, since the only thing that changes is the `vf'
+file (and its associated `tfm' file) and since most everything you
+would want to do can be done with this method.
+
+   You can also specify a different PostScript encoding with `-p'. This
+option affects the generation of both the raw `tfm' file and the
+virtual `vf' and `tfm' files, and it also requires that the encoding
+file be available to be downloaded as part of every PostScript document
+produced that uses this font.  But this is the only way to access
+characters in a PostScript font that are neither encoded in the `afm'
+file nor built from other characters (constructed characters.)  For
+instance, `Times-Roman' contains the extra characters `trademark' and
+`registered' (among others) that can only be accessed through such a
+PostScript reencoding.  Any ligature or kern information specified in
+the PostScript encoding is ignored by `afm2tfm'.
+
+   The format of the encoding files is simple--it is precisely the same
+format that is used to define an encoding vector in PostScript!  For
+this reason, the file can be used as a PostScript or TeX encoding file
+for `afm2tfm' as is downloaded to the printer as part of a document
+that uses a reencoded font.
+
+   The specific format that `afm2tfm' accepts is one of the following
+form:
+
+     % comments are mostly ignored; more on this later
+     /MyEncoding [ /Alpha /Beta /Gamma /Delta ...
+          /A /B ... /Z % exactly 256 entries, each with a / at the front
+          /wfooaccent /xfooaccent /yfooaccent /zfooaccent ] def
+
+   Comments, which start with any percent sign and continue until the
+end of the current line, are mostly ignored.  The first `word' of the
+file must start with a forward slash (a PostScript literal name) and is
+used as the name of the encoding.  The next word must be an open
+bracket. Following that must be precisely 256 character names; use
+`/.notdef' for any that you do not want defined.  Finally, there must
+be a close bracket.  The final token is usually `def', but this is not
+enforced.  Note that all names are case sensitive.
+
+   Any ligature or kern information is given in the comments.  As each
+comment is encountered, it is examined.  If the first word after the
+percent sign is `LIGKERN', exactly, then the entire rest of the line is
+parsed for ligature and kern information.  This ligature and kern
+information is given in groups of words, each group of which must be
+terminated by a semicolon (with a space before and after it, unless it
+occurs on the end of a line.)
+
+   In these `LIGKERN' statements, three types of information may be
+specified.  These three types are ligature pairs, kerns to remove or
+ignore, and the character value of this font's boundary character.
+Which of the types the particular set of words corresponds to is
+automatically determined by the allowable syntax.
+
+   Throughout the `LIGKERN' section, the boundary character is
+specified as `||'.
+
+   To set the boundary character value, a command such as `|| = 39 ;'
+must be used.
+
+   To indicate a kern to remove, give the names of the two characters
+(without the leading slash) separated by `{}', as in `one {} one ;'. 
+This is similar to the way you might use `{}' in a TeX file to turn off
+ligatures or kerns at a particular location.  Either or both of the
+character names can be given as `*', which is a wild card matching any
+character; thus, all kerns can be removed with `* {} * ;'.
+
+   To specify a ligature, specify the names of the pair of characters,
+followed by the ligature `operation' (as in METAFONT), followed by the
+replacing character name.  Either (but not both) of the first two
+characters can be `||' to indicate a word boundary.
+
+   Normally the `operation' is `=:' meaning that both characters are
+removed and replaced by the third character, but by adding `|'
+characters on either side of the `=:', you can specify which of the two
+leading characters to retain.  In addition, by suffixing the ligature
+operation with one or two `>' signs, you can indicate that the ligature
+scanning operation should skip that many characters before proceeding. 
+This works just like in METAFONT.  A typical ligature might be
+specified with `ff i =: ffi ;'.  A more convoluted ligature is `one one
+|=:|>> exclam ;' which indicates that every pair of adjacent `1''s
+should be separated by an exclamation point, and then two of the
+resulting characters should be skipped over before continuing searching
+for ligatures and kerns.  You cannot give more `>''s in an ligature
+operation as you did `|', so there are a total of eight possible
+ligature operations:
+
+     =: |=: |=:> =:| =:|> |=:| |=:|> |=:|>>
+
+The default set of ligatures and kerns built in to `afm2tfm' can be
+specified with:
+
+     % LIGKERN space l =: lslash ; space L =: Lslash ;
+     % LIGKERN question quoteleft =: questiondown ;
+     % LIGKERN exclam quoteleft =: exclamdown ;
+     % LIGKERN hyphen hyphen =: endash ; endash hyphen =: emdash ;
+     % LIGKERN quoteleft quoteleft =: quotedblleft ;
+     % LIGKERN quoteright quoteright =: quotedblright ;
+     % LIGKERN space {} * ; * {} space ; 0 {} * ; * {} 0 ;
+     % LIGKERN 1 {} * ; * {} 1 ; 2 {} * ; * {} 2 ; 3 {} * ; * {} 3 ;
+     % LIGKERN 4 {} * ; * {} 4 ; 5 {} * ; * {} 5 ; 6 {} * ; * {} 6 ;
+     % LIGKERN 7 {} * ; * {} 7 ; 8 {} * ; * {} 8 ; 9 {} * ; * {} 9 ;
+
+
+File: dvips.info,  Node: Special Effects,  Next: Non-Resident Fonts,  Prev: Changing Encoding,  Up: PostScript fonts
+
+Special Effects
+===============
+
+   Special effects are also obtainable, with commands such as
+
+     eg$ afm2tfm Times-Roman -s .167 -v ptmro rptmro
+
+which create `ptmro.vpl' and `rptmro.tfm'.  To use this, proceed as
+above but put the line
+
+     rptmro Times-Roman ".167 SlantFont"
+
+into `psfonts.map'.  Then `rptmro' (our name for an obliqued Times)
+will act as if it were a resident font, although it is actually
+constructed from Times-Roman by PostScript hackery.  (This oblique
+version of Times-Roman is obtained by slanting everything 1/6 to the
+right.)  Similarly, you can get an expanded font by
+
+     eg$ afm2tfm Times-Roman -e 1.2 -v ptmrre rptmrre
+
+and by recording the pseudo-resident font
+
+     rptmrre Times-Roman "1.2 ExtendFont"
+
+in `psfonts.map'.
+
+   You can also create a small caps font with a command such as
+
+     eg$ afm2tfm Times-Roman -V ptmrc ptmr
+
+This is done strictly with a virtual font, however.  In addition, the
+font on which the small caps font is based (in this case `ptmr' may
+already be created and installed, in which case no additional
+`psfonts.map' entry is needed.  In any case, you must give the
+appropriate name of the font that is not small caps as the base name
+(last parameter) to `afm2tfm'.  For instance, if you create a slanted
+small caps font, you must give the base name of the slanted font as
+that last parameter, not the base name of the unslanted font.
+
+   If you change the PostScript encoding of a font, you must specify the
+input file as a header file, as well as give a reencoding command.  For
+instance, let us say we are using Times-Roman reencoded according to
+the encoding `MyEncoding' (stored in the file `myenc.enc') as `rptmrx'.
+ In this case, our `psfonts.map' entry would look like
+
+     rptmrx Times-Roman "MyEncoding ReEncodeFont" <myenc.enc
+
+   The `afm2tfm' program prints out the precise line you need to add to
+`psfonts.map' to use that font, assuming the font is resident in the
+printer; if the font is not resident, you must add the header command
+to download the font yourself.  Note that each identical line only
+needs to be specified once in the `psfonts.map' file, even though many
+different fonts (small caps variants, or ones with different output
+encodings) may be based on it.
+
+   The command line switches to `afm2tfm' are:
+
+`-e RATIO'
+     All characters are stretched horizontally by the stated ratio; if
+     it is less than 1.0, you get a condensed font.
+
+`-O'
+     This option forces all character designations in the resultant
+     `vpl' file be given as octal values; this is useful for symbol or
+     other special-purpose fonts where character names such as `A' have
+     no meaning.
+
+`-p FILE'
+     This specifies a file to use for the PostScript encoding of the
+     font. Note that this file must also be mentioned as a header file
+     for the font in `psfonts.map', and that ligature and kern
+     information in this file is ignored.
+
+`-T FILE'
+     This option specifies that FILE is to be used for both the
+     PostScript and target TeX encodings of the font.
+
+`-t FILE'
+     This specifies a file to use for the target TeX encoding of the
+     font. Ligature and kern information may also be specified in this
+     file; the file is not needed once the `vf' file has been created.
+
+`-s SLANT'
+     All characters are slanted to the right by the stated slant; if it
+     is negative, the letters slope to the left (or they might be
+     upright if you start with an italic font).
+
+`-v FILE'
+     Generate a virtual property list `vpl' file as well as a `tfm'
+     file.
+
+`-V FILE'
+     Same as `-v', but the virtual font generated is a small caps font
+     obtained by scaling uppercase letters by 0.8 to typeset lowercase.
+     This font handles accented letters and retains proper kerning.
+
+
+File: dvips.info,  Node: Non-Resident Fonts,  Next: Font Aliases,  Prev: Special Effects,  Up: PostScript fonts
+
+Non-Resident PostScript Fonts
+=============================
+
+   If you want to use a non-printer-resident PostScript font for which
+you have a `pfb' or `pfa' file (an Adobe Type 1 font program), you can
+make it act like a resident font by putting a `<' sign and the name of
+the `pfb' or `pfa' file just after the font name in the `psfonts.map'
+file entry. For example,
+
+     rpstrn StoneInformal <StoneInformal.pfb
+
+will cause dvips to include `StoneInformal.pfb' in your document as if
+it were a header file, whenever the pseudo-resident font StoneInformal
+is used in a document.  Similarly, you can generate transformed fonts
+and include lines like
+
+     rpstrc StoneInformal <StoneInformal.pfb ".8 ExtendFont"
+
+in `psfonts.map', in which case `StoneInformal.pfb' will be loaded
+whenever StoneInformal-Condensed is used. (Each header file is loaded
+at most once per document. The `pfb' files should be installed in the
+dvips header directory [usually `/usr/lib/tex/ps'] with the other
+header files.)
+
+   If you are using a `pfb' file that is also has a different
+PostScript encoding, you would need to multiple header files for that
+font in `psfonts.map'.  If, for instance, `Optima' was both
+non-resident and you wanted to reencode it in PostScript with
+`MyEncoding' stored in `myenc.enc', a line such as
+
+     rpstrnx Optima "MyEncoding ReEncodeFont" <myenc.enc <Optima.pfb
+
+   When using such files, dvips is smart enough to unpack the standard
+binary `pfb' format into ASCII so there is no need to perform this
+conversion yourself.  In addition, it will scan the font to determine
+its memory usage, as it would for any header file.
+
+
+File: dvips.info,  Node: Font Aliases,  Prev: Non-Resident Fonts,  Up: PostScript fonts
+
+Font Aliases
+============
+
+   Some systems don't handle files with long names well--MS-DOS is a
+notable example.  For this reason, dvips will accept an alias for such
+fonts.  Such an alias should be the first word in the `psfonts.map'
+line.  For instance, if we wanted the name `rptmr' to be used for the
+raw `Times-Roman' since our computer can't handle long names or,
+alternatively, we want to follow the standard naming conventions, we
+would use the following line in our `psfonts.map' file:
+
+     rptmr Times-Roman
+
+The `tfm' file must have the name `rptmr.tfm'.
+
+   The distribution file `adobe' contains a list of the short names
+that should be used for most Adobe fonts currently available.  Please
+reference this file when installing a new font and use the standard
+name.
+
+   The parsing of the `psfonts.map' file should be explained to
+eliminate all confusion.  If a line is empty or begins with a space,
+asterisk, semicolon, or hash mark, it is ignored.  Each remaining line
+is separated into words, where words are separated by spaces or tabs. 
+If a word begins with a double quote, it extends until the next double
+quote or the end of the line.  If a word starts with a less than
+character, it is treated as a font header file (or a downloaded
+PostScript font).  There can be more than one such header for a given
+font.  If a word starts with a double quote, it is a special
+instruction for generating that font.  Otherwise it is a name. The
+first such name is always the name TeX uses for the font and is also
+the name of the `tfm' file.  If there is another name word, that name
+is used as the PostScript name; if there is only one name word, it is
+used for both the TeX name and the PostScript name.
+
+   Note that dvips no longer registers the full PostScript name if an
+alias is given, so the single line
+
+     rptmr Times-Roman
+
+would only allow dvips to find the `rptmr' font and not the
+`Times-Roman' font.
+
+

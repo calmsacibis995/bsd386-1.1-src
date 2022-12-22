@@ -1,0 +1,11 @@
+F CHANGES.;1                        	changes
+F CONFIG.STA;1                      	config.status
+F CONFIGUR.;1                       	configure
+F CONFIGUR.IN;1                     	configure.in
+F CONFIGUR.INF;1                    	configure.info
+D DOC                               	doc
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.IN;1                     	Makefile.in
+F PORTING.NOT;1                     	porting.notes
+F README.;1                         	README
+F TODO.;1                           	ToDo

@@ -1,0 +1,36 @@
+.\" -*- nroff -*-
+.\" $Id: psrev.1,v 1.2 1994/01/13 17:53:42 sanders Exp $
+.TH PSREV 1
+.SH NAME
+psrev \- PostScript page reversal filter
+.SH SYNOPSIS
+.B psrev
+[
+.I filename
+]
+.SH DESCRIPTION
+.B psrev
+reverses the order of the pages of a PostScript document.
+Usually
+.B psrev
+is used with printers that stack face up
+and is run automatically by the spooler.
+The document must conform to the Adobe Document Structuring Conventions,
+preferably version 3.0.
+.LP
+.B psrev
+respects the
+.B %%PageOrder:
+comment:
+if this comment is present and has an argument other than
+.B Ascend
+the document will not be reversed.
+A document reversed by
+.B psrev
+will contain a
+.B %%PageOrder:\ Descend
+comment.
+.SH "SEE ALSO"
+.BR textps (1),
+.BR lprps (8),
+.BR psif (8)

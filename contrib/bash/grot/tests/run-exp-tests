@@ -1,0 +1,2 @@
+../bash ./expansion-tests | grep -v '^expect' > xx
+diff xx expansion-tests.right && rm -f xx

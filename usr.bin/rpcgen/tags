@@ -1,0 +1,101 @@
+Mrpc_main	rpc_main.c	/^main(argc, argv)$/
+ampr	rpc_clntout.c	/^ampr(type)$/
+c_output	rpc_main.c	/^c_output(infile, define, extend, outfile)$/
+cppline	rpc_scan.c	/^cppline(line)$/
+crash	rpc_util.c	/^crash()$/
+def_const	rpc_parse.c	/^def_const(defp)$/
+def_enum	rpc_parse.c	/^def_enum(defp)$/
+def_program	rpc_parse.c	/^def_program(defp)$/
+def_struct	rpc_parse.c	/^def_struct(defp)$/
+def_typedef	rpc_parse.c	/^def_typedef(defp)$/
+def_union	rpc_parse.c	/^def_union(defp)$/
+define_printed	rpc_hout.c	/^define_printed(stop, start)$/
+directive	rpc_scan.c	/^directive(line)$/
+do_registers	rpc_main.c	/^do_registers(argc, argv)$/
+docppline	rpc_scan.c	/^docppline(line, lineno, fname)$/
+emit	rpc_cout.c	/^emit(def)$/
+emit_enum	rpc_cout.c	/^emit_enum(def)$/
+emit_struct	rpc_cout.c	/^emit_struct(def)$/
+emit_typedef	rpc_cout.c	/^emit_typedef(def)$/
+emit_union	rpc_cout.c	/^emit_union(def)$/
+endcomment	rpc_scan.c	/^#define endcomment(where) (where[-1] == '*' && whe/
+error	rpc_util.c	/^error(msg)$/
+expected1	rpc_util.c	/^expected1(exp1)$/
+expected2	rpc_util.c	/^expected2(exp1, exp2)$/
+expected3	rpc_util.c	/^expected3(exp1, exp2, exp3)$/
+extendfile	rpc_main.c	/^extendfile(file, ext)$/
+findconst	rpc_scan.c	/^findconst(str, val)$/
+findit	rpc_util.c	/^findit(def, type)$/
+findkind	rpc_scan.c	/^findkind(mark, tokp)$/
+findstrconst	rpc_scan.c	/^findstrconst(str, val)$/
+findtype	rpc_cout.c	/^findtype(def, type)$/
+findval	rpc_util.c	/^findval(lst, val, cmp)$/
+fixit	rpc_util.c	/^fixit(type, orig)$/
+fixtype	rpc_util.c	/^fixtype(type)$/
+get_declaration	rpc_parse.c	/^get_declaration(dec, dkind)$/
+get_definition	rpc_parse.c	/^get_definition()$/
+get_token	rpc_scan.c	/^get_token(tokp)$/
+get_type	rpc_parse.c	/^get_type(prefixp, typep, dkind)$/
+h_output	rpc_main.c	/^h_output(infile, define, extend, outfile)$/
+isdefined	rpc_parse.c	/^isdefined(defp)$/
+isvectordef	rpc_util.c	/^isvectordef(type, rel)$/
+l_output	rpc_main.c	/^l_output(infile, define, extend, outfile)$/
+locase	rpc_util.c	/^locase(str)$/
+nullproc	rpc_svcout.c	/^nullproc(proc)$/
+open_input	rpc_main.c	/^open_input(infile, define)$/
+open_output	rpc_main.c	/^open_output(infile, outfile)$/
+parseargs	rpc_main.c	/^parseargs(argc, argv, cmd)$/
+pconstdef	rpc_hout.c	/^pconstdef(def)$/
+pdeclaration	rpc_hout.c	/^pdeclaration(name, dec, tab)$/
+pdefine	rpc_hout.c	/^pdefine(name, num)$/
+peek	rpc_scan.c	/^peek(tokp)$/
+peekscan	rpc_scan.c	/^peekscan(expect, tokp)$/
+penumdef	rpc_hout.c	/^penumdef(def)$/
+pprocdef	rpc_hout.c	/^pprocdef(proc, vp)$/
+pprogramdef	rpc_hout.c	/^pprogramdef(def)$/
+print_datadef	rpc_hout.c	/^print_datadef(def)$/
+print_header	rpc_cout.c	/^print_header(def)$/
+print_ifarg	rpc_cout.c	/^print_ifarg(arg)$/
+print_ifclose	rpc_cout.c	/^print_ifclose(indent)$/
+print_ifopen	rpc_cout.c	/^print_ifopen(indent, name)$/
+print_ifsizeof	rpc_cout.c	/^print_ifsizeof(prefix, type)$/
+print_ifstat	rpc_cout.c	/^print_ifstat(indent, prefix, type, rel, amax, objn/
+print_stat	rpc_cout.c	/^print_stat(dec)$/
+print_trailer	rpc_cout.c	/^print_trailer()$/
+printbody	rpc_clntout.c	/^printbody(proc)$/
+printbuf	rpc_util.c	/^printbuf()$/
+printdirective	rpc_scan.c	/^printdirective(line)$/
+printerr	rpc_svcout.c	/^printerr(err, transp)$/
+printif	rpc_svcout.c	/^printif(proc, transp, prefix, arg)$/
+printwhere	rpc_util.c	/^printwhere()$/
+pstructdef	rpc_hout.c	/^pstructdef(def)$/
+ptype	rpc_util.c	/^ptype(prefix, type, follow)$/
+ptypedef	rpc_hout.c	/^ptypedef(def)$/
+puldefine	rpc_hout.c	/^puldefine(name, num)$/
+puniondef	rpc_hout.c	/^puniondef(def)$/
+pvname	rpc_util.c	/^pvname(pname, vnum)$/
+record_open	rpc_util.c	/^record_open(file)$/
+reinitialize	rpc_util.c	/^reinitialize()$/
+s_output	rpc_main.c	/^s_output(argc, argv, infile, define, extend, outfi/
+scan	rpc_scan.c	/^scan(expect, tokp)$/
+scan2	rpc_scan.c	/^scan2(expect1, expect2, tokp)$/
+scan3	rpc_scan.c	/^scan3(expect1, expect2, expect3, tokp)$/
+scan_num	rpc_scan.c	/^scan_num(tokp)$/
+space	rpc_cout.c	/^space()$/
+startcomment	rpc_scan.c	/^#define startcomment(where) (where[0] == '\/' && w/
+storeval	rpc_util.c	/^storeval(lstp, val)$/
+streq	rpc_util.c	/^streq(a, b)$/
+stringfix	rpc_util.c	/^stringfix(type)$/
+tabify	rpc_util.c	/^tabify(f, tab)$/
+toktostr	rpc_util.c	/^toktostr(kind)$/
+typedefed	rpc_util.c	/^typedefed(def, type)$/
+undefined	rpc_cout.c	/^undefined(type)$/
+undefined2	rpc_hout.c	/^undefined2(type, stop)$/
+unget_token	rpc_scan.c	/^unget_token(tokp)$/
+unsigned_dec	rpc_parse.c	/^unsigned_dec(typep)$/
+write_most	rpc_svcout.c	/^write_most()$/
+write_program	rpc_svcout.c	/^write_program(def, storage)$/
+write_programs	rpc_svcout.c	/^write_programs(storage)$/
+write_register	rpc_svcout.c	/^write_register(transp)$/
+write_rest	rpc_svcout.c	/^write_rest()$/
+write_stubs	rpc_clntout.c	/^write_stubs()$/

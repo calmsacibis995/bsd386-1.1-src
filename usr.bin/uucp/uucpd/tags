@@ -1,0 +1,16 @@
+LOG	uucpd.c	/^#define	LOG(L,A)	if(LogLevel>=L)Log A$/
+Muucpd	uucpd.c	/^main($/
+catch	uucpd.c	/^catch($/
+catchterm	uucpd.c	/^catchterm($/
+finish	uucpd.c	/^finish($/
+ignore	uucpd.c	/^ignore($/
+inlog	uucpd.c	/^inlog($/
+logoff	uucpd.c	/^logoff($/
+logon	uucpd.c	/^logon($/
+no_tty	uucpd.c	/^no_tty()$/
+outlog	uucpd.c	/^outlog($/
+readline	uucpd.c	/^readline($/
+server	uucpd.c	/^server()$/
+service	uucpd.c	/^service()$/
+uucpd_args	uucpd.c	/^uucpd_args($/
+waitchild	uucpd.c	/^waitchild()$/

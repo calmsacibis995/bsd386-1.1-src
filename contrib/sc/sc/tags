@@ -1,0 +1,232 @@
+EvalAll	interp.c	/^EvalAll () {$/
+GROWALLOC	vmtbl.c	/^#define GROWALLOC(newptr, oldptr, nelem, type, msg/
+ISVALID	interp.c	/^#define ISVALID(r,c)	((r)>=0 && (r)<maxrows && (c)/
+Mhelp	help.c	/^main()$/
+Msc	sc.c	/^main (argc, argv)$/
+RealEvalAll	interp.c	/^RealEvalAll () {$/
+RealEvalOne	interp.c	/^RealEvalOne(p, i, j, chgct)$/
+VMS_MSG	lex.c	/^VMS_MSG (status)$/
+VMScheck	lex.c	/^#define VMScheck(a) {if (~(status = (a)) & 1) VMS_/
+add_range	range.c	/^add_range(name, left, right, is_range)$/
+any_locked_cells	sc.c	/^any_locked_cells(r1, c1, r2, c2)$/
+append_line	vi.c	/^append_line()$/
+are_ranges	range.c	/^are_ranges()$/
+atocol	lex.c	/^atocol (string, len)$/
+back_hist	vi.c	/^back_hist()$/
+back_line	vi.c	/^back_line()$/
+back_space	vi.c	/^back_space()$/
+back_word	vi.c	/^back_word()$/
+backcol	cmds.c	/^backcol(arg)$/
+backrow	cmds.c	/^backrow(arg)$/
+backup_file	cmds.c	/^backup_file(path)$/
+change_cmd	vi.c	/^change_cmd()$/
+charout	lex.c	/^charout(c)$/
+checkbounds	vmtbl.c	/^checkbounds(rowp, colp)$/
+clean_range	range.c	/^clean_range()$/
+clearent	interp.c	/^clearent (v)$/
+closecol	cmds.c	/^closecol (cs, numcol)$/
+closeout	cmds.c	/^closeout(f, pid)$/
+closerow	cmds.c	/^closerow (r)$/
+col_0	vi.c	/^col_0()$/
+colshow_op	cmds.c	/^colshow_op()$/
+coltoa	interp.c	/^coltoa(col)$/
+constant	interp.c	/^constant (e)$/
+convert_date	cmds.c	/^double convert_date(d, m, y)$/
+copy	interp.c	/^copy(dv1, dv2, v1, v2)$/
+copye	cmds.c	/^copye (e, Rdelta, Cdelta)$/
+copyent	cmds.c	/^copyent(n,p,dr,dc)$/
+copyrtv	interp.c	/^copyrtv(vr, vc, minsr, minsc, maxsr, maxsc)$/
+cr_line	vi.c	/^cr_line()$/
+creadfile	crypt.c	/^creadfile (save, eraseflg)$/
+cwritefile	crypt.c	/^cwritefile (fname, r0, c0, rn, cn)$/
+decodev	interp.c	/^decodev (v)$/
+decompile	interp.c	/^decompile(e, priority)$/
+decompile_list	interp.c	/^decompile_list(p)$/
+del_chars	vi.c	/^del_chars(first, last)$/
+del_in_line	vi.c	/^del_in_line()$/
+del_range	range.c	/^del_range(left, right)$/
+del_to_end	vi.c	/^del_to_end()$/
+delete_cmd	vi.c	/^delete_cmd()$/
+deleterow	cmds.c	/^deleterow(arg)$/
+deraw	screen.c	/^deraw()$/
+diesave	sc.c	/^diesave()$/
+doavg	interp.c	/^doavg(minr, minc, maxr, maxc)$/
+docapital	interp.c	/^docapital( s )$/
+docase	interp.c	/^docase( acase, s)$/
+docat	interp.c	/^docat(s1, s2)$/
+docount	interp.c	/^docount(minr, minc, maxr, maxc)$/
+dodate	interp.c	/^dodate(tloc)$/
+dodts	interp.c	/^dodts(mo, day, yr)$/
+doend	cmds.c	/^doend(rowinc, colinc)$/
+doeqs	interp.c	/^doeqs(s1, s2)$/
+doext	interp.c	/^doext(command, value)$/
+dofmt	interp.c	/^dofmt(fmtstr, v)$/
+doformat	cmds.c	/^doformat(c1,c2,w,p,r)$/
+doindex	interp.c	/^doindex( val, minr, minc, maxr, maxc)$/
+dolmax	interp.c	/^dolmax(ep)$/
+dolmin	interp.c	/^dolmin(ep)$/
+dolookup	interp.c	/^dolookup( val, minr, minc, maxr, maxc, offr, offc)/
+domax	interp.c	/^domax(minr, minc, maxr, maxc)$/
+domin	interp.c	/^domin(minr, minc, maxr, maxc)$/
+donval	interp.c	/^donval (colstr, rowdoub)$/
+doprod	interp.c	/^doprod(minr, minc, maxr, maxc)$/
+doquit	sc.c	/^doquit()$/
+dostddev	interp.c	/^dostddev(minr, minc, maxr, maxc)$/
+dostindex	interp.c	/^dostindex( val, minr, minc, maxr, maxc)$/
+doston	interp.c	/^doston(s)$/
+dosubstr	interp.c	/^dosubstr(s, v1, v2)$/
+dosum	interp.c	/^dosum(minr, minc, maxr, maxc)$/
+dosval	interp.c	/^dosval (colstr, rowdoub)$/
+dotcmd	vi.c	/^dotcmd()$/
+dotime	interp.c	/^dotime(which, when)$/
+dotts	interp.c	/^dotts(hr, min, sec)$/
+dtr	interp.c	/^#define dtr(x) ((x)*(PI\/(double)180.0))$/
+dump_me	sc.c	/^dump_me()$/
+dupcol	cmds.c	/^dupcol() $/
+duprow	cmds.c	/^duprow()$/
+edit_mode	vi.c	/^edit_mode()$/
+editexp	interp.c	/^editexp(row,col)$/
+editfmt	interp.c	/^editfmt (row, col)$/
+edits	interp.c	/^edits (row, col)$/
+editv	interp.c	/^editv (row, col)$/
+efree	interp.c	/^efree (e)$/
+engformat	format.c	/^engformat(fmt, width, lprecision, val, buf, buflen/
+erase_area	cmds.c	/^erase_area(sr, sc, er, ec)$/
+erasedb	cmds.c	/^erasedb ()$/
+eraser	interp.c	/^eraser(v1, v2)$/
+err_out	lex.c	/^#define err_out(msg) fprintf (stderr,msg)$/
+etype	cmds.c	/^etype(e)$/
+eval	interp.c	/^eval(e)$/
+eval_fpe	interp.c	/^eval_fpe() \/* Trap for FPE errors in eval *\/$/
+fatal	xmalloc.c	/^fatal(str)$/
+fill	interp.c	/^fill (v1, v2, start, inc)$/
+find_char	vi.c	/^find_char()$/
+find_range	range.c	/^find_range(name, len, lmatch, rmatch)$/
+findhome	cmds.c	/^findhome(path)$/
+finfunc	interp.c	/^double finfunc(fun,v1,v2,v3)$/
+flush_saved	sc.c	/^flush_saved()$/
+fmt_exp	format.c	/^fmt_exp(val, fmt)$/
+fmt_frac	format.c	/^fmt_frac(val, fmt)$/
+fmt_int	format.c	/^fmt_int(val, fmt, comma, negative)$/
+fn1_eval	interp.c	/^double fn1_eval(fn, arg)$/
+fn2_eval	interp.c	/^double fn2_eval(fn, arg1, arg2)$/
+for	vmtbl.c	/^	for (; i < newrows; i++)$/
+for_hist	vi.c	/^for_hist()$/
+for_line	vi.c	/^for_line(stop_null)$/
+for_word	vi.c	/^for_word(stop_null)$/
+format	format.c	/^format(fmt, val, buf, buflen)$/
+format_cell	interp.c	/^format_cell(v1, v2, s)$/
+forwcol	cmds.c	/^forwcol(arg)$/
+forwrow	cmds.c	/^forwrow(arg)$/
+fpe_trap	lex.c	/^fpe_trap(signo)$/
+free_ent	sc.c	/^free_ent(p)$/
+g_free	interp.c	/^g_free()$/
+get_motion	vi.c	/^get_motion()$/
+get_rcqual	cmds.c	/^get_rcqual (ch)$/
+getent	interp.c	/^getent (colstr, rowdoub)$/
+go_last	interp.c	/^go_last()$/
+goraw	screen.c	/^goraw()$/
+growtbl	vmtbl.c	/^growtbl(rowcol, toprow, topcol)$/
+help	help.c	/^help()$/
+hide_col	interp.c	/^hide_col(arg)$/
+hide_row	interp.c	/^hide_row(arg)$/
+hidecol	cmds.c	/^hidecol(arg)$/
+hiderow	cmds.c	/^hiderow(arg)$/
+index_arg	interp.c	/^index_arg(s, e)$/
+initkbd	lex.c	/^initkbd()$/
+ins_in_line	vi.c	/^ins_in_line(c)$/
+ins_string	vi.c	/^ins_string(s)$/
+insert_mode	vi.c	/^insert_mode()$/
+insertrow	cmds.c	/^insertrow(arg)$/
+istext	vi.c	/^#define istext(a) (isalnum(a) || ((a) == '_'))$/
+kbd_again	lex.c	/^kbd_again()$/
+label	interp.c	/^label (v, s, flushdir)$/
+last_col	vi.c	/^last_col()$/
+let	interp.c	/^let (v, e)$/
+list_arg	interp.c	/^list_arg(s, e)$/
+list_range	range.c	/^list_range(f)$/
+lock_cells	interp.c	/^lock_cells (v1, v2)$/
+locked_cell	sc.c	/^locked_cell (r, c)$/
+lookat	sc.c	/^lookat(row,col)$/
+modcheck	sc.c	/^modcheck(endstr)$/
+moveto	interp.c	/^moveto(row, col)$/
+new	interp.c	/^new(op, a1, a2)$/
+new_const	interp.c	/^new_const(op, a1)$/
+new_range	interp.c	/^new_range(op, a1)$/
+new_str	interp.c	/^new_str(s)$/
+new_var	interp.c	/^new_var(op, a1)$/
+nl	screen.c	/^#define nl()	 (_tty.sg_flags |= CRMOD,_pfast = _ra/
+nmgetch	lex.c	/^nmgetch()$/
+nonl	screen.c	/^#define nonl()	 (_tty.sg_flags &= ~CRMOD, _pfast =/
+notimeout	lex.c	/^#define	notimeout(a1, a2)$/
+num_search	interp.c	/^num_search(n, errsearch)$/
+one_arg	interp.c	/^one_arg(s, e)$/
+opencol	cmds.c	/^opencol (cs, numcol)$/
+openout	cmds.c	/^openout(fname, rpid)$/
+openrow	cmds.c	/^openrow (rs)$/
+print_options	cmds.c	/^print_options(f)$/
+printfile	cmds.c	/^printfile (fname, r0, c0, rn, cn)$/
+pscreen	help.c	/^pscreen(screen)$/
+pullcells	cmds.c	/^pullcells(to_insert)$/
+r_name	range.c	/^r_name(r1, c1, r2, c2)$/
+range_arg	interp.c	/^range_arg(s,e)$/
+readfile	cmds.c	/^readfile (fname,eraseflg)$/
+rep_char	vi.c	/^rep_char()$/
+repaint	screen.c	/^repaint(x, y, len)$/
+replace_in_line	vi.c	/^replace_in_line(c)$/
+replace_mode	vi.c	/^replace_mode()$/
+resetkbd	lex.c	/^resetkbd()$/
+restore_it	vi.c	/^restore_it()$/
+reverse	format.c	/^reverse(buf)$/
+rint	interp.c	/^double rint(d) double d;$/
+rowshow_op	cmds.c	/^rowshow_op()$/
+rtd	interp.c	/^#define rtd(x) ((x)*(180.0\/(double)PI))$/
+save_hist	vi.c	/^save_hist()$/
+savedot	vi.c	/^savedot(c)$/
+scxfree	xmalloc.c	/^scxfree(p)$/
+scxmalloc	xmalloc.c	/^scxmalloc(n)$/
+scxrealloc	xmalloc.c	/^scxrealloc(ptr, n)$/
+search_again	vi.c	/^search_again()$/
+search_hist	vi.c	/^search_hist()$/
+search_mode	vi.c	/^search_mode()$/
+setauto	sc.c	/^setauto(i)$/
+setiterations	interp.c	/^setiterations(i)$/
+setorder	sc.c	/^setorder(i)$/
+seval	interp.c	/^seval(se)$/
+showcol	cmds.c	/^showcol(c1, c2)$/
+showdr	sc.c	/^showdr()$/
+showrow	cmds.c	/^showrow(r1, r2)$/
+showstring	cmds.c	/^showstring (string, dirflush, hasvalue, row, col, /
+signals	sc.c	/^signals()$/
+slet	interp.c	/^slet (v, se, flushdir)$/
+startdisp	screen.c	/^startdisp()$/
+startshow	sc.c	/^startshow()$/
+stop_edit	vi.c	/^stop_edit()$/
+stopdisp	screen.c	/^stopdisp()$/
+str_search	interp.c	/^str_search(s)$/
+strtof	lex.c	/^strtof(p, res)$/
+sync_ranges	range.c	/^sync_ranges()$/
+sync_refs	cmds.c	/^sync_refs ()$/
+syncref	cmds.c	/^syncref(e)$/
+tblprintfile	cmds.c	/^tblprintfile (fname, r0, c0, rn, cn)$/
+three_arg	interp.c	/^three_arg(s,e)$/
+time_out	lex.c	/^time_out(signo)$/
+to_char	vi.c	/^to_char()$/
+two_arg	interp.c	/^two_arg(s,e)$/
+two_arg_index	interp.c	/^two_arg_index(s, e)$/
+u_save	vi.c	/^u_save(c)$/
+unlock_cells	interp.c	/^unlock_cells (v1, v2)$/
+unspecial	cmds.c	/^unspecial(f, str, delim)$/
+update	screen.c	/^update (anychanged)$/
+v_name	range.c	/^v_name(row, col)$/
+valueize_area	cmds.c	/^valueize_area(sr, sc, er, ec)$/
+vigetch	vi.c	/^vigetch()$/
+winchg	sc.c	/^winchg()$/
+write_fd	cmds.c	/^write_fd (f, r0, c0, rn, cn)$/
+write_line	vi.c	/^write_line(c)$/
+write_range	range.c	/^write_range(f)$/
+writefile	cmds.c	/^writefile (fname, r0, c0, rn, cn)$/
+yn_ask	cmds.c	/^yn_ask(msg)$/
+yyerror	screen.c	/^yyerror(err)$/
+yylex	lex.c	/^yylex ()$/
+yyparse	gram.c	/^yyparse()$/

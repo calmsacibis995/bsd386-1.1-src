@@ -1,0 +1,5 @@
+     vared name
+          The value of the parameter name is loaded into the edit
+          buffer,  and the line editor is invoked.  When the edi-
+          tor exits, name is set to the string value returned  by
+          the editor.

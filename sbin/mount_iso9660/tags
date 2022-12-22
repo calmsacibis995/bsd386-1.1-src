@@ -1,0 +1,2 @@
+Mmount_iso9660	mount_iso9660.c	/^main(argc, argv)$/
+usage	mount_iso9660.c	/^usage()$/

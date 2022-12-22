@@ -1,0 +1,14 @@
+F ACLOCAL.M4;1                      	aclocal.m4
+F ADOBE.;1                          	adobe
+F CHANGES.;1                        	CHANGES
+F CONFIGUR.;1                       	configure
+F CONFIGUR.IN;1                     	configure.in
+F INSTALLA.;1                       	INSTALLATION
+F MAKEFIL0.;1                       	Makefile
+F MAKEFIL1.;1                       	Makefile,v
+F MAKEFILE.IN;1                     	Makefile.in
+F MAKEFILE.IN_;1                    	Makefile.in,v
+D PC                                	pc
+F README.;1                         	README
+D VMCMS                             	vmcms
+D VMS                               	vms

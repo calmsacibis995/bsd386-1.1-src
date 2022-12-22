@@ -1,0 +1,6 @@
+Mvgafont	vgafont.c	/^main(ac, av)$/
+gethex	vgafont.c	/^gethex(pp)$/
+inb	vgafont.c	/^inb(port)$/
+outb	vgafont.c	/^outb(port, val)$/
+resetvga	vgafont.c	/^resetvga()$/
+setvga	vgafont.c	/^setvga()$/

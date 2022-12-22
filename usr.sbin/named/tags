@@ -1,0 +1,169 @@
+AddToBuf	db_dump.c	/^#define AddToBuf(bufp, c) **bufp = c; (*bufp)++;$/
+DE	db_dump.c	/^#define DE(c) ((c) - '!')$/
+EN	db_dump.c	/^#define EN(c)	((int) ((c) + '!'))$/
+InitDynUpdate	ns_req.c	/^InitDynUpdate(hp, msg, msglen, startcp, from, qsp,/
+MkCredStr	db_dump.c	/^MkCredStr(cred)$/
+Mns_main	ns_main.c	/^main(argc, argv, envp)$/
+RTTROUND	ns_forw.c	/^#define RTTROUND(rtt) (((rtt) + (NOISE >> 1)) & ~(/
+aIsUs	ns_forw.c	/^aIsUs(addr)$/
+abortxfer	ns_maint.c	/^abortxfer(zp)$/
+add_data	ns_resp.c	/^add_data(np, dpp, cp, buflen)$/
+addinv	db_glue.c	/^addinv(np, dp)$/
+addname	ns_req.c	/^addname(name, class)$/
+atob	db_dump.c	/^atob(inbuf, inbuflen, outbuf, outbuflen, numbytes)/
+boot_read	ns_init.c	/^boot_read(bootfile)$/
+btoa	db_dump.c	/^btoa(inbuf, inbuflen, outbuf, outbuflen)$/
+build_secure_netlist	db_secure.c	/^int build_secure_netlist(zp)$/
+buildprotolist	db_glue.c	/^buildprotolist()$/
+buildservicelist	db_glue.c	/^buildservicelist()$/
+byte_atob	db_dump.c	/^byte_atob(c, bufp)$/
+byte_btoa	db_dump.c	/^byte_btoa(c, bufp)$/
+cache_n_resp	ns_ncache.c	/^cache_n_resp(msg, msglen)$/
+cgetprotobynumber	db_glue.c	/^cgetprotobynumber(proto)$/
+cgetservbyport	db_glue.c	/^cgetservbyport(port, proto)$/
+check_addr_ns	ns_validate.c	/^check_addr_ns(nsp, server, dname)$/
+check_in_tables	ns_validate.c	/^check_in_tables(nsp, server, syslogdname)$/
+check_ns	ns_resp.c	/^check_ns()$/
+check_root	ns_resp.c	/^check_root()$/
+content_zone	ns_init.c	/^content_zone(end) $/
+db_cmp	db_update.c	/^db_cmp(dp1, dp2)$/
+db_dump	db_dump.c	/^db_dump(htp, fp, zone, origin)$/
+db_free	db_reload.c	/^db_free(htp)$/
+db_getclev	db_glue.c	/^db_getclev(origin)$/
+db_load	db_load.c	/^db_load(filename, in_origin, zp, doinginclude)$/
+db_reload	db_reload.c	/^db_reload()$/
+db_update	db_update.c	/^db_update(name, odp, newdp, flags, htp)$/
+delete_all	ns_resp.c	/^delete_all(np, class, type)$/
+dhash	db_glue.c	/^dhash(dp, dlen)$/
+doachkpt	db_dump.c	/^doachkpt()$/
+doaddauth	ns_req.c	/^doaddauth(hp, cp, buflen, np, dp)$/
+doaddinfo	ns_req.c	/^doaddinfo(hp, msg, msglen)$/
+doadump	db_dump.c	/^doadump()$/
+doaxfr	ns_req.c	/^doaxfr(np, rfp, top, class)$/
+doupdate	ns_resp.c	/^doupdate(msg, msglen, rrp, zone, savens, flags$/
+dovalidate	ns_validate.c	/^dovalidate(msg, msglen, rrp, zone, flags, server, /
+endline	db_load.c	/^endline(fp)$/
+endxfer	ns_maint.c	/^endxfer()$/
+find_zone	ns_init.c	/^find_zone(name, type, class) $/
+finddata	ns_resp.c	/^finddata(np, class, type, hp, dnamep, lenp, countp/
+findnetinfo	ns_main.c	/^findnetinfo(addr)$/
+findns	ns_resp.c	/^findns(npp, class, nsp, countp, flag)$/
+findservice	db_glue.c	/^findservice(s, list)$/
+findzone	ns_init.c	/^findzone(dname, class)$/
+fixttl	db_update.c	/^fixttl(dp)$/
+free_addinfo	ns_req.c	/^free_addinfo()$/
+free_forwarders	ns_init.c	/^free_forwarders()$/
+free_netlist	db_load.c	/^free_netlist(netlistp)$/
+free_nsp	ns_req.c	/^free_nsp(nsp)$/
+fwritemsg	ns_req.c	/^fwritemsg(rfp, msg, msglen)$/
+get_class	db_glue.c	/^get_class(class)$/
+get_forwarders	ns_init.c	/^get_forwarders(fp)$/
+get_netlist	db_load.c	/^get_netlist(fp, netlistp, allow, print_tag)$/
+getdtablesize	db_glue.c	/^getdtablesize()$/
+getname	db_glue.c	/^getname(np, buf, buflen)$/
+getnetconf	ns_main.c	/^getnetconf()$/
+getnonblank	db_load.c	/^getnonblank(fp, src)$/
+getnum	db_load.c	/^getnum(fp, src, is_serial)$/
+getprotocol	db_load.c	/^getprotocol(fp, src)$/
+getservices	db_load.c	/^getservices(n, data, fp, src)$/
+gettime	db_glue.c	/^gettime(ttp)$/
+gettoken	db_load.c	/^gettoken(fp, src)$/
+getword	db_load.c	/^getword(buf, size, fp)$/
+haveComplained	ns_forw.c	/^haveComplained(tag1, tag2)$/
+isRefByNS	db_update.c	/^isRefByNS(name, htp)$/
+isvalid	ns_validate.c	/^isvalid(np, type, class, data, dlen)$/
+local	ns_sort.c	/^local(from)$/
+maint_alarm	ns_main.c	/^maint_alarm()$/
+make_rr	ns_req.c	/^make_rr(name, dp, buf, buflen, doadd)$/
+makename	db_load.c	/^makename(name, origin)$/
+markUpToDate	ns_maint.c	/^markUpToDate(zp)$/
+mark_cache	db_dump.c	/^mark_cache(htp, ttl)$/
+match	db_lookup.c	/^match(dp, class, type)$/
+my_close	db_glue.c	/^my_close(fd)$/
+my_fclose	db_glue.c	/^my_fclose(fp)$/
+my_max	ns_main.c	/^#define my_max(a, b) (a > b ? a : b)$/
+my_size	ns_main.c	/^#define my_size(p)	my_max((p).sa_len, sizeof(p))$/
+net_mask	ns_main.c	/^net_mask(in)$/
+net_on_netlist	db_load.c	/^net_on_netlist(addr, netlist)$/
+nlookup	db_lookup.c	/^nlookup(name, htpp, fname, insert)$/
+ns_forw	ns_forw.c	/^ns_forw(nsp, msg, msglen, fp, qsp, dfd, qpp, dname/
+ns_init	ns_init.c	/^ns_init(bootfile)$/
+ns_maint	ns_maint.c	/^ns_maint()$/
+ns_req	ns_req.c	/^ns_req(msg, msglen, buflen, qsp, from, dfd)$/
+ns_resp	ns_resp.c	/^ns_resp(msg, msglen)$/
+ns_stats	ns_stats.c	/^ns_stats()$/
+nslookup	ns_forw.c	/^nslookup(nsp, qp, syslogdname, sysloginfo)$/
+nslookupComplain	ns_forw.c	/^nslookupComplain(sysloginfo, queryname, complaint,/
+onhup	ns_main.c	/^onhup()$/
+onintr	ns_main.c	/^onintr()$/
+opensocket	ns_main.c	/^opensocket(dqp)$/
+position_on_netlist	db_load.c	/^position_on_netlist(addr, netlist)$/
+prime	ns_resp.c	/^prime(class, type, oqp)$/
+prime_cache	ns_resp.c	/^prime_cache()$/
+printSOAdata	ns_req.c	/^printSOAdata(dp)$/
+printnetinfo	ns_main.c	/^printnetinfo(ntp)$/
+printzoneinfo	ns_maint.c	/^printzoneinfo(zonenum)$/
+proctitle	ns_main.c	/^proctitle(a, s)$/
+protocolname	db_glue.c	/^protocolname(num)$/
+protocolnumber	db_glue.c	/^protocolnumber(p)$/
+putbyte	db_dump.c	/^putbyte(c, bufp)$/
+qcomp	ns_forw.c	/^qcomp(qs1, qs2)$/
+qfindid	ns_forw.c	/^qfindid(id)$/
+qflush	ns_forw.c	/^qflush()$/
+qfree	ns_forw.c	/^qfree(qp)$/
+qnew_tagged	ns_forw.c	/^qnew_tagged(file, line)$/
+qremove	ns_forw.c	/^qremove(qp)$/
+qserial_answer	ns_maint.c	/^qserial_answer(qp, serial)$/
+qserial_query	ns_maint.c	/^qserial_query(zp)$/
+remove_zone	ns_maint.c	/^remove_zone(htp, zone)$/
+req_iquery	ns_req.c	/^req_iquery(hp, cpp, eom, buflenp, msg)$/
+req_query	ns_req.c	/^req_query(hp, cpp, eom, qsp, buflenp, msglenp, msg/
+retry	ns_forw.c	/^retry(qp)$/
+retrytime	ns_forw.c	/^retrytime(qp)$/
+rm_datum	db_glue.c	/^rm_datum(dp, np, pdp)$/
+rm_name	db_glue.c	/^rm_name(np, pp, pnp)$/
+rminv	db_glue.c	/^rminv(odp)$/
+savedata_tagged	db_save.c	/^savedata_tagged(file, line, class, type, ttl, data/
+savehash	db_save.c	/^savehash(oldhtp)$/
+saveinv	db_glue.c	/^saveinv()$/
+savename	db_save.c	/^savename(name)$/
+savestr	db_glue.c	/^savestr(str)$/
+scan_root	db_dump.c	/^scan_root(htp)$/
+sched_maint	ns_maint.c	/^sched_maint()$/
+schedretry	ns_forw.c	/^schedretry(qp, t)$/
+send_msg	ns_resp.c	/^send_msg(msg, msglen, qp)$/
+servicename	db_glue.c	/^servicename(port, proto)$/
+servicenumber	db_glue.c	/^servicenumber(p)$/
+setIncrDbgFlg	ns_main.c	/^setIncrDbgFlg()$/
+setNoDbgFlg	ns_main.c	/^setNoDbgFlg()$/
+setQrylogFlg	ns_main.c	/^setQrylogFlg()$/
+setchkptflg	ns_main.c	/^setchkptflg()$/
+setdebug	ns_main.c	/^setdebug(code)$/
+setdumpflg	ns_main.c	/^setdumpflg()$/
+setstatsflg	ns_main.c	/^setstatsflg()$/
+sign	ns_forw.c	/^#define sign(x) (((x) < 0) ? -1 : ((x) > 0) ? 1 : /
+sigprof	ns_main.c	/^sigprof()$/
+sort_response	ns_sort.c	/^sort_response(cp, ancount, lp, eom)$/
+sort_rr	ns_sort.c	/^sort_rr(cp, count, ntp, eom)$/
+sq_done	ns_main.c	/^sq_done(sp)$/
+sq_here	ns_main.c	/^sq_here(sp)$/
+sq_query	ns_main.c	/^sq_query(sp)$/
+sqadd	ns_main.c	/^sqadd()$/
+sqflush	ns_main.c	/^sqflush()$/
+sqrm	ns_main.c	/^sqrm(qp)$/
+stale	ns_req.c	/^stale(dp)$/
+startxfer	ns_maint.c	/^startxfer(zp)$/
+startxfr	ns_req.c	/^startxfr(qsp, np, msg, msglen, class)$/
+stick_in_queue	ns_validate.c	/^stick_in_queue(dname, type, class, data)$/
+store_name_addr	ns_validate.c	/^store_name_addr(servername, serveraddr, syslogdnam/
+sysquery	ns_resp.c	/^sysquery(dname, class, type, nss, nsc)$/
+tape	version.c	/^Version distributed with 4.3 Reno tape (June 1990)/
+times85	db_dump.c	/^#define times85(x)	((((((x<<2)+x)<<2)+x)<<2)+x)$/
+unsched	ns_forw.c	/^unsched(qp)$/
+update_msg	ns_validate.c	/^update_msg(msg, msglen, Vlist, c)$/
+usage	ns_main.c	/^usage()$/
+validate	ns_validate.c	/^validate(dname, server, type, class, data, dlen$/
+wanted	ns_resp.c	/^wanted(dp, class, type)$/
+writemsg	db_glue.c	/^writemsg(rfd, msg, msglen)$/
+zonedump	db_dump.c	/^zonedump(zp)$/
+zoneinit	ns_init.c	/^zoneinit(zp)$/

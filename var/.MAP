@@ -1,0 +1,14 @@
+D ACCOUNT                           	account
+D AT                                	at
+D BACKUPS                           	backups
+D DB                                	db
+D GAMES                             	games
+D LOG                               	log
+D MAIL                              	mail
+D MSGS                              	msgs
+D PRESERVE                          	preserve
+D QUOTAS                            	quotas
+D RUN                               	run
+D RWHO                              	rwho
+D SPOOL                             	spool
+D TMP                               	tmp

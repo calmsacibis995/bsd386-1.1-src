@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/tcpdump/tcpslice
+F TAGS.;1                           	tags
+F TCPSLICE.1;1                      	tcpslice.1
+F TCPSLICE.C;1                      	tcpslice.c

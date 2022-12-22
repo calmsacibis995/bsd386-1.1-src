@@ -1,0 +1,1352 @@
+#!/bin/sh
+# to extract, remove the header and type "sh filename"
+if `test ! -s ./sem.c`
+then
+echo "writing ./sem.c"
+cat > ./sem.c << '\End\Of\Shar\'
+/******************************************************************************
+
+VERSION $Id: smbm,v 1.2 1993/02/05 21:53:41 polk Exp $
+PACKAGE: 	User Level Semaphore Manager
+
+DESCRIPTION: 	
+
+ROUTINES: 
+    External
+	create_sem
+	get_sem
+	release_sem
+	destroy_sems
+    Internal
+
+******************************************************************************/
+/* INCLUDES */
+#include <stdio.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <assert.h>
+#include "semkeys.h"
+#include <sys/ipc.h>
+#include <sys/sem.h>
+
+#ifndef SEMMAP
+#define SEMMAP  10
+#endif
+#ifndef SEMMNI
+#define SEMMNI  10
+#endif
+#ifndef SEMMNS
+#define SEMMNS  60
+#endif
+#ifndef SEMMNU
+#define SEMMNU  30
+#endif
+#ifndef SEMMSL
+#define SEMMSL  25
+#endif
+#ifndef SEMOPM
+#define SEMOPM  10
+#endif
+#ifndef SEMUME
+#define SEMUME  10
+#endif
+#ifndef SEMVMX
+#define SEMVMX  32767
+#endif
+#ifndef SEMAEM
+#define SEMAEM  16384
+#endif
+
+/* Array of semaphore ID's and key values */
+
+static	int	n_sems = 0;
+static	key_t	next_key = 1;
+static	int	sem_array[SEMMAP];
+
+/*
+	< 0 on error
+	>= 0 (semaphore ID) on success
+*/
+extern int
+create_sem ( sem_name, sem_num )
+char	*sem_name;
+long	sem_num;		/* key_t */
+{
+    int		ndx;
+    int		sem_id;
+
+    /* Get an ID for the semaphore */
+    if ( (n_sems % SEMMSL) == 0 ) {
+	/* Allocate another array of semaphores */
+
+	ndx = n_sems / SEMMSL;
+	if ( (sem_array[ndx] = semget(next_key, SEMMSL, IPC_CREAT|0666) ) < 0) {
+	    error_log3 ( "SVcreate_sem:  Unable to create semaphore %s (%d).  Errno: %d\n",
+			    sem_name, next_key, errno );
+	    return(-1);
+	}
+	next_key++;
+    }
+    sem_id = n_sems++;
+
+#ifdef SEM_DEBUG
+    get_semval ( "create", sem_id );
+    printf ( "Semaphore: %s ID: %d\n", sem_name, sem_id );
+#endif
+    return(sem_id);
+
+}
+/*
+*/
+extern	int
+get_sem ( sem_key )
+int	sem_key;	/* Returned from Create */
+{
+    struct	sembuf	sbuf;
+    int		ndx;
+    int		offset;
+
+#ifdef SEM_DEBUG
+    get_semval ( "get", sem_key );
+#endif
+    ndx = sem_key / SEMMSL;
+    offset = sem_key % SEMMSL;
+    sbuf.sem_num = offset;
+    sbuf.sem_op = -1;
+    sbuf.sem_flg = 0;
+#ifdef SPRITE
+    if ( semop(sem_array[ndx], &sbuf, 1) < 0 ) {
+#else
+    if ( semop(sem_array[ndx], &sbuf, 1) ) {
+#endif
+	error_log1 ( "SVget_sem: Error %d\n", errno );
+	return(-1);
+    }
+#ifdef SEM_DEBUG
+    get_semval ( "get", sem_key );
+#endif
+    return(0);
+}
+
+extern int
+release_sem ( sem_key )
+int	sem_key;
+{
+    struct	sembuf	sbuf;
+    int		ndx;
+    int		offset;
+
+#ifdef SEM_DEBUG
+    get_semval ( "release", sem_key );
+#endif
+    ndx = sem_key / SEMMSL;
+    offset = sem_key % SEMMSL;
+    sbuf.sem_num = offset;
+    sbuf.sem_op = 1;
+    sbuf.sem_flg = 0;
+#ifdef SPRITE
+    if ( semop(sem_array[ndx], &sbuf, 1) < 0 ) {
+#else
+    if ( semop(sem_array[ndx], &sbuf, 1) ) {
+#endif
+	error_log1 ( "SVrelease_sem: Error %d\n", errno );
+	return(-1);
+    }
+#ifdef SEM_DEBUG
+    get_semval ( "release", sem_key );
+#endif
+    return(0);
+}
+
+extern int
+destroy_sems()
+{
+    int	i;
+    int	nids;
+
+    nids = ( (n_sems-1) / SEMMSL ) + 1;
+    for ( i=0; i < nids; i++ ) {
+	if ( semctl (sem_array[i], 0, IPC_RMID, 0 ) ) {
+	    error_log1 ( "SVdestroy_sem: Unable to remove semaphore %d\n", 
+				errno );
+	    return;
+	}
+    }
+    next_key = 1;
+    n_sems = 0;
+    return;
+}
+#ifdef SEM_DEBUG
+get_semval ( op, semid )
+char	*op;
+int	semid;
+{
+	int	val;
+	int	ndx;
+	int	offset;
+
+	ndx = semid/SEMMSL;
+	offset = semid % SEMMSL;
+	val = semctl ( sem_array[ndx], offset, GETVAL, NULL );
+	printf ( "%s\tSEM: %d VAL: %d\n", op, semid, val );
+	assert (val<=1);
+	return;
+}
+
+#endif
+\End\Of\Shar\
+else
+  echo "will not over write ./sem.c"
+fi
+if `test ! -s ./share.c`
+then
+echo "writing ./share.c"
+cat > ./share.c << '\End\Of\Shar\'
+/******************************************************************************
+
+VERSION $Id: smbm,v 1.2 1993/02/05 21:53:41 polk Exp $
+PACKAGE: 	User Level Shared Memory Manager
+
+DESCRIPTION: 	
+	This package provides shared memory to user level processes
+	It provides both BSD (mmap/munmap) and systemV (shmget/shmop)
+	interfaces.
+
+ROUTINES: 
+    External
+	share_init
+	attach_region
+	detach_region
+
+    Internal
+
+******************************************************************************/
+/* INCLUDES */
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/file.h>
+/*#include <limits.h>*/
+#include <errno.h>
+#include "list.h"
+#include "txn_sys.h"
+
+#ifdef SYSTEM_FIVE
+#define	SHARED_MODE	(SHM_R|SHM_W|SM_RND)
+
+/* Use System Five shared memory */
+
+#include <sys/ipc.h>
+#include <sys/shm.h>
+
+extern void
+share_init()
+{
+	return;
+}
+
+extern ADDR_T
+attach_region ( region_name, region_num, size, refp )
+char	*region_name;		/* File system name associated with segment */
+long	region_num;		/* Numerical identifier of segment */
+int	size;			/* Size of the shared segment */
+int	*refp;			/* OUTPUT: ref count of segment */
+{
+    int		segsize;
+    int		sh_id;
+    long	addr;
+    struct	shmid_ds	ipcbuf;
+
+    /* Get an ID for the region_name region */
+    segsize = getpagesize();
+    segsize = (size + (segsize - 1)) & ~(segsize-1);
+    if ( (sh_id = shmget (region_num, segsize, IPC_CREAT|SHARED_MODE) ) < 0 ) {
+	error_log3 ( "SVattach_region:  Unable to get region %s (%d).  Errno: %d\n",
+			region_name, region_num, errno );
+	return(NULL);
+    }
+
+    /* Now attach the region */
+    if ( (addr = ((long)shmat ( sh_id, 0, SHARED_MODE ))) == -1 ) {
+	error_log3 ( "SVattach_region:  Unable to attach region %s (%d).  Errno: %d\n",
+			region_name, region_num, errno );
+	return(NULL);
+    }
+    if ( shmctl (sh_id, IPC_STAT, &ipcbuf ) < 0 ) {
+	error_log3 ( "SVattach_region:  Unable to stat region %s (%d).  Errno: %d\n",
+		    region_name, region_num, errno );
+	*refp = -1;
+    } else {
+	*refp = (int)ipcbuf.sm_count;
+    }
+    return((ADDR_T)addr);
+
+}
+/*
+*/
+extern	int
+detach_region ( addr, id, len, refp )
+int	addr;
+int	id;
+int	len;
+int	*refp;
+{
+    int		remove = 0;
+    int		segsize;
+    int		sh_id;
+    struct	shmid_ds	ipcbuf;
+
+    *refp = 0;
+    segsize = getpagesize();
+    segsize = (len + (segsize - 1)) & ~(segsize-1);
+    if ( (sh_id = shmget (id, segsize, IPC_CREAT|SHARED_MODE) ) < 0 ) {
+	error_log3 ( "SVdetach_region:  Unable to get region %d.  Errno: %d\n",
+			id, errno );
+    } else {
+	if ( shmctl (sh_id, IPC_STAT, &ipcbuf ) < 0 ) {
+	    error_log2 ( "SVdetach_region:  Unable to stat region %d.  Errno: %d\n",
+			id, errno );
+	} else if ( ipcbuf.sm_count <= 1 ) {
+		remove = 1;
+	}
+	*refp = ( ipcbuf.sm_count ? ipcbuf.sm_count - 1 : 0 );
+    }
+
+    if ( shmdt((char *)addr) != 0 ) {
+	error_log2 ( "SVdetach_region:  Unable to detach region %X.  Errno: %d\n",
+			addr, errno );
+    }
+    if ( remove ) {
+	if ( shmctl (sh_id, IPC_RMID, &ipcbuf ) < 0 ) {
+	    error_log3 ( "SVdetach_region:  Unable to remove region %d.  Errno: %d\n",
+			id, errno );
+	}
+    }
+    return(0);
+}
+
+#else
+#include <sys/stat.h>
+#include <sys/mman.h>
+/* Assume BSD semantics */
+#define	SHARED_MODE	0600
+/* This is defined somewhere, but I can't find it */
+#define MAX_REGIONS	8
+
+
+typedef struct _addr_fd {
+	int	addr;
+	int	fd;
+	char	*name;
+} ADDR_FD;
+static ADDR_FD addr_fd_array[MAX_REGIONS];
+
+extern void
+share_init()
+{
+    int	i;
+
+    for ( i = 0; i < MAX_REGIONS; i++ ) {
+	addr_fd_array[i].addr = -1;
+    }
+    return;
+}
+/*
+    Attach a region of shared memory
+
+    Returns valid address on Success and NULL on failure.  On NULL
+    errno should be set.
+*/
+
+extern ADDR_T
+attach_region ( region_name, region_num, size, refp )
+char	*region_name;		/* File system name associated with segment */
+int	region_num;
+int	size;			/* Size of the shared segment */
+int	*refp;			/* OUTPUT: Reference count */
+{
+    int	addr;
+    int	fd;
+    int i;
+    int init;
+    int map_size;
+    int pagesize;
+    int	prot;
+    int	real_size;
+    int	*ref_countp;
+    struct stat sbuf;
+
+    init = 0;
+    if ( stat(region_name, &sbuf) ) {
+	if ( errno == ENOENT ) {
+		errno = 0;
+		init = 1;
+	}
+    }
+    if (!(fd = open ( region_name, O_CREAT|O_RDWR,  SHARED_MODE ))) {
+	return ( (ADDR_T) NULL );
+    }
+
+/* Might be able to unlink fd */
+
+    real_size = (size + sizeof(int) + (sizeof(int)-1)) & ~(sizeof(int)-1);
+    prot = PROT_READ | PROT_WRITE;
+
+    pagesize = getpagesize();
+    map_size = (real_size + (pagesize - 1)) & ~(pagesize-1);
+    if ( !(addr = (int)sbrk(0)) ) {
+	error_log1 ( "BSDattach_region: Sbrk failed with %d\n", errno );
+	return ( NULL );
+    }
+    addr = (addr + (pagesize - 1)) & ~(pagesize-1); 
+#ifdef SPRITE
+    if ( (addr = mmap(addr, map_size, prot, MAP_SHARED, fd, 0)) < 0 ) { 
+#else
+    if ( mmap ( addr, map_size, prot, MAP_SHARED, fd, 0  ) ) { 
+#endif
+	error_log2 ( "BSDattach_region: Map of region %s failed with %d\n", 
+		      region_name, errno );
+	close (fd);
+	return ( (ADDR_T) NULL );
+    }
+    for (i=0; i< MAX_REGIONS; i++) {
+	if ( addr_fd_array[i].addr == -1 ) {
+		addr_fd_array[i].addr = (int)addr;
+		addr_fd_array[i].fd = (int)fd;
+		addr_fd_array[i].name = region_name;
+		break;
+	}
+    }
+    if ( i == MAX_REGIONS ) {
+	error_log0 ( "BSDattach_region: No more room in addr_fd array\n" );
+    }
+
+    ref_countp = (int *)((((unsigned) addr) + size + (sizeof(int)-1)) & 
+				~(sizeof(int)-1));
+    if ( init ) {
+	*ref_countp = 0;
+    }
+    *ref_countp = *ref_countp + 1;
+    *refp = *ref_countp;
+    return ( (ADDR_T) addr );
+}
+
+/*
+    Returns 0 on success
+    and -1 on failure setting errno according to munmap conditions
+*/
+extern	int
+detach_region ( addr, id, len, refp )
+int	addr;
+int	id;
+int	len;
+int	*refp;
+{
+    int	i;
+    int	map_size;
+    int	pagesize;
+    int	real_size;
+    int	*ref_countp;
+
+    ref_countp = (int *)((((unsigned)addr) + len + (sizeof(int)-1)) & 
+				~(sizeof(int)-1));
+    *ref_countp = *ref_countp-1;
+    *refp = *ref_countp;
+    pagesize = getpagesize();
+    real_size = (len + sizeof(int) + (sizeof(int)-1)) & ~(sizeof(int)-1);
+    map_size = (real_size + (pagesize - 1)) & ~(pagesize-1);
+    if ( munmap ( addr, map_size ) ) {
+	error_log2 ( "BSDdetach_region:  Unable to detach region %X.  Errno: %d\n",
+			addr, errno );
+    }
+    for ( i=0; i<MAX_REGIONS; i++ ) {
+	if ( addr_fd_array[i].addr == (int)addr ) {
+	    addr_fd_array[i].addr = -1;
+	    if (!*refp) {
+		unlink(addr_fd_array[i].name);
+	    }
+	    close(addr_fd_array[i].fd);
+	}
+    }
+    return(0);
+}
+
+#endif
+\End\Of\Shar\
+else
+  echo "will not over write ./share.c"
+fi
+if `test ! -s ./share.h`
+then
+echo "writing ./share.h"
+cat > ./share.h << '\End\Of\Shar\'
+/******************************************************************************
+
+VERSION $Id: smbm,v 1.2 1993/02/05 21:53:41 polk Exp $
+PACKAGE: User Level Transaction Manager
+
+DESCRIPTION:  Shared Memory Data Structures
+
+******************************************************************************/
+
+ADDR_T	attach_region();
+
+#define		SHARED_MEM_NAME	"txn.share"
+\End\Of\Shar\
+else
+  echo "will not over write ./share.h"
+fi
+if `test ! -s ./buf.c`
+then
+echo "writing ./buf.c"
+cat > ./buf.c << '\End\Of\Shar\'
+/******************************************************************************
+
+VERSION $Id: smbm,v 1.2 1993/02/05 21:53:41 polk Exp $
+PACKAGE: 	User Level Shared Memory Manager
+
+DESCRIPTION: 	
+	This package provides a buffer pool interface implemented as
+	a collection of file pages mapped into shared memory.
+
+	Based on Mark's buffer manager
+
+ROUTINES: 
+    External
+	buf_alloc
+	buf_flags
+	buf_get
+	buf_init
+	buf_last
+	buf_open
+	buf_pin
+	buf_sync
+	buf_unpin
+    Internal
+	bf_assign_buf
+	bf_fid_to_fd
+	bf_newbuf
+	bf_put_page
+	
+
+******************************************************************************/
+#include	<sys/types.h>
+#include	<assert.h>
+#include	<sys/file.h>
+#include	<sys/stat.h>
+#include	<stdio.h>
+#include	<errno.h>
+#include	"list.h"
+#include	"user.h"
+#include	"txn_sys.h"
+#include	"buf.h"
+#include	"semkeys.h"
+#include	"error.h"
+
+/*
+    we need to translate between some type of file id that the user 
+    process passes and a file descriptor.  For now, it's a nop.
+*/
+#define GET_MASTER      get_sem ( buf_spinlock )
+#define RELEASE_MASTER  release_sem ( buf_spinlock )
+
+#define	LRUID	*buf_lru
+#define	LRUP	(bufhdr_table+*buf_lru)
+#define	MRU	bufhdr_table[*buf_lru].lru.prev
+
+/*
+    Process Statics (pointers into shared memory)
+*/
+static	BUF_T	*buf_table = 0;
+static	BUFHDR_T	*bufhdr_table;
+static	int	*buf_hash_table;
+static	int	*buf_lru;		/* LRU is the free list */
+static	int	buf_spinlock;
+static	FINFO_T	*buf_fids;
+static	int	*buf_sp;		/* Pointer to string free space */
+static	char	*buf_strings;
+
+/* Process Local FID->FD table */
+static	int	fds[NUM_FILE_ENTRIES];
+
+/* Static routines */
+static	BUFHDR_T	*bf_assign_buf();
+static	int		bf_fid_to_fd();
+static	BUFHDR_T	*bf_newbuf();
+static	int		bf_put_page();
+
+/*
+    Return  0 on success
+	    1 on failure
+*/
+extern int
+buf_init ( )
+{
+    ADDR_T	buf_region;
+    BUFHDR_T	*bhp;
+    int		i;
+    int		ref_count;
+    int		*spinlockp;
+
+    /*
+	Initialize Process local structures
+    */
+    for ( i = 0; i < NUM_FILE_ENTRIES; i++ ) {
+	fds[i] = -1;
+    }
+
+    buf_region = attach_region ( BUF_REGION_NAME, BUF_REGION_NUM,
+				 BUF_REGION_SIZE, &ref_count );
+    if ( !buf_region ) {
+	return (1);
+    }
+    error_log3 ( "Buf Region: ADDR: %d ID: %d SIZE: %d\n", buf_region,
+		    BUF_REGION_NUM, BUF_REGION_SIZE );
+
+    buf_table = (BUF_T *)buf_region;
+    bufhdr_table = (BUFHDR_T *)(buf_table + NUM_BUFS);
+    buf_hash_table = (int *)(bufhdr_table + NUM_BUFS);
+    buf_lru = buf_hash_table + NUMTABLE_ENTRIES;
+    spinlockp = buf_lru + 1;
+    buf_fids = (FINFO_T *)(spinlockp+1);
+    buf_sp = (int *)(buf_fids + NUM_FILE_ENTRIES);
+    buf_strings = (char *)(buf_sp + 1);
+
+    /* Create locking spinlock (gets creating holding the lock) */
+    buf_spinlock = create_sem ( BUF_SPIN_NAME, BUF_SPIN_NUM );
+    if ( buf_spinlock < 0 )  {
+	return(1);
+    }
+    if ( ref_count <= 1 ) {
+	*spinlockp = buf_spinlock;
+
+	/* Now initialize the buffer manager */
+
+	/* 1. Free list */
+	*buf_lru = 0;
+
+	/* 2. Buffer headers */
+	for ( i = 0, bhp = bufhdr_table; i < NUM_BUFS; bhp++, i++ ) {
+		bhp->lru.next = i+1;
+		bhp->lru.prev = i-1;
+		bhp->flags = 0;				/* All Flags off */
+		bhp->refcount = 0;
+		bhp->wait_proc = -1;			/* No sleepers */
+		LISTPE_INIT ( hash, bhp, i );		/* Hash chains */
+	}
+	bufhdr_table[0].lru.prev = NUM_BUFS-1;
+	bufhdr_table[NUM_BUFS-1].lru.next = 0;
+
+	/* 3. Hash Table */
+	for ( i = 0; i < NUMTABLE_ENTRIES; i++ ) {
+		buf_hash_table[i] = NUM_BUFS;
+	}
+
+	/* 4. File ID Table */
+	for ( i = 0; i < NUM_FILE_ENTRIES; i++ ) {
+		buf_fids[i].offset = -1;
+		buf_fids[i].npages = -1;
+	}
+
+	/* 5. Free String Pointer */
+	*buf_sp = (FILE_NAME_LEN*NUM_FILE_ENTRIES);
+	if (RELEASE_MASTER) {
+		return(1);
+	}
+	error_log0 ( "Initialized buffer region\n" );
+    } 
+    return (0);
+}
+
+extern	void
+buf_exit()
+{
+    int	ref;
+    int	i;
+
+    /* Flush Buffer Pool on Exit */
+    for ( i = 0; i < NUM_FILE_ENTRIES; i++ ) {
+	if ( fds[i] != -1 ) {
+		close ( fds[i] );
+	}
+    }
+    if ( buf_table ) {
+	detach_region ( buf_table, BUF_REGION_NUM, BUF_REGION_SIZE, &ref );
+    }
+    return;
+}
+
+/*
+	We need an empty buffer.  Find the LRU unpinned NON-Dirty page.
+*/
+static BUFHDR_T	*
+bf_newbuf()
+{
+    int		fd;
+    int		lruid;
+    int		nbytes;
+    int		ndx;
+    BUFHDR_T	*bhp;
+
+    lruid = LRUID;
+    for ( bhp = LRUP; 
+	  bhp->flags & (BUF_PINNED|BUF_IO_IN_PROGRESS); 
+	  bhp = LISTP_NEXTP (bufhdr_table, lru, bhp ) ) {
+
+	if ( bhp->lru.next == lruid ) {
+		/* OUT OF BUFFERS */
+		error_log1 ( "All buffers are pinned.  %s\n",
+				"Unable to grant buffer request" );
+		return(NULL);
+	}
+    }
+    /* BHP can be used */
+    if ( bhp->flags & BUF_DIRTY ) {
+	/* 
+	    MIS  Check for log flushed appropriately
+	*/
+	fd = bf_fid_to_fd(bhp->id.file_id);
+	if ( fd == -1 ) {
+	    error_log1 ("Invalid fid %d\n", bhp->id.file_id);
+	    return(NULL);
+	}
+	if ( bf_put_page(fd, bhp) < 0 ) {
+	    return(NULL);
+	}
+    }
+    /* Update Hash Pointers */
+    ndx = BUF_HASH ( bhp->id.file_id, bhp->id.obj_id );
+    LISTP_REMOVE(bufhdr_table, hash, bhp);
+    if ( buf_hash_table[ndx] == (bhp-bufhdr_table) ) {
+	if ( bhp->hash.next != (bhp-bufhdr_table) ) {
+		buf_hash_table[ndx] = bhp->hash.next;
+	} else {
+		buf_hash_table[ndx] = NUM_BUFS;
+	}
+    }
+    INIT_BUF(bhp); 
+
+    return(bhp);
+}
+/*
+    buf_alloc
+
+    Add a page to a file and return a buffer for it.
+
+*/
+ADDR_T
+buf_alloc ( fid, new_pageno )
+int	fid;
+int	*new_pageno;
+{
+	BUFHDR_T	*bhp;
+	int	fd;
+	int	len;
+	int	ndx;
+	OBJ_T	fobj;
+
+	if (GET_MASTER) {
+		return(NULL);
+	}
+	if ( buf_fids[fid].npages == -1 ) {
+	    /* initialize npages field */
+	    fd = bf_fid_to_fd ( fid );
+	}
+	assert (fid < NUM_FILE_ENTRIES);
+
+	*new_pageno = buf_fids[fid].npages;
+	if ( *new_pageno == -1 ) {
+	    RELEASE_MASTER;
+	    return ( NULL );
+	}
+	buf_fids[fid].npages++;
+	ndx = BUF_HASH ( fid, *new_pageno );
+	fobj.file_id = fid;
+	fobj.obj_id  = *new_pageno;
+	bhp = bf_assign_buf ( ndx, &fobj, BF_PIN|BF_DIRTY|BF_EMPTY, &len );
+	if ( RELEASE_MASTER ) {
+		/* Memory leak */
+		return(NULL);
+	}
+	if ( bhp ) {
+	    return ((ADDR_T)(buf_table+(bhp-bufhdr_table)));
+	} else {
+	    return ( NULL );
+	}
+}
+
+
+/*
+	Buffer Flags
+	BF_DIRTY		Mark page as dirty
+	BF_EMPTY		Don't initialize page, just get buffer
+	BF_PIN			Retrieve with pin 
+
+MIS
+Might want to add a flag that sets an LSN for this buffer is the
+DIRTY flag is set
+
+Eventually, you may want a flag that indicates the I/O and lock
+request should be shipped off together, but not for now.
+*/
+extern ADDR_T
+buf_get ( file_id, page_id, flags, len )
+int	file_id;
+int	page_id;
+u_long	flags;
+int	*len;		/* Number of bytes read into buffer */
+{
+	BUFHDR_T	*bhp;
+	int		bufid;
+	int		fd;
+	int		ndx;
+	int		next_bufid;
+	int		stat;
+	OBJ_T		fobj;	
+
+	ndx = BUF_HASH ( file_id, page_id );
+	fobj.file_id = (long) file_id;
+	fobj.obj_id = (long) page_id;
+	if ( GET_MASTER ) {
+		return(NULL);
+	}
+	/*
+		This could be a for loop, but we lose speed
+		by making all the cases general purpose so we
+		optimize for the no-collision case. 
+	*/
+	bufid = buf_hash_table[ndx]; 
+	if ( bufid < NUM_BUFS ) {
+	    for ( bhp = bufhdr_table+bufid; 
+		  !OBJ_EQ (bhp->id, fobj) || !(bhp->flags & BUF_VALID);
+		  bhp = LISTP_NEXTP ( bufhdr_table, hash, bhp ) ) {
+
+		if ( bhp->hash.next == bufid ) {
+		    goto not_found;
+		}
+	    }
+/* found */
+	    if ( flags & BF_PIN ) {
+		    bhp->flags |= BUF_PINNED;
+		    bhp->refcount++;
+	    }
+	    if ( flags & BF_DIRTY ) {
+		    bhp->flags |= BUF_DIRTY;
+	    }
+
+	    while ( bhp->flags & BUF_IO_IN_PROGRESS ) {
+		/* MIS -- eventually err check here */
+		stat = proc_sleep_on ( &(bhp->wait_proc), buf_spinlock );
+		if ( stat ) {
+			/* Memory leak */
+			return(NULL);
+		}
+	    }
+	    MAKE_MRU( bhp );
+	    *len = BUFSIZE;
+	} else {
+not_found:
+	    /* If you get here, the page isn't in the hash table */
+	    bhp = bf_assign_buf ( ndx, &fobj, flags, len );
+	}
+	/* Common code between found and not found */
+
+	if ( bhp->flags & BUF_NEWPAGE ) {
+	    *len = 0;
+	}
+	if (RELEASE_MASTER){
+		/* Memory leak */
+		return(NULL);
+	}
+	if ( bhp ) {
+	    return ((ADDR_T)(buf_table+(bhp-bufhdr_table)));
+	} else {
+	    return ( NULL );
+	}
+}
+
+extern int
+buf_pin ( addr )
+ADDR_T	addr;
+{
+    int		bufid;
+    BUFHDR_T	*bhp;
+
+    if (!ADDR_OK(addr)) {
+	error_log1 ( "buf_pin: Invalid Buffer Address %x\n", addr );
+	return(1);
+    }
+    bufid = ((BUF_T *)addr) - buf_table;
+    assert ( bufid < NUM_BUFS);
+    bhp = &bufhdr_table[bufid];
+    if (GET_MASTER) {
+	return(1);
+    }
+    bhp->flags |= BUF_PINNED;
+    bhp->refcount++;
+    MAKE_MRU(bhp);
+    if (RELEASE_MASTER) {
+	return(1);
+    }
+    return(0);
+}
+
+extern int
+buf_unpin ( addr )
+ADDR_T	addr;
+{
+    int		bufid;
+    BUFHDR_T	*bhp;
+
+    if (!ADDR_OK(addr)) {
+	error_log1 ( "buf_unpin: Invalid Buffer Address %x\n", addr );
+	return(1);
+    }
+    bufid = ((BUF_T *)addr) - buf_table;
+    assert ( bufid < NUM_BUFS);
+    bhp = bufhdr_table+bufid;
+    if (GET_MASTER) {
+	return(1);
+    }
+    assert ( (bhp->flags & BUF_PINNED) && (bhp->refcount > 0) );
+    bhp->refcount--;
+    if ( !bhp->refcount) {
+	bhp->flags &= ~BUF_PINNED;
+    }
+    if (RELEASE_MASTER) {
+	return(1);
+    }
+    return(0);
+}
+
+/*
+	MIS - do I want to add file links to buffer pool?
+*/
+extern int
+buf_sync ( fid )
+{
+    int	i;
+    int	fd;
+    BUFHDR_T	*bhp;
+
+    if ( (fd = bf_fid_to_fd ( fid )) < 0 ) {
+	return(1);
+    }
+    if (GET_MASTER) {
+	return(1);
+    }
+    for ( bhp = bufhdr_table, i = 0; i < NUM_BUFS; bhp++, i++ ) {
+	if ((bhp->id.file_id == fid) && (bhp->flags & BF_DIRTY)) {
+	    if ( bf_put_page ( fd, bhp ) < 0 ) {
+		return(1);
+	    }
+	}
+    }
+    if (RELEASE_MASTER) {
+	return(1);
+    }
+    return(0);
+
+
+}
+
+extern int
+buf_flags ( addr, set_flags, unset_flags )
+ADDR_T	addr;
+u_long	set_flags;
+u_long	unset_flags;
+{
+    int		bufid;
+    BUFHDR_T	*bhp;
+
+    if (!ADDR_OK(addr)) {
+	error_log1 ( "buf_pin: Invalid Buffer Address %x\n", addr );
+	return(1);
+    }
+    bufid = ((BUF_T *)addr) - buf_table;
+    assert ( bufid < NUM_BUFS);
+    bhp = &bufhdr_table[bufid];
+    if (GET_MASTER) {
+	return(1);
+    }
+    bhp->flags |= set_flags;
+    if ( set_flags & BUF_PINNED ) {
+	bhp->refcount++;
+    }
+    if ( set_flags & BUF_DIRTY ) {
+	unset_flags |= BUF_NEWPAGE;
+    }
+
+    if ( unset_flags & BUF_PINNED ) {
+	bhp->refcount--;
+	if ( bhp->refcount ) {
+		/* Turn off pin bit so it doesn't get unset */
+		unset_flags &= ~BUF_PINNED;
+	}
+    }
+    bhp->flags &= ~unset_flags;
+    MAKE_MRU(bhp);
+    if (RELEASE_MASTER) {
+	return(1);
+    }
+    return(0);
+}
+
+/*
+	Take a string name and produce an fid.
+
+	returns -1 on error
+
+	MIS -- this is a potential problem -- you keep actual names
+		here -- what if people run from different directories?
+*/
+extern	int
+buf_name_lookup ( fname )
+char	*fname;
+{
+    int	i;
+    int	fid;
+    int	ndx;
+
+    fid = -1;
+    if (GET_MASTER) {
+	    return(-1);
+    }
+    for ( i = 0; i < NUM_FILE_ENTRIES; i++ ) {
+	if ( buf_fids[i].offset == -1 ) {
+		fid = i;
+	} else {
+		if (!strcmp (fname, buf_strings+buf_fids[i].offset)) {
+			if (RELEASE_MASTER) {
+				return(-1);
+			}
+			return(i);
+		}
+	}
+    }
+    if ( fid == -1 ) {
+	error_log0 ( "No more file ID's\n" );
+    } else {
+	ndx = *buf_sp - strlen(fname) - 1;
+	if ( ndx < 0 ) {
+	    error_log0 ( "Out of string space\n" );
+	    fid = -1;
+	} else {
+	    *buf_sp = ndx;
+	    strcpy ( buf_strings+ndx, fname );
+	    buf_fids[fid].offset = ndx;
+	}
+    }
+    if (RELEASE_MASTER) {
+	return(-1);
+    }
+    return(fid);
+}
+
+static	int
+bf_fid_to_fd ( fid ) 
+int	fid;
+{
+	struct stat sbuf;
+
+	assert ( (fid < NUM_FILE_ENTRIES) && (buf_fids[fid].offset != -1) );
+	if ( fds[fid] != -1 ) {
+	    return(fds[fid]);
+
+	}
+	fds[fid] = open ( buf_strings+buf_fids[fid].offset, O_RDWR|O_CREAT, 
+			  0666 );
+	if ( fds[fid] < 0 ) {
+	    error_log3 ( "Error Opening File %s FID: %d FD: %d.  Errno = %d\n", 
+			    buf_strings+buf_fids[fid].offset, fid, fds[fid], 
+			    errno );
+	    return(-1);
+	}
+	error_log3 ( "Opening File %s FID: %d FD: %d\n", 
+			buf_strings+buf_fids[fid].offset, fid, fds[fid] );
+	if ( buf_fids[fid].npages == -1 ) {
+		/* Initialize the npages field */
+		if ( fstat ( fds[fid], &sbuf ) ) {
+		    error_log3 ( "Error Fstating %s FID: %d.  Errno = %d\n", 
+				buf_strings+buf_fids[fid].offset, fid, errno );
+		} else {
+		    buf_fids[fid].npages = ( sbuf.st_size / BUFSIZE );
+		}
+	}
+
+	return ( fds[fid] );
+}
+
+static int
+bf_put_page ( fd, bhp ) 
+int	fd;
+BUFHDR_T	*bhp;
+{
+	int	nbytes;
+
+	assert ( (bhp-bufhdr_table) < NUM_BUFS );
+	if ( lseek ( fd, bhp->id.obj_id << BUFSHIFT, L_SET ) < 0 ) {
+	    return(-1);
+	}
+	nbytes = write(fd, buf_table[bhp-bufhdr_table], BUFSIZE);
+	if ( nbytes < 0 ) {
+		error_log1 ("Write failed with error code %d\n", errno);
+		return(-1);
+	} else if ( nbytes != BUFSIZE ) {
+		error_log1 ("Short write: %d bytes of %d\n", nbytes, BUFSIZE );
+	}
+	bhp->flags &= ~BUF_DIRTY;
+	return (0);
+}
+
+static BUFHDR_T	*
+bf_assign_buf ( ndx, obj, flags, len )
+int	ndx;
+OBJ_T	*obj;
+u_long	flags;
+int	*len;		/* Number of bytes read */
+{
+    BUFHDR_T	*bhp;
+    int		fd;
+
+    assert ( obj->file_id < NUM_FILE_ENTRIES );
+    bhp = bf_newbuf();
+    if ( !bhp ) {
+	return(NULL);
+    }
+    OBJ_ASSIGN ( (*obj), bhp->id );
+    if ( buf_hash_table[ndx] >= NUM_BUFS ) {
+	buf_hash_table[ndx] = bhp-bufhdr_table;
+    } else {
+	LISTPE_INSERT ( bufhdr_table, hash, bhp, buf_hash_table[ndx] );
+    }
+
+    bhp->flags |= BUF_VALID;
+    if ( flags & BF_PIN ) {
+	bhp->flags |= BUF_PINNED;
+	bhp->refcount++;
+    }
+    fd = bf_fid_to_fd(obj->file_id);
+    if ( fd == -1 ) {
+	error_log1 ("Invalid fid %d\n", obj->file_id);
+	bhp->flags |= ~BUF_IO_ERROR;
+	return(NULL);
+    }
+    if ( obj->obj_id >= buf_fids[obj->file_id].npages) {
+	buf_fids[obj->file_id].npages = obj->obj_id+1;
+	*len = 0;
+    } else if ( flags & BF_EMPTY ) {
+	*len = 0;
+    } else {
+	bhp->flags |= BUF_IO_IN_PROGRESS;
+	if (RELEASE_MASTER) {
+		return(NULL);
+	}
+	if ( lseek ( fd, obj->obj_id << BUFSHIFT, L_SET ) < -1 ) {
+	    error_log2 ("Unable to perform seek on file: %d  to page %d",
+			obj->file_id, obj->obj_id );
+	    bhp->flags &= ~BUF_IO_IN_PROGRESS;
+	    bhp->flags |= ~BUF_IO_ERROR;
+	    return(NULL);
+	}
+	*len = read(fd, buf_table[bhp-bufhdr_table], BUFSIZE);
+	if ( *len < 0 ) {
+	    error_log2 ("Unable to perform read on file: %d  to page %d",
+			obj->file_id, obj->obj_id );
+	    bhp->flags &= ~BUF_IO_IN_PROGRESS;
+	    bhp->flags |= ~BUF_IO_ERROR;
+	    return(NULL);
+	} 
+	if (GET_MASTER) {
+		return(NULL);
+	}
+	bhp->flags &= ~BUF_IO_IN_PROGRESS;
+	if ( bhp->wait_proc != -1 ) {
+	    /* wake up waiter and anyone waiting on it */
+	    proc_wake_id ( bhp->wait_proc );
+	    bhp->wait_proc = -1;
+	}
+	MAKE_MRU(bhp);
+    }
+
+    if ( flags & BF_DIRTY ) {
+	bhp->flags |= BUF_DIRTY;
+    } else if ( *len < BUFSIZE ) {
+	bhp->flags |= BUF_NEWPAGE;
+    }
+    return ( bhp );
+}
+
+int
+buf_last ( fid )
+int	fid;
+{
+	int	val;
+
+	if (GET_MASTER) {
+		return(-1);
+	}
+	assert ( fid < NUM_FILE_ENTRIES );
+	if ( buf_fids[fid].npages == -1 ) {
+	    /* initialize npages field */
+	    (void) bf_fid_to_fd ( fid );
+	}
+	val = buf_fids[fid].npages;	
+	if ( val ) {
+		val--;			/* Convert to page number */
+	}
+	if (RELEASE_MASTER) {
+		return(-1);
+	}
+	return(val);
+}
+
+#ifdef DEBUG
+extern void
+buf_dump ( id, all )
+int	id;
+int	all;
+{
+	int i;
+	BUFHDR_T	*bhp;
+
+	printf ( "LRU + %d\n", *buf_lru );
+	if ( all ) {
+	    printf("ID\tFID\tPID\tLNEXT\tLPREV\tHNEXT\tHPREV\tSLEEP\tFLAG\tREFS\n");
+	    for ( bhp = bufhdr_table, i = 0; i < NUM_BUFS; bhp++, i++ ) {
+		    printf ( "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%x\t%d\n", i,
+			bhp->id.file_id, bhp->id.obj_id,
+			bhp->lru.next, bhp->lru.prev,
+			bhp->hash.next, bhp->hash.prev,
+			bhp->wait_proc, bhp->flags, bhp->refcount );
+	    }
+	} else {
+		if ( id >= NUM_BUFS ) {
+			printf ( "Buffer ID (%d) too high\n", id );
+			return;
+		}
+		bhp = bufhdr_table+id;
+		printf ( "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%x\t%d\n", i,
+		    bhp->id.file_id, bhp->id.obj_id,
+		    bhp->lru.next, bhp->lru.prev,
+		    bhp->hash.next, bhp->hash.prev,
+		    bhp->wait_proc, bhp->flags, bhp->refcount );
+	}
+	return;
+}
+#endif
+\End\Of\Shar\
+else
+  echo "will not over write ./buf.c"
+fi
+if `test ! -s ./buf.h`
+then
+echo "writing ./buf.h"
+cat > ./buf.h << '\End\Of\Shar\'
+/******************************************************************************
+
+VERSION $Header: /bsdi/MASTER/BSDI_OS/lib/libc/db/mpool/smbm/smbm,v 1.2 1993/02/05 21:53:41 polk Exp $
+PACKAGE: User Level Transaction Manager
+
+DESCRIPTION:  Buffer Manager include file
+
+******************************************************************************/
+#define	BUF_REGION_NAME		"buf.shared"
+#define	BUF_SPIN_NAME		"buf.spin"
+#define	BUF_REGION_NUM		0x052392
+#define	NUM_BUFS		4000
+#define	BUFSIZE	4096
+#define	BUFSHIFT		12
+#define	NUMTABLE_ENTRIES	512
+
+#define	BUFFERS_SIZE		(BUFSIZE * NUM_BUFS)
+#define	BUFHDR_SIZE		(sizeof(BUFHDR_T)*NUM_BUFS)
+#define	BUFTABLE_SIZE		(sizeof(u_int)*NUMTABLE_ENTRIES)
+
+#define	BUF_HASH(f,p)		((f + p)  & (NUMTABLE_ENTRIES-1))
+
+/*
+	The file table consists of an array of indices into the
+	string table, followed by a single integer pointing to
+	the next available free space in the table followed by
+	the string table
+*/
+#define	NUM_FILE_ENTRIES	16
+#define	FILE_NAME_LEN		256
+#define	FILE_TABLE_SIZE		\
+	(NUM_FILE_ENTRIES*(sizeof(FINFO_T)+FILE_NAME_LEN)+sizeof(int))
+/*
+	The region contains (in order):
+		The Buffers
+		The Buffer Headers
+		The Hash Table
+		The Free List Pointer
+		The Semaphore Key which protects the segment
+		The File table
+		The File string space
+*/
+#define	BUF_REGION_SIZE	\
+	(BUFFERS_SIZE+BUFHDR_SIZE+BUFTABLE_SIZE+2*sizeof(int)+FILE_TABLE_SIZE)
+
+#define	ADDR_OK(A) \
+	(!(A & (BUFSIZE-1)) && (((BUF_T *)A) >= buf_table) && (((BUFHDR_T *)A) < bufhdr_table))
+
+typedef	char	BUF_T[BUFSIZE];
+
+typedef struct _bufhdr {
+    OBJ_T	id;		/* Identifies object in buffer */
+    int		wait_proc;	/* Process' index sleeping on this event */
+    LINKS	lru;		/* Used to link in lru list */
+    LINKS	hash;		/* Hash Chain */
+    u_long	flags;		/* Flag Array */
+#define	BUF_DIRTY	0x1
+#define	BUF_VALID	0x2
+#define	BUF_PINNED	0x4
+#define	BUF_IO_ERROR	0x8
+#define	BUF_IO_IN_PROGRESS	0x10
+#define	BUF_NEWPAGE	0x20
+    unsigned	refcount;	/* Number of pins */
+} BUFHDR_T;
+
+/* Shared memory file information */
+
+typedef struct _finfo {
+    int	npages;		/* Number of pages in the file (-1) if unitialized */
+    int	offset;		/* Offset of string information */
+} FINFO_T;
+
+#define MAKE_MRU(BP)	{				\
+	if ( *buf_lru == (BP-bufhdr_table) ) {		\
+	    *buf_lru = BP->lru.next;			\
+	} else if ( !((BP-bufhdr_table) == MRU ) ) {	\
+	    int	__mru;					\
+	    __mru = MRU;				\
+	    LISTP_REMOVE(bufhdr_table, lru, BP)		\
+	    LISTPE_INSERT(bufhdr_table, lru, BP, __mru);\
+	}						\
+}
+
+#define INIT_BUF(BP) {					\
+	BP->wait_proc = -1;				\
+	LISTP_INIT(bufhdr_table, hash, BP);		\
+	BP->flags = 0;					\
+	BP->refcount = 0;				\
+	MAKE_MRU(BP);					\
+}
+
+
+
+/*
+	Externally visible stuff
+*/
+
+/* get_page call flags */
+#define BF_DIRTY	BUF_DIRTY
+#define BF_EMPTY	0x20
+#define BF_PIN		BUF_PINNED
+\End\Of\Shar\
+else
+  echo "will not over write ./buf.h"
+fi
+echo "Finished archive 1 of 1"
+exit
+

@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+# The Berkeley Software Design Inc. software License Agreement specifies
+# the terms and conditions for redistribution.
+#
+# /usr/libexec/at_allowed
+#
+PATH=/bin:/usr/bin
+export PATH
+
+#
+# return $ACCESS if allowed else $NOACCESS
+#
+ACCESS=0
+NOACCESS=1
+ALLOWED="/var/at/at.allow"
+DENIED="/var/at/at.deny"
+
+#
+# In the default version we allow access to everyone who can execute ``at''.
+# To disable the default version one of the two control files must exist.
+#
+[ ! -f $ALLOWED -a ! -f $DENIED ] && exit $ACCESS
+
+#
+# If you choose the alternate version we check the files $ALLOWED and $DENIED
+# Only root is allowed access unless $ALLOWED exists.  If $ALLOWED is
+# empty all users are allowed access (unless listed in $DENIED).
+# Root is always allowed
+#
+
+[ "$1" = "root" ] && exit $ACCESS		# root always
+[ ! -f $ALLOWED ] && exit $NOACCESS		# no one else unless $ALLOWED
+
+allowed=$NOACCESS				# not unless empty or $ALLOWED
+
+if [ -s $ALLOWED ]; then			# user if in $ALLOWED
+	/usr/bin/grep "^$1$" $ALLOWED > /dev/null && allowed=$ACCESS
+else
+	allowed=$ACCESS				# everyone if empty
+fi
+
+if [ -f $DENIED ]; then				# unless $DENIED
+	/usr/bin/grep "^$1$" $DENIED > /dev/null && allowed=$NOACCESS
+fi
+
+exit $allowed

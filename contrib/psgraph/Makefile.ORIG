@@ -1,0 +1,114 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/psgraph/Makefile.ORIG,v 1.1.1.1 1994/01/03 23:14:15 polk Exp $
+# $Log: Makefile.ORIG,v $
+# Revision 1.1.1.1  1994/01/03  23:14:15  polk
+# New contrib utilities
+#
+# Revision 1.4  92/08/04  17:54:59  mogul
+# undo RCS botch
+# 
+# Revision 1.3  1992/07/08  16:51:18  mogul
+# add examples to shar/tar files.
+#
+# Revision 1.2  92/07/08  15:54:17  mogul
+# PROLOG now defined in Makefile
+# 
+# Revision 1.2  92/05/15  14:28:07  mogul
+# PROLOG now defined in Makefile.
+# 
+# Revision 1.1  92/05/14  16:53:33  mogul
+# Initial revision
+# 
+# Revision 1.4  92/03/12  13:44:32  mogul
+# Added psgsimp
+# 
+# Revision 1.3  92/02/21  17:13:41  mogul
+# *** empty log message ***
+# 
+# Revision 1.2  89/01/27  15:53:54  kent
+# Added saber targets and installation.
+# 
+# Revision 1.1  89/01/04  13:57:24  kent
+# Initial revision
+# 
+
+DESTROOT=
+
+# These control where the binaries and manual pages will go
+BINDIR = /usr/contrib/bin
+MANDIR = /usr/contrib/man/man1
+
+# This overrides the #define PROLOG in psgraph.h
+# If you change this, you should do a "make clean; make" to
+# ensure that all references are recompiled.
+PROLOGDIR = /usr/contrib/lib/psgraph/ps
+
+# Best to leave these two lines alone.
+PROLOGFILE = ${PROLOGDIR}/psgraph.pro
+DEFINES = -DPROLOG=\"${PROLOGFILE}\"
+
+CFLAGS= -O ${DEFINES} -traditional
+
+TARGETS = psgraph psgsimp
+OBJS=	main.o grid.o input.o output.o
+SRCS=	main.c grid.c input.c output.c psgsimp.c
+
+INSTALL=/usr/bin/install -c
+INSTALL_PROGRAM=$(INSTALL) -s -m 555 -o bin -g bin
+INSTALL_DATA=$(INSTALL) -m 444 -o bin -g bin
+
+
+
+all:	$(TARGETS)
+
+obj objdir cleandir depend:
+	@echo make target not supported: $@
+
+install: $(TARGETS) psgraph.man
+	-mkdir -p ${DESTROOT}/${BINDIR} ${DESTROOT}/${MANDIR} ${DESTROOT}/${PROLOGDIR}
+	${INSTALL_PROGRAM} psgraph	  ${DESTROOT}/${BINDIR}/
+	${INSTALL_PROGRAM} psgsimp	  ${DESTROOT}/${BINDIR}/
+	${INSTALL_DATA} psgraph.man ${DESTROOT}/${MANDIR}/psgraph.1
+	${INSTALL_DATA} psgsimp.man ${DESTROOT}/${MANDIR}/psgsimp.1
+	${INSTALL_DATA} psgraph.pro $(DESTROOT)/${PROLOGFILE}
+
+clean:
+	rm -f *.o a.out ERRS LINT core ,* ${TARGETS} *.BAK *.CKP
+
+psgraph: $(OBJS)
+	cc -o psgraph $(CFLAGS) $(OBJS) -lm
+
+psgsimp: psgsimp.o
+	cc -o psgsimp $(CFLAGS) psgsimp.o -lm
+
+saber:
+	#load ${CFLAGS} ${SRCS} -lm
+
+saber_o:
+	#load ${CFLAGS} ${OBJS} -lm
+
+lint:	$(SRCS)
+	lint -c $(SRCS) > LINT
+
+FILES =  README $(SRCS) psgraph.h psgraph.man psgsimp.man \
+	psgraph.pro Makefile LICENSE patchlevel.h
+
+EXAMPLES_TAR = examples
+
+EXAMPLES_SHAR = examples examples/*
+
+psgraph.shar: $(FILES) $(EXAMPLES_SHAR)
+	rm -f psgraph.shar
+	shar $(FILES) $(EXAMPLES_SHAR) >psgraph.shar
+
+psgraph.tar: $(FILES)  $(EXAMPLES_TAR)
+	rm -f psgraph.tar
+	tar cf psgraph.tar $(FILES) $(EXAMPLES_TAR)
+
+psgraph.tar.Z: psgraph.tar
+	rm -f psgraph.tar.Z
+	compress psgraph.tar	
+
+main.o:	psgraph.h
+grid.o:	psgraph.h
+input.o:	psgraph.h
+output.o:	psgraph.h

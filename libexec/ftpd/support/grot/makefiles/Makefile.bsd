@@ -1,0 +1,7 @@
+LIB=	support
+SRCS=	strcasestr.c authuser.c ftw.c
+NOPROFILE=noprofile
+
+install:
+
+.include <bsd.lib.mk>

@@ -1,0 +1,10 @@
+tcc -DATARI_ST=1 -I=E:\tc\include unzip.c
+tcc -DATARI_ST=1 -I=E:\tc\include file_io.c
+tcc -DATARI_ST=1 -I=E:\tc\include mapname.c
+tcc -DATARI_ST=1 -I=E:\tc\include match.c
+tcc -DATARI_ST=1 -I=E:\tc\include misc.c
+tcc -DATARI_ST=1 -I=E:\tc\include unimplod.c
+tcc -DATARI_ST=1 -I=E:\tc\include unreduce.c
+tcc -DATARI_ST=1 -I=E:\tc\include unshrink.c
+tlink -O=unzip.prg  -S=8192 -C=unzip.lnk
+echo done

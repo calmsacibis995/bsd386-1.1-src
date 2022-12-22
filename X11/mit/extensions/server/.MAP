@@ -1,0 +1,12 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MITMISC_.GZ;1                     	mitmisc.c.gz
+F MULTIBUF.GZ;1                     	multibuf.c.gz
+D PEX                               	PEX
+F SHAPE_C.GZ;1                      	shape.c.gz
+F SHM_C.GZ;1                        	shm.c.gz
+F SLEEPUNT.GZ;1                     	sleepuntil.c.gz
+D XINPUT                            	xinput
+F XTEST1DD.GZ;1                     	xtest1dd.c.gz
+F XTEST1DI.GZ;1                     	xtest1di.c.gz
+F XTEST1_F.GZ;1                     	xtest1.frags.gz
+F XTEST_C.GZ;1                      	xtest.c.gz

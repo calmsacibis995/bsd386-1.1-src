@@ -1,0 +1,15 @@
+F PCCONST0.CTL;1                    	pcconstab.JP.ctl
+F PCCONST1.CTL;1                    	pcconstab.US.ctl
+F PCCONST2.CTL;1                    	pcconstab.USJP.ctl
+F PCCONSTA.885;1                    	pcconstab.NO.8859
+F PCCONSTA.BE;1                     	pcconstab.BE
+F PCCONSTA.BG;1                     	pcconstab.BG
+F PCCONSTA.DE;1                     	pcconstab.DE
+F PCCONSTA.FR;1                     	pcconstab.FR
+F PCCONSTA.JP;1                     	pcconstab.JP
+F PCCONSTA.RU;1                     	pcconstab.RU
+F PCCONSTA.SE;1                     	pcconstab.SE
+F PCCONSTA.SP;1                     	pcconstab.SP
+F PCCONSTA.UK;1                     	pcconstab.UK
+F PCCONSTA.US;1                     	pcconstab.US
+F PCCONSTA.USJ;1                    	pcconstab.USJP

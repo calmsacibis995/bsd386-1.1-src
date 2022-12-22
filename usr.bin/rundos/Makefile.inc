@@ -1,0 +1,18 @@
+.include "../Makefile.inc"
+
+KERNEL_FILE_NAME=/usr/libexec/dos.kernel
+ROMBIOS_FILE_NAME=/usr/libdata/dos.rombios
+FIRSTPAGE_FILE_NAME=/var/run/dos.firstpage
+CONFIG_FILE_NAME=.rundosrc
+SYS_CONFIG_NAME=/etc/rundos.conf
+
+FDEFS=	-DKERNEL_FILE_NAME=\"${KERNEL_FILE_NAME}\" \
+	-DROMBIOS_FILE_NAME=\"${ROMBIOS_FILE_NAME}\" \
+	-DFIRSTPAGE_FILE_NAME=\"${FIRSTPAGE_FILE_NAME}\" \
+	-DCONFIG_FILE_NAME=\"${CONFIG_FILE_NAME}\" \
+	-DSYS_CONFIG_NAME=\"${SYS_CONFIG_NAME}\"
+
+#CFLAGS= -I/sys -g -DDEBUG=1 -DTRACE -DBSD -DRUNDOS  
+#CFLAGS+=-DDEB_SGN -DDEB_KBD ${FDEFS}
+
+CFLAGS= -I/sys -O -DBSD ${FDEFS}

@@ -1,0 +1,355 @@
+/*
+ * Copyright (c) 1992, 1993 Berkeley Software Design, Inc. All rights reserved.
+ * The Berkeley Software Design Inc. software License Agreement specifies
+ * the terms and conditions for redistribution.
+ *
+ *	$Id: pcconstab.RU,v 1.2 1994/01/28 04:53:47 karels Exp $
+ */
+
+/*-
+ * Copyright (c) 1992 Dirk Husemann, University of Erlangen-Nurnberg,
+ * Germany. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by the University of
+ *	Erlangen-Nuremberg, Germany.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+/*
+ *	US + Cyrillic Keyboard mapping tables
+ */
+struct key pcconstab[] = {
+/* 00 */ KNULL,
+/* 01 */ KCONST(033),
+/* 02 */ KMCHAR('1',	'!',	'1',	'!'),
+/* 03 */ KMCHAR('2',	'@',	000,	000),
+/* 04 */ KMCHAR('3',	'#',	'3',	'#'),
+/* 05 */ KMCHAR('4',	'$',	'4',	'$'),
+/* 06 */ KMCHAR('5',	'%',	'5',	'%'),
+/* 07 */ KMCHAR('6',	'^',	036,	036),
+/* 08 */ KMCHAR('7',	'&',	'7',	'&'),
+/* 09 */ KMCHAR('8',	'*',	'8',	'*'),
+/* 0a */ KMCHAR('9',	'(',	'9',	'('),
+/* 0b */ KMCHAR('0',	')',	'0',	')'),
+/* 0c */ KMCHAR('-',	'_',	037,	037),
+/* 0d */ KMCHAR('=',	'+',	'+',	'+'),
+/* 0e */ KMCHAR(010,	010,	034,	034),
+/* 0f */ KMCHAR('\t',	'\t',	'\177',	'\177'),
+/* 10 */ KMALPHA('q',	'Q',	021,	021),
+/* 11 */ KMALPHA('w',	'W',	027,	027),
+/* 12 */ KMALPHA('e',	'E',	005,	005),
+/* 13 */ KMALPHA('r',	'R',	022,	022),
+/* 14 */ KMALPHA('t',	'T',	024,	024),
+/* 15 */ KMALPHA('y',	'Y',	031,	031),
+/* 16 */ KMALPHA('u',	'U',	025,	025),
+/* 17 */ KMALPHA('i',	'I',	011,	011),
+/* 18 */ KMALPHA('o',	'O',	017,	017),
+/* 19 */ KMALPHA('p',	'P',	020,	020),
+/* 1a */ KMCHAR('[',	'{',	033,	033),
+/* 1b */ KMCHAR(']',	'}',	035,	035),
+/* 1c */ KMCHAR('\r',	'\r',	'\r',	'\r'),
+/* 1d */ KCTL,
+/* 1e */ KMALPHA('a',	'A',	001,	001),
+/* 1f */ KMALPHA('s',	'S',	023,	023),
+/* 20 */ KMALPHA('d',	'D',	004,	004),
+/* 21 */ KMALPHA('f',	'F',	006,	006),
+/* 22 */ KMALPHA('g',	'G',	007,	007),
+/* 23 */ KMALPHA('h',	'H',	010,	010),
+/* 24 */ KMALPHA('j',	'J',	012,	012),
+/* 25 */ KMALPHA('k',	'K',	013,	013),
+/* 26 */ KMALPHA('l',	'L',	014,	014),
+/* 27 */ KMCHAR(';',	':',	';',	';'),
+/* 28 */ KMCHAR('\'',	'"',	'\'',	'\''),
+/* 29 */ KMCHAR('`',	'~',	'`',	'`'),
+/* 2a */ KSHF,
+/* 2b */ KMCHAR('\\',	'|',	034,	034),
+/* 2c */ KMALPHA('z',	'Z',	032,	032),
+/* 2d */ KMALPHA('x',	'X',	030,	030),
+/* 2e */ KMALPHA('c',	'C',	003,	003),
+/* 2f */ KMALPHA('v',	'V',	026,	026),
+/* 30 */ KMALPHA('b',	'B',	002,	002),
+/* 31 */ KMALPHA('n',	'N',	016,	016),
+/* 32 */ KMALPHA('m',	'M',	015,	015),
+/* 33 */ KMCHAR(',',	'<',	'<',	'<'),
+/* 34 */ KMCHAR('.',	'>',	'>',	'>'),
+/* 35 */ KMCHAR('/',	'?',	037,	037),
+/* 36 */ KRSHF,
+/* 37 */ KNUMPAD('*', '\033', '[', '*'),
+/* 38 */ KALT,
+/* 39 */ KMCHAR(' ',	' ',	000,	000),
+#ifndef CAPSLOCK_CONTROL
+/* 3a */ KCAPSLOCK,
+#else
+/* 3a */ KCTL,
+#endif
+/* 3b */ KSFUNC('M', 'Y', 'k', 'w', 'M', 'Y', 'k', 'w'),
+/* 3c */ KSFUNC('N', 'Z', 'l', 'x', 'N', 'Z', 'l', 'x'),
+/* 3d */ KSFUNC('O', 'a', 'm', 'y', 'O', 'a', 'm', 'y'),
+/* 3e */ KSFUNC('P', 'b', 'n', 'z', 'P', 'b', 'n', 'z'),
+/* 3f */ KSFUNC('Q', 'c', 'o', '@', 'Q', 'c', 'o', '@'),
+/* 40 */ KSFUNC('R', 'd', 'p', '[', 'R', 'd', 'p', '['),
+/* 41 */ KSFUNC('S', 'e', 'q', '\\', 'S', 'e', 'q', '\\'),
+/* 42 */ KSFUNC('T', 'f', 'r', ']', 'T', 'f', 'r', ']'),
+/* 43 */ KSFUNC('U', 'g', 's', '^', 'U', 'g', 's', '^'),
+/* 44 */ KSFUNC('V', 'h', 't', '_', 'V', 'h', 't', '_'),
+/* 45 */ KNUM,
+/* 46 */ KSCROLL,
+/* 47 */ KNUMPAD('7', '\033', '[', 'H' ),
+/* 48 */ KNUMPAD('8', '\033', '[', 'A'),
+/* 49 */ KNUMPAD('9', '\033', '[', 'I'),
+/* 4a */ KNUMPAD('-', '\033', '[', '-'),
+/* 4b */ KNUMPAD('4', '\033', '[', 'D'),
+/* 4c */ KNUMPAD('5', '\033', '[', 'E'),
+/* 4d */ KNUMPAD('6', '\033', '[', 'C'),
+/* 4e */ KNUMPAD('+', '\033', '[', '+'),
+/* 4f */ KNUMPAD('1', '\033', '[', 'F'),
+/* 50 */ KNUMPAD('2', '\033', '[', 'B'),
+/* 51 */ KNUMPAD('3', '\033', '[', 'G'),
+/* 52 */ KNUMPAD('0', '\033', '[', 'L'),
+/* 53 */ KNUMPAD('.', '\033', '[', '.'),
+/* 54 */ KNULL,
+/* 55 */ KNULL,
+/* 56 */ KNULL,
+/* 57 */ KSFUNC('W', 'i', 'u', '`', 'W', 'i', 'u', '`'),
+/* 58 */ KSFUNC('X', 'j', 'v', '{', 'X', 'j', 'v', '{'),
+/* 59 */ KNULL,
+/* what are the rest of these, compaq extensions? ??? */
+/* 5a */ KCHAR(0, 	0,	033,	033,	0,	0,	033,	033),
+/* 5b */ KCHAR(0,	0,	'7',	'7',	0,	0,	'7',	'7'),
+/* 5c */ KCHAR(0,	0,	'4',	'4',	0,	0,	'4',	'4'),
+/* 5d */ KCHAR(0,	0,	'1',	'1',	0,	0,	'1',	'1'),
+/* 5e */ KNULL,
+/* 5f */ KCHAR(0,	0,	NUM,	NUM,	0,	0,	NUM,	NUM),
+/* 60 */ KFUNC("\033[A"),
+/* 61 */ KFUNC("\033[D"),
+/* 62 */ KFUNC("\033[B"),
+/* 63 */ KFUNC("\033[C"),
+/* 64 */ KFUNC("\033[H"),
+/* 65 */ KFUNC("\033[I"),
+/* 66 */ KFUNC("\033[F"),
+/* 67 */ KFUNC("\033[G"),
+/* 68 */ KFUNC("\033[L"),
+/* 69 */ KFUNC("\033[."),
+/* 6a */ KCHAR(0,	0,	'*',	'*',	0,	0,	'*',	'*'),
+/* 6b */ KCHAR(0,	0,	'-',	'-',	0,	0,	'-',	'-'),
+/* 6c */ KCHAR(0,	0,	'+',	'+',	0,	0,	'+',	'+'),
+};
+
+int pcconstabsize = sizeof(pcconstab) / sizeof(pcconstab[0]);
+
+int pcextstart = 0x1c;
+int pcextend = 0x54;
+
+struct key pcexttab[] = {
+/* 1c */ KCHAR('\r',	'\r',	'\r',	'\r',	'\r',	'\r',	'\r',	'\r'),
+/* 1d */ KRCTL,
+/* 1e */ KNULL,
+/* 1f */ KNULL,
+/* 20 */ KNULL,
+/* 21 */ KNULL,
+/* 22 */ KNULL,
+/* 23 */ KNULL,
+/* 24 */ KNULL,
+/* 25 */ KNULL,
+/* 26 */ KNULL,
+/* 27 */ KNULL,
+/* 28 */ KNULL,
+/* 29 */ KNULL,
+/* 2a */ KNULL,		/* simulated left shift */
+/* 2b */ KNULL,
+/* 2c */ KNULL,
+/* 2d */ KNULL,
+/* 2e */ KNULL,
+/* 2f */ KNULL,
+/* 30 */ KNULL,
+/* 31 */ KNULL,
+/* 32 */ KNULL,
+/* 33 */ KNULL,
+/* 34 */ KNULL,
+/* 35 */ KCHAR('/',	'/',	'/',	'/',	'/',	'/',	'/',	'/'),
+/* 36 */ KNULL,		/* simulated right shift */
+/* 37 */ KNULL,		/* print scrn */
+/* 38 */ KALTSHIFT,
+/* 39 */ KNULL,
+/* 3a */ KNULL,
+/* 3b */ KNULL,
+/* 3c */ KNULL,
+/* 3d */ KNULL,
+/* 3e */ KNULL,
+/* 3f */ KNULL,
+/* 40 */ KNULL,
+/* 41 */ KNULL,
+/* 42 */ KNULL,
+/* 43 */ KNULL,
+/* 44 */ KNULL,
+/* 45 */ KNUM,
+/* 46 */ KNULL,			/* break (control-pause) */
+/* 47 */ KFUNC("\033[H"),	/* edit-pad home */
+/* 48 */ KFUNC("\033[A"),	/* cursor-pad up arrow */
+/* 49 */ KFUNC("\033[I"),	/* edit-pad page up */
+/* 4a */ KNULL,
+/* 4b */ KFUNC("\033[D"),	/* cursor-pad left arrow */
+/* 4c */ KNULL,
+/* 4d */ KFUNC("\033[C"),	/* cursor-pad right arrow */
+/* 4e */ KNULL,
+/* 4f */ KFUNC("\033[F"),	/* edit-pad end */
+/* 50 */ KFUNC("\033[B"),	/* cursor-pad down arrow */
+/* 51 */ KFUNC("\033[G"),	/* edit-pad page down */
+/* 52 */ KFUNC("\033[L"),	/* edit-pad insert */
+/* 53 */ KCONST(0177),		/* edit-pad delete (or "\033[."?) */
+};
+
+/*
+ * Alternative (Cyrillic) mapping tables
+ */
+struct key pcaltconstab[] = {
+/* 00 */ KNULL,
+/* 01 */ KCONST(033),
+/* 02 */ KMCHAR('1',	'!',	'1',	'!'),
+/* 03 */ KMCHAR('2',    '"',    000,    '@'),
+/* 04 */ KMCHAR('3',	'#',	'3',	'#'),
+/* 05 */ KMCHAR('4',    ';',    '4',    '$'),
+/* 06 */ KMCHAR('5',    ':',    '5',    '%'),
+/* 07 */ KMCHAR('6',    ',',    036,    ','),
+/* 08 */ KMCHAR('7',    '.',    '7',    '&'),
+/* 09 */ KMCHAR('8',	'*',	'8',	'*'),
+/* 0a */ KMCHAR('9',	'(',	'9',	'('),
+/* 0b */ KMCHAR('0',	')',	'0',	')'),
+/* 0c */ KMCHAR('-',    '_',    037,    '_'),
+/* 0d */ KMCHAR('=',    '+',    '=',    '+'),
+/* 0e */ KMCHAR(010,	010,	034,	034),
+/* 0f */ KMCHAR('\t',	'\t',	'\177',	'\177'),
+/* 10 */ KMALPHA(0xca,  0xea,   021,    021),
+/* 11 */ KMALPHA(0xc3,  0xe3,   027,    027),
+/* 12 */ KMALPHA(0xd5,  0xf5,   005,    005),
+/* 13 */ KMALPHA(0xcb,  0xeb,   022,    022),
+/* 14 */ KMALPHA(0xc5,  0xe5,   024,    024),
+/* 15 */ KMALPHA(0xce,  0xee,   031,    031),
+/* 16 */ KMALPHA(0xc7,  0xe7,   025,    025),
+/* 17 */ KMALPHA(0xdb,  0xfb,   011,    011),
+/* 18 */ KMALPHA(0xdd,  0xfd,   017,    017),
+/* 19 */ KMALPHA(0xda,  0xfa,   020,    020),
+/* 1a */ KMALPHA(0xc8,  0xe8,   033,    033),
+/* 1b */ KMALPHA(0xdf,  0xff,   035,    035),
+/* 1c */ KMCHAR('\r',	'\r',	'\r',	'\r'),
+/* 1d */ KCTL,
+/* 1e */ KMALPHA(0xc6,  0xe6,   001,    001),
+/* 1f */ KMALPHA(0xd9,  0xf9,   023,    023),
+/* 20 */ KMALPHA(0xd7,  0xf7,   004,    004),
+/* 21 */ KMALPHA(0xc1,  0xe1,   006,    006),
+/* 22 */ KMALPHA(0xd0,  0xf0,   007,    007),
+/* 23 */ KMALPHA(0xd2,  0xf2,   010,    010),
+/* 24 */ KMALPHA(0xcf,  0xef,   012,    012),
+/* 25 */ KMALPHA(0xcc,  0xec,   013,    013),
+/* 26 */ KMALPHA(0xc4,  0xe4,   014,    014),
+/* 27 */ KMALPHA(0xd6,  0xf6,   ';',    ';'),
+/* 28 */ KMALPHA(0xdc,  0xfc,   '\'',   '\''),
+/* 29 */ KMCHAR('`',    '~',    '`',   '`'),
+/* 2a */ KSHF,
+/* 2b */ KMCHAR('\\',	'|',	034,	034),
+/* 2c */ KMALPHA(0xd1,  0xf1,   032,    032),
+/* 2d */ KMALPHA(0xde,  0xfe,   030,    030),
+/* 2e */ KMALPHA(0xd3,  0xf3,   003,    003),
+/* 2f */ KMALPHA(0xcd,  0xed,   026,    026),
+/* 30 */ KMALPHA(0xc9,  0xe9,   002,    002),
+/* 31 */ KMALPHA(0xd4,  0xf4,   016,    016),
+/* 32 */ KMALPHA(0xd8,  0xf8,   015,    015),
+/* 33 */ KMALPHA(0xc2,  0xe2,   '<',    '<'),
+/* 34 */ KMALPHA(0xc0,  0xe0,   '>',    '>'),
+/* 35 */ KMCHAR('/',	'?',	'?',	'?'),
+/* 36 */ KRSHF,
+/* 37 */ KNUMPAD('*', '\033', '[', '*'),
+/* 38 */ KALT,
+/* 39 */ KCONST(' '),
+#ifndef CAPSLOCK_CONTROL
+/* 3a */ KCAPSLOCK,
+#else
+/* 3a */ KCTL,
+#endif
+/* 3b */ KSFUNC('M', 'Y', 'k', 'w', 'M', 'Y', 'k', 'w'),
+/* 3c */ KSFUNC('N', 'Z', 'l', 'x', 'N', 'Z', 'l', 'x'),
+/* 3d */ KSFUNC('O', 'a', 'm', 'y', 'O', 'a', 'm', 'y'),
+/* 3e */ KSFUNC('P', 'b', 'n', 'z', 'P', 'b', 'n', 'z'),
+/* 3f */ KSFUNC('Q', 'c', 'o', '@', 'Q', 'c', 'o', '@'),
+/* 40 */ KSFUNC('R', 'd', 'p', '[', 'R', 'd', 'p', '['),
+/* 41 */ KSFUNC('S', 'e', 'q', '\\', 'S', 'e', 'q', '\\'),
+/* 42 */ KSFUNC('T', 'f', 'r', ']', 'T', 'f', 'r', ']'),
+/* 43 */ KSFUNC('U', 'g', 's', '^', 'U', 'g', 's', '^'),
+/* 44 */ KSFUNC('V', 'h', 't', '_', 'V', 'h', 't', '_'),
+/* 45 */ KNUM,
+/* 46 */ KSCROLL,
+/* 47 */ KNUMPAD('7', '\033', '[', 'H' ),
+/* 48 */ KNUMPAD('8', '\033', '[', 'A'),
+/* 49 */ KNUMPAD('9', '\033', '[', 'I'),
+/* 4a */ KNUMPAD('-', '\033', '[', '-'),
+/* 4b */ KNUMPAD('4', '\033', '[', 'D'),
+/* 4c */ KNUMPAD('5', '\033', '[', 'E'),
+/* 4d */ KNUMPAD('6', '\033', '[', 'C'),
+/* 4e */ KNUMPAD('+', '\033', '[', '+'),
+/* 4f */ KNUMPAD('1', '\033', '[', 'F'),
+/* 50 */ KNUMPAD('2', '\033', '[', 'B'),
+/* 51 */ KNUMPAD('3', '\033', '[', 'G'),
+/* 52 */ KNUMPAD('0', '\033', '[', 'L'),
+/* 53 */ KNUMPAD('.', '\033', '[', '.'),
+/* 54 */ KNULL,
+/* 55 */ KNULL,
+/* 56 */ KNULL,
+/* 57 */ KSFUNC('W', 'i', 'u', '`', 'W', 'i', 'u', '`'),
+/* 58 */ KSFUNC('X', 'j', 'v', '{', 'X', 'j', 'v', '{'),
+/* 59 */ KNULL,
+/* what are the rest of these, compaq extensions? ??? */
+/* 5a */ KCHAR(0, 	0,	033,	033,	0,	0,	033,	033),
+/* 5b */ KCHAR(0,	0,	'7',	'7',	0,	0,	'7',	'7'),
+/* 5c */ KCHAR(0,	0,	'4',	'4',	0,	0,	'4',	'4'),
+/* 5d */ KCHAR(0,	0,	'1',	'1',	0,	0,	'1',	'1'),
+/* 5e */ KNULL,
+/* 5f */ KCHAR(0,	0,	NUM,	NUM,	0,	0,	NUM,	NUM),
+/* 60 */ KFUNC("\033[A"),
+/* 61 */ KFUNC("\033[D"),
+/* 62 */ KFUNC("\033[B"),
+/* 63 */ KFUNC("\033[C"),
+/* 64 */ KFUNC("\033[H"),
+/* 65 */ KFUNC("\033[I"),
+/* 66 */ KFUNC("\033[F"),
+/* 67 */ KFUNC("\033[G"),
+/* 68 */ KFUNC("\033[L"),
+/* 69 */ KFUNC("\033[."),
+/* 6a */ KCHAR(0,	0,	'*',	'*',	0,	0,	'*',	'*'),
+/* 6b */ KCHAR(0,	0,	'-',	'-',	0,	0,	'-',	'-'),
+/* 6c */ KCHAR(0,	0,	'+',	'+',	0,	0,	'+',	'+'),
+};
+
+int pcaltconstabsize = sizeof(pcaltconstab) / sizeof(pcaltconstab[0]);
+
+/*
+ * Accented key table: unused.
+ */
+struct key accenttab[] = {
+	0
+};
+
+int maxaccent = 0;

@@ -1,0 +1,39 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: clri.8,v 1.1 1993/03/07 23:58:28 sanders Exp $
+.\" 
+.Dd February 28, 1993
+.Dt CLRI 1
+.Os
+.Sh NAME
+.Nm clri
+.Nd clear inode
+.Sh SYNOPSIS
+.Nm clri
+.Ar filesystem
+.Ar "inode ..."
+.Sh DESCRIPTION
+The
+.Nm clri
+utility zeros the given inodes (in decimal) on the specified filesystem.  The
+.Xr fsck 8
+utility can then be used to reclaim any data blocks that were
+associated with the inode(s) that were cleared.
+This can be used to reclaim an inode that is allocated but not pointed to
+by any directory.
+.Pp
+You shouldn't
+.Nm clri
+valid inodes.
+.Sh SEE ALSO
+.Xr fsck 8
+.Sh BUGS
+Whenever possible
+.Nm clri
+should be run on unmounted filesystems (or at least read-only filesystems)
+because if the inode data is in the cache (e.g., if the file is open) then the
+.Nm clri
+will be ineffective.

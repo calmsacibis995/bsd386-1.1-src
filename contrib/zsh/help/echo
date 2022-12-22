@@ -1,0 +1,15 @@
+     echo [ -n ] [ arg ... ]
+          Write each arg on the standard  output,  with  a  space
+          separating  each  one.   If the -n flag is not present,
+          print a newline at the end.  echo recognizes  the  fol-
+          lowing escape sequences:
+          \b   backspace
+          \c   don't print an ending newline
+          \e   escape
+          \f   form feed
+          \n   newline
+          \r   carriage return
+          \t   horizontal tab
+          \v   vertical tab
+          \\   backslash
+          \xxx character code in octal

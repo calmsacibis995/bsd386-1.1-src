@@ -1,0 +1,42 @@
+#	BSDI $Id: Makefile.symlinks,v 1.1 1993/12/16 00:55:51 torek Exp $
+#
+# Code for making symlinks.
+#
+# We assume that:
+#	- we are not cross-compiling;
+#	- if files named `bsdi' exist, they are correct;
+#	- otherwise, the default file for ${MACHINE} is correct.
+# For the `md' file, we do not bother with a special version test
+# (the hardware does not change with the O/S).
+
+CFG=	${.CURDIR}/../config
+CFGM=	${CFG}/${MACHINE}
+
+SYMLINKS=aux-output.c config.h hconfig.h md tconfig.h tm.h
+
+aux-output.c:
+	@f1=${MACHINE}-bsdi.c; f2=${MACHINE}.c; \
+	if [ -f ${CFGM}/$$f1 ]; then f=$$f1; \
+	elif [ -f ${CFGM}/$$f2 ]; then f=$$f2; \
+	else echo "can't find ${.TARGET} for ${MACHINE}" 1>&2; exit 1; \
+	fi; echo "${.TARGET} => $$f"; ln -s ${CFGM}/$$f ${.TARGET}
+
+config.h hconfig.h tconfig.h:
+	@f1=xm-bsdi.h; f2=xm-${MACHINE}.h; \
+	if [ -f ${CFGM}/$$f1 ]; then f=$$f1; \
+	elif [ -f ${CFGM}/$$f2 ]; then f=$$f2; \
+	else echo "can't find ${.TARGET} for ${MACHINE}" 1>&2; exit 1; \
+	fi; echo "${.TARGET} => $$f"; ln -s ${CFGM}/$$f ${.TARGET}
+
+tm.h:
+	@f1=bsdi.h; f2=${MACHINE}.h; \
+	if [ -f ${CFGM}/$$f1 ]; then f=$$f1; \
+	elif [ -f ${CFGM}/$$f2 ]; then f=$$f2; \
+	else echo "can't find ${.TARGET} for ${MACHINE}" 1>&2; exit 1; \
+	fi; echo "${.TARGET} => $$f"; ln -s ${CFGM}/$$f ${.TARGET}
+
+md:
+	@f1=${MACHINE}.md; \
+	if [ -f ${CFGM}/$$f1 ]; then f=$$f1; \
+	else echo "can't find ${.TARGET} for ${MACHINE}" 1>&2; exit 1; \
+	fi; echo "${.TARGET} => $$f"; ln -s ${CFGM}/$$f ${.TARGET}

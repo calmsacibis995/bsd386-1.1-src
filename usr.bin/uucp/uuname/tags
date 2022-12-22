@@ -1,0 +1,3 @@
+Muuname	uuname.c	/^main($/
+finish	uuname.c	/^finish($/
+print	uuname.c	/^print($/

@@ -1,0 +1,19 @@
+ZIP.PRG
+.C[-DEXPORT]
+=
+
+c0.o
+zip.c        (zip.h, ziperr.h, tailor.h, revision.h)
+tcstdlib.lib
+atari.c
+zipfile.c    (zip.h, ziperr.h, tailor.h)
+zipup.c      (zip.h, ziperr.h, tailor.h, revision.h)
+fileio.c     (zip.h, ziperr.h, tailor.h)
+util.c       (zip.h, ziperr.h, tailor.h)
+globals.c    (zip.h, ziperr.h, tailor.h)
+deflate.c    (zip.h, ziperr.h, tailor.h)
+trees.c      (zip.h, ziperr.h, tailor.h)
+bits.c       (zip.h, ziperr.h, tailor.h)
+tcstdlib.lib
+tcextlib.lib
+tctoslib.lib

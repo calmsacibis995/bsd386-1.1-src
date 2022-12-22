@@ -1,0 +1,23 @@
+F BSEARCH_.UUN;1                    	bsearch.c.uunet
+F CONCAT.C;1                        	concat.c
+F DUMMY_C.UUN;1                     	dummy.c.uunet
+F LFIND.C;1                         	lfind.c
+F LISTSORT.C;1                      	listsort.c
+F MAKEFILE.;1                       	Makefile
+F NEWNSTR.C;1                       	newnstr.c
+F NEWPRINT.C;1                      	newprintf.c
+F NEWSTR.C;1                        	newstr.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/uucp/libc
+F OTOL.C;1                          	otol.c
+F RFC822TI.C;1                      	rfc822time.c
+F SOBUF.C;1                         	sobuf.c
+F STRCCMP_.UUN;1                    	strccmp.c.uunet
+F STRCLR.C;1                        	strclr.c
+F STRCPYEN.C;1                      	strcpyend.c
+F STRNCCMP.UUN;1                    	strnccmp.c.uunet
+F STRNCPYE.C;1                      	strncpyend.c
+F STRSTR.C;1                        	strstr.c
+F TAGS.;1                           	tags
+F UNSETENV.UUN;1                    	unsetenv.c.uunet
+F UUCPLOCK.C;1                      	uucplock.c
+F XTOL.C;1                          	xtol.c

@@ -1,0 +1,17 @@
+F CHANGES.;1                        	Changes
+F CONFIGUR.;1                       	Configure
+F FAQ.;1                            	FAQ
+F GETANS.;1                         	getans
+F INSTALL.;1                        	INSTALL
+D MACHINE                           	machine
+F MAKE.DES;1                        	Make.desc
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.X;1                      	Makefile.X
+F MAKE_DES.X;1                      	Make.desc.X
+F METATOP.;1                        	metatop
+F M_TEMPLA.;1                       	m-template
+F PORTING.;1                        	Porting
+F README.;1                         	README
+F SYNOPSIS.;1                       	SYNOPSIS
+F TOP.X;1                           	top.X
+F TOP_LOCA.H;1                      	top.local.H

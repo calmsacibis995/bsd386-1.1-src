@@ -1,0 +1,11 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F WSA_C.GZ;1                        	wsa.c.gz
+F WSA_INP_.GZ;1                     	wsa_inp.c.gz
+F WSA_PM_C.GZ;1                     	wsa_pm.c.gz
+F WSB_C.GZ;1                        	wsb.c.gz
+F WSB_PM_C.GZ;1                     	wsb_pm.c.gz
+F WSX_C.GZ;1                        	wsx.c.gz
+F WSX_LUT_.GZ;1                     	wsx_lut.c.gz
+F WSX_UTIL.GZ;1                     	wsx_util.c.gz
+F WS_INP_C.GZ;1                     	ws_inp.c.gz
+F WS_PM_C.GZ;1                      	ws_pm.c.gz

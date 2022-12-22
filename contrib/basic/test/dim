@@ -1,0 +1,9 @@
+  90	n = 10
+  100	dim b$16[n,3]
+  110	for i = 1 to n
+  115		for j = 1 to 3
+  120			b$[i,j] = 'b$[' || chr(i) || ',' || chr(j) || '], '
+  135		next j
+  140	next i
+  145	mat print b$;
+  150	end

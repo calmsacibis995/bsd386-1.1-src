@@ -1,0 +1,3 @@
+Mhelp	../sc/help.c	/^main()$/
+help	../sc/help.c	/^help()$/
+pscreen	../sc/help.c	/^pscreen(screen)$/

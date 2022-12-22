@@ -1,0 +1,38 @@
+ADD	summary.c	/^#define ADD(F) s->F = comp_add (s->F, record->F)$/
+DECLARE	compare.c	/^#define DECLARE(N) static int user_##N (const void/
+L	compare.c	/^#define L(F) ((* (struct acctusr **) left)->F)$/
+MOVE	summary.c	/^#define MOVE(F) s->F = record->F$/
+Mmain	main.c	/^main (int argc, char * const * argv)$/
+R	compare.c	/^#define R(F) ((* (struct acctusr **) right)->F)$/
+add_command_summary	summary.c	/^add_command_summary (const struct acctcmd *record)/
+add_to_sort_table	sort.c	/^add_to_sort_table (const void *entry)$/
+add_to_summaries	summary.c	/^add_to_summaries (const struct acct *record)$/
+add_user_summary	summary.c	/^add_user_summary (const struct acctusr *record)$/
+common_entry	io.c	/^common_entry (comp_t stime, comp_t utime, comp_t e/
+common_header	io.c	/^common_header (void)$/
+comp_add	acct.c	/^comp_add (comp_t left, comp_t right)$/
+comp_conv	acct.c	/^comp_conv (comp_t c)$/
+copy_and_truncate	io.c	/^copy_and_truncate (const char *source, const char /
+done	error.c	/^done (int status)$/
+dump_acct	main.c	/^dump_acct (void)$/
+dump_user_command	user.c	/^dump_user_command (const struct acct *record)$/
+error	error.c	/^error (const char *irritant, const char *message)$/
+fatal_error	error.c	/^fatal_error (const char *irritant, const char *mes/
+find_entry	summary.c	/^static struct entry **find_entry (const long uid, /
+init_command	summary.c	/^init_command (const struct acct *record)$/
+init_user	summary.c	/^init_user (const struct acct *record)$/
+initialize_summaries	summary.c	/^initialize_summaries (void)$/
+make_temporary	io.c	/^make_temporary (const char c, char *name)$/
+merge_command	summary.c	/^merge_command (void *summary, const struct acct *r/
+merge_memory	summary.c	/^merge_memory (comp_t setime, comp_t retime, short /
+merge_user	summary.c	/^merge_user (void *summary, const struct acct *reco/
+move	io.c	/^move (const char *source, const char *dest)$/
+reclassify	io.c	/^reclassify (const struct acctcmd *record)$/
+remerge_accounting_files	acct.c	/^remerge_accounting_files (void)$/
+save_summaries	summary.c	/^save_summaries (void)$/
+show_command_entry	io.c	/^show_command_entry (const void *record)$/
+show_command_header	io.c	/^show_command_header (void)$/
+show_summary	summary.c	/^show_summary (void)$/
+show_user_entry	io.c	/^show_user_entry (const void *record)$/
+show_user_header	io.c	/^show_user_header (void)$/
+terminate	error.c	/^terminate (void)$/

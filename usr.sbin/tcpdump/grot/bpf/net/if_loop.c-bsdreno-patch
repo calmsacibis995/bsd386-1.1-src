@@ -1,0 +1,58 @@
+*** /tmp/,RCSt1a01575	Wed Jan 29 03:06:11 1992
+--- if_loop.c	Wed Jan 29 02:35:15 1992
+***************
+*** 70,75 ****
+--- 70,82 ----
+  #include "../netiso/iso_var.h"
+  #endif
+  
++ #include "bpfilter.h"
++ #if NBPFILTER > 0
++ #include <sys/time.h>
++ #include <net/bpf.h>
++ static caddr_t lo_bpf;
++ #endif
++ 
+  #define	LOMTU	(1024+512)
+  
+  struct	ifnet loif;
+***************
+*** 88,93 ****
+--- 95,103 ----
+  	ifp->if_hdrlen = 0;
+  	ifp->if_addrlen = 0;
+  	if_attach(ifp);
++ #if NBPFILTER > 0
++ 	bpfattach(&lo_bpf, ifp, DLT_NULL, sizeof(u_int));
++ #endif
+  }
+  
+  looutput(ifp, m, dst, rt)
+***************
+*** 101,106 ****
+--- 111,135 ----
+  
+  	if ((m->m_flags & M_PKTHDR) == 0)
+  		panic("looutput no HDR");
++ #if NBPFILTER > 0
++ 	if (lo_bpf) {
++ 		/*
++ 		 * We need to prepend the address family as
++ 		 * a four byte field.  Cons up a dummy header
++ 		 * to pacify bpf.  This is safe because bpf
++ 		 * will only read from the mbuf (i.e., it won't
++ 		 * try to free it or keep a pointer a to it).
++ 		 */
++ 		struct mbuf m0;
++ 		u_int af = dst->sa_family;
++ 
++ 		m0.m_next = m;
++ 		m0.m_len = 4;
++ 		m0.m_data = (char *)&af;
++ 		
++ 		bpf_mtap(lo_bpf, &m0);
++ 	}
++ #endif
+  	m->m_pkthdr.rcvif = ifp;
+  
+  	if (rt && rt->rt_flags & RTF_REJECT) {

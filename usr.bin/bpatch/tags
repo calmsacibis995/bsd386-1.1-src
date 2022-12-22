@@ -1,0 +1,3 @@
+Mbpatch	bpatch.c	/^main(argc, argv)$/
+err	bpatch.c	/^err(fmt, va_alist)$/
+usage	bpatch.c	/^usage()$/

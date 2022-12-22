@@ -1,0 +1,6 @@
+      time [ pipeline ]
+	   The pipeline is executed,  and  timing  statistics
+	   are  reported  on  the  standard error in the form
+	   specified by the TIMEFMT parameter.   If  pipeline
+	   is  omitted, print statistics about the shell pro-
+	   cess and its children.

@@ -1,0 +1,170 @@
+This file contains a list of bugs to fix and minor feature changes
+needed in the Tk toolkit.  The list is ordered by the time when the
+idea for the change first arose;  no priority should be inferred from
+the order.
+
+6. Fill in default argument table in tkArgv.c, and document it.
+
+8. Change Tk_Uid stuff so that there's a fast way to tell if a
+string is really a Tk_Uid.
+
+10. Write procedure to translate from a string to a Pixmap.
+
+26. Extend "configure" widget command to output the type of the
+option (string, color, etc.)?  Or should this be done with the class
+field?
+
+28. Need mechanism to change the name of a top-level window.
+
+30. Make "." a frame widget in wish?
+
+47. Add new "option" subcommands to (a) query whole database or
+(b) query all the option patterns that match for a particular option
+(i.e. don't just return the one that will actually be used).
+
+50. In error-handling code, ignore BadWindow errors if they occur
+for a seemingly-legitimate Tk window.
+
+63. Provide way to determine "type" of window (i.e. command under which
+it was created) rather than current class?
+
+68. Write manual entries for new exported binding procedures.
+
+75. Change Tk_Uid typedef to prevent confusion with (char *)?
+
+76. Change listbox selection handling to return multiple items separated
+by newlines rather than as a Tcl list?
+
+81. For check and radio buttons, change "command" config to separate
+commands invoked when button becomes selected/deselected?
+
+86. Change "tkVersion" variable to "tk_version" for consistency.
+
+89. Eliminate hard-wired behavior for scales and scrollbars:  use class
+bindings instead.
+
+92. Add mechanism for interposing constraints in geometry management,
+e.g. to allow a collection of buttons to all request same width (for
+tables) or to provide a generic mechanism for padding widgets internally.
+
+93. Add way to find out which geometry manager "owns" a particular
+window.  Also, Tk_SetInternalBorder isn't notify geometry managers
+correctly (it assumes that slaves are children).  Also, it would be
+nice to have a callback to notify a geometry manager if one of its
+slaves is taken away from it by another geometry manager.
+
+98. Add Tk command to compute the bbox of a given text string in a given
+font?
+
+100. Extend scrollbar "set" command so that arrow increment can be set
+explicitly.  Or, change scrollbar interface completely so that the
+scrollbar only gets two numbers giving slider position, and sends
+commands of the form "foo scroll up1" or "foo scroll upScreen".
+
+101. Eliminate TK_DONT_WAIT option to Tk_DoOneEvent.
+
+103. Get image displaying widget from Paul Mackerras (paulus@cs.anu.edu.au)
+and incorporate into Tk.
+
+105. Eliminate the "activate" and "deactivate" commands for buttons
+and menu buttons.
+
+106. Add feature to buttons for automatic defaulting, where button
+allocates extra space for default ring.
+
+107. Eliminate the "disable" and "enable" commands for menus.
+
+108. Change Tk_GetAtomName to return NULL instead of "?bad atom?".
+
+110. Extend bitmaps to allow direct specification (#0xffff ...)
+
+114. Change default so that windows are normally resizable?
+
+115. Change Tk_GetSelection to look in the cut buffer if no selection
+can be found.
+
+117. Implement a mechanism for retrieving just the value of a configuration
+option, without all the other stuff (name, default, etc.).  Perhaps
+a "cvalue" widget command?
+
+124. Remove "-geometry" option from all widgets, and use "-width" and
+"-height" instead.
+
+128. Scroll windows when selecting off edge of window (do for listboxes,
+entries, and text)?
+
+129. Add keyboard traversal to text and listboxes.
+
+131. Should new characters in text widget get tags of character they
+precede or character they follow (currently it's "follow")?  Or neither?
+
+132. Extend "option" command to make it possible to retrieve the original
+resource pattern specs.
+
+134. Allow upper-left character in text not to be the first character
+of a line: otherwise, with very long line and small window, won't be
+able to view the end of a line.
+
+136. Implement mechanism for using existing window as main window for
+application, support with command-line argument in wish.
+
+137. Modify default bindings so that they can handle multiple mice working
+simultaneously on different displays (right now there is a single variable
+that keeps track of the active window, for example).
+
+138. Add packer option not to set requested geometry for parent window?
+
+139. Change canvas Postscript generation to be smarter about font names
+that have been abbreviated:  use X to look up the full name.
+
+140. Canvas Postscript isn't stippling text like it should:  the code
+seems not to have been written at all.
+
+141. Change "send" code to be cleverer about reclaiming names of dead
+interpreters.  E.g. check for duplicate window names in the registry
+or check for a unique-id property on the commWindow.
+
+142. Need to add "-displayfor" option to the following commands:
+focus, selection, send.
+
+143. There are tricky issues about send and multiple displays.  Does
+some name get registered for a top-level window on a new display?  If
+so, how to deal with multiple different names for application?  If not,
+can this window be sent to by other applications on its display?
+
+144. In text widgets, if you backspace over a newline, the caret sometimes
+leaves garbage at the left edge of its previous (lower) line.
+
+145. Incorporate Mark Diekhans' "addinput" or something like it.
+
+146. Change main.c to use "name" to set the class, instead of Tk.
+
+147. Add "window" entry to menus.
+
+148. Add an "initProc" and a "freeProc" to TK_CONFIG_CUSTOM config types.
+
+149. Remove Tcl_PrintDouble override macro in tkInt.h.
+
+150. In SYNONYM options, specify a command-line switch for the other
+option, not a database name.
+
+151. Rename "pack newinfo" to "pack info".
+
+152. Make canvas window items restack in response to canvase "raise"
+and "lower" commands.
+
+153. Some fonts (e.g. Times) have underline characters that extend
+*below* the official descent of the font.  Right now the underline
+is invisible for these fonts in text widgets.  Find a way to make
+this work in text?
+
+154. Eliminate "geometry" variable from tkMain.c.
+
+155. Change all bindings to ignore extra modifiers by default?  This
+seems to be right more often than it's wrong.
+
+156. Eliminate "alwaysRedraw" for canvases and add an undisplayProc
+instead.
+
+157. Change "selection get APPLICATION" to "selection get TK_APPLICATION"?
+Same for WINDOW?

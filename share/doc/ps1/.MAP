@@ -1,0 +1,10 @@
+F 00_CONTE.;1                       	00.contents
+D 04_PASCA                          	04.pascal
+D 06_SYSMA                          	06.sysman
+D 07_IPCTU                          	07.ipctut
+D 08_IPC                            	08.ipc
+D 13_RCS                            	13.rcs
+D 14_SCCS                           	14.sccs
+D 18_CURSE                          	18.curses
+F MAKEFILE.;1                       	Makefile
+F TITLE.;1                          	Title

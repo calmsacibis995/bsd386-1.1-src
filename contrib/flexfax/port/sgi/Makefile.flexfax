@@ -1,0 +1,130 @@
+#!smake
+#	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/sgi/Makefile.flexfax,v 1.1.1.1 1994/01/14 23:10:17 torek Exp $
+#
+# FlexFAX Facsimile Software
+#
+# Copyright (c) 1988, 1989, 1990, 1991, 1992, 1993 Sam Leffler
+# Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+# 
+# Permission to use, copy, modify, distribute, and sell this software and 
+# its documentation for any purpose is hereby granted without fee, provided
+# that (i) the above copyright notices and this permission notice appear in
+# all copies of the software and related documentation, and (ii) the names of
+# Sam Leffler and Silicon Graphics may not be used in any advertising or
+# publicity relating to the software without the specific, prior written
+# permission of Sam Leffler and Silicon Graphics.
+# 
+# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+# 
+# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+# OF THIS SOFTWARE.
+#
+COMMONPREF=fax
+DEPTH=	.
+
+include defs
+
+DIRS=	\
+	iv \
+	util \
+	fax2ps \
+	faxalter \
+	faxcover \
+	faxd \
+	faxmail \
+	faxrm \
+	faxstat \
+	recvfax \
+	sendfax \
+	sgi2fax \
+	\
+	doc \
+	etc \
+	man \
+	${NULL}
+OTHERDIRS=\
+	libtiff \
+	${NULL}
+
+.PATH: ${DIRS} ${OTHERDIRS}
+
+TARGETS=flexfax
+
+default all ${TARGETS}:
+	@${MAKE} -f ${MAKEFILE} dirs
+
+include rules
+
+dirs::
+	@for i in ${OTHERDIRS} ${DIRS}; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE}); \
+	done
+depend::
+	@for i in ${DIRS}; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE} depend); \
+	done
+clean::
+	@for i in ${OTHERDIRS} ${DIRS}; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE} clean); \
+	done
+clobber::
+	@for i in ${DIRS}; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE} clobber); \
+	done
+	rm -f port.h
+
+makeClientDirs::
+	${INSTALL} -u bin -g sys -m 755 -idb flexfax.sw.client -dir \
+	    ${BIN} ${LIBDATA} ${LIBEXEC}
+makeServerDirs::
+	${INSTALL} -u bin -g sys -m 755 -idb flexfax.sw.server -dir ${USRETC}
+	${INSTALL} -u ${FAXUSER} -g ${FAXGROUP} -m 755 \
+	    -idb flexfax.sw.server -dir \
+	    -F ${SPOOL} bin etc recvq sendq tmp info cinfo log status
+	${INSTALL} -u ${FAXUSER} -g ${FAXGROUP} -m 700 \
+	    -idb flexfax.sw.server -dir \
+	    -F ${SPOOL} docq
+makeDirs: makeClientDirs makeServerDirs
+
+makeDevices::
+	${INSTALL} -u ${FAXUSER} -g ${FAXGROUP} -m 600 -fifo \
+	    -idb flexfax.sw.server -F ${SPOOL} FIFO
+
+install: makeDirs makeDevices
+	@for i in ${DIRS}; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE} install); \
+	done
+	(${ECHO} "= "etc; cd etc; ${MAKE} installInit); \
+
+installProduct: dps relnotes
+	@for i in dps relnotes; do \
+	    (${ECHO} "= "$$i; cd $$i; ${MAKE} install); \
+	done
+	${INSTALL} -F ${DOC} -m 444 -idb ${PRODUCT}.man.readme -O \
+	    README MODEMS HOWTO CHANGES-v2.1 CHANGES-v2.2 SURVEY TODO
+
+product::
+	${RM} -f dist/rawidb
+	SRC=`${PWD}` RAWIDB=`${PWD}`/dist/rawidb ${MAKE} install installProduct
+	${RM} -f dist/idb
+	${SORT} -u +4 dist/rawidb > dist/idb
+	(cd dist; sh newalpha)
+	${GENDIST} -v -dist dist -idb dist/idb -sbase `pwd` -spec dist/flexfax.spec
+
+dist.inst:
+	ALPHA=`cat dist/flexfax.alpha | awk '{print $$3}'`; \
+	VERSION=v`cat VERSION`$$ALPHA;			\
+	rm -f $$VERSION.inst.tar; \
+	tar cf $$VERSION.inst.tar \
+	    dist/flexfax	\
+	    dist/flexfax.idb	\
+	    dist/flexfax.sw	\
+	    dist/flexfax.man
+
+include distrules

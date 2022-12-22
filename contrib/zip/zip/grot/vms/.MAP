@@ -1,0 +1,9 @@
+F DESCRIP.MMS;1                     	descrip.mms
+F MAKEFILE.VMS;1                    	makefile.vms
+F MAKE_GCC.COM;1                    	make_gcc.com
+F MAKE_VAX.COM;1                    	make_vaxc.com
+F VAXCLIB.OPT;1                     	vaxclib.opt
+F VMS.C;1                           	vms.c
+F VMSMUNCH.C;1                      	VMSmunch.c
+F VMSMUNCH.H;1                      	VMSmunch.h
+F VMS_ZIP.RNH;1                     	vms_zip.rnh

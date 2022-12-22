@@ -1,0 +1,9 @@
+F CLOSEDIR.GZ;1                     	closedir.c.gz
+F DIRECTOR.GZ;1                     	directory.3s.gz
+F DIR_H.GZ;1                        	dir.h.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F OPENDIR_.GZ;1                     	opendir.c.gz
+F READDIR_.GZ;1                     	readdir.c.gz
+F READ_ME.GZ;1                      	READ-ME.gz
+F SEEKDIR_.GZ;1                     	seekdir.c.gz
+F TELLDIR_.GZ;1                     	telldir.c.gz

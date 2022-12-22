@@ -1,0 +1,255 @@
+     setopt [ +-options ] [ name ... ]
+          Set the options for the shell.  All  options  specified
+          either  with flags or by name are set.  If no arguments
+          are supplied, the names of all  options  currently  set
+          are  printed.   In option names, case is insignificant,
+          and all underscore characters are ignored.
+     unsetopt [ +-options ] [ name ... ]
+          Unset the options for the shell.  All options specified
+          either with flags or by name are unset.
+
+     The following options may be  set  upon  invocation  of  the
+     shell, or with the set or setopt builtins:
+          ALLEXPORT (-a)
+               All parameters subsequently defined are  automati-
+               cally exported.
+          AUTO_CD (-J)
+               If a command is not in the hash table,  and  there
+               exists  an executable directory by that name, per-
+               form the cd command to that directory.
+          AUTOLIST (-9)
+               Automatically list choices on an ambiguous comple-
+               tion.
+          AUTOMENU
+               Automatically use menu completion if the  TAB  key
+               is pressed repeatedly.
+          AUTO_PUSHD (-N)
+               Make cd act like pushd.
+          AUTO_RESUME (-W)
+               Treat single word simple commands without redirec-
+               tion  as  candidates for resumption of an existing
+               job.
+          BGNICE (-6)
+               Run all background jobs at a lower priority.  This
+               option is set by default.
+          BRACECCL
+               Allow brace expansions of the form {a-zA-Z}, etc.
+          CDABLEVARS (-T)
+               If the argument to a cd command is  not  a  direc-
+               tory,  but  a  parameter  exists  by the same name
+               whose value begins with a /, try to change to  the
+               directory specified by the parameter's value.
+          CHASELINKS (-w)
+               Resolve symbolic links to their true values.
+          CORRECT (-0)
+               Try to correct the spelling of commands.
+          CORRECT_ALL (-O)
+               Try to correct the spelling of all arguments in  a
+               line.
+          CSH_JUNKIE_LOOPS
+               Allow loop bodies to take  the  form  "list;  end"
+               instead of "do list; done".
+          CSH_JUNKIE_QUOTES
+               Complain if a quoted expression runs off  the  end
+               of  a  line;  prevent quoted expressions from con-
+               taining unescaped newlines.
+          CSH_NULL_GLOB
+               If  a  pattern  for  filename  generation  has  no
+               matches,  delete  the  pattern  from  the argument
+               list; do not report an error unless all  the  pat-
+               terns  in  a  command  have no matches.  Overrides
+               NULLGLOB.
+          ERREXIT (-e)
+               If a command has a non-zero exit  status,  execute
+               the ERR trap, if set, and exit.
+          EXTENDED_GLOB
+               Treat the # and ^ characters as part  of  patterns
+               for filename generation, etc.
+          GLOB_COMPLETE
+               Like MENU_COMPLETE, except that the  current  word
+               is  expanded  using normal shell expansion instead
+               of completion.  If no matches are found,  a  *  is
+               added  to  the  end  of the word, and expansion is
+               attempted again.
+          GLOB_DOTS (-4)
+               Do not require a leading . in  a  filename  to  be
+               matched explicitly.
+          HASH_CMDS
+               Place the location of each  command  in  the  hash
+               table  the  first  time  it  is executed.  If this
+               option is unset, no path hashing will be  done  at
+               all.
+          HASH_DIRS
+               Whenever a command is executed, hash the directory
+               containing  it,  as  well  as all directories that
+               occur earlier in  the  path.   Has  no  effect  if
+               HASH_CMDS is unset.
+          HASH_LIST_ALL
+               Whenever a command completion is  attempted,  make
+               sure  the  entire  command  path  is hashed first.
+               This makes the first completion slower.
+          HIST_IGNORE_DUPS (-h)
+               Do not enter command lines into the  history  list
+               if they are duplicates of the previous event.
+          HIST_IGNORE_SPACE (-g)
+               Do not enter command lines into the  history  list
+               if they begin with a blank.
+          HISTLIT (-j)
+               Use literal (unparsed)  versions  of  the  history
+               lines in the editor.
+          HIST_NO_STORE
+               Remove the history (fc -l) command from  the  his-
+               tory when invoked.
+          HIST_VERIFY
+               Whenever the user enters a line with history  sub-
+               stitution,   don't   execute  the  line  directly;
+               instead, perform history substitution  and  reload
+               the line into the editing buffer.
+          IGNORE_BRACES (-I)
+               Do not perform brace expansion.
+          IGNOREEOF (-7)
+               Do not exit on end-of-file.  Require  the  use  of
+               exit or logout instead.
+          INTERACTIVE (-i)
+               This is an interactive shell.
+          INTERACTIVE_COMMENTS (-k)
+               Allow comments even in interactive shells.
+          KSH_OPTION_PRINT
+               Alters the way options settings are printed.
+          LIST_TYPES (-X)
+               When listing files that are possible  completions,
+               show the type of each file with a trailing identi-
+               fying mark.
+          LOGIN (-l)
+               This is a login shell.
+          LONG_LIST_JOBS (-R)
+               List jobs in the long format by default.
+          MAIL_WARNING (-U)
+               Print a warning message if a mail  file  has  been
+               accessed since the shell last checked.
+          MARKDIRS (-8)
+               Append a trailing / to all directory names result-
+               ing from filename generation (globbing).
+          MENU_COMPLETE (-Y)
+               On an ambiguous  completion,  instead  of  listing
+               possibilities,  insert the first match.  Then when
+               completion is requested again,  remove  the  first
+               match  and  insert  the  second  match, etc.  When
+               there are no more matches, go back  to  the  first
+               one  again.   reverse-menu-complete may be used to
+               loop through the list in the other direction.
+          MENU_COMPLETE_BEEP
+               Beep on an ambiguous menu completion.
+          MONITOR (-m)
+               Allow job control.  Set by default in  interactive
+               shells.
+          NO_BAD_PATTERN (-2)
+               If a pattern  for  filename  generation  is  badly
+               formed,  leave  it  unchanged in the argument list
+               instead of printing an error.
+          NO_BANG_HIST (-K)
+               Do not perform textual history  substitution.   Do
+               not treat the ! character specially.
+          NOBEEP (-B)
+               Do not beep.
+          NO_CLOBBER (-1)
+               Prevents > redirection  from  truncating  existing
+               files.  >! may be used to truncate a file instead.
+               Also prevents >> from creating files.  >>! may  be
+               used instead.
+          NO_EQUALS
+               Don't perform = filename substitution.
+          NOEXEC (-n)
+               Read commands and check them  for  syntax  errors,
+               but do not execute them.
+          NOGLOB (-F)
+               Disable filename generation.
+          NO_HIST_BEEP
+               Don't beep when an attempt is  made  to  access  a
+               history entry which isn't there.
+          NOHUP
+               Don't send the HUP signal to running jobs when the
+               shell exits.
+          NO_LIST_BEEP
+               Don't beep on an ambiguous completion.
+          NO_NOMATCH (-3)
+               If  a  pattern  for  filename  generation  has  no
+               matches,  leave  it unchanged in the argument list
+               instead of printing an error.
+          NO_PROMPT_CR (-V)
+               Don't print a carriage return just before printing
+               a prompt in the line editor.
+          NO_RCS (-f)
+               Do not source the .zshenv, .zshrc, .zlogin,  .zlo-
+               gout, or .zprofile files.
+          NO_SHORT_LOOPS
+               Disallow the short forms of for, select,  if,  and
+               function constructs.
+          NOTIFY (-5)
+               Report the status of background jobs  immediately,
+               rather  than  waiting until just before printing a
+               prompt.
+          NOUNSET (-u)
+               Treat unset parameters as an error when substitut-
+               ing.
+          NULLGLOB (-G)
+               If  a  pattern  for  filename  generation  has  no
+               matches, delete the pattern from the argument list
+               instead  of   reporting   an   error.    Overrides
+               NO_NOMATCH.
+          NUMERICGLOBSORT
+               If numeric filenames are  matched  by  a  filename
+               generation pattern, sort the filenames numerically
+               rather than lexicographically.
+          OVERSTRIKE
+               Start up the line editor in overstrike mode.
+          PATH_DIRS (-Q)
+               Perform a path search even on command  names  with
+               slashes  in  them.  Thus if "/usr/local/bin" is in
+               the user's path, and  he  types  "X11/xinit",  the
+               command  "/usr/local/bin/X11/xinit"  will  be exe-
+               cuted (assuming it exists).
+          PRINT_EXIT_VALUE (-C)
+               Print the exit value  of  programs  with  non-zero
+               exit status.
+          PUSHD_IGNORE_DUPS
+               Don't push multiple copies of the  same  directory
+               onto the directory stack.
+          PUSHD_MINUS
+               See popd below.
+          PUSHD_SILENT (-E)
+               Do not print the directory stack  after  pushd  or
+               popd.
+          PUSHD_TO_HOME (-D)
+               Have pushd with no arguments act like pushd $HOME.
+          RC_EXPAND_PARAM (-P)
+               See Parameter Expansion.
+          RC_QUOTES
+               Allow the character sequence '' to signify a  sin-
+               gle quote within singly quoted strings.
+          RECEXACT (-S)
+               In completion, recognize  exact  matches  even  if
+               they are ambiguous.
+          RMSTARSILENT (-H)
+               Do not query the user before executing "rm  *"  or
+               "rm path/*".
+          SHINSTDIN (-s)
+               Read commands from the standard input.
+          SH_WORD_SPLIT (-y)
+               See Parameter Expansion.
+          SINGLE_LINE_ZLE (-M)
+               Use single-line command line  editing  instead  of
+               multi-line.
+          SUN_KEYBOARD_HACK (-L)
+               If a line ends with a backquote, and there are  an
+               odd  number  of backquotes on the line, ignore the
+               trailing backquote.  This is useful on  some  key-
+               boards  where the return key is too small, and the
+               backquote key lies annoyingly close to it.
+          VERBOSE (-v)
+               Print shell input lines as they are read.
+          XTRACE (-x)
+               Print commands and their  arguments  as  they  are
+               executed.
+          ZLE (-Z)
+               Use the zsh line editor.

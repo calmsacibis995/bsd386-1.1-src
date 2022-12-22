@@ -1,0 +1,31 @@
+Mmain	main.c	/^main($/
+addcmd	do_uuxqt.c	/^addcmd($/
+addxfile	do_uuxqt.c	/^addxfile($/
+canread	do_uuxqt.c	/^canread($/
+canwrite	do_uuxqt.c	/^canwrite($/
+catch	do_uuxqt.c	/^catch(int sig)$/
+checkarg	do_uuxqt.c	/^checkarg($/
+do_uuxqt	do_uuxqt.c	/^do_uuxqt()$/
+enter	do_uuxqt.c	/^enter($/
+filesrecvd	do_uuxqt.c	/^filesrecvd($/
+finish	do_uuxqt.c	/^finish($/
+getDebug	uuxqt_args.c	/^getDebug(PassVal val, Pointer arg, char * str)$/
+getNode	uuxqt_args.c	/^getNode(PassVal val, Pointer arg, char * str)$/
+getSPOOLDIR	uuxqt_args.c	/^getSPOOLDIR(PassVal val, Pointer ptr, char * str)$/
+get_cmds	do_uuxqt.c	/^get_cmds($/
+getlegalcmds	do_uuxqt.c	/^getlegalcmds()$/
+ignore	do_uuxqt.c	/^ignore(int sig)$/
+mv_corrupt	do_uuxqt.c	/^mv_corrupt($/
+mvxfiles	do_uuxqt.c	/^mvxfiles($/
+notify	do_uuxqt.c	/^notify($/
+notify_body	do_uuxqt.c	/^notify_body($/
+rmxfiles	do_uuxqt.c	/^rmxfiles($/
+run	do_uuxqt.c	/^run($/
+run_setup	do_uuxqt.c	/^run_setup($/
+scan_nodes	do_uuxqt.c	/^scan_nodes()$/
+sig_catch	do_uuxqt.c	/^sig_catch(int sig)$/
+test_nologin	do_uuxqt.c	/^test_nologin()$/
+uuxqt_args	uuxqt_args.c	/^uuxqt_args($/
+x_lock	do_uuxqt.c	/^x_lock()$/
+x_node	do_uuxqt.c	/^x_node()$/
+x_unlock	do_uuxqt.c	/^x_unlock()$/

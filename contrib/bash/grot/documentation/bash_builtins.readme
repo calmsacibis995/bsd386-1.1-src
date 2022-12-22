@@ -1,0 +1,18 @@
+For each command in the list of builtins create a file in man/man1 called:
+
+${command}.1
+
+eg.
+for.1
+type.1
+alias.1
+etc.
+
+All these files are identical as follows:
+
+jaws@jaws(264)$ cat alias.1
+.so man1/bash_builtins.1
+jaws@jaws(265)$ 
+
+Make sure you adjust the .so line in bash_builtins.1 to reflect where you
+put it.

@@ -1,0 +1,4 @@
+100	print "this"
+110	print
+120	print "that"
+130	end

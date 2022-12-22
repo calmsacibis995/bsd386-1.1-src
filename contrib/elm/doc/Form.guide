@@ -1,0 +1,431 @@
+.\" @(#)Id: Form.guide,v 5.4 1993/04/12 01:47:13 syd Exp 
+.\"
+.\"  A guide to using the Elm Forms mode
+.\"  format with:
+.\"	'troff tmac.n - > Forms.format'
+.\"
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  Copyright (c) 1988-1992 USENET Community Trust
+.\"  Copyright (c) 1986,1987 Dave Taylor
+.\"
+.\"  $Log: Form.guide,v $
+# Revision 1.2  1994/01/14  00:51:03  cp
+# 2.4.23
+#
+.\" Revision 5.4  1993/04/12  01:47:13  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.3  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.2  1992/10/11  01:33:36  syd
+.\" fixed a bug in the .lp macro in doc/tmac.n.  The lp macros is always
+.\" called with a unit specified for the second argument, however, the
+.\" macro added a "n" unit specifier to that argument.  The following patch
+.\" fixes this problem.
+.\"
+.\" The various .guide books use the troff .tl macro liberally, but often the
+.\" extra ' characters needed at the end of the lines to explicitly specify
+.\" the trailing nulls fields were left off.  The following patch fixes the
+.\" erroneous lines.
+.\" From: Larry Philps <larryp@sco.COM>
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.\"
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 0
+.lg 0
+.nf
+.na
+.rs
+.\"  Define the big box macro for troff
+.de eb
+.sp -1
+.nf
+.ie t \{\
+\h'-.5n'\L'|\\nau-1'\l'\\n(.lu+1n\(ul'\L'-|\\nau+1'\l'|0u-.5n\(ul'
+.\}
+.el \{\
+\h'-.5n'\l'\\n(.lu+1n'
+.\}
+.fi
+..
+.sv |3.0i
+.ce 99
+.ps 20
+.ss 18
+.vs 12
+\f3Elm Forms Mode Guide\f1
+.sp 3
+.ps 12
+.ss 14
+.vs 14
+\f2What Forms Mode is, how to use it to create
+custom forms, how to reply to forms, and how to
+use it for AT&T Mail messages\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp |9.0i
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.fi
+.ad
+.bp 1
+.sv 5v
+.ps 14
+.ss 12
+.vs 16
+.sp 2
+\f3A Guide to Forms Mode in Elm\f1
+.ds h0 "Forms Mode Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+While there are a lot of mail systems that allow the transmission
+of text and primitive pictures, to send and reply to more complex
+forms is simply not possible.  Elm, however, took
+the forms mode implemented as part of the AT&T Mail package and has
+expanded on it to be a smoothly fit part of the overall mail system.
+.sp
+Forms mode gives you the ability to send \*Qtemplate\*U files to people
+and receive the filled-in replies.\s-2\u1\d\s0
+.fn
+1. Note that this feature assumes that the person on the other end is
+also using the Elm mail system, that both yourself and the person on
+the other end have their user levels set to something other than
+\f2Beginner\f1 (\f30\f1) and the \f3forms\f1 variable set ON in
+their \f2.elm/elmrc\f1 files.
+.ef
+Let's look at an example right off.
+.sp
+Say we were going to use computer mail as a way to file defects with
+software.  There is a certain amount of information we want to be able
+to collect when each report is made, and if it is in a specific format
+we can use programs to file the defects upon receipt.
+.sp
+The form we'll try to emulate starts out looking like:
+.\" A manual page break has been done because the 'sd' macro doesn't like
+.\" coming up right after the footer or just doesn't like going to a new
+.\" page by itself.  The bug has been reported.
+.bp
+.ft CW
+.zf
+.sd c
+.mk a
+.sp
+.tl ''Defect Reporting Form''
+.sp
+.tl 'Program:\ \l'2.3i-\w'Program:\ 'u'''Version:\ \l'1.7i-\w'Version:\ 'u''
+.tl 'Operating\ System:\ \l'2.3i-\w'Operating\ System:\ 'u'''Version:\ \l'1.7i-\w'Version:\ 'u''
+.sp
+.tl 'Defect\ Type:\ \l'2.3i-\w'Defect\ Type:\ 'u''''
+.sp
+.tl 'Date\ Found:\ \l'2.3i-\w'Date\ Found:\ 'u'''By\ Whom:\ \l'2.3i-\w'By\ Whom:\ 'u'\h'.2i''
+.tl 'Date\ Reported:\ \l'2.3i-\w'Date\ Reported:\ 'u'''Phone:\ \l'2.3i-\w'Phone:\ 'u'\h'.2i''
+.sp
+.tl 'Description:\ \l'6.4i-\w'Description:\ 'u''''
+.tl '\l'6.4i''''
+.tl '\l'6.4i''''
+.sp
+.eb
+.ed
+.ft 1
+.rs	\" restore spacing from ed macro
+.sp
+This form can actually be created almost exactly as listed above in
+the Elm mail system by using your standard editor and can then
+be mailed about as needed.
+.sp
+Let's say that we want a bit more information, however, especially with
+fields like \f2Defect Type\f1, we want to list all the recommended answers.
+To create the actual form, we need merely to replace the underlines in
+the above form with spaces.  The multi-line comments can simply be
+indicated by a \*q:\*u by itself on a line:
+
+.ft CW
+.zf
+.sd c
+.mk a
+.sp
+.tl ''Defect Reporting Form''
+.sp
+.tl 'Program:''Version:\h'1.7i-\w'Version:'u''
+.tl 'Operating System:''Version:\h'1.7i-\w'Version:'u''
+.sp
+.tl '(Valid Defect Types are: user-error, doc-error, fatal, other)'''
+.tl 'Defect Type:'''
+.sp
+.tl 'Date Found:''By\ Whom:\h'2.3i-\w'By\ Whom:'u''
+.tl 'Date Reported:''Phone:\h'2.3i-\w'Phone:'u''
+.sp
+.tl 'Description'''
+.tl ':'''
+.sp
+Thank you for filling in this form.
+.sp 2
+.eb
+.ed
+.ft 1
+.rs	\" restore spacing from ed macro
+.sp
+As you can see, it is quite simple to create forms!!
+.sp
+Now that you have an idea what we're talking about, let's actually officially
+define the system.
+.br
+.ne 5
+.hu Forms Mode Specification
+
+[Note that this is all taken from the document \f2Standard for Exchanging
+Forms on AT&T Mail\f1, Version 1.9 of 6/7/86, from AT&T.]
+.sp
+The forms mode is really quite simple.  Simple enough that it is amazing
+that it hadn't been implemented before AT&T Mail came along!!
+.sp
+In a nutshell, each field is delimited by a \*q:\*u followed by a number of
+blank spaces or tabs that represent the valid size for that field.  That
+is, if we have a line in the form like:
+.sp
+.nf
+.ft CW
+.zf
+.tl ''Phone (area-code):\0\0\0\0\0Number:\0\0\0\0\0\0\0\0\0\0''
+.ft 1
+.fi
+.sp
+The area-code field is limited to three characters and the number to nine
+(this is kind of hard to see with the proportionally spaced formatted copy,
+alas).
+The only exception to the rule is that a \*q:\*u by itself on a line represents
+a field that is as large as the user entering the data desires.
+
+The actual form that is transmitted, in AT&T Mail parlance, is a \*QSIMPLE\*U
+forms handler message (as opposed to the \*QADVANCED\*U handler).  This means
+that it contains three sections:
+.sp
+.ne 8
+.nf
+.in .5i
+.ft 2
+The Message Header
+.ft CW
+.zf
+[\&OPTIONS-SECTION]
+***
+[\&FORMS-IMAGE]
+***
+[\&RULES-SECTION]\f1
+.in 0
+.fi
+.sp
+Elm generates form messages with the \f2OPTIONS-SECTION\f1 filled out,
+but ignores it when receiving mail.  The filled out \f2OPTIONS-SECTION\f1 is:
+.sp
+.ft CW
+.zf
+.nf
+.in .5i
+WIDTH=80
+TYPE=SIMPLE
+OUTPUT=TEXT\f1
+.in 0
+.fi
+.sp
+The \f2FORMS-IMAGE\f1 section is that described above, i.e. prompting
+text followed by a \*q:\*u, followed by spaces or tabs.
+The \f2RULES-SECTION\f1 can
+contain explicit rules about the possible values of each field, but
+this is currently ignored by Elm, being a \*QSIMPLE\*U forms mode
+mail system.
+.sp
+Forms also have the header \*QContent-Type: mailform\*U to indicate to the
+mail system (either Elm or AT&T Mail) that a form is being sent.
+.sp
+Elm further indicates that a form has been received by having an
+\*qF\*u as the status character in the header display section (instead of
+\*qN\*u for new, etc).
+.br
+.ne 5
+.hu Composing and Sending a Form
+
+The first step to enable sending forms is to change the setting of
+the variable \f3forms\f1 in your \f2.elm/elmrc\f1 file to ON:
+.sp
+.nf
+.ti .5i
+forms = ON
+.fi
+.sp
+The next step is to send the message to someone using the \f3m\f1 (\f3mail\f1)
+command, which drops you into an editor.  Type in the form as
+indicated above, with appropriate colons and comments, and end the entry
+by leaving the editor.
+.sp
+The prompt is now:
+.sp
+.nf
+.ft CW
+.zf
+.tl ''Choose: E)dit msg, edit H)eaders, M)ake form, S)end or F)orget : @''
+.ft 1
+.fi
+.sp
+so we choose \f3m\f1 \(em \f3make form\f1.  Elm then either
+rewrites the prompt without the \*QM)ake form\*U option, indicating that
+the form has been accepted, or indicates the problem and gives you
+a chance to correct it.
+.sp
+Once it has been accepted, simply use the \f3s\f1 \(em \f3send message\f1 \(em
+command and it's off!
+.sp
+Note that you cannot reply to a message with a form.
+.br
+.ne 6
+.hu Replying to a Form
+
+Let's reply to the form message we generated now.  The header page of the
+Elm mail system indicates that the message is a form by having
+an \*qF\*u next to it.  So we use \f3r\f1 to reply and the screen is immediately
+cleared and we're prompted, field by field, for the data requested.
+Each field has underscores in the input area to indicate the size field that
+is expected.
+.sp
+After answering all the questions we'll have a screen that looks like:
+
+.ft CW
+.zf
+.sd c
+.mk a
+.sp
+.tl ''Defect Reporting Form''
+.sp
+ Program:  \f3The Elm Mail System\f1\l'3i-\w'\f3The Elm Mail System'u'
+ Version:  \f31.5\f1\l'3i-\w'\f31.5'u'
+ Operating System:  \f3HP-UX\f1\l'3i-\w'\f3HP-UX'u'
+ Version:  \f35.141 C\f1\l'3i-\w'\f35.141 C'u'
+.sp
+ (Valid Defect Types are: user-error, doc-error, fatal, other)
+ Defect Type:  \f3fatal\f1\l'5i-\w'\f3fatal\f1'u'
+.sp
+ Date Found:  \f310/9/86\f1\l'3i-\w'\f310/9/86\f1'u'
+ By Whom:  \f3Dave Taylor\f1\l'3i-\w'\f3Dave Taylor\f1'u'
+ Date Reported:  \f310/9/86\f1\l'3i-\w'\f310/9/86\f1'u'
+ Phone:  \f3(415) 857\-6887\f1\l'3i-\w'\f3(415) 857-6887\f1'u'
+.sp
+ Description
+ (Enter as many lines as needed, ending with a \*q.\*u by itself on a line)
+   \f3When running it on a CPM system I cannot compile successfully.\f1
+   \f3.\f1
+ Thank you for filling in this form.
+.tl ''Choose: E)dit form, edit H)eaders, S)end or F)orget : @''
+.sp
+.eb
+.ed
+.ft 1
+.rs	\" restore spacing from ed macro
+.sp
+Quite simple.  Notice, however, that the order of prompting is
+left-to-right on each line, so the fields, \f2By Whom:\f1 and
+\f2Phone:\f1, although placed in what seems like a logical place on the
+form, turn out to be confusing when filling in the received form since
+it isn't clear what \f2Phone:\f1 is being asked for because of the
+intervention of the \f2Date Reported:\f1 field.
+.sp
+The message that is actually sent out from this has the
+fields in a more acceptable format:
+.\" Force page break, as there seems to be a bug in the .sd macro
+.bp
+.\"
+.ft CW
+.zf
+.mk a
+.sp
+ WIDTH=80
+ TYPE=SIMPLE
+ OUTPUT=TEXT
+ ***
+.tl ''Defect Reporting Form''
+.sp
+.tl ' Program: The Elm Mail System''Version: 1.5\h'1.5i-\w'Version: 1.5'u''
+.tl ' Operating System: HP-UX''Version: 5.141 C\h'1.5i-\w'Version: 5.141 C'u''
+.sp
+.tl ' (Valid Defect Types are: user-error, doc-error, fatal, other)'''
+.tl ' Defect Type: fatal'''
+.sp
+.tl ' Date Found: 10/9/86''By Whom: Dave Taylor\h'2.3i-\w'By Whom: Dave Taylor'u''
+.tl ' Date Reported: 10/9/86''Phone: (415) 857-6887\h'2.3i-\w'Phone: (415) 857-6887'u''
+.sp
+.tl ' Description'''
+.sp
+    When running it on a CPM system I cannot compile successfully.
+.sp
+.tl ' Thank you for filling in this form.'''
+ ***
+.sp
+.eb
+.ft 1
+
+.hu Comments on Forms Mode
+
+As was said at the beginning, this way of sending about forms could
+prove to be very helpful and useful in a variety of contexts.  On the
+other hand, until a more sophisticated forms language is used for the
+forms, this should be sufficient to embody the power of the idea.
+.sp
+I welcome any comments and thoughts on this system and also welcome
+possible enhancements.
+.sp
+I also gratefully thank Dale DeJager of AT&T Information Systems
+for sending me more
+information on AT&T Mail than I could possibly digest in any finite
+amount of time.

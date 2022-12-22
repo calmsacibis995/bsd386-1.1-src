@@ -1,0 +1,8 @@
+__builtin_delete	g++/builtin_del.c	/^__builtin_delete (ptr)$/
+__builtin_new	g++/builtin_new.c	/^__builtin_new (sz)$/
+__builtin_vec_delete	g++/builtin_del.c	/^__builtin_vec_delete (ptr, maxindex, size, dtor, a/
+__builtin_vec_new	g++/builtin_New.c	/^__builtin_vec_new (p, maxindex, size, ctor)$/
+__eprintf	g++/eprintf.c	/^__eprintf (string, expression, line, filename)$/
+__set_new_handler	g++/builtin_New.c	/^__set_new_handler (handler)$/
+default_new_handler	g++/builtin_New.c	/^default_new_handler ()$/
+set_new_handler	g++/builtin_New.c	/^set_new_handler (handler)$/

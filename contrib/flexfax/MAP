@@ -1,0 +1,8 @@
+#! /bin/sh
+
+mkdir faxquit; mv util/faxquit.c faxquit/
+mkdir faxanswer; mv util/faxanswer.c faxanswer/
+mkdir faxinfo; mv util/faxinfo.c faxinfo/
+mkdir textfmt; mv util/textfmt.c++ textfmt/
+mkdir ondelay; mv util/ondelay.c ondelay/
+mkdir dialtest; mv util/dialtest.c++ dialtest/

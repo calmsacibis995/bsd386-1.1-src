@@ -1,0 +1,7 @@
+D BIN                               	bin
+D ETC                               	etc
+D KERBEROS                          	kerberosIV
+D LIBEXEC                           	libexec
+D LIBTELNE                          	libtelnet
+F MAKEFILE.;1                       	Makefile
+D USR_BIN                           	usr.bin

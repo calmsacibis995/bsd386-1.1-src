@@ -1,0 +1,8 @@
+F DEFS.H;1                          	DEFS.h
+F FIXDFSI.S;1                       	fixdfsi.s
+F FIXUNSDF.S;1                      	fixunsdfsi.s
+F MAKEFILE.MAC;1                    	Makefile.machine
+F MODSI3.S;1                        	modsi3.s
+F UDIVSI3.S;1                       	udivsi3.s
+F UMODSI3.S;1                       	umodsi3.s
+F UMULSI3.S;1                       	umulsi3.s

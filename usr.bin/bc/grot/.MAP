@@ -1,0 +1,10 @@
+F BC_C.DIS;1                        	bc.c.dist
+F CONFIGUR.;1                       	configure
+D EXAMPLES                          	Examples
+F INSTALL.;1                        	Install
+F MAKEFILE.;1                       	Makefile
+F MATH.H;1                          	math.h
+F SBC.Y;1                           	sbc.y
+F SCAN_C.DIS;1                      	scan.c.dist
+D TEST                              	Test
+F Y_TAB_H.DIS;1                     	y.tab.h.dist

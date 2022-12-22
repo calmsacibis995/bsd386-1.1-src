@@ -1,0 +1,316 @@
+.nr H1 5
+.H 1 "Modem Bugs and Gotchas"
+This section contains information about modem bugs and gotchas that have
+been gleaned from direct experiences making the \*(FF code work with
+the modems.
+These problems are based on my experiences or on the experiences
+of others that have worked with this software.
+One should always check the version of the firmware listed.
+Note also that if a modem is not listed here then I have \fBnot\fP tried it.
+This list is sorted in alphabetical order.
+.H 2 "Class 1 Modems"
+.H 3 "AT&T Paradyne DataPort 14.4 (C01.22.00)"
+.BL
+.LI
+Received \s-1HDLC\s+1 frames do not include the \s-1FCS\s+1 bytes
+in firmware revisions before C01.33.00.
+.LI
+In firmware revisions prior to C01.45.00,
+carrier is sometimes dropped without notice during receive.
+.LI
+The command "\s-1ATH+FCLASS=0;A\s+1" does not do the right thing because the
+command parser does not parse the ";A".
+.LE
+.H 3 "Digicom Scout+ (2A19/2931)"
+.BL
+.LI
+\s-1ATS17=2\s+1 can be used to force 1300 Hz \s-1CNG\s+1 tones to be sent (the
+register is not documented).
+.LI
+\s-1RTS/CTS\s+1 flow control is not honored while sending page data;
+software flow control must be used (*F2).
+This is possible in later firmware revisions by setting register \s-1S24\s+1:
+.TS
+l l.
+\s-1S24=0\s+1	\s-1XON/XOFF\s+1 forced in fax mode
+\s-1S24=1\s+1	\s-1RTS/CTS\s+1 forced in fax mode
+\s-1S24=2\s+1	same as *F from init string
+.TE
+.AL 1 +5
+.LI
+\s-1S24\s+1 is not permanent.
+.LI
+On power on \s-1S24=0\s+1.
+.LI
+After each disconnection, \s-1S24=0\s+1.
+.LI
+\s-1AT&F\s+1 does not change \s-1S24\s+1.
+.LE
+\s-1S24\s+1 is undocumented and only
+available in firmware revision 3507/3506 (V.17) or later.
+.LI
+Receiving at 4800 baud v.27 does not work correctly; received
+data is garbage (this is fixed in firmware revision 3225/3310).
+.LI
+Commands must not be sent to the modem too fast, no more than
+every 50ms (or more) depending on what the modem is doing.
+.LI
+In some firmware revisions
+the modem gets confused by receivers that assert a data
+carrier before sending \s-1CED\s+1; a \s-1+FCERROR\s+1
+result is returned before
+usually returning ``\s-1NO CARRIER\s+1''; this can sometimes be overcome
+by sending 1300 Hz \s-1CNG\s+1 tones instead of the normal 1100 Hz tones
+.LE
+.H 3 "Hayes Optima 24+Fax96 (TR00-J260-001 XXX)"
+.BL
+.LI
+Receiving is unreliable; I was never able to get the receipt
+of \s-1TCF\s+1 to work correctly in the short time that I had the modem
+(no data was delivered after establishing carrier before timeout).
+.LI
+See also below under Class 2.
+.LE
+.H 3 "Nuvo Voyager 96424PFX (AF-C2500-E0)"
+.BL
+.LI
+\s-1RTS/CTS\s+1 flow control is not honored; use software flow control.
+.LI
+The factory configuration of \s-1&C1\s+1
+causes problems; do "\s-1AT&C0&W\s+1" to set
+\s-1DCD\s+1 handling before starting the facsimile server.
+.LE
+.H 3 "Supra v.32bis (V1.200-H TR14-Jxxx-001)"
+.BL
+.LI
+The \s-1+FAE\s+1 command that can be used to enable auto-detect of calls from
+data modems is only accepted in Class 0 (data mode); I
+h
+have never been
+able to get it to work correctly (when setup the modem is either unable
+to establish carrier, or the modem locks up after notifying the host)
+.LI
+\s-1RTS/CTS\s+1 flow control is not honored while sending/receiving page data;
+use &K4 for software (\s-1XON/XOFF\s+1) flow control.
+.LI
+See also below under Class 2.
+.LE
+.H 3 "Twincom 144/DF (V1.270 TR14-Jxxx-001)"
+.BL
+.LI
+\s-1RTS/CTS\s+1 flow control is not honored while sending/receiving page data;
+use &K4 for software (\s-1XON/XOFF\s+1) flow control
+.LI
+See also below under Class 2.
+.LE
+.H 3 "USRobotics Sportster (Supervisor 4.1, DSP 10)"
+.BL
+.LI
+Timing problems have been observed with older firmware revisions;
+if you have problems, be sure to verify the firmware revision.
+.LI
+When sending, \s-1DCD\s+1 is raised when carrier is first received, but it is
+then dropped from the first \s-1HDLC\s+1 receive until the point where the
+initial training is sent (from that point on \s-1DCD\s+1 is asserted); this
+can be a problem because there is no way to override this behaviour
+which means that the host must be capable of ignoring \s-1DCD\s+1 for sending
+to function correctly.
+.LE
+.H 2 "Class 2 Modems"
+.H 3 "Everexfax 24/96D (911027)"
+.BL
+.LI
+Zero-padding in the EOL codes of received facsimile data is often
+not zero when the Phase B+D bit ordering is set to "direct"; a
+workaround is to use \s-1+FBOR=2\s+1 and do bit reversal in the host.
+.LE
+.H 3 "Hayes Optima 24+Fax96 (TR00-J260-001 XXX)"
+.BL
+.LI
+Many commands (e.g. \s-1ATZ\s+1)
+generate annoying clicks and pops from the speaker.
+.LI
+Using ``@;'' in the dialing string causes the modem to return
+``\s-1NO ANSWER\s+1'' when calling many modems.
+.LI
+The modem does not do a good job of holding reliable high speed
+carrier\(emwhen sending and receiving, data is frequently corrupted
+at both 9600 and 7200 baud (the phone line did not appear
+to be the reason as other modems worked fine in back-to-back
+testing).
+.LE
+.H 3 "Multi-Tech MT1432BA (0307)"
+.BL
+.LI
+There are problems communicating with Sharp model 6200 fax machines;
+this is reportedly fixed in revision 0309 of the firmware.
+.LI
+The \s-1EC\s+1 (error correction) subparameter reported in
+\s-1+FDIS:\s+1 result strings can contain invalid values (2).
+.LE
+.H 3 "Practical Peripherals PM14400FXMT (2.17)"
+.BL
+.LI
+Defaulted subparameters in \s-1+FDIS\s+1 and \s-1+FDCC\s+1
+commands are wrongly treated as zero.
+.LI
+\s-1+FDIS\s+1 commands to set session parameters after establishing a
+connection with a remote machine are accepted but ignored; this
+makes it impossible to select/change data format (\s-11D\s+1 vs
+\s-12D\s+1 encoding)
+and vertical resolution (98lpi vs 196lpi); since it is not in general
+feasible to set all session parameters before dialing the telephone,
+this problem makes it possible only to support the minimum set of
+Group 3 capabilities (\s-11D\s+1 data, 98 lpi)
+.LE
+.H 3 "Supra v.32bis (V1.200-H TR14-Jxxx-001)"
+\fINote: firmware revision
+V1.80-02 TR14-Jxxx-001 is a significant improvement over
+previous firmware; it is highly recommended that you upgrade your modem
+if you do not have firmware at or near that revision level.\fP
+.BL
+.LI
+Changing \s-1DCD\s+1 handling can cause the modem to drop \s-1DSR\s+1.
+If this is done
+during initialization the fax server can get confused.
+Be sure that the setting loaded from \s-1NVRAM\s+1 on reset agrees with
+the value specified in the configuration file (\s-1&C1\s+1 by default).
+One possible way of doing this is to specify \s-1&F2\s+1 for
+the ModemResetCmds parameter.
+.LI
+The line counts in the \s-1+FPTS\s+1 result code during a reception are
+total nonsense.
+The only way to deduce the number of lines in a received page of data
+is to parse the data on the host.
+.LI
+Facsimile reception is locked at 19200 baud.
+.LI
+Adaptive answer is not reliable (improved in V1.80 firmware).
+.LI
+The training algorithm can loop forever; client software must
+timeout \s-1+FDR\s+1 requests (not observed in V1.80 firmware).
+.LI
+The firmware has problems retransmitting the post-page response message
+(less frequently observed in V1.80 firmware).
+.LI
+\s-1RTS/CTS\s+1 flow control is not honored while sending/receiving page
+data; use \s-1&K4\s+1 for software (\s-1XON/XOFF\s+1) flow control.
+.LE
+.H 3 "Twincom 144/DF (V1.270 TR14-Jxxx-001)"
+.BL
+.LI
+Changing \s-1DCD\s+1 handling can cause the modem to drop \s-1DSR\s+1.
+If this is done during initialization it can cause the fax server to
+get confused.
+Be sure that the setting loaded from \s-1NVRAM\s+1 on reset agrees with
+the value specified in the configuration file (\s-1&C1\s+1 by default).
+.LI
+Instead of the normal \s-1&D3\s+1 setup string for \s-1RC144AC\s+1-based modems,
+\s-1&D2\s+1 should be used (note that this configuration must be done
+manually as \f2faxaddmodem\fP is incapable of distinguishing between
+\s-1RC144AC\s+1-based modems).
+.LI
+The line counts in the \s-1+FPTS\s+1 result code during a reception are
+total nonsense.
+The only way to deduce the number of lines in a
+received page of data is to parse the data on the host.
+.LI
+The modem has frequently been observed to lockup during message
+receive (i.e. \s-1+FDR\s+1); it dropped \s-1DCD\s+1
+to the host but did not return
+<\s-1DLE\s+1><\s-1ETX\s+1> and/or a \s-1+FHNG\s+1 code.
+.LE
+.H 3 "ZyXEL 1496E (U1496E  V 5.02 M)"
+\fINote: firmware revision 6.01 is a significant improvement over
+previous firmware revisions
+It is highly recommended that you upgrade your modem
+if you do not have firmware at or near revision 6.01.\fP
+.P
+In the following list, items marked
+with a \(dg are known to be fixed in the
+6.01 revision of the firmware.
+.BL
+.LI
+The \s-1+FMDL?\s+1 and \s-1+FREV?\s+1
+commands return the same string, the concatentation of
+the modem model and the firmware revision.
+.LI
+Some prom revisions do not include a trailing ``\s-1OK\s+1''
+in response to \s-1+FDCC=?\s+1.\(dg
+.LI
+\s-1DC2\s+1 must be sent to the modem to trigger the transfer of Phase C
+data from the modem to the host after a \s-1+FDR\s+1 command; this reflects
+revision 2388-B of the Class 2 spec and is different from the \s-1DC1\s+1
+required by 2388-A (and accepted by most modems).
+.LI
+The modem advertises that it supports the \s-12DMR\s+1 data format, but it
+does not; this "advertisement" is both in its result string for a
+\s-1+FDCC=?\s+1 query and in the \s-1DIS/DCS\s+1 sent to clients.\(dg
+.LI
+Sending \s-12DMR\s+1 data to the modem can cause it to lock
+up leaving \s-1CTS\s+1
+low to the host; some versions of firmware also send an infinite
+stream of trash to the remote side when this condition occurs.\(dg
+.LI
+In some prom revisions the result string from a \s-1+FDCC=?\s+1 query does
+not conform to any syntax listed in either 2388-B or 2388-A;
+furthermore, it requires a context sensitive parser!\(dg
+.LI
+\s-1+FDIS\s+1 commands to set session parameters after establishing a
+connection with a remote machine are accepted but ignored; this
+makes it impossible to select/change data format
+(\s-11D\s+1 vs \s-12D\s+1 encoding)
+and vertical resolution (98lpi vs 196lpi); since it is not in general
+feasible to set all session parameters before dialing the telephone,
+this problem makes it possible only to support the minimum set of
+Group 3 capabilities (\s-11D\s+1 data, 98 lpi).\(dg
+.LI
+Sending non-Class 2 commands to the modem after establishing a
+connection often causes the modem to drop carrier; for example,
+\s-1ATM0\s+1 before a \s-1+FDR\s+1 command will do this.
+.LI
+The line counts in the \s-1+FPTS\s+1 result code during a reception are
+total nonsense.
+The only way to deduce the number of lines in a
+received page of data is to parse the data on the host.
+.LI
+In later versions (5.05 for example) the syntax of the \s-1+FPTS:\s+1
+result code violates 2388-A and/or 2388-B.
+.LI
+There is no way to abort a session\(emthe \s-1+FK\s+1 command is not
+recognized).
+.LI
+When sending, the modem appears to immediately drop \s-1DCD\s+1 when it
+loses carrier.
+This usually occurs after a final \s-1+FPTS\s+1 is sent
+to the host, but before the requisite OK and and/or \s-1+FHNG:\s+1 strings.
+This action appears to be independent of whether or not \s-1DCD\s+1 is
+configured to follow carrier (i.e. &C0 or &C1).\(dg
+.LI
+When receiving with a negotiated 14400 signalling rate, the \s-1+FDCS:\s+1
+status string indicates a 9600 baud signalling rate (br=3).\(dg
+.LI
+The reception of multiple documents appears to cause the modem to
+hangup (i.e. an \s-1EOM\s+1 post page message causes the modem to hangup).\(dg
+.LI
+The modem sometimes sends received data to the host with the
+wrong bit order.\(dg
+.LI
+The scheme used to do adaptive-answer asserts a data carrier before
+falling back to a fax carrier.
+This has been observed to confuse a few fax modems, thereby
+making it impossible to receive facsimile without disabling adaptive
+answer (\s-1+FAA=0\s+1)
+.LI
+\s-1AT+FLID?\s+1 returns ``\s-1OK\s+1'' but not the
+current value of the local identification string.
+.LE
+.H 2 "Other Modems"
+.H 3 "Abaton InterFax 24/96"
+.BL
+.LI
+Abaton 24/96 modems have been observed having
+problems communicating with facsimile machines
+connected by a lossy or noisy
+phone line (e.g. overseas).
+.LE

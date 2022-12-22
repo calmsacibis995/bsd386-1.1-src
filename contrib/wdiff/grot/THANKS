@@ -1,0 +1,28 @@
+GNU wdiff THANKS file - last updated on 21 December 1992.
+Copyright (C) 1992 Free Software Foundation, Inc.
+Francois Pinard <pinard@iro.umontreal.ca>, 1992.
+
+GNU wdiff has originally been written by Franc,ois Pinard.  Many
+people further contributed to GNU wdiff by reporting problems,
+suggesting various improvements or submitting actual code.  Here is a
+list of these people.  Help me keeping it complete and exempt of
+errors.
+
+Andy Norman <ange@hplb.hpl.hp.com>
+Colin Brough <cmb@epcc.ed.ac.uk>
+David Zuhn <zoo@cygnus.com>
+Francois Pinard <pinard@iro.umontreal.ca>
+James Ganong <jeg@ced.berkeley.edu>
+Jim Meyering <meyering@cs.utexas.edu>
+Joe Wells <jbw@cs.bu.edu>
+Karl Berry <karl@cs.umb.edu>
+Larry Virden <lvirden@cas.org>
+Paul Eggert <eggert@twinsun.com>
+Paul Fox <pgf@cayman.com>
+Per Cederqvist <ceder@lysator.liu.se>
+Pierre Gaumond <gaumondp@ere.umontreal.ca>
+Richard Stallman <rms@prep.ai.mit.edu>
+Robert Chassell <bob@gnu.ai.mit.edu>
+Roland McGrath <roland@gnu.ai.mit.edu>
+Steve Fisk <fisk@polar.bowdoin.edu>
+Zhuo Zang <zzang@stat.ufl.edu>

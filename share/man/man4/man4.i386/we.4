@@ -1,0 +1,136 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\" BSDI $Id: we.4,v 1.4 1994/01/31 08:41:46 donn Exp $
+.Dd January 30, 1994
+.Dt WE 4 i386
+.Os
+.Sh NAME
+.Nm we
+.Nd
+.Tn "Western Digital" / "Standard Microsystem Corporation"
+WD8003, WD8013, Ethercard PLUS, Elite, Ultra
+and
+.Tn 3Com
+3C503 Ethernet interfaces.
+.Sh SYNOPSIS
+.Cd "device we0 at isa? port 0x280 iomem 0xd0000 iosiz 16384"
+.Sh DESCRIPTION
+The
+.Nm we
+interface provides access to a 10 Mb/s Ethernet network.
+It supports three types of hardware interface: the Western Digital/SMC
+8003/8013 (Elite) series, the SMC Ultra, and the 3Com 3C503.
+.Pp
+The Western Digital/SMC Elite and SMC Ultra cards use a
+block of 32 I/O ports in the range 0x200 through 0x3e0.  The block must be
+aligned on a 32 port boundary.  The hardware interrupt level is
+detected at autoconfiguration time.
+The base port and memory address are set via jumpers or a manufacturer-provided
+setup program.
+A memory size of up to 64 KB is supported, although most cards have 16 KB
+of memory; supported values are 8 KB, 16 KB, 32 KB and 64 KB.
+.Pp
+The 3Com 3C503 uses a block of 16 I/O ports beginning with one of the these
+bases:
+0x250, 0x280, 0x2a0, 0x2e0, 0x300, 0x310, 0x330, 0x350.
+The hardware interrupt level is chosen during autoconfiguration.
+It uses an 8 kilobyte shared memory area at one of the following addresses:
+0xc8000, 0xcc000, 0xd8000, or 0xdc000.
+If the memory address is specified in the configuration file,
+that address will be selected; otherwise, the address specified
+by jumpers will be used.
+.Pp
+The method for selection of the Ethernet connection type and
+other options differ for the three types of cards.
+.Pp
+On the WD/SMC Elite (8003/8013) cards, the connection type
+is set via jumpers on the card or by the manufacturer-supplied
+setup program.
+By default, these cards run in 16-bit mode if a 16-bit card is installed
+in a 16-bit slot; this is desirable for best performance.
+If the configured iosiz is 8192, the card will be used in 8-bit mode.
+If 16-bit operation
+causes problems for 8-bit cards in the same 128 KB memory segment,
+the card can be left in 8-bit mode except while copying data to or from
+the card by setting the
+.Dv IFF_LINK2
+flag (using the
+.Li link2
+option to
+.Xr ifconfig 8 ) .
+8-bit operation can be forced at all times by setting the
+.Dv IFF_LINK1
+flag.
+(Currently, this option may result in extremely poor performance
+due to packet loss or corruption.)
+Finally, if the kernel is booted with autoconfiguration debugging
+set to 2 (using
+.Li "-autodebug 2"  ,
+see
+.Xr boot 8 ) ,
+the driver asks whether to run in 16-bit mode,
+and 8-bit mode may be selected.
+.Pp
+The connection type for the SMC Ultra cards is specified using
+the manufacturer-supplied setup program and/or the device flags.
+The
+.Dv IFF_LINK0
+flag must be set for the use of the BNC connector
+(using the
+.Li link0
+option of
+.Xr ifconfig 8 ) ,
+and must be unset for use of the AUI or twisted-pair connectors.
+The SMC Ultra cards use 16-bit mode when installed in a 16-bit slot.
+.Pp
+On the 3C503, the physical interface is selected with the 
+.Dv IFF_LINK0
+flag.  When set (for example, when
+.Li link0 is specified to
+.Xr ifconfig ) ,
+the thin coax interface is used.  When clear (\c
+.Li -link0 ) ,
+the AUI connector is used.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr we
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It we%d: illegal memory size.
+.sp 1
+Invalid iosiz specification in kernel config file.
+.Pp
+.It we%d: illegal memory alignment.
+.sp 1
+Invalid iomem specification in kernel config file.
+.Pp
+.It we%d: %s dual port RAM address error
+.sp 1
+The iomem specified in the kernel config file conflicts with some other
+device on the bus, or the Ethernet board may be bad.
+The board may be in 8-bit mode but in a 128 KB block containing a 16-bit
+memory device.
+.Pp
+.It we%d: no irq available for %s
+.sp 1
+Automatic interrupt selection was enabled, but all usable interrupts
+had already been claimed by other devices.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh HISTORY
+The
+.Nm we
+driver first appeared in Berkeley Networking-2.

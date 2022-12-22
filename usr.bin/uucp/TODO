@@ -1,0 +1,14 @@
+Check out all `XXX' in files.
+
+Rewrite uucico protocol and ACU suites.
+
+Fix g-proto xmit buffers to have room for header at top, and remove writev(2)
+
+Rewrite uusched to look only in directories of systems that L.sys says can
+be called.
+
+Modify Dialers code to allow an extra field to eleiminate a chat script's
+    dependency on interface speed.  (eg.  FAST is hardcoded to 19200).
+
+Convert entire source to KNF.
+

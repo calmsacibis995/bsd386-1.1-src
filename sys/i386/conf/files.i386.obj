@@ -1,0 +1,265 @@
+i386/OBJ/init_main.o	standard
+i386/OBJ/kern_acct.o	standard
+i386/OBJ/kern_clock.o	standard
+i386/OBJ/kern_descrip.o	standard
+i386/OBJ/kern_exec.o	standard
+i386/OBJ/kern_exit.o	standard
+i386/OBJ/kern_fork.o	standard
+i386/OBJ/kern_kinfo.o	standard
+i386/OBJ/kern_ktrace.o	standard
+i386/OBJ/kern_malloc.o	standard
+i386/OBJ/kern_physio.o	standard
+i386/OBJ/kern_proc.o	standard
+i386/OBJ/kern_prot.o	standard
+i386/OBJ/kern_resource.o	standard
+i386/OBJ/kern_sig.o		standard
+i386/OBJ/kern_subr.o	standard
+i386/OBJ/kern_synch.o	standard
+i386/OBJ/kern_time.o	standard
+i386/OBJ/kern_xxx.o		standard
+i386/OBJ/dead_vnops.o	standard
+i386/OBJ/spec_vnops.o	standard
+i386/OBJ/fifo_vnops.o	standard
+i386/OBJ/subr_autoconf.o	standard
+i386/OBJ/subr_log.o		standard
+i386/OBJ/subr_mcount.o	optional profiling-routine
+i386/OBJ/subr_prf.o		standard
+i386/OBJ/subr_rmap.o	standard
+i386/OBJ/subr_xxx.o		standard
+i386/OBJ/sys_generic.o	standard
+i386/OBJ/sys_process.o	standard
+i386/OBJ/sys_socket.o	standard
+i386/OBJ/tty.o		standard
+i386/OBJ/tty_compat.o	standard
+i386/OBJ/tty_pty.o		optional pty
+i386/OBJ/tty_subr.o		standard
+i386/OBJ/tty_tb.o		optional tb
+i386/OBJ/tty_tty.o		standard
+i386/OBJ/vfs_bio.o		standard
+i386/OBJ/vfs_cache.o	standard
+i386/OBJ/vfs_lookup.o	standard
+i386/OBJ/vfs_subr.o		standard
+i386/OBJ/vfs_syscalls.o	standard
+i386/OBJ/vfs_vnops.o	standard
+i386/OBJ/uipc_mbuf.o	standard
+i386/OBJ/uipc_socket.o	standard
+i386/OBJ/uipc_socket2.o	standard
+i386/OBJ/uipc_syscalls.o	standard
+i386/OBJ/uipc_usrreq.o	standard
+i386/OBJ/kern_lock.o		standard
+i386/OBJ/vm_fault.o		standard
+i386/OBJ/vm_glue.o		standard
+i386/OBJ/vm_init.o		standard
+i386/OBJ/vm_kern.o		standard
+i386/OBJ/vm_map.o		standard
+i386/OBJ/vm_meter.o		standard
+i386/OBJ/vm_mmap.o		standard
+i386/OBJ/vm_object.o		standard
+i386/OBJ/vm_page.o		standard
+i386/OBJ/vm_pageout.o		standard
+i386/OBJ/vm_pager.o		standard
+i386/OBJ/vm_swap.o		standard
+i386/OBJ/vm_unix.o		standard
+i386/OBJ/vm_user.o		standard
+i386/OBJ/device_pager.o	standard
+i386/OBJ/swap_pager.o		standard
+i386/OBJ/vnode_pager.o	standard
+i386/OBJ/ufs_alloc.o		standard
+i386/OBJ/ufs_bmap.o		standard
+i386/OBJ/ufs_disksubr.o	standard
+i386/OBJ/ufs_inode.o		standard
+i386/OBJ/ufs_lockf.o		standard
+i386/OBJ/ufs_lookup.o	standard
+i386/OBJ/ufs_subr.o		standard
+i386/OBJ/ufs_tables.o	standard
+i386/OBJ/ufs_vfsops.o	standard
+i386/OBJ/ufs_vnops.o		standard
+i386/OBJ/ufs_quota.o		standard
+i386/OBJ/mfs_vnops.o		optional mfs
+i386/OBJ/mfs_vfsops.o	optional mfs
+i386/OBJ/iso9660_lookup.o optional iso9660
+i386/OBJ/iso9660_node.o	optional iso9660
+i386/OBJ/iso9660_util.o	optional iso9660
+i386/OBJ/iso9660_vfsops.o optional iso9660
+i386/OBJ/iso9660_vnops.o	optional iso9660
+i386/OBJ/msdosfs_conv.o	optional msdosfs
+i386/OBJ/msdosfs_denode.o optional msdosfs
+i386/OBJ/msdosfs_fat.o	 optional msdosfs
+i386/OBJ/msdosfs_lookup.o optional msdosfs
+i386/OBJ/msdosfs_vfsops.o optional msdosfs
+i386/OBJ/msdosfs_vnops.o optional msdosfs
+i386/OBJ/nfs_bio.o		optional nfs
+i386/OBJ/nfs_node.o		optional nfs
+i386/OBJ/nfs_serv.o		optional nfs
+i386/OBJ/nfs_socket.o	optional nfs
+i386/OBJ/nfs_srvcache.o	optional nfs
+i386/OBJ/nfs_subs.o		optional nfs
+i386/OBJ/nfs_syscalls.o	optional nfs
+i386/OBJ/nfs_vfsops.o	optional nfs
+i386/OBJ/nfs_vnops.o		optional nfs
+i386/OBJ/af.o		standard
+i386/OBJ/if_appp.o		optional appp
+i386/OBJ/if_sl.o		optional sl
+i386/OBJ/ppp_frame.o		optional ppp
+i386/OBJ/ppp_fsm.o		optional ppp
+i386/OBJ/ppp_ipcp.o		optional ppp
+i386/OBJ/ppp_lcp.o		optional ppp
+i386/OBJ/raw_cb.o		standard
+i386/OBJ/raw_usrreq.o	standard
+i386/OBJ/radix.o		standard
+i386/OBJ/rtsock.o		standard
+i386/OBJ/if_c_hdlc.o		optional cisco_hdlc
+i386/OBJ/slcompress.o	optional sl
+i386/OBJ/slcompress.o	optional ppp
+i386/OBJ/if_imp.o		optional imp
+i386/OBJ/if_imphost.o	optional imp
+i386/OBJ/raw_imp.o	optional imp
+i386/OBJ/if_ether.o	optional ether
+i386/OBJ/igmp.o		optional multicast
+i386/OBJ/in.o		optional inet
+i386/OBJ/in_pcb.o	optional inet
+i386/OBJ/ip_icmp.o	optional inet
+i386/OBJ/ip_input.o	optional inet
+i386/OBJ/ip_mroute.o	optional inet multicast mrouting
+i386/OBJ/ip_output.o	optional inet
+i386/OBJ/raw_ip.o	optional inet
+i386/OBJ/tcp_debug.o	optional inet
+i386/OBJ/tcp_input.o	optional inet
+i386/OBJ/tcp_output.o	optional inet
+i386/OBJ/tcp_subr.o	optional inet
+i386/OBJ/tcp_timer.o	optional inet
+i386/OBJ/tcp_usrreq.o	optional inet
+i386/OBJ/udp_usrreq.o	optional inet
+i386/OBJ/ns.o		optional ns
+i386/OBJ/ns_error.o	optional ns
+i386/OBJ/ns_ip.o		optional ns nsip
+i386/OBJ/ns_input.o	optional ns
+i386/OBJ/ns_output.o	optional ns
+i386/OBJ/ns_pcb.o		optional ns
+i386/OBJ/spp_debug.o	optional ns
+i386/OBJ/spp_usrreq.o	optional ns
+i386/OBJ/clnp_debug.o	optional iso
+i386/OBJ/clnp_er.o	optional iso
+i386/OBJ/clnp_frag.o	optional iso
+i386/OBJ/clnp_input.o	optional iso
+i386/OBJ/clnp_options.o	optional iso
+i386/OBJ/clnp_output.o	optional iso
+i386/OBJ/clnp_raw.o	optional iso
+i386/OBJ/clnp_subr.o	optional iso
+i386/OBJ/clnp_timer.o	optional iso
+i386/OBJ/cltp_usrreq.o	optional iso
+i386/OBJ/esis.o		optional iso
+i386/OBJ/iso.o		optional iso
+i386/OBJ/iso_chksum.o	optional iso
+i386/OBJ/iso_pcb.o	optional iso
+i386/OBJ/iso_proto.o	optional iso
+i386/OBJ/iso_snpac.o	optional iso
+i386/OBJ/tp_astring.o	optional iso
+i386/OBJ/tp_astring.o	optional tpip
+i386/OBJ/tp_cons.o	optional iso
+i386/OBJ/tp_driver.o	optional iso
+i386/OBJ/tp_driver.o	optional tpip
+i386/OBJ/tp_emit.o	optional iso
+i386/OBJ/tp_emit.o	optional tpip
+i386/OBJ/tp_inet.o	optional iso
+i386/OBJ/tp_inet.o	optional tpip
+i386/OBJ/tp_input.o	optional iso
+i386/OBJ/tp_input.o	optional tpip
+i386/OBJ/tp_iso.o		optional iso
+i386/OBJ/tp_meas.o	optional iso
+i386/OBJ/tp_meas.o	optional tpip
+i386/OBJ/tp_output.o	optional iso
+i386/OBJ/tp_output.o	optional tpip
+i386/OBJ/tp_pcb.o		optional iso
+i386/OBJ/tp_pcb.o		optional tpip
+i386/OBJ/tp_subr.o	optional iso
+i386/OBJ/tp_subr.o	optional tpip
+i386/OBJ/tp_subr2.o	optional iso
+i386/OBJ/tp_subr2.o	optional tpip
+i386/OBJ/tp_timer.o	optional iso
+i386/OBJ/tp_timer.o	optional tpip
+i386/OBJ/tp_trace.o	optional iso
+i386/OBJ/tp_trace.o	optional tpip
+i386/OBJ/tp_usrreq.o	optional iso
+i386/OBJ/tp_usrreq.o	optional tpip
+i386/OBJ/if_eon.o		optional eon
+i386/OBJ/ccitt_proto.o	optional ccitt
+i386/OBJ/hd_debug.o	optional ccitt
+i386/OBJ/hd_input.o	optional ccitt
+i386/OBJ/hd_output.o	optional ccitt
+i386/OBJ/hd_subr.o	optional ccitt
+i386/OBJ/hd_timer.o	optional ccitt
+i386/OBJ/pk_acct.o	optional ccitt
+i386/OBJ/pk_debug.o	optional ccitt
+i386/OBJ/pk_input.o	optional ccitt
+i386/OBJ/pk_output.o	optional ccitt
+i386/OBJ/pk_subr.o	optional ccitt
+i386/OBJ/pk_timer.o	optional ccitt
+i386/OBJ/pk_usrreq.o	optional ccitt
+i386/OBJ/scsi_subr.o	optional scsi
+i386/OBJ/sd.o		optional sd device-driver
+i386/OBJ/st.o		optional st device-driver
+i386/OBJ/autoconf.o	standard device-driver
+i386/i386/conf.c	standard
+i386/OBJ/cons.o	standard
+i386/OBJ/copy.o	standard
+i386/OBJ/dos_disksubr.o	standard
+i386/OBJ/exec_machdep.o	standard
+i386/OBJ/fpe_cmd.o	optional fpe
+i386/OBJ/fpe_fmt.o	optional fpe
+i386/OBJ/fpe_main.o	optional fpe
+i386/OBJ/fpe_s.o	optional fpe
+i386/i386/i386_param.c	standard
+i386/OBJ/kgdb_stub.o	optional kgdb
+i386/OBJ/kgdb_glue.o	optional kgdb
+kern/syscalls.c		optional kgdb
+i386/OBJ/in_cksum.o	optional inet
+i386/OBJ/machdep.o	standard config-dependent
+i386/OBJ/mem.o		standard
+i386/OBJ/pmap.o	standard
+i386/OBJ/process_machdep.o	standard
+i386/OBJ/random.o	optional multicast
+i386/OBJ/ns_cksum.o	optional ns
+i386/OBJ/segments.o	standard
+i386/OBJ/sys_machdep.o	standard
+i386/OBJ/trap.o	standard
+i386/OBJ/vm_machdep.o	standard
+i386/OBJ/aha.o		optional aha device-driver
+i386/OBJ/clock.o	standard
+i386/OBJ/com.o		optional com device-driver
+i386/OBJ/digi.o		optional digi device-driver
+i386/OBJ/fd.o		optional fd device-driver
+i386/OBJ/if_ef.o	optional ef device-driver
+i386/OBJ/if_el.o	optional el device-driver
+i386/OBJ/if_eo.o	optional eo device-driver
+i386/OBJ/if_ep.o	optional ep device-driver
+i386/OBJ/if_ex.o	optional ex device-driver
+i386/OBJ/if_hpplus.o	optional hpp device-driver
+i386/OBJ/ms.o		optional ms device-driver
+i386/OBJ/if_ne.o	optional ne device-driver
+i386/OBJ/if_pe.o	optional pe device-driver
+i386/OBJ/if_petbl.o	optional pe device-driver
+i386/OBJ/bms.o		optional bms device-driver
+i386/OBJ/if_re.o	optional re device-driver
+i386/OBJ/if_rh.o	optional rh device-driver
+i386/OBJ/if_rn.o	optional rn device-driver
+i386/isa/if_tn.c	optional tn device-driver
+i386/OBJ/if_we.o	optional we device-driver
+i386/OBJ/isa.o		optional isa device-driver
+i386/OBJ/lms.o		optional lms device-driver
+i386/OBJ/lp.o		optional lp device-driver
+i386/OBJ/mcd.o		optional mcd device-driver
+i386/isa/midi.c		optional midi device-driver
+i386/OBJ/npx.o		optional npx device-driver
+i386/OBJ/pcaux.o	optional pcaux device-driver
+i386/OBJ/pccons.o	optional pccons device-driver
+i386/OBJ/rc.o		optional rc device-driver
+i386/isa/sb_driver.c	optional sb device-driver
+i386/OBJ/si.o		optional si device-driver
+i386/OBJ/vga.o		optional vga device-driver
+i386/OBJ/wd.o		optional wd device-driver
+i386/OBJ/wt.o		optional wt device-driver
+i386/OBJ/xir.o		optional xir device-driver
+i386/OBJ/eisa.o	standard
+i386/OBJ/eaha.o	optional eaha device-driver
+thisisfor_in_proto.o	optional hy

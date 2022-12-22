@@ -1,0 +1,12 @@
+F DOC.;1                            	doc
+F DOC_COMM.;1                       	doc-common
+F DOC_DITR.;1                       	doc-ditroff
+F DOC_NROF.;1                       	doc-nroff
+F DOC_SYMS.;1                       	doc-syms
+F MAKEFILE.;1                       	Makefile
+F MAN_LOCA.;1                       	man.local
+F README.;1                         	README
+F STRIP.SED;1                       	strip.sed
+F TMAC.AND;1                        	tmac.andoc
+F TMAC.R;1                          	tmac.r
+F TMAC_AN.OLD;1                     	tmac.an.old

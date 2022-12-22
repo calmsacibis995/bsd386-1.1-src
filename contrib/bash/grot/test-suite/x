@@ -1,0 +1,3 @@
+echo this is x
+. ./y
+echo after . y

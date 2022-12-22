@@ -1,0 +1,62 @@
+
+ 10 rem  histogram program
+ 20
+ 30 rem written by         henry d. shapiro
+ 40 rem                    cs 150   sec 007
+ 50 rem                    10/25/81
+ 60
+ 70 rem a program to read in test scores from a file, putting them into bins
+ 80 rem of width five, i.e., 0-4,5-9,10-14,...,90-94,94-100 (note that the
+ 90 rem last bin has width six), and printing out a histogram in vertical
+100 rem format.  the number of test scores in each bin is not bounded
+110 rem from above a priori.
+120
+130 rem variable and file dicitionary
+131 rem   final - test scores to be read in
+140 rem   s(20) - the twenty bins -- each bin holds the count of how many
+150 rem           scores fall in that bin
+160 rem   m     - number in the most numerous bin -- needed to control
+170 rem           height of histogram
+180 rem   n     - numerical score read in from file of test scores
+185 rem   b     - the bin number the test score falls into (0-4 into bin 1,
+186 rem           5-9 into bin 2,etc.)
+190 rem   i     - service loop variable
+191 rem   j     - service loop variable (inner loop)
+200
+210 dim s(20)
+220 for i=1 to 20
+230   let s(i)=0
+240 next i
+250
+260 open 'final' in
+270 get 'final',n,eof 349
+280 let b=int(n/5)+1
+ld
+290                   rem go in to
+300 if n=100 then let b=20
+310                          rem for scores of 100 -- correct it
+320 let s(b)=s(b)+1
+330 goto 270
+340
+349 close 'final'
+350 rem find height of the line in the histogram
+360 let m=0
+370 for i=1 to 20
+380   if s(i)>m then let m=s(i)
+390 next i
+400
+410 rem print out the histogram
+420 print "----------------------------------------------------------------------------------"
+430 for i=m to 1 step -1
+440   print "!";
+450   for j=1 to 20
+455   rem print a blank, two stars and a blank or four blanks depending on
+456   rem whether there are enough elements in the bin to warrent stars
+460     if s(j)>=i then print " ** "; else print "    ";
+470   next j
+480   print "!"
+490 next i
+500 print "----------------------------------------------------------------------------------"
+510 print "   0-  5- 10- 15- 20- 25- 30- 35- 40- 45- 50- 55- 60- 65- 70- 75- 80- 85- 90- 95- "
+520 print "   4   9  14  19  24  29  34  39  44  49  54  59  64  69  74  79  84  89  94 100  "
+530 end

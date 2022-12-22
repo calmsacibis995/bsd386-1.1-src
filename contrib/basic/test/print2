@@ -1,0 +1,12 @@
+ 1000	rem	Gary,
+ 1010	rem		Notice the strange spacing of
+ 1020	rem	the last variable when you run this program.
+ 1030	rem	It is always the last variable that gets the
+ 1040	rem	strange spacing.  In other words, if you change
+ 1050	rem	the number of variables read and printed it will
+ 1070	rem	always be the last variable which is out by itself.
+ 1080	rem
+ 1090	read a, b, c, d, e, f, g, h, i, j, k, l
+ 1100	print 'read: '; a; b; c; d; e; f; g; h; i; j; k; l;
+ 1110	data 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+ 1120	end

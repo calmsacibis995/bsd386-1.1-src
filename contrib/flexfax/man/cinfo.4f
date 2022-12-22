@@ -1,0 +1,89 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/cinfo.4f,v 1.1.1.1 1994/01/14 23:10:09 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH CINFO 4F "July 12, 1993"
+.SH NAME
+cinfo \- remote facsimile machine control parameters database
+.SH DESCRIPTION
+The
+.B cinfo
+subdirectory in the
+.I FlexFAX
+spooling area holds parameters to use when sending to
+remote facsimile machines.
+Each remote machine that has control parameters has a file in the
+.B cinfo
+directory named by the remote machine's fully-qualified
+phone number.
+Parameter files have a simple
+.SM ASCII
+format.
+Each line is of the form
+.sp .5
+.ti +0.5i
+\fBtag\fP: \fIvalue\fP
+.br
+.sp .5
+where a \fItag\fP identifies a capability and a \fIvalue\fP
+is either a string, number, or boolean value.
+.PP
+The following parameters are recognized:
+.in +0.5i
+.sp .5
+.ta \w'supports2DEncoding    'u +\w'boolean    'u
+.nf
+\fBTag	Type	Description\fP
+rejectNotice	string	if set, reject outgoing jobs and return notice string
+tracingLevel	number	if set, set SessionTracing to this value
+.fi
+.in -0.5i
+.PP
+The facsimile server,
+.IR faxd (1M),
+uses the information stored in this directory when
+sending facsimile.
+.PP
+The
+.I rejectNotice
+item can be used to force jobs for the remote machine
+to be rejected before dialing the telephone.
+If this item has a non-empty string value, then all submitted
+facsimile are returned to the sender with a rejection notice
+that includes the specified string.
+This mechanism can be useful for dealing with problematic fax machines.
+.PP
+The
+.I tracingLevel
+item can be used to override the 
+.B SessionTracing
+configuration parameter for calls to a specific facsimile machine;
+see
+.IR config (4F)
+for information on this control.
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR config (4F),
+.IR info (4F)

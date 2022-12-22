@@ -1,0 +1,88 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/ultrix/README,v 1.1.1.1 1994/01/14 23:10:36 torek Exp $
+
+The port described here works on a decstation 5000/240 with ultrix 4.2A.
+Though not extensively tested, I've verified sending and reception from various
+faxmachines. I'm also sending from  other clients on my network through this
+server (suns, Indigos).
+
+The modem I use is ZyXEL 1496E+, rom revision 6.01
+
+
+Preliminaries
+-------------
+First of all you need to install/replace the following.
+[Believe me; you'll get nowhere with the standard versions of sed,expr,etc.]
+
+These are my known good versions.
+
+ * gcc-2.4.5
+ * libg++-2.4
+ * gnu make-3.67
+ * gs-2.6.1 (with 4 additional patches)
+ * install gnu bash as /bin/bash		(version 1.12)
+ * replace /bin/sed with gnu sed		(version 1.18)
+ * replace /bin/expr from gnu shellutils	(version 1.8)
+ * install printf from gnu shellutils		    "    " 
+
+ * replace ultrix syslog with a decent syslogd
+
+ Several implementations exist, you can get one from
+
+     gatekeeper.dec.com:/pub/DEC/jtkohl-syslog-complete.tar.Z
+
+ or any other 4.3BSD based syslogd of your choice. faxd will want to
+ log to the 'err' and 'info' levels of the 'daemon' facility.
+
+ The syslog distribution will contain a syslog.h, this should probably
+ be installed like this ( or else you have to make other
+ arrangements to include the new syslog.h ):
+
+	mv /usr/include/syslog.h /usr/include/syslog.h.old
+	cp syslog.h /usr/include/sys
+	ln -s sys/syslog.h /usr/include
+
+
+
+Compiling flexfax
+-----------------
+With the proper tools in place there should be no problems building
+everything
+
+ * edit 'configure' in the toplevel directory to use bash instead of sh
+
+   also, depending on where you have gnu make you may need to alter
+   the way PATH is built (near the top of configure). Make sure you're not
+   using the standard /bin/make.
+
+ * go on with the standard proceedure for making flexfax, i.e.
+
+      ./configure
+      make
+      make install
+
+During make there is one possible problem with include files, I'm not
+sure whether this is local to my particular installation; If you get
+an error like
+
+ /usr/local/lib/g++-include/sys/fcntl.h:9:
+		sys/fcntl.h: No such file or directory
+
+edit /usr/local/g++-include/sys/fcntl.h to 
+
+	include_next <fcntl.h>
+instead of
+	include_next <sys/fcntl.h>
+
+Bugs
+----
+
+ * Hardware flowcontrol doesn't work at this time. Folks with ultrix
+   source code tells me this is implicit in enabling modem control,
+   i.e. clearing clocal. If I do this I can't get faxd to communicate
+   with the modem at all.
+   This is a known problem on sun, hopefully it can be fixed for ultrix. 
+
+
+Sat Aug  7 17:45:01 MET DST 1993
+Tom Lislegard, Chr. Michelsen Research a/s
+tl@cmr.no

@@ -1,0 +1,3 @@
+Mmtype	mtype.c	/^main(argc, argv)$/
+dir_flush	mtype.c	/^dir_flush()$/
+disk_flush	mtype.c	/^disk_flush()$/

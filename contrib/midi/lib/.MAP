@@ -1,0 +1,8 @@
+F MAKEFILE.;1                       	Makefile
+F MFILEUTI.C;1                      	mfileutil.c
+F MPLAYUTI.C;1                      	mplayutil.c
+F MUTIL.3;1                         	mutil.3
+F MUTIL.H;1                         	mutil.h
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/midi/lib
+F RANGE.C;1                         	range.c
+F TAGS.;1                           	tags

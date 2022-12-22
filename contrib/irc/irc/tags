@@ -1,0 +1,166 @@
+Mirc	irc.c	/^main(argc, argv)$/
+MyFree	../common/support.c	/^void	MyFree(x)$/
+MyMalloc	../common/support.c	/^char	*MyMalloc(x)$/
+MyRealloc	../common/support.c	/^char    *MyRealloc(x, y)$/
+add_ch	edit.c	/^add_ch(ch)$/
+add_ignore	ignore.c	/^int add_ignore(ch, status, fromhost)$/
+back_ch	edit.c	/^back_ch()$/
+bol	edit.c	/^bol()$/
+cancel_clients	../common/parse.c	/^static	int	cancel_clients(cptr, sptr, cmd)$/
+center	str.c	/^char * center(buf,str,len)$/
+check_ctcp	ctcp.c	/^check_ctcp(cptr, sptr, parc, parv)$/
+clear_last_line	screen.c	/^clear_last_line()$/
+client_init	c_bsd.c	/^int	client_init(host, portnum, cptr)$/
+client_loop	c_bsd.c	/^client_loop(sock)$/
+dbuf_alloc	../common/dbuf.c	/^static dbufbuf *dbuf_alloc()$/
+dbuf_delete	../common/dbuf.c	/^int	dbuf_delete(dyn,length)$/
+dbuf_free	../common/dbuf.c	/^static	void	dbuf_free(ptr)$/
+dbuf_get	../common/dbuf.c	/^int	dbuf_get(dyn, buf, length)$/
+dbuf_getmsg	../common/dbuf.c	/^int	dbuf_getmsg(dyn, buf, length)$/
+dbuf_malloc_error	../common/dbuf.c	/^static int dbuf_malloc_error(dyn)$/
+dbuf_map	../common/dbuf.c	/^char	*dbuf_map(dyn,length)$/
+dbuf_put	../common/dbuf.c	/^int	dbuf_put(dyn, buf, length)$/
+dead_link	../common/send.c	/^static	int	dead_link(to, notice)$/
+debug	c_debug.c	/^void debug(level, form, p1, p2, p3, p4, p5, p6, p7/
+del_ch_left	edit.c	/^del_ch_left()$/
+del_ch_right	edit.c	/^del_ch_right()$/
+del_word_left	edit.c	/^del_word_left()$/
+del_word_right	edit.c	/^del_word_right()$/
+deliver_it	../common/bsd.c	/^int	deliver_it(cptr, str, len)$/
+dgets	../common/support.c	/^int	dgets(fd, buf, num)$/
+do_after_esc	edit.c	/^do_after_esc(ch)$/
+do_away	irc.c	/^do_away(buf1, tmp)	\/* 27.6.1993	-Vesa *\/$/
+do_bye	irc.c	/^int	do_bye(buf, tmp)$/
+do_char	edit.c	/^do_char(ch, sock)$/
+do_clear	irc.c	/^do_clear(buf, temp)$/
+do_cmdch	irc.c	/^int	do_cmdch(ptr, temp)$/
+do_help	help.c	/^do_help(ptr, temp)$/
+do_ignore	ignore.c	/^do_ignore(user, temp)$/
+do_kick	irc.c	/^do_kick(buf1, tmp)	\/* 23.1.1993	-Vesa *\/$/
+do_kill	irc.c	/^do_kill(buf1, tmp)	\/* 9.1.1993	-Vesa *\/$/
+do_log	irc.c	/^do_log(ptr, temp)$/
+do_mypriv	irc.c	/^int	do_mypriv(buf1, buf2)$/
+do_myqpriv	irc.c	/^int	do_myqpriv(buf1, buf2)$/
+do_mytext	irc.c	/^int	do_mytext(buf1, temp)$/
+do_numeric	c_numeric.c	/^int	do_numeric(numeric, cptr, sptr, parc, parv)$/
+do_query	irc.c	/^int	do_query(ptr, temp)$/
+do_quote	irc.c	/^int	do_quote(ptr, temp)$/
+do_server	irc.c	/^int	do_server(buf, tmp)$/
+do_unkill	irc.c	/^int	do_unkill(buf, temp)$/
+dopacket	../common/packet.c	/^int	dopacket(cptr, buffer, length)$/
+dummy	../common/bsd.c	/^VOIDSIG dummy()$/
+dumpcore	../common/support.c	/^void	dumpcore(msg, p1, p2, p3, p4, p5, p6, p7, p8,/
+eol	edit.c	/^eol()$/
+find_client	../common/parse.c	/^aClient *find_client(name, cptr)$/
+find_ignore	ignore.c	/^anIgnore *find_ignore(user, para, fromhost)$/
+find_name	../common/parse.c	/^aClient *find_name(name, cptr)$/
+find_nickserv	../common/parse.c	/^aClient	*find_nickserv(name, cptr)$/
+find_person	../common/parse.c	/^aClient *find_person(name, cptr)$/
+find_server	../common/parse.c	/^aClient *find_server(name, cptr)$/
+find_userhost	../common/parse.c	/^aClient *find_userhost(user, host, cptr, count)$/
+flush_connections	../common/send.c	/^void	flush_connections(fd)$/
+forw_ch	edit.c	/^forw_ch()$/
+free	../common/support.c	/^#define	free(x)	MyFree(x)$/
+get_char	screen.c	/^get_char(pos)$/
+get_disp	screen.c	/^get_disp(paikka)$/
+get_position	screen.c	/^get_position()$/
+get_yank_char	screen.c	/^get_yank_char(pos)$/
+getfield	../common/parse.c	/^char	*getfield(newline)$/
+got_esc	edit.c	/^got_esc()$/
+in_insert_mode	screen.c	/^in_insert_mode()$/
+inet_addr	../common/support.c	/^unsigned long inet_addr(host)$/
+inet_netof	../common/support.c	/^int inet_netof(in)$/
+inetntoa	../common/support.c	/^char	*inetntoa(in)$/
+initconf	c_conf.c	/^initconf(host, passwd, myname, port)$/
+intr	irc.c	/^intr()$/
+kill_eol	screen.c	/^kill_eol()$/
+kill_ignore	ignore.c	/^int kill_ignore(iptr)$/
+kill_whole_line	screen.c	/^kill_whole_line()$/
+literal_next	edit.c	/^literal_next()$/
+m_admin	c_msg.c	/^m_admin() {$/
+m_away	c_msg.c	/^m_away(sptr, cptr, parc, parv)$/
+m_bye	c_msg.c	/^m_bye()$/
+m_close	c_msg.c	/^m_close() {$/
+m_connect	c_msg.c	/^m_connect() {$/
+m_die	c_msg.c	/^m_die() {$/
+m_error	c_msg.c	/^m_error(sptr, cptr, parc, parv)$/
+m_help	c_msg.c	/^m_help() {$/
+m_info	c_msg.c	/^m_info(sptr, cptr, parc, parv)$/
+m_invite	c_msg.c	/^m_invite(sptr, cptr, parc, parv)$/
+m_ison	c_msg.c	/^m_ison() {$/
+m_join	c_msg.c	/^int	m_join(sptr, cptr, parc, parv)$/
+m_kick	c_msg.c	/^m_kick(sptr, cptr, parc, parv)$/
+m_kill	c_msg.c	/^m_kill(cptr, sptr, parc, parv)$/
+m_links	c_msg.c	/^m_links() { $/
+m_linreply	c_msg.c	/^m_linreply(sptr, cptr, parc, parv)$/
+m_list	c_msg.c	/^m_list() {$/
+m_lusers	c_msg.c	/^m_lusers() {$/
+m_mail	c_msg.c	/^m_mail() {$/
+m_mode	c_msg.c	/^m_mode(sptr, cptr, parc, parv)$/
+m_motd	c_msg.c	/^m_motd() {$/
+m_names	c_msg.c	/^m_names() {$/
+m_namreply	c_msg.c	/^m_namreply(sptr, cptr, parc, parv)$/
+m_newnamreply	c_msg.c	/^m_newnamreply(sptr, cptr, parc, parv)$/
+m_newwhoreply	c_msg.c	/^m_newwhoreply(channel, username, host, nickname, a/
+m_nick	c_msg.c	/^int	m_nick(sptr, cptr, parc, parv)$/
+m_notice	c_msg.c	/^int	m_notice(sptr, cptr, parc, parv)$/
+m_oper	c_msg.c	/^m_oper() {$/
+m_part	c_msg.c	/^m_part(sptr, cptr, parc, parv)$/
+m_pass	c_msg.c	/^m_pass() {$/
+m_ping	c_msg.c	/^m_ping(sptr, cptr, parc, parv)$/
+m_pong	c_msg.c	/^m_pong(sptr, cptr, parc, parv)$/
+m_private	c_msg.c	/^int	m_private(sptr, cptr, parc, parv)$/
+m_quit	c_msg.c	/^m_quit(sptr, cptr, parc, parv)$/
+m_rehash	c_msg.c	/^m_rehash() {$/
+m_restart	c_msg.c	/^m_restart() {$/
+m_server	c_msg.c	/^m_server(sptr, cptr, parc, parv)$/
+m_service	c_msg.c	/^m_service() {$/
+m_squit	c_msg.c	/^m_squit(sptr, cptr, parc, parv)$/
+m_stats	c_msg.c	/^m_stats() {$/
+m_summon	c_msg.c	/^m_summon() {$/
+m_text	c_msg.c	/^m_text(sptr, cptr, parc, parv)$/
+m_time	c_msg.c	/^m_time() {$/
+m_topic	c_msg.c	/^m_topic(sptr, cptr, parc, parv)$/
+m_trace	c_msg.c	/^m_trace() {$/
+m_user	c_msg.c	/^m_user() {$/
+m_userhost	c_msg.c	/^m_userhost() {$/
+m_users	c_msg.c	/^m_users() {$/
+m_version	c_msg.c	/^m_version(sptr, cptr, parc, parv)$/
+m_wall	c_msg.c	/^m_wall(sptr, cptr, parc, parv)$/
+m_wallops	c_msg.c	/^m_wallops(sptr, cptr, parc, parv)$/
+m_who	c_msg.c	/^m_who() { $/
+m_whois	c_msg.c	/^m_whois() {$/
+m_whoreply	c_msg.c	/^m_whoreply(sptr, cptr, parc, parv)$/
+m_whowas	c_msg.c	/^m_whowas() {$/
+matches	../common/match.c	/^int	matches(ma, na)$/
+mycmp	../common/parse.c	/^int	mycmp(s1, s2)$/
+mycncmp	irc.c	/^char	*mycncmp(str1, str2)$/
+myloop	irc.c	/^myloop(sock)$/
+myncmp	../common/parse.c	/^int	myncmp(str1, str2, n)$/
+next_in_history	screen.c	/^next_in_history()$/
+parse	../common/parse.c	/^int	parse(cptr, buffer, bufend, mptr)$/
+previous_in_history	screen.c	/^previous_in_history()$/
+putline	irc.c	/^putline(line)$/
+real_name	str.c	/^real_name(user)$/
+record_line	screen.c	/^record_line()$/
+refresh_screen	edit.c	/^refresh_screen()$/
+remove_unknown	../common/parse.c	/^static	void	remove_unknown(cptr, sender)$/
+rev_line	edit.c	/^rev_line()$/
+send_message	../common/send.c	/^static	int	send_message(to, msg, len)$/
+send_queued	../common/send.c	/^int	send_queued(to)$/
+send_this_line	screen.c	/^send_this_line(sock)$/
+sendit	irc.c	/^sendit(sock,line)$/
+sendto_one	../common/send.c	/^void	sendto_one(to, pattern, p1, p2, p3, p4, p5, p/
+set_char	screen.c	/^set_char(pos, ch)$/
+set_position	screen.c	/^set_position(disp, from)$/
+set_yank_char	screen.c	/^set_yank_char(pos, ch)$/
+strerror	../common/support.c	/^char *strerror(err_no)$/
+strtok	../common/support.c	/^char *strtok(str, fs)$/
+strtoken	../common/support.c	/^char *strtoken(save, str, fs)$/
+suspend_irc	edit.c	/^suspend_irc()$/
+toggle_ins	screen.c	/^toggle_ins()$/
+tulosta_viimeinen_rivi	screen.c	/^tulosta_viimeinen_rivi()$/
+unixuser	irc.c	/^int	unixuser()$/
+word_back	edit.c	/^word_back()$/
+word_forw	edit.c	/^word_forw()$/
+yank	screen.c	/^yank()$/

@@ -1,0 +1,59 @@
+     declare [ arg ... ]
+          Same as typeset.
+     functions [ +-tu ] [ name ... ]
+          Equivalent to typeset -f.
+     integer
+          Same as typeset -i.
+     local
+          Same as typeset.
+     typeset [ +-LRZfilrtux [n]] [ name[=value] ] ...
+          Set attributes and values for shell  parameters.   When
+          invoked  inside  a  function,  if  name  is not already
+          defined, a new parameter is created which will be unset
+          when  the function completes.  The following attributes
+          are valid:
+          -L   Left justify and remove leading blanks from value.
+               If  n  is  nonzero,  it  defines  the width of the
+               field; otherwise it is determined by the width  of
+               the  value  of  the  first  assignment.   When the
+               parameter is printed, it is filled  on  the  right
+               with  blanks  or truncated if necessary to fit the
+               field.  Leading zeros are removed if the  -Z  flag
+               is also set.
+          -R   Right justify and fill with leading blanks.  If  n
+               is nonzero if defines the width of the field; oth-
+               erwise it is determined by the width of the  value
+               of  the  first  assignment.  When the parameter is
+               printed, the field is left filled with  blanks  or
+               truncated from the end.
+          -Z   Right justify and fill with leading zeros  if  the
+               first  non-blank  character  is a digit and the -L
+               flag has not been set.  If n is nonzero it defines
+               the width of the field; otherwise it is determined
+               by the width of the value of the first assignment.
+          -f   The names refer to functions rather  than  parame-
+               ters.   No  assignments  can be made, and the only
+               other valid flags are -t  and  -u.   The  flag  -t
+               turns on execution tracing for this function.  The
+               flag -u causes this  function  to  be  marked  for
+               autoloading.  The fpath parameter will be searched
+               to find the function definition when the  function
+               is first referenced.
+          -i   Use an internal integer representation.  If  i  is
+               nonzero  it  defines  the  output arithmetic base,
+               otherwise it is determined by  the  first  assign-
+               ment.
+          -l   Convert to lower case.
+          -r   The given names are marked readonly.
+          -t   Tags the named parameters.  Tags have  no  special
+               meaning to the shell.
+          -u   Convert to upper case.
+          -x   Mark for automatic export to  the  environment  of
+               subsequently executed commands.
+
+     Using + rather than - causes these flags to be  turned  off.
+     If no arguments are given but flags are specified, a list of
+     named parameters which have  these  flags  set  is  printed.
+     Using  + instead of - keeps their values from being printed.
+     If no arguments or options are given, the names  and  attri-
+     butes of all parameters are printed.

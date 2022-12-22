@@ -1,0 +1,5 @@
+F IDENT.1;1                         	ident.1
+F IDENT.C;1                         	ident.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/rcs/ident
+F TAGS.;1                           	tags

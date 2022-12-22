@@ -1,0 +1,56 @@
+Argify	parser.c	/^Argify(ArgV)$/
+BSclean	glue.c	/^BSclean()$/
+BinSh	glue.c	/^BinSh(Name, Stream, Pushback)$/
+CopyRange	parser.c	/^CopyRange(Start, End)$/
+Cwd	lcwd.c	/^Cwd(p, i)$/
+DoASSIGN	parser.c	/^DoASSIGN(Name)$/
+DoCASE	parser.c	/^DoCASE(ac, av)$/
+DoCAT	parser.c	/^DoCAT(ac, av)$/
+DoCD	parser.c	/^DoCD(ac, av)$/
+DoCP	parser.c	/^DoCP(ac, av)$/
+DoECHO	parser.c	/^DoECHO(ac, av)$/
+DoEXIT	parser.c	/^DoEXIT(ac, av)$/
+DoEXPORT	parser.c	/^DoEXPORT(ac, av)$/
+DoFOR	parser.c	/^DoFOR(ac, av)$/
+DoIF	parser.c	/^DoIF(ac, av)$/
+DoIT	parser.c	/^DoIT(ac, av)$/
+DoMKDIR	parser.c	/^DoMKDIR(ac, av)$/
+DoSED	parser.c	/^DoSED(ac, av)$/
+DoTEST	parser.c	/^DoTEST(ac, av)$/
+DoUntil	parser.c	/^DoUntil(Terminator, NewVal)$/
+ERR	llib.c	/^#define ERR(s, c)	if(opterr){\\$/
+Ermsg	llib.c	/^Ermsg(e)$/
+Exec	parser.c	/^Exec(av)$/
+Execute	lexec.c	/^Execute(av)$/
+Expand	parser.c	/^Expand(p)$/
+FORK	lexec.c	/^#define FORK()		 vfork()$/
+Fexecute	lfiles.c	/^Fexecute(p)$/
+Fsize	lfiles.c	/^Fsize(p)$/
+Ftype	lfiles.c	/^Ftype(p)$/
+GetFiles	shar.c	/^GetFiles(Name)$/
+GetLine	parser.c	/^GetLine(Flag)$/
+GetStat	lfiles.c	/^GetStat(p)$/
+GetVar	parser.c	/^GetVar(Name)$/
+Host	lhost.c	/^Host()$/
+ISdubl	parser.c	/^#define ISdubl(c)	(SynTable[(c)] == C_DUBL)$/
+ISletr	parser.c	/^#define ISletr(c)	(SynTable[(c)] == C_LETR)$/
+ISmeta	parser.c	/^#define ISmeta(c)	(SynTable[(c)] == C_META)$/
+ISquot	parser.c	/^#define ISquot(c)	(SynTable[(c)] == C_QUOT)$/
+ISterm	parser.c	/^#define ISterm(c)	(SynTable[(c)] == C_TERM)$/
+ISwhit	parser.c	/^#define ISwhit(c)	(SynTable[(c)] == C_WHIT)$/
+ISword	parser.c	/^#define ISword(c)	(SynTable[(c)] == C_WORD)$/
+Matches	parser.c	/^Matches(p, text)$/
+Mshar	shar.c	/^main(ac, av)$/
+Note	parser.c	/^Note(text, arg)$/
+Pid	lexec.c	/^Pid()$/
+SetSigs	lexec.c	/^SetSigs(What, Func)$/
+SetVar	parser.c	/^SetVar(Name, Value)$/
+SynErr	parser.c	/^SynErr(text)$/
+User	luser.c	/^User()$/
+W_VAL	lexec.c	/^#define W_VAL(w)	 ((w).w_retcode)$/
+getmem	lmem.c	/^getmem(i, j)$/
+getopt	llib.c	/^getopt(argc, argv, opts)$/
+mkdir	llib.c	/^mkdir(name, mode)$/
+qsort	llib.c	/^qsort(Table, Number, Width, Compare)$/
+rename	llib.c	/^rename(from, to)$/
+shar	shar.c	/^shar(file, Basename)$/

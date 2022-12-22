@@ -1,0 +1,13 @@
+F DELTIME0.GZ;1                     	deltime.c.gz
+F DELTIME1.GZ;1                     	deltime.man.gz
+F DTIMEP_L.GZ;1                     	dtimep.lex.gz
+F DTIME_C.GZ;1                      	dtime.c.gz
+F LEXEDIT_.GZ;1                     	lexedit.sed.gz
+F LEXSTRIN.GZ;1                     	lexstring.c.gz
+F LIBTWS_M.GZ;1                     	libtws.man.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F PARSETIM.GZ;1                     	parsetime.c.gz
+F PHOON_C.GZ;1                      	phoon.c.gz
+F PHOON_MA.GZ;1                     	phoon.man.gz
+F README.GZ;1                       	README.gz
+F TWS_H.GZ;1                        	tws.h.gz

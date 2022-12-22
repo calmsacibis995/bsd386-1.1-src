@@ -1,0 +1,8 @@
+F ADDFTINF.CC;1                     	addftinfo.cc
+F ADDFTINF.MAN;1                    	addftinfo.man
+D GROT                              	grot
+F GUESS.CC;1                        	guess.cc
+F GUESS.H;1                         	guess.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/addftinfo
+F TAGS.;1                           	tags

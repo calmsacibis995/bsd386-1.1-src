@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MKMODULE.1;1                      	mkmodules.1
+F MKMODULE.C;1                      	mkmodules.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/cvs/mkmodules
+F TAGS.;1                           	tags

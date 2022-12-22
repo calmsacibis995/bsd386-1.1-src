@@ -1,0 +1,130 @@
+.\"
+.\" Copyright (c) 1992 Berkeley Software Design, Inc.
+.\" All rights reserved.
+.\"
+.\"
+.Dd August 27, 1992
+.Dt INIT 8
+.Os
+.Sh NAME
+.Nm init
+.Nd master system process 
+.Sh SYNOPSIS
+.Nm /sbin/init
+.Op Fl s
+.Sh DESCRIPTION
+.Nm init
+is the ancestress of all user processes, and is started by the 
+kernel as one of the last steps of the normal bootstrap process.
+.Nm init,
+by definition, always has a PID of 1.  
+.Pp
+When invoked with the
+.Fl s
+flag [passed down by the kernel from the bootstrap load process], 
+.Nm init 
+places the system in single user mode by starting 
+.Nm /bin/sh
+on the console.  If this shell exits gracefully, the system
+is then promoted to multiuser mode (see below).
+.Pp
+When 
+.Nm init 
+is invoked without the 
+.Fl s
+flag, or a single user shell terminates gracefully, the
+system is brought up in multiuser mode.  At this time,
+.Nm init
+executes the 
+.Pa /etc/rc
+script using
+.Nm /bin/sh
+as the shell.  
+If this script exits successfully, 
+.Nm init 
+then starts a process (usually
+.Nm /usr/libexec/getty
+) for each tty listed in
+.Pa /etc/ttys.  
+See
+.Xr ttys 5
+for more detail on this aspect of
+.Nm init.
+.Pp
+As the ancestress of all user processes, 
+.Nm init
+adopts all orphaned children processes whose parents have
+exited without doing a
+.Xr wait 3
+on them.  Thus, it is quite common to see processes listed
+by 
+.Xr ps 1
+as having a PPID of 1.  When any of these children exit,
+.Nm init
+kindly does a 
+.Xr wait 3
+on them to collect resource usage information.
+.Pp
+In the unfortunate event that 
+.Nm init
+should ever die, the system stops abruptly.  Likewise, if
+.Pa /sbin/init
+is not present in the root filesystem at boot time, the system
+will not come up far enough to be useful.  Both of these situations should be
+avoided whenever possible.  
+.Nm init,
+however, responds favorably (?) to the following signals: 
+.Bl -tag -width Ds
+.It Dv SIGHUP
+Re-reads 
+.Pa /etc/ttys
+and makes appropriate changes in list of running gettys.
+.It Dv SIGTERM
+User processes are killed and a single user shell is started
+on the console.
+.It Dv SIGTSTP
+Existing user processes are not harmed but no new gettys
+are started.  A subsequent SIGHUP will return the system to
+normal operation, or a SIGTERM will finish off the process by
+dropping the system into single user mode.
+.El
+.Sh FILES
+.Bl -tag -width /var/run/utmp -compact
+.It Pa /etc/ttys
+Terminal initialization information
+.It Pa /etc/rc
+System startup files
+.It Pa /dev/tty*
+Common tty devices
+.It Pa /dev/console
+Console device
+.It Pa /var/run/utmp
+Record of current users on the system
+.El
+.Sh SEE ALSO
+.Xr fastboot 8 ,
+.Xr ps 1 ,
+.Xr getty 8 ,
+.Xr sh 1 ,
+.Xr ttys 5 ,
+.Xr wait 3 ,
+.Xr reboot 8 ,
+.Xr rc 8 ,
+.Xr halt 8 ,
+.Xr utmp 5
+.Sh BUGS
+While it's possible to change lines in
+.Pa /etc/ttys
+and then send a 
+.Dv SIGHUP
+to 
+.Nm init,
+adding, deleting, or rearranging lines 
+is a Bad Idea.  If you do this, reboot
+the system afterwards.
+.Sh HISTORY
+.Nm init 
+originally appeared in Version 6 AT&T UNIX.  This particular version of 
+.Nm init 
+was written from scratch by Donn Seeley for BSD4.4.  This manual
+page and its inaccuracies were written by Trent Hein.  

@@ -1,0 +1,132 @@
+
+
+
+MPLAY(1)                       1992                      MPLAY(1)
+
+
+NNAAMMEE
+       mplay  -  play a standard MIDI file through a MPU-401 com-
+       patable device
+
+SSYYNNOOPPSSIISS
+       mmppllaayy [ -rrvv ] [ -tt tempo-scalar ] [ -TT track-list ] [ [ -RR
+       ] midi-file ...  ]
+
+DDEESSCCRRIIPPTTIIOONN
+       Used without arguments, mmppllaayy reads a standard MIDI format
+       [ SMF ] file data from stdin, converts it to a form  suit-
+       able  for  playing through a MPU-401 compatable device and
+       sends the converted data through the  device.   More  than
+       one  SMF file can be sent through stdin and new files will
+       be processed until there is no more data available.
+
+       Alternatively, mplay can be run with the SMF files  speci-
+       fied on the command line.
+
+       In both cases, the files are loaded and processed individ-
+       ually so there  might  be  slight  delays  in  the  output
+       between  each  file.   Also,  if  any  file has more the 8
+       tracks, a warning is printed to stdout and only the  first
+       8 tracks are used.
+
+OOPPTTIIOONNSS
+       -rr     This  option  causes  the  first SMF file to repeat
+              indefinitely.  This differs from the  RR  option  in
+              that  the  file  is only loaded once and the repeat
+              will incur no delay.
+
+       -vv     This options turns on verbose output.  When the SMF
+              file  is  processed, all META events are printed to
+              stdout.  Some  other  useful  information  is  also
+              printed.
+
+       -tt     This  option  takes  a floating point argument.  It
+              specifies a factor that will scale all tempo values
+              found  in  the  SMF  files.  The argument can range
+              from 0 to 4, other values will be silently chopped.
+              This  option  is implemented via the MSETRELTMP.  A
+              maximum tempo value of 250 beats per minute  and  a
+              minimum value of 8 beats per minute are enforced.
+
+       -TT     This  option takes an argument that specifies which
+              tracks to play.  The argument is in the form  of  a
+              list  of integers separated by The '-' specifies an
+              inclusive range between the two  surrounding  inte-
+              gers,  while the ',' separates individual integers.
+              SMF files of type 1 start with track 0,  the  tempo
+              track  and  continue  to  the number of tracks - 1.
+              SMF files of type 0  are  logically  split  into  a
+              tempo track in position 0 and a data track in posi-
+              tion 1.  SMF files of type 2 are treated like  type
+
+
+
+August                          3                               1
+
+
+
+
+
+MPLAY(1)                       1992                      MPLAY(1)
+
+
+              1 files.  If more than 8 tracks are specified, only
+              the first 8 are used and a warning is printed.
+
+       -RR     This is a different form of the repeat option.   It
+              is  only  valid when SMF files are specified on the
+              command line.  It causes mplay  to  repeat  playing
+              the  list of MSF files.  Since the files are loaded
+              individually, there might be a slight delay between
+              playing  the  last  file and the first, and thus is
+              not as desirable for repeating only a  signal  file
+              as the rr option.
+
+FFIILLEESS
+       //ddeevv//mmiiddiiccnnttll
+       //ddeevv//mmiiddiiccoonndd
+       //ddeevv//mmiiddii[[00--77]]
+
+SSEEEE AALLSSOO
+       mmiiddii(4), ssmmff(5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+August                          3                               2
+
+

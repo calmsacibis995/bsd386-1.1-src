@@ -1,0 +1,90 @@
+.\" Copyright (c) 1993,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: cons.4,v 1.2 1994/01/14 07:19:19 donn Exp $
+.\" Copyright (c) 1990, 1991 The Regents of the University of California.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to Berkeley by
+.\" the Systems Programming Group of the University of Utah Computer
+.\" Science Department.
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgement:
+.\"	This product includes software developed by the University of
+.\"	California, Berkeley and its contributors.
+.\" 4. Neither the name of the University nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\"     @(#)cons.4	5.2 (Berkeley) 3/27/91
+.\"
+.Dd January 14, 1994
+.Dt CONS 4 i386
+.Os
+.Sh NAME
+.Nm cons
+.Nd virtual console interface
+.Sh DESCRIPTION
+The system supports a
+.Dq virtual
+console device used for
+kernel and system error
+messages which is accessed in user mode via
+.Pa /dev/console .
+It is virtual in the sense that it is attached to a specific hardware interface
+at boot time.
+It then becomes an alternate access path to the selected device.
+Thus, the virtual console device
+.Pa /dev/console
+should be used for logins, etc.,
+only when the specific device file is not also in use.
+.Pp
+The currently supported console devices
+are a standard PC keyboard and display card (see
+.Xr pccons 4
+for information about the uses of this device, which is also known as
+.Pa /dev/conskbd0 ) ,
+and a standard COM serial port
+(see
+.Xr com 4 ) .
+The default console is a PC keyboard and display.
+The use of a serial console is enabled by the kernel option
+.Li COMCONSOLE="N"
+where
+.Li N
+is the console unit number.
+If the unit number is not 0 and/or the port is not at the standard
+address for com0 (0x3f8), the option
+.Li COMCNADDR="0xNNN"
+must also be specified with the correct port address for the desired
+console port.
+.Sh FILES
+.Bl -tag -width /dev/console
+.It Pa /dev/console
+.El
+.Sh SEE ALSO
+.Xr com 4 ,
+.Xr pccons 4 ,
+.Xr tty 4 ,
+.Xr boot 8 ,
+.Xr syslog 8

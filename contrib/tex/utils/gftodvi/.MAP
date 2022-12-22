@@ -1,0 +1,5 @@
+F GFTODMEM.GZ;1                     	gftodmem.h.gz
+F GFTODVI0.GZ;1                     	gftodvi.ch.gz
+F GFTODVI1.GZ;1                     	gftodvi.web.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/tex/utils/gftodvi

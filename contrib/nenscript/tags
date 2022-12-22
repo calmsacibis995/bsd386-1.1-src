@@ -1,0 +1,23 @@
+EndColumn	postscri.c	/^void EndColumn (stream)$/
+EndDocument	postscri.c	/^void EndDocument (stream)$/
+EndJob	postscri.c	/^void EndJob (stream)$/
+EndPage	postscri.c	/^void EndPage (stream)$/
+ExtractFontSize	postscri.c	/^static long ExtractFontSize (font)$/
+GetFontWidth	fontwidt.c	/^int GetFontWidth (fontname, size)$/
+MAX	postscri.c	/^#define MAX(a,b) ((a)>=(b)?(a):(b))$/
+MIN	postscri.c	/^#define MIN(a,b) ((a)<=(b)?(a):(b))$/
+Mmain	main.c	/^int main (argc, argv)$/
+PrintLine	postscri.c	/^void PrintLine (stream, line, count, first)$/
+PrintPSString	postscri.c	/^void PrintPSString (stream, line, len)$/
+StartDocument	postscri.c	/^void StartDocument (stream, filename)$/
+StartJob	postscri.c	/^void StartJob (stream, filename, landscape, column/
+StartPage	postscri.c	/^void StartPage (stream)$/
+WriteLine	postscri.c	/^void WriteLine (stream, line)$/
+add_font_to_list	font_lis.c	/^void add_font_to_list (fontname)$/
+enumerate_fonts	font_lis.c	/^void enumerate_fonts (stream)$/
+get_string	main.c	/^char * get_string (str)$/
+parse_env	main.c	/^void parse_env (env)$/
+parse_options	main.c	/^void parse_options (argc, argv)$/
+print_file	print.c	/^void print_file (input, output, filename, line_num/
+strdup	main.c	/^#define	strdup(s)	(strcpy ((char *)malloc (strlen(/
+usage	main.c	/^void usage ()$/

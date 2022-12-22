@@ -1,0 +1,115 @@
+.\" Id: si.4,v 1.2 1993/09/09 10:22:01 andy Exp
+.\" Copyright (c) 1993 Andy Rutter, Advanced Methods and Tools Ltd.
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\" BSDI $Id: si.4,v 1.1 1994/01/31 08:41:45 donn Exp $
+.Dd January 31, 1994
+.Dt SI 4 i386
+.Os
+.Sh NAME
+.Nm si
+.Nd
+Specialix International
+SLXOS 8-32 port communications multiplexor
+.Sh SYNOPSIS
+.Cd "device si0 at isa? iomem 0x0d8000 iosiz 65536
+.Sh DESCRIPTION
+The Specialix SLXOS is an 8 to 32 port
+.Tn EIA
+.Tn RS-232C
+.Pf ( Tn CCITT
+.Tn V.28 )
+communications multiplexor for ISA bus machines (the hardware is also
+available for EISA and MCA machines, but this driver has not been
+tested on those configurations).
+The driver will support both SI and XIO types of controller (TA
+and MTA terminal adapters).
+.Pp
+The controller uses a memory block within the ISA bus "hole" between
+0xa0000 and 0xfffff. The controller memory address can be set outside
+this range, but the driver does not currently support this.
+Irqs 11, 12 or 15 can be used, either specified via the config
+description or selected during autoconfiguration. The controller
+is soft configured to the appropriate interrupt.
+.Pp
+The si driver is not fully initialised at kernel bootstrap time
+as firmware code must first be downloaded to the the controller. This
+is performed by
+.Xr siconfig 8 ,
+normally invoked from 
+.Pa /etc/rc .
+.Pp
+Each port may be independently set to any speed between 75 and 57600
+baud (115200 on XIO).
+As B38400 is the highest available
+.Xr termios 4
+selectable speed,
+B50 is mapped to 57600 (and B110 is mapped to 115200 on XIO).
+.Pp
+An open on the si driver will block until carrier is present, unless
+O_NONBLOCK or CLOCAL is set. Alternatively, a soft carrier state can be set
+for each port via the
+.Xr siconfig 8
+utility - this has the effect of simulating the presence of DCD.
+.Pp
+Up to two SLXOS boards may be present in the system at one time.
+The least significant five bits (bits 1-5) of the minor device number select
+the port within a controller card, the next bit (bit 6) selects the controller.
+Bit 8 is used to select a controlling device for use by
+.Xr siconfig 8
+\&(/dev/si_control is minor device 128).
+.Pp
+Bit 7 is reserved for selection of the printer port found on
+many asynchronous terminals - this is referred to as
+the XPRINT interface. Two device nodes are used to reference the
+same physical line: for example /dev/ttya0 (minor = 0)
+and /dev/ttya0_xp (minor = 64).
+When the appropriate printer port enable and disable strings are set via
+.Xr siconfig 8 ,
+data sent to /dev/ttya0_xp will appear on the
+terminal's printer port.
+.Sh DIAGNOSTICS
+.Bl -tag -width 4n
+.It SLXOS si%d: iomem (%x) out of range
+Invalid base memory address specification in kernel config file.
+.It SLXOS si%d: %s not supported
+Unsupported controller type detected.
+.It SLXOS si%d: download beyond ram at offset 0x%x
+Attempt to load firmware outside the controller RAM range - usually caused
+by a corrupt download file.
+.It SLXOS si%d: startup timeout - aborting
+The controller failed to initialise after 5 seconds.
+.It SLXOS si%d: %s - no ports found
+No terminal ports found on the controller
+.It SLXOS si%d: Z280 version error - initstat %x
+An unexpected status was returned from the controller CPU.
+.It SLXOS si%d: extra ports ignored
+More ports were reported by the controller than are configured into the driver.
+This error should not happen!
+.It SLXOS si%d: unknown module type %d
+An unknown terminal adapter type was reported by the controller.
+.It SLXOS si%d: fail to malloc memory for port structs
+This should never happen!
+.It SLXOS si%d: %d ports
+Report of number of terminal adapter ports found.
+.It SLXOS si%d: Warning interrupt handler re-entered
+This should never happen!
+.It SLXOS [sx]i%d(%d): <debugging message>
+A vast range of driver debugging can be enabled via
+.Xr siconfig 8 .
+.El
+.Sh FILES
+.Bl -tag -width /dev/si_control -compact
+.It Pa /dev/si_control
+driver control interface - used by
+.Xr siconfig 8
+.It Pa /dev/tty[ab]*
+ports
+.It Pa /dev/tty[ab]*_xp
+XPRINT ports
+.El
+.Sh SEE ALSO
+.Xr termios 4 ,
+.Xr tty 4 ,
+.Xr siconfig 8 .

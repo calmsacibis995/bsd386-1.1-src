@@ -1,0 +1,30 @@
+Sun Dec 19 15:29:00 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* tstdiomisc.c, Makefile.in:  New tests.
+
+Thu Dec  2 22:56:21 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* Makefile.in (JUNK_TO_CLEAN), configure.in (MOSTLYCLEAN):
+	Added, to cleanup after tests.
+
+Fri Nov 26 16:05:43 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* tiomisc.cc, tiomisc.exp:  A (hopefully growing) collection
+	of small, random tests (mainly regression tests).
+	* tiomisc.cc (test1 and test2):  Tests from Wilco van Hoogstraeten
+	<wilco@erasmus.et.tudelft.nl> to check for (now-fixed) bugs.
+
+Mon Oct  4 17:38:27 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* Makefile.in (IOSTDIOLIB):  New macro.
+
+Fri Aug 27 12:22:10 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	* tFile.cc (t7):  Add test for buffer overflow.
+
+Fri Aug 20 00:23:53 1993  Per Bothner  (bothner@kalessin.cygnus.com)
+
+	Moved various tests over from old libg++/iostream/test.
+	* Makefile.in:  Edit appropriately.
+
+

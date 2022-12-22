@@ -1,0 +1,76 @@
+.TH record 1 "12 June 1992"
+.IX record
+.SH NAME
+.PP
+record \- record from Sound Blaster DSP digitizer
+
+.SH SYNOPSIS
+.PP
+\f3record\f1
+[\f3-help \f1]
+[\f3-stereo \f1]
+[\f3-mono \f1]
+[\f3-quiet \f1]
+[\f3-speed \f2DSP speed\f1]
+[\f3-time \f2seconds\f1]
+[\f3-bytes \f2bytecount\f1]
+[\f3-channels \f21|2\f1]
+[\f3-output \f2filename\f1]
+[\f2filename\f1]
+
+.SH DESCRIPTION
+.PP
+
+\fIrecord\fP reads samples from the DSP and writes them to
+\f2filename\f1.  Because recording involves only reading bytes from
+/dev/sb_dsp, this program is not really necessary (\fIcat\fP(1) would
+work), but this simplifies things a bit.  Recording length is easier
+to control this way.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.
+.TP
+.B -help
+Display some help on command options.
+.TP
+.B -quiet
+Print nothing other than error messages.
+.TP
+.B -output \f2filename\f1
+Write the samples fo \f2filename\f1 instead of stdout.  This option is
+implied if only a filename is given as an argument.
+.TP
+.B -speed \f2newspeed\f1
+Change the playback and sampling rate to the speed closest to
+\f2newspeed\f1 Hertz.  The \fIcdsp\fP program can do this as
+well, but this option is here for convenience.
+.TP
+.B -time \f2record-time\f1
+Records exactly \f2record-time\f1 seconds of sound.  \f2record-time\f1
+is in seconds, and can be any positive floating point value.
+.TP
+.B -bytes \f2count\f1
+Records exactly \f2count\f1 samples.  \f2count\f1 must be an integer.
+.TP
+.B -stereo -mono
+Set the DSP to either stereo (two channel) or mono (one channel) mode.
+This currently does not effect recording, which is always in mono.
+As soon as someone tells me how to record in stereo, this option
+will be effective.
+.TP
+.B -channels \f21|2\f1
+Explicitly sets the number of channels to one or two.
+.SH EXAMPLES
+.B record -time 10.5 -speed 8196 falala
+
+Sets the DSP speed to 8196 Hz, and then writes 10.5 seconds of samples
+to the file \f2falala\f1.
+
+.B record -t 5 blurb
+
+Writes five seconds of samples to the file \f2blurb\f1.
+.SH BUGS
+The stereo recording is bogus for now.  If only I knew how..
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

@@ -1,0 +1,1 @@
+Mdaemon	daemon.c	/^main(int argc, char **argv)$/

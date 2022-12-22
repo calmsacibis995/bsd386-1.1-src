@@ -1,0 +1,351 @@
+'xrdef {Overview-title}{Overview of \code {make}}
+'xrdef {Overview-pg}{1}
+'xrdef {Overview-snt}{Chapter'tie1}
+'xrdef {Reading-title}{How to Read This Manual}
+'xrdef {Reading-pg}{1}
+'xrdef {Reading-snt}{Section'tie1.1}
+'xrdef {Bugs-title}{Problems and Bugs}
+'xrdef {Bugs-pg}{2}
+'xrdef {Bugs-snt}{Section'tie1.2}
+'xrdef {Introduction-title}{An Introduction to Makefiles}
+'xrdef {Introduction-pg}{5}
+'xrdef {Introduction-snt}{Chapter'tie2}
+'xrdef {Rule Introduction-title}{What a Rule Looks Like}
+'xrdef {Rule Introduction-pg}{5}
+'xrdef {Rule Introduction-snt}{Section'tie2.1}
+'xrdef {Simple Makefile-title}{A Simple Makefile}
+'xrdef {Simple Makefile-pg}{6}
+'xrdef {Simple Makefile-snt}{Section'tie2.2}
+'xrdef {How Make Works-title}{How \code {make} Processes a Makefile}
+'xrdef {How Make Works-pg}{8}
+'xrdef {How Make Works-snt}{Section'tie2.3}
+'xrdef {Variables Simplify-title}{Variables Make Makefiles Simpler}
+'xrdef {Variables Simplify-pg}{9}
+'xrdef {Variables Simplify-snt}{Section'tie2.4}
+'xrdef {make Deduces-title}{Letting \code {make} Deduce the Commands}
+'xrdef {make Deduces-pg}{10}
+'xrdef {make Deduces-snt}{Section'tie2.5}
+'xrdef {Combine By Dependency-title}{Another Style of Makefile}
+'xrdef {Combine By Dependency-pg}{12}
+'xrdef {Combine By Dependency-snt}{Section'tie2.6}
+'xrdef {Cleanup-title}{Rules for Cleaning the Directory}
+'xrdef {Cleanup-pg}{12}
+'xrdef {Cleanup-snt}{Section'tie2.7}
+'xrdef {Makefiles-title}{Writing Makefiles}
+'xrdef {Makefiles-pg}{15}
+'xrdef {Makefiles-snt}{Chapter'tie3}
+'xrdef {Makefile Contents-title}{What Makefiles Contain}
+'xrdef {Makefile Contents-pg}{15}
+'xrdef {Makefile Contents-snt}{Section'tie3.1}
+'xrdef {Makefile Names-title}{What Name to Give Your Makefile}
+'xrdef {Makefile Names-pg}{16}
+'xrdef {Makefile Names-snt}{Section'tie3.2}
+'xrdef {Include-title}{Including Other Makefiles}
+'xrdef {Include-pg}{16}
+'xrdef {Include-snt}{Section'tie3.3}
+'xrdef {MAKEFILES Variable-title}{The Variable \code {MAKEFILES}}
+'xrdef {MAKEFILES Variable-pg}{18}
+'xrdef {MAKEFILES Variable-snt}{Section'tie3.4}
+'xrdef {Remaking Makefiles-title}{How Makefiles Are Remade}
+'xrdef {Remaking Makefiles-pg}{18}
+'xrdef {Remaking Makefiles-snt}{Section'tie3.5}
+'xrdef {Overriding Makefiles-title}{Overriding Part of Another Makefile}
+'xrdef {Overriding Makefiles-pg}{20}
+'xrdef {Overriding Makefiles-snt}{Section'tie3.6}
+'xrdef {Rules-title}{Writing Rules}
+'xrdef {Rules-pg}{21}
+'xrdef {Rules-snt}{Chapter'tie4}
+'xrdef {Rule Syntax-title}{Rule Syntax}
+'xrdef {Rule Syntax-pg}{21}
+'xrdef {Rule Syntax-snt}{Section'tie4.1}
+'xrdef {Wildcards-title}{Using Wildcard Characters in File Names}
+'xrdef {Wildcards-pg}{22}
+'xrdef {Wildcards-snt}{Section'tie4.2}
+'xrdef {Wildcard Examples-title}{Wildcard Examples}
+'xrdef {Wildcard Examples-pg}{23}
+'xrdef {Wildcard Examples-snt}{Section'tie4.2.1}
+'xrdef {Wildcard Pitfall-title}{Pitfalls of Using Wildcards}
+'xrdef {Wildcard Pitfall-pg}{24}
+'xrdef {Wildcard Pitfall-snt}{Section'tie4.2.2}
+'xrdef {Wildcard Function-title}{The Function \code {wildcard}}
+'xrdef {Wildcard Function-pg}{24}
+'xrdef {Wildcard Function-snt}{Section'tie4.2.3}
+'xrdef {Directory Search-title}{Searching Directories for Dependencies}
+'xrdef {Directory Search-pg}{25}
+'xrdef {Directory Search-snt}{Section'tie4.3}
+'xrdef {General Search-title}{\code {VPATH}: Search Path for All Dependencies}
+'xrdef {General Search-pg}{25}
+'xrdef {General Search-snt}{Section'tie4.3.1}
+'xrdef {Selective Search-title}{The \code {vpath} Directive}
+'xrdef {Selective Search-pg}{26}
+'xrdef {Selective Search-snt}{Section'tie4.3.2}
+'xrdef {Commands/Search-title}{Writing Shell Commands with Directory Search}
+'xrdef {Commands/Search-pg}{28}
+'xrdef {Commands/Search-snt}{Section'tie4.3.3}
+'xrdef {Implicit/Search-title}{Directory Search and Implicit Rules}
+'xrdef {Implicit/Search-pg}{28}
+'xrdef {Implicit/Search-snt}{Section'tie4.3.4}
+'xrdef {Libraries/Search-title}{Directory Search for Link Libraries}
+'xrdef {Libraries/Search-pg}{29}
+'xrdef {Libraries/Search-snt}{Section'tie4.3.5}
+'xrdef {Phony Targets-title}{Phony Targets}
+'xrdef {Phony Targets-pg}{29}
+'xrdef {Phony Targets-snt}{Section'tie4.4}
+'xrdef {Force Targets-title}{Rules without Commands or Dependencies}
+'xrdef {Force Targets-pg}{31}
+'xrdef {Force Targets-snt}{Section'tie4.5}
+'xrdef {Empty Targets-title}{Empty Target Files to Record Events}
+'xrdef {Empty Targets-pg}{32}
+'xrdef {Empty Targets-snt}{Section'tie4.6}
+'xrdef {Special Targets-title}{Special Built-in Target Names}
+'xrdef {Special Targets-pg}{32}
+'xrdef {Special Targets-snt}{Section'tie4.7}
+'xrdef {Multiple Targets-title}{Multiple Targets in a Rule}
+'xrdef {Multiple Targets-pg}{34}
+'xrdef {Multiple Targets-snt}{Section'tie4.8}
+'xrdef {Multiple Rules-title}{Multiple Rules for One Target}
+'xrdef {Multiple Rules-pg}{35}
+'xrdef {Multiple Rules-snt}{Section'tie4.9}
+'xrdef {Static Pattern-title}{Static Pattern Rules}
+'xrdef {Static Pattern-pg}{36}
+'xrdef {Static Pattern-snt}{Section'tie4.10}
+'xrdef {Static Usage-title}{Syntax of Static Pattern Rules}
+'xrdef {Static Usage-pg}{36}
+'xrdef {Static Usage-snt}{Section'tie4.10.1}
+'xrdef {Static versus Implicit-title}{Static Pattern Rules versus Implicit Rules}
+'xrdef {Static versus Implicit-pg}{38}
+'xrdef {Static versus Implicit-snt}{Section'tie4.10.2}
+'xrdef {Double-Colon-title}{Double-Colon Rules}
+'xrdef {Double-Colon-pg}{38}
+'xrdef {Double-Colon-snt}{Section'tie4.11}
+'xrdef {Automatic Dependencies-title}{Generating Dependencies Automatically}
+'xrdef {Automatic Dependencies-pg}{39}
+'xrdef {Automatic Dependencies-snt}{Section'tie4.12}
+'xrdef {Commands-title}{Writing the Commands in Rules}
+'xrdef {Commands-pg}{43}
+'xrdef {Commands-snt}{Chapter'tie5}
+'xrdef {Echoing-title}{Command Echoing}
+'xrdef {Echoing-pg}{43}
+'xrdef {Echoing-snt}{Section'tie5.1}
+'xrdef {Execution-title}{Command Execution}
+'xrdef {Execution-pg}{44}
+'xrdef {Execution-snt}{Section'tie5.2}
+'xrdef {Parallel-title}{Parallel Execution}
+'xrdef {Parallel-pg}{44}
+'xrdef {Parallel-snt}{Section'tie5.3}
+'xrdef {Errors-title}{Errors in Commands}
+'xrdef {Errors-pg}{46}
+'xrdef {Errors-snt}{Section'tie5.4}
+'xrdef {Interrupts-title}{Interrupting or Killing \code {make}}
+'xrdef {Interrupts-pg}{47}
+'xrdef {Interrupts-snt}{Section'tie5.5}
+'xrdef {Recursion-title}{Recursive Use of \code {make}}
+'xrdef {Recursion-pg}{48}
+'xrdef {Recursion-snt}{Section'tie5.6}
+'xrdef {MAKE Variable-title}{How the \code {MAKE} Variable Works}
+'xrdef {MAKE Variable-pg}{48}
+'xrdef {MAKE Variable-snt}{Section'tie5.6.1}
+'xrdef {Variables/Recursion-title}{Communicating Variables to a Sub-\code {make}}
+'xrdef {Variables/Recursion-pg}{49}
+'xrdef {Variables/Recursion-snt}{Section'tie5.6.2}
+'xrdef {Options/Recursion-title}{Communicating Options to a Sub-\code {make}}
+'xrdef {Options/Recursion-pg}{52}
+'xrdef {Options/Recursion-snt}{Section'tie5.6.3}
+'xrdef {-w Option-title}{The \samp {--print-directory} Option}
+'xrdef {-w Option-pg}{53}
+'xrdef {-w Option-snt}{Section'tie5.6.4}
+'xrdef {Sequences-title}{Defining Canned Command Sequences}
+'xrdef {Sequences-pg}{54}
+'xrdef {Sequences-snt}{Section'tie5.7}
+'xrdef {Empty Commands-title}{Using Empty Commands}
+'xrdef {Empty Commands-pg}{56}
+'xrdef {Empty Commands-snt}{Section'tie5.8}
+'xrdef {Using Variables-title}{How to Use Variables}
+'xrdef {Using Variables-pg}{57}
+'xrdef {Using Variables-snt}{Chapter'tie6}
+'xrdef {Reference-title}{Basics of Variable References}
+'xrdef {Reference-pg}{57}
+'xrdef {Reference-snt}{Section'tie6.1}
+'xrdef {Flavors-title}{The Two Flavors of Variables}
+'xrdef {Flavors-pg}{58}
+'xrdef {Flavors-snt}{Section'tie6.2}
+'xrdef {Advanced-title}{Advanced Features for Reference to Variables}
+'xrdef {Advanced-pg}{61}
+'xrdef {Advanced-snt}{Section'tie6.3}
+'xrdef {Substitution Refs-title}{Substitution References}
+'xrdef {Substitution Refs-pg}{61}
+'xrdef {Substitution Refs-snt}{Section'tie6.3.1}
+'xrdef {Computed Names-title}{Computed Variable Names}
+'xrdef {Computed Names-pg}{62}
+'xrdef {Computed Names-snt}{Section'tie6.3.2}
+'xrdef {Values-title}{How Variables Get Their Values}
+'xrdef {Values-pg}{65}
+'xrdef {Values-snt}{Section'tie6.4}
+'xrdef {Setting-title}{Setting Variables}
+'xrdef {Setting-pg}{65}
+'xrdef {Setting-snt}{Section'tie6.5}
+'xrdef {Appending-title}{Appending More Text to Variables}
+'xrdef {Appending-pg}{66}
+'xrdef {Appending-snt}{Section'tie6.6}
+'xrdef {Override Directive-title}{The \code {override} Directive}
+'xrdef {Override Directive-pg}{68}
+'xrdef {Override Directive-snt}{Section'tie6.7}
+'xrdef {Defining-title}{Defining Variables Verbatim}
+'xrdef {Defining-pg}{69}
+'xrdef {Defining-snt}{Section'tie6.8}
+'xrdef {Environment-title}{Variables from the Environment}
+'xrdef {Environment-pg}{70}
+'xrdef {Environment-snt}{Section'tie6.9}
+'xrdef {Conditionals-title}{Conditional Parts of Makefiles}
+'xrdef {Conditionals-pg}{71}
+'xrdef {Conditionals-snt}{Chapter'tie7}
+'xrdef {Conditional Example-title}{Example of a Conditional}
+'xrdef {Conditional Example-pg}{71}
+'xrdef {Conditional Example-snt}{Section'tie7.1}
+'xrdef {Conditional Syntax-title}{Syntax of Conditionals}
+'xrdef {Conditional Syntax-pg}{72}
+'xrdef {Conditional Syntax-snt}{Section'tie7.2}
+'xrdef {Testing Flags-title}{Conditionals that Test Flags}
+'xrdef {Testing Flags-pg}{75}
+'xrdef {Testing Flags-snt}{Section'tie7.3}
+'xrdef {Functions-title}{Functions for Transforming Text}
+'xrdef {Functions-pg}{77}
+'xrdef {Functions-snt}{Chapter'tie8}
+'xrdef {Syntax of Functions-title}{Function Call Syntax}
+'xrdef {Syntax of Functions-pg}{77}
+'xrdef {Syntax of Functions-snt}{Section'tie8.1}
+'xrdef {Text Functions-title}{Functions for String Substitution and Analysis}
+'xrdef {Text Functions-pg}{78}
+'xrdef {Text Functions-snt}{Section'tie8.2}
+'xrdef {Filename Functions-title}{Functions for File Names}
+'xrdef {Filename Functions-pg}{81}
+'xrdef {Filename Functions-snt}{Section'tie8.3}
+'xrdef {Foreach Function-title}{The \code {foreach} Function}
+'xrdef {Foreach Function-pg}{83}
+'xrdef {Foreach Function-snt}{Section'tie8.4}
+'xrdef {Origin Function-title}{The \code {origin} Function}
+'xrdef {Origin Function-pg}{85}
+'xrdef {Origin Function-snt}{Section'tie8.5}
+'xrdef {Shell Function-title}{The \code {shell} Function}
+'xrdef {Shell Function-pg}{87}
+'xrdef {Shell Function-snt}{Section'tie8.6}
+'xrdef {Running-title}{How to Run \code {make}}
+'xrdef {Running-pg}{89}
+'xrdef {Running-snt}{Chapter'tie9}
+'xrdef {Makefile Arguments-title}{Arguments to Specify the Makefile}
+'xrdef {Makefile Arguments-pg}{89}
+'xrdef {Makefile Arguments-snt}{Section'tie9.1}
+'xrdef {Goals-title}{Arguments to Specify the Goals}
+'xrdef {Goals-pg}{89}
+'xrdef {Goals-snt}{Section'tie9.2}
+'xrdef {Instead of Execution-title}{Instead of Executing the Commands}
+'xrdef {Instead of Execution-pg}{91}
+'xrdef {Instead of Execution-snt}{Section'tie9.3}
+'xrdef {Avoiding Compilation-title}{Avoiding Recompilation of Some Files}
+'xrdef {Avoiding Compilation-pg}{93}
+'xrdef {Avoiding Compilation-snt}{Section'tie9.4}
+'xrdef {Overriding-title}{Overriding Variables}
+'xrdef {Overriding-pg}{93}
+'xrdef {Overriding-snt}{Section'tie9.5}
+'xrdef {Testing-title}{Testing the Compilation of a Program}
+'xrdef {Testing-pg}{94}
+'xrdef {Testing-snt}{Section'tie9.6}
+'xrdef {Options Summary-title}{Summary of Options}
+'xrdef {Options Summary-pg}{95}
+'xrdef {Options Summary-snt}{Section'tie9.7}
+'xrdef {Implicit Rules-title}{Using Implicit Rules}
+'xrdef {Implicit Rules-pg}{99}
+'xrdef {Implicit Rules-snt}{Chapter'tie10}
+'xrdef {Using Implicit-title}{Using Implicit Rules}
+'xrdef {Using Implicit-pg}{99}
+'xrdef {Using Implicit-snt}{Section'tie10.1}
+'xrdef {Catalogue of Rules-title}{Catalogue of Implicit Rules}
+'xrdef {Catalogue of Rules-pg}{101}
+'xrdef {Catalogue of Rules-snt}{Section'tie10.2}
+'xrdef {Implicit Variables-title}{Variables Used by Implicit Rules}
+'xrdef {Implicit Variables-pg}{104}
+'xrdef {Implicit Variables-snt}{Section'tie10.3}
+'xrdef {Chained Rules-title}{Chains of Implicit Rules}
+'xrdef {Chained Rules-pg}{106}
+'xrdef {Chained Rules-snt}{Section'tie10.4}
+'xrdef {Pattern Rules-title}{Defining and Redefining Pattern Rules}
+'xrdef {Pattern Rules-pg}{107}
+'xrdef {Pattern Rules-snt}{Section'tie10.5}
+'xrdef {Pattern Intro-title}{Introduction to Pattern Rules}
+'xrdef {Pattern Intro-pg}{108}
+'xrdef {Pattern Intro-snt}{Section'tie10.5.1}
+'xrdef {Pattern Examples-title}{Pattern Rule Examples}
+'xrdef {Pattern Examples-pg}{109}
+'xrdef {Pattern Examples-snt}{Section'tie10.5.2}
+'xrdef {Automatic-title}{Automatic Variables}
+'xrdef {Automatic-pg}{110}
+'xrdef {Automatic-snt}{Section'tie10.5.3}
+'xrdef {Pattern Match-title}{How Patterns Match}
+'xrdef {Pattern Match-pg}{112}
+'xrdef {Pattern Match-snt}{Section'tie10.5.4}
+'xrdef {Match-Anything Rules-title}{Match-Anything Pattern Rules}
+'xrdef {Match-Anything Rules-pg}{112}
+'xrdef {Match-Anything Rules-snt}{Section'tie10.5.5}
+'xrdef {Canceling Rules-title}{Canceling Implicit Rules}
+'xrdef {Canceling Rules-pg}{114}
+'xrdef {Canceling Rules-snt}{Section'tie10.5.6}
+'xrdef {Last Resort-title}{Defining Last-Resort Default Rules}
+'xrdef {Last Resort-pg}{114}
+'xrdef {Last Resort-snt}{Section'tie10.6}
+'xrdef {Suffix Rules-title}{Old-Fashioned Suffix Rules}
+'xrdef {Suffix Rules-pg}{115}
+'xrdef {Suffix Rules-snt}{Section'tie10.7}
+'xrdef {Search Algorithm-title}{Implicit Rule Search Algorithm}
+'xrdef {Search Algorithm-pg}{117}
+'xrdef {Search Algorithm-snt}{Section'tie10.8}
+'xrdef {Archives-title}{Using \code {make} to Update Archive Files}
+'xrdef {Archives-pg}{119}
+'xrdef {Archives-snt}{Chapter'tie11}
+'xrdef {Archive Members-title}{Archive Members as Targets}
+'xrdef {Archive Members-pg}{119}
+'xrdef {Archive Members-snt}{Section'tie11.1}
+'xrdef {Archive Update-title}{Implicit Rule for Archive Member Targets}
+'xrdef {Archive Update-pg}{120}
+'xrdef {Archive Update-snt}{Section'tie11.2}
+'xrdef {Archive Symbols-title}{Updating Archive Symbol Directories}
+'xrdef {Archive Symbols-pg}{121}
+'xrdef {Archive Symbols-snt}{Section'tie11.2.1}
+'xrdef {Archive Suffix Rules-title}{Suffix Rules for Archive Files}
+'xrdef {Archive Suffix Rules-pg}{121}
+'xrdef {Archive Suffix Rules-snt}{Section'tie11.3}
+'xrdef {Features-title}{Features of GNU \code {make}}
+'xrdef {Features-pg}{123}
+'xrdef {Features-snt}{Chapter'tie12}
+'xrdef {Missing-title}{Incompatibilities and Missing Features}
+'xrdef {Missing-pg}{127}
+'xrdef {Missing-snt}{Chapter'tie13}
+'xrdef {Makefile Conventions-title}{Makefile Conventions}
+'xrdef {Makefile Conventions-pg}{129}
+'xrdef {Makefile Conventions-snt}{Chapter'tie14}
+'xrdef {Makefile Basics-title}{General Conventions for Makefiles}
+'xrdef {Makefile Basics-pg}{129}
+'xrdef {Makefile Basics-snt}{Section'tie14.1}
+'xrdef {Utilities in Makefiles-title}{Utilities in Makefiles}
+'xrdef {Utilities in Makefiles-pg}{130}
+'xrdef {Utilities in Makefiles-snt}{Section'tie14.2}
+'xrdef {Standard Targets-title}{Standard Targets for Users}
+'xrdef {Standard Targets-pg}{131}
+'xrdef {Standard Targets-snt}{Section'tie14.3}
+'xrdef {Command Variables-title}{Variables for Specifying Commands}
+'xrdef {Command Variables-pg}{133}
+'xrdef {Command Variables-snt}{Section'tie14.4}
+'xrdef {Directory Variables-title}{Variables for Installation Directories}
+'xrdef {Directory Variables-pg}{135}
+'xrdef {Directory Variables-snt}{Section'tie14.5}
+'xrdef {Quick Reference-title}{Quick Reference}
+'xrdef {Quick Reference-pg}{139}
+'xrdef {Quick Reference-snt}{Appendix'tie'char65{}}
+'xrdef {Complex Makefile-title}{Complex Makefile Example}
+'xrdef {Complex Makefile-pg}{145}
+'xrdef {Complex Makefile-snt}{Appendix'tie'char66{}}
+'xrdef {Concept Index-title}{Index of Concepts}
+'xrdef {Concept Index-pg}{151}
+'xrdef {Concept Index-snt}{}
+'xrdef {Name Index-title}{Index of Functions, Variables, & Directives}
+'xrdef {Name Index-pg}{161}
+'xrdef {Name Index-snt}{}

@@ -1,0 +1,47 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.rc32acl,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for a Rockwell RC32ACL-based Class 2 modem.
+#    Boca M1440E		firmware V1.000
+#    SupraFAX v.32bis		firmware V1.000
+# (and others)
+#
+# This configuration file sets up the modem to run at 38.4 for
+# sending and for receiving.  RTS/CTS is used for flow control
+# which also works for data connections.  Adaptive answer support
+# is reliable, but to use it you must also enable ModemWaitForConnect
+# to force the server to skip intermediate status messages and
+# wait for the "CONNECT" message.
+#
+# CONFIG: CLASS2: ROCKWELL-RC32ACL
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class2		# use class 2 interface
+ModemRate:		38400
+ModemWaitForConnect:	yes		# wait for CONNECT on answer
+#ModemResetCmds:	&F2		# what you want for a Supra
+# NB: enable this only if you're setup for dialins
+#GettyArgs:		"-h %l dx_%s"	# locked at receive rate (for SGI)
+#GettyArgs:		"std.%s -"	# locked at receive rate (for SunOS)
+ModemFlowControl:	rtscts
+ModemFlowControlCmd:	&K3		# hardware flow control
+ModemSetupDTRCmd:	&D2		# DTR off causes modem to reset
+ModemSetupDCDCmd:	&C1		# DCD follows carrier
+ModemSetupAACmd:	+FCLASS=0;+FAA=1# enable in class 0
+#
+ModemSendFillOrder:	LSB2MSB		# as expected
+ModemRecvFillOrder:	MSB2LSB		# opposite of what makes sense
+#
+ModemDialCmd:		+FCLASS=2DT%s	# T for tone dialing

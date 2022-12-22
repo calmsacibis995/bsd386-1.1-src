@@ -1,0 +1,12 @@
+Msendfax.c++	sendfax.c++	/^main(int argc, char** argv)$/
+addDestination	sendfax.c++	/^sendFaxApp::addDestination(const char* cp)$/
+cleanup	sendfax.c++	/^cleanup()$/
+copyToTemporary	sendfax.c++	/^sendFaxApp::copyToTemporary(int fin, fxStr& tmpl)$/
+initialize	sendfax.c++	/^sendFaxApp::initialize(int argc, char** argv)$/
+isCmd	sendfax.c++	/^#define	isCmd(s)	(strcasecmp(s, cmd) == 0)$/
+recvConf	sendfax.c++	/^sendFaxApp::recvConf(const char* cmd, const char* /
+sendFaxApp	sendfax.c++	/^sendFaxApp::sendFaxApp()$/
+sigDone	sendfax.c++	/^sigDone(int)$/
+tildeExpand	sendfax.c++	/^sendFaxApp::tildeExpand(const fxStr& filename)$/
+usage	sendfax.c++	/^sendFaxApp::usage()$/
+vfatal	sendfax.c++	/^vfatal(FILE* fd, const char* fmt, va_list ap)$/

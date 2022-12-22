@@ -1,0 +1,24 @@
+Mtfmtodit.cc	tfmtodit.cc	/^int main(int argc, char **argv)$/
+c	tfmtodit.cc	/^: t(p), i(-1), c(t->bc)$/
+contains	tfmtodit.cc	/^int tfm::contains(int i)$/
+get_checksum	tfmtodit.cc	/^int tfm::get_checksum()$/
+get_depth	tfmtodit.cc	/^int tfm::get_depth(int i)$/
+get_design_size	tfmtodit.cc	/^int tfm::get_design_size()$/
+get_height	tfmtodit.cc	/^int tfm::get_height(int i)$/
+get_italic	tfmtodit.cc	/^int tfm::get_italic(int i)$/
+get_lig	tfmtodit.cc	/^int tfm::get_lig(unsigned char c1, unsigned char c/
+get_param	tfmtodit.cc	/^int tfm::get_param(int i, int *p)$/
+get_width	tfmtodit.cc	/^int tfm::get_width(int i)$/
+gf	tfmtodit.cc	/^gf::gf()$/
+load	tfmtodit.cc	/^int tfm::load(const char *file)$/
+next	tfmtodit.cc	/^int kern_iterator::next(unsigned char *c1, unsigne/
+param	tfmtodit.cc	/^  kern(0), param(0)$/
+read2	tfmtodit.cc	/^int read2(unsigned char *&s)$/
+read4	tfmtodit.cc	/^int read4(unsigned char *&s)$/
+read_map	tfmtodit.cc	/^int read_map(const char *file, char_list **table)$/
+skip	tfmtodit.cc	/^int gf::skip(int n, FILE *fp)$/
+sread4	tfmtodit.cc	/^int gf::sread4(int *p, FILE *fp)$/
+tfm	tfmtodit.cc	/^tfm::~tfm()$/
+uread2	tfmtodit.cc	/^int gf::uread2(int *p, FILE *fp)$/
+uread3	tfmtodit.cc	/^int gf::uread3(int *p, FILE *fp)$/
+usage	tfmtodit.cc	/^static void usage()$/

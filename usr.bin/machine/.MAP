@@ -1,0 +1,5 @@
+F MACHINE.1;1                       	machine.1
+F MACHINE.C;1                       	machine.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/machine
+F TAGS.;1                           	tags

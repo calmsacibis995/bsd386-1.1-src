@@ -1,0 +1,7 @@
+D BDFTOPCF                          	bdftopcf
+D FSINFO                            	fsinfo
+D FSLSFONT                          	fslsfonts
+D FSTOBDF                           	fstobdf
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MKFONTDI                          	mkfontdir
+D SHOWFONT                          	showfont

@@ -1,0 +1,95 @@
+.\" Copyright (c) 1992,1993,1994 Berkeley Software Design, Inc.
+.\" All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: digi.4,v 1.1 1994/01/15 23:32:27 donn Exp $
+.Dd January 14, 1994
+.Os BSD 4
+.Dt DIGI 4 i386
+.Sh NAME
+.Nm digi
+\(en driver for DigiBoard PC/Xe serial controllers
+.Sh SYNOPSIS
+.Cd "device digi0 at isa? port 0x220 iomem 0xd0000 iosiz 65536 flags 0x0001"
+.Sh DESCRIPTION
+The driver supports the PC/4e, PC/8e, and PC/16e intelligent serial
+controllers.
+It also supports the PC/8i controller when set to use 64K of memory.
+.Sh HARDWARE CONFIGURATION
+The i/o address, memory address, and irq need to be set with the
+dip switches on the board.
+The single i/o address can be one of 0x100, 0x110, 0x120, 0x200,
+0x220, 0x300, or 0x320.
+The memory address is a 64k block of memory in the 640k to 1meg
+range, this block must be aligned on a 64k boundary but can be
+any block that is not in use by some other device or the system ROM.  
+The interupt (irq) can be one of 3, 4, 5, 7, 10, 11, 12, or 15.
+.Sh SOFTWARE CONFIGURATION
+The driver needs to be told what i/o port and what memory address the
+controller has been set to, this is done with the port, iomem, and
+iosize keywords in the config file.  The driver supports switching
+the functions of the DSR and DCD lines.  This is done so that users
+with RJ45 conectors can use an 8 conductor cable and not loose any
+"real" functionality.  This is enabled by adding a "flags 0x0001"
+statement to the config line for the device.
+.Sh IOCTLS
+Unless specified otherwise the argument to the DigiBoard specific ioctls
+is a pointer to an int.  When issuing an ioctl that targets the controller
+rather than a specific line any line can be opened for the file descriptor.
+DigiBoard specific ioctls that set something should only be called as root,
+they do check.
+.Bl -tag -width "DIOCSALTPIN"
+.It Dv DIOCNLINES
+Gets the number of lines on the controller.
+.It Dv DIOCGFLAGS
+Gets the configuration flags for the controller.
+.It Dv DIOCSFLAGS
+Sets the configuration flags for the controller.  Currently this is of
+no use but may be in the future.
+.It Dv DIOCGIFREQ
+Gets the interrupt frequency of the driver in 10 mS increments.
+.It Dv DIOCSIFREQ
+Sets the interrupt frequency of the driver in 10 ms increments,
+valid range is 1 to 50.
+.It Dv DIOCGLOWAT
+Gets the output low water mark of the driver.  Not yet implemented.
+.It Dv DIOCSLOWAT
+Sets the output low water mark of the driver.  Not yet implemented.
+.It Dv DIOCVERB
+Sets the verbosity level of the driver.  This is usualy disabled at
+compile time.
+.It Dv DIOCGALTPIN
+Get state of DSR-DCD swaping, 0 indicates not swapped, 1 indicates swapped,
+and 2 indicates an unknown state, 2 should never happen.  Unlike the flag
+in the config file which sets the state of all lines on a board this
+function sets a single line.
+.It Dv DIOCSALTPIN
+Set state of DSR-DCD swapping, 0 maps DSR to DSR and DCD to DCD, 1 sets
+DSR to DCD and DCD to DSR.
+.Sh FILES
+.Bl -tag -width "/usr/include/machine/digi.h"
+.It Dv /dev/tty1[0-9a-f]
+Device files through which board is accessed.
+.It Dv /usr/include/machine/digi.h
+#defines needed to access the DigiBoard specific ioctls.
+.Sh DIAGNOSTICS
+The messages issued by the driver are meant to be self explanatory.
+.Sh SEE ALSO
+.Xr MAKEDEV 8 ,
+.Xr digiconfig 8 ,
+.Xr tty 4
+.Sh AUTHOR
+Michael Galassi (nerd@percy.rain.com)
+.Sh BUGS
+All DigiBoards in the system should share a single 64k memory address,
+this is not yet implemented.
+.Pp
+If the system were to crash while the memory on the DigiBoard is
+enabled a hard reset may be needed to get things going again if
+the DigiBoard shares a 128k range with an 8 bit device such as
+a vga or motherboard ROM BIOS.  This is currently always the case
+as the code to disable memory when not in use is not yet in place.
+.Pp
+This code has not been tested on a PC/Xi board other than PC/8i though it is
+believed to work when the board is set to use only 64K of RAM.

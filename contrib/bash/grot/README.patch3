@@ -1,0 +1,63 @@
+This patch (bash-1.13.cwru.patch.3) fixes the following problems:
+
+1.  Bash now ensures that the readline vi mode comment character is
+    "#" when put into `Posix.2' mode. [bashline.c]
+
+2.  maxpath.h now no longer includes `sysdefs.h', since sysdefs.h is
+    supposed to be used only by the build process.  cpp-Makefile now
+    passes along -DHAVE_LIMITS_H in CFLAGS to the build process, which
+    is what maxpath.h wanted.  This allows machines.h entries to do
+    things like #undef HAVE_RESOURCE on machines that have <sys/resource.h>
+    but lack the support for getrlimit().  [maxpath.h, cpp-Makefile]
+
+3.  Asynchronous jobs started when the shell is not started
+    interactively, in subshells via `( ... )', or when job control is
+    not active now get /dev/null as standard input.  Previously, all
+    asynchronous jobs started when the shell was not `running
+    interactively', such as when sourcing startup files, were given
+    /dev/null. [execute_cmd.c]
+
+4.  The M_OS definition for Solaris 2 machines is now `SunOS5'; Solaris
+    is now defined in SYSDEP_CFLAGS. [machines.h]
+
+5.  Dynix machines are now identified as such, rather than as vanilla
+    USG systems (USG is still defined in SYSDEP_CFLAGS), and undefine
+    HAVE_ALLOCA -- apparently the system alloca causes core dumps.
+    [machines.h]
+
+6.  Since HP/UX inherits the SunOS libc problems with interrupted YP
+    function calls freeing memory multiple times, those machines cannot
+    safely use the GNU malloc. [machines.h]
+
+7.  SCO machines have had the default library order changed slightly.
+    [machines.h]
+
+8.  Posix systems without job control, or shells compiled without job
+    control on Posix systems, need to restore the top-level signal mask
+    after forking children, and need to set the tty job control signals,
+    if they exist, to the default values for all children. [nojobs.c]
+
+9.  A bug was fixed that caused machines without varargs.h and old-style
+    varargs support to not null-terminate jobs in cprintf(), which caused
+    printed commands to overrun and include stray text from previous
+    commands. [print_cmd.c]
+
+10. If POSIXLY_CORRECT or POSIX_PENDANTIC is in the initial shell
+    environment, the shell should go into `Posix.2 mode'. [variables.c]
+
+11. When the result of strlen(3) is used directly in a comparison, it
+    should be cast to an int. [lib/readline/history.c]
+
+12. Recursive keyboard macros are now disallowed.  Previously, an
+    infinite macro execution loop would occur when C-x e was entered
+    while defining a macro. [lib/readline/readline.c]
+
+13. The tilde include files are now protected against multiple inclusion.
+    [lib/readline/tilde.h, lib/tilde/tilde.h]
+
+14. The default vi comment character is now `#'. [lib/readline/vi_mode.c]
+
+15. SCO version 4.2 is now recognized and identified as `SCOv4' for the
+    auto-config process. [support/mksysdefs]
+
+To apply, cd to the bash source directory and type `patch -p0 < patch-file'.

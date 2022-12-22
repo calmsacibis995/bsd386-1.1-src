@@ -1,0 +1,14 @@
+D AMOEBA                            	amoeba
+F ASSYNTAX.GZ;1                     	assyntax.h.gz
+D BSD                               	bsd
+D BSDI                              	bsdi
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D LINUX                             	linux
+D MACH                              	mach
+D MINIX                             	minix
+D MISC                              	misc
+F README_O.GZ;1                     	README.OS-lib.gz
+D SCO                               	sco
+D SHARED                            	shared
+D SYSV                              	sysv
+F XF86_OSL.GZ;1                     	xf86_OSlib.h.gz

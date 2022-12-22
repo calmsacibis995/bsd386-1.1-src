@@ -1,0 +1,54 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: cpp.1,v 1.1 1993/02/05 17:50:00 polk Exp $
+.\"
+.Dd January 9, 1993
+.Os
+.Dt CPP 1
+.Sh NAME
+.Nm cpp
+.Nd "macro preprocessor
+.Sh SYNOPSIS
+.Nm cpp
+.Op Ar files Ar ...
+.Sh DESCRIPTION
+The
+.Nm cpp
+script is a front end for the C preprocessor
+.Pq Xr cc 1
+suitable for use with assembly language files
+.Pq Xr as 1
+or makefiles
+.Pq Xr make 1 .
+ANSI C changes in preprocessor syntax make a standard preprocessor
+much less useful for non-C environments,
+so the
+.Nm cpp
+script supplies a
+.Sq traditional
+syntax.
+.Pp
+The
+.Nm cpp
+script runs the preprocessor on each input file
+and sends the result to the standard output.
+If no files are supplied,
+.Nm cpp
+reads source from its standard input.
+.Pp
+If an application needs an ANSI C preprocessor,
+it should use
+.Li "cc -E" .
+.Sh FILES
+.Bl -tag -width /usr/libexec/cpp -compact
+.It Pa /usr/libexec/cpp
+the GNU C preprocessor
+.Sh SEE ALSO
+.Xr as 1 ,
+.Xr cc 1
+.Sh BUGS
+Some makefiles or scripts expect
+.Nm cpp
+to write its output to its second argument.

@@ -1,0 +1,7 @@
+#!/usr/bin/perl -n
+
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/perl/grot/eg/rmfrom,v 1.1.1.1 1992/07/27 23:24:07 polk Exp $
+
+# A handy (but dangerous) script to put after a find ... -print.
+
+chop; unlink;

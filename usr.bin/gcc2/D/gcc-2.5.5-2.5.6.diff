@@ -1,0 +1,788 @@
+Changes for GCC version 2.5.6 from version 2.5.5.
+
+Changes in files you can reconstruct with Bison, etags, makeinfo, and
+TeX have been omitted.  Some of these files are updated just by
+building the compiler.  You can update rest of these files by
+executing this command
+
+   make TAGS info dvi -f Makefile.in
+
+in the directory of GCC sources, provided the necessary tools
+(etags, makeinfo, TeX and texi2dvi) are installed.
+
+Before applying these diffs, go to the directory gcc-2.5.5.
+Then use the command
+
+    patch -p1
+
+feeding it the following diffs as input.
+Then rename the directory to gcc-2.5.6.
+
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/ChangeLog gcc-2.5.6/ChangeLog
+*** gcc-2.5.5/ChangeLog	Sat Nov 27 14:36:40 1993
+--- gcc-2.5.6/ChangeLog	Fri Dec  3 07:43:00 1993
+***************
+*** 1,2 ****
+--- 1,91 ----
++ Fri Dec  3 07:07:01 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* Version 2.5.6 released.
++ 
++ 	* c-typeck.c (c_expand_return): Return if convert_for_assignment
++ 	returns error_mark_node.
++ 
++ Fri Dec  3 06:42:05 1993  Arne Henrik Juul  (arnej@fm.unit.no)
++ 
++ 	* fixincludes (stdio.h): Fix typos (missing quote) in previous change.
++ 
++ Fri Dec  3 06:35:57 1993  Jim Wilson  (wilson@sphagnum.cygnus.com)
++ 
++ 	* gstddef.h: Define and protect against __STDDEF_H__ for Irix 5.1.
++ 
++ 	* sparc.c (shift_operand): Delete function.
++ 	* sparc.md (ashlsi3, ashrsi3, lshrsi3): Use arith_operand instead
++ 	of shift_operand.  Truncate shift counts to 5 bits.
++ 
++ Thu Dec  2 08:11:00 1993  Stefan Rapp  (sr@irb.informatik.uni-dortmund.de)
++ 
++ 	* loop.c (scan_loop): Correct arguments for register check.
++ 
++ Thu Dec  2 07:07:05 1993  Ian Lance Taylor  (ian@tweedledumb.cygnus.com)
++ 
++ 	* fixincludes: Preserve _HIDDEN_VA_LIST when changing VA_LIST to
++ 	DUMMY_VA_LIST.  Change __va_list to __gnuc_va_list.  For AIX
++ 	3.2.5.
++ 
++ Thu Dec  2 07:00:24 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* emit-rtl.c (push_topmost_sequence, end_sequence): Update
++ 	sequence_rtl_expr from sequence_stack entry.
++ 
++ 	* calls.c (emit_library_call): Use Pmode, not OUTMODE, when passing
++ 	in structure address.
++ 
++ 	* a29k.c (secondary_reload_class): Kernel regs are in same class
++ 	as user regs.
++ 
++ 	* a29k.md (movti split): Set CR to 3, not 1 like DImode.
++ 
++ Thu Dec  2 06:46:07 1993  Jim Wilson  (wilson@sphagnum.cygnus.com)
++ 
++ 	* reload.c (find_reloads_toplev): Replace obsolete reference to
++ 	BYTE_LOADS_*_EXTEND with LOAD_EXTEND_OP.
++ 
++ Thu Dec  2 06:39:16 1993  Jeffrey A Law  (law@snake.cs.utah.edu)
++ 
++ 	* pa.h (ASM_STABS_OP, ASM_STABN_OP): Define.
++ 	(ASM_FILE_END): Put a TAB before the .stabs directive.
++ 
++ Thu Dec  2 06:30:17 1993  David Edelsohn  (edelsohn@npac.syr.edu)
++ 
++ 	* rs6000.md (define_function_unit): Restore ppc601 load and fpload
++ 	timings.
++ 
++ Wed Dec  1 17:24:17 1993  Brendan Kehoe  (brendan@mole.gnu.ai.mit.edu)
++ 
++ 	Wed Nov 24 06:36:10 1993  Brendan Kehoe  (brendan@lisa.cygnus.com)
++ 
++         * cp-tree.c (get_decl_list): Use the DECL_NESTED_TYPENAME for the
++         value we're going to paste onto CLASSTYPE_ID_AS_LIST.  This will get
++         the right name for nested classes, and for templates.
++ 
++ 	Mon Nov 29 13:09:31 1993  Brendan Kehoe  (brendan@lisa.cygnus.com)
++ 
++ 	* cp-decl.c (grokdeclarator): Properly evaluate TREE_PUBLIC for
++ 	friends.  (Fixes spurious warnings about friends being declared
++ 	static but not used.)
++ 
++ 	* cp-type2.c (build_functional_cast): If we got an error_mark_node
++ 	from build_method_call, make sure EXPR_AS_METHOD is cleared out
++ 	again, so the later checks will work properly.
++ 
++ 	* cp-decl.c (build_enumerator): Fix logic so an enum inside a class
++ 	that's local to a function has its enumerators end up in that
++ 	class's list of members, not in the list for the function.
++ 
++ Tue Nov 30 19:26:05 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* sparc.h (STATIC_CHAIN_REGNUM): Use %g2; %g1 is reserved
++ 	for prologue.
++ 	(TRAMPOLINE_TEMPLATE, INITIALIZE_TRAMPOLINE): Swap useage of %g1
++ 	and %g2.
++ 
++ 	* m68k.md (movdf): Don't need earlyclobber when a register
++ 	is copied to itself.
++ 
+  Sat Nov 27 06:19:22 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/NEWS gcc-2.5.6/NEWS
+*** gcc-2.5.5/NEWS	Sat Nov 27 14:47:13 1993
+--- gcc-2.5.6/NEWS	Fri Dec  3 07:45:17 1993
+***************
+*** 1,2 ****
+--- 1,18 ----
++ Noteworthy change in GCC version 2.5.6:
++ 
++ A few backend bugs have been fixed, some of which only occur on one
++ machine.
++ 
++ The C++ compiler in 2.5.6 includes:
++ 
++  * fixes for some common crashes
++  * correct handling of nested types that are referenced as `foo::bar'
++  * spurious warnings about friends being declared static and never
++    defined should no longer appear
++  * enums that are local to a method in a class, or a class that's
++    local to a function, are now handled correctly.  For example:
++        class foo { void bar () { enum { x, y } E; x; } };
++        void bar () { class foo { enum { x, y } E; E baz; }; }
++ 
+  Noteworthy change in GCC version 2.5.5:
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/README gcc-2.5.6/README
+*** gcc-2.5.5/README	Sat Nov 27 14:48:01 1993
+--- gcc-2.5.6/README	Fri Dec  3 07:45:41 1993
+***************
+*** 1,3 ****
+! This directory contains the version 2.5.5 release of the GNU C
+  compiler.  It includes all of the support for compiling C++ and
+  Objective C, including a run-time library for Objective C.
+--- 1,3 ----
+! This directory contains the version 2.5.6 release of the GNU C
+  compiler.  It includes all of the support for compiling C++ and
+  Objective C, including a run-time library for Objective C.
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/c-typeck.c gcc-2.5.6/c-typeck.c
+*** gcc-2.5.5/c-typeck.c	Sat Nov 27 06:19:47 1993
+--- gcc-2.5.6/c-typeck.c	Fri Dec  3 07:05:24 1993
+***************
+*** 6156,6159 ****
+--- 6156,6163 ----
+  				       NULL_TREE, NULL_TREE, 0);
+        tree res = DECL_RESULT (current_function_decl);
++ 
++       if (t == error_mark_node)
++ 	return;
++ 
+        t = build (MODIFY_EXPR, TREE_TYPE (res),
+  		 res, convert (TREE_TYPE (res), t));
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/calls.c gcc-2.5.6/calls.c
+*** gcc-2.5.5/calls.c	Tue Nov  2 03:15:55 1993
+--- gcc-2.5.6/calls.c	Thu Dec  2 07:21:43 1993
+***************
+*** 2427,2440 ****
+  
+        argvec[count].value = addr;
+!       argvec[count].mode = outmode;
+        argvec[count].partial = 0;
+  
+!       argvec[count].reg = FUNCTION_ARG (args_so_far, outmode, NULL_TREE, 1);
+  #ifdef FUNCTION_ARG_PARTIAL_NREGS
+!       if (FUNCTION_ARG_PARTIAL_NREGS (args_so_far, outmode, NULL_TREE, 1))
+  	abort ();
+  #endif
+  
+!       locate_and_pad_parm (outmode, NULL_TREE,
+  			   argvec[count].reg && argvec[count].partial == 0,
+  			   NULL_TREE, &args_size, &argvec[count].offset,
+--- 2427,2440 ----
+  
+        argvec[count].value = addr;
+!       argvec[count].mode = Pmode;
+        argvec[count].partial = 0;
+  
+!       argvec[count].reg = FUNCTION_ARG (args_so_far, Pmode, NULL_TREE, 1);
+  #ifdef FUNCTION_ARG_PARTIAL_NREGS
+!       if (FUNCTION_ARG_PARTIAL_NREGS (args_so_far, Pmode, NULL_TREE, 1))
+  	abort ();
+  #endif
+  
+!       locate_and_pad_parm (Pmode, NULL_TREE,
+  			   argvec[count].reg && argvec[count].partial == 0,
+  			   NULL_TREE, &args_size, &argvec[count].offset,
+***************
+*** 2449,2453 ****
+  	args_size.constant += argvec[count].size.constant;
+  
+!       FUNCTION_ARG_ADVANCE (args_so_far, outmode, (tree)0, 1);
+  
+        count++;
+--- 2449,2453 ----
+  	args_size.constant += argvec[count].size.constant;
+  
+!       FUNCTION_ARG_ADVANCE (args_so_far, Pmode, (tree)0, 1);
+  
+        count++;
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/a29k/a29k.c gcc-2.5.6/config/a29k/a29k.c
+*** gcc-2.5.5/config/a29k/a29k.c	Mon Oct  4 17:43:26 1993
+--- gcc-2.5.6/config/a29k/a29k.c	Thu Dec  2 06:57:22 1993
+***************
+*** 743,747 ****
+    /* Otherwise, we can place anything into GENERAL_REGS and can put
+       GENERAL_REGS into anything.  */
+!   if (class == GENERAL_REGS || (regno != -1 && regno < R_BP))
+      return NO_REGS;
+  
+--- 743,750 ----
+    /* Otherwise, we can place anything into GENERAL_REGS and can put
+       GENERAL_REGS into anything.  */
+!   if (class == GENERAL_REGS
+!       || (regno != -1
+! 	  && (regno < R_BP
+! 	      || (regno >= R_KR (0) && regno <= R_KR (31)))))
+      return NO_REGS;
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/a29k/a29k.md gcc-2.5.6/config/a29k/a29k.md
+*** gcc-2.5.5/config/a29k/a29k.md	Fri Mar 26 17:06:12 1993
+--- gcc-2.5.6/config/a29k/a29k.md	Thu Dec  2 06:57:30 1993
+***************
+*** 2188,2192 ****
+     && (memory_operand (operands[0], TImode)
+         || memory_operand (operands[1], TImode))"
+!   [(set (reg:PSI 179) (const_int 1))
+     (parallel [(set (match_dup 0) (match_dup 1))
+  	      (use (reg:PSI 179))
+--- 2188,2192 ----
+     && (memory_operand (operands[0], TImode)
+         || memory_operand (operands[1], TImode))"
+!   [(set (reg:PSI 179) (const_int 3))
+     (parallel [(set (match_dup 0) (match_dup 1))
+  	      (use (reg:PSI 179))
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/m68k/m68k.md gcc-2.5.6/config/m68k/m68k.md
+*** gcc-2.5.5/config/m68k/m68k.md	Sat Nov 27 03:52:25 1993
+--- gcc-2.5.6/config/m68k/m68k.md	Tue Nov 30 19:17:46 1993
+***************
+*** 1122,1127 ****
+  
+  (define_insn "movdf"
+!   [(set (match_operand:DF 0 "general_operand" "=rm,rf,&rof<>,y,rm,x,!x,!rm")
+! 	(match_operand:DF 1 "general_operand" "rf,m,rofE<>,rmE,y,xH,rm,x"))]
+  ;  [(set (match_operand:DF 0 "general_operand" "=rm,&rf,&rof<>")
+  ;	(match_operand:DF 1 "general_operand" "rf,m,rofF<>"))]
+--- 1122,1127 ----
+  
+  (define_insn "movdf"
+!   [(set (match_operand:DF 0 "general_operand" "=rm,rf,rf,&rof<>,y,rm,x,!x,!rm")
+! 	(match_operand:DF 1 "general_operand" "rf,m,0,rofE<>,rmE,y,xH,rm,x"))]
+  ;  [(set (match_operand:DF 0 "general_operand" "=rm,&rf,&rof<>")
+  ;	(match_operand:DF 1 "general_operand" "rf,m,rofF<>"))]
+***************
+*** 1129,1133 ****
+    "*
+  {
+!   if (which_alternative == 6)
+      return \"fpmove%.d %x1,fpa0\;fpmove%.d fpa0,%x0\";
+    if (FPA_REG_P (operands[0]))
+--- 1129,1133 ----
+    "*
+  {
+!   if (which_alternative == 7)
+      return \"fpmove%.d %x1,fpa0\;fpmove%.d fpa0,%x0\";
+    if (FPA_REG_P (operands[0]))
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/pa/pa.h gcc-2.5.6/config/pa/pa.h
+*** gcc-2.5.5/config/pa/pa.h	Mon Nov 15 05:25:35 1993
+--- gcc-2.5.6/config/pa/pa.h	Thu Dec  2 06:36:24 1993
+***************
+*** 102,105 ****
+--- 102,109 ----
+  #define DEFAULT_GDB_EXTENSIONS 1
+  
++ /* Only lables should ever begin in colunm zero.  */
++ #define ASM_STABS_OP "\t.stabs"
++ #define ASM_STABN_OP "\t.stabn"
++ 
+  #if (TARGET_DEFAULT & 1) == 0
+  #define CPP_SPEC "%{msnake:-D__hp9000s700 -D_PA_RISC1_1}\
+***************
+*** 1693,1697 ****
+    do { if (write_symbols == DBX_DEBUG)\
+  	 { fputs (TEXT_SECTION_ASM_OP, FILE);\
+! 	   fputs (".stabs \"end_file.\",4,0,0,Ltext_end\nLtext_end:\n",\
+  		  (FILE));\
+  	 }\
+--- 1697,1701 ----
+    do { if (write_symbols == DBX_DEBUG)\
+  	 { fputs (TEXT_SECTION_ASM_OP, FILE);\
+! 	   fputs ("\t.stabs \"end_file.\",4,0,0,Ltext_end\nLtext_end:\n",\
+  		  (FILE));\
+  	 }\
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/rs6000/rs6000.md gcc-2.5.6/config/rs6000/rs6000.md
+*** gcc-2.5.5/config/rs6000/rs6000.md	Wed Nov 10 17:51:22 1993
+--- gcc-2.5.6/config/rs6000/rs6000.md	Thu Dec  2 06:27:16 1993
+***************
+*** 58,62 ****
+  (define_function_unit "iu" 1 0
+    (and (eq_attr "type" "load")
+!        (eq_attr "cpu" "rios1"))
+    2 0)
+  
+--- 58,62 ----
+  (define_function_unit "iu" 1 0
+    (and (eq_attr "type" "load")
+!        (eq_attr "cpu" "rios1,ppc601"))
+    2 0)
+  
+***************
+*** 63,67 ****
+  (define_function_unit "iu" 1 0
+    (and (eq_attr "type" "fpload")
+!        (eq_attr "cpu" "rios1"))
+    3 0)
+  
+--- 63,67 ----
+  (define_function_unit "iu" 1 0
+    (and (eq_attr "type" "fpload")
+!        (eq_attr "cpu" "rios1,ppc601"))
+    3 0)
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/sparc/sparc.c gcc-2.5.6/config/sparc/sparc.c
+*** gcc-2.5.5/config/sparc/sparc.c	Wed Oct  6 00:05:00 1993
+--- gcc-2.5.6/config/sparc/sparc.c	Fri Dec  3 06:34:04 1993
+***************
+*** 1,4 ****
+  /* Subroutines for insn-output.c for Sun SPARC.
+!    Copyright (C) 1987, 1988, 1989, 1992 Free Software Foundation, Inc.
+     Contributed by Michael Tiemann (tiemann@cygnus.com)
+  
+--- 1,4 ----
+  /* Subroutines for insn-output.c for Sun SPARC.
+!    Copyright (C) 1987, 1988, 1989, 1992, 1993 Free Software Foundation, Inc.
+     Contributed by Michael Tiemann (tiemann@cygnus.com)
+  
+***************
+*** 408,424 ****
+  	      && (GET_MODE (op) == mode || GET_MODE (op) == VOIDmode)
+  	      && (unsigned) (INTVAL (op) + 0x1000) < 0x2000));
+- }
+- 
+- /* Return true if OP is a register, or is a CONST_INT that can fit in a 5
+-    bit unsigned immediate field.  This is an acceptable SImode operand for
+-    the count field of shift instructions.  */
+- 
+- int
+- shift_operand (op, mode)
+-      rtx op;
+-      enum machine_mode mode;
+- {
+-   return (register_operand (op, mode)
+- 	  || (GET_CODE (op) == CONST_INT && (unsigned) (INTVAL (op)) < 32));
+  }
+  
+--- 408,411 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/sparc/sparc.h gcc-2.5.6/config/sparc/sparc.h
+*** gcc-2.5.5/config/sparc/sparc.h	Mon Oct 25 13:58:08 1993
+--- gcc-2.5.6/config/sparc/sparc.h	Tue Nov 30 19:27:45 1993
+***************
+*** 450,456 ****
+  #define ARG_POINTER_REGNUM 30
+  
+! /* Register in which static-chain is passed to a function.  */
+! /* ??? */
+! #define STATIC_CHAIN_REGNUM 1
+  
+  /* Register which holds offset table for position-independent
+--- 450,456 ----
+  #define ARG_POINTER_REGNUM 30
+  
+! /* Register in which static-chain is passed to a function.  This must
+!    not be a register used by the prologue.  */
+! #define STATIC_CHAIN_REGNUM 2
+  
+  /* Register which holds offset table for position-independent
+***************
+*** 995,1003 ****
+  
+  /* On the sparc, the trampoline contains five instructions:
+!      sethi #TOP_OF_FUNCTION,%g2
+!      or #BOTTOM_OF_FUNCTION,%g2,%g2
+!      sethi #TOP_OF_STATIC,%g1
+!      jmp g2
+!      or #BOTTOM_OF_STATIC,%g1,%g1  */
+  #define TRAMPOLINE_TEMPLATE(FILE)					\
+  {									\
+--- 995,1003 ----
+  
+  /* On the sparc, the trampoline contains five instructions:
+!      sethi #TOP_OF_FUNCTION,%g1
+!      or #BOTTOM_OF_FUNCTION,%g1,%g1
+!      sethi #TOP_OF_STATIC,%g2
+!      jmp g1
+!      or #BOTTOM_OF_STATIC,%g2,%g2  */
+  #define TRAMPOLINE_TEMPLATE(FILE)					\
+  {									\
+***************
+*** 1005,1009 ****
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+!   ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x81C08000));	\
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+  }
+--- 1005,1009 ----
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+!   ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x81C04000));	\
+    ASM_OUTPUT_INT (FILE, gen_rtx (CONST_INT, VOIDmode, 0x00000000));	\
+  }
+***************
+*** 1042,1055 ****
+  			gen_rtx (CONST_INT, VOIDmode, 0x8410A000));	\
+    rtx tem = gen_reg_rtx (SImode);					\
+!   emit_move_insn (tem, g2_sethi);					\
+    emit_insn (gen_iorsi3 (high_fn, high_fn, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 0)), high_fn);\
+!   emit_move_insn (tem, g2_ori);						\
+    emit_insn (gen_iorsi3 (low_fn, low_fn, tem));				\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 4)), low_fn);\
+!   emit_move_insn (tem, g1_sethi);					\
+    emit_insn (gen_iorsi3 (high_cxt, high_cxt, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 8)), high_cxt);\
+!   emit_move_insn (tem, g1_ori);						\
+    emit_insn (gen_iorsi3 (low_cxt, low_cxt, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 16)), low_cxt);\
+--- 1042,1055 ----
+  			gen_rtx (CONST_INT, VOIDmode, 0x8410A000));	\
+    rtx tem = gen_reg_rtx (SImode);					\
+!   emit_move_insn (tem, g1_sethi);					\
+    emit_insn (gen_iorsi3 (high_fn, high_fn, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 0)), high_fn);\
+!   emit_move_insn (tem, g1_ori);						\
+    emit_insn (gen_iorsi3 (low_fn, low_fn, tem));				\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 4)), low_fn);\
+!   emit_move_insn (tem, g2_sethi);					\
+    emit_insn (gen_iorsi3 (high_cxt, high_cxt, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 8)), high_cxt);\
+!   emit_move_insn (tem, g2_ori);						\
+    emit_insn (gen_iorsi3 (low_cxt, low_cxt, tem));			\
+    emit_move_insn (gen_rtx (MEM, SImode, plus_constant (TRAMP, 16)), low_cxt);\
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/config/sparc/sparc.md gcc-2.5.6/config/sparc/sparc.md
+*** gcc-2.5.5/config/sparc/sparc.md	Wed Oct 20 18:21:35 1993
+--- gcc-2.5.6/config/sparc/sparc.md	Fri Dec  3 06:35:23 1993
+***************
+*** 1,4 ****
+  ;;- Machine description for SPARC chip for GNU C compiler
+! ;;   Copyright (C) 1987, 1988, 1989, 1992 Free Software Foundation, Inc.
+  ;;   Contributed by Michael Tiemann (tiemann@cygnus.com)
+  
+--- 1,4 ----
+  ;;- Machine description for SPARC chip for GNU C compiler
+! ;;   Copyright (C) 1987, 1988, 1989, 1992, 1993 Free Software Foundation, Inc.
+  ;;   Contributed by Michael Tiemann (tiemann@cygnus.com)
+  
+***************
+*** 2526,2532 ****
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(ashift:SI (match_operand:SI 1 "register_operand" "r")
+! 		   (match_operand:SI 2 "shift_operand" "rI")))]
+    ""
+!   "sll %1,%2,%0")
+  
+  (define_insn ""
+--- 2526,2539 ----
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(ashift:SI (match_operand:SI 1 "register_operand" "r")
+! 		   (match_operand:SI 2 "arith_operand" "rI")))]
+    ""
+!   "*
+! {
+!   if (GET_CODE (operands[2]) == CONST_INT
+!       && (unsigned) INTVAL (operands[2]) > 31)
+!     operands[2] = GEN_INT (INTVAL (operands[2]) & 0x1f);
+! 
+!   return \"sll %1,%2,%0\";
+! }")
+  
+  (define_insn ""
+***************
+*** 2552,2565 ****
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(ashiftrt:SI (match_operand:SI 1 "register_operand" "r")
+! 		     (match_operand:SI 2 "shift_operand" "rI")))]
+    ""
+!   "sra %1,%2,%0")
+  
+  (define_insn "lshrsi3"
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(lshiftrt:SI (match_operand:SI 1 "register_operand" "r")
+! 		     (match_operand:SI 2 "shift_operand" "rI")))]
+    ""
+!   "srl %1,%2,%0")
+  
+  ;; Unconditional and other jump instructions
+--- 2559,2586 ----
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(ashiftrt:SI (match_operand:SI 1 "register_operand" "r")
+! 		     (match_operand:SI 2 "arith_operand" "rI")))]
+    ""
+!   "*
+! {
+!   if (GET_CODE (operands[2]) == CONST_INT
+!       && (unsigned) INTVAL (operands[2]) > 31)
+!     operands[2] = GEN_INT (INTVAL (operands[2]) & 0x1f);
+  
++   return \"sra %1,%2,%0\";
++ }")
++ 
+  (define_insn "lshrsi3"
+    [(set (match_operand:SI 0 "register_operand" "=r")
+  	(lshiftrt:SI (match_operand:SI 1 "register_operand" "r")
+! 		     (match_operand:SI 2 "arith_operand" "rI")))]
+    ""
+!   "*
+! {
+!   if (GET_CODE (operands[2]) == CONST_INT
+!       && (unsigned) INTVAL (operands[2]) > 31)
+!     operands[2] = GEN_INT (INTVAL (operands[2]) & 0x1f);
+! 
+!   return \"srl %1,%2,%0\";
+! }")
+  
+  ;; Unconditional and other jump instructions
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/cp-decl.c gcc-2.5.6/cp-decl.c
+*** gcc-2.5.5/cp-decl.c	Wed Nov 24 18:21:28 1993
+--- gcc-2.5.6/cp-decl.c	Wed Dec  1 17:22:21 1993
+***************
+*** 8824,8834 ****
+  	    publicp = (RIDBIT_SETP (RID_EXTERN, specbits)
+  		       || (ctype != NULL_TREE && funcdef_flag >= 0)
+- #if 0
+- 		       /* These are replicated in each object, so we shouldn't
+- 			  set TREE_PUBLIC. */
+  		       || (friendp
+  			   && RIDBIT_NOTSETP (RID_STATIC, specbits)
+  			   && RIDBIT_NOTSETP (RID_INLINE, specbits))
+- #endif
+  		       );
+  	    decl = grokfndecl (ctype, type, declarator,
+--- 8824,8830 ----
+***************
+*** 10324,10344 ****
+  
+    /* C++ associates enums with global, function, or class declarations.  */
+-   if (current_class_type == NULL_TREE || current_function_decl != NULL_TREE)
+-     {
+-       /* Create a declaration for the enum value name.  */
+- 
+-       decl = build_decl (CONST_DECL, name, integer_type_node);
+-       DECL_INITIAL (decl) = value;
+  
+!       pushdecl (decl);
+!       GNU_xref_decl (current_function_decl, decl);
+!     }
+! #if NEW_CLASS_SCOPING
+!   else if (current_class_type)
+! #else
+!   if (current_class_type)
+! #endif
+      {
+!       /* class-local enum declaration */
+        decl = build_lang_field_decl (CONST_DECL, name, integer_type_node);
+        DECL_INITIAL (decl) = value;
+--- 10320,10347 ----
+  
+    /* C++ associates enums with global, function, or class declarations.  */
+  
+!   /* There are a number of cases we need to be aware of here:
+! 				current_class_type	current_function_decl
+!      * global enums		NULL			NULL
+!      * fn-local enum		NULL			SET
+!      * class-local enum		SET			NULL
+!      * class->fn->enum		SET			SET
+!      * fn->class->enum		SET			SET
+! 
+!      Those last two make life interesting.  If it's a fn-local enum which is
+!      itself inside a class, we need the enum to go into the fn's decls (our
+!      second case below).  But if it's a class-local enum and the class itself
+!      is inside a function, we need that enum to go into the decls for the
+!      class.  To achieve this last goal, we must see if, when both
+!      current_class_decl and current_function_decl are set, the class was
+!      declared inside that function.  If so, we know to put the enum into
+!      the class's scope.  */
+!      
+!   if ((current_class_type && ! current_function_decl)
+!       || (current_class_type && current_function_decl
+! 	  && TYPE_CONTEXT (current_class_type) == current_function_decl))
+      {
+!       /* This enum declaration is local to the class, so we must put
+! 	 it in that class's list of decls.  */
+        decl = build_lang_field_decl (CONST_DECL, name, integer_type_node);
+        DECL_INITIAL (decl) = value;
+***************
+*** 10347,10350 ****
+--- 10350,10363 ----
+        TREE_CHAIN (decl) = current_local_enum;
+        current_local_enum = decl;
++     }
++   else
++     {
++       /* It's a global enum, or it's local to a function.  (Note local to
++ 	 a function could mean local to a class method.  */
++       decl = build_decl (CONST_DECL, name, integer_type_node);
++       DECL_INITIAL (decl) = value;
++ 
++       pushdecl (decl);
++       GNU_xref_decl (current_function_decl, decl);
+      }
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/cp-tree.c gcc-2.5.6/cp-tree.c
+*** gcc-2.5.5/cp-tree.c	Wed Nov 24 00:20:52 1993
+--- gcc-2.5.6/cp-tree.c	Wed Dec  1 17:21:47 1993
+***************
+*** 943,954 ****
+  	       && TREE_CODE (IDENTIFIER_TYPE_VALUE (value)) == RECORD_TYPE)
+  	{
+  	  tree type = IDENTIFIER_TYPE_VALUE (value);
+  	  if (CLASSTYPE_ID_AS_LIST (type) == NULL_TREE)
+! 	    {
+! 	      /* Not just `value', which could be a template parm.  */
+! 	      tree id = DECL_NAME (TYPE_NAME (type));
+! 	      CLASSTYPE_ID_AS_LIST (type) =
+! 		perm_tree_cons (NULL_TREE, id, NULL_TREE);
+! 	    }
+  	  list = CLASSTYPE_ID_AS_LIST (type);
+  	}
+--- 943,958 ----
+  	       && TREE_CODE (IDENTIFIER_TYPE_VALUE (value)) == RECORD_TYPE)
+  	{
++ 	  register tree id;
+  	  tree type = IDENTIFIER_TYPE_VALUE (value);
++ 
++ 	  /* This will return the correct thing for regular types,
++ 	     nested types, and templates.  Yay! */
++ 	  if (DECL_NESTED_TYPENAME (TYPE_NAME (type)))
++ 	    value = DECL_NESTED_TYPENAME (TYPE_NAME (type));
++ 	  id = value;
++ 
+  	  if (CLASSTYPE_ID_AS_LIST (type) == NULL_TREE)
+! 	    CLASSTYPE_ID_AS_LIST (type) = perm_tree_cons (NULL_TREE,
+! 							  id, NULL_TREE);
+  	  list = CLASSTYPE_ID_AS_LIST (type);
+  	}
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/cp-type2.c gcc-2.5.6/cp-type2.c
+*** gcc-2.5.5/cp-type2.c	Wed Nov 24 00:21:21 1993
+--- gcc-2.5.6/cp-type2.c	Wed Dec  1 17:22:28 1993
+***************
+*** 1408,1413 ****
+    /* Try evaluating as a call to a function.  */
+    if (IDENTIFIER_CLASS_VALUE (name))
+!     expr_as_method = build_method_call (current_class_decl, name, parms,
+! 					NULL_TREE, LOOKUP_SPECULATIVELY);
+    if (IDENTIFIER_GLOBAL_VALUE (name)
+        && (TREE_CODE (IDENTIFIER_GLOBAL_VALUE (name)) == TREE_LIST
+--- 1408,1418 ----
+    /* Try evaluating as a call to a function.  */
+    if (IDENTIFIER_CLASS_VALUE (name))
+!     {
+!       expr_as_method = build_method_call (current_class_decl, name, parms,
+! 					  NULL_TREE, LOOKUP_SPECULATIVELY);
+!       if (expr_as_method == error_mark_node)
+! 	expr_as_method = NULL_TREE;
+!     }
+! 
+    if (IDENTIFIER_GLOBAL_VALUE (name)
+        && (TREE_CODE (IDENTIFIER_GLOBAL_VALUE (name)) == TREE_LIST
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/emit-rtl.c gcc-2.5.6/emit-rtl.c
+*** gcc-2.5.5/emit-rtl.c	Thu Nov 25 18:07:01 1993
+--- gcc-2.5.6/emit-rtl.c	Thu Dec  2 07:56:05 1993
+***************
+*** 2827,2830 ****
+--- 2827,2831 ----
+    first_insn = top->first;
+    last_insn = top->last;
++   sequence_rtl_expr = top->sequence_rtl_expr;
+  }
+  
+***************
+*** 2858,2861 ****
+--- 2859,2863 ----
+    first_insn = tem->first;
+    last_insn = tem->last;
++   sequence_rtl_expr = tem->sequence_rtl_expr;
+    sequence_stack = tem->next;
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/fixincludes gcc-2.5.6/fixincludes
+*** gcc-2.5.5/fixincludes	Sun Nov 21 01:52:58 1993
+--- gcc-2.5.6/fixincludes	Fri Dec  3 06:40:42 1993
+***************
+*** 1048,1054 ****
+--- 1048,1057 ----
+        -e 's@ va_list@ __va_list__@' \
+        -e 's@\*va_list@*__va_list__@' \
++       -e 's@ __va_list)@ __gnuc_va_list)@' \
+        -e 's@_NEED___VA_LIST@_NEED___Va_LIST@' \
++       -e 's@_HIDDEN_VA_LIST@_HIDDEN_Va_LIST@' \
+        -e 's@VA_LIST@DUMMY_VA_LIST@' \
+        -e 's@_NEED___Va_LIST@_NEED___VA_LIST@' \
++       -e 's@_HIDDEN_Va_LIST@_HIDDEN_VA_LIST@' \
+      ${LIB}/$file >> ${LIB}/${file}.sed
+    
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/gstddef.h gcc-2.5.6/gstddef.h
+*** gcc-2.5.5/gstddef.h	Mon Sep 20 15:20:57 1993
+--- gcc-2.5.6/gstddef.h	Fri Dec  3 06:47:17 1993
+***************
+*** 2,5 ****
+--- 2,6 ----
+  #ifndef _STDDEF_H_
+  #ifndef _ANSI_STDDEF_H
++ #ifndef __STDDEF_H__
+  
+  /* Any one of these symbols __need_* means that GNU libc
+***************
+*** 12,15 ****
+--- 13,18 ----
+  /* snaroff@next.com says the NeXT needs this.  */
+  #define _ANSI_STDDEF_H
++ /* Irix 5.1 needs this.  */
++ #define __STDDEF_H__
+  #endif
+  
+***************
+*** 222,225 ****
+--- 225,229 ----
+  #endif /* _STDDEF_H was defined this time */
+  
++ #endif /* __STDDEF_H__ was not defined before */
+  #endif /* _ANSI_STDDEF_H was not defined before */
+  #endif /* _STDDEF_H_ was not defined before */
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/loop.c gcc-2.5.6/loop.c
+*** gcc-2.5.5/loop.c	Tue Nov  9 19:07:15 1993
+--- gcc-2.5.6/loop.c	Thu Dec  2 08:10:07 1993
+***************
+*** 691,697 ****
+  		       && ! loop_reg_used_before_p (set, p, loop_start,
+  						    scan_start, end))
+! 		      || (! REG_USERVAR_P (SET_DEST (PATTERN (p)))
+! 			  && ! REG_LOOP_TEST_P (SET_DEST (PATTERN (p))))
+! 		      || reg_in_basic_block_p (p, SET_DEST (PATTERN (p)))))
+  	    ;
+  	  else if ((tem = invariant_p (src))
+--- 691,697 ----
+  		       && ! loop_reg_used_before_p (set, p, loop_start,
+  						    scan_start, end))
+! 		      || (! REG_USERVAR_P (SET_DEST (set))
+! 			  && ! REG_LOOP_TEST_P (SET_DEST (set)))
+! 		      || reg_in_basic_block_p (p, SET_DEST (set))))
+  	    ;
+  	  else if ((tem = invariant_p (src))
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/reload.c gcc-2.5.6/reload.c
+*** gcc-2.5.5/reload.c	Sun Nov 14 19:20:01 1993
+--- gcc-2.5.6/reload.c	Thu Dec  2 06:44:11 1993
+***************
+*** 3889,3893 ****
+  
+        else if (regno >= FIRST_PSEUDO_REGISTER
+! #if defined(BYTE_LOADS_ZERO_EXTEND) || defined(BYTE_LOADS_SIGN_EXTEND)
+  	       && (GET_MODE_SIZE (GET_MODE (x))
+  		   <= GET_MODE_SIZE (GET_MODE (SUBREG_REG (x))))
+--- 3889,3893 ----
+  
+        else if (regno >= FIRST_PSEUDO_REGISTER
+! #ifdef LOAD_EXTEND_OP
+  	       && (GET_MODE_SIZE (GET_MODE (x))
+  		   <= GET_MODE_SIZE (GET_MODE (SUBREG_REG (x))))
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.5/version.c gcc-2.5.6/version.c
+*** gcc-2.5.5/version.c	Sat Nov 27 14:36:11 1993
+--- gcc-2.5.6/version.c	Fri Dec  3 07:42:25 1993
+***************
+*** 1 ****
+! char *version_string = "2.5.5";
+--- 1 ----
+! char *version_string = "2.5.6";

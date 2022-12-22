@@ -1,0 +1,11 @@
+F AIRPORT.;1                        	airport
+F ASCII.;1                          	ascii
+F BIRTHTOK.;1                       	birthtoken
+F EQNCHAR.;1                        	eqnchar
+F INTER.PHO;1                       	inter.phone
+F MAKEFILE.;1                       	Makefile
+F MAN_TEMP.;1                       	man.template
+F MDOC.TEM;1                        	mdoc.template
+F NA_PHONE.;1                       	na.phone
+F OPERATOR.;1                       	operator
+F ZIPCODES.;1                       	zipcodes

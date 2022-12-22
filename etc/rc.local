@@ -1,0 +1,32 @@
+#
+# site-specific startup actions, daemons
+#
+#	BSDI	$Id: rc.local,v 1.9 1994/01/14 18:01:14 polk Exp $
+#	@(#)rc.local	5.4 (Berkeley) 12/14/90
+#
+
+T=/tmp/_motd
+rm -f $T
+strings /bsd | grep 'BSDI.*Kernel' | sed -e 's/@(#)//' > $T
+echo "" >> $T
+sed '1,/^$/d' < /etc/motd >> $T
+cp $T /etc/motd
+rm -f $T
+
+# Uncomment to change the default modes for all tty's to be 8-bit clear
+# stty -D -f /dev/console cs8 -parenb -istrip
+
+echo -n 'starting local daemons:'
+
+#XXX# echo -n ' xntpd';		/usr/sbin/xntpd
+
+if [ -f /etc/start-amd ]; then
+    echo -n ' amd';             /etc/start-amd
+fi
+    
+
+# Kerberos runs ONLY on the Kerberos server machine
+# echo -n ' kerberos'
+# kerberos >> /var/log/kerberos.log &
+
+echo '.'

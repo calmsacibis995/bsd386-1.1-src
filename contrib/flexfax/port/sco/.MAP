@@ -1,0 +1,9 @@
+F DEFS.;1                           	defs
+F FLOCK.C;1                         	flock.c
+F FTRUNCAT.C;1                      	ftruncate.c
+F INSTALL.SH;1                      	install.sh
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.FLE;1                    	Makefile.flexfax
+F MKSTEMP.C;1                       	mkstemp.c
+F PATHS.H;1                         	paths.h
+F README.;1                         	README

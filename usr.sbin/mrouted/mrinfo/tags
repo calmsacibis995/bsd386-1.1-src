@@ -1,0 +1,43 @@
+GET_ADDR	mrinfo.c	/^#define GET_ADDR(a) (a = ((u_long)*p++ << 24), a +/
+Mmrinfo	mrinfo.c	/^main(argc, argv)$/
+accept_group_report	mrinfo.c	/^void accept_group_report()$/
+accept_igmp	../common/igmp.c	/^void accept_igmp(recvlen)$/
+accept_neighbor_request	mrinfo.c	/^void accept_neighbor_request()$/
+accept_neighbor_request2	mrinfo.c	/^void accept_neighbor_request2()$/
+accept_neighbors	mrinfo.c	/^accept_neighbors(src, dst, p, datalen)$/
+accept_neighbors2	mrinfo.c	/^accept_neighbors2(src, dst, p, datalen)$/
+accept_probe	mrinfo.c	/^void accept_probe()$/
+accept_report	mrinfo.c	/^void accept_report()$/
+ask	mrinfo.c	/^ask(dst)$/
+ask2	mrinfo.c	/^ask2(dst)$/
+check_vif_state	mrinfo.c	/^void check_vif_state()$/
+get_number	mrinfo.c	/^get_number(var, deflt, pargv, pargc)$/
+host_addr	mrinfo.c	/^host_addr(name)$/
+inet_cksum	../common/inet.c	/^int inet_cksum(addr, len)$/
+inet_fmt	../common/inet.c	/^char *inet_fmt(addr, s)$/
+inet_fmts	../common/inet.c	/^char *inet_fmts(addr, mask, s)$/
+inet_name	mrinfo.c	/^inet_name(addr)$/
+inet_parse	../common/inet.c	/^u_long inet_parse(s)$/
+inet_valid_host	../common/inet.c	/^int inet_valid_host(naddr)$/
+inet_valid_subnet	../common/inet.c	/^int inet_valid_subnet(nsubnet, nmask)$/
+init_igmp	../common/igmp.c	/^void init_igmp()$/
+k_add_group	../common/kern.c	/^void k_add_group(vifi, group)$/
+k_add_route	../common/kern.c	/^void k_add_route(r)$/
+k_add_vif	../common/kern.c	/^void k_add_vif(vifi, v)$/
+k_del_group	../common/kern.c	/^void k_del_group(vifi, group)$/
+k_del_route	../common/kern.c	/^void k_del_route(r)$/
+k_del_vif	../common/kern.c	/^void k_del_vif(vifi)$/
+k_hdr_include	../common/kern.c	/^void k_hdr_include(bool)$/
+k_init_dvmrp	../common/kern.c	/^void k_init_dvmrp()$/
+k_join	../common/kern.c	/^void k_join(grp, ifa)$/
+k_leave	../common/kern.c	/^void k_leave(grp, ifa)$/
+k_set_if	../common/kern.c	/^void k_set_if(ifa)$/
+k_set_loop	../common/kern.c	/^void k_set_loop(l)$/
+k_set_rcvbuf	../common/kern.c	/^void k_set_rcvbuf(bufsize)$/
+k_set_ttl	../common/kern.c	/^void k_set_ttl(t)$/
+k_stop_dvmrp	../common/kern.c	/^void k_stop_dvmrp()$/
+k_update_route	../common/kern.c	/^void k_update_route(r)$/
+log	mrinfo.c	/^log(severity, syserr, format, a, b, c, d, e)$/
+packet_kind	../common/igmp.c	/^static char *packet_kind(type, code)$/
+send_igmp	../common/igmp.c	/^void send_igmp(src, dst, type, code, group, datale/
+usage	mrinfo.c	/^usage()$/

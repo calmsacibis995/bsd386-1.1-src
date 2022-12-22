@@ -1,0 +1,25 @@
+.TH filt 1 "12 June 1992"
+.IX filt
+.SH NAME
+.PP
+filt \- pass MIDI bytes from MIDI-IN to MIDI-OUT
+
+.SH SYNOPSIS
+.PP
+\f3filt\f1
+
+.SH DESCRIPTION
+.PP
+
+\fIfilt\fP reads MIDI bytes from /dev/sb_midi and simply relays them
+right back to /dev/sb_midi, possibly with some modifications.  This is
+a skeleton program intended for MIDI hackers who want to massage data
+going between two instruments.  The actual filtering effects are
+determined by the code, so you write that part yourself.  It does
+nothing to the data by default.
+
+.SH OPTIONS
+.PP
+No options as it is.  Add any that you need.
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

@@ -1,0 +1,14 @@
+F CONFIG.GZ;1                       	config.gz
+F DIST.GZ;1                         	dist.gz
+F DOC.GZ;1                          	doc.gz
+F MH_MAKEF.GZ;1                     	MH-Makefile.gz
+F MH_UNCON.GZ;1                     	MH-Unconfig.gz
+D MTS                               	mts
+F MTSM.GZ;1                         	mtsM.gz
+F PAPERS.GZ;1                       	papers.gz
+F SBR.GZ;1                          	sbr.gz
+D SUPPORT                           	support
+F SUPPORTM.GZ;1                     	supportM.gz
+F UIP.GZ;1                          	uip.gz
+D ZOTNET                            	zotnet
+F ZOTNETM.GZ;1                      	zotnetM.gz

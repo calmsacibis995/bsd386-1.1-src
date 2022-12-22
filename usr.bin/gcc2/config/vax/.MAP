@@ -1,0 +1,10 @@
+F ULTRIX.H;1                        	ultrix.h
+F VAX.C;1                           	vax.c
+F VAX.H;1                           	vax.h
+F VAX.MD;1                          	vax.md
+F VAXV.H;1                          	vaxv.h
+F VMS.H;1                           	vms.h
+F XM_VAX.H;1                        	xm-vax.h
+F XM_VAXV.H;1                       	xm-vaxv.h
+F XM_VMS.H;1                        	xm-vms.h
+F X_VAX.;1                          	x-vax

@@ -1,0 +1,16 @@
+Mtty.cc	tty.cc	/^int main(int argc, char **argv)$/
+add_char	tty.cc	/^void tty_printer::add_char(unsigned char c, int h,/
+cached_v	tty.cc	/^tty_printer::tty_printer() : cached_v(0)$/
+delete	tty.cc	/^void glyph::operator delete(void *p)$/
+draw	tty.cc	/^void tty_printer::draw(int code, int *p, int np, c/
+end_page	tty.cc	/^void tty_printer::end_page(int page_length)$/
+handle_x_command	tty.cc	/^void tty_font::handle_x_command(int argc, const ch/
+load_tty_font	tty.cc	/^tty_font *tty_font::load_tty_font(const char *s)$/
+make_font	tty.cc	/^font *tty_printer::make_font(const char *nm)$/
+make_printer	tty.cc	/^printer *make_printer()$/
+mode	tty.cc	/^: font(nm), mode(0)$/
+new	tty.cc	/^void *glyph::operator new(size_t)$/
+set_char	tty.cc	/^void tty_printer::set_char(int i, font *f, const e/
+tty_font	tty.cc	/^tty_font::~tty_font()$/
+tty_printer	tty.cc	/^tty_printer::~tty_printer()$/
+usage	tty.cc	/^static void usage()$/

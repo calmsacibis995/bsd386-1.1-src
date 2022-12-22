@@ -1,0 +1,11 @@
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+F MD5.1;1                           	md5.1
+F MD5.C;1                           	md5.c
+F MD5.H;1                           	md5.h
+F MD5DRVR.C;1                       	md5drvr.c
+F MD5DUAL.C;1                       	md5dual.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/md5
+F README.MD5;1                      	README.md5
+F TAGS.;1                           	tags
+D TESTS                             	tests

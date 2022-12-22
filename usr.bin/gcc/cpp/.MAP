@@ -1,0 +1,7 @@
+F CEXP.Y;1                          	cexp.y
+F CPP.1;1                           	cpp.1
+F CPP.C;1                           	cpp.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/gcc/cpp
+F TAGS.;1                           	tags
+F USR_BIN_.SH;1                     	usr.bin.cpp.sh

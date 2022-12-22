@@ -1,0 +1,18 @@
+These are things that need to be done to ispell but which there wasn't time
+to complete for version 4.0.  Contributions of code to implement these
+things would be greatly appreciated.
+
+* Clean up the configuration.  In particular, remove the generic USG/BSD
+  checks and add checks for individual missing features instead. 
+* Investigate if the systems where TIOCGWINSZ is broken, TIOCGSIZE (and
+  struct ttysize) are available and work. 
+* Properly document options for ispell in usage string.
+* Add long options.
+* Add more words to dictionary, perhaps making several separate
+  dictionaries (e.g. one with uncommon technical words and abbreviations). 
+* When typing a correction in the emacs interface, it should check that
+  word for spelling errors as well, instead of requiring the user to
+  explicitly invoke ispell again. 
+* Better overall elisp interface.  In particular, it would be nice to be
+  able to switch buffers and edit, then come back to the minibuffer and
+  finish commands. 

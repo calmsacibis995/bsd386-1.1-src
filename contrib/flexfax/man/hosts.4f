@@ -1,0 +1,86 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/hosts.4f,v 1.1.1.1 1994/01/14 23:10:11 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH HOSTS 4F "January 23, 1993"
+.SH NAME
+hosts \- host name data base
+.SH DESCRIPTION
+The file
+.B etc/hosts
+in the
+.I FlexFAX
+spooling area contains the specification of the
+hosts and users that are permitted to submit
+facsimile jobs for transmission.
+Note that this information must exist for jobs
+to be queued for transmission.
+.PP
+Host and user specifications are given as regular
+expressions that are matched against the string
+``\fIuser\fP@\fIhost\fP'' where
+.I user
+is the
+.I userID
+string passed to
+.IR faxd.recv (1M)
+and
+.I host
+is either the official host name or the
+.SM DARPA
+Internet address, specified in ``dot notation''.
+If a regular expression has a leading ``!'', then
+it is interpreted as a class of hosts and users to
+which access is to be disallowed.
+That is, if the pattern matches the client information,
+then access is denied.
+.PP
+Each regular expression pattern must appear on a line by itself.
+Trailing white space is ignored.
+Comments are introduced with the ``#'' character and extend
+to the end of the line.
+For backwards compatibility, host name patterns without a
+user specification are interpreted as ``.*@\fIhost\fP'';
+i.e. any user on that host may submit a jobs for transmission.
+.PP
+The following is a sample hosts file.
+.sp .5
+.nf
+.in +0.5i
+.ft C
+.ta \w'oxford.Berkeley.EDU    'u
+127.0.0.1	# anyone coming through local host
+sam@flake.*sgi.com	# Sam on his work machine
+sam@oxford.*Berkeley.*	# Sam on his machine at home
+\&.*@.*.\e.esd\e..*	# anyone in the esd domain
+!tom@.*	# Tom Davis is denied access,
+\&.*\e.sgi.com	# but anyone else at sgi is ok
+.ft P
+.fi
+.in -0.5i
+.SH "SEE ALSO"
+.IR sendfax (1),
+.IR faxd.recv (1M),
+.IR intro (4F)

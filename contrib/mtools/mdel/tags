@@ -1,0 +1,2 @@
+Mmdel	mdel.c	/^main(argc, argv)$/
+got_signal	mdel.c	/^got_signal()$/

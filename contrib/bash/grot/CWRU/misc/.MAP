@@ -1,0 +1,7 @@
+F BISON.;1                          	bison
+F IPTRT.C;1                         	iptrt.c
+F OPEN_FIL.C;1                      	open-files.c
+F PID.C;1                           	pid.c
+F RECHO.C;1                         	recho.c
+F SIGS.C;1                          	sigs.c
+F SIGSTAT.C;1                       	sigstat.c

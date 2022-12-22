@@ -1,0 +1,3 @@
+#! /bin/sh -
+#	BSDI $Id: psroff,v 1.1 1994/01/05 23:31:51 polk Exp $
+exec groff -Tps -mps ${1+"$@"}

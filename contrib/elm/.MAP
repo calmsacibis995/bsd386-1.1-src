@@ -1,0 +1,11 @@
+F CONFIG.H;1                        	config.h
+D DOC                               	doc
+D FILTER                            	filter
+D GROT                              	grot
+D HDRS                              	hdrs
+D LIB                               	lib
+F MAKEFILE.;1                       	Makefile
+D NLS                               	nls
+D SRC                               	src
+D TEST                              	test
+D UTILS                             	utils

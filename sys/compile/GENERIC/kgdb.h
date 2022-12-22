@@ -1,0 +1,1 @@
+#define NKGDB 0

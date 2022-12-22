@@ -1,0 +1,46 @@
+#
+# FlexFAX Facsimile System
+#
+# FAX Database entries are of the form:
+#    <keyword> ":" <value>
+# where keyword includes:
+#    Name		name associated with destination fax machine
+#    Company		company name
+#    Location		in-company locational information; e.g. building#
+#    FAX-Number		phone number through fax machine is reached
+#
+# Everything is free format.  Whitespace (blank, tab, newline) can be
+# freely interspersed with tokens.  If tokens include whitespace, they
+# must be encloseed in quote marks.
+#
+# The "#" character introduces a comment -- everything to the end of
+# line is discarded.
+#
+# FAX applications that use the database access the information
+# "by keyword" to place phone calls, format cover sheets, etc.
+#
+[   Company:	"Silicon Graphics, Inc."
+    Location:	"Mountain View, California"
+
+    [ Name: "SGI FAX Mail"		FAX-Number: +1.415.961.0595 ]
+
+    [ Name: "ESD Purchasing"		FAX-Number: +1.415.962.8098 ]
+    [ Name: "Corporate Offices"		FAX-Number: +1.415.967.8538 ]
+    [ Name: "Human Resources"		FAX-Number: +1.415.967.8538 ]
+    [ Name: "Information Services"	FAX-Number: +1.415.967.8538 ]
+    [ Name: "Corporate Sales"		FAX-Number: +1.415.965.3328 ]
+    [ Name: "International Sales"	FAX-Number: +1.415.961.0573 ]
+    [ Name: "ASD Customer Support"	FAX-Number: +1.415.962.2658 ]
+    [ FAX-Number: +1.415.965.7824
+	[ Name: "Melissa Anderson"	]
+	[ Name: "Forest Baskett"	]
+	[ Name: "Greg Chesson"		]
+	[ Name: "Paul Haeberli"		]
+	[ Name: "Sam Leffler"		]
+	[ Name: "Mark Linton"		]
+	[ Name: "Jim Winget"		]
+    ]
+]
+
+[ Name: "Live 105.3"		FAX-Number: +1.415.552.5483 ]
+[ Name: "Live 105.3/#2"		FAX-Number: +1.415.552.5487 ]

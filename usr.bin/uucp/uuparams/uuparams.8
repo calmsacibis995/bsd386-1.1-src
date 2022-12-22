@@ -1,0 +1,113 @@
+.\"
+.V= $Id: uuparams.8,v 1.2 1994/01/31 01:27:11 donn Exp $
+.\"
+.ds S1 UUPARAMS
+.ds S2 \fIUuparams\fP
+.ds S3 \fIuuparams\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uuparams
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uuparams \- show current/default \*(S5 parameters
+.SH SYNOPSIS
+.BI \*(S6
+.RI [\- flags ]
+.RI [ match ]
+.SH DESCRIPTION
+\*(S2
+prints the \*(S5 parameters that are being set in the configuration file.
+(See
+.IR uuparams (5)
+for a detailed description of each parameter.)
+If the optional
+.I match
+argument is present,
+\*(S3 displays any parameters that match the argument.
+.PP
+\*(S2
+checks the configuration file for any inconsistencies,
+and also checks that all the user and group names supplied actually exist.
+Any inconsistencies produce an exit code of
+.SM EX_DATAERR.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-P\fP\fIparams\fPX'u
+.TP "\*(tw"
+.BI \-a
+This flag causes all the parameters to be printed.
+.TP
+.BI \-d
+Show default parameter settings
+(ie: ignore the contents of the configuration file).
+.TP
+.BI \-f
+Show available free space on network file-system.
+If this space is below that set by the parameter
+.SM MINSPOOLFSFREE
+then the message
+.SM "NO SPACE"
+will be printed, and the exit code will be
+.SM EX_UNAVAILABLE.
+.TP
+.BI \-n
+Prints out the distribution's version information.
+This is in the form:
+.br
+.if t .ft CW
+release serial date CPU operating_system
+.if t .ft
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.BI \-v
+If the \fB\-a\fP flag or a match are selected,
+then any parameters that have been changed from the default
+are indicated by a trailing asterisk (`*').
+This flag also causes the name of the parameters file to be printed.
+.TP
+.BI \-w
+Don't warn about inconsistencies.
+.TP
+.BI \-x \fR[\fPlevel\fR]\fP
+Turns on tracing at
+.I level
+[default: 1].
+If tracing is not compiled in,
+this flag will have no effect.
+.TP
+.BI \-?
+Explain argument options and exit.
+.SH EXAMPLES
+Show all current parameters (with changes flagged):
+.PP
+.RS 2
+.ft CW
+\*(S6 -av
+.ft
+.RE
+.PP
+Show all the parameters relevant to lock files:
+.PP
+.RS 2
+.ft CW
+\*(S6 LOCK
+.ft
+.RE
+.SH FILES
+.PD 0
+.TP "\w'\f(CW/etc/uucp/CONFIG\fPXX'u"
+\f(CW/etc/uucp/CONFIG\fP
+Changed parameters for all \*(S5 programs.
+.PD
+.SH "SEE ALSO"
+.BR uuparams (5).

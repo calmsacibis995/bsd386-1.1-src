@@ -1,0 +1,74 @@
+DEF_ADDUNIT	dateyacc.y	/^#define DEF_ADDUNIT(min,max,unit,nunit)				\\$/
+Fchild	sched.c	/^Fchild()$/
+Flock	queuejob.c	/^Flock()$/
+Funlock	queuejob.c	/^Funlock()$/
+Mat	at.c	/^main(argc, argv, envp)$/
+Mwhen	when.c	/^main(int argc, char **argv)$/
+Perrmsg	errlib.c	/^Perrmsg(char *fmt, ...)$/
+Perror	errlib.c	/^Perror(char *fmt, ...)$/
+Pwarn	errlib.c	/^Pwarn(char *fmt, ...)$/
+YY_INPUT	datelex.l	/^#define YY_INPUT(buf,result,maxlen) ((result) = at/
+__Pmsg	errlib.c	/^__Pmsg(char *fmt, ...)$/
+add_year	dateyacc.y	/^static void add_year(int n) { time_v.tm_year += n;/
+adjustday	dateyacc.y	/^adjustday()$/
+adjustyear	dateyacc.y	/^adjustyear()$/
+at_allowed	at.c	/^at_allowed()$/
+atlock	utils.c	/^atlock()$/
+atrun_cleanup	sched.c	/^atrun_cleanup()$/
+atunlock	utils.c	/^atunlock(int fd)$/
+bgjob	sched.c	/^bgjob(JobQ p)$/
+bytime	readqueue.c	/^bytime(const void *p, const void *q)$/
+cleanup	queuejob.c	/^cleanup()$/
+clock	dateyacc.y	/^clock	: \/* nothing *\/$/
+date	dateyacc.y	/^date	: month mday year	{ do_date(); }$/
+do_date	dateyacc.y	/^do_date()$/
+do_gmt	dateyacc.y	/^do_gmt(int i)$/
+do_hr_min	dateyacc.y	/^do_hr_min(int hr, int min)$/
+do_hrmin	dateyacc.y	/^do_hrmin(char *s)$/
+do_incr	dateyacc.y	/^do_incr(int i, char *s)$/
+do_mday	dateyacc.y	/^do_mday(int i)$/
+do_month	dateyacc.y	/^do_month(char *s)$/
+do_time	dateyacc.y	/^do_time(int i, int fmt)$/
+do_wday	dateyacc.y	/^do_wday(char *s)$/
+do_year	dateyacc.y	/^do_year(int i)$/
+escstr	utils.c	/^escstr(char *s, char match, char *repl)$/
+findstr	readqueue.c	/^findstr(char *what, char *where)$/
+freeitem	readqueue.c	/^freeitem(JobQ p)$/
+freequeue	readqueue.c	/^freequeue(JobQ p)$/
+getjobid	utils.c	/^getjobid()$/
+incr	dateyacc.y	/^incr	: \/* nothing *\/$/
+listjobs	at.c	/^listjobs(int *argc, char **argv[])$/
+lockjob	sched.c	/^lockjob(JobQ p)$/
+lowern	dateyacc.y	/^lowern(int n, char *buf, char *s)$/
+mday	dateyacc.y	/^mday	: \/* nothing *\/$/
+month	dateyacc.y	/^month	: \/* nothing *\/$/
+nonzero	sched.c	/^nonzero(char *fn)$/
+notifyuser	sched.c	/^notifyuser(JobQ p)$/
+outputpath	utils.c	/^outputpath(JobQ p)$/
+plugh	dateyacc.y	/^plugh	: incr			{ adjustday(); }$/
+print_time	when.c	/^print_time(time_t t)$/
+print_tm	when.c	/^print_tm(struct tm *tp)$/
+printhdr	readqueue.c	/^printhdr()$/
+printitem	readqueue.c	/^printitem(register JobQ p)$/
+printqueue	readqueue.c	/^printqueue(register JobQ p)$/
+qfpath	utils.c	/^qfpath(JobQ p)$/
+queuejob	queuejob.c	/^queuejob(int *argc, char **argv[], char *envp[])$/
+readqueue	readqueue.c	/^readqueue()$/
+removeitem	at.c	/^removeitem(JobQ p)$/
+removejobs	at.c	/^removejobs(int *argc, char **argv[])$/
+runjob	sched.c	/^runjob(JobQ p)$/
+scheduler	sched.c	/^scheduler()$/
+shellesc	utils.c	/^shellesc(char *s)$/
+sortqueue	readqueue.c	/^sortqueue(JobQ head)$/
+swrite	utils.c	/^swrite(int fd, char *fmt, ...)$/
+time	dateyacc.y	/^time	: NUMBER		{ $$ = do_hrmin($1); }$/
+usage	at.c	/^usage() {$/
+username	utils.c	/^username(uid_t uid)$/
+usleep	utils.c	/^usleep(long usec)$/
+when	when.c	/^when(int *argc, char **argv[])$/
+xfpath	utils.c	/^xfpath(JobQ p)$/
+xyzzy	dateyacc.y	/^xyzzy	: clock date		{ adjustyear(); }$/
+year	dateyacc.y	/^year	: \/* nothing *\/$/
+yyerror	dateyacc.y	/^yyerror(s)$/
+yylex	datelex.l	/^%%$/
+yyparse	dateyacc.y	/^%%$/

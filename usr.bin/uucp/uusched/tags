@@ -1,0 +1,13 @@
+CallOK	uusched.c	/^CallOK($/
+ChkDebug	uusched.c	/^ChkDebug()$/
+Muusched	uusched.c	/^main($/
+catch	uusched.c	/^catch(int sig)$/
+catch_sig	uusched.c	/^catch_sig(int sig)$/
+close_status	uusched.c	/^close_status()$/
+enter	uusched.c	/^enter($/
+finish	uusched.c	/^finish($/
+fioclex	uusched.c	/^fioclex($/
+ignore	uusched.c	/^ignore(int sig)$/
+open_status	uusched.c	/^open_status($/
+test_nologin	uusched.c	/^test_nologin()$/
+uusched	uusched.c	/^uusched()$/

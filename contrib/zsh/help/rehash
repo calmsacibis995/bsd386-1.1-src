@@ -1,0 +1,5 @@
+     rehash [ -f ]
+          Throw out the command hash table and  start  over.   If
+          the  -f  option is set, rescan the command path immedi-
+          ately, instead of rebuilding the hash  table  incremen-
+          tally.

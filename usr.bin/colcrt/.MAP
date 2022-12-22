@@ -1,0 +1,5 @@
+F COLCRT.1;1                        	colcrt.1
+F COLCRT.C;1                        	colcrt.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/colcrt
+F TAGS.;1                           	tags

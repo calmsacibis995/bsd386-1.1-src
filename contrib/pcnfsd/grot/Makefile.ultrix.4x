@@ -1,0 +1,120 @@
+# RE_SID: @(%)/tmp_mnt/vol/dosnfs/shades_SCCS/unix/pcnfsd/v2/src/SCCS/s.Makefile.ultrix.4x 1.2 93/02/08 19:20:28 SMI
+#
+#       @(#)Makefile.ultrix.4x	1.2     2/8/93
+#
+# Makefile for rpc.pcnfsd under Ultrix4.x. Ultrix Make and its C compiler 
+# idiosyncracies make it impractical to have a single makefile which 
+# would be compatible with sunos and svr4. 
+#
+
+all: ultrix.4x/rpc.pcnfsd ultrix.4x/clnt.pcnfsd
+TARGET_OS = ultrix.4x
+
+.INIT:
+	-mkdir ultrix.4x
+
+LFLAGS_ULTRIX4X = 
+
+# uncomment BUGFLAG for debugging
+#BUGFLAG = -g
+
+COPTFLAGS = -O
+
+CFLAGS_ultrix.4x = -DULTRIX -DULTRIX_AUTH
+LIBS_ULTRIX4X = -lauth
+
+CFLAGS= $(BUGFLAG) $(COPTFLAGS) $(CFLAGS_ultrix.4x)
+
+BIN= ultrix.4x/rpc.pcnfsd
+TST= ultrix.4x/clnt.pcnfsd
+
+all: $(BIN) $(TST)
+
+SVR_OBJS=  \
+	ultrix.4x/pcnfsd_svc.o \
+	ultrix.4x/pcnfsd_xdr.o \
+	ultrix.4x/pcnfsd_v1.o \
+	ultrix.4x/pcnfsd_v2.o \
+	ultrix.4x/pcnfsd_misc.o \
+	ultrix.4x/pcnfsd_cache.o \
+	ultrix.4x/pcnfsd_print.o
+
+SVR_SRCS=  \
+	pcnfsd_svc.c \
+	pcnfsd_xdr.c \
+	pcnfsd_v1.c \
+	pcnfsd_v2.c \
+	pcnfsd_misc.c \
+	pcnfsd_cache.c \
+	pcnfsd_print.c
+
+TST_OBJS= \
+	ultrix.4x/pcnfsd_clnt.o \
+	ultrix.4x/pcnfsd_test.o \
+	ultrix.4x/pcnfsd_xdr.o
+
+TST_SRCS= \
+	pcnfsd_clnt.c \
+	pcnfsd_test.c \
+	pcnfsd_xdr.c
+
+HDRS= pcnfsd.h common.h
+
+LINTFLAGS= -hbax
+# uncomment as appropriate for debugging
+CFLAGS = -O -DOSVER_ULTRIX
+#CFLAGS = -g -DDEBUG -DOSVER_ULTRIX
+LIBS= -lauth
+LFLAGS = 
+
+ultrix.4x/rpc.pcnfsd: $(SVR_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(SVR_OBJS) $(LIBS)
+
+
+ultrix.4x/pcnfsd_svc.o: $(HDRS) pcnfsd_svc.c
+	$(CC)  -c $(CFLAGS) pcnfsd_svc.c
+	mv pcnfsd_svc.o ultrix.4x
+
+ultrix.4x/pcnfsd_xdr.o: $(HDRS) pcnfsd_xdr.c
+	$(CC)  -c $(CFLAGS) pcnfsd_xdr.c
+	mv pcnfsd_xdr.o ultrix.4x
+
+ultrix.4x/pcnfsd_v1.o: $(HDRS) pcnfsd_v1.c
+	$(CC)  -c $(CFLAGS) pcnfsd_v1.c
+	mv pcnfsd_v1.o ultrix.4x
+
+ultrix.4x/pcnfsd_v2.o: $(HDRS) pcnfsd_v2.c
+	$(CC)  -c $(CFLAGS) pcnfsd_v2.c
+	mv pcnfsd_v2.o ultrix.4x
+
+ultrix.4x/pcnfsd_misc.o: $(HDRS) pcnfsd_misc.c
+	$(CC)  -c $(CFLAGS) pcnfsd_misc.c
+	mv pcnfsd_misc.o ultrix.4x
+
+ultrix.4x/pcnfsd_cache.o: $(HDRS) pcnfsd_cache.c
+	$(CC)  -c $(CFLAGS) pcnfsd_cache.c
+	mv pcnfsd_cache.o ultrix.4x
+
+ultrix.4x/pcnfsd_print.o: $(HDRS) pcnfsd_print.c
+	$(CC)  -c $(CFLAGS) pcnfsd_print.c
+	mv pcnfsd_print.o ultrix.4x
+
+
+ultrix.4x/clnt.pcnfsd: $(TST_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(TST_OBJS) $(LIBS)
+
+ultrix.4x/pcnfsd_clnt.o: $(HDRS) pcnfsd_clnt.c
+	$(CC)  -c $(CFLAGS) pcnfsd_clnt.c
+	mv pcnfsd_clnt.o ultrix.4x
+
+ultrix.4x/pcnfsd_test.o: $(HDRS) pcnfsd_test.c
+	$(CC)  -c $(CFLAGS) pcnfsd_test.c
+	mv pcnfsd_test.o ultrix.4x
+
+
+lint: $(SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(SVR_SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(TST_SRCS)
+
+clean:
+	rm -rf ultrix.4x

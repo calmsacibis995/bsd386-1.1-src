@@ -1,0 +1,3 @@
+Mmrd	mrd.c	/^main(argc, argv)$/
+got_signal	mrd.c	/^got_signal()$/
+is_empty	mrd.c	/^is_empty(fat)$/

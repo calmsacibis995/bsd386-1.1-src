@@ -1,0 +1,15 @@
+100	dim a[2,2]
+110	a[1,1] = 5
+120	a[1,2] = 10
+130	a[2,1] = 3
+140	a[2,2] = 1
+150	mat print a;
+160	print 'det(a) = ', det(a)
+170	dim b[5,5]
+180	for i = 1 to 5
+190		mat b = rnd
+192		mat b = (exp(i))*b
+195		mat print b
+200		print 'det(b) = ', det(b)
+210	next i
+220	end

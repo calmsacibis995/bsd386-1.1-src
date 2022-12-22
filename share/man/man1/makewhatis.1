@@ -1,0 +1,41 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: makewhatis.1,v 1.2 1993/12/08 03:48:06 polk Exp $
+.\" 
+.Dd February 28, 1993
+.Dt MAKEWHATIS 1
+.Os
+.Sh NAME
+.Nm makewhatis
+.Nd build the whatis database
+.Sh SYNOPSIS
+.Nm makewhatis
+.Op Ar directory Ar ...
+.Sh DESCRIPTION
+The
+.Nm makewhatis
+command processes the directories listed on the command line (or a
+built-in default if no command line arguments are passed) and builds
+the
+.Pa /usr/share/man/whatis.db
+database from the man pages contained in them.
+.Sh FILES
+.Bl -tag -width "/usr/share/man/makewhatis.perl" -compact
+.It Pa /usr/share/man/makewhatis.perl
+the makewhatis work-horse
+.It Pa /usr/share/man/whatis.db
+the whatis database
+.El
+.Sh SEE ALSO
+.Xr whatis 1 ,
+.Xr apropos 1 ,
+.Xr whereis 1 ,
+.Xr man 1 ,
+.Xr man.conf 5 ,
+.Sh BUGS
+Doesn't use
+.Pa /etc/man.conf .
+Reads the formatted man pages so it is easily fooled.

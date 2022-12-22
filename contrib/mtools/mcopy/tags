@@ -1,0 +1,5 @@
+Mmcopy	mcopy.c	/^main(argc, argv)$/
+WEXITSTATUS	mcopy.c	/^#define WEXITSTATUS(x) (((x)>>8)&0xff)$/
+chain	mcopy.c	/^chain(argc, argv)$/
+mkdir	mcopy.c	/^mkdir(path, mode)$/
+unixname	mcopy.c	/^unixname(filename)$/

@@ -1,0 +1,137 @@
+.\"
+.\" Copyright (c) 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: kerberos.8,v 1.1 1994/02/03 04:24:57 sanders Exp $
+.\"
+.Dd January 31, 1994
+.Dt KERBEROS 8
+.Os
+.Sh NAME
+.Nm kerberos
+.Nd configuration procedure
+.Sh DESCRIPTION
+Edit
+.Pa /etc/kerberosIV/krb.conf
+to define the local realm and the administration server, e.g.:
+.Bd -literal -offset indent
+BSDI.COM
+BSDI.COM BSDI.COM admin server
+.Ed
+.Pp
+Run
+.Xr kdb_init 8
+to initialize the master database.
+.Pp
+Run
+.Xr kstash 8
+to store the master key.
+.Pp
+Uncomment the command
+.Ql "kerberos >> /var/log/kerberos.log &"
+in
+.Pa /etc/rc.local .
+Go ahead and start the
+.Pa /usr/sbin/kerberos
+daemon by hand also.
+.Pp
+Uncomment the lines for
+.Ql "krbupdate
+and
+.Ql kpasswd
+in
+.Pa /etc/inetd.conf
+and send inetd a SIGHUP.
+.Pp
+Run
+.Ql "kdb_edit -n
+and create entries for
+.Ql rcmd.host
+(where host is the hostname) for each host that will be running Kerberos.
+Also, create a
+.Ql kpasswd.host
+for the main host (where host is the hostname).
+.Pp
+Create an
+.Pa /.update.keyXX.XX.XX.XX
+file (where XX.XX.XX.XX is the ip
+address of the server machine) on each machine that should be able to
+run the
+.Xr register 1
+program.  The contents are a single line with a string that is the shared
+password.
+.Pp
+Create
+.Pa /etc/kerberosIV/register_keys/.update.keyXX.XX.XX.XX
+on the master Kerberos machine for each of the machines from the previous
+step (the passwds must match, of course).
+.Pp
+Run
+.Xr ext_srvtab 8
+for each of the client machines (and the server) copy the
+.Pa srvtab.new
+files onto the appropriate machines.  Make sure the client
+machines also have the correct
+.Pa /etc/kerberosIV/krb.conf
+files and have the correct services enabled in
+.Pa /etc/inetd.conf .
+.Pp
+Users should be able to create principals for themselves using
+.Xr register 1
+on the machines that are set up to run it.
+.Pp
+The kerberized
+Nm passwd
+command will change the Kerberos password --
+use the
+.Fl l
+flag to change the local password.
+.Pp
+The su command uses roots .klogin file for authentication uses the root
+instance for the current user for the passwd -- the entries in root's
+.klogin file should be of the form:
+.Bd -literal -offset indent
+user.root@realm
+.Ed
+(e.g., polk.root@BSDI.COM).  You can create root instances using
+.Ql "kdb_edit -n" .
+.Sh FILES
+.Bl -tag -width Ds -compact
+.It Pa /etc/kerberosIV/krb.conf
+Kerberos configuration file, contains Kerberos domain and server information.
+.It Pa /etc/kerberosIV/krb.realms
+Host to Kerberos realm translation file
+.It Pa /etc/kerberosIV/master_key
+Saved master encryption key (used with commands that support -n).
+.It Pa /etc/kerberosIV/principal.db
+The Kerberos database.
+.It Pa /etc/kerberosIV/register_keys/*
+Encryption keys for
+.Xr register 1 ,
+one copy on the server in this directory, and another
+on the machine itself in
+.Pa /.update.keyXX.XX.XX.XX .
+.It Pa /etc/kerberosIV/srvtabs/*
+Output files from
+.Xr ext_srvtab 8 .  These files contains all
+the keys registered for Kerberos-mediated services on each host.
+.El
+.Sh SEE ALSO
+.Xr kdestroy 1 ,
+.Xr kerberos 1 ,
+.Xr kinit 1 ,
+.Xr klist 1 ,
+.Xr ksrvtgt 1 ,
+.Xr register 1 ,
+.Xr ext_srvtab 8 ,
+.Xr kdb_destroy 8 ,
+.Xr kdb_edit 8 ,
+.Xr kdb_init 8 ,
+.Xr kdb_util 8 ,
+.Xr kpasswdd 8 ,
+.Xr kstash 8 ,
+.Xr make_keypair 8 ,
+.Xr registerd 8 ,
+.Xr krb.conf 5 ,
+.Xr krb.realms 5

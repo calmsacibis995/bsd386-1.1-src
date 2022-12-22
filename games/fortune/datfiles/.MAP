@@ -1,0 +1,12 @@
+F FORTUNE0.;1                       	fortunes
+F FORTUNE0.OK;1                     	fortunes-o.sp.ok
+F FORTUNE0.ROT;1                    	fortunes-o.fake.rot13
+F FORTUNE1.;1                       	fortunes-o
+F FORTUNE1.OK;1                     	fortunes.sp.ok
+F FORTUNE1.ROT;1                    	fortunes-o.real.rot13
+F FORTUNES.REA;1                    	fortunes-o.real
+F MAKEFILE.;1                       	Makefile
+F STARTREK.;1                       	startrek
+F STARTREK.OK;1                     	startrek.sp.ok
+F ZIPPY.;1                          	zippy
+F ZIPPY_SP.OK;1                     	zippy.sp.ok

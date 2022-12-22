@@ -1,0 +1,84 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd January 14, 1994
+.Dt MCD 4 i386
+.Os
+.Sh NAME
+.Nm mcd
+.Nd Mitsumi CD-ROM driver
+.Sh SYNOPSIS
+.Cd "device mcd0 at isa? port 0x334 irq 9"
+.Sh DESCRIPTION
+The special files
+.Pa /dev/mcd[%d][a-h]
+and
+.Pa /dev/rmcd[%d][a-h]
+provide block and raw access to the Mitsumi CRMC CD-ROM disk drive
+using its associated ISA bus controller.  This drive has very poor
+random access performance, but it can read a string of contiguous
+blocks a the full disk speed.  To improve the average performance, the
+driver contains a 32K byte read-ahead buffer.  This buffer is also
+used to allow random access to the device, without regard to the 2048
+byte physical sector size.
+.Pp
+The controller does not support interrupt auto-configuration, so the
+kernel config file irq specification should contain an explicit
+interrupt number, chosen from the set 3, 5, 9, 10, 11, 12 or 15.  
+Make sure the irq jumper on the card agrees with the config file
+value (and note that the jumper for interrupt 2 corresponds to
+software level 9).  On very fast machines, or machines with light
+interrupt loading, it is possible to use the driver without
+interrupts.  To do this, omit the irq specification from the config
+file and remove the interrupt jumper.  Using the driver in this
+mode can cause undetected read errors.
+.Pp
+The controller occupies 4 io ports with base port in the range
+0x300 to 0x3fc.  The port is configured using a dip switch on the
+controller card.
+.Pp
+The driver supports both DMA and non-DMA operation for both the
+8-bit and 16-bit versions of the controller.
+.Pp
+When no BSD label is present on a loaded CD-ROM, the driver will
+generate a default label which defines the `a' and `h' partitions
+to represent the entire disk.
+.Pp
+To control the audio play functions of the drive, see the library
+.Xr cdrom 3 .
+.Pp
+In this experimental version of the driver, the ioctl
+.Dv MCDIOCSETBUF
+can be used to change the size of the read-ahead buffer.  This
+command is unsafe if it is given while there is an outstanding read
+request, so be careful to use it only when the drive is idle.  The
+argument is a pointer to an integer, which must be a multiple of
+2048 and less than or equal to 256K bytes.
+.Sh
+DIAGNOSTICS
+.Bl -diag
+.It mcd%d: no disk in drive
+.sp 1
+Operation failed because the drive is empty, or the door is not
+shut.
+.Pp
+.It mcd%d: premature status %x %x
+.It mcd%d: unexpected data %x %x
+.It mcd%d: command error %x
+.It mcd%d: too few status bytes: %d
+.It mcd%d: command time out
+.It mcd%d: block %d: read error
+.sp 1
+These are various errors that can occur when trying to read.  Check
+that the disk is a CD-ROM, as opposed CD-AUDIO.
+.Sh FILES
+.Bl -tag -width Pa
+.It Pa /dev/cdrom
+.It Pa /dev/rcdrom
+.Sh SEE ALSO
+.Xr cdrom 3
+.El
+.Sh HISTORY
+The
+.Nm mcd
+driver first appeared in BSDI.

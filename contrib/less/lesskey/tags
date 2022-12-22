@@ -1,0 +1,3 @@
+Mlesskey	lesskey.c	/^main(argc, argv)$/
+tchar	lesskey.c	/^tchar(pp)$/
+usage	lesskey.c	/^usage()$/

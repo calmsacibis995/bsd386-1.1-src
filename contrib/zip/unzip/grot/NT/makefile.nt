@@ -1,0 +1,73 @@
+# NMAKE Makefile
+# D. Feinleib 7/92 t-davefe@microsoft.com
+# Windows NT
+
+# Nmake macros for building Windows NT applications
+!include <ntwin32.mak>
+
+CRYPTF=
+CRYPTO=
+# For decryption version, uncomment next two lines:
+# CRYPTF=-DCRYPT
+# CRYPTO=CRYPT.obj
+
+PROJ=unzip
+OBJA=ENVARGS.obj EXPLODE.obj EXTRACT.obj FILE_IO.obj INFLATE.obj
+OBJB=MAPNAME.obj MATCH.obj MISC.obj UNREDUCE.obj UNSHRINK.obj UNZIP.obj
+
+OBJ=$(OBJA) $(OBJB) $(CRYPTO)
+
+cvars=$(cvars) $(CRYPTF)
+
+all : UNZIP.exe
+
+CRYPT.obj : CRYPT.c
+    $(cc) $(cflags) $(cvars) CRYPT.c
+    $(cvtobj) CRYPT.obj
+
+ENVARGS.obj : ENVARGS.c
+    $(cc) $(cflags) $(cvars) ENVARGS.c
+    $(cvtobj) ENVARGS.obj
+
+EXPLODE.obj : EXPLODE.c
+    $(cc) $(cflags) $(cvars) EXPLODE.c
+    $(cvtobj) EXPLODE.obj
+
+EXTRACT.obj : EXTRACT.c
+    $(cc) $(cflags) $(cvars) EXTRACT.c
+    $(cvtobj) EXTRACT.obj
+
+FILE_IO.obj : FILE_IO.c
+    $(cc) $(cflags) $(cvars) FILE_IO.c
+    $(cvtobj) FILE_IO.obj
+
+INFLATE.obj : INFLATE.c
+    $(cc) $(cflags) $(cvars) INFLATE.c
+    $(cvtobj) INFLATE.obj
+
+MAPNAME.obj : MAPNAME.c
+    $(cc) $(cflags) $(cvars) MAPNAME.c
+    $(cvtobj) MAPNAME.obj
+
+MATCH.obj : MATCH.c
+    $(cc) $(cflags) $(cvars) MATCH.c
+    $(cvtobj) MATCH.obj
+
+MISC.obj : MISC.c
+    $(cc) $(cflags) $(cvars) MISC.c
+    $(cvtobj) MISC.obj
+
+UNREDUCE.obj : UNREDUCE.c
+    $(cc) $(cflags) $(cvars) UNREDUCE.c
+    $(cvtobj) UNREDUCE.obj
+
+UNSHRINK.obj : UNSHRINK.c
+    $(cc) $(cflags) $(cvars) UNSHRINK.c
+    $(cvtobj) UNSHRINK.obj
+
+UNZIP.obj : UNZIP.c
+    $(cc) $(cflags) $(cvars) UNZIP.c
+    $(cvtobj) UNZIP.obj
+
+UNZIP.exe : $(OBJ)
+    $(link) $(conflags) -out:$(PROJ).exe $(OBJ) $(conlibs)

@@ -1,0 +1,98 @@
+You will need to edit the Makefile. The comments should make it clear
+what needs changing. Do a make; then do a make install as root.
+
+You need to decide what baud rate you are going to use. If you have a
+very old Laserwriter (not a plus), you will have to use 9600;
+otherwise you should be able to use 38400.
+
+You need to add an entry in /etc/printcap.  Here's the entry I use:
+
+lp|ps:\
+	:br#38400:lp=/dev/ttya:mx#0:sf:sh:rw:sb:\
+	:fc#0177777:fs#003:ms=-isig,igncr,cstopb,-echok:\
+	:af=/usr/adm/psacct:lf=/usr/adm/pslog:sd=/usr/spool/pslpd:\
+	:if=/usr/local/lib/psif:
+
+This entry would be appropriate if you were using /dev/ttya and a baud
+rate of 38400.  Note that the `sf', `rw' and `sb' capabilities are
+essential.  You need to create the spool directory (/usr/spool/pslpd),
+the accounting file (/usr/adm/psacct), and the log file
+(/usr/adm/pslog).  The spool directory and the accounting file should
+be owned by daemon, the log file by root. You can use other names if
+you want.  The `ms' capabability is a Sun extension.  If you decide to
+make use of the patches in lpr.diff, you should also add the `ex'
+boolean capability (the patches also add the `ms' capability.)
+
+If you wish to have banner printing, then you should add
+`of=/usr/local/lib/psof', and remove the `sh' capability.  You will
+probably also wnat to modify the banner printing code in banner.ps.
+As distributed, it provides a fairly minimalist banner page.  Note
+that psof requires the `sb' capability.  If your printer stacks face
+up and you're using the 4.3BSD (or later) lpd, then you can add an
+`hl' capability to specify that the banner page should be printed at
+the end of a job instead of at the beginning.
+
+You can add easily add other filters. For example, suppose you want to
+add a filter for dvi files. Then add an entry to /etc/printcap:
+
+  :df=/usr/local/lib/psdf:
+
+Then create a shell script /usr/local/lib/psdf
+
+#!/bin/sh
+/usr/local/bin/dvitops | /usr/local/lib/lprps "$@"
+
+Replace `/usr/local/bin/dvitops' by the name of your favourite dvi to
+ps program (it must be able to read from the standard input). Then you
+can print dvi files with `lpr -d'.
+
+You must also set the printer's communication parameters. Make sure
+you have an entry like this in /etc/remote:
+
+  ttya:dv=/dev/ttya:br#1200:el=^D:
+
+Set the switch on your printer to position labelled 1200 or 0. Then 
+
+  tip ttya
+
+(*)Now carefully type
+
+  executive
+
+and then RETURN. The printer will not echo this while you are typing.
+If you typed it correctly, the printer will print a banner and a
+prompt.  If you get an error message from the printer, type CTRL-D and
+try again.  If you don't get any response at all, you probably have a
+cable problem. Then type
+
+  serverdict begin 0 exitserver
+
+and RETURN. The printer should say something like
+
+  %%[ exitserver: permanent state may be changed ]%%
+
+Then type
+
+  statusdict begin 25 38400 3 setsccbatch end
+
+and RETURN. The printer will not echo this. If you get an error message,
+type CTRL-D and go back to (*). Otherwise type CTRL-D.
+
+Now check to see that this worked. Type
+
+  executive 
+
+again. Then
+
+  statusdict begin 25 sccbatch end = = 
+
+The printer should say
+
+  3
+  38400
+
+If it does, type CTRL-D, exit tip, and set the switch on the printer
+back to the position labelled 9600 or 1.  If not, type CTRL-D and try
+again from (*).
+
+$Id: INSTALL,v 1.2 1994/01/13 17:53:23 sanders Exp $

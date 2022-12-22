@@ -1,0 +1,34 @@
+Menvargs	../unzip/envargs.c	/^main(argc, argv)$/
+Mmatch	../unzip/match.c	/^int main(int argc, char *argv[])$/
+Mzipinfo	zipinfo.c	/^main(argc, argv)$/
+SizeOfEAs	zipinfo.c	/^ULONG SizeOfEAs(extra_field)   \/* Author: Kai Uwe/
+UpdateCRC	../unzip/misc.c	/^void UpdateCRC(s, len)$/
+check_for_newer	../unzip/misc.c	/^int check_for_newer(filename)   \/* return 1 if ex/
+count_args	../unzip/envargs.c	/^count_args(s)$/
+dateformat	../unzip/misc.c	/^int dateformat()$/
+do_string	../unzip/misc.c	/^int do_string(len, option)      \/* return PK-type/
+dos_to_unix_time	../unzip/misc.c	/^time_t dos_to_unix_time(ddate, dtime)$/
+dump_args	../unzip/envargs.c	/^dump_args(argc, argv)$/
+envargs	../unzip/envargs.c	/^envargs(Pargc, Pargv, envstr)$/
+find_end_central_dir	zipinfo.c	/^int find_end_central_dir()   \/* return 0 if found/
+is_pattern	../unzip/match.c	/^BOOLEAN is_pattern (char *p)$/
+is_valid_pattern	../unzip/match.c	/^BOOLEAN is_valid_pattern (char *p, int *error_type/
+long_info	zipinfo.c	/^int long_info()   \/* return PK-type error code */
+makelong	../unzip/misc.c	/^ULONG makelong(sig)$/
+makeword	../unzip/misc.c	/^UWORD makeword(b)$/
+match	../unzip/match.c	/^int match(string,pattern)$/
+matche	../unzip/match.c	/^static int matche(p, t)$/
+matche_after_star	../unzip/match.c	/^static int matche_after_star (p,t)$/
+mem_err	../unzip/envargs.c	/^mem_err()$/
+memcpy	../unzip/misc.c	/^char *memcpy(dst, src, len)$/
+memset	../unzip/misc.c	/^char *memset(buf, init, len)$/
+open_input_file	zipinfo.c	/^int open_input_file()   \/* return 1 if open faile/
+process_cdir_file_hdr	zipinfo.c	/^int process_cdir_file_hdr()   \/* return PK-type e/
+process_central_dir	zipinfo.c	/^int process_central_dir()   \/* return PK-type err/
+process_end_central_dir	zipinfo.c	/^int process_end_central_dir()   \/* return PK-type/
+process_zipfile	zipinfo.c	/^int process_zipfile()   \/* return PK-type error c/
+readbuf	zipinfo.c	/^int readbuf(buf, size)   \/* return number of byte/
+return_VMS	../unzip/misc.c	/^void return_VMS(zip_error)$/
+short_info	zipinfo.c	/^int short_info()   \/* return PK-type error code */
+usage	zipinfo.c	/^int usage(error)$/
+zipinfo_time	zipinfo.c	/^char *zipinfo_time(datez, timez)$/

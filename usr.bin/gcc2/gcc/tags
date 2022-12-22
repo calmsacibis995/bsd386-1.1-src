@@ -1,0 +1,57 @@
+CALL_CHUNKFUN	../common/obstack.c	/^#define CALL_CHUNKFUN(h, size) \\$/
+CALL_FREEFUN	../common/obstack.c	/^#define CALL_FREEFUN(h, old_chunk) \\$/
+DEFAULT_WORD_SWITCH_TAKES_ARG	gcc.c	/^#define DEFAULT_WORD_SWITCH_TAKES_ARG(STR)		\\$/
+Mgcc	gcc.c	/^main (argc, argv)$/
+SWITCH_TAKES_ARG	gcc.c	/^#define SWITCH_TAKES_ARG(CHAR)      \\$/
+S_ISDIR	gcc.c	/^#define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)$/
+S_ISREG	gcc.c	/^#define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)$/
+WORD_SWITCH_TAKES_ARG	gcc.c	/^#define WORD_SWITCH_TAKES_ARG(STR) DEFAULT_WORD_SW/
+_obstack_allocated_p	../common/obstack.c	/^_obstack_allocated_p (h, obj)$/
+_obstack_begin	../common/obstack.c	/^_obstack_begin (h, size, alignment, chunkfun, free/
+_obstack_begin_1	../common/obstack.c	/^_obstack_begin_1 (h, size, alignment, chunkfun, fr/
+_obstack_free	../common/obstack.c	/^_obstack_free (h, obj)$/
+_obstack_newchunk	../common/obstack.c	/^_obstack_newchunk (h, length)$/
+add_prefix	gcc.c	/^add_prefix (pprefix, prefix, first, require_machin/
+choose_temp_base	gcc.c	/^choose_temp_base ()$/
+choose_temp_base_try	gcc.c	/^choose_temp_base_try (try, base)$/
+clear_args	gcc.c	/^clear_args ()$/
+clear_failure_queue	gcc.c	/^clear_failure_queue ()$/
+concat	gcc.c	/^concat (s1, s2, s3)$/
+delete_failure_queue	gcc.c	/^delete_failure_queue ()$/
+delete_temp_files	gcc.c	/^delete_temp_files ()$/
+do_spec	gcc.c	/^do_spec (spec)$/
+do_spec_1	gcc.c	/^do_spec_1 (spec, inswitch, soft_matched_part)$/
+error	gcc.c	/^error (va_alist)$/
+execute	gcc.c	/^execute ()$/
+execv	gcc.c	/^int execv(const char *a, const char **b){}$/
+execvp	gcc.c	/^int execvp(const char *a, const char **b){}$/
+fancy_abort	gcc.c	/^fancy_abort ()$/
+fatal	gcc.c	/^fatal (va_alist)$/
+fatal_error	gcc.c	/^fatal_error (signum)$/
+find_a_file	gcc.c	/^find_a_file (pprefix, name, mode)$/
+find_file	gcc.c	/^find_file (name)$/
+free_path_prefix	gcc.c	/^free_path_prefix (pprefix)$/
+give_switch	gcc.c	/^give_switch (switchnum, omit_first_word)$/
+handle_braces	gcc.c	/^handle_braces (p)$/
+is_directory	gcc.c	/^is_directory (path1, path2, linker)$/
+lookup_compiler	gcc.c	/^lookup_compiler (name, length, language)$/
+obstack_free	../common/obstack.c	/^obstack_free (h, obj)$/
+perror_exec	gcc.c	/^perror_exec (name)$/
+perror_with_name	gcc.c	/^perror_with_name (name)$/
+pexecute	gcc.c	/^pexecute (search_flag, program, argv, not_last)$/
+pfatal_with_name	gcc.c	/^pfatal_with_name (name)$/
+process_command	gcc.c	/^process_command (argc, argv)$/
+putenv	gcc.c	/^putenv (str)$/
+putenv_from_prefixes	gcc.c	/^putenv_from_prefixes (paths, env_var)$/
+read_specs	gcc.c	/^read_specs (filename)$/
+record_temp_file	gcc.c	/^record_temp_file (filename, always_delete, fail_de/
+save_string	gcc.c	/^save_string (s, len)$/
+set_spec	gcc.c	/^set_spec (name, spec)$/
+skip_whitespace	gcc.c	/^skip_whitespace (p)$/
+store_arg	gcc.c	/^store_arg (arg, delete_always, delete_failure)$/
+translate_options	gcc.c	/^translate_options (argcp, argvp)$/
+unused_prefix_warnings	gcc.c	/^unused_prefix_warnings (pprefix)$/
+validate_all_switches	gcc.c	/^validate_all_switches ()$/
+validate_switches	gcc.c	/^validate_switches (start)$/
+xmalloc	gcc.c	/^xmalloc (size)$/
+xrealloc	gcc.c	/^xrealloc (ptr, size)$/

@@ -1,0 +1,29 @@
+
+Sun Jan 10 13:15:23 PST 1993
+
+This update fixes several bugs in the btree code.
+
++ If key/data pairs were large enough, it was possible to split the
+  page and still not have enough room for the new key.  The fix
+  required passing the key size into the code performing the split
+  and doing the calculation differently.  Because of this, most of
+  the actual split code has been reworked.  It seems to be okay, now,
+  but the handling of cursors on split pages has only been lightly
+  tested.
+  
++ The split code depended on the fact that the left-most key in the
+  right split page was always filled in.  This can't be guaranteed.
+  The fix required removing this dependency.
+
++ The stack wasn't always getting cleared.  The fix was to just always
+  clear the stack when the search routine is called.
+
++ The search routines couldn't handle an index of zero -- it's possible
+  when doing prefix compression to get into situations where you're
+  inserting keys onto pages that are smaller than the first key on the
+  page.  The fix was to change the search routine to handle an index
+  of zero.
+
++ It's not permissible to do prefix compression when splitting a btree
+  internal page, as opposed to a btree leaf page.  The code that attempted
+  to do that compression has been deleted.

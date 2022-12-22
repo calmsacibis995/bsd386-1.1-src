@@ -1,0 +1,8 @@
+Mpsof	psof.c	/^int main(argc, argv)$/
+define_string	psof.c	/^static int define_string(name, str, psfp)$/
+do_banner	psof.c	/^static int do_banner(psfp)$/
+error	psof.c	/^static void error(s)$/
+parse_banner	psof.c	/^static int parse_banner(s)$/
+print_banner	psof.c	/^static void print_banner()$/
+sys_error	psof.c	/^static void sys_error(s)$/
+xstrstr	psof.c	/^static char *xstrstr(p, q)$/

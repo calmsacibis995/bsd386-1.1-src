@@ -1,0 +1,351 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/intro.4f,v 1.1.1.1 1994/01/14 23:10:11 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH INTRO 4F "August 30, 1993"
+.SH NAME
+intro \- introduction to 
+.I FlexFAX
+operation and file formats
+.SH DESCRIPTION
+.I FlexFAX
+is a system for sending and receiving facsimile.
+It supports queued transmission and asynchronous 
+reception of facsimile.
+Ancillary programs are invoked by
+the system for flexibility
+and configurability.
+.I FlexFAX
+includes client and server programs to
+support remote submission of jobs for transmission,
+remote removal of queued jobs, and to remotely
+query the status of jobs queued for transmission.
+This document describes the organization of the 
+filesystem spooling area in which 
+.I FlexFAX
+server and server-related processes operate, and
+introduces the various files that reside in the spooling area.
+.SH OVERVIEW
+The spooling area is typically located under the
+directory
+.IR ${SPOOL} .
+Ancillary commands used by the servers
+.IR faxd (1M)
+and
+.IR faxd.recv (1M),
+and by administration tools are located in the 
+.B bin
+subdirectory.
+Configuration, access control, and accounting
+information are maintained in the
+.B etc
+subdirectory.
+Outgoing facsimile jobs are described by files
+in the
+.B sendq
+subdirectory, while received facsimile are deposited in the
+.B recvq
+subdirectory.
+The
+.B docq
+and
+.B temp
+subdirectories are also used in the transmission of facsimile.
+The
+.B info
+subdirectory contains files that describe the capabilities
+of facsimile machines that 
+.I FlexFAX
+has called\-
+this information is used in preparing documents for transmission.
+The
+.B cinfo
+subdirectory contains files with per-machine
+control parameters to use when sending facsimile.
+The
+.B status
+subdirectory contains files that server processes write their
+current status to.
+The
+.B log
+subdirectory contains logging information about send and
+receive sessions.
+.PP
+.I FlexFAX
+supports multiple facsimile modems on a single host.
+Each modem has a server process associated with it
+that handles transmission and asynchronous reception.
+Server processes operate independently of each other
+and utilize file-level locking to avoid conflicts when
+handling jobs submitted for transmission.
+There are currently no per-modem priority or access control
+mechanisms \- all modems are treated equally.
+Server processes accept commands through
+.SM FIFO
+special device files; see
+.IR mknod (2)
+or
+.IR mkfifo (2).
+All server processes listen for commands
+written to the file named
+.BR FIFO ,
+as well as a per-device file named
+.BI FIFO .devid
+(where
+.I devid
+is an identifier derived from the name of the device
+special file to which the modem is connected; e.g.
+.I ttym2
+for
+.IR /dev/ttym2 ,
+.I term_10
+for
+.IR /dev/term/10 .)
+To send a command to any server process, one writes to
+.BR FIFO .
+This is useful, for example, for submitting a job for
+transmission.
+To send a command to a specific server process, the
+.BI FIFO .devid
+file is used.
+.SH SENDING
+Each outgoing facsimile job has a job description file
+that is located in the
+.B sendq
+subdirectory.
+This file contains all the information necessary to
+manage the transmission; c.f.
+.IR sendq (4F).
+The actual documents that are to be sent are located
+in the
+.B docq
+subdirectory.
+.I FlexFAX
+accepts PostScript and 
+.SM TIFF
+Class F documents for transmission.
+PostScript documents are automatically converted to 
+.SM TIFF
+documents prior to transmission according to the capabilities
+of the remote facsimile machine: maximum page width
+and length, ability to handle 2D encoded data, ability
+to handle high resolution (7 line/mm) data.
+This remote machine capability information is stored
+in files in the
+.B info
+subdirectory.
+If a machine has not been called before,
+.I FlexFAX
+assumes the remote machine has the requested capabilities.
+.PP
+While a job is being processed by a server process,
+its job description file is locked for exclusive
+use with
+.IR flock (2).
+This insures that multiple server processes do not
+simultaneously attempt to process a job.
+The
+.IR faxstat (1)
+program uses this information to tell if a job is being processed.
+.PP
+If the
+.B SessionTracing
+parameter in a server's configuration file is non-zero,
+then tracing information for an outgoing job will be logged
+in a file in the
+.B log
+subdirectory.
+Each destination machine has a separate log file named
+by its canonical phone number.
+.PP
+The remote job submission facility includes per-host
+access control.
+The file
+.B etc/hosts
+must be present and list those hosts that are
+permitted to queue jobs for transmission.
+Note that it is necessary to include the ``local host''
+definition (usually 127.0.0.1) if local submission
+is to be permitted.
+.SH RECEIVING
+Server processes can be configured to answer incoming
+phone calls and automatically receive facsimile.
+Received documents are placed in the
+.B recvq
+subdirectory as
+.SM TIFF
+Class F files.
+The server can be configured to make these files publicly
+accessible, or they can be made private in which case
+an administrator must manage their delivery.
+When a facsimile is received, the server process invokes the
+.B bin/faxrcvd
+command.
+The default command is a shell script that sends a mail
+message to a well known user, the
+.IR FaxMaster ,
+but one might also, for example, automatically spool the
+document for printing.
+.PP
+.I FlexFAX
+supports a simple form of access control for receiving facsimile.
+The server may be configured to check the
+Transmission Subscriber Identifiers (\s-1TSI\s+1)
+of the remote fax machine against a data base, typically
+.BR etc/tsi .
+Only if the 
+.SM TSI
+is present in the data base, is the remote machine permitted
+to transmit a document.
+This mechanism can be used, for example, to guard against
+.IR "junk fax" .
+.SH POLLING
+.I FlexFAX
+supports the polled retrieval of facsimile documents.
+Documents that are received because of a poll request are
+stored in the
+.B recvq
+subdirectory and also delivered directly to the requester using the
+.B bin/pollrcvd
+command.
+This script typically encodes the binary facsimile data and
+returns it to the user via electronic mail.
+.SH "DATA CALLS"
+Most fax modems also support non-facsimile communication.
+.I FlexFAX
+uses the locking mechanism employed by
+.IR uucp (1C),
+.IR cu (1C),
+and
+.IR slip (1M).
+As a result, it will transparently ``get out of the way''
+when an application wants to use the modem for an outgoing
+call.
+In addition,
+.I FlexFAX
+attempts to deduce whether an incoming
+call is for facsimile or data use.
+If called by a data modem and the
+.B GettyArgs
+parameter is specified in the configuration file (or on the
+command line when the fax server process is started up),
+.I FlexFAX
+will invoke the
+.IR getty (1M)
+program so that caller may login to the system.
+.SH STATUS
+.I FlexFAX
+maintains status information in several forms.
+General status information for each server process is maintained
+in the
+.B status
+subdirectory and returned to users by the
+.IR faxstat (1)
+program.
+The
+.IR syslog (3)
+facility is used by all server processed
+for logging status and error diagnostics.
+The server processes may also be configured to log various
+kinds of debugging and tracing information; c.f.
+.IR config (4F).
+.PP
+Any problems encountered when transmitting a facsimile
+are returned to the user by electronic mail.
+A user may also request notification by mail when a
+job is requeued; for example, because a call failed.
+Notification by electronic mail is implemented by the
+.B bin/notify
+command script.
+.PP
+The
+.IR faxstat
+utility provides (remote) status of jobs queued
+for transmission, jobs received, and the general
+status of server processes.
+.PP
+The file
+.B etc/xferlog
+contains status information about all facsimile sent and
+received on a machine.
+This file is in a simple
+.SM ASCII
+format that is easy to manipulate with programs such as
+.IR awk (1),
+to generate accounting information.
+See
+.IR xferlog (4F)
+for information about the format.
+See
+.IR xferstats (1M)
+and
+.IR recvstats (1M)
+for example scripts that print summarized accounting information.
+.SH NOTES
+There is no support for priority queueing.
+Automatic routing of incoming facsimile is desirable.
+.SH FILES
+.nf
+.ta \w'etc/config.<devid>    'u
+FIFO	fifo for job submission
+FIFO.<devid>	fifo for accessing a specific server
+bin/faxinfo	command that prints information about received facsimile
+bin/faxquit	command to force server to quit
+bin/faxrcvd	faxd command for handling newly received facsimile
+bin/notify	faxd command for doing user notification
+bin/pollrcvd	faxd command for delivering facsimile received by poll
+bin/ps2fax	faxd command for converting PostScript to TIFF
+docq/doc*	documents queued for transmission
+etc/config.<devid>	configuration data for <devid>
+etc/hosts	hosts that may submit jobs for transmission
+etc/tsi	fax machines that we'll accept transmissions from
+etc/xferlog	log of facsimile sent and received
+info/*	data base of remote fax machine capabilities
+cinfo/*	data base of remote fax machine control parameters
+log/*	session logging records
+recvq/fax*	received facsimile
+sendq/q*	descriptions of jobs queued for transmission
+status/*	server status information
+tmp/*	temporary files created when submitting a job
+.fi
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR faxd.recv (1M),
+.IR faxrcvd (1M),
+.IR notify (1M),
+.IR pollrcvd (1M),
+.IR recvstats (1M),
+.IR xferstats (1M),
+.IR cinfo (4F),
+.IR config (4F),
+.IR dialrules (4F),
+.IR hosts (4F),
+.IR info (4F),
+.IR log (4F),
+.IR tsi (4F),
+.IR recvq (4F),
+.IR sendq (4F),
+.IR status (4F),
+.IR xferlog (4F),

@@ -1,0 +1,7 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/syslogd
+F PATHNAME.H;1                      	pathnames.h
+F SYSLOGD.8;1                       	syslogd.8
+F SYSLOGD.C;1                       	syslogd.c
+F SYSLOG_C.5;1                      	syslog.conf.5
+F TAGS.;1                           	tags

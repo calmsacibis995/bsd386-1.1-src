@@ -1,0 +1,6 @@
+#
+# show that IFS is only applied to the result of expansions
+#
+../bash ifs-test-1.sh
+../bash ifs-test-2.sh
+../bash ifs-test-3.sh

@@ -1,0 +1,14 @@
+F ALL.;1                            	all
+F BTREE.TES;1                       	btree.test
+F DEFS.;1                           	defs
+F LISTBOX.TES;1                     	listbox.test
+F OLDPACK.TES;1                     	oldpack.test
+F OPTION.TES;1                      	option.test
+F OPTION0.FIL;1                     	option.file1
+F OPTION1.FIL;1                     	option.file2
+F PACK.TES;1                        	pack.test
+F RAISE.TES;1                       	raise.test
+F README.;1                         	README
+F SELECT.TES;1                      	select.test
+F TEXT.TES;1                        	text.test
+F WM_TEST.;1                        	wm.test

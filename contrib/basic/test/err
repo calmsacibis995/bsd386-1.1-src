@@ -1,0 +1,6 @@
+ 1000	rem	Try running this program
+ 1010	rem	notice the ordering problem of the error message
+ 1020	print 'this is it'
+ 1030	print 'this is more';
+ 1040	input r
+ 1050	end

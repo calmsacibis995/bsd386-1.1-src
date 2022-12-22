@@ -1,0 +1,92 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: ex.4,v 1.2 1994/01/14 07:19:23 donn Exp $
+.\"
+.Dd January 14, 1994
+.Dt EX 4 i386
+.Os
+.Sh NAME
+.Nm ex
+.Nd
+.Tn Intel
+EtherExpress 16 Ethernet interface
+.Sh SYNOPSIS
+.Cd "device ex0 at isa? port 0x260"
+.Sh DESCRIPTION
+The
+.Nm ex
+interface provides access to a 10 Mb/s Ethernet network.  It uses a
+program-selectable block of 16 i/o ports in the range 0x200 through 0x270
+or 0x300 through 0x370.
+The block must be
+aligned on a 16 port boundary.  The hardware interrupt level is
+detected at autoconfiguration time or alternatively can be
+specified in the system configuration file.  Supported IRQs are:
+2(9), 3, 4, 5, 10, 11.
+DMA and shared memory are not supported and should be disabled.
+The type of interface (10BASE-2/BNC, AUI/DIX, or 10BASE-T/twisted pair)
+is set with the manufacturer-supplied setup program.
+On newer cards, the autoselect option should not be selected.
+On those cards, the selected interface is printed during
+autoconfiguration.
+It may be possible to change the choice of interface by setting
+the interface flags
+.Dv IFF_LINK0
+and/or
+.Dv IFF_LINK1 ,
+settable via the
+.Li link0
+and
+.Li link1
+options of
+.Xr ifconfig 8
+as follows:
+.Li link0
+selects BNC,
+.Li link1
+selects twisted pair, and
+.Li link0
+and
+.Li link1
+select AUI.
+If neither flag is set, the pre-configured connector is used.
+Not all combinations have been successfully tested.
+.Pp
+The EtherExpress board should be installed in a 16-bit slot.
+To configure the board use the manufacturer-supplied program.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr ex
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It ex%d: invalid i/o base address %x
+.br
+Invalid port specification in kernel config file.
+.It ex%d: no irq available
+.br
+Automatic interrupt level detection failed.
+.It ep%d: invalid interrupt level %d
+.br
+Invalid IRQ specification in kernel config file.
+.It ex%d: init failed (%s)
+.br
+Error detected during initialization \-
+the most probable cause is a hardware failure.
+.It ex%d: reset
+.br
+Lost interrupt \- the board has been reset.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4

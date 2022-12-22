@@ -1,0 +1,16 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F LIBPNMR0.GZ;1                     	libpnmrw.c.gz
+F LIBPNMR1.GZ;1                     	libpnmrw.h.gz
+F READGIF_.GZ;1                     	readGIF.c.gz
+F READJPEG.GZ;1                     	readJPEG.c.gz
+F READTIFF.GZ;1                     	readTIFF.c.gz
+F READWRI0.GZ;1                     	readWritePNM.c.gz
+F READWRI1.GZ;1                     	readWriteSGI.c.gz
+F READWRI2.GZ;1                     	readWriteXBM.c.gz
+F READWRI3.GZ;1                     	readWriteXPM.c.gz
+F READWRI4.GZ;1                     	readWriteXWD.c.gz
+F RWTABLE0.GZ;1                     	rwTable.c.gz
+F RWTABLE1.GZ;1                     	rwTable.h.gz
+F WRITEGIF.GZ;1                     	writeGIF.c.gz
+F WRITEPS_.GZ;1                     	writePS.c.gz
+F WRITETIF.GZ;1                     	writeTIFF.c.gz

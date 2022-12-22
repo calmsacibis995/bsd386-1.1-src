@@ -1,0 +1,11 @@
+F AIX31.H;1                         	aix31.h
+F MACH.H;1                          	mach.h
+F POWERPC.H;1                       	powerpc.h
+F RS6000.C;1                        	rs6000.c
+F RS6000.H;1                        	rs6000.h
+F RS6000.MD;1                       	rs6000.md
+F XM_MACH.H;1                       	xm-mach.h
+F XM_RS600.H;1                      	xm-rs6000.h
+F X_AIX31.;1                        	x-aix31
+F X_MACH.;1                         	x-mach
+F X_RS6000.;1                       	x-rs6000

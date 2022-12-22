@@ -1,0 +1,29 @@
+% twoup.ps for dvips 5.47 by Piet van Oostrum <piet@cs.ruu.nl>
+%
+% modified to work with 5.493 by Serge A. Plotkin <plotkin@Theory.Stanford.EDU>
+%
+% the constants are for A4 paper.
+% Use with dvips -h twoup -t landscape 
+/isoddpage true def
+/orig-showpage /showpage load def
+/factor 0.707106781187 def
+/Nvsize  11 72 mul  def
+/showpage {
+        isoddpage not { orig-showpage } if
+        /isoddpage isoddpage not store } def
+
+/bop-hook {
+       /vsize Nvsize def
+        isoddpage {factor factor scale 0 350 translate}
+                 { 0 -544.283799804 translate} ifelse
+        } def
+
+/end-hook{ isoddpage not { orig-showpage } if } def
+
+/start-hook {/eos{ isoddpage {clear SS restore /isoddpage true store}
+		{clear SS restore /isoddpage false store}
+				 ifelse} B
+	/bos{/SS save N
+		isoddpage not {factor factor scale} if} B
+} def
+

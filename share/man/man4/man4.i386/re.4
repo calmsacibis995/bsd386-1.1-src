@@ -1,0 +1,42 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\" BSDI $Id: re.4,v 1.1 1994/01/31 08:41:44 donn Exp $
+.Dd January 30, 1994
+.Dt RE 4 i386
+.Os
+.Sh NAME
+.Nm re
+.Nd
+.Tn "Allied Telesis"
+RE2000/AT-1700 series Ethernet adapter
+.Sh SYNOPSIS
+.Cd "device re0 at isa? port 0x280"
+.Sh DESCRIPTION
+The
+.Nm re
+interface provides access to a 10 Mb/s Ethernet network.
+It supports the
+.Tn "Allied Telesis"
+RE2000/AT-1700 series Ethernet adapters.
+It uses a block of 32 i/o ports in the range 0x240 through 0x380.
+The block must be aligned on a 32 port boundary.
+The hardware interrupt level is read from the card
+or specified in the config file entry.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr re
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh AUTHOR
+Written by Sei Kigoshi <overwood@foretune.co.jp> for BSD/386.

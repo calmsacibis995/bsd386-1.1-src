@@ -1,0 +1,129 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/sgi2fax.1,v 1.1.1.1 1994/01/14 23:10:13 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH SGI2FAX 1 "May 12, 1993"
+.SH NAME
+sgi2fax \- convert a Silicon Graphics image file for facsimile transmission
+.SH SYNOPSIS
+.B ${LIBEXEC}/sgi2fax
+[
+.B \-12
+] [
+.B \-lm
+] [
+.B \-r
+.I %red
+] [
+.B \-g
+.I %green
+] [
+.B \-b
+.I %blue
+] [
+.B \-o
+.I output-file
+] [
+.B \-s
+.I pagesize-name
+] [
+.B \-v
+]
+.IR files ...
+.SH DESCRIPTION
+.I Sgi2fax
+is used to convert Silicon Graphics format images to
+bilevel
+.SM TIFF
+Class F images in preparation for transmission as facsimile.
+.I Sgi2fax
+is not normally invoked directly, but as a result of
+supplying an
+.SM SGI
+image file to
+.IR sendfax (1).
+.PP
+Images are converted by scaling them to fill the guaranteed
+reproduceable area on a default page.
+Each 
+.SM RGB
+pixel
+.I p
+is converted to greyscale according to:
+.nf
+.sp .5
+.ti +0.5i
+\fIp\fP\dr\u * %r + \fIp\fP\dg\u * %g + \fIp\fP\db\u * %b
+.sp .5
+.fi
+where %r, %g, and %b default to 30, 59, and 11, respectively.
+Greyscale images are passed through a high pass filter
+and dithered to a bilevel image.
+The resultant images are written as a 
+.SM TIFF
+Class F document.
+.PP
+By default, output has a horizontal resolution of 204 dpi
+and a vertical resolution of 98 lines/inch.
+The vertical resolution can be doubled with the
+.B \-m
+option.
+The
+.B \-l
+option specifies the default, 98 lpi, resolution.
+.PP
+The
+.BR \-r ,
+.BR \-g ,
+and
+.B \-b
+options can be used to specify alternate percentages to use
+in converting color values to greyscale.
+.PP
+By default,
+.I sgi2fax
+will write the output to a file named
+.IR sgi.fax .
+An alternate name can be specified with the
+.B \-o
+option.
+.PP
+By default, the output image is encoded using Group 3 1D encoding.
+1D or 2D encoding can be specified with the
+.B \-1
+and
+.B \-2
+options, respectively.
+.PP
+A non-default page size can be specified with the
+.B \-s
+option.
+.SH FILES
+.ta \w'${LIBDATA}/pagezes    'u
+${LIBDATA}/pagesizes	page size database
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1),
+.IR intro (4F)

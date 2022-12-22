@@ -1,0 +1,8 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.TMP;1                    	Makefile.tmpl
+F NTPQ.8;1                          	ntpq.8
+F NTPQ.C;1                          	ntpq.c
+F NTPQ.H;1                          	ntpq.h
+F NTPQ_OPS.C;1                      	ntpq_ops.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/xntp/ntpq
+F README.;1                         	README

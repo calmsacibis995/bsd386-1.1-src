@@ -1,0 +1,22 @@
+;>>>>>>> UNZIP.PRJ
+
+UNZIP.PRG
+
+=                  ; list of modules follows...
+
+; TCSTART.O          ; startup code
+MYSTART.O
+UNZIP.C
+FILE_IO.C
+MAPNAME.C
+MATCH.C
+MISC.C
+UNIMPLOD.C
+UNREDUCE.C
+UNSHRINK.C
+
+TCSTDLIB.LIB       ; standard library
+TCEXTLIB.LIB       ; extended library
+TCTOSLIB.LIB       ; TOS library
+
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

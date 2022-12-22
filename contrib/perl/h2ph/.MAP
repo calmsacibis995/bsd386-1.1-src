@@ -1,0 +1,5 @@
+F H2PH.1;1                          	h2ph.1
+F H2PH.PL;1                         	h2ph.pl
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/perl/h2ph
+F TAGS.;1                           	tags

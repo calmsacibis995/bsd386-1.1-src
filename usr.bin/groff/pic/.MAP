@@ -1,0 +1,18 @@
+F COMMON.CC;1                       	common.cc
+F COMMON.H;1                        	common.h
+D GROT                              	grot
+F LEX.CC;1                          	lex.cc
+F MAIN.CC;1                         	main.cc
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/pic
+F OBJECT.CC;1                       	object.cc
+F OBJECT.H;1                        	object.h
+F OUTPUT.H;1                        	output.h
+F PIC.H;1                           	pic.h
+F PIC.MAN;1                         	pic.man
+F PIC.Y;1                           	pic.y
+F POSITION.H;1                      	position.h
+F TAGS.;1                           	tags
+F TEX.CC;1                          	tex.cc
+F TEXT.H;1                          	text.h
+F TROFF.CC;1                        	troff.cc

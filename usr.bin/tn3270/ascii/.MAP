@@ -1,0 +1,9 @@
+F DEFAULT.MAP;1                     	default.map
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.ORI;1                    	makefile.ORIG
+F MAP3270.C;1                       	map3270.c
+F MAP3270.H;1                       	map3270.h
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/tn3270/ascii
+F STATE.H;1                         	state.h
+F TAGS.;1                           	tags
+F TERMIN.C;1                        	termin.c

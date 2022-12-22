@@ -1,0 +1,58 @@
+.\" Copyright 1992 BSDI
+.Dd August 10, 1992
+.Dt BPATCH 1
+.Os
+.Sh NAME
+.Nm bpatch
+.Nd patches a.out files, including kernel and /dev/kmem
+.Sh SYNOPSIS
+.Nm bpatch 
+.Op Fl bcwls
+.Op Fl r
+.Op Fl N Ar namelist
+.Op Fl M Ar memfile
+.Ar location
+.Op Ar value
+.Sh DESCRIPTION
+The
+.Nm bpatch
+utility is a quick hack that allows patching of values in
+a.out(5) format files, including kernel or /dev/kmem for the
+running kernel.
+.Ar location
+is a symbol name, or a decimal/hex/octal number.
+.Ar value 
+is the value to be stored, according to the type options.
+.Pp
+The type options specify the value type to be written:
+.Bl -tag -width flag
+.It Fl b
+Specify value type as 'byte as number'
+.It Fl c
+Specify value type as 'byte as character'
+.It Fl w
+Specify value type as 'short/u_short'
+.It Fl l
+Specify value type as 'long/u_long'
+.It Fl s
+Specify value type as 'string'
+.El
+.Pp
+The 
+.Fl r
+option indicates that the running kernel is being patched rather than
+a.out.
+.Pp
+The
+.Fl N
+.Ar namelist
+option can be used to specify the name of the kernel namelist file
+to be used.
+The 
+.Fl M
+.Ar memfile
+option can be used to specify the name of the memory file to be used,
+this implies
+.Fl r .
+.Sh AUTHOR
+Mike Karels, BSDI

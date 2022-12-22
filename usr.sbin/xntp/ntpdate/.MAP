@@ -1,0 +1,7 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.TMP;1                    	Makefile.tmpl
+F NTPDATE.8;1                       	ntpdate.8
+F NTPDATE.C;1                       	ntpdate.c
+F NTPDATE.H;1                       	ntpdate.h
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/xntp/ntpdate
+F README.;1                         	README

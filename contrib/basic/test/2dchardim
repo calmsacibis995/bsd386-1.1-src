@@ -1,0 +1,11 @@
+   10	dim l$[5,5]
+   20	for i = 1 to 5
+   25	for j = 1 to 5
+   30	  read l$[i,j]
+   40	next j
+   50	next i
+  100	data 'a', 'b', 'c', 'd', 'e'
+  110	data 'a', 'b', 'c', 'd', 'e'
+  120	data 'a', 'b', 'c', 'd', 'e'
+  130	data 'a', 'b', 'c', 'd', 'e'
+  140	data 'a', 'b', 'c', 'd', 'e'

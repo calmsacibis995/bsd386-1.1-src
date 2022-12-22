@@ -1,0 +1,11 @@
+100	dim a(3,3), b(3,3)
+110	k = 1
+120	for i = 1 to 3
+130		for j = 1 to 3
+140			a(i,j) = k
+150			k = k+1
+160		next j
+170	next i
+180	mat b=inv(a)
+190	mat print b
+200	end

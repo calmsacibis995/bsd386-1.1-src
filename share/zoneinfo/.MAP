@@ -1,0 +1,9 @@
+D DATFILES                          	datfiles
+F IALLOC.C;1                        	ialloc.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/share/zoneinfo
+F SCHECK.C;1                        	scheck.c
+F TAGS.;1                           	tags
+F TZFILE.5;1                        	tzfile.5
+F ZIC.8;1                           	zic.8
+F ZIC.C;1                           	zic.c

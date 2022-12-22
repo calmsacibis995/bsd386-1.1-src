@@ -1,0 +1,5 @@
+F LPRPS.8;1                         	lprps.8
+F LPRPS.C;1                         	lprps.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/lprps/lprps
+F TAGS.;1                           	tags

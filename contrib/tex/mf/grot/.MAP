@@ -1,0 +1,6 @@
+F CHANGELO.GZ;1                     	ChangeLog.mf.gz
+F INI_TO_T.GZ;1                     	ini_to_trap.gz
+F MAKEFILE.GZ;1                     	Makefile.mf.gz
+D MFTRAP                            	MFtrap
+F SMALL_DI.GZ;1                     	small.diff.gz
+F TRAPENV.GZ;1                      	trapenv.gz

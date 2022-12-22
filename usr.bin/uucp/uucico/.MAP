@@ -1,0 +1,23 @@
+F CHKSUM.C;1                        	chksum.c
+F CICO.H;1                          	cico.h
+F CICO_ARG.C;1                      	cico_args.c
+F CONNECT.C;1                       	Connect.c
+F CONTROL.C;1                       	Control.c
+F DEVICES.H;1                       	devices.h
+F DIALLERS.C;1                      	Diallers.c
+F DO_CICO.C;1                       	do_cico.c
+F F_PROTO.C;1                       	f_proto.c
+F G_PROTO.C;1                       	g_proto.c
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+F MESG.C;1                          	Mesg.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/uucp/uucico
+F PROTOCOL.H;1                      	Protocol.h
+F SEQUENCE.C;1                      	Sequence.c
+F STATUS.C;1                        	Status.c
+F TAGS.;1                           	tags
+F T_PROTO.C;1                       	t_proto.c
+F UUCICO.8;1                        	uucico.8
+F UUCP_PRO.;1                       	uucp_protocols
+F UU_TERMI.C;1                      	uu_termios.c
+F UU_TERMI.H;1                      	uu_termios.h

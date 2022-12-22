@@ -1,0 +1,2 @@
+#! /bin/sh
+/usr/contrib/bin/psrev | /usr/contrib/bin/lprps "$@"

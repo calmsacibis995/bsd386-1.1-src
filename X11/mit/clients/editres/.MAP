@@ -1,0 +1,16 @@
+F ACTIONS_.GZ;1                     	actions.c.gz
+F COMM_C.GZ;1                       	comm.c.gz
+F EDITRES0.GZ;1                     	editresP.h.gz
+F EDITRES1.GZ;1                     	Editres.ad.gz
+F EDITRES2.GZ;1                     	editres.c.gz
+F EDITRES3.GZ;1                     	editres.man.gz
+F EDIT_COL.GZ;1                     	Edit-col.ad.gz
+F GEOMETRY.GZ;1                     	geometry.c.gz
+F HANDLER_.GZ;1                     	handler.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F README.GZ;1                       	README.gz
+F SETVALUE.GZ;1                     	setvalues.c.gz
+F SVPOPUP_.GZ;1                     	svpopup.c.gz
+F UTILS_C.GZ;1                      	utils.c.gz
+F WIDGETS_.GZ;1                     	widgets.c.gz
+F WTREE_C.GZ;1                      	wtree.c.gz

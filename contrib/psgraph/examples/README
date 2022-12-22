@@ -1,0 +1,14 @@
+This directory contains examples of some input files for "psgraph".
+You should ignore the scientific content of these examples, since
+they may be incorrect or even sheer fabrications.
+
+Some examples might look better when printed on a color PostScript
+printer, or viewed using a PostScript previewer on a color display.
+
+Type "make" to generate a bunch of .ps files.  (You might have to
+change the definitions in the Makefile for PSGRAPH and PSGSIMP).
+Some of these might take a long time to print, even on a fast printer.
+
+The file shorter.plot is automatically generated from long.plot using
+psgsimp, to demonstrate how this program can simplify a graph (making
+it much faster to print) without removing significant detail.

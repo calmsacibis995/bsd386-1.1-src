@@ -1,0 +1,95 @@
+This file describes major changes made to the Elm source distribution
+between Releases 2.3 and 2.4.  Please remember that Elm is a volunteer
+project, we did what we had time for, and perhaps, what interested us.
+If you have a suggestion, or a fix, submit it, and better yet,
+volunteer to implement it.
+
+        Syd Weinstein		Sat Oct  3 16:55:49 EDT 1992
+
+Drop all routing options and let the smart Mail Transport Agent route mail.
+
+Completely new alias subsystem.
+
+Support for NLS, LOCALE and message catalogs.
+
+Quoted string support to allow for X.400 type addresses.
+
+Support for MIME via metamail
+
+Support for Content-Length and Content-type
+
+Enhanced Configure Script
+
+Added -f flag to filter for alternate rules file
+
+Add sender to filter
+
+implements a -q flag to filter to quiet any logging of filtering actions.
+
+More intelligent make install target include better support for man pages
+
+User definable Options Screen
+
+System Wide Elmrc File (Allows binary distribution of Elm)
+
+implement a ucb mail like metoo option in elm.
+
+Split the common routines to a lib directory
+
+Allow using ~ for home directory in filter rules file
+
+Changed save_message to fork/setgid in order to save
+message with user's group id instead of mail group id.
+
+Change filter command to not look at $MAIL as it may be
+run from sendmail on some systems and $MAIL is set from the
+environment of the sender of the mail.  Result was delivery
+of mail to the mailbox of the author of the mail instead of
+the intended user.
+
+new locking method - allow both fcntl and flock in Filter and Elm
+
+Detect when there are too many filter rules and exit gracefully.
+
+Reimplemented readmsg utility.  Obsoleted "readmsg_file" and
+introduced "temp_state" file and "ELMSTATE" environment parameter.
+This allows readmsg to understand the current 'sorted' order of the
+Elm display, when run while Elm is running.
+ 
+Change date parsing, now uses Numeric TZ and sorting is now TZ aware.
+
+Add resize support, only at the top level, and no minimum size enforcement.
+
+add an option, -i, to use the mentioned file as an inclusion, i.e. the
+edit session starts out with that file as its text.   Allows Elm to be
+used as a mailer from news readers.
+
+Change in method of reading/writing files to allow for nulls in the
+file and better catching of errors on writes such as file system full.
+
+Add ti/te framing for Sun console
+
+add change to folder based on alias (where messages to that folder would
+be stored)
+
+allow the user to save to the 'most-recently-used-folder'
+
+Disable stop processing while writing back spool to avoid
+stop causing a corrupted/long locked spool file
+
+Changes to allow clearing the weed-out list yet not totally
+invalidating all the existing elmrc files.
+
+Add - to allow fastmail to read from stdin
+
+Make frm's exit status more meaningful, add much new functionality,
+including the ability to recognize when a message is old, new, or
+unread, and when mail is really "To" somebody else.
+
+Change newmail to not keep files open to prevent systems with read
+locks from appending to the file.  Add print_prefix to force printing
+the prefix if specified and only one folder being monitored.
+
+And many bug fixes.
+
+************************************************************************

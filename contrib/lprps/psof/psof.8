@@ -1,0 +1,70 @@
+.\" -*- nroff -*-
+.\" $Id: psof.8,v 1.1 1994/01/15 15:57:15 sanders Exp $
+.TH PSOF 8
+.SH NAME
+psof \- PostScript output/banner filter for lpr
+.SH SYNOPSIS
+.B psof
+[
+.I args\|.\|.\|.
+]
+.SH DESCRIPTION
+.B psof
+is a PostScript output/banner filter for thr lpr spooling system.
+To enable banner printing
+.B psof
+is specified as the
+.B of
+filter in the printcap entry;
+there must also be an
+.B if
+filter,
+usually
+.BR psif (8);
+.B psof
+requires that the printcap entry includes the
+.B sb
+capability
+but does not include the
+.B sh
+capability.
+To disable banner printing, remove the
+.B of
+capability and include a
+.B sh
+capability.
+Include an
+.B hl
+capability to print the banner page at the end of a job rather
+than at the beginning.
+The
+.B lpr
+system supplies various command line arguments to
+.B of
+filters;
+these are ignored by
+.BR psof .
+.LP
+.B psof
+will send the file
+.B /usr/contrib/lib/banner.ps
+to the printer using
+.BR lprps
+preceded by definitions of strings
+.BR Job ,
+.BR Class ,
+.B User
+and
+.BR Date ;
+.B /usr/contrib/lib/banner.ps
+should contain PostScript code that uses the definitions
+to print a suitable banner page.
+.LP
+No accounting information is generated for banner pages.
+.SH FILES
+.B /usr/contrib/lib/banner.ps
+\ \ PostScript code to print banner.
+.SH "SEE ALSO"
+.BR printcap (5),
+.BR lprps (8),
+.BR psif (8)

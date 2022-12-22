@@ -1,0 +1,9 @@
+100	for i = 1 to 40 step 5
+105		n = 40-i
+110		dim a(n,n), b(n,n)
+115		start = cpu
+120		mat a = rnd
+130		mat b = inv(a)
+140		print 'n: '; n; 'took '; cpu-start; 'seconds, det(b) = '; det(b)
+150	next i
+160	end

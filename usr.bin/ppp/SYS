@@ -1,0 +1,7 @@
+
+DIALOUT:at=hayes:br#19200:du:dv=/dev/tty01:
+
+test:\
+	:pn=9w6418782:in#0:\
+	:e0=login:s1=hack^M:e1=assword:s2=hate2hakk^M:\
+	:tc=DIALOUT:

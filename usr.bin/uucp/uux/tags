@@ -1,0 +1,18 @@
+ConcatCmds	uux_args.c	/^ConcatCmds()$/
+Mmain	main.c	/^main($/
+basename	do_uux.c	/^basename(path)$/
+do_uux	do_uux.c	/^do_uux()$/
+explainArgs	uux_args.c	/^explainArgs(PassVal val, Pointer ptr, char * str)$/
+explainVn	uux_args.c	/^explainVn(PassVal val, Pointer ptr, char * str)$/
+finish	do_uux.c	/^finish(int error)$/
+getCmd	uux_args.c	/^getCmd(PassVal val, Pointer ptr, char * str)$/
+getDebug	uux_args.c	/^getDebug(PassVal val, Pointer arg, char * str)$/
+getGrade	uux_args.c	/^getGrade(PassVal val, Pointer ptr, char * str)$/
+getSPOOLDIR	uux_args.c	/^getSPOOLDIR(PassVal val, Pointer ptr, char * str)$/
+getUname	uux_args.c	/^getUname(PassVal val, Pointer ptr, char * str)$/
+get_size	do_uux.c	/^get_size(filename)$/
+parse	do_uux.c	/^parse()$/
+pipe_cmds	do_uux.c	/^pipe_cmds()$/
+setfalse	uux_args.c	/^setfalse(PassVal val, Pointer ptr, char * str)$/
+start_cmds	do_uux.c	/^start_cmds()$/
+uux_args	uux_args.c	/^uux_args($/

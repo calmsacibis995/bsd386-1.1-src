@@ -1,0 +1,389 @@
+ADDR_CORRECT	../perl/unexec.c	/^#define ADDR_CORRECT(x) ((char *)(x) - (char*)0)$/
+AOP	../perl/toke.c	/^#define AOP(f) return(yylval.ival=f,expectterm = T/
+A_TEXT_OFFSET	../perl/unexec.c	/^#define A_TEXT_OFFSET(x)        (sizeof (struct ex/
+CHKLEN	../perl/form.c	/^#define CHKLEN(allow) \\$/
+EOP	../perl/toke.c	/^#define EOP(f) return(yylval.ival=f,expectterm = T/
+ERROR0	../perl/unexec.c	/^#define ERROR0(msg) report_error_1 (new, msg, 0, 0/
+ERROR1	../perl/unexec.c	/^#define ERROR1(msg,x) report_error_1 (new, msg, x,/
+ERROR2	../perl/unexec.c	/^#define ERROR2(msg,x,y) report_error_1 (new, msg, /
+FL	../perl/toke.c	/^#define FL(f) return(yylval.ival=f,expectterm = FA/
+FL2	../perl/toke.c	/^#define FL2(f) return(yylval.ival=f,expectterm = F/
+FOP	../perl/toke.c	/^#define FOP(f) return(yylval.ival=f,expectterm = F/
+FOP2	../perl/toke.c	/^#define FOP2(f) return(yylval.ival=f,expectterm = /
+FOP22	../perl/toke.c	/^#define FOP22(f) return(yylval.ival=f,expectterm =/
+FOP25	../perl/toke.c	/^#define FOP25(f) return(yylval.ival=f,expectterm =/
+FOP3	../perl/toke.c	/^#define FOP3(f) return(yylval.ival=f,expectterm = /
+FOP4	../perl/toke.c	/^#define FOP4(f) return(yylval.ival=f,expectterm = /
+FTST	../perl/toke.c	/^#define FTST(f) return(yylval.ival=f,expectterm = /
+FUN0	../perl/toke.c	/^#define FUN0(f) return(yylval.ival = f,expectterm /
+FUN1	../perl/toke.c	/^#define FUN1(f) return(yylval.ival = f,expectterm /
+FUN2	../perl/toke.c	/^#define FUN2(f) return(yylval.ival = f,expectterm /
+FUN2x	../perl/toke.c	/^#define FUN2x(f) return(yylval.ival = f,expectterm/
+FUN3	../perl/toke.c	/^#define FUN3(f) return(yylval.ival = f,expectterm /
+FUN4	../perl/toke.c	/^#define FUN4(f) return(yylval.ival = f,expectterm /
+FUN5	../perl/toke.c	/^#define FUN5(f) return(yylval.ival = f,expectterm /
+HFUN	../perl/toke.c	/^#define HFUN(f) return(yylval.ival=f,expectterm = /
+HFUN3	../perl/toke.c	/^#define HFUN3(f) return(yylval.ival=f,expectterm =/
+HTOV	../perl/util.c	/^#define HTOV(name,type)						\\$/
+IOCPARM_LEN	../perl/doio.c	/^#define IOCPARM_LEN(x)  (((x) >> 16) & IOCPARM_MAS/
+ISMULT1	../perl/regcomp.c	/^#define	ISMULT1(c)	((c) == '*' || (c) == '+' || (c/
+ISMULT2	../perl/regcomp.c	/^#define	ISMULT2(s)	((*s) == '*' || (*s) == '+' || /
+LFUN	../perl/toke.c	/^#define LFUN(f) return(yylval.ival=f,expectterm = /
+LOOPX	../perl/toke.c	/^#define LOOPX(f) return(yylval.ival=f,expectterm =/
+LOP	../perl/toke.c	/^#define LOP(f) return(CLINE, *s == '(' || (s = ski/
+META	../perl/toke.c	/^#define META(c) ((c) | 128)$/
+MOP	../perl/toke.c	/^#define MOP(f) return(yylval.ival=f,expectterm = T/
+Mperl	../perl/perl.c	/^main(argc,argv,env)$/
+N_BADMAG	../perl/unexec.c	/^#define	N_BADMAG(x) \\$/
+N_SYMOFF	../perl/unexec.c	/^#define N_SYMOFF(x) LESYM_OFFSET(x)$/
+N_TXTOFF	../perl/unexec.c	/^#define N_TXTOFF(x) TEXT_OFFSET(x)$/
+OLDLOP	../perl/toke.c	/^#define OLDLOP(f) return(yylval.ival=f,expectterm /
+OPERATOR	../perl/toke.c	/^#define OPERATOR(retval) return (expectterm = TRUE/
+PERL_META	../perl/toke.c	/^#define PERL_META(c) ((c) | 128)$/
+PERROR	../perl/unexec.c	/^#define PERROR(arg) perror (arg); return -1$/
+RETURN	../perl/toke.c	/^#define RETURN(retval) return (bufptr = s,(int)ret/
+ROP	../perl/toke.c	/^#define ROP(f) return(yylval.ival=f,expectterm = T/
+TERM	../perl/toke.c	/^#define TERM(retval) return (CLINE, expectterm = F/
+UNI	../perl/toke.c	/^#define UNI(f) return(yylval.ival = f, \\$/
+VTOH	../perl/util.c	/^#define VTOH(name,type)						\\$/
+aadd	../perl/stab.c	/^aadd(stab)$/
+aclear	../perl/array.c	/^aclear(ar)$/
+add_label	../perl/cons.c	/^add_label(lbl,cmd)$/
+addcond	../perl/cons.c	/^addcond(cmd, arg)$/
+addflags	../perl/consarg.c	/^addflags(i,flags,arg)$/
+addloop	../perl/cons.c	/^addloop(cmd, arg)$/
+adjust_lnnoptrs	../perl/unexec.c	/^adjust_lnnoptrs (writedesc, readdesc, new_name)$/
+afake	../perl/array.c	/^afake(stab,size,strp)$/
+afetch	../perl/array.c	/^afetch(ar,key,lval)$/
+afill	../perl/array.c	/^afill(ar, fill)$/
+afree	../perl/array.c	/^afree(ar)$/
+alen	../perl/array.c	/^alen(ar)$/
+anew	../perl/array.c	/^anew(stab)$/
+apop	../perl/array.c	/^apop(ar)$/
+append_line	../perl/cons.c	/^append_line(head,tail)$/
+apply	../perl/doio.c	/^apply(type,arglast)$/
+apush	../perl/array.c	/^apush(ar,val)$/
+arg_common	../perl/consarg.c	/^arg_common(arg,exprnum,marking)$/
+arg_free	../perl/cons.c	/^arg_free(arg)$/
+arg_tosave	../perl/cons.c	/^arg_tosave(arg,willsave)$/
+ashift	../perl/array.c	/^ashift(ar)$/
+astore	../perl/array.c	/^astore(ar,key,val)$/
+aunshift	../perl/array.c	/^aunshift(ar,num)$/
+block_head	../perl/cons.c	/^block_head(tail)$/
+cando	../perl/doio.c	/^cando(bit, effective, statbufp)$/
+castulong	../perl/util.c	/^castulong(f)$/
+check_uni	../perl/toke.c	/^check_uni() {$/
+checkcomma	../perl/toke.c	/^checkcomma(s,name,what)$/
+chsize	../perl/doio.c	/^int chsize(fd, length)$/
+cmd_exec	../perl/cmd.c	/^cmd_exec(cmdparm,gimme,sp)$/
+cmd_free	../perl/cons.c	/^cmd_free(cmd)$/
+cmd_to_arg	../perl/consarg.c	/^cmd_to_arg(cmd)$/
+cmd_tosave	../perl/cons.c	/^cmd_tosave(cmd,willsave)$/
+copy_sym	../perl/unexec.c	/^copy_sym (new, a_out, a_name, new_name)$/
+copy_text_and_data	../perl/unexec.c	/^copy_text_and_data (new, a_out)$/
+copyopt	../perl/cmd.c	/^copyopt(cmd,which)$/
+countlines	../perl/form.c	/^countlines(s,size)$/
+cpy7bit	../perl/cons.c	/^cpy7bit(d,s,l)$/
+cpytill	../perl/util.c	/^cpytill(to,from,fromend,delim,retlen)$/
+cryptfilter	../perl/usersub.c	/^cryptfilter( fil )$/
+cryptswitch	../perl/usersub.c	/^cryptswitch()$/
+cval_to_arg	../perl/consarg.c	/^cval_to_arg(cval)$/
+deb	../perl/cmd.c	/^void deb(pat,a1,a2,a3,a4,a5,a6,a7,a8)$/
+dehoist	../perl/consarg.c	/^dehoist(arg,i)$/
+do_accept	../perl/doio.c	/^do_accept(str, nstab, gstab)$/
+do_aexec	../perl/doio.c	/^do_aexec(really,arglast)$/
+do_aprint	../perl/doio.c	/^do_aprint(arg,fp,arglast)$/
+do_assign	../perl/doarg.c	/^do_assign(arg,gimme,arglast)$/
+do_bind	../perl/doio.c	/^do_bind(stab, arglast)$/
+do_caller	../perl/dolist.c	/^do_caller(arg,maxarg,gimme,arglast)$/
+do_chop	../perl/doarg.c	/^do_chop(astr,str)$/
+do_close	../perl/doio.c	/^do_close(stab,explicit)$/
+do_connect	../perl/doio.c	/^do_connect(stab, arglast)$/
+do_ctl	../perl/doio.c	/^do_ctl(optype,stab,func,argstr)$/
+do_defined	../perl/doarg.c	/^do_defined(str,arg,gimme,arglast)$/
+do_dirop	../perl/doio.c	/^do_dirop(optype,stab,gimme,arglast)$/
+do_each	../perl/dolist.c	/^do_each(str,hash,gimme,arglast)$/
+do_eof	../perl/doio.c	/^do_eof(stab)$/
+do_eval	../perl/perl.c	/^do_eval(str,optype,stash,savecmd,gimme,arglast)$/
+do_exec	../perl/doio.c	/^do_exec(cmd)$/
+do_execfree	../perl/doio.c	/^do_execfree()$/
+do_fttext	../perl/doio.c	/^do_fttext(arg,str)$/
+do_getsockname	../perl/doio.c	/^do_getsockname(optype, stab, arglast)$/
+do_ggrent	../perl/doio.c	/^do_ggrent(which,gimme,arglast)$/
+do_ghent	../perl/doio.c	/^do_ghent(which,gimme,arglast)$/
+do_gnent	../perl/doio.c	/^do_gnent(which,gimme,arglast)$/
+do_gpent	../perl/doio.c	/^do_gpent(which,gimme,arglast)$/
+do_gpwent	../perl/doio.c	/^do_gpwent(which,gimme,arglast)$/
+do_grep	../perl/dolist.c	/^do_grep(arg,str,gimme,arglast)$/
+do_gsent	../perl/doio.c	/^do_gsent(which,gimme,arglast)$/
+do_ipcctl	../perl/doio.c	/^do_ipcctl(optype, arglast)$/
+do_ipcget	../perl/doio.c	/^do_ipcget(optype, arglast)$/
+do_join	../perl/doarg.c	/^do_join(str,arglast)$/
+do_kv	../perl/dolist.c	/^do_kv(str,hash,kv,gimme,arglast)$/
+do_listen	../perl/doio.c	/^do_listen(stab, arglast)$/
+do_match	../perl/dolist.c	/^do_match(str,arg,gimme,arglast)$/
+do_msgrcv	../perl/doio.c	/^do_msgrcv(arglast)$/
+do_msgsnd	../perl/doio.c	/^do_msgsnd(arglast)$/
+do_open	../perl/doio.c	/^do_open(stab,name,len)$/
+do_pack	../perl/doarg.c	/^do_pack(str,arglast)$/
+do_pipe	../perl/doio.c	/^do_pipe(str, rstab, wstab)$/
+do_print	../perl/doio.c	/^do_print(str,fp)$/
+do_push	../perl/doarg.c	/^do_push(ary,arglast)$/
+do_range	../perl/dolist.c	/^do_range(gimme,arglast)$/
+do_repeatary	../perl/dolist.c	/^do_repeatary(arglast)$/
+do_reverse	../perl/dolist.c	/^do_reverse(arglast)$/
+do_seek	../perl/doio.c	/^do_seek(stab, pos, whence)$/
+do_select	../perl/doio.c	/^do_select(gimme,arglast)$/
+do_semop	../perl/doio.c	/^do_semop(arglast)$/
+do_shmio	../perl/doio.c	/^do_shmio(optype, arglast)$/
+do_shutdown	../perl/doio.c	/^do_shutdown(stab, arglast)$/
+do_slice	../perl/dolist.c	/^do_slice(stab,str,numarray,lval,gimme,arglast)$/
+do_socket	../perl/doio.c	/^do_socket(stab, arglast)$/
+do_sopt	../perl/doio.c	/^do_sopt(optype, stab, arglast)$/
+do_sort	../perl/dolist.c	/^do_sort(str,arg,gimme,arglast)$/
+do_spair	../perl/doio.c	/^do_spair(stab1, stab2, arglast)$/
+do_splice	../perl/dolist.c	/^do_splice(ary,gimme,arglast)$/
+do_split	../perl/dolist.c	/^do_split(str,spat,limit,gimme,arglast)$/
+do_sprintf	../perl/doarg.c	/^do_sprintf(str,len,sarg)$/
+do_sreverse	../perl/dolist.c	/^do_sreverse(str,arglast)$/
+do_stat	../perl/doio.c	/^do_stat(str,arg,gimme,arglast)$/
+do_study	../perl/doarg.c	/^do_study(str,arg,gimme,arglast)$/
+do_subr	../perl/doarg.c	/^do_subr(arg,gimme,arglast)$/
+do_subst	../perl/doarg.c	/^do_subst(str,arg,sp)$/
+do_syscall	../perl/doarg.c	/^do_syscall(arglast)$/
+do_tell	../perl/doio.c	/^do_tell(stab)$/
+do_time	../perl/dolist.c	/^do_time(str,tmbuf,gimme,arglast)$/
+do_tms	../perl/dolist.c	/^do_tms(str,gimme,arglast)$/
+do_trans	../perl/doarg.c	/^do_trans(str,arg)$/
+do_truncate	../perl/doio.c	/^do_truncate(str,arg,gimme,arglast)$/
+do_try	../perl/perl.c	/^do_try(cmd,gimme,arglast)$/
+do_undef	../perl/doarg.c	/^do_undef(str,arg,gimme,arglast)$/
+do_unpack	../perl/dolist.c	/^do_unpack(str,gimme,arglast)$/
+do_unshift	../perl/doarg.c	/^do_unshift(ary,arglast)$/
+do_vec	../perl/doarg.c	/^do_vec(lvalue,astr,arglast)$/
+do_vecset	../perl/doarg.c	/^do_vecset(mstr,str)$/
+do_vop	../perl/doarg.c	/^do_vop(optype,str,left,right)$/
+do_write	../perl/form.c	/^do_write(orec,stab,sp)$/
+dodb	../perl/cons.c	/^dodb(cur)$/
+doencodes	../perl/doarg.c	/^doencodes(str, s, len)$/
+dump	../perl/dump.c	/^static void dump(arg1,arg2,arg3,arg4,arg5)$/
+dump_all	../perl/dump.c	/^dump_all()$/
+dump_arg	../perl/dump.c	/^dump_arg(arg)$/
+dump_cmd	../perl/dump.c	/^dump_cmd(cmd,alt)$/
+dump_flags	../perl/dump.c	/^dump_flags(b,flags)$/
+dump_spat	../perl/dump.c	/^dump_spat(spat)$/
+dump_stab	../perl/dump.c	/^dump_stab(stab)$/
+dumpfds	../perl/util.c	/^dumpfds(s)$/
+dup2	../perl/util.c	/^dup2(oldfd,newfd)$/
+envix	../perl/util.c	/^envix(nam)$/
+error	../perl/unexec.c	/^error(msg,a1,a2)$/
+eval	../perl/eval.c	/^eval(arg,gimme,sp)$/
+evalstatic	../perl/consarg.c	/^evalstatic(arg)$/
+fatal	../perl/util.c	/^void fatal(pat,a1,a2,a3,a4)$/
+fbmcompile	../perl/util.c	/^fbmcompile(str, iflag)$/
+fbminstr	../perl/util.c	/^fbminstr(big, bigend, littlestr)$/
+fixl	../perl/consarg.c	/^fixl(type,arg)$/
+form_parseargs	../perl/form.c	/^form_parseargs(fcmd)$/
+format	../perl/form.c	/^format(orec,fcmd,sp)$/
+free_arg	../perl/consarg.c	/^free_arg(arg)$/
+fstab	../perl/stab.c	/^fstab(name)$/
+genstab	../perl/stab.c	/^genstab()$/
+grow_dlevel	../perl/cmd.c	/^grow_dlevel()$/
+growstr	../perl/util.c	/^growstr(strptr,curlen,newlen)$/
+hadd	../perl/stab.c	/^hadd(stab)$/
+hclear	../perl/hash.c	/^hclear(tb,dodbm)$/
+hdelete	../perl/hash.c	/^hdelete(tb,key,klen)$/
+hentdelayfree	../perl/hash.c	/^hentdelayfree(hent)$/
+hentfree	../perl/hash.c	/^hentfree(hent)$/
+hfetch	../perl/hash.c	/^hfetch(tb,key,klen,lval)$/
+hfreeentries	../perl/hash.c	/^hfreeentries(tb,dodbm)$/
+hide_ary	../perl/consarg.c	/^hide_ary(arg)$/
+hnew	../perl/hash.c	/^hnew(lookat)$/
+hoistmust	../perl/toke.c	/^hoistmust(spat)$/
+hsplit	../perl/hash.c	/^hsplit(tb)$/
+hstore	../perl/hash.c	/^hstore(tb,key,klen,val,hash)$/
+htonl	../perl/util.c	/^htonl(l)$/
+incpush	../perl/perl.c	/^incpush(p)$/
+ingroup	../perl/doio.c	/^ingroup(testgid,effective)$/
+instr	../perl/util.c	/^instr(big, little)$/
+interp	../perl/str.c	/^interp(str,src,sp)$/
+intrpcompile	../perl/str.c	/^intrpcompile(src)$/
+invert	../perl/cons.c	/^invert(cmd)$/
+jmaybe	../perl/consarg.c	/^jmaybe(arg)$/
+l	../perl/consarg.c	/^l(arg)$/
+lcase	../perl/str.c	/^lcase(s,send)$/
+listish	../perl/consarg.c	/^listish(arg)$/
+load_format	../perl/toke.c	/^load_format()$/
+localize	../perl/consarg.c	/^localize(arg)$/
+looks_like_number	../perl/doio.c	/^looks_like_number(str)$/
+lop	../perl/toke.c	/^lop(f,s)$/
+magicalize	../perl/perl.c	/^magicalize(list)$/
+magicname	../perl/perl.c	/^magicname(sym,name,namlen)$/
+make_acmd	../perl/cons.c	/^make_acmd(type,stab,cond,arg)$/
+make_ccmd	../perl/cons.c	/^make_ccmd(type,debuggable,arg,cblock)$/
+make_cswitch	../perl/cons.c	/^make_cswitch(head,count)$/
+make_form	../perl/cons.c	/^make_form(stab,fcmd)$/
+make_hdr	../perl/unexec.c	/^make_hdr (new, a_out, data_start, bss_start, entry/
+make_icmd	../perl/cons.c	/^make_icmd(type,arg,cblock)$/
+make_list	../perl/consarg.c	/^make_list(arg)$/
+make_match	../perl/consarg.c	/^make_match(type,expr,spat)$/
+make_nswitch	../perl/cons.c	/^make_nswitch(head,count)$/
+make_op	../perl/consarg.c	/^make_op(type,newlen,arg1,arg2,arg3)$/
+make_split	../perl/consarg.c	/^make_split(stab,arg,limarg)$/
+make_sub	../perl/cons.c	/^make_sub(name,cmd)$/
+make_usub	../perl/cons.c	/^make_usub(name, ix, subaddr, filename)$/
+mark_x	../perl/unexec.c	/^mark_x (name)$/
+maybelistish	../perl/consarg.c	/^maybelistish(optype, arg)$/
+mess	../perl/util.c	/^mess(pat,a1,a2,a3,a4)$/
+mod_match	../perl/consarg.c	/^mod_match(type,left,pat)$/
+moreswitches	../perl/perl.c	/^moreswitches(s)$/
+my_bcopy	../perl/util.c	/^my_bcopy(from,to,len)$/
+my_bzero	../perl/util.c	/^my_bzero(loc,len)$/
+my_memcmp	../perl/util.c	/^my_memcmp(s1,s2,len)$/
+my_setenv	../perl/util.c	/^my_setenv(nam,val)$/
+my_swap	../perl/util.c	/^my_swap(s)$/
+my_unexec	../perl/perl.c	/^my_unexec()$/
+mylstat	../perl/doio.c	/^mylstat(arg,str)$/
+mypclose	../perl/util.c	/^mypclose(ptr)$/
+mypfiopen	../perl/usersub.c	/^mypfiopen(fil,func)		\/* open a pipe to function c/
+mypopen	../perl/util.c	/^mypopen(cmd,mode)$/
+mystat	../perl/doio.c	/^mystat(arg,str)$/
+nextargv	../perl/doio.c	/^nextargv(stab)$/
+ninstr	../perl/util.c	/^ninstr(big, bigend, little, lend)$/
+nothing_in_common	../perl/consarg.c	/^nothing_in_common(arg1,arg2)$/
+nsavestr	../perl/util.c	/^nsavestr(str, len)$/
+ntohl	../perl/util.c	/^ntohl(l)$/
+op_new	../perl/consarg.c	/^op_new(numargs)$/
+opt_arg	../perl/cons.c	/^opt_arg(cmd,fliporflop,acmd)$/
+over	../perl/cons.c	/^over(eachstab,cmd)$/
+parselist	../perl/str.c	/^parselist(str)$/
+pidgone	../perl/util.c	/^pidgone(pid,status)$/
+rcatmaybe	../perl/consarg.c	/^rcatmaybe(arg)$/
+reg	../perl/regcomp.c	/^reg(paren, flagp)$/
+reganode	../perl/regcomp.c	/^reganode(op, arg)$/
+regatom	../perl/regcomp.c	/^regatom(flagp)$/
+regbranch	../perl/regcomp.c	/^regbranch(flagp)$/
+regc	../perl/regcomp.c	/^regc(b)$/
+regclass	../perl/regcomp.c	/^regclass()$/
+regcomp	../perl/regcomp.c	/^regcomp(exp,xend,fold)$/
+regcurly	../perl/regcomp.c	/^regcurly(s)$/
+regdump	../perl/regcomp.c	/^regdump(r)$/
+regexec	../perl/regexec.c	/^regexec(prog, stringarg, strend, strbeg, minend, s/
+regfree	../perl/regcomp.c	/^regfree(r)$/
+reginsert	../perl/regcomp.c	/^reginsert(op, opnd)$/
+regmatch	../perl/regexec.c	/^regmatch(prog)$/
+regnext	../perl/regexec.c	/^regnext(p)$/
+regnode	../perl/regcomp.c	/^regnode(op)$/
+regoptail	../perl/regcomp.c	/^regoptail(p, val)$/
+regpiece	../perl/regcomp.c	/^regpiece(flagp)$/
+regprop	../perl/regcomp.c	/^regprop(op)$/
+regrepeat	../perl/regexec.c	/^regrepeat(p, max)$/
+regset	../perl/regcomp.c	/^regset(bits,def,c)$/
+regtail	../perl/regcomp.c	/^regtail(p, val)$/
+regtry	../perl/regexec.c	/^regtry(prog, string)$/
+repeatcpy	../perl/util.c	/^repeatcpy(to,from,len,count)$/
+report_error	../perl/unexec.c	/^report_error (file, fd)$/
+report_error_1	../perl/unexec.c	/^report_error_1 (fd, msg, a1, a2)$/
+restorelist	../perl/cmd.c	/^restorelist(base)$/
+rninstr	../perl/util.c	/^rninstr(big, bigend, little, lend)$/
+safefree	../perl/util.c	/^safefree(where)$/
+saferealloc	../perl/util.c	/^saferealloc(where,size)$/
+safexfree	../perl/util.c	/^safexfree(where)$/
+safexmalloc	../perl/util.c	/^safexmalloc(x,size)$/
+safexrealloc	../perl/util.c	/^safexrealloc(where,size)$/
+same_dirent	../perl/util.c	/^same_dirent(a,b)$/
+saveaptr	../perl/cmd.c	/^saveaptr(aptr)$/
+saveary	../perl/cmd.c	/^saveary(stab)$/
+savehash	../perl/cmd.c	/^savehash(stab)$/
+savehptr	../perl/cmd.c	/^savehptr(hptr)$/
+saveint	../perl/cmd.c	/^saveint(intp)$/
+saveitem	../perl/cmd.c	/^saveitem(item)$/
+savelines	../perl/perl.c	/^savelines(array, str)$/
+savelist	../perl/cmd.c	/^savelist(sarg,maxsarg)$/
+savelong	../perl/cmd.c	/^savelong(longp)$/
+savenostab	../perl/cmd.c	/^savenostab(stab)$/
+savesptr	../perl/cmd.c	/^savesptr(sptr)$/
+savestr	../perl/util.c	/^savestr(str)$/
+scanconst	../perl/toke.c	/^scanconst(spat,string,len)$/
+scanhex	../perl/util.c	/^scanhex(start, len, retlen)$/
+scanident	../perl/toke.c	/^scanident(s,send,dest)$/
+scanoct	../perl/util.c	/^scanoct(start, len, retlen)$/
+scanpat	../perl/toke.c	/^scanpat(s)$/
+scanstr	../perl/toke.c	/^scanstr(start, in_what)$/
+scansubst	../perl/toke.c	/^scansubst(start)$/
+scantrans	../perl/toke.c	/^scantrans(start)$/
+screaminstr	../perl/util.c	/^screaminstr(bigstr, littlestr)$/
+set_csh	../perl/toke.c	/^set_csh()$/
+showinput	../perl/dump.c	/^showinput()$/
+sighandler	../perl/stab.c	/^sighandler(sig)$/
+skipspace	../perl/toke.c	/^skipspace(s)$/
+sortcmp	../perl/dolist.c	/^sortcmp(strp1,strp2)$/
+sortsub	../perl/dolist.c	/^sortsub(str1,str2)$/
+spat_common	../perl/consarg.c	/^spat_common(spat,exprnum,marking)$/
+spat_free	../perl/cons.c	/^spat_free(spat)$/
+spat_tosave	../perl/cons.c	/^spat_tosave(spat)$/
+stab2arg	../perl/consarg.c	/^stab2arg(atype,stab)$/
+stab_array	../perl/stab.c	/^ARRAY *stab_array(stab)$/
+stab_check	../perl/stab.c	/^stab_check(min,max)$/
+stab_clear	../perl/stab.c	/^stab_clear(stab)$/
+stab_efullname	../perl/stab.c	/^stab_efullname(str,stab)$/
+stab_fullname	../perl/stab.c	/^stab_fullname(str,stab)$/
+stab_hash	../perl/stab.c	/^HASH *stab_hash(stab)$/
+stab_len	../perl/stab.c	/^stab_len(str)$/
+stab_str	../perl/stab.c	/^stab_str(str)$/
+stabent	../perl/stab.c	/^stabent(name,add)$/
+stabset	../perl/stab.c	/^stabset(mstr,str)$/
+start_of_data	../perl/unexec.c	/^start_of_data() {$/
+start_of_text	../perl/unexec.c	/^start_of_text() {$/
+stio_new	../perl/stab.c	/^stio_new()$/
+str_2mortal	../perl/str.c	/^str_2mortal(str)$/
+str_2num	../perl/str.c	/^str_2num(str)$/
+str_2ptr	../perl/str.c	/^str_2ptr(str)$/
+str_append_till	../perl/str.c	/^str_append_till(str,from,fromend,delim,keeplist)$/
+str_cat	../perl/str.c	/^str_cat(str,ptr)$/
+str_chop	../perl/str.c	/^str_chop(str,ptr)	\/* like set but assuming ptr is/
+str_cmp	../perl/str.c	/^str_cmp(str1,str2)$/
+str_dec	../perl/str.c	/^str_dec(str)$/
+str_eq	../perl/str.c	/^str_eq(str1,str2)$/
+str_free	../perl/str.c	/^str_free(str)$/
+str_get	../perl/str.c	/^str_get(str)$/
+str_gets	../perl/str.c	/^str_gets(str,fp,append)$/
+str_gnum	../perl/str.c	/^double str_gnum(Str)$/
+str_grow	../perl/str.c	/^str_grow(str,newlen)$/
+str_inc	../perl/str.c	/^str_inc(str)$/
+str_insert	../perl/str.c	/^str_insert(bigstr,offset,len,little,littlelen)$/
+str_len	../perl/str.c	/^str_len(str)$/
+str_magic	../perl/str.c	/^str_magic(str, stab, how, name, namlen)$/
+str_make	../perl/str.c	/^str_make(s,len)$/
+str_mortal	../perl/str.c	/^str_mortal(oldstr)$/
+str_ncat	../perl/str.c	/^str_ncat(str,ptr,len)$/
+str_new	../perl/str.c	/^str_new(x,len)$/
+str_nmake	../perl/str.c	/^str_nmake(n)$/
+str_nset	../perl/str.c	/^str_nset(str,ptr,len)$/
+str_numset	../perl/str.c	/^str_numset(str,num)$/
+str_replace	../perl/str.c	/^str_replace(str,nstr)$/
+str_reset	../perl/str.c	/^str_reset(s,stash)$/
+str_scat	../perl/str.c	/^str_scat(dstr,sstr)$/
+str_set	../perl/str.c	/^str_set(str,ptr)$/
+str_smake	../perl/str.c	/^str_smake(old)$/
+str_sset	../perl/str.c	/^str_sset(dstr,sstr)$/
+str_true	../perl/str.c	/^str_true(Str)$/
+taintenv	../perl/str.c	/^taintenv()$/
+taintproper	../perl/str.c	/^taintproper(s)$/
+ucase	../perl/str.c	/^ucase(s,send)$/
+unexec	../perl/unexec.c	/^unexec (new_name, a_name, data_start, bss_start, e/
+uni	../perl/toke.c	/^uni(f,s)$/
+unlnk	../perl/util.c	/^unlnk(f)	\/* unlink all versions of a file *\/$/
+userinit	../perl/usersub.c	/^userinit()$/
+vfprintf	../perl/util.c	/^vfprintf(fd, pat, args)$/
+vsprintf	../perl/util.c	/^vsprintf(dest, pat, args)$/
+wait4pid	../perl/util.c	/^wait4pid(pid,statusp,flags)$/
+warn	../perl/util.c	/^void warn(pat,a1,a2,a3,a4)$/
+whichsig	../perl/stab.c	/^whichsig(sig)$/
+while_io	../perl/cons.c	/^while_io(cmd)$/
+wopt	../perl/cons.c	/^wopt(cmd)$/
+write_segment	../perl/unexec.c	/^write_segment (new, ptr, end)$/
+xstat	../perl/util.c	/^xstat()$/
+yyerror	../perl/cons.c	/^yyerror(s)$/
+yylex	../perl/toke.c	/^yylex()$/
+yyparse	perly.c	/^yyparse()$/

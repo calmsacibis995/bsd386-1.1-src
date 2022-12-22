@@ -1,0 +1,70 @@
+Mmain	main.c	/^main(argc, argv)$/
+PUT_ADDR	vif.c	/^#define PUT_ADDR(a)	temp_addr = ntohl(a); \\$/
+accept_group_report	vif.c	/^void accept_group_report(src, dst, group)$/
+accept_igmp	../common/igmp.c	/^void accept_igmp(recvlen)$/
+accept_neighbor_request	vif.c	/^void accept_neighbor_request(src, dst)$/
+accept_neighbor_request2	vif.c	/^void accept_neighbor_request2(src, dst)$/
+accept_neighbors	vif.c	/^void accept_neighbors(src, dst, p, datalen, level)/
+accept_neighbors2	vif.c	/^void accept_neighbors2(src, dst, p, datalen, level/
+accept_probe	route.c	/^void accept_probe(src, dst)$/
+accept_report	route.c	/^void accept_report(src, dst, p, datalen)$/
+add_vif_to_routes	route.c	/^void add_vif_to_routes(vifi)$/
+age_routes	route.c	/^void age_routes()$/
+age_vifs	vif.c	/^void age_vifs()$/
+check_vif_state	vif.c	/^void check_vif_state()$/
+config_vifs_from_file	config.c	/^void config_vifs_from_file()$/
+config_vifs_from_kernel	config.c	/^void config_vifs_from_kernel()$/
+create_route	route.c	/^static void create_route(origin, mask)$/
+delete_neighbor_from_routes	route.c	/^void delete_neighbor_from_routes(addr, vifi)$/
+delete_vif_from_routes	route.c	/^void delete_vif_from_routes(vifi)$/
+discard_route	route.c	/^static void discard_route(prev_r)$/
+dump	main.c	/^static void dump()$/
+dump_routes	route.c	/^void dump_routes(fp)$/
+dump_vifs	vif.c	/^void dump_vifs(fp)$/
+expire_all_routes	route.c	/^void expire_all_routes()$/
+fdump	main.c	/^static void fdump()$/
+find_conflicting_route	route.c	/^static struct rtentry *find_conflicting_route(orig/
+find_route	route.c	/^static int find_route(origin, mask)$/
+find_vif	vif.c	/^vifi_t find_vif(src, dst)$/
+hup	main.c	/^static void hup()$/
+ifconfaddr	config.c	/^ifconfaddr(ifcp, a)$/
+inet_cksum	../common/inet.c	/^int inet_cksum(addr, len)$/
+inet_fmt	../common/inet.c	/^char *inet_fmt(addr, s)$/
+inet_fmts	../common/inet.c	/^char *inet_fmts(addr, mask, s)$/
+inet_parse	../common/inet.c	/^u_long inet_parse(s)$/
+inet_valid_host	../common/inet.c	/^int inet_valid_host(naddr)$/
+inet_valid_subnet	../common/inet.c	/^int inet_valid_subnet(nsubnet, nmask)$/
+init_children_and_leaves	route.c	/^static int init_children_and_leaves(r, parent)$/
+init_igmp	../common/igmp.c	/^void init_igmp()$/
+init_routes	route.c	/^void init_routes()$/
+init_vifs	vif.c	/^void init_vifs()$/
+k_add_group	../common/kern.c	/^void k_add_group(vifi, group)$/
+k_add_route	../common/kern.c	/^void k_add_route(r)$/
+k_add_vif	../common/kern.c	/^void k_add_vif(vifi, v)$/
+k_del_group	../common/kern.c	/^void k_del_group(vifi, group)$/
+k_del_route	../common/kern.c	/^void k_del_route(r)$/
+k_del_vif	../common/kern.c	/^void k_del_vif(vifi)$/
+k_hdr_include	../common/kern.c	/^void k_hdr_include(bool)$/
+k_init_dvmrp	../common/kern.c	/^void k_init_dvmrp()$/
+k_join	../common/kern.c	/^void k_join(grp, ifa)$/
+k_leave	../common/kern.c	/^void k_leave(grp, ifa)$/
+k_set_if	../common/kern.c	/^void k_set_if(ifa)$/
+k_set_loop	../common/kern.c	/^void k_set_loop(l)$/
+k_set_rcvbuf	../common/kern.c	/^void k_set_rcvbuf(bufsize)$/
+k_set_ttl	../common/kern.c	/^void k_set_ttl(t)$/
+k_stop_dvmrp	../common/kern.c	/^void k_stop_dvmrp()$/
+k_update_route	../common/kern.c	/^void k_update_route(r)$/
+log	main.c	/^void log(severity, syserr, format, a, b, c, d, e)$/
+next_word	config.c	/^static char *next_word(s)$/
+packet_kind	../common/igmp.c	/^static char *packet_kind(type, code)$/
+probe_for_neighbors	vif.c	/^void probe_for_neighbors()$/
+query_groups	vif.c	/^void query_groups()$/
+report	route.c	/^void report(which_routes, vifi, dst)$/
+report_to_all_neighbors	route.c	/^void report_to_all_neighbors(which_routes)$/
+send_igmp	../common/igmp.c	/^void send_igmp(src, dst, type, code, group, datale/
+start_route_updates	route.c	/^void start_route_updates()$/
+start_vif	vif.c	/^static void start_vif(vifi)$/
+stop_vif	vif.c	/^static void stop_vif(vifi)$/
+timer	main.c	/^static void timer()$/
+update_neighbor	vif.c	/^int update_neighbor(vifi, addr, msgtype)$/
+update_route	route.c	/^void update_route(origin, mask, metric, src, vifi)/

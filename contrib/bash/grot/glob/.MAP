@@ -1,0 +1,6 @@
+F CHANGELO.;1                       	ChangeLog
+D DOC                               	doc
+F FNMATCH.C;1                       	fnmatch.c
+F FNMATCH.H;1                       	fnmatch.h
+F MAKEFILE.;1                       	Makefile
+F NDIR.H;1                          	ndir.h

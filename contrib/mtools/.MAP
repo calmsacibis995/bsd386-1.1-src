@@ -1,0 +1,20 @@
+D GROT                              	grot
+D LIB                               	lib
+F MAKEFILE.;1                       	Makefile
+D MATTRIB                           	mattrib
+D MCD                               	mcd
+D MCOPY                             	mcopy
+D MDEL                              	mdel
+D MDIR                              	mdir
+D MFORMAT                           	mformat
+D MKMANIFE                          	mkmanifest
+D MLABEL                            	mlabel
+D MMD                               	mmd
+D MRD                               	mrd
+D MREAD                             	mread
+D MREN                              	mren
+F MTOOLS.1;1                        	mtools.1
+F MTOOLSRC.5;1                      	mtoolsrc.5
+D MTYPE                             	mtype
+D MWRITE                            	mwrite
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/mtools

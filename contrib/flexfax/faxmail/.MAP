@@ -1,0 +1,10 @@
+F CALLIGRA.PS;1                     	calligraphy.ps
+F FAXMAIL.C__;1                     	faxmail.c++
+F HAEBERLI.PS;1                     	haeberli.ps
+F MAILFAX0.SH_;1                    	mailfax.sh-sendmail
+F MAILFAX1.SH_;1                    	mailfax.sh-smail
+F MAKEDEPE.;1                       	Makedepend
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/flexfax/faxmail
+F README.;1                         	README
+F TAGS.;1                           	tags

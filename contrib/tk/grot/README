@@ -1,0 +1,246 @@
+The Tk Toolkit
+
+by John Ousterhout
+University of California at Berkeley
+ouster@cs.berkeley.edu
+
+1. Introduction
+---------------
+
+This directory contains the sources and documentation for Tk, an
+X11 toolkit that provides the Motif look and feel and is implemented
+using the Tcl scripting language.  The information here corresponds
+to Tk 3.5.  It is designed to work with Tcl 7.2 and may not work
+with other releases of Tcl.
+
+2. Documentation
+----------------
+
+The best way to get started with Tk is to read the draft of my upcoming
+book on Tcl and Tk, which can be retrieved using anonymous FTP from the
+directory "ucb/tcl" on ftp.cs.berkeley.edu.  Part II of the book provides
+an introduction to writing Tcl scripts for Tk and Part IV describes how
+to build new widgets and geometry managers in C using Tk's library
+procedures.
+
+The "doc" subdirectory in this release contains a complete set of manual
+entries for Tk.  Files with extension ".1" are for programs such as
+wish; files with extension ".3" are for C library procedures; and files
+with extension ".n" describe Tcl commands.  To print any of the manual
+entries, cd to the "doc" directory and invoke your favorite variant of
+troff using the normal -man macros, for example
+
+		ditroff -man wish.1
+
+to print wish.1.  If Tk has been installed correctly and your "man"
+program supports it, you should be able to access the Tcl manual entries
+using the normal "man" mechanisms, such as
+
+		man wish
+
+3. Compiling and installing Tk
+------------------------------
+
+This release should compile and run with little or no effort on any
+UNIX-like system that approximates POSIX, BSD, or System V and runs
+the X Window System.  I know that it runs on workstations from Sun,
+DEC, H-P, IBM, and Silicon Graphics, and on PC's running SCO UNIX
+and Xenix.  To compile Tk, do the following:
+
+    (a) Make sure that this directory and the corresponding release of
+        Tcl are both subdirectories of the same directory.  This
+	directory should be named tk3.5 and the Tcl release directory
+	should be named tcl7.2.
+
+    (b) Type "./configure" in this directory.  This runs a configuration
+	script created by GNU autoconf, which configures Tcl for your
+	system and creates a Makefile.  The configure script allows you
+	to customize the Tk configuration for your site;  for details on
+	how you can do this, see the file "configure.info".
+
+    (c) Type "make".  This will create a library archive called "libtk.a"
+	and an interpreter application called "wish" that allows you to type
+	Tcl commands interactively or execute script files.
+
+    (d) If the make fails then you'll have to personalize the Makefile
+        for your site or possibly modify the distribution in other ways.
+	First check the file "porting.notes" to see if there are hints
+	for compiling on your system.  If you need to modify Makefile,
+	there are comments at the beginning of it that describe the things
+	you might want to change and how to change them.
+	
+    (e) Type "make install" to install Tk's binaries and script files in
+        standard places.  In the default configuration information will
+	be installed in /usr/local so you'll need write permission on
+	this directory.
+
+    (f) At this point you can play with Tcl by invoking the "wish"
+	program and typing Tcl commands.  However, if you haven't installed
+	Tk then you'll first need to set your TK_LIBRARY environment
+	variable to hold the full path name of the "library" subdirectory.
+	If you haven't installed Tcl either then you'll need to set your
+	TCL_LIBRARY environment variable as well (see the Tcl README file
+	for information on this).
+
+If you have trouble compiling Tk, I'd suggest looking at the file
+"porting.notes".  It contains information that people have sent me about
+changes they had to make to compile Tcl in various environments.  I make
+no guarantees that this information is accurate, complete, or up-to-date,
+but you may find it useful.  If you get Tk running on a new configuration
+and had to make non-trivial changes to do it, I'd be happy to receive new
+information to add to "porting.notes".  I'm also interested in hearing
+how to change the configuration setup so that Tcl compiles on additional
+platforms "out of the box".
+
+4. Test suite
+-------------
+
+Tk now has the beginnings of a self-test suite, consisting of a set of
+scripts in the subdirectory "tests".  To run the test suite just type
+"make test" in this directory.  You should then see a printout of the
+test files processed.  If any errors occur, you'll see a much more
+substantial printout for each error.  See the README file in the
+"tests" directory for more information on the test suite.
+
+5. Getting started
+------------------
+
+Once wish is compiled you can use it to play around with the Tk
+facilities.  If you run wish with no arguments, it will open a small
+window on the screen and read Tcl commands from standard input.
+Or, you can play with some of the pre-canned scripts in the subdirectory
+library/demos.  See the README file in the directory for a description
+of what's available.  The file library/demos/widget is a script that
+you can use to invoke many individual demonstrations of Tk's facilities.
+
+If you want to start typing Tcl/Tk commands to wish, I'd suggest
+starting with a widget-creation command like "button", and also learn
+about the "pack" and "place" commands for geometry management.  Note:
+when you create a widget, it won't appear on the screen until you tell
+a geometry manager about it.  The only geometry managers at present
+are the packer and the placer.  If you don't already know Tcl, read the
+Tcl book excerpt that can be FTP'ed separately from the distribution
+directory.
+
+Andrew Payne has written a very nice demo script called "The Widget Tour"
+that introduces you to writing Tk scripts.  This script is available
+from the Tcl contributed archive described below.  If you're just
+getting started with Tk I strongly recommend trying out the widget tour.
+
+6. Summary of changes in this release
+-------------------------------------
+
+Tk 3.5 is a minor release with only two changes, both bug fixes.  It fixes
+a portability problem introduced by 3.4, plus it fixes a bug in the packer
+having to do with the "-in" option.  Tk 3.5 should be completely compatible
+with both 3.4 and 3.3.
+
+Tk 3.4 is a minor release consisting almost entirely of bug fixes.  There
+are no significant feature changes and Tk 3.4 should be completely
+compatible with Tk 3.3.
+
+Tk 3.3 consists mostly of bug fixes plus upgrades to make it compatible
+with Tcl 7.0.  It should not introduce any compatibility problems itself,
+but it requires Tcl 7.0, which introduces several incompatibilities
+(see the Tcl README file for details).  The file "changes" contains a
+complete list of all changes to Tk, including both bug fixes and new
+features.  Here is a short list of a few of the most significant new
+features:
+
+    1. Tk is now consistent with the book drafts.  This means that the
+    new packer syntax has been implemented and additional bitmaps and
+    reliefs are available.
+
+    2. Tk now supports stacking order.  Windows will stack in the order
+    created, and "raise" and "lower" commands are available to change
+    the stacking order.
+
+    3. There have been several improvements in configuration:  GNU
+    autoconf is now used for configuration;  wish now supports the
+    Tcl_AppInit procedure;  and there's a patchlevel.h file that will
+    be used for future patches.  The Tk release no longer includes a
+    Tcl release; you'll have to retrieve Tcl separately.
+
+    4. The Tk script library contains a new procedure "tk_dialog" for
+    creating dialog boxes, and the default "tkerror" has been improved
+    to use tk_dialog.
+
+    5. Tk now provides its own "exit" command that cleans up properly,
+    so it's now safe to use "exit" instead of "destroy ." to end wish
+    applications.
+
+    6. Cascade menu entries now display proper Motif arrows.
+
+    7. The main window is now a legitimate toplevel widget.
+
+    8. Wish allows prompts to be user-settable via the "tcl_prompt1"
+    and "tcl_prompt2" variables.
+
+7. Tcl/Tk newsgroup
+-------------------
+
+There is a network news group "comp.lang.tcl" intended for the exchange
+of information about Tcl, Tk, and related applications.  Feel free to use
+this newsgroup both for general information questions and for bug reports.
+I read the newsgroup and will attempt to fix bugs and problems reported
+to it.
+
+8. Tcl/Tk contributed archive
+--------------------------
+
+Many people have created exciting packages and applications based on Tcl
+and/or Tk and made them freely available to the Tcl community.  An archive
+of these contributions is kept on the machine harbor.ecn.purdue.edu.  You
+can access the archive using anonymous FTP;  the Tcl contributed archive is
+in the directory "pub/tcl".
+
+9. Support and bug fixes
+------------------------
+
+I'm very interested in receiving bug reports and suggestions for
+improvements.  Bugs usually get fixed quickly (particularly if they
+are serious), but enhancements may take a while and may not happen at
+all unless there is widespread support for them (I'm trying to slow
+the rate at which Tk turns into a kitchen sink).  It's becoming
+increasingly difficult to make incompatible changes to Tk, but it's
+not totally out of the question.
+
+The Tcl/Tk community is too large for me to provide much individual
+support for users.  If you need help I suggest that you post questions
+to comp.lang.tcl.  I read the newsgroup and will attempt to answer
+esoteric questions for which no-one else is likely to know the answer.
+In addition, Tcl/Tk support and training are available commercially from
+NeoSoft.  For more information, send e-mail to "info@neosoft.com".
+
+
+10. Release organization
+---------------------------
+
+Each Tk release is identified by two numbers separated by a dot, e.g.
+3.2 or 3.3.  If a new release contains changes that are likely to break
+existing C code or Tcl scripts then the major release number increments
+and the minor number resets to zero: 3.0, 4.0, etc.  If a new release
+contains only bug fixes and compatible changes, then the minor number
+increments without changing the major number, e.g. 3.1, 3.2, etc.  If
+you have C code or Tcl scripts that work with release X.Y, then they
+should also work with any release X.Z as long as Z > Y.
+
+Beta releases have an additional suffix of the form bx.  For example,
+Tk 3.3b1 is the first beta release of Tk version 3.3, Tk 3.3b2 is
+the second beta release, and so on.  A beta release is an initial
+version of a new release, used to fix bugs and bad features before
+declaring the release stable.  Each new release will be preceded by
+one or more beta releases.  I hope that lots of people will try out
+the beta releases and report problems back to me.  I'll make new beta
+releases to fix the problems, until eventually there is a beta release
+that appears to be stable.  Once this occurs I'll remove the beta
+suffix so that the last beta release becomes the official release.
+
+If a new release contains incompatibilities (e.g. 4.0) then I can't
+promise to maintain compatibility among its beta releases.  For example,
+release 4.0b2 may not be backward compatible with 4.0b1.  I'll try
+to minimize incompatibilities between beta releases, but if a major
+problem turns up then I'll fix it even if it introduces an
+incompatibility.  Once the official release is made then there won't
+be any more incompatibilities until the next release with a new major
+version number.

@@ -1,0 +1,11 @@
+F CHANGES.GZ;1                      	CHANGES.gz
+F IMAKEFI0.GZ;1                     	Imakefile.gz
+F IMAKEFI1.GZ;1                     	imakefiles.shar.gz
+F IMAKE_SH.GZ;1                     	imake.sh.gz
+D LIB                               	lib
+F MAKEFILE.GZ;1                     	Makefile.gz
+D MISC                              	misc
+F README.GZ;1                       	README.gz
+F README_M.GZ;1                     	README.multiarch.gz
+D UPS                               	ups
+F UPS_RULE.GZ;1                     	Ups.rules.gz

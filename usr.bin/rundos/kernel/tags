@@ -1,0 +1,167 @@
+BYTE	timer.c	/^#define BYTE(st) (* (byte *) &(st))$/
+Dump	kernel.c	/^void Dump(char *msg, unsigned int *data, int len)$/
+ErrExit	menu.c	/^void ErrExit (int exit_status, char *msg, int x)$/
+ErrorTo86	menu.c	/^void ErrorTo86 (char *msg)$/
+GameIn	printer.c	/^static byte GameIn (int port)$/
+GameOut	printer.c	/^static void GameOut (int port, byte val)$/
+GarbageChar	keyboard.c	/^static inline int GarbageChar (unsigned int ch)$/
+GenSpoolName	printer.c	/^static void GenSpoolName (char *str)$/
+InitVideo	video.c	/^void InitVideo (struct trapframe *tf)$/
+KbFillQueue	keyboard.c	/^static void KbFillQueue (int scode)$/
+KbInterfaceDisabled	keyboard.c	/^static inline int KbInterfaceDisabled (void)$/
+KbIrqDisabled	keyboard.c	/^static inline int KbIrqDisabled (void)$/
+KbTimeExpired	keyboard.c	/^void KbTimeExpired (void)$/
+KeybCtrlOut	keyboard.c	/^static void KeybCtrlOut (byte val)$/
+KeybDataOut	keyboard.c	/^static void KeybDataOut (byte val)$/
+KeybIn	keyboard.c	/^static byte KeybIn (int portnum)$/
+KeybOut	keyboard.c	/^static void KeybOut (int portnum, byte val)$/
+LogPrintSig	kernel.c	/^static void LogPrintSig (int beg_end,struct sigfra/
+MAKE_DD_ADDR	menu.c	/^#define MAKE_DD_ADDR(dd_adr)  BYS((dd_adr & 0xFFFF/
+MenuEnter	menu.c	/^void MenuEnter (int errcod, char * msg)$/
+Mkernel	kernel.c	/^main(int argc, char **argv)$/
+MoveGateA20	keyboard.c	/^static void MoveGateA20 (int val)$/
+PrepareForV86Int	emulate.c	/^static void PrepareForV86Int (int intno, struct tr/
+PrintBufFlash	printer.c	/^void PrintBufFlash (void)$/
+PrintIn	printer.c	/^static byte PrintIn (int port)$/
+PrintOut	printer.c	/^static void PrintOut (int port, byte val)$/
+PrinterService	printer.c	/^void PrinterService (byte cod, word prt_n)$/
+PushKeyboard	keyboard.c	/^static void PushKeyboard (void)$/
+PushKeyboardBySig	keyboard.c	/^void PushKeyboardBySig (void)$/
+RCW_timer_outb	timer.c	/^void RCW_timer_outb(int portnum, struct reg_c_w va/
+RestoreMemStruc	video.c	/^RestoreMemStruc (VGAREGS * vgar)$/
+RestoreVGARegs	video.c	/^static void RestoreVGARegs (VGAREGS *vgar)$/
+RestoreVGAint10	video.c	/^static void RestoreVGAint10 (VGAREGS *vgar)$/
+RestoreVState	video.c	/^void RestoreVState (VGAREGS * vgar)$/
+SaveVGARegs	video.c	/^static void SaveVGARegs (VGAREGS * vgar)$/
+SaveVGAint10	video.c	/^static void SaveVGAint10 (VGAREGS *vgar)$/
+SaveVState	video.c	/^void SaveVState (VGAREGS * vgar)$/
+SendToKB	keyboard.c	/^static void SendToKB (byte val)$/
+SetInternalSource	keyboard.c	/^static void SetInternalSource (byte ch)$/
+SetPlaneStructure	video.c	/^SetPlaneStructure (VGAREGS * vgar)$/
+SetProfTimer	keyboard.c	/^static void SetProfTimer (void)$/
+SetStdVideoRWMode	video.c	/^void SetStdVideoRWMode ()$/
+ToKbdQueue	keyboard.c	/^static void ToKbdQueue (int scode)$/
+ToReset	keyboard.c	/^static void ToReset (void)$/
+WORD	timer.c	/^#define WORD(st) (* (short *) &(st))$/
+Wof2B	video.c	/^#define Wof2B(x,y) ( (x & 0xFF) | ((y & 0xFF) << 8/
+WriteSpoolBuf	printer.c	/^void WriteSpoolBuf (word prt_n)$/
+alarm_check	cmos.c	/^void alarm_check ()$/
+block_all_signals	kernel.c	/^void block_all_signals()$/
+change_sound_mode	timer.c	/^void change_sound_mode (void)$/
+change_tick_mode	timer.c	/^void change_tick_mode (byte tcm)$/
+check_interrupts	interrupt.c	/^void check_interrupts(struct trapframe *tf)$/
+cmos_inb	cmos.c	/^unsigned char cmos_inb(int portnum)$/
+cmos_outb	cmos.c	/^void cmos_outb(int portnum, unsigned char byte)$/
+com_port_in	mouse.c	/^static unsigned char com_port_in(int port)$/
+com_port_out	mouse.c	/^static void com_port_out(int port, unsigned char v/
+com_set_line	mouse.c	/^static inline void com_set_line(void)$/
+compute_select_count	input.c	/^static void compute_select_count(void)$/
+console_trace	trace.c	/^int console_trace(void)$/
+correct_tick	timer.c	/^void correct_tick (byte tcm)$/
+create_queue	queue.c	/^struct queue *create_queue (int intno)$/
+day_in_mon_year	cmos.c	/^int day_in_mon_year (mon, year)$/
+delete_input_handler	input.c	/^void delete_input_handler(int fd)$/
+do_console_redirect	console.c	/^static void do_console_redirect(void)$/
+do_inputs	input.c	/^void do_inputs(void)$/
+do_io_at	int13.c	/^static int do_io_at(V86_REGPACK_t regs, const dinf/
+do_keyboard_input	keyboard.c	/^void do_keyboard_input(void)$/
+do_mouse_input	mouse.c	/^static void do_mouse_input(void)$/
+do_sectors_IO	int13.c	/^static int do_sectors_IO(V86_REGPACK_t regs, int r/
+do_timer_tick	timer.c	/^void do_timer_tick(void)$/
+dprintf	config.c	/^void dprintf(const char *fmt, ...)$/
+drop_fpe	emulate.c	/^int drop_fpe(struct trapframe *tf)$/
+emulate	emulate.c	/^int emulate(struct trapframe *tf)$/
+fast_timer_ready	cmos.c	/^int fast_timer_ready(void)$/
+fill_dsk_parameters	int13.c	/^static int fill_dsk_parameters(dinfo_t dsk)$/
+fill_floppy_disk_parameters	int13.c	/^static void fill_floppy_disk_parameters(dinfo_t ds/
+fill_hard_disk_parameters	int13.c	/^static void fill_hard_disk_parameters(dinfo_t dsk)/
+flop_type	cmos.c	/^static inline unsigned char flop_type(int id)$/
+from_BCD	cmos.c	/^int from_BCD (int n)$/
+generate_event	mouse.c	/^static inline void generate_event(int buttons,$/
+get_change_status	int13.c	/^static int get_change_status(V86_REGPACK_t regs)$/
+get_drive_parms	int13.c	/^static int get_drive_parms(V86_REGPACK_t regs)$/
+hardware_interrupt	interrupt.c	/^void hardware_interrupt(int intnum, struct trapfra/
+inb_nullport	emulate.c	/^static unsigned char inb_nullport(int port)$/
+init_cmos	cmos.c	/^void init_cmos(void)$/
+init_console	console.c	/^void init_console(void)$/
+init_disk	int13.c	/^static void init_disk(dinfo_t dsk)$/
+init_disk_service	int13.c	/^void init_disk_service(void)$/
+init_game_port	printer.c	/^void init_game_port (void)$/
+init_interrupts	interrupt.c	/^void init_interrupts(void)$/
+init_keyboard	keyboard.c	/^void init_keyboard (void)$/
+init_mouse	mouse.c	/^void init_mouse(void)$/
+init_ports	emulate.c	/^void init_ports(void)$/
+init_printer	printer.c	/^void init_printer (void)$/
+init_services	service.c	/^void init_services(void)$/
+init_tick	timer.c	/^void init_tick (void)$/
+init_timer	timer.c	/^void init_timer(void)$/
+init_trace	trace.c	/^void init_trace(char num)$/
+int13_dummy	int13.c	/^static int int13_dummy(V86_REGPACK_t regs, const c/
+int13_error	int13.c	/^static int int13_error(V86_REGPACK_t regs, int err/
+int13_get_status	int13.c	/^static int int13_get_status(V86_REGPACK_t regs)$/
+int13_get_type	int13.c	/^static int int13_get_type(V86_REGPACK_t regs)$/
+int13_io_error	int13.c	/^static int int13_io_error(V86_REGPACK_t regs, int /
+int13_io_ok	int13.c	/^static int int13_io_ok(V86_REGPACK_t regs, int dis/
+int13_ok	int13.c	/^static int int13_ok(V86_REGPACK_t regs)$/
+int_inb	interrupt.c	/^static unsigned char int_inb(int port)$/
+int_outb	interrupt.c	/^static void int_outb(int port, unsigned char data)/
+interrupt_enabled	interrupt.c	/^int interrupt_enabled(int intnum)$/
+irq_request	interrupt.c	/^int irq_request ()$/
+last_bit	interrupt.c	/^static word last_bit (word r, word high)$/
+latch_tic	timer.c	/^void latch_tic (short n)$/
+load_image	kernel.c	/^static void load_image(char *bname, int addr)$/
+map_device	kernel.c	/^void map_device(char *dname, int addr, int size)$/
+normal_console	console.c	/^void normal_console(void)$/
+only_one_irq	interrupt.c	/^int only_one_irq (int intnum)$/
+open_with_lock	int13.c	/^static int open_with_lock(dinfo_t dsk)$/
+outb_nullport	emulate.c	/^static void outb_nullport(int port, unsigned char /
+port_61_in	timer.c	/^byte port_61_in ()$/
+port_61_out	timer.c	/^void port_61_out (int portnum,byte val)$/
+print_regs	trace.c	/^void print_regs(struct trapframe *tf)$/
+process_mouse_events	mouse.c	/^static void process_mouse_events(unsigned char *rB/
+put_debug	int13.c	/^static void put_debug(int level, const char *fmt, /
+raise_sigbus	menu.c	/^static void raise_sigbus()$/
+random_sig_handler	kernel.c	/^void random_sig_handler(struct sigframe sf, struct/
+read_config_file	config.c	/^void read_config_file(struct trapframe *tf)$/
+read_connect_area_address	kernel.c	/^static int read_connect_area_address(void)$/
+redirect_console	console.c	/^void redirect_console(void)$/
+reset_console	console.c	/^void reset_console(void)$/
+reset_controller	int13.c	/^static int reset_controller(V86_REGPACK_t regs)$/
+reset_irq_request	interrupt.c	/^inline void reset_irq_request (intnum)$/
+search_device	config.c	/^struct device *search_device(enum devtype dtype, i/
+select_cook_console	console.c	/^void select_cook_console(void)$/
+select_cook_keyboard	console.c	/^void select_cook_keyboard(void)$/
+select_raw_console	console.c	/^void select_raw_console()$/
+select_raw_keyboard	console.c	/^void select_raw_keyboard(void)$/
+set_irq_request	interrupt.c	/^inline void set_irq_request (intnum)$/
+set_media_for_format	int13.c	/^static int set_media_for_format(V86_REGPACK_t regs/
+setsignal	kernel.c	/^static void setsignal (int signum, void *handler)$/
+sigfpe_handler	kernel.c	/^void sigfpe_handler(struct sigframe sf, struct tra/
+sigio_handler	kernel.c	/^void sigio_handler(struct sigframe sf, struct trap/
+sigtrap_handler	kernel.c	/^void sigtrap_handler(struct sigframe sf, struct tr/
+sigvm86_handler	kernel.c	/^void sigvm86_handler (struct sigframe sf, struct t/
+switch_vm86	kernel.c	/^static void switch_vm86(struct sigframe sf, struct/
+syntax_error	config.c	/^static void syntax_error(int line)$/
+system_service	service.c	/^void system_service(struct trapframe *tf)$/
+timer2_handler	kernel.c	/^void timer2_handler(struct sigframe sf, struct tra/
+timer_handler	kernel.c	/^void timer_handler(struct sigframe sf, struct trap/
+timer_inb	timer.c	/^unsigned char timer_inb(int portnum)$/
+timer_outb	timer.c	/^void timer_outb(int portnum, unsigned char val)$/
+timer_ready	timer.c	/^int timer_ready(void)$/
+toV86	menu.c	/^void toV86 (void)$/
+toV86_msgs	menu.c	/^void toV86_msgs (word ax_for86)$/
+to_BCD	cmos.c	/^int to_BCD (int n)$/
+trace	trace.c	/^void trace(int number, struct trapframe *tf)$/
+unblock_signals	kernel.c	/^void unblock_signals()$/
+unimplemented	int13.c	/^static int unimplemented(V86_REGPACK_t regs)$/
+ush	emulate.c	/^#define ush(cmd) (*(unsigned short*)&cmd)$/
+v86_do_int13	int13.c	/^int v86_do_int13(void)$/
+v86_int13	int13.c	/^int v86_int13(V86_REGPACK_t regs)$/
+vga_restore_current_mode	video.c	/^void vga_restore_current_mode(void)$/
+vga_restore_initial_mode	video.c	/^void vga_restore_initial_mode(void)$/
+vga_save_current_mode	video.c	/^void vga_save_current_mode(void)$/
+vga_save_initial_mode	video.c	/^void vga_save_initial_mode(void)$/
+xms_bad_handle	xms.c	/^static inline int xms_bad_handle(int handle)$/
+xms_reset	xms.c	/^void xms_reset(void)$/
+xms_service	xms.c	/^void xms_service(struct trapframe *tf)$/
+xms_set_error_code	xms.c	/^#define xms_set_error_code(CODE) \\$/

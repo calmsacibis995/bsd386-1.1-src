@@ -1,0 +1,5 @@
+Msoelim.cc	soelim.cc	/^int main(int argc, char **argv)$/
+do_file	soelim.cc	/^int do_file(const char *filename)$/
+do_so	soelim.cc	/^void do_so(const char *line)$/
+set_location	soelim.cc	/^void set_location()$/
+usage	soelim.cc	/^void usage()$/

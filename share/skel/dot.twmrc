@@ -1,0 +1,332 @@
+#
+#  .twmrc -- startup file for twm window manager
+#
+
+
+#
+# Variables Section
+#   These are not changed if .twmrc is re-read, too bad :-(
+#---------------------------------------------------------------------
+
+#--------------- from van's .twmrc
+AutoRelativeResize
+DontMoveOff
+#IconDirectory		"~/icons"
+IconFont		"-*-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*"
+IconManagerFont		"-*-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*"
+MenuFont		"-*-helvetica-bold-r-*-*-18-*-*-*-*-*-*-*"
+MoveDelta		4
+NoCaseSensitive
+#RandomPlacement
+ResizeFont		"-*-helvetica-bold-r-*-*-18-*-*-*-*-*-*-*"
+TitleFont		"-*-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*"
+#UsePPosition "non-zero"
+# following is bug work-around
+#NoTitleFocus
+NoTitleHighlight
+
+IconManagerGeometry 	"=380x105-110-2" 4
+IconRegion	 	"=80x11-110-110" South East 50 20
+IconifyByUnmapping
+ShowIconManager
+SortIconManager
+
+#DefaultFunction 	f.menu "main"
+DefaultFunction 	f.beep
+
+#SqueezeTitle
+SqueezeTitle {
+	"default1"	left	0	0
+	"default2"	left	80	0
+	"default3"	left	160	0
+	"default4"	left	240	0
+	"rlavax.r"	right	-3	6
+	"vangogh.r"	right	-2	6
+	"liberty.r"	right	-1	6
+	"xterm.r"	right	0	0
+}
+
+IconManagerDontShow {
+	"xclock" "xload" "oclock" "xeyes" "console" "okconsole"  "vgconsole"
+	lb.cons }
+NoHighlight { "xclock" "xload" "oclock" "xeyes" }
+DontSqueezeTitle { "TWM Icon Manager" "TWM" "xclock" "xload" "oclock" "xeyes" }
+
+#--------------- from eric's .twmrc
+# width of border around windows
+#BorderWidth	1
+
+# font used to name icons
+#IconFont	"9x15"
+
+# font used when resizing windows
+#ResizeFont	"vr-20"
+
+# uncomment this to get reverse video on whole screen
+#ReverseVideo
+#Zoom
+
+# if you don't know what to do, just beep
+#DefaultFunction	f.beep
+
+# look here for bitmaps
+#IconDirectory	"~/X11/bitmaps"
+
+# bitmap to use for icons if nothing better can be found
+#UnknownIcon	"xlogo32"
+
+OpaqueMove
+
+# default icons for various applications
+Icons
+{
+#	"xterm"		"xterm.icon"
+	"xfd"		"xfd_icon"
+	"xmh"		"xmh.icon"
+}
+
+#  Don't put title bars on these applications
+NoTitle
+{
+	"TWM"
+	"console"
+	"lbconsole"
+	"liberty"
+	"redrock"
+	"local"
+	"xclock"
+	"oclock"
+	"xbiff"
+	"xload"
+	"xshell"
+	"xpostit"
+	"xeyes"
+	"bxmh"
+	"xmh"
+}
+
+AutoRaise { "Notes" "console" "okconsole" "lbconsole" "vgconsole" }
+
+WarpCursor { "Notes" }
+WarpUnmapped
+
+Color {
+	BorderColor "white"
+	{
+		"bsdicom"	"skyblue"
+		"okeeffe"	"skyblue"
+		"okconsole"	"skyblue"
+		"console"	"violet"
+		"local"		"violet"
+		"redrock"	"red"
+		"vangogh"	"yellow"
+		"vgconsole"	"yellow"
+		"Notes"		"green"
+		"bxmh"		"green"
+		"bxmhterm"	"green"
+	}
+	BorderTileBackground "white"
+	{
+		"bsdicom"	"skyblue"
+		"okeeffe"	"skyblue"
+		"okconsole"	"skyblue"
+		"console"	"violet"
+		"local"		"violet"
+		"redrock"	"red"
+		"vangogh"	"yellow"
+		"vgconsole"	"yellow"
+		"Notes"		"green"
+		"bxmh"		"green"
+		"bxmhterm"	"green"
+	}
+}
+
+Monochrome {
+	BorderColor "white"
+}
+
+
+#  Actions associated with mouse buttons
+#Button = modifiers: Context	: Function
+#---------------------------------------------------------------------
+Button1 =	: root		: f.menu "main"
+Button1 = m	: root		: f.circleup 
+Button1 = m|s	: root		: f.circledown
+Button1 = m|c	: all		: f.menu "main"
+
+Button1 =	: t|f		: f.raiselower
+Button1 = m	: w|t|f		: f.raiselower
+Button1 = m|s	: w|t|f		: f.lower
+Button1 =	: icon		: f.deiconify
+Button1 = m	: icon		: f.deiconify
+
+Button2 =	: root		: f.menu "Logins"
+Button2 = m	: root		: f.menu "Logins"
+Button2 = m|s	: root		: f.menu "Hosts"
+
+Button2 =	: t|f		: f.move
+Button2 = m	: w|t|f		: f.move
+Button2 = m|c	: w|t|f		: f.forcemove
+Button2 =	: icon		: f.move
+Button2 = m	: icon		: f.move
+Button2 = m|s	: w|f		: f.resize
+Button2 = m|s	: icon		: f.resize
+
+Button3 =	: root		: f.menu "Hosts"
+Button3 = m	: root		: f.menu "Hosts"
+
+Button3 = m	: w|t|f		: f.iconify
+Button3 =	: t		: f.iconify
+#Button3 =	: icon		: f.deiconify	# not with icon managers
+Button3 = m	: icon		: f.deiconify
+#Button3 = m|s	: window	: f.resize
+
+#  Actions associated with key presses
+#
+#Key = modifiers: Context	: Function
+#---------------------------------------------------------------------
+"Insert" = 	: w|t		: f.zoom
+#"Prev" =	: all		: f.circleup
+#"Prior" =	: w|t		: f.iconify
+"Print" = 	: all		: f.warpto "Notes"
+#"Execute" = 	: window	: !"xpaste | enscript -p - | lpr"
+
+
+#
+#  Definition of menus
+#
+
+# the "top menu" that gets to all other menus
+#	Button2 in root context or Meta-Shift-Button2 anywhere gets this
+menu "main"
+{
+	"Main Menu"		f.title
+	"Windows"		f.menu "TwmWindows"
+	"New Shell"		!"xterm -name local -n shell -T shell &"
+	"Logins"		f.menu "Logins"
+	"Hosts"			f.menu "Hosts"
+	"Applications"		f.menu "Applications"
+	"Window Ops"		f.menu "window ops"
+	"Window Manager"	f.menu "window manager"
+	"Preferences"		f.menu "Preferences"
+#	"HELP!!!"		!"xterm -geometry 80x40+100+100 -e /usr/X11/lib/help.sh &"
+}
+
+
+# invoke shells/logins on various machines
+#	modify this to match the hosts you tend to use.
+#	accessible from main menu or Meta-Button2 in root window.
+menu "Logins"
+{
+	"Logins"	f.title
+	"okeeffe"	!"bin/okeeffe.r &"
+	"vangogh"	!"bin/vangogh &"
+	"kerberos"	!"bin/kerberos &"
+	"arpa"		!"bin/arpa &"
+	"monet"		!"bin/monet &"
+	"calder"	!"bin/calder &"
+	"cassatt"	!"bin/cassatt &"
+	"ucbvax"	!"bin/ucbvax &"
+	"matisse"	!"rsh matisse -n '/usr/contrib/X11/xterm -ls -n matisse '$NETDISPLAY' -geom 80x24+35+8 \#-295-90 ' &"
+	"Hosts"		f.menu "Hosts"
+}
+
+menu "Hosts"
+{
+	"Hosts"		f.title
+	"Local"		f.menu "Applications"
+	"okeeffe.t"	!"bin/okeeffe.t &"
+	"okeeffe.b"	!"bin/okeeffe.b &"
+	"okeeffe.lg"	!"bin/okeeffe.lg &"
+	"ok.cons"	!"bin/ok.cons &"
+	"vangogh"	!"bin/vangogh &"
+	"arpa"		!"rsh arpa -n '/usr/X11/bin/xterm -n arpa -disp '$NETDISPLAY' -e /usr/local/ksh -l >/dev/null 2>&1 &' &"
+	"monet"		!"rsh monet -n '/usr/new/xterm -n monet '$NETDISPLAY' -e /usr/local/ksh -l ' &"
+	"calder"	!"rsh calder -n '/usr/new/xterm -n calder '$NETDISPLAY' -e /usr/local/ksh -l ' &"
+	"cassatt"	!"rsh cassatt -n '/usr/new/xterm -n cassatt '$NETDISPLAY' &' &"
+	"matisse"	!"rsh matisse -n '/usr/new/xterm -n matisse '$NETDISPLAY' ' &"
+}
+
+# applications invoked from menu -- xshell can also be helpful here
+#	modify this for the X applications you use.
+#	Meta-Control-Button2 gets this, or accessible from main menu.
+menu "Applications"
+{
+	"Applications" 	f.title
+	"shell"		!"xterm -name local -n shell -T shell -geom 80x24 &"
+	"xterm.t"	!"bin/xterm.t &"
+	"xterm.b"	!"bin/xterm.b &"
+	"xterm.lg"	!"bin/xterm.lg &"
+	"wf.t"		!"bin/rxterm wf.t &"
+	"xlock"		!"xlock &"
+	"Notes"		!"bin/Notes &"
+	"clock"		!"xclock -rv -analog -update 60 -geometry 105x105-2-2 &"
+	"xload"		f.menu "xload"
+
+	"print select"	!"xpaste | enscript -p - | lpr"
+	"x10tox11"	!"x10tox11 &"
+	"xshell"	!"xshell &"
+	"xmh"		!"xmh -flag &"
+	"xman"		!"xman &"
+	"xrn"		!"xrn &"
+	"xperfmon"	!"xperfmon -fw &"
+	"xcalc"		!"xcalc &"
+	"xcalc -rpn"	!"xcalc -rpn &"
+	"xedit"		!"xedit &"
+	"xfig"		!"xfig &"
+}
+
+menu "xload"
+{
+	"Xload"		f.title
+	"rip"		!"xload -geometry 105x48-105+0 -fn 6x10 &"
+}
+
+# operations that modify windows in some way
+menu "window ops"
+{
+	"Window Ops"		f.title
+	"Iconify"		f.iconify
+	"Refresh"		f.winrefresh
+	"Move"			f.move
+	"Resize"		f.resize
+	"Lower"			f.lower
+	"Raise"			f.raise
+	"Circle Up"		f.circleup
+	"Circle Dn"		f.circledown
+	"Focus"			f.focus
+	"Unfocus"		f.unfocus
+	"Full Zoom"		f.fullzoom
+	"Zoom"			f.zoom
+	"-----"			f.title
+	"Destroy"		f.destroy
+}
+
+
+# operations that affect the window manager (twm) itself
+menu "window manager"
+{
+	"Window Manager"	f.title
+	"Refresh All"		f.refresh
+	"Restart"		f.restart
+	"Version"		f.version
+	"Window Summary"	f.menu "TwmWindows"
+	"Show Icon Manager"	f.showiconmgr
+	"Hide Icon Manager"	f.hideiconmgr
+	"-----"			f.title
+	"Kill twm"		f.quit
+}
+
+
+# "personal preference" adjustment
+menu "Preferences"
+{
+	"Preferences"		f.title
+	"Bell On"               !"xset b 100 800 &"
+	"Bell Off"              !"xset b 0 &"
+	"Click On"		!"xset c on &"
+	"Click Off"		!"xset c off &"
+	"Mouse Fast"		!"xset m 9 5&"
+	"Mouse Normal"		!"xset m 6 3&"
+	"Mouse Slow"		!"xset m 1 1&"
+}

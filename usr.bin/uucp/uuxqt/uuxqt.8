@@ -1,0 +1,140 @@
+.\"
+.V= $Id: uuxqt.8,v 1.3 1994/01/31 01:27:24 donn Exp $
+.\"
+.ds S1 UUXQT
+.ds S2 \fIUuxqt\fP
+.ds S3 \fIuuxqt\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uuxqt
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uuxqt \- \*(S5 execution file interpreter
+.SH SYNOPSIS
+.BI \*(S6
+[\c
+.BI \-P params\c
+]
+[\c
+.BI \-S spool\c
+]
+[\c
+.BI \-s node\c
+]
+[\c
+.BI \-x debug\c
+]
+.SH DESCRIPTION
+\*(S2 interprets
+.I "execution files"
+created on a remote system via
+.IR uux (1)
+and transferred to the local system via
+.IR uucico (8).
+When invoking
+.I uux
+to request remote command execution,
+it is \*(S3 that actually executes the command. 
+Normally, \*(S3 is forked from
+.I uucico
+to process queued execution files;
+for debugging, it may also be run manually by the \*(S5 administrator.
+.PP
+\*(S2 reads the \*(S5 parameters file
+on startup to initialise parameter values.
+It then uses setuid/setgid to \s-1UUCPUSER/UUCPGROUP\s0.
+(See
+.IR uuparams (5)
+for details.)
+.PP
+\*(S2 runs in its own subdirectory,
+.if t .ft CW
+SPOOLDIR/.Xqtdir.
+.if t .ft
+It copies intermediate files to this directory when necessary.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-P\fP\fIparams\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-P params
+Alters the pathname for the \*(S5
+parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.BI \-S spool
+Change the spool directory from the default [\s-1SPOOLDIR\s0].
+Note that \*(S3 scans all the directories in \s-1SPOOLALTDIRS\s0 for nodes with work,
+but this flag alters which directory is scanned first.
+.TP
+.BI \-s node
+Execute files from
+.IR node .
+Otherwise, a scan will be made of all nodes for execution files.
+.TP
+.BI \-x debug
+Produce debugging output on stdout.
+.I debug
+is a number between 0 and 99;
+higher numbers give more detailed information. Debugging is permitted
+only for privileged users (specifically, those with read access to
+.IR L.sys (5)).
+.SH FILES
+.PD 0
+.TP "\w'\s-1LOCKDIR/LCK..XQT.SCANNING\s0X'u"
+/etc/uucp/\s-1CONFIG\s0
+\*(S5 parameters file.
+.TP
+\s-1LOCKDIR/LCK..XQT.SCANNING\s0
+\*(S2 lock file when scanning all nodes.
+.TP
+\s-1LOCKDIR/LCK..XQT\s0.\fInode\fP
+\*(S2 lock file for
+.IR node .
+.TP
+\s-1LOCKDIR/LCK..XQT\s0.\fIn\fP
+\*(S2 lock file for instantiation number
+.IR n .
+.TP
+\s-1LOGDIR\s0/errors
+\*(S5 error log.
+.TP
+\s-1LOGDIR\s0/uuxqt/\fInode\fP
+\*(S2 log for
+.IR node .
+.TP
+\s-1PARAMSDIR\s0/L.cmds
+Remote command permissions list.
+.TP
+\s-1PARAMSDIR\s0/Maxuuxqts
+File containing ascii number
+representing maximum number of simultaneous \*(S3s.
+.TP
+\s-1PARAMSDIR/USERFILE\s0
+Remote directory tree permissions list.
+.TP
+\s-1SPOOLDIR\s0/\fInode\fP/X.*
+Incoming execution files from
+.IR node .
+.TP
+\s-1SPOOLDIR\s0/.NeedUuxqt
+File created if to request another \*(S3 scan.
+.TP
+\s-1SPOOLDIR\s0/.Xqtdir
+\*(S2 running directory.
+.TP
+\s-1PARAMSDIR/uuxqt-hook\s0
+Hook (shell script or executable) executed when uuxqt finishes.
+.PD
+.SH SEE ALSO
+.BR uucp (1),
+.BR uux (1),
+.BR L.cmds (5),
+.BR USERFILE (5),
+.BR uuparams (5),
+.BR uucico (8).

@@ -1,0 +1,21 @@
+F ACKSEND.C;1                       	acksend.c
+F BYTEORDE.C;1                      	byteorder.c
+F CANDIDAT.C;1                      	candidate.c
+F CKSUM_HP.C;1                      	cksum.hp300.c
+F CKSUM_I3.C;1                      	cksum.i386.c
+F CKSUM_M6.C;1                      	cksum.m68000.c
+F CKSUM_TA.C;1                      	cksum.tahoe.c
+F CKSUM_VA.C;1                      	cksum.vax.c
+F CORRECT.C;1                       	correct.c
+F GLOBALS.H;1                       	globals.h
+F MAKEFILE.;1                       	Makefile
+F MASTER.C;1                        	master.c
+F MEASURE.C;1                       	measure.c
+F NETWORKD.C;1                      	networkdelta.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/timed/timed
+F PATHNAME.H;1                      	pathnames.h
+F READMSG.C;1                       	readmsg.c
+F SLAVE.C;1                         	slave.c
+F TAGS.;1                           	tags
+F TIMED.8;1                         	timed.8
+F TIMED.C;1                         	timed.c

@@ -1,0 +1,13 @@
+GROWALLOC	../sc/vmtbl.c	/^#define GROWALLOC(newptr, oldptr, nelem, type, msg/
+Mpsc	psc.c	/^main(argc, argv)$/
+checkbounds	../sc/vmtbl.c	/^checkbounds(rowp, colp)$/
+coltoa	psc.c	/^coltoa(col)$/
+fatal	../sc/xmalloc.c	/^fatal(str)$/
+for	../sc/vmtbl.c	/^	for (; i < newrows; i++)$/
+getcol	psc.c	/^getcol(p)$/
+getrow	psc.c	/^getrow(p)$/
+growtbl	../sc/vmtbl.c	/^growtbl(rowcol, toprow, topcol)$/
+scan	psc.c	/^scan()$/
+scxfree	../sc/xmalloc.c	/^scxfree(p)$/
+scxmalloc	../sc/xmalloc.c	/^scxmalloc(n)$/
+scxrealloc	../sc/xmalloc.c	/^scxrealloc(ptr, n)$/

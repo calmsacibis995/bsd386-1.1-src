@@ -1,0 +1,8 @@
+F CHKIMPOR.GZ;1                     	chkimports.sh.gz
+F DATASIZE.GZ;1                     	datasize.gz
+D LIBX11                            	libX11
+D LIBXT                             	libXt
+F MKSHTMPL.GZ;1                     	mkshtmpl.sh.gz
+F README.GZ;1                       	README.gz
+F SV3SHLIB.GZ;1                     	sv3ShlibAddr.gz
+F XLIBSMAK.GZ;1                     	XlibsMakefile.gz

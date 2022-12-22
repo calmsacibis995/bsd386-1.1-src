@@ -1,0 +1,143 @@
+.TH TEXI2ROFF 1
+.DA 1 Jan 90
+.SH NAME
+texi2roff, texi2index \- convert Texinfo documents for formatting by troff.
+.SH SYNOPSIS
+.B texi2roff
+[
+.B  \-me \-mm \-ms
+] [
+.B  \-iIt
+] [ file ... ]
+.br
+.B texi2index
+[ file ... ]
+.SH DESCRIPTION
+.I Texi2roff
+translates the named
+.IR file s
+from the Texinfo macro language for TeX to the language accepted by
+.IR troff (1).
+Files are read and processed in order.
+If no
+.I file
+is given or if the
+.I file
+is
+.B \-
+.I texi2roff
+reads the standard input.
+.PP
+.I Texi2index
+generates indices for documents translated by
+.IR texi2roff .
+.SH OPTIONS
+.I Texi2roff
+.TP
+.B \-me \-mm \-ms
+format the output for use with the
+.I troff
+macro package named.
+.TP
+.B \-i
+translate Texinfo index commands into 
+.I troff
+index commands.
+.I troff
+will then emit index entries onto the standard error output.
+You may capture this output and use
+.IR texi2index (1)
+and
+.I troff
+to prepare indices from it.
+.TP
+.B \-I
+include Texinfo ``Info file'' menu and node contents and
+.B @ifinfo
+text in the output.
+This material does not appear
+in a Texinfo document formatted by TeX, but may contain interesting
+information or be useful when searching a machine-readable document.
+.TP
+.B \-t
+(transparent) print text affected by otherwise discarded commands,
+for people who are afraid of missing something.  For best results use
+.BR \-It .
+.SH EXAMPLES
+Translate
+.B doc.texinfo
+using the Bourne shell
+.IR sh (1).
+Format with
+.I troff
+and
+.BR \-ms ,
+placing the formatted output in
+.BR doc ,
+index entries in
+.BR index ,
+and the formatted index in
+.BR doc.index .
+.sp
+.nf
+$ texi2roff \-i \-ms doc.texinfo | troff \-ms > doc 2> index
+$ texi2index index | troff \-ms >doc.index
+.fi
+.sp
+As above, but use the C shell
+.IR csh (1),
+.I nroff
+with
+.BR \-me ,
+and transparent mode:
+.sp
+.nf
+% (texi2roff \-iIt \-me doc.texinfo | nroff \-me > doc ) >& index
+% texi2index index | nroff \-me >doc.index
+.fi
+.SH DIAGNOSTICS
+.PP
+Errors are reported giving file name and line number.
+.SH AUTHOR
+Beverly Erlebacher (erlebach@cs.toronto.edu).
+.SH BUGS
+.PP
+.B \ef(CW
+is used to change to constant-width (typewriter-like) font.
+If this is not the standard at your site, run your
+.I texi2roff
+output through
+.IR sed (1)
+or edit
+.IR texi2roff 's
+translation tables.
+.PP
+There are a number of differences in formatting details
+compared to Texinfo.
+Indentation is occasionally imperfect.
+.PP
+.B @def
+commands do not generate index entries.
+.PP
+Although Texinfo provides for a
+.B @contents
+and
+.B @summarycontents
+Table of Contents, if both are specified
+only the first one will appear if
+.B \-ms
+is used.
+To prevent loss of detail,
+.I texi2roff
+generates the same Table of Contents for both commands.
+.PP
+The
+.B \-mm
+macro package regards keeps as a type of
+display.  This can cause
+.I troff
+to abort in the case of a keep nested
+in a display or vice versa.  Either use a different macro package or
+remove a pair of Texinfo commands to eliminate nesting.  Usually the
+.B @group...@end group
+is the best to remove.

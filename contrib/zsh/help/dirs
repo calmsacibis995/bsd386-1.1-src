@@ -1,0 +1,9 @@
+     dirs [ -v ] [ arg ... ]
+          With no arguments, print the contents of the  directory
+          stack.   If  the  -v option is given, number the direc-
+          tories in the stack  when  printing.   Directories  are
+          added to this stack with the pushd command, and removed
+          with the cd or popd commands.  If arguments are  speci-
+          fied,  load  them  onto  the directory stack, replacing
+          anything that was there, and push the current directory
+          onto the stack.

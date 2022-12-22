@@ -1,0 +1,6 @@
+F GROFF_CH.MAN;1                    	groff_char.man
+F GROFF_FO.MAN;1                    	groff_font.man
+F GROFF_OU.MAN;1                    	groff_out.man
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/man

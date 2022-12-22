@@ -1,0 +1,4 @@
+MAILTO=vixie
+SHELL=/bin/sh
+
+* * * * *	date

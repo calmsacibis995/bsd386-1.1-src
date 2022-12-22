@@ -1,0 +1,1638 @@
+Changes for GCC version 2.5.8 from version 2.5.7.
+
+Changes in files you can reconstruct with Bison, etags, makeinfo, and
+TeX have been omitted.  Some of these files are updated just by
+building the compiler.  You can update rest of these files by
+executing this command
+
+   make TAGS info dvi -f Makefile.in
+
+in the directory of GCC sources, provided the necessary tools
+(etags, makeinfo, TeX and texi2dvi) are installed.
+
+Before applying these diffs, go to the directory gcc-2.5.7.
+Then use the command
+
+    patch -p1
+
+feeding it the following diffs as input.
+Then rename the directory to gcc-2.5.8.
+
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/ChangeLog gcc-2.5.8/ChangeLog
+*** gcc-2.5.7/ChangeLog	Sun Dec 12 06:48:10 1993
+--- gcc-2.5.8/ChangeLog	Sun Jan 23 20:13:37 1994
+***************
+*** 1,2 ****
+--- 1,127 ----
++ Sun Jan 23 18:41:37 1994  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* Version 2.5.8 released.
++ 
++ 	* reload.c (find_reloads): Properly test for output operand
++ 	when changing RELOAD_FOR_OUTPUT_ADDRESS to RELOAD_FOR_INPUT_ADDRESS.
++ 
++ 	* alpha.c (output_{pro,epi}log): Use assemble_name to output
++ 	alpha_function_name.
++ 
++ Sun Jan 23 18:40:23 1994  Samuel A. Figueroa  (figueroa@cs.nyu.edu)
++ 
++ 	* i386/os2.h (PATH_SEPARATOR): New macro.
++ 	* i386/gas.h (ASM_FILE_START): Delete; identical to one in bsd.h,
++ 	which is included.
++ 
++ Sun Jan 23 05:59:31 1994  Per Bothner  (bothner@cygnus.com)
++ 
++ 	* c-typeck.c (really_start_incremental_init): Save current elements
++ 	instead of clearing them.
++ 
++ Sat Jan 22 17:23:42 1994  Jeffrey A. Law  (law@snake.cs.utah.edu)
++ 
++ 	* pa.h (ASM_FILE_START): Emit a .file directive at the beginning
++ 	of the output file if debug symbols are being generated.
++ 
++ Thu Jan 13 05:42:30 1994  Torbjorn Granlund  (tege@adder.cygnus.com)
++ 
++ 	* config.sub: Fix typo in -hiux* case.
++ 
++ Tue Jan 11 19:14:31 1994  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* a29k.c (output_prolog): Update debug reg map when 
++ 	we have -mkernel-registers.
++ 
++ Mon Jan 10 19:06:57 1994  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* expr.c (protect_from_queue): If (MEM (QUEUED ...)), modify a
++ 	new MEM instead of the one we were passed.
++ 
++ 	* regclass.c (globalize_reg): New function.
++ 	(init_reg_sets_1): Don't handle global regs here.
++ 	* varasm.c (make_decl_rtl): Call globalize_reg, not init_reg_sets_1.
++ 
++ 	* a29k.c (print_operand, case 'F'): If we have to do the last
++ 	prolog insn, give that priority for an unfilled delay slot.
++ 
++ 	* function.c (preserve_rtl_expr_result): New function.	
++ 	* expr.c (exand_expr, case RTL_EXPR): Call it.
++ 
++ Sun Jan  9 04:40:27 1994  James Van Artsdalen  (james at bigtex.cactus.org)
++ 
++ 	* jump.c (follow_jumps): Don't follow tablejumps.
++ 
++ Tue Jan  4 07:35:05 1994  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* tree.c (substitute_expr): Don't abort for RTL_EXPR and
++ 	SAVE_EXPR; just do nothing.
++ 
++ Fri Dec 31 06:27:57 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* combine.c (force_to_mode): Add new parm JUST_SELECT; all
++ 	callers changed.
++ 
++ Fri Dec 24 05:34:38 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* alpha.md (define_attr type): Add new type ISUBR.
++ 	(divmod): Set to type ISUBR.
++ 	* alpha.c (output_prolog): Need GP if type ISUBR.
++ 
++ 	* reload.c (push_reload, find_reloads): Reload inside a paradoxical
++ 	SUBREG of MEM except don't force a reload unless the inner mode
++ 	is narrower than BIGGEST_ALIGNMENT.
++ 
++ 	* c-typeck.c (check_init_type_bitfields): Check recursively inside
++ 	arrays and records.
++ 
++ 	* cse.c (simplify_binary_operation): Can fold multi-word
++ 	operations when first is CONST_INT.
++ 	(simplify_binary_operation, case PLUS, MINUS): Don't call
++ 	plus_constant when OP0 is VOIDmode.
++ 
++ 	* c-typeck.c (pop_init_level): Don't abort if have incomplete array
++ 	type inside some other type.
++ 
++ Thu Dec 23 07:30:24 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* Makefile.in (libgcc.a): Allow chmod of tmpcopy directory to
++ 	fail since it can be empty.
++ 
++ 	* gcc.c (default_compilers, gnat1): Don't write -gnatb.
++ 
++ 	* expr.c (expand_expr, case MINUS_EXPR): When expanding an
++ 	initializer, use plus_constant as appropriate.
++ 
++ Thu Dec 23 09:03:30 1993  Phil Nelson  (phil@cs.wwu.edu)
++ 
++ 	* ns32k.h (ASM_OUTPUT_ADDR_DIFF_ELT): Use .long, not .double.
++ 
++ Tue Dec 21 17:37:20 1993  Brendan Kehoe  (brendan@lisa.cygnus.com)
++ 
++ 	* cp-tree.h (VTABLE_NAME): No def with NO_{DOLLAR,DOT} defined.
++ 	(VTABLE_NAME_P): Use it instead of VTABLE_NAME_FORMAT.
++ 
++ Tue Dec 21 13:25:39 1993  Jim Wilson  (wilson@cygnus.com)
++ 
++ 	* rtlanal.c (replace_regs, case REG): Return copies of SUBREGs, to
++ 	avoid invalid sharing.
++ 
++ Mon Dec 20 19:10:16 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* c-typeck.c (struct initializer_stack): New field ELEMENTS.
++ 	(start_init, finish_init): Save and restore constructor_elements.
++ 
++ 	* emit-rtl.c (gen_lowpart_common): Return a new hard reg even
++ 	if not valid in MODE if the input REG is not valid in its mode.
++ 
++ 	* rs6000.md (divsi3): Correct logic for when we call force_reg.
++ 	(modsi3): Ensure operands[2] is a CONST_INT; include REG in
++ 	predicate.
++ 
++ Thu Dec 16 11:34:48 1993  Ian Lance Taylor  (ian@cygnus.com)
++ 
++ 	* fixincludes: Do not preserve _HIDDEN_VA_LIST in stdio.h.
++ 
+  Sun Dec 12 06:47:14 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/Makefile.in gcc-2.5.8/Makefile.in
+*** gcc-2.5.7/Makefile.in	Thu Nov 25 18:08:52 1993
+--- gcc-2.5.8/Makefile.in	Thu Dec 23 18:13:50 1993
+***************
+*** 752,756 ****
+  # the second ar command tries to overwrite this file.  To avoid the error
+  # message from ar, we make sure all files are writable.
+! 	(cd tmpcopy; chmod +w * > /dev/null 2>&1)
+  	(cd tmpcopy; $(AR) x ../$(LIBGCC2))
+  	(cd tmpcopy; $(AR) $(AR_FLAGS) ../tmplibgcc.a *.o)
+--- 752,756 ----
+  # the second ar command tries to overwrite this file.  To avoid the error
+  # message from ar, we make sure all files are writable.
+! 	-(cd tmpcopy; chmod +w * > /dev/null 2>&1)
+  	(cd tmpcopy; $(AR) x ../$(LIBGCC2))
+  	(cd tmpcopy; $(AR) $(AR_FLAGS) ../tmplibgcc.a *.o)
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/NEWS gcc-2.5.8/NEWS
+*** gcc-2.5.7/NEWS	Sun Dec 12 06:49:23 1993
+--- gcc-2.5.8/NEWS	Sat Jan  1 06:26:45 1994
+***************
+*** 1,2 ****
+--- 1,11 ----
++ Noteworthy changes in GCC version 2.5.8:
++ 
++ This release only fixes a few serious bugs.  These include fixes for a
++ bug that prevented most programs from working on the RS/6000, a bug
++ that caused invalid assembler code for prgrams with a `switch'
++ statement on the NS32K, a G++ problem that caused undefined names in
++ some configurations, and several less erious problems, some of which
++ can affect most configuration.
++ 
+  Noteworthy change in GCC version 2.5.7:
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/README.ACORN gcc-2.5.8/README.ACORN
+*** gcc-2.5.7/README.ACORN
+--- gcc-2.5.8/README.ACORN	Thu Dec 23 17:54:51 1993
+***************
+*** 0 ****
+--- 1,20 ----
++ Specifying the -g flag to GCC on a RISC iX machine requires upgrading the 
++ standard assembler distributed with both RISC iX 1.1 and RISC iX 1.2 with a 
++ replacement that is available from Acorn.  This version of the assembler is
++ also an order of magnitude faster when assembling to an NFS mounted 
++ file-system.
++ 
++ Users of RISC iX 1.2 and above can obtain a copy of the assembler from the 
++ following places:
++ 
++ 1) Via ftp from acorn.acorn.co.uk, directory pub/riscix.
++ 
++ 2) From Acorn Customer Services.
++ 
++ 3) From Granada Microcare.
++ 
++ 4) From the Newcastle Mail server.
++ 
++ Users of versions of RISC iX prior 1.2 should contact Acorn Customer Services;
++ the assembler available on the net will not work with these versions due to
++ changes in the shared libraries and system call numbers.
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/README.RS6000 gcc-2.5.8/README.RS6000
+*** gcc-2.5.7/README.RS6000	Tue Oct 19 20:33:08 1993
+--- gcc-2.5.8/README.RS6000	Mon Jan 10 19:21:56 1994
+***************
+*** 1,8 ****
+  Specifying the -g flag to GCC on the RS/6000 requires upgrading the
+! standard AIX assembler distributed with both AIX 3.1 and AIX 3.2 with
+! a replacement that is available from IBM.  The upgraded assembler
+! unfortunately was not included in any of the AIX 3.2 update PTF
+! releases (3.2.2, 3.2.3, or 3.2.3e).  Note that Makefile.in specifies
+! the -g when compiling libgcc2.c.
+  
+  You can test for the presense of a fixed assembler by entering the following:
+--- 1,6 ----
+  Specifying the -g flag to GCC on the RS/6000 requires upgrading the
+! standard AIX assembler distributed with AIX 3.1 and versions of AIX
+! 3.2 earlier than 3.2.4 with a replacement that is available from IBM.
+! Note that Makefile.in specifies the -g when compiling libgcc2.c.
+  
+  You can test for the presense of a fixed assembler by entering the following:
+***************
+*** 17,31 ****
+  if you have a friendly IBM rep nearby with networked mainframe access.
+  
+! If you are running AIX 3.1.5 or higher (lslpp -h bos.obj output reports
+! 03.01.0005.XXXX where the 0005 can be any higher number and the XXXX can be
+! any value), call IBM Support at 800-237-5511 and ask for shipment of
+! AIX/6000 fix PTF U403044 for APAR IX22829 (.extern foo conflicts with
+! defining foo).
+! 
+! If you are running AIX 3.2 (lslpp -h bos.obj output reports
+! 03.02.0000.0000), a newer update to the assembler fix is available.  Ask
+! for shipment of AIX/6000 fix PTF U416277 for IX32992 (.global prevents
+! detection of duplicate symbol).
+  
+  They may also ask you for your customer number.  If you do not know it, you
+  will still be able to get the fix, but you will have to be persistent.  IBM
+--- 15,32 ----
+  if you have a friendly IBM rep nearby with networked mainframe access.
+  
+! If you are running AIX 3.1 (lslpp -h bos.obj output reports
+! 03.01.0005.XXXX where the 0005 can be any higher number and the XXXX
+! can be any value), call IBM Support at 800-237-5511 and ask for
+! shipment of AIX/6000 fix PTF U403044 for APAR IX22829 (.extern foo
+! conflicts with defining foo).
+! 
+! If you are running AIX 3.2 but not 3.2.4 or later (lslpp -h bos.obj
+! output reports 03.02.0000.0000), a newer update to the assembler fix
+! is available.  Ask for shipment of AIX/6000 fix PTF U416277 for
+! IX32992 (.global prevents detection of duplicate symbol).
+  
++ If you are running AIX 3.2.4 or later, you already have the new
++ assembler.
++ 
+  They may also ask you for your customer number.  If you do not know it, you
+  will still be able to get the fix, but you will have to be persistent.  IBM
+***************
+*** 46,49 ****
+  
+  XLC version 1.3.0.0 will miscompile jump.c.  XLC version 1.3.0.1 or
+! later fixes this problem.  We do not yet have a PTF number for this
+! fix.
+--- 47,50 ----
+  
+  XLC version 1.3.0.0 will miscompile jump.c.  XLC version 1.3.0.1 or
+! later fixes this problem.  You can obtain XLC-1.3.0.2 by requesting PTF
+! 421749 from IBM.
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/c-typeck.c gcc-2.5.8/c-typeck.c
+*** gcc-2.5.7/c-typeck.c	Fri Dec  3 07:05:24 1993
+--- gcc-2.5.8/c-typeck.c	Sun Jan 23 06:00:14 1994
+***************
+*** 4795,4798 ****
+--- 4795,4799 ----
+    char *asmspec;
+    struct constructor_stack *constructor_stack;
++   tree elements;
+    struct spelling *spelling;
+    struct spelling *spelling_base;
+***************
+*** 4829,4832 ****
+--- 4830,4834 ----
+    p->require_constant_elements = require_constant_elements;
+    p->constructor_stack = constructor_stack;
++   p->elements = constructor_elements;
+    p->spelling = spelling;
+    p->spelling_base = spelling_base;
+***************
+*** 4900,4903 ****
+--- 4902,4906 ----
+    require_constant_elements = p->require_constant_elements;
+    constructor_stack = p->constructor_stack;
++   constructor_elements = p->elements;
+    spelling = p->spelling;
+    spelling_base = p->spelling_base;
+***************
+*** 4939,4943 ****
+    p->unfilled_fields = constructor_unfilled_fields;
+    p->bit_index = constructor_bit_index;
+!   p->elements = 0;
+    p->constant = constructor_constant;
+    p->simple = constructor_simple;
+--- 4942,4946 ----
+    p->unfilled_fields = constructor_unfilled_fields;
+    p->bit_index = constructor_bit_index;
+!   p->elements = constructor_elements;
+    p->constant = constructor_constant;
+    p->simple = constructor_simple;
+***************
+*** 5163,5174 ****
+        for (tail = TYPE_FIELDS (type); tail;
+  	   tail = TREE_CHAIN (tail))
+! 	if (DECL_BIT_FIELD (tail)
+! 	    /* This catches cases like `int foo : 8;'.  */
+! 	    || DECL_MODE (tail) != TYPE_MODE (TREE_TYPE (tail)))
+! 	  {
+! 	    constructor_incremental = 0;
+! 	    break;
+! 	  }
+      }
+  }
+  
+--- 5166,5184 ----
+        for (tail = TYPE_FIELDS (type); tail;
+  	   tail = TREE_CHAIN (tail))
+! 	{
+! 	  if (DECL_BIT_FIELD (tail)
+! 	      /* This catches cases like `int foo : 8;'.  */
+! 	      || DECL_MODE (tail) != TYPE_MODE (TREE_TYPE (tail)))
+! 	    {
+! 	      constructor_incremental = 0;
+! 	      break;
+! 	    }
+! 
+! 	  check_init_type_bitfields (TREE_TYPE (tail));
+! 	}
+      }
++ 
++   else if (TREE_CODE (type) == ARRAY_TYPE)
++     check_init_type_bitfields (TREE_TYPE (type));
+  }
+  
+***************
+*** 5336,5344 ****
+  	      TYPE_DOMAIN (constructor_type) = build_index_type (maxindex);
+  	      TREE_TYPE (maxindex) = TYPE_DOMAIN (constructor_type);
+- 
+- 	      /* We shouldn't have an incomplete array type within
+- 		 some other type.  */
+- 	      if (constructor_stack->next)
+- 		abort ();
+  
+  	      if (pedantic
+--- 5346,5349 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/combine.c gcc-2.5.8/combine.c
+*** gcc-2.5.7/combine.c	Tue Nov 23 17:40:46 1993
+--- gcc-2.5.8/combine.c	Fri Dec 31 06:28:52 1993
+***************
+*** 377,381 ****
+  static int get_pos_from_mask	PROTO((unsigned HOST_WIDE_INT, int *));
+  static rtx force_to_mode	PROTO((rtx, enum machine_mode,
+! 				       unsigned HOST_WIDE_INT, rtx));
+  static rtx known_cond		PROTO((rtx, enum rtx_code, rtx, rtx));
+  static rtx make_field_assignment  PROTO((rtx));
+--- 377,381 ----
+  static int get_pos_from_mask	PROTO((unsigned HOST_WIDE_INT, int *));
+  static rtx force_to_mode	PROTO((rtx, enum machine_mode,
+! 				       unsigned HOST_WIDE_INT, rtx, int));
+  static rtx known_cond		PROTO((rtx, enum rtx_code, rtx, rtx));
+  static rtx make_field_assignment  PROTO((rtx));
+***************
+*** 3204,3208 ****
+  	  && subreg_lowpart_p (x))
+  	return force_to_mode (SUBREG_REG (x), mode, GET_MODE_MASK (mode),
+! 			      NULL_RTX);
+        break;
+  
+--- 3204,3208 ----
+  	  && subreg_lowpart_p (x))
+  	return force_to_mode (SUBREG_REG (x), mode, GET_MODE_MASK (mode),
+! 			      NULL_RTX, 0);
+        break;
+  
+***************
+*** 4698,4702 ****
+  			       << exact_log2 (GET_MODE_BITSIZE (GET_MODE (x))))
+  			      - 1,
+! 			      NULL_RTX));
+  #endif
+  
+--- 4698,4702 ----
+  			       << exact_log2 (GET_MODE_BITSIZE (GET_MODE (x))))
+  			      - 1,
+! 			      NULL_RTX, 0));
+  #endif
+  
+***************
+*** 5078,5082 ****
+  			     ? GET_MODE_MASK (tmode)
+  			     : ((HOST_WIDE_INT) 1 << len) - 1,
+! 			     NULL_RTX);
+  
+        /* If this extraction is going into the destination of a SET, 
+--- 5078,5082 ----
+  			     ? GET_MODE_MASK (tmode)
+  			     : ((HOST_WIDE_INT) 1 << len) - 1,
+! 			     NULL_RTX, 0);
+  
+        /* If this extraction is going into the destination of a SET, 
+***************
+*** 5222,5226 ****
+  			   ? GET_MODE_MASK (extraction_mode)
+  			   : (((HOST_WIDE_INT) 1 << len) - 1) << orig_pos,
+! 			   NULL_RTX);
+  
+    /* Adjust mode of POS_RTX, if needed.  If we want a wider mode, we
+--- 5222,5226 ----
+  			   ? GET_MODE_MASK (extraction_mode)
+  			   : (((HOST_WIDE_INT) 1 << len) - 1) << orig_pos,
+! 			   NULL_RTX, 0);
+  
+    /* Adjust mode of POS_RTX, if needed.  If we want a wider mode, we
+***************
+*** 5521,5525 ****
+  	{
+  	  rtx newer = force_to_mode (tem, mode,
+! 				     GET_MODE_MASK (mode), NULL_RTX);
+  
+  	  /* If we have something other than a SUBREG, we might have
+--- 5521,5525 ----
+  	{
+  	  rtx newer = force_to_mode (tem, mode,
+! 				     GET_MODE_MASK (mode), NULL_RTX, 0);
+  
+  	  /* If we have something other than a SUBREG, we might have
+***************
+*** 5588,5595 ****
+  
+     Also, if REG is non-zero and X is a register equal in value to REG, 
+!    replace X with REG.  */
+  
+  static rtx
+! force_to_mode (x, mode, mask, reg)
+       rtx x;
+       enum machine_mode mode;
+--- 5588,5599 ----
+  
+     Also, if REG is non-zero and X is a register equal in value to REG, 
+!    replace X with REG.
+  
++    If JUST_SELECT is nonzero, don't optimize by noticing that bits in MASK
++    are all off in X.  This is used when X will be complemented, by either
++    NOT or XOR.  */
++ 
+  static rtx
+! force_to_mode (x, mode, mask, reg, just_select)
+       rtx x;
+       enum machine_mode mode;
+***************
+*** 5596,5601 ****
+--- 5600,5607 ----
+       unsigned HOST_WIDE_INT mask;
+       rtx reg;
++      int just_select;
+  {
+    enum rtx_code code = GET_CODE (x);
++   int next_select = just_select || code == XOR || code == NOT;
+    enum machine_mode op_mode;
+    unsigned HOST_WIDE_INT fuller_mask, nonzero;
+***************
+*** 5609,5612 ****
+--- 5615,5619 ----
+  		  != CODE_FOR_nothing))
+  	     ? mode : GET_MODE (x));
++ 
+    /* It is not valid to do a right-shift in a narrower mode
+       than the one it came in with.  */
+***************
+*** 5633,5637 ****
+  
+    /* If none of the bits in X are needed, return a zero.  */
+!   if ((nonzero & mask) == 0)
+      return const0_rtx;
+  
+--- 5640,5644 ----
+  
+    /* If none of the bits in X are needed, return a zero.  */
+!   if (! just_select && (nonzero & mask) == 0)
+      return const0_rtx;
+  
+***************
+*** 5674,5678 ****
+  	 within that boundary, we don't need the USE any more.  */
+        if ((mask & ~ GET_MODE_MASK (GET_MODE (XEXP (x, 0)))) == 0)
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg);
+  #endif
+  
+--- 5681,5685 ----
+  	 within that boundary, we don't need the USE any more.  */
+        if ((mask & ~ GET_MODE_MASK (GET_MODE (XEXP (x, 0)))) == 0)
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg, next_select);
+  #endif
+  
+***************
+*** 5683,5687 ****
+        x = expand_compound_operation (x);
+        if (GET_CODE (x) != code)
+! 	return force_to_mode (x, mode, mask, reg);
+        break;
+  
+--- 5690,5694 ----
+        x = expand_compound_operation (x);
+        if (GET_CODE (x) != code)
+! 	return force_to_mode (x, mode, mask, reg, next_select);
+        break;
+  
+***************
+*** 5706,5710 ****
+  #endif
+  	      ))
+! 	return force_to_mode (SUBREG_REG (x), mode, mask, reg);
+        break;
+  
+--- 5713,5717 ----
+  #endif
+  	      ))
+! 	return force_to_mode (SUBREG_REG (x), mode, mask, reg, next_select);
+        break;
+  
+***************
+*** 5744,5748 ****
+  	return force_to_mode (plus_constant (XEXP (x, 0),
+  					     INTVAL (XEXP (x, 1)) & mask),
+! 			      mode, mask, reg);
+  
+        /* ... fall through ... */
+--- 5751,5755 ----
+  	return force_to_mode (plus_constant (XEXP (x, 0),
+  					     INTVAL (XEXP (x, 1)) & mask),
+! 			      mode, mask, reg, next_select);
+  
+        /* ... fall through ... */
+***************
+*** 5779,5783 ****
+  			     XEXP (XEXP (x, 0), 0), temp);
+  	  x = gen_binary (LSHIFTRT, GET_MODE (x), temp, XEXP (x, 1));
+! 	  return force_to_mode (x, mode, mask, reg);
+  	}
+  
+--- 5786,5790 ----
+  			     XEXP (XEXP (x, 0), 0), temp);
+  	  x = gen_binary (LSHIFTRT, GET_MODE (x), temp, XEXP (x, 1));
+! 	  return force_to_mode (x, mode, mask, reg, next_select);
+  	}
+  
+***************
+*** 5786,5793 ****
+  	 change the mode if we have an operation of that mode.   */
+  
+!       op0 = gen_lowpart_for_combine (op_mode, force_to_mode (XEXP (x, 0),
+! 							     mode, mask, reg));
+!       op1 = gen_lowpart_for_combine (op_mode, force_to_mode (XEXP (x, 1),
+! 							     mode, mask, reg));
+  
+        /* If OP1 is a CONST_INT and X is an IOR or XOR, clear bits outside
+--- 5793,5802 ----
+  	 change the mode if we have an operation of that mode.   */
+  
+!       op0 = gen_lowpart_for_combine (op_mode,
+! 				     force_to_mode (XEXP (x, 0), mode, mask,
+! 						    reg, next_select));
+!       op1 = gen_lowpart_for_combine (op_mode,
+! 				     force_to_mode (XEXP (x, 1), mode, mask,
+! 						    reg, next_select));
+  
+        /* If OP1 is a CONST_INT and X is an IOR or XOR, clear bits outside
+***************
+*** 5832,5836 ****
+        op0 = gen_lowpart_for_combine (op_mode,
+  				     force_to_mode (XEXP (x, 0), op_mode,
+! 						    mask, reg));
+  
+        if (op_mode != GET_MODE (x) || op0 != XEXP (x, 0))
+--- 5841,5845 ----
+        op0 = gen_lowpart_for_combine (op_mode,
+  				     force_to_mode (XEXP (x, 0), op_mode,
+! 						    mask, reg, next_select));
+  
+        if (op_mode != GET_MODE (x) || op0 != XEXP (x, 0))
+***************
+*** 5859,5863 ****
+  	    op_mode = GET_MODE (x);
+  
+! 	  inner = force_to_mode (inner, op_mode, mask, reg);
+  
+  	  if (GET_MODE (x) != op_mode || inner != XEXP (x, 0))
+--- 5868,5872 ----
+  	    op_mode = GET_MODE (x);
+  
+! 	  inner = force_to_mode (inner, op_mode, mask, reg, next_select);
+  
+  	  if (GET_MODE (x) != op_mode || inner != XEXP (x, 0))
+***************
+*** 5887,5891 ****
+        if (mask == ((HOST_WIDE_INT) 1
+  		   << (GET_MODE_BITSIZE (GET_MODE (x)) - 1)))
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg);
+  
+        /* If this is a shift by a constant, get a mask that contains those bits
+--- 5896,5900 ----
+        if (mask == ((HOST_WIDE_INT) 1
+  		   << (GET_MODE_BITSIZE (GET_MODE (x)) - 1)))
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg, next_select);
+  
+        /* If this is a shift by a constant, get a mask that contains those bits
+***************
+*** 5913,5917 ****
+  
+  	      if (GET_CODE (x) != ASHIFTRT)
+! 		return force_to_mode (x, mode, mask, reg);
+  	    }
+  	}
+--- 5922,5926 ----
+  
+  	      if (GET_CODE (x) != ASHIFTRT)
+! 		return force_to_mode (x, mode, mask, reg, next_select);
+  	    }
+  	}
+***************
+*** 5934,5938 ****
+  	  && GET_CODE (XEXP (XEXP (x, 0), 1)) == CONST_INT
+  	  && INTVAL (XEXP (XEXP (x, 0), 1)) == INTVAL (XEXP (x, 1)))
+! 	return force_to_mode (XEXP (XEXP (x, 0), 0), mode, mask, reg);
+  
+        break;
+--- 5943,5948 ----
+  	  && GET_CODE (XEXP (XEXP (x, 0), 1)) == CONST_INT
+  	  && INTVAL (XEXP (XEXP (x, 0), 1)) == INTVAL (XEXP (x, 1)))
+! 	return force_to_mode (XEXP (XEXP (x, 0), 0), mode, mask,
+! 			      reg, next_select);
+  
+        break;
+***************
+*** 5953,5957 ****
+  	    SUBST (XEXP (x, 0),
+  		   force_to_mode (XEXP (x, 0), GET_MODE (x),
+! 				  INTVAL (temp), reg));
+  	}
+        break;
+--- 5963,5967 ----
+  	    SUBST (XEXP (x, 0),
+  		   force_to_mode (XEXP (x, 0), GET_MODE (x),
+! 				  INTVAL (temp), reg, next_select));
+  	}
+        break;
+***************
+*** 5980,5989 ****
+  	  x = gen_binary (LSHIFTRT, GET_MODE (x), temp, XEXP (XEXP (x, 0), 1));
+  
+! 	  return force_to_mode (x, mode, mask, reg);
+  	}
+  
+      unop:
+!       op0 = gen_lowpart_for_combine (op_mode, force_to_mode (XEXP (x, 0), mode,
+! 							     mask, reg));
+        if (op_mode != GET_MODE (x) || op0 != XEXP (x, 0))
+  	x = gen_unary (code, op_mode, op0);
+--- 5990,6000 ----
+  	  x = gen_binary (LSHIFTRT, GET_MODE (x), temp, XEXP (XEXP (x, 0), 1));
+  
+! 	  return force_to_mode (x, mode, mask, reg, next_select);
+  	}
+  
+      unop:
+!       op0 = gen_lowpart_for_combine (op_mode,
+! 				     force_to_mode (XEXP (x, 0), mode, mask,
+! 						    reg, next_select));
+        if (op_mode != GET_MODE (x) || op0 != XEXP (x, 0))
+  	x = gen_unary (code, op_mode, op0);
+***************
+*** 5996,6000 ****
+        if ((mask & ~ STORE_FLAG_VALUE) == 0 && XEXP (x, 0) == const0_rtx
+  	  && (nonzero_bits (XEXP (x, 0), mode) & ~ mask) == 0)
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg);
+  
+        break;
+--- 6007,6011 ----
+        if ((mask & ~ STORE_FLAG_VALUE) == 0 && XEXP (x, 0) == const0_rtx
+  	  && (nonzero_bits (XEXP (x, 0), mode) & ~ mask) == 0)
+! 	return force_to_mode (XEXP (x, 0), mode, mask, reg, next_select);
+  
+        break;
+***************
+*** 6007,6015 ****
+  	     gen_lowpart_for_combine (GET_MODE (x),
+  				      force_to_mode (XEXP (x, 1), mode,
+! 						     mask, reg)));
+        SUBST (XEXP (x, 2),
+  	     gen_lowpart_for_combine (GET_MODE (x),
+  				      force_to_mode (XEXP (x, 2), mode,
+! 						     mask, reg)));
+        break;
+      }
+--- 6018,6026 ----
+  	     gen_lowpart_for_combine (GET_MODE (x),
+  				      force_to_mode (XEXP (x, 1), mode,
+! 						     mask, reg, next_select)));
+        SUBST (XEXP (x, 2),
+  	     gen_lowpart_for_combine (GET_MODE (x),
+  				      force_to_mode (XEXP (x, 2), mode,
+! 						     mask, reg,next_select)));
+        break;
+      }
+***************
+*** 6219,6223 ****
+  		       ? GET_MODE_MASK (mode)
+  		       : ((HOST_WIDE_INT) 1 << len) - 1,
+! 		       dest);
+  
+    return gen_rtx_combine (SET, VOIDmode, assign, src);
+--- 6230,6234 ----
+  		       ? GET_MODE_MASK (mode)
+  		       : ((HOST_WIDE_INT) 1 << len) - 1,
+! 		       dest, 0);
+  
+    return gen_rtx_combine (SET, VOIDmode, assign, src);
+***************
+*** 6368,6372 ****
+    /* Simplify VAROP knowing that we will be only looking at some of the
+       bits in it.  */
+!   varop = force_to_mode (varop, mode, constop, NULL_RTX);
+  
+    /* If VAROP is a CLOBBER, we will fail so return it; if it is a
+--- 6379,6383 ----
+    /* Simplify VAROP knowing that we will be only looking at some of the
+       bits in it.  */
+!   varop = force_to_mode (varop, mode, constop, NULL_RTX, 0);
+  
+    /* If VAROP is a CLOBBER, we will fail so return it; if it is a
+***************
+*** 8567,8571 ****
+  			     ((HOST_WIDE_INT) 1
+  			      << (GET_MODE_BITSIZE (mode) - 1)),
+! 			     NULL_RTX);
+  
+        /* Now try cases based on the opcode of OP0.  If none of the cases
+--- 8578,8582 ----
+  			     ((HOST_WIDE_INT) 1
+  			      << (GET_MODE_BITSIZE (mode) - 1)),
+! 			     NULL_RTX, 0);
+  
+        /* Now try cases based on the opcode of OP0.  If none of the cases
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/a29k/a29k.c gcc-2.5.8/config/a29k/a29k.c
+*** gcc-2.5.7/config/a29k/a29k.c	Thu Dec  2 06:57:22 1993
+--- gcc-2.5.8/config/a29k/a29k.c	Tue Jan 11 19:19:24 1994
+***************
+*** 1032,1036 ****
+        if (dbr_sequence_length () == 0)
+  	{
+! 	  if (GET_CODE (x) == SYMBOL_REF
+  	      && ! strcmp (XSTR (x, 0), current_function_name))
+  	    fprintf (file, "+4\n\t%s,%d",
+--- 1032,1045 ----
+        if (dbr_sequence_length () == 0)
+  	{
+! 	  /* If this doesn't have its delay slot filled, see if we need to
+! 	     put the last insn of the prolog in it.  If not, see if this is
+! 	     a recursive call.  If so, we can put the first insn of its
+! 	     prolog in the delay slot.  Otherwise, write a nop.  */
+! 	  if (a29k_last_prologue_insn)
+! 	    {
+! 	      fprintf (file, "\n\t%s", a29k_last_prologue_insn);
+! 	      a29k_last_prologue_insn = 0;
+! 	    }
+! 	  else if (GET_CODE (x) == SYMBOL_REF
+  	      && ! strcmp (XSTR (x, 0), current_function_name))
+  	    fprintf (file, "+4\n\t%s,%d",
+***************
+*** 1195,1198 ****
+--- 1204,1217 ----
+        a29k_debug_reg_map[R_AR (i)] = R_LR (a29k_regstack_size + i + 2);
+      }
++ 
++   /* If using kernel register map, swap numbers for kernel and user
++      registers.  */
++   if (TARGET_KERNEL_REGISTERS)
++     for (i = 0; i < 32; i++)
++       {
++ 	int tem = a29k_debug_reg_map[i];
++ 	a29k_debug_reg_map[i] = a29k_debug_reg_map[R_KR (i)];
++ 	a29k_debug_reg_map[R_KR (i)] = tem;
++       }
+  
+    /* Compute memory stack size.  Add in number of bytes that the we should
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/alpha/alpha.c gcc-2.5.8/config/alpha/alpha.c
+*** gcc-2.5.7/config/alpha/alpha.c	Wed Oct 13 18:00:12 1993
+--- gcc-2.5.8/config/alpha/alpha.c	Sun Jan 23 06:23:44 1994
+***************
+*** 1215,1219 ****
+       so we might as well omit it.  */
+       
+!   fprintf (file, "\t.ent %s\n", alpha_function_name);
+    ASM_OUTPUT_LABEL (file, alpha_function_name);
+    inside_function = TRUE;
+--- 1215,1221 ----
+       so we might as well omit it.  */
+       
+!   fprintf (file, "\t.ent ");
+!   assemble_name (file, alpha_function_name);
+!   fprintf (file, "\n");
+    ASM_OUTPUT_LABEL (file, alpha_function_name);
+    inside_function = TRUE;
+***************
+*** 1234,1238 ****
+  	    && GET_CODE (PATTERN (insn)) != USE
+  	    && GET_CODE (PATTERN (insn)) != CLOBBER
+! 	    && get_attr_type (insn) == TYPE_LDSYM))
+        {
+  	alpha_function_needs_gp = 1;
+--- 1236,1241 ----
+  	    && GET_CODE (PATTERN (insn)) != USE
+  	    && GET_CODE (PATTERN (insn)) != CLOBBER
+! 	    && (get_attr_type (insn) == TYPE_LDSYM
+! 		|| get_attr_type (insn) == TYPE_ISUBR)))
+        {
+  	alpha_function_needs_gp = 1;
+***************
+*** 1244,1248 ****
+  
+    /* Put a label after the GP load so we can enter the function at it.  */
+!   fprintf (file, "%s..ng:\n", alpha_function_name);
+  
+    /* Adjust the stack by the frame size.  If the frame size is > 4096
+--- 1247,1252 ----
+  
+    /* Put a label after the GP load so we can enter the function at it.  */
+!   assemble_name (file, alpha_function_name);
+!   fprintf (file, "..ng:\n");
+  
+    /* Adjust the stack by the frame size.  If the frame size is > 4096
+***************
+*** 1290,1298 ****
+  
+        fprintf (file, "\tlda $4,4096($30)\n");
+!       fprintf (file, "%s..sc:\n", alpha_function_name);
+        fprintf (file, "\tldq $6,-8192($4)\n");
+        fprintf (file, "\tsubq $5,1,$5\n");
+        fprintf (file, "\tlda $4,-8192($4)\n");
+!       fprintf (file, "\tbne $5,%s..sc\n", alpha_function_name);
+        fprintf (file, "\tlda $30,-%d($4)\n", leftover);
+  
+--- 1294,1309 ----
+  
+        fprintf (file, "\tlda $4,4096($30)\n");
+! 
+!       assemble_name (file, alpha_function_name);
+!       fprintf (file, "..sc:\n");
+! 
+        fprintf (file, "\tldq $6,-8192($4)\n");
+        fprintf (file, "\tsubq $5,1,$5\n");
+        fprintf (file, "\tlda $4,-8192($4)\n");
+! 
+!       fprintf (file, "\tbne $5");
+!       assemble_name (file, alpha_function_name);
+!       fprintf (file, "%s..sc\n");
+! 
+        fprintf (file, "\tlda $30,-%d($4)\n", leftover);
+  
+***************
+*** 1479,1483 ****
+  
+    /* End the function.  */
+!   fprintf (file, "\t.end %s\n", alpha_function_name);
+    inside_function = FALSE;
+  
+--- 1490,1496 ----
+  
+    /* End the function.  */
+!   fprintf (file, "\t.end ");
+!   assemble_name (file, alpha_function_name);
+!   fprintf (file, "\n");
+    inside_function = FALSE;
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/alpha/alpha.md gcc-2.5.8/config/alpha/alpha.md
+*** gcc-2.5.7/config/alpha/alpha.md	Tue Nov 16 07:13:41 1993
+--- gcc-2.5.8/config/alpha/alpha.md	Fri Dec 24 08:57:10 1993
+***************
+*** 27,31 ****
+  
+  (define_attr "type"
+!   "ld,st,ibr,fbr,jsr,iaddlog,shiftcm,icmp,imull,imulq,fpop,fdivs,fdivt,ldsym"
+    (const_string "shiftcm"))
+  
+--- 27,31 ----
+  
+  (define_attr "type"
+!   "ld,st,ibr,fbr,jsr,iaddlog,shiftcm,icmp,imull,imulq,fpop,fdivs,fdivt,ldsym,isubr"
+    (const_string "shiftcm"))
+  
+***************
+*** 504,508 ****
+     (clobber (reg:DI 28))]
+    ""
+!   "%E1 $24,$25,$27")
+  
+  (define_insn ""
+--- 504,509 ----
+     (clobber (reg:DI 28))]
+    ""
+!   "%E1 $24,$25,$27"
+!   [(set_attr "type" "isubr")])
+  
+  (define_insn ""
+***************
+*** 513,517 ****
+     (clobber (reg:DI 28))]
+    ""
+!   "%E1 $24,$25,$27")
+  
+  ;; Next are the basic logical operations.  These only exist in DImode.
+--- 514,519 ----
+     (clobber (reg:DI 28))]
+    ""
+!   "%E1 $24,$25,$27"
+!   [(set_attr "type" "isubr")])
+  
+  ;; Next are the basic logical operations.  These only exist in DImode.
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/i386/gas.h gcc-2.5.8/config/i386/gas.h
+*** gcc-2.5.7/config/i386/gas.h	Sat Oct  2 04:18:17 1993
+--- gcc-2.5.8/config/i386/gas.h	Sun Jan 23 18:40:59 1994
+***************
+*** 1,4 ****
+  /* Definitions for Intel 386 running system V with gnu tools
+!    Copyright (C) 1988, 1993 Free Software Foundation, Inc.
+  
+  This file is part of GNU CC.
+--- 1,4 ----
+  /* Definitions for Intel 386 running system V with gnu tools
+!    Copyright (C) 1988, 1993, 1994 Free Software Foundation, Inc.
+  
+  This file is part of GNU CC.
+***************
+*** 93,103 ****
+       fprintf ((FILE), "\t.align 2,0x90\n");  /* Use log of 4 as arg.  */
+  
+- #undef ASM_FILE_START
+- #define ASM_FILE_START(FILE) \
+-   do {	fprintf (FILE, "\t.file\t");			\
+- 	output_quoted_string (FILE, dump_base_name);	\
+- 	fprintf (FILE, "\n");				\
+-   } while (0)
+- 
+  /* A C statement or statements which output an assembler instruction
+     opcode to the stdio stream STREAM.  The macro-operand PTR is a
+--- 93,96 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/i386/os2.h gcc-2.5.8/config/i386/os2.h
+*** gcc-2.5.7/config/i386/os2.h	Thu Nov  4 14:59:27 1993
+--- gcc-2.5.8/config/i386/os2.h	Sun Jan 23 18:40:58 1994
+***************
+*** 1,5 ****
+  /* Definitions of target machine for GNU compiler
+     for an Intel i386 or later processor running OS/2 2.x.
+!    Copyright (C) 1993 Free Software Foundation, Inc.
+     Contributed by Samuel Figueroa (figueroa@cs.nyu.edu)
+  
+--- 1,5 ----
+  /* Definitions of target machine for GNU compiler
+     for an Intel i386 or later processor running OS/2 2.x.
+!    Copyright (C) 1993, 1994 Free Software Foundation, Inc.
+     Contributed by Samuel Figueroa (figueroa@cs.nyu.edu)
+  
+***************
+*** 34,37 ****
+--- 34,41 ----
+  #ifndef LOCAL_INCLUDE_DIR
+  #define LOCAL_INCLUDE_DIR "\\gcc\\include"
++ #endif
++ 
++ #ifndef PATH_SEPARATOR
++ #define PATH_SEPARATOR ';'
+  #endif
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/ns32k/ns32k.h gcc-2.5.8/config/ns32k/ns32k.h
+*** gcc-2.5.7/config/ns32k/ns32k.h	Thu Oct  7 15:47:27 1993
+--- gcc-2.5.8/config/ns32k/ns32k.h	Thu Dec 23 09:05:47 1993
+***************
+*** 1311,1315 ****
+  /* ** Notice that the second element is LI format! */
+  #define ASM_OUTPUT_ADDR_DIFF_ELT(FILE, VALUE, REL)  \
+!   fprintf (FILE, "\t.double L%d-LI%d\n", VALUE, REL)
+  
+  /* This is how to output an assembler line
+--- 1311,1315 ----
+  /* ** Notice that the second element is LI format! */
+  #define ASM_OUTPUT_ADDR_DIFF_ELT(FILE, VALUE, REL)  \
+!   fprintf (FILE, "\t.long L%d-LI%d\n", VALUE, REL)
+  
+  /* This is how to output an assembler line
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/pa/pa.h gcc-2.5.8/config/pa/pa.h
+*** gcc-2.5.7/config/pa/pa.h	Thu Dec  2 06:36:24 1993
+--- gcc-2.5.8/config/pa/pa.h	Sat Jan 22 17:23:33 1994
+***************
+*** 1572,1575 ****
+--- 1572,1577 ----
+       if (profile_flag)\
+         fprintf (FILE, "\t.IMPORT _mcount, CODE\n");\
++      if (write_symbols != NO_DEBUG) \
++        output_file_directive ((FILE), main_input_filename); \
+     } while (0)
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config/rs6000/rs6000.md gcc-2.5.8/config/rs6000/rs6000.md
+*** gcc-2.5.7/config/rs6000/rs6000.md	Sat Dec 11 18:46:03 1993
+--- gcc-2.5.8/config/rs6000/rs6000.md	Mon Dec 20 19:25:10 1993
+***************
+*** 755,763 ****
+        && exact_log2 (INTVAL (operands[2])) >= 0)
+      ;
+- 
+    else if (! TARGET_POWERPC)
+      FAIL;
+! 
+!   operands[2] = force_reg (SImode, operands[2]);
+  }")
+  
+--- 755,762 ----
+        && exact_log2 (INTVAL (operands[2])) >= 0)
+      ;
+    else if (! TARGET_POWERPC)
+      FAIL;
+!   else
+!     operands[2] = force_reg (SImode, operands[2]);
+  }")
+  
+***************
+*** 765,769 ****
+    [(use (match_operand:SI 0 "gpc_reg_operand" ""))
+     (use (match_operand:SI 1 "gpc_reg_operand" ""))
+!    (use (match_operand:SI 2 "const_int_operand" ""))]
+    ""
+    "
+--- 764,768 ----
+    [(use (match_operand:SI 0 "gpc_reg_operand" ""))
+     (use (match_operand:SI 1 "gpc_reg_operand" ""))
+!    (use (match_operand:SI 2 "reg_or_cint_operand" ""))]
+    ""
+    "
+***************
+*** 773,777 ****
+    rtx temp2;
+  
+!   if (i < 0)
+      FAIL;
+  
+--- 772,776 ----
+    rtx temp2;
+  
+!   if (GET_CODE (operands[2]) != CONST_INT || i < 0)
+      FAIL;
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/config.sub gcc-2.5.8/config.sub
+*** gcc-2.5.7/config.sub	Sat Oct 30 22:46:16 1993
+--- gcc-2.5.8/config.sub	Thu Jan 13 05:43:41 1994
+***************
+*** 73,77 ****
+  		;;
+  	-hiux*)
+! 		os==-hiuxwe2
+  		;;
+  	-sco4)
+--- 73,77 ----
+  		;;
+  	-hiux*)
+! 		os=-hiuxwe2
+  		;;
+  	-sco4)
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/cp-tree.h gcc-2.5.8/cp-tree.h
+*** gcc-2.5.7/cp-tree.h	Thu Dec  9 19:36:52 1993
+--- gcc-2.5.8/cp-tree.h	Tue Dec 21 17:49:06 1993
+***************
+*** 1302,1308 ****
+  #define AUTO_TEMP_FORMAT "__tmp_%d"
+  #define VTABLE_BASE "__vtb"
+  #define VTABLE_NAME_FORMAT "__vt_%s"
+  #define VTABLE_NAME_P(ID_NODE) \
+!   (!strncmp (IDENTIFIER_POINTER (ID_NODE), VTABLE_NAME_FORMAT, \
+  	     sizeof (VTABLE_NAME_FORMAT) - 1))
+  #define VFIELD_BASE "__vfb"
+--- 1302,1309 ----
+  #define AUTO_TEMP_FORMAT "__tmp_%d"
+  #define VTABLE_BASE "__vtb"
++ #define VTABLE_NAME "__vt_"
+  #define VTABLE_NAME_FORMAT "__vt_%s"
+  #define VTABLE_NAME_P(ID_NODE) \
+!   (!strncmp (IDENTIFIER_POINTER (ID_NODE), VTABLE_NAME, \
+  	     sizeof (VTABLE_NAME_FORMAT) - 1))
+  #define VFIELD_BASE "__vfb"
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/cse.c gcc-2.5.8/cse.c
+*** gcc-2.5.7/cse.c	Thu Nov  4 03:26:09 1993
+--- gcc-2.5.8/cse.c	Fri Dec 24 21:55:44 1993
+***************
+*** 3320,3324 ****
+    /* We can fold some multi-word operations.  */
+    if (GET_MODE_CLASS (mode) == MODE_INT
+!       && GET_CODE (op0) == CONST_DOUBLE
+        && (GET_CODE (op1) == CONST_DOUBLE || GET_CODE (op1) == CONST_INT))
+      {
+--- 3320,3325 ----
+    /* We can fold some multi-word operations.  */
+    if (GET_MODE_CLASS (mode) == MODE_INT
+!       && width == HOST_BITS_PER_WIDE_INT * 2
+!       && (GET_CODE (op0) == CONST_DOUBLE || GET_CODE (op0) == CONST_INT)
+        && (GET_CODE (op1) == CONST_DOUBLE || GET_CODE (op1) == CONST_INT))
+      {
+***************
+*** 3325,3329 ****
+        HOST_WIDE_INT l1, l2, h1, h2, lv, hv;
+  
+!       l1 = CONST_DOUBLE_LOW (op0), h1 = CONST_DOUBLE_HIGH (op0);
+  
+        if (GET_CODE (op1) == CONST_DOUBLE)
+--- 3326,3333 ----
+        HOST_WIDE_INT l1, l2, h1, h2, lv, hv;
+  
+!       if (GET_CODE (op0) == CONST_DOUBLE)
+! 	l1 = CONST_DOUBLE_LOW (op0), h1 = CONST_DOUBLE_HIGH (op0);
+!       else
+! 	l1 = INTVAL (op0), h1 = l1 < 0 ? -1 : 0;
+  
+        if (GET_CODE (op1) == CONST_DOUBLE)
+***************
+*** 3462,3470 ****
+  	  /* Handle both-operands-constant cases.  We can only add
+  	     CONST_INTs to constants since the sum of relocatable symbols
+! 	     can't be handled by most assemblers.  */
+  
+! 	  if (CONSTANT_P (op0) && GET_CODE (op1) == CONST_INT)
+  	    return plus_constant (op0, INTVAL (op1));
+! 	  else if (CONSTANT_P (op1) && GET_CODE (op0) == CONST_INT)
+  	    return plus_constant (op1, INTVAL (op0));
+  
+--- 3466,3478 ----
+  	  /* Handle both-operands-constant cases.  We can only add
+  	     CONST_INTs to constants since the sum of relocatable symbols
+! 	     can't be handled by most assemblers.  Don't add CONST_INT
+! 	     to CONST_INT since overflow won't be computed properly if wider
+! 	     than HOST_BITS_PER_WIDE_INT.  */
+  
+! 	  if (CONSTANT_P (op0) && GET_MODE (op0) != VOIDmode
+! 	      && GET_CODE (op1) == CONST_INT)
+  	    return plus_constant (op0, INTVAL (op1));
+! 	  else if (CONSTANT_P (op1) && GET_MODE (op1) != VOIDmode
+! 		   && GET_CODE (op0) == CONST_INT)
+  	    return plus_constant (op1, INTVAL (op0));
+  
+***************
+*** 3541,3545 ****
+  
+  	  /* Don't let a relocatable value get a negative coeff.  */
+! 	  if (GET_CODE (op1) == CONST_INT)
+  	    return plus_constant (op0, - INTVAL (op1));
+  	  break;
+--- 3549,3553 ----
+  
+  	  /* Don't let a relocatable value get a negative coeff.  */
+! 	  if (GET_CODE (op1) == CONST_INT && GET_MODE (op1) != VOIDmode)
+  	    return plus_constant (op0, - INTVAL (op1));
+  	  break;
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/emit-rtl.c gcc-2.5.8/emit-rtl.c
+*** gcc-2.5.7/emit-rtl.c	Mon Dec  6 05:38:52 1993
+--- gcc-2.5.8/emit-rtl.c	Mon Dec 20 19:25:40 1993
+***************
+*** 596,602 ****
+      {
+        /* If the register is not valid for MODE, return 0.  If we don't
+! 	 do this, there is no way to fix up the resulting REG later.  */
+        if (REGNO (x) < FIRST_PSEUDO_REGISTER
+! 	  && ! HARD_REGNO_MODE_OK (REGNO (x) + word, mode))
+  	return 0;
+        else if (REGNO (x) < FIRST_PSEUDO_REGISTER
+--- 596,607 ----
+      {
+        /* If the register is not valid for MODE, return 0.  If we don't
+! 	 do this, there is no way to fix up the resulting REG later.  
+! 	 But we do do this if the current REG is not valid for its
+! 	 mode.  This latter is a kludge, but is required due to the
+! 	 way that parameters are passed on some machines, most
+! 	 notably Sparc.  */
+        if (REGNO (x) < FIRST_PSEUDO_REGISTER
+! 	  && ! HARD_REGNO_MODE_OK (REGNO (x) + word, mode)
+! 	  && HARD_REGNO_MODE_OK (REGNO (x), GET_MODE (x)))
+  	return 0;
+        else if (REGNO (x) < FIRST_PSEUDO_REGISTER
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/expr.c gcc-2.5.8/expr.c
+*** gcc-2.5.7/expr.c	Mon Dec  6 20:53:44 1993
+--- gcc-2.5.8/expr.c	Mon Jan 10 19:26:14 1994
+***************
+*** 416,424 ****
+    if (code != QUEUED)
+      {
+!       /* A special hack for read access to (MEM (QUEUED ...))
+! 	 to facilitate use of autoincrement.
+! 	 Make a copy of the contents of the memory location
+! 	 rather than a copy of the address, but not
+! 	 if the value is of mode BLKmode.  */
+        if (code == MEM && GET_MODE (x) != BLKmode
+  	  && GET_CODE (XEXP (x, 0)) == QUEUED && !modify)
+--- 416,424 ----
+    if (code != QUEUED)
+      {
+!       /* A special hack for read access to (MEM (QUEUED ...)) to facilitate
+! 	 use of autoincrement.  Make a copy of the contents of the memory
+! 	 location rather than a copy of the address, but not if the value is
+! 	 of mode BLKmode.  Don't modify X in place since it might be
+! 	 shared.  */
+        if (code == MEM && GET_MODE (x) != BLKmode
+  	  && GET_CODE (XEXP (x, 0)) == QUEUED && !modify)
+***************
+*** 425,437 ****
+  	{
+  	  register rtx y = XEXP (x, 0);
+! 	  XEXP (x, 0) = QUEUED_VAR (y);
+  	  if (QUEUED_INSN (y))
+  	    {
+! 	      register rtx temp = gen_reg_rtx (GET_MODE (x));
+! 	      emit_insn_before (gen_move_insn (temp, x),
+  				QUEUED_INSN (y));
+  	      return temp;
+  	    }
+! 	  return x;
+  	}
+        /* Otherwise, recursively protect the subexpressions of all
+--- 425,442 ----
+  	{
+  	  register rtx y = XEXP (x, 0);
+! 	  register rtx new = gen_rtx (MEM, GET_MODE (x), QUEUED_VAR (y));
+! 
+! 	  MEM_IN_STRUCT_P (new) = MEM_IN_STRUCT_P (x);
+! 	  RTX_UNCHANGING_P (new) = RTX_UNCHANGING_P (x);
+! 	  MEM_VOLATILE_P (new) = MEM_VOLATILE_P (x);
+! 
+  	  if (QUEUED_INSN (y))
+  	    {
+! 	      register rtx temp = gen_reg_rtx (GET_MODE (new));
+! 	      emit_insn_before (gen_move_insn (temp, new),
+  				QUEUED_INSN (y));
+  	      return temp;
+  	    }
+! 	  return new;
+  	}
+        /* Otherwise, recursively protect the subexpressions of all
+***************
+*** 4074,4077 ****
+--- 4079,4083 ----
+        emit_insns (RTL_EXPR_SEQUENCE (exp));
+        RTL_EXPR_SEQUENCE (exp) = const0_rtx;
++       preserve_rtl_expr_result (RTL_EXPR_RTL (exp));
+        free_temps_for_rtl_expr (exp);
+        return RTL_EXPR_RTL (exp);
+***************
+*** 4871,4874 ****
+--- 4877,4883 ----
+  
+      case MINUS_EXPR:
++       /* For initializers, we are allowed to return a MINUS of two
++ 	 symbolic constants.  Here we handle all cases when both operands
++ 	 are constant.  */
+        /* Handle difference of two symbolic constants,
+  	 for the sake of an initializer.  */
+***************
+*** 4881,4885 ****
+  	  rtx op1 = expand_expr (TREE_OPERAND (exp, 1), NULL_RTX,
+  				 VOIDmode, modifier);
+! 	  return gen_rtx (MINUS, mode, op0, op1);
+  	}
+        /* Convert A - const to A + (-const).  */
+--- 4890,4904 ----
+  	  rtx op1 = expand_expr (TREE_OPERAND (exp, 1), NULL_RTX,
+  				 VOIDmode, modifier);
+! 
+! 	  /* If one operand is a CONST_INT, put it last.  */
+! 	  if (GET_CODE (op0) == CONST_INT)
+! 	    temp = op0, op0 = op1, op1 = temp;
+! 
+! 	  /* If the last operand is a CONST_INT, use plus_constant of
+! 	     the negated constant.  Else make the MINUS.  */
+! 	  if (GET_CODE (op1) == CONST_INT)
+! 	    return plus_constant (op0, - INTVAL (op1));
+! 	  else
+! 	    return gen_rtx (MINUS, mode, op0, op1);
+  	}
+        /* Convert A - const to A + (-const).  */
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/fixincludes gcc-2.5.8/fixincludes
+*** gcc-2.5.7/fixincludes	Fri Dec  3 06:40:42 1993
+--- gcc-2.5.8/fixincludes	Mon Dec 20 19:26:48 1993
+***************
+*** 1050,1057 ****
+        -e 's@ __va_list)@ __gnuc_va_list)@' \
+        -e 's@_NEED___VA_LIST@_NEED___Va_LIST@' \
+-       -e 's@_HIDDEN_VA_LIST@_HIDDEN_Va_LIST@' \
+        -e 's@VA_LIST@DUMMY_VA_LIST@' \
+        -e 's@_NEED___Va_LIST@_NEED___VA_LIST@' \
+-       -e 's@_HIDDEN_Va_LIST@_HIDDEN_VA_LIST@' \
+      ${LIB}/$file >> ${LIB}/${file}.sed
+    
+--- 1050,1055 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/function.c gcc-2.5.8/function.c
+*** gcc-2.5.7/function.c	Sun Dec 12 06:17:30 1993
+--- gcc-2.5.8/function.c	Mon Jan 10 19:07:41 1994
+***************
+*** 913,916 ****
+--- 913,944 ----
+  }
+  
++ /* X is the result of an RTL_EXPR.  If it is a temporary slot associated
++    with that RTL_EXPR, promote it into a temporary slot at the present
++    level so it will not be freed when we free slots made in the
++    RTL_EXPR.  */
++ 
++ void
++ preserve_rtl_expr_result (x)
++      rtx x;
++ {
++   struct temp_slot *p;
++ 
++   /* If X is not in memory or is at a constant address, it cannot be in
++      a temporary slot.  */
++   if (x == 0 || GET_CODE (x) != MEM || CONSTANT_P (XEXP (x, 0)))
++     return;
++ 
++   /* If we can find a match, move it to our level.  */
++   for (p = temp_slots; p; p = p->next)
++     if (p->in_use && rtx_equal_p (x, p->slot))
++       {
++ 	p->level = temp_slot_level;
++ 	p->rtl_expr = 0;
++ 	return;
++       }
++ 
++   return;
++ }
++ 
+  /* Free all temporaries used so far.  This is normally called at the end
+     of generating code for a statement.  Don't free any temporaries
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/gcc.c gcc-2.5.8/gcc.c
+*** gcc-2.5.7/gcc.c	Fri Nov 26 15:57:21 1993
+--- gcc-2.5.8/gcc.c	Thu Dec 23 17:50:01 1993
+***************
+*** 579,583 ****
+    {".ada", "@ada"},
+    {"@ada",
+!    "gnat1 %{gnat*} %{k8:-gnatk8} %{!v:-quiet -gnatb} %{w:-gnatws}\
+         -dumpbase %b.ada\
+         %{g*} %{O*} %{p} %{pg:-p} %{f*} %{d*}\
+--- 579,583 ----
+    {".ada", "@ada"},
+    {"@ada",
+!    "gnat1 %{gnat*} %{k8:-gnatk8} %{w:-gnatws}\
+         -dumpbase %b.ada\
+         %{g*} %{O*} %{p} %{pg:-p} %{f*} %{d*}\
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/jump.c gcc-2.5.8/jump.c
+*** gcc-2.5.7/jump.c	Wed Oct 13 15:25:16 1993
+--- gcc-2.5.8/jump.c	Sun Jan  9 05:38:38 1994
+***************
+*** 2922,2925 ****
+--- 2922,2931 ----
+        if (JUMP_LABEL (insn) == label)
+  	return label;
++ 
++       tem = next_active_insn (JUMP_LABEL (insn));
++       if (tem && (GET_CODE (PATTERN (tem)) == ADDR_VEC
++ 		  || GET_CODE (PATTERN (tem)) == ADDR_DIFF_VEC))
++ 	break;
++ 
+        value = JUMP_LABEL (insn);
+      }
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/regclass.c gcc-2.5.8/regclass.c
+*** gcc-2.5.7/regclass.c	Wed Nov  3 15:35:40 1993
+--- gcc-2.5.8/regclass.c	Mon Jan 10 19:17:51 1994
+***************
+*** 362,375 ****
+  #endif
+  
+-   for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
+-     if (global_regs[i])
+-       {
+- 	if (call_used_regs[i] && ! fixed_regs[i])
+- 	  warning ("call-clobbered register used for global register variable");
+- 	fixed_regs[i] = 1;
+- 	/* Prevent saving/restoring of this reg.  */
+- 	call_used_regs[i] = 1;
+-       }
+- 
+    /* Initialize "constant" tables.  */
+  
+--- 362,365 ----
+***************
+*** 434,437 ****
+--- 424,456 ----
+        warning ("unknown register name: %s", name);
+      }
++ }
++ 
++ /* Mark register number I as global.  */
++ 
++ void
++ globalize_reg (i)
++      int i;
++ {
++   if (global_regs[i])
++     {
++       warning ("register used for two global register variables");
++       return;
++     }
++ 
++   if (call_used_regs[i] && ! fixed_regs[i])
++     warning ("call-clobbered register used for global register variable");
++ 
++   global_regs[i] = 1;
++ 
++   /* If already fixed, nothing else to do.  */
++   if (fixed_regs[i])
++     return;
++ 
++   fixed_regs[i] = call_used_regs[i] = call_fixed_regs[i] = 1;
++   n_non_fixed_regs--;
++ 
++   SET_HARD_REG_BIT (fixed_reg_set, i);
++   SET_HARD_REG_BIT (call_used_reg_set, i);
++   SET_HARD_REG_BIT (call_fixed_reg_set, i);
+  }
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/reload.c gcc-2.5.8/reload.c
+*** gcc-2.5.7/reload.c	Thu Dec  2 06:44:11 1993
+--- gcc-2.5.8/reload.c	Sun Jan 23 20:12:42 1994
+***************
+*** 645,658 ****
+  		&& REGNO (SUBREG_REG (in)) >= FIRST_PSEUDO_REGISTER)
+  	       || GET_CODE (SUBREG_REG (in)) == MEM)
+  #ifdef LOAD_EXTEND_OP
+! 	      && GET_MODE_SIZE (inmode) <= UNITS_PER_WORD
+! 	      && GET_MODE_SIZE (GET_MODE (SUBREG_REG (in))) <= UNITS_PER_WORD
+! 	      && (GET_MODE_SIZE (inmode)
+! 		  != GET_MODE_SIZE (GET_MODE (SUBREG_REG (in))))
+! #else
+! 	      && (GET_MODE_SIZE (inmode)
+! 		  > GET_MODE_SIZE (GET_MODE (SUBREG_REG (in))))
+  #endif
+! 	      )
+  	  || (GET_CODE (SUBREG_REG (in)) == REG
+  	      && REGNO (SUBREG_REG (in)) < FIRST_PSEUDO_REGISTER
+--- 645,658 ----
+  		&& REGNO (SUBREG_REG (in)) >= FIRST_PSEUDO_REGISTER)
+  	       || GET_CODE (SUBREG_REG (in)) == MEM)
++ 	      && ((GET_MODE_SIZE (inmode)
++ 		   > GET_MODE_SIZE (GET_MODE (SUBREG_REG (in))))
+  #ifdef LOAD_EXTEND_OP
+! 		  || (GET_MODE_SIZE (inmode) <= UNITS_PER_WORD
+! 		      && (GET_MODE_SIZE (GET_MODE (SUBREG_REG (in)))
+! 			  <= UNITS_PER_WORD)
+! 		      && (GET_MODE_SIZE (inmode)
+! 			  != GET_MODE_SIZE (GET_MODE (SUBREG_REG (in)))))
+  #endif
+! 		  ))
+  	  || (GET_CODE (SUBREG_REG (in)) == REG
+  	      && REGNO (SUBREG_REG (in)) < FIRST_PSEUDO_REGISTER
+***************
+*** 728,741 ****
+  		&& REGNO (SUBREG_REG (out)) >= FIRST_PSEUDO_REGISTER)
+  	       || GET_CODE (SUBREG_REG (out)) == MEM)
+  #ifdef LOAD_EXTEND_OP
+! 	      && GET_MODE_SIZE (outmode) <= UNITS_PER_WORD
+! 	      && GET_MODE_SIZE (GET_MODE (SUBREG_REG (out))) <= UNITS_PER_WORD
+! 	      && (GET_MODE_SIZE (outmode)
+! 		  != GET_MODE_SIZE (GET_MODE (SUBREG_REG (out))))
+! #else
+! 	      && (GET_MODE_SIZE (outmode)
+! 		  > GET_MODE_SIZE (GET_MODE (SUBREG_REG (out))))
+  #endif
+! 	      )
+  	  || (GET_CODE (SUBREG_REG (out)) == REG
+  	      && REGNO (SUBREG_REG (out)) < FIRST_PSEUDO_REGISTER
+--- 728,741 ----
+  		&& REGNO (SUBREG_REG (out)) >= FIRST_PSEUDO_REGISTER)
+  	       || GET_CODE (SUBREG_REG (out)) == MEM)
++ 	      && ((GET_MODE_SIZE (outmode)
++ 		   > GET_MODE_SIZE (GET_MODE (SUBREG_REG (out))))
+  #ifdef LOAD_EXTEND_OP
+! 		  || (GET_MODE_SIZE (outmode) <= UNITS_PER_WORD
+! 		      && (GET_MODE_SIZE (GET_MODE (SUBREG_REG (out)))
+! 			  <= UNITS_PER_WORD)
+! 		      && (GET_MODE_SIZE (outmode)
+! 			  != GET_MODE_SIZE (GET_MODE (SUBREG_REG (out)))))
+  #endif
+! 		  ))
+  	  || (GET_CODE (SUBREG_REG (out)) == REG
+  	      && REGNO (SUBREG_REG (out)) < FIRST_PSEUDO_REGISTER
+***************
+*** 2610,2629 ****
+  	      if (CONSTANT_P (operand)
+  		  || GET_CODE (operand) == PLUS
+! #ifdef LOAD_EXTEND_OP
+! 		  /* If we have a SUBREG where both the inner and outer
+! 		     modes are different size but no wider than a word,
+! 		     combine.c has made assumptions about the behavior of
+! 		     the machine in such register access.  If the data is,
+! 		     in fact, in memory we must always load using the size
+! 		     assumed to be in the register and let the insn do the
+! 		     different-sized accesses.  */
+  		  || ((GET_CODE (operand) == MEM
+  		       || (GET_CODE (operand)== REG
+  			   && REGNO (operand) >= FIRST_PSEUDO_REGISTER))
+! 		      && GET_MODE_SIZE (operand_mode[i]) <= UNITS_PER_WORD
+! 		      && GET_MODE_SIZE (GET_MODE (operand)) <= UNITS_PER_WORD
+! 		      && (GET_MODE_SIZE (operand_mode[i])
+! 			  != GET_MODE_SIZE (GET_MODE (operand))))
+  #endif
+  		  /* Subreg of a hard reg which can't handle the subreg's mode
+  		     or which would handle that mode in the wrong number of
+--- 2610,2640 ----
+  	      if (CONSTANT_P (operand)
+  		  || GET_CODE (operand) == PLUS
+! 		  /* We must force a reload of paradoxical SUBREGs
+! 		     of a MEM because the alignment of the inner value
+! 		     may not be enough to do the outer reference.
+! 
+! 		     On machines that extend byte operations and we have a
+! 		     SUBREG where both the inner and outer modes are different
+! 		     size but no wider than a word, combine.c has made
+! 		     assumptions about the behavior of the machine in such
+! 		     register access.  If the data is, in fact, in memory we
+! 		     must always load using the size assumed to be in the
+! 		     register and let the insn do the different-sized 
+! 		     accesses.  */
+  		  || ((GET_CODE (operand) == MEM
+  		       || (GET_CODE (operand)== REG
+  			   && REGNO (operand) >= FIRST_PSEUDO_REGISTER))
+! 		      && (((GET_MODE_BITSIZE (GET_MODE (operand))
+! 			    < BIGGEST_ALIGNMENT)
+! 			   && (GET_MODE_SIZE (operand_mode[i])
+! 			       > GET_MODE_SIZE (GET_MODE (operand))))
+! #ifdef LOAD_EXTEND_OP
+! 			  || (GET_MODE_SIZE (operand_mode[i]) <= UNITS_PER_WORD
+! 			      && (GET_MODE_SIZE (GET_MODE (operand))
+! 				  <= UNITS_PER_WORD)
+! 			      && (GET_MODE_SIZE (operand_mode[i])
+! 				  != GET_MODE_SIZE (GET_MODE (operand))))
+  #endif
++ 			  ))
+  		  /* Subreg of a hard reg which can't handle the subreg's mode
+  		     or which would handle that mode in the wrong number of
+***************
+*** 3374,3378 ****
+  	       we must change these to RELOAD_FOR_INPUT_ADDRESS.  */
+  
+! 	    if (operand_type[i] == RELOAD_FOR_OUTPUT)
+  	      for (j = 0; j < n_reloads; j++)
+  		if (reload_opnum[j] == i
+--- 3385,3389 ----
+  	       we must change these to RELOAD_FOR_INPUT_ADDRESS.  */
+  
+! 	    if (modified[i] == RELOAD_WRITE)
+  	      for (j = 0; j < n_reloads; j++)
+  		if (reload_opnum[j] == i
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/tree.c gcc-2.5.8/tree.c
+*** gcc-2.5.7/tree.c	Sun Oct 10 17:08:12 1993
+--- gcc-2.5.8/tree.c	Tue Jan  4 07:36:01 1994
+***************
+*** 2006,2010 ****
+  
+  	case 2:
+! 	  if (code == RTL_EXPR || code == CONSTRUCTOR)
+  	    abort ();
+  
+--- 2006,2014 ----
+  
+  	case 2:
+! 	  /* An RTL_EXPR cannot contain a PLACEHOLDER_EXPR; a CONSTRUCTOR
+! 	     could, but we don't support it.  */
+! 	  if (code == RTL_EXPR)
+! 	    return exp;
+! 	  else if (code == CONSTRUCTOR)
+  	    abort ();
+  
+***************
+*** 2015,2018 ****
+--- 2019,2027 ----
+  
+  	case 3:
++ 	  /* It cannot be that anything inside a SAVE_EXPR contains a
++ 	     PLACEHOLDER_EXPR.  */
++ 	  if (code == SAVE_EXPR)
++ 	    return exp;
++ 
+  	  if (code != COND_EXPR)
+  	    abort ();
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/varasm.c gcc-2.5.8/varasm.c
+*** gcc-2.5.7/varasm.c	Thu Nov  4 13:20:32 1993
+--- gcc-2.5.8/varasm.c	Mon Jan 10 19:17:55 1994
+***************
+*** 456,464 ****
+  	  if (top_level)
+  	    {
+! 	      /* Make this register fixed, so not usable for anything else.  */
+  	      nregs = HARD_REGNO_NREGS (reg_number, DECL_MODE (decl));
+  	      while (nregs > 0)
+! 		global_regs[reg_number + --nregs] = 1;
+! 	      init_reg_sets_1 ();
+  	    }
+  	}
+--- 456,464 ----
+  	  if (top_level)
+  	    {
+! 	      /* Make this register global, so not usable for anything
+! 		 else.  */
+  	      nregs = HARD_REGNO_NREGS (reg_number, DECL_MODE (decl));
+  	      while (nregs > 0)
+! 		globalize_reg (reg_number + --nregs);
+  	    }
+  	}
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.7/version.c gcc-2.5.8/version.c
+*** gcc-2.5.7/version.c	Sun Dec 12 06:47:06 1993
+--- gcc-2.5.8/version.c	Sat Jan  1 06:26:51 1994
+***************
+*** 1 ****
+! char *version_string = "2.5.7";
+--- 1 ----
+! char *version_string = "2.5.8";

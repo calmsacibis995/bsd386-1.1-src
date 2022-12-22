@@ -1,0 +1,229 @@
+CLRASYNC	AsyncIO.c	/^#define	CLRASYNC(fd)	fcntl(fd, F_SETFL, handlers[f/
+CleanIO	AsyncIO.c	/^CleanIO()$/
+FD_ISZERO	AsyncIO.c	/^#define FD_ISZERO(p)	((p)->fds_bits[0] == 0)$/
+Failure	tty.c	/^Failure()$/
+HandleIO	AsyncIO.c	/^HandleIO(struct sigframe sf, struct trapframe tf)$/
+KbdEmpty	tty.c	/^KbdEmpty()$/
+KbdPeek	tty.c	/^KbdPeek()$/
+KbdRead	tty.c	/^KbdRead()$/
+KbdRepl	tty.c	/^KbdRepl(u_short code)$/
+KbdWrite	tty.c	/^KbdWrite(u_short code)$/
+MOD_REG_RM	trap.c	/^#define	MOD_REG_RM(w) \\$/
+Mark	mem.c	/^#define	Mark(x)	(*(char *) (x))$/
+Mdoscmd	doscmd.c	/^main (int argc, char **argv)$/
+Mmem	mem.c	/^main ()$/
+Next	mem.c	/^#define Next(x) ((char *)(x) + (Size(x)+1)*16)$/
+OP_C	i386-pinsn.c	/^OP_C (dummy)$/
+OP_D	i386-pinsn.c	/^OP_D (dummy)$/
+OP_DIR	i386-pinsn.c	/^OP_DIR (size)$/
+OP_DSSI	i386-pinsn.c	/^OP_DSSI (dummy)$/
+OP_E	i386-pinsn.c	/^OP_E (bytemode)$/
+OP_ESDI	i386-pinsn.c	/^OP_ESDI (dummy)$/
+OP_G	i386-pinsn.c	/^OP_G (bytemode)$/
+OP_I	i386-pinsn.c	/^OP_I (bytemode)$/
+OP_J	i386-pinsn.c	/^OP_J (bytemode)$/
+OP_OFF	i386-pinsn.c	/^OP_OFF (bytemode)$/
+OP_ONE	i386-pinsn.c	/^OP_ONE (dummy)$/
+OP_REG	i386-pinsn.c	/^OP_REG (code)$/
+OP_SEG	i386-pinsn.c	/^OP_SEG (dummy)$/
+OP_ST	i386-pinsn.c	/^OP_ST (ignore)$/
+OP_STi	i386-pinsn.c	/^OP_STi (ignore)$/
+OP_T	i386-pinsn.c	/^OP_T (dummy)$/
+OP_indirE	i386-pinsn.c	/^OP_indirE (bytemode)$/
+OP_rm	i386-pinsn.c	/^OP_rm (bytemode)$/
+OP_sI	i386-pinsn.c	/^OP_sI (bytemode)$/
+Owner	mem.c	/^#define Owner(x) (*(u_short *) ((char *)(x)+1))$/
+ParseBuffer	ParseBuffer.c	/^ParseBuffer(obuf, av, mac)$/
+SETASYNC	AsyncIO.c	/^#define	SETASYNC(fd)	fcntl(fd, F_SETFL, handlers[f/
+SetVREGCur	tty.c	/^inline SetVREGCur()$/
+Size	mem.c	/^#define Size(x) (*(u_short *) ((char *)(x)+3))$/
+_BlockIO	AsyncIO.c	/^_BlockIO()$/
+_RegisterIO	AsyncIO.c	/^_RegisterIO(fd, func, arg, failure)$/
+_UnblockIO	AsyncIO.c	/^_UnblockIO()$/
+aget	trace.c	/^#define	aget(x)		(((x & 0xffff0000) >> 12) + (x & /
+alarm_check	cmos.c	/^alarm_check ()$/
+append_pc	i386-pinsn.c	/^append_pc(unsigned long pc)$/
+append_prefix	i386-pinsn.c	/^append_prefix ()$/
+bios_init	bios.c	/^bios_init()$/
+booted	doscmd.c	/^booted()$/
+bps	int13.c	/^bps(int size)$/
+breakpoint	trap.c	/^breakpoint(struct sigframe sf, struct trapframe tf/
+canonicalize	int21.c	/^canonicalize(char *name)$/
+ckprefix	i386-pinsn.c	/^ckprefix ()$/
+cmos_inb	cmos.c	/^cmos_inb(int portnum)$/
+cmos_init	cmos.c	/^cmos_init(void)$/
+cmos_outb	cmos.c	/^cmos_outb(int portnum, unsigned char byte)$/
+com_port_in	int14.c	/^com_port_in(unsigned char *port)$/
+com_port_out	int14.c	/^com_port_out(unsigned char *port, unsigned char va/
+com_set_line	int14.c	/^com_set_line(struct com_data_struct *cdsp, unsigne/
+convert_filename	int21.c	/^convert_filename (uname)$/
+core_alloc	mem.c	/^char *core_alloc(int *size)$/
+create_queue	int14.c	/^struct queue *create_queue() { return(0); }$/
+cylsize	int13.c	/^cylsize(struct diskinfo *di)$/
+day_in_mon_year	cmos.c	/^day_in_mon_year (mon, year)$/
+debug	doscmd.c	/^debug (int flags, char *fmt, ...)$/
+debug_isset	doscmd.c	/^debug_isset(int x)$/
+debug_set	doscmd.c	/^debug_set(int x)$/
+debug_unset	doscmd.c	/^debug_unset(int x)$/
+diread	int13.c	/^diread(struct diskinfo *di, struct trapframe *tf,$/
+disassemble	doscmd.c	/^disassemble (tf, buf)$/
+disize	int13.c	/^disize(struct diskinfo *di)$/
+disk_fd	int13.c	/^disk_fd(int drive)$/
+diwrite	int13.c	/^diwrite(struct diskinfo *di, struct trapframe *tf,/
+do_com_input	int14.c	/^static void do_com_input(int fd)$/
+do_find_first	int21.c	/^do_find_first (tf)$/
+do_find_next	int21.c	/^do_find_next (tf)$/
+do_times	int21.c	/^do_times (tf)$/
+dofloat	i386-pinsn.c	/^dofloat ()$/
+done	doscmd.c	/^done (tf, val)$/
+dos_getcwd	cwd.c	/^dos_getcwd(int drive)$/
+dos_getpath	cwd.c	/^dos_getpath(int drive)$/
+dos_makepath	cwd.c	/^dos_makepath(int drive, u_char *where, u_char *new/
+dos_makereadonly	cwd.c	/^dos_makereadonly(int drive)$/
+dos_match	cwd.c	/^dos_match(u_char *pattern, u_char *string)$/
+dos_readonly	cwd.c	/^dos_readonly(int drive)$/
+dos_setcwd	cwd.c	/^dos_setcwd(int drive, u_char *where)$/
+dos_to_real	cwd.c	/^dos_to_real(u_char *dos, u_char *real)$/
+dos_to_real_path	cwd.c	/^dos_to_real_path(int drive, u_char *dospath, u_cha/
+dump_regs	doscmd.c	/^dump_regs (tf)$/
+encode_dos_file_time	int21.c	/^encode_dos_file_time (t, datep, timep)$/
+exec_command	exe.c	/^exec_command(int fd, char *prog, u_short *param, s/
+exec_return	exe.c	/^exec_return(struct trapframe *tf, int code)$/
+fake_int	trap.c	/^fake_int(struct trapframe *tf, int intnum)$/
+fast_timer_ready	cmos.c	/^int fast_timer_ready(void)$/
+fatal	doscmd.c	/^fatal (char *fmt, ...)$/
+find_first	cwd.c	/^find_first(int drive, u_char *path, int attr, dosd/
+find_next	cwd.c	/^find_next(dosdir_t *dir, find_block_t *dta)$/
+floating	trap.c	/^floating (struct sigframe sf, struct trapframe tf)/
+flop_type	cmos.c	/^flop_type(int id)$/
+from_BCD	cmos.c	/^from_BCD (int n)$/
+from_dos_attr	intff.c	/^from_dos_attr(int attr)$/
+get	trace.c	/^#define	get(x)		*(u_short *)(((x & 0xffff0000) >> /
+get16	i386-pinsn.c	/^get16 ()$/
+get32	i386-pinsn.c	/^get32 ()$/
+get_char_q	int14.c	/^int get_char_q() {}$/
+get_entries	cwd.c	/^get_entries(u_char *path)$/
+get_env	exe.c	/^get_env(void)$/
+get_psp	exe.c	/^get_psp(void)$/
+get_space	cwd.c	/^get_space(int drive, fsstat_t *fs)$/
+getdisk	int13.c	/^getdisk(int drive)$/
+getfcb_name	int21.c	/^getfcb_name(struct fcb *fcbp, char* buf)$/
+getfcb_rec	int21.c	/^getfcb_rec(struct fcb *fcbp, int nrec)$/
+getver	setver.c	/^getver(char *cmd)$/
+i386dis	i386-pinsn.c	/^i386dis (ucs, uip, inbuf, outbuf, mode)$/
+inb	port.c	/^inb(struct trapframe *tf, int port)$/
+inb_nullport	port.c	/^inb_nullport(int port)$/
+init_com	int14.c	/^init_com(int port, char *path, unsigned char *addr/
+init_devinit_handlers	device.c	/^void init_devinit_handlers(void)$/
+init_floppy	int13.c	/^init_floppy(int drive, int type, char *file)$/
+init_hdisk	int13.c	/^init_hdisk(int drive, int cyl, int head, int track/
+init_io_port_handlers	port.c	/^init_io_port_handlers(void)$/
+init_optional_devices	device.c	/^init_optional_devices(void)$/
+init_path	cwd.c	/^init_path(int drive, u_char *base, u_char *dir)$/
+inrange	tty.c	/^inrange(int a, int n, int x)$/
+insb	port.c	/^insb(struct trapframe *tf, int port)$/
+install_drive	intff.c	/^install_drive(int drive, u_char *path)$/
+insx	port.c	/^insx(struct trapframe *tf, int port)$/
+int10	int10.c	/^int10 (tf)$/
+int11	int11.c	/^int11 (tf)$/
+int12	int12.c	/^int12(tf)$/
+int13	int13.c	/^int13 (tf)$/
+int14	int14.c	/^int14(struct trapframe *tf)$/
+int15	int15.c	/^int15(tf)$/
+int16	int16.c	/^int16 (tf)$/
+int17	int17.c	/^int17(tf)$/
+int1a	int1a.c	/^int1a(tf)$/
+int20	int20.c	/^int20 (tf)$/
+int21	int21.c	/^int21 (tf)$/
+int2f	int2f.c	/^int2f(struct trapframe *tf)$/
+int2f_11	intff.c	/^int2f_11(struct trapframe *tf)$/
+int33	int33.c	/^int33 (tf)$/
+intff	intff.c	/^intff(tf)$/
+inx	port.c	/^inx(struct trapframe *tf, int port)$/
+isdot	cwd.c	/^isdot(unsigned c)$/
+isslash	cwd.c	/^isslash(unsigned c)$/
+isvalid	cwd.c	/^isvalid(unsigned c)$/
+load_command	exe.c	/^load_command (int fd, char *cmdname, char **argv, /
+make_environment	exe.c	/^make_environment (char *cmdname, char **env)$/
+make_readonly	int13.c	/^make_readonly(int drive)$/
+map_type	disktab.c	/^map_type(int type, int *cyl, int *head, int *sec)$/
+mem_adjust	mem.c	/^mem_adjust (int addr, int size, int *availp)$/
+mem_alloc	mem.c	/^mem_alloc (int size, int owner, int *biggestp)$/
+mem_change_owner	mem.c	/^mem_change_owner(int addr, int owner)$/
+mem_check	mem.c	/^mem_check ()$/
+mem_free_owner	mem.c	/^mem_free_owner(int owner)$/
+mem_init	mem.c	/^mem_init (void)$/
+mem_print	mem.c	/^mem_print()$/
+msdos_ioctl	int21.c	/^msdos_ioctl (tf)$/
+null_devinit_handler	device.c	/^void null_devinit_handler(void) { }$/
+oappend	i386-pinsn.c	/^oappend (s)$/
+open_name	doscmd.c	/^open_name(char *name, char *ext)$/
+open_prog	doscmd.c	/^open_prog (name)$/
+openfcb	int21.c	/^openfcb(struct fcb *fcbp)$/
+outb	port.c	/^outb(struct trapframe *tf, int port)$/
+outb_nullport	port.c	/^outb_nullport(int port, unsigned char byte)$/
+outsb	port.c	/^outsb(struct trapframe *tf, int port)$/
+outsx	port.c	/^outsx(struct trapframe *tf, int port)$/
+outx	port.c	/^outx(struct trapframe *tf, int port)$/
+parse_filename	int21.c	/^parse_filename( int flag, char *str, char *fcb, in/
+printtrace	trace.c	/^printtrace(struct trapframe *tf, char *buf)$/
+put_dosenv	doscmd.c	/^put_dosenv(char *value)$/
+putop	i386-pinsn.c	/^putop (template)$/
+queue_not_empty	int14.c	/^int queue_not_empty() {}$/
+random_sig_handler	trap.c	/^random_sig_handler(struct sigframe sf, struct trap/
+read_config	config.c	/^read_config(FILE *fp)$/
+real_to_dos	cwd.c	/^real_to_dos(u_char *real, u_char *dos)$/
+reset_irq_request	int14.c	/^int reset_irq_request() {}$/
+reset_poll	int16.c	/^reset_poll()$/
+resettrace	trace.c	/^resettrace()$/
+set_irq_request	int14.c	/^int set_irq_request() {}$/
+set_lastmcb	mem.c	/^set_lastmcb(char *mp)$/
+set_mcb	mem.c	/^set_mcb(char *mp, int owner, int size)$/
+seterror	int13.c	/^#define	seterror(err)	{ \\$/
+setfcb_rec	int21.c	/^setfcb_rec(struct fcb *fcbp, int n)$/
+setgc	tty.c	/^setgc(u_short attr)$/
+setsignal	doscmd.c	/^static void setsignal(int signum, void *handler)$/
+setver	setver.c	/^setver(char *cmd, short version)$/
+showstate	trace.c	/^showstate(long flags, long flag, char f)$/
+sigill	trap.c	/^sigill(struct sigframe sf, struct trapframe tf)$/
+sigtrap	trap.c	/^sigtrap(struct sigframe sf, struct trapframe tf)$/
+sleep_poll	int16.c	/^sleep_poll()$/
+squirrel_fd	doscmd.c	/^squirrel_fd(int fd)$/
+switch_vm86	trap.c	/^switch_vm86(struct sigframe sf, struct trapframe t/
+test_irq_request	int14.c	/^int test_irq_request() {}$/
+to_BCD	cmos.c	/^to_BCD (int n)$/
+to_dos_normal	cwd.c	/^to_dos_normal(u_char *p, u_char *expr)$/
+tracetrap	trace.c	/^tracetrap(struct trapframe *tf)$/
+translate_filename	int21.c	/^translate_filename (dname)$/
+trap	trap.c	/^trap(struct sigframe sf, struct trapframe tf)$/
+trynext	int13.c	/^trynext(struct diskinfo *di)$/
+tty_char	tty.c	/^tty_char(int r, int c)$/
+tty_estate	tty.c	/^tty_estate()$/
+tty_flush	tty.c	/^tty_flush()$/
+tty_index	tty.c	/^tty_index()$/
+tty_move	tty.c	/^tty_move(int r, int c)$/
+tty_pause	tty.c	/^tty_pause()$/
+tty_peek	tty.c	/^tty_peek(struct trapframe *tf, int flag)$/
+tty_read	tty.c	/^tty_read(struct trapframe *tf, int flag)$/
+tty_report	tty.c	/^tty_report(int *r, int *c)$/
+tty_rscroll	tty.c	/^tty_rscroll(int sr, int sc, int er, int ec, int n,/
+tty_rwrite	tty.c	/^tty_rwrite(int c, int attr)$/
+tty_scroll	tty.c	/^tty_scroll(int sr, int sc, int er, int ec, int n, /
+tty_state	tty.c	/^tty_state()$/
+tty_write	tty.c	/^tty_write(int c, int attr)$/
+unknown_int2	doscmd.c	/^unknown_int2(int maj, int min, struct trapframe *t/
+unknown_int3	doscmd.c	/^unknown_int3(int maj, int min, int sub, struct tra/
+unknown_int4	doscmd.c	/^unknown_int4(int maj, int min, int sub, int ss, st/
+usage	doscmd.c	/^usage ()$/
+video_async_event	tty.c	/^video_async_event(int fd)$/
+video_bios_init	tty.c	/^video_bios_init()$/
+video_blink	tty.c	/^video_blink(int mode)$/
+video_event	tty.c	/^video_event(XEvent *ev)$/
+video_inb	tty.c	/^video_inb(int port)$/
+video_init	tty.c	/^video_init()$/
+video_outb	tty.c	/^video_outb(int port, unsigned char value)$/
+video_reinit	tty.c	/^video_reinit()$/
+video_setborder	tty.c	/^video_setborder(int color)$/
+video_update	tty.c	/^video_update(struct sigframe sf, struct trapframe /
+wakeup_poll	int16.c	/^wakeup_poll()$/
+write_div_latches	int14.c	/^int write_div_latches() {}$/

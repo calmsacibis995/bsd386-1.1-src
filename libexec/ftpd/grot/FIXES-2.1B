@@ -1,0 +1,28 @@
+
+---  Append now works again.  A previous fix to solved files not getting
+     truncated properly had broken it.
+
+---  Double conversions were not working properly for some conversions.
+
+---  Minor HP-UX portability problems corrected.
+
+---  Minor Host Access case sensitivity bug fixed.
+
+---  syslog after chroot fixed for SunOS by addition of TCP version of 
+	 syslog functions.  (it is syslog.c in the support directory)
+
+---  Data General support added.
+
+---  ISC support added.
+
+---  Added "rename  <type>  <yes|no>" option to prevent renaming files.
+
+---  Fixed unsigned int comparisons to -1
+
+---  added ckconfig program for checking proper locations of config files.
+
+---  changed syntax of "upload" command to include which ftp hierarchy
+	 it pertains.
+
+---  fixed some documentation bugs.
+

@@ -1,0 +1,40 @@
+.\"	BSDI $Id: drck.8,v 1.1.1.1 1992/02/19 17:34:27 trent Exp $
+.Dd February 19, 1992
+.Os BSD 4
+.Dt DRCK 8
+.Sh NAME
+.Nm drck
+.Nd disk scanner diagnostic
+.Sh SYNOPSIS
+.Nm drck
+.Ar disk
+.Sh DESCRIPTION
+The
+.Nm drck
+program reads all of the data from a selected disk and
+reports any sectors which it failed to read,
+providing an absolute sector number
+and a breakdown by cylinder number, head number and sector offset.
+It prints a comforting message every hundred cylinders
+so that one may keep track of its progress.
+The
+.Ar disk
+argument consists of a disk type identifier and a logical unit number.
+.Pp
+On disks which support
+.Xr bad144 8
+bad block forwarding,
+the
+.Nm drck
+program may be used to collect lists of bad sectors
+to enter into the bad block table.
+.Sh EXAMPLES
+.Dl drck sd0
+.Sh DIAGNOSTICS
+In addition to reporting errors about unreadable sectors,
+.Nm drck
+may also complain about unlabeled disks.
+.Sh SEE ALSO
+.Xr bad144 8
+.Sh HISTORY
+Written by Donn Seeley at the University of Utah in 1986.

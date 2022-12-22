@@ -1,0 +1,66 @@
+
+
+
+MINFO(1)                       1992                      MINFO(1)
+
+
+NNAAMMEE
+       minfo  -  Prints out information in a Standard MIDI Format
+       (SMF) file as readable text
+
+SSYYNNOOPPSSIISS
+       mmiinnffoo [ -TT track-list ] [ midi-file ...  ]
+
+DDEESSCCRRIIPPTTIIOONN
+       Used without arguments, mmiinnffoo reads standard MIDI format [
+       SMF  ]  files from stdin, and print to stdout all informa-
+       tion in the files as human readable text.  If one or  more
+       midi-files  are  specified  on  the command line, they are
+       used in place of stdin.
+
+OOPPTTIIOONNSS
+       -TT     In conjunction with its argument, this option spec-
+              ifies  which  tracks  should  be  read from the SMF
+              files.  The track-list should be  a  list  of  non-
+              negative integers separated by either `-'s or `,'s.
+              Commas  denote  individual  tracks,  while   hyphen
+              denote  an  inclusive range of tracks.  The default
+              is to use all tracks in all files.
+
+SSEEEE AALLSSOO
+       ssmmff(5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+August                          5                               1
+
+

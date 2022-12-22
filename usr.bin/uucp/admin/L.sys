@@ -1,0 +1,44 @@
+# Example L.sys entries
+#  See the L.sys (5) man page for more info
+#
+# UUNET anonymous UUCP access  (file transfers only)
+uunet Any ACU FAST 1-900-468-7727 "" \d\r ogin:-\r-ogin: uucp
+uunet Any ACU 19200 1-900-468-7727 "" \d\r ogin:-\r-ogin: uucp
+#
+# Allow calls to somesite, but send only mail
+#somesite Any/Z ACU FAST 555-1212 "" \d\r ogin:-\r-ogin: LOGIN word: PASSWORD
+#
+# Allow news to be sent to that site at off-peak times
+#somesite Wk1900-0500,Sa,Su ACU FAST 555-1212 "" \d\r ogin:-\r-ogin: LOGIN word: PASSWORD
+#
+# To use g(7,512) when some site with large packets that to use them
+#taylor Any$g@512*7 SLAVE
+#
+# Force level 9 debugging on
+#debug Any!9 SLAVE 
+#
+# Force level 5 debugging and save each debug to a timestamped file
+#debug Any!k5 SLAVE
+#
+# Calling to a typical 386 machine
+#386user Any/Z ACU FAST 9,1-999-555-1212 "" P_ZERO "" \d\r ogin:~5-\r-ogin:~5 LOGIN sword:~5 PASSWORD
+#
+# A typical passive connection
+#uucpsite Polled Comment info can go here
+#
+# A typical passive TCP connection (they call you)
+#uunet Polled TCP uucp uunet.uu.net
+#
+# A typical active TCP connection (you call them)
+#uunet Any TCP uucp login: LOGIN word: PASSWORD
+#
+# Getting past a PBX
+#pbxuser Any/Z ACU FAST 1-999-555-1212,,,,,,,,107 "" \d\r ogin:~5-\r-ogin:~5 LOGIN ssword: PASSWORD
+#
+# Muliple lines
+#multi Night ACU 19200 555-9812 "" \d\r ogin:~5-\r-ogin:~5-\b-ogin: LOGIN ssword: PASSWORD
+#multi Night ACU 19200 555-9820 "" \d\r ogin:~5-\r-ogin:~5-\b-ogin: LOGIN ssword: PASSWORD
+#multi Night ACU 19200 555-9839 "" \d\r ogin:~5-\r-ogin:~5-\b-ogin: LOGIN ssword: PASSWORD
+#
+# connection via direct RS232 link.
+#foo Any DIR 19200 - "" P_ZERO "" \d\r ogin:~5-\r-ogin:~5 LOGIN assword: XXX

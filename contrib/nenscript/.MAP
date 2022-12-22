@@ -1,0 +1,19 @@
+F DEFS.H;1                          	defs.h
+F FONTWIDT.C;1                      	fontwidt.c
+F FONTWIDT.H;1                      	fontwidt.h
+F FONT_LIS.C;1                      	font_lis.c
+F FONT_LIS.H;1                      	font_lis.h
+D GROT                              	grot
+F MAIN.C;1                          	main.c
+F MAIN.H;1                          	main.h
+F MAKEFILE.;1                       	Makefile
+F NENSCRIP.1;1                      	nenscript.1
+F NENSCRPT.MDT;1                    	nenscrpt.mdt
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/nenscript
+F POSTSCRI.C;1                      	postscri.c
+F POSTSCRI.H;1                      	postscri.h
+F PRINT.C;1                         	print.c
+F PRINT.H;1                         	print.h
+F README.;1                         	README
+F TAGS.;1                           	tags
+F VERSION.H;1                       	version.h

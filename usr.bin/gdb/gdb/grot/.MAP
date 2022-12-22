@@ -1,0 +1,17 @@
+F ALLDEPS.MAK;1                     	alldeps.mak
+F ALLOCA.C;1                        	alloca.c
+F CONFIGUR.IN;1                     	configure.in
+F CONVEX.NOT;1                      	Convex.notes
+F COPYING.AWK;1                     	copying.awk
+F CREATETA.;1                       	createtags
+F C_EXP_TA.C;1                      	c-exp.tab.c
+F GDBINIT.;1                        	gdbinit
+F KDB_STAR.C;1                      	kdb-start.c
+F M2_EXP_T.C;1                      	m2-exp.tab.c
+F MUNCH.;1                          	munch
+F PUTENV.C;1                        	putenv.c
+F REM_MULT.SHA;1                    	rem-multi.shar
+F SABER.SUP;1                       	saber.suppress
+F STANDALO.C;1                      	standalone.c
+F STUFF.C;1                         	stuff.c
+F SYSTAGS.SH;1                      	systags.sh

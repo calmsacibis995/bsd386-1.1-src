@@ -1,0 +1,90 @@
+.\"	BSDI	$Id: hosts.equiv.5,v 1.1 1994/01/04 16:30:26 polk Exp $
+.\"
+.Dd January 3, 1994
+.Dt HOSTS.EQUIV 5
+.Sh NAME
+.Nm hosts.equiv ,
+.Nm .rhosts
+.Nd files listing trusted remote hosts and users
+.Sh DESCRIPTION
+The
+.Nm hosts.equiv
+and 
+.Nm .rhosts
+files list authorized hosts and users for the 
+.Xr rsh 1 ,
+.Xr rcp 1 ,
+and 
+.Xr rlogin 1
+commands and the 
+.Xr rcmd 3
+library routine.  All of these use the 
+.Xr ruserok 3
+library routine to perform ``authentication.''  The files specify 
+remote hosts and users that are 
+.Em trusted 
+(i.e., which may bypass the standard password authentication mechanism).
+Care should be taken when setting up these files to maintain 
+system security!
+.Pp
+The
+.Nm hosts.equiv
+file is searched first, followed by the 
+.Nm .rhosts
+file in desired user's home directory.  The format for entries is:
+.D1 Ar hostname Op Ar username
+.Pp
+In the 
+.Nm hosts.equiv
+file, an entry of the form:
+.D1 Ar hostname
+indicates that users from the specified host may access the 
+local host with the same login name used on the remote host.
+Entries of the form:
+.D1 Ar hostname Ar username
+in the 
+.Nm hosts.equiv
+file indicate that the specified user on the specified remote host
+may access the local host as any user.
+.Pp
+In 
+.Nm .rhosts
+files, entries of the form:
+.D1 Ar hostname
+indicate that the user on the specified host with the 
+username corresponding to the local user can access the local host.  
+Entries of the form:
+.D1 Ar hostname Ar username
+indicate that the specified user on the remote host can access
+the local host as this user (with a different user name).
+.Pp
+The 
+.Xr ruserok 3
+routine requires the authentication files be writable
+only by the user being authenticated or root.  If 
+the files are writable by other users or groups, authentication 
+will fail.
+.Pp
+The 
+.Nm hosts.equiv
+file is not used to authenticate root access; only the 
+.Nm .rhosts
+file in root's home directory is used for root.  Login 
+access for root also requires that the incoming tty be ``secure'' (see 
+.Xr ttys 5 ).
+.Sh FILES
+.Bl -tag -width /etc/hosts.equiv -compact
+.It Pa /etc/hosts.equiv
+The
+.Nm hosts.equiv
+file resides in
+.Pa /etc .
+.It Pa $HOME/.rhosts
+User specific access file.
+.El
+.Sh SEE ALSO
+.Xr ruserok 3 ,
+.Xr rcmd 3 ,
+.Xr rcp 1 ,
+.Xr rsh 1 ,
+.Xr rlogin 1

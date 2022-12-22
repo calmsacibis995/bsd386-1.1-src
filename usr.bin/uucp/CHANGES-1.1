@@ -1,0 +1,78 @@
+Cutoff for BSD/386 1.1 - Sat Jan 29 12:47:48 PST 1994
+
+25. uucpd will no longer SIGKILL inetd.
+
+24. cleaned up the setproctitle changes so that the code still works on 1.0.
+
+23. made all the tty close()'s into close_dev()'s; close_dev() is a new
+    function that tcflush()'s before close()'ing to avoid hanging in exit().
+
+22. put in my own local mods that i've been making to 1.0 as i've gone along.
+
+21. put bob desinger's "agelog" in as /usr/libexec/uuage, and brought over
+    my daily and weekly scripts for /etc/uucp.  still need some reporting.
+
+20. put in a possible fix for the uucico-doesn't-backoff problem.
+
+19. uucpd was hardcoding /usr/adm/??? paths for wtmp and lastlog.
+
+18. put in sanders' changes for setproctitle().
+
+17. added a BUGS paragraph to uucp(1) warning against multiple file copies.
+    there's a bug here but i can't see it offhand right now.
+
+16. users who want to run 'f' protocol on non-X25 lines can do that now.
+
+15. all /usr/lib/uucp and /usr/spool/uucp* pathnames have been changed to
+    /etc/uucp, /usr/libexec, or /var/spool/uucp*.
+
+14. An old "uusnap" perl script I wrote has been incorporated.
+
+13. if an L.sys "DIR" entry's "phone" field (really a tty name) could not be
+    found in L-devices, the last device in L-devices would be used erroneously.
+
+12. all termios attributes settable by the chat scripts are now preserved in
+    slaves.  this means that what you can change on the master, you can also
+    change in the slave's getty.  this is useful for HWFLOW.
+
+11. P_CLOCAL_{ON,OFF} now allowed in chat scripts.  reimplemented
+    P_{MDMBUF,RTSCTS,HWFLOW}_{ON,OFF} and P_{ODD,EVEN,ONE,ZERO} using tables.
+
+10. uucico wasn't running the L-devices "initial chat script" for DIR devices.
+
+9. uucico/clocal.c file deleted (it was dead, jim.)
+
+8. uucpd was calling lseek() with two arguments.  bad, evil.
+
+7. the default PATH in the template L.cmds listed /usr/sbin.  evil, bad.
+
+6. a bad bug in admin/Makefile was blowing away the user's L.sys (if any)
+   and other administrative files during "make install".  these example files
+   should only be installed in /etc/uucp if there aren't already copies there.
+
+5. a default "uuxqt_hook" will now be installed in /etc/uucp.  this was
+   added and documented for BSD/386 1.0, but without an example file it's
+   likely that a lot of users never knew about it.  the one i added is all
+   commented out but shows what (and explains why) to do to use "sendmail -q".
+
+4. in a few places, the code has been reformatted to a semblance of KNF.
+   much more needs to be done.  code is only reformatted if the entire
+   enclosing function is also reformatted.
+
+3. the old "use termio if SYSV>=3" mechanism is gone.  in its place
+   we have "use termios if USE_TERMIOS defined".  this means that pure
+   SYSV.3 systems will not be able to compile this unless they also have
+   the POSIX "termios" in it.  (my heart is breaking even as i type this.)
+   it also means that BSD>=199103 systems, which have POSIX "termios", can
+   avoid all the old sgtty nonsense and use higher baud rates and so on.
+   the result is that we can run 115200 baud (or 57600, the other thing
+   customers have been wanting.)  the top speed of my UARTS seems to be 
+   lower than 115KB since my throughput, even with illicit use of 't' proto,
+   is limited to ~91K.
+
+2. uucico gets a hard link in /usr/sbin now, in addition to its
+   time-honored location in /usr/libexec.
+
+1. uuparams is in /usr/sbin now (used to be /usr/libexec).
+
+0. starting from BSD/386 FCS 1.0 plus interrim patches.

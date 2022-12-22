@@ -1,0 +1,16 @@
+F ADDRSBR_.GZ;1                     	addrsbr.h.gz
+F ALIASBR_.GZ;1                     	aliasbr.h.gz
+F DROPSBR_.GZ;1                     	dropsbr.h.gz
+F FMTCOMPI.GZ;1                     	fmtcompile.h.gz
+F FORMATSB.GZ;1                     	formatsbr.h.gz
+F LOCAL_H.GZ;1                      	local.h.gz
+F MD5_H.GZ;1                        	md5.h.gz
+F MHN_H.GZ;1                        	mhn.h.gz
+F MH_H.GZ;1                         	mh.h.gz
+F MSHSBR_H.GZ;1                     	mshsbr.h.gz
+F NETDB_H.GZ;1                      	netdb.h.gz
+F NNTP_H.GZ;1                       	nntp.h.gz
+F RCVMAIL_.GZ;1                     	rcvmail.h.gz
+F SCANSBR_.GZ;1                     	scansbr.h.gz
+F STRINGS_.GZ;1                     	strings.h.gz
+F VMHSBR_H.GZ;1                     	vmhsbr.h.gz

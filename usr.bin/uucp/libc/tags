@@ -1,0 +1,20 @@
+concat	concat.c	/^concat(va_alist)$/
+createlock	uucplock.c	/^createlock($/
+keepfile	uucplock.c	/^keepfile($/
+lfind	lfind.c	/^lfind(key, base, nelp, width, compar)$/
+mklock	uucplock.c	/^mklock($/
+name_to_lock	uucplock.c	/^name_to_lock($/
+newnstr	newnstr.c	/^newnstr(s, n)$/
+newprintf	newprintf.c	/^newprintf(va_alist)$/
+newstr	newstr.c	/^newstr(s)$/
+newvprintf	newprintf.c	/^newvprintf(vp)$/
+otol	otol.c	/^otol(p)$/
+rfc822time	rfc822time.c	/^rfc822time($/
+rmlock	uucplock.c	/^rmlock($/
+strclr	strclr.c	/^strclr($/
+strcpyend	strcpyend.c	/^strcpyend(s1, s2)$/
+strncpyend	strncpyend.c	/^strncpyend(s1, s2, n)$/
+strstr	strstr.c	/^strstr($/
+touchlock	uucplock.c	/^touchlock()$/
+trylock	uucplock.c	/^trylock($/
+xtol	xtol.c	/^xtol(s)$/

@@ -1,0 +1,14 @@
+F EXPR.C;1                          	expr.c
+F EXTR.H;1                          	extr.h
+F INT2STR.C;1                       	int2str.c
+F LOOK.C;1                          	look.c
+F M4.1;1                            	m4.1
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+F MDEF.H;1                          	mdef.h
+F MISC.C;1                          	misc.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/m4
+F OURLIMS.H;1                       	ourlims.h
+F SERV.C;1                          	serv.c
+F TAGS.;1                           	tags
+D TEST                              	TEST

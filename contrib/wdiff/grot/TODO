@@ -1,0 +1,22 @@
+TODO file for GNU wdiff - last revised 21 December 1992.
+Copyright (C) 1992 Free Software Foundation, Inc.
+Francois Pinard <pinard@iro.umontreal.ca>, 1992.
+
+These are more or less in decreasing order of priority.
+
+* Check how wdiff.dvi prints.
+
+* Implement a clever combination of these two ideas: (1) have a wpatch
+program (Zhuo Zang <zzang@stat.ufl.edu>, 1992-08-13); (2) use unified
+diff format (Per Cederqvist <ceder@lysator.liu.se>, 1992-11-22).
+
+* Detect and configure termcap better.
+
+* Support systems with terminfo and without termcap.
+
+* Select by options exactly what is whitespace.
+
+* Merge some spiff features into wdiff.
+
+* Merge all of wdiff into GNU diff.
+

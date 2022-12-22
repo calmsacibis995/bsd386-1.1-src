@@ -1,0 +1,59 @@
+Mmain	main.c	/^main(int argc, char** argv)$/
+ackPermission	main.c	/^ackPermission(const char* modemname, char* tag)$/
+alterJobKillTime	alter.c	/^alterJobKillTime(const char* modem, char* tag)$/
+alterJobMaxDials	alter.c	/^alterJobMaxDials(const char* modem, char* tag)$/
+alterJobNotification	alter.c	/^alterJobNotification(const char* modem, char* tag)/
+alterJobTTS	alter.c	/^alterJobTTS(const char* modem, char* tag)$/
+applyToJob	jobs.c	/^applyToJob(const char* modem, char* tag, const cha/
+checkPermission	auth.c	/^checkPermission()$/
+checkUser	jobs.c	/^checkUser(const char* requestor, struct passwd* pw/
+cleanupJob	submit.c	/^cleanupJob()$/
+coverProtocol	submit.c	/^coverProtocol(int version, int seqnum)$/
+cvtTime	main.c	/^cvtTime(const char* spec, struct tm* ref, u_long* /
+cvtTimeOrDie	submit.c	/^cvtTimeOrDie(const char* spec, struct tm* ref, con/
+cvtTimeToAscii	alter.c	/^cvtTimeToAscii(const char* spec, char* buf, const /
+doKill	remove.c	/^doKill(Job* job, const char* jobname, const char* /
+doRemove	remove.c	/^doRemove(Job* job, const char* jobname, const char/
+done	main.c	/^done(int status, char* how)$/
+freeJob	jobs.c	/^freeJob(Job* job)$/
+getCommandLine	main.c	/^getCommandLine()$/
+getConfig	status.c	/^getConfig(char* fileName, config* configp, config*/
+getData	submit.c	/^getData(int type, long cc)$/
+getDataOldWay	submit.c	/^getDataOldWay(const char* modemname, char* tag)$/
+getPostScriptData	submit.c	/^getPostScriptData(const char* modemname, char* tag/
+getSequenceNumber	submit.c	/^getSequenceNumber()$/
+getServerStatus	status.c	/^getServerStatus(char* fileName, char buf[1024])$/
+getTIFFData	submit.c	/^getTIFFData(const char* modemname, char* tag)$/
+isFAXImage	status.c	/^isFAXImage(TIFF* tif)$/
+killJob	remove.c	/^killJob(const char* modem, char* tag)$/
+local_domain	auth.c	/^local_domain(char* h)$/
+modemMatch	jobs.c	/^modemMatch(const char* a, const char* b)$/
+newDataFile	submit.c	/^newDataFile(char* filename, int type)$/
+newJob	jobs.c	/^newJob(const char* qfile)$/
+newPollID	submit.c	/^newPollID(const char* modemname, char* pid)$/
+readJob	jobs.c	/^readJob(Job* job)$/
+readJobs	jobs.c	/^readJobs()$/
+readQFile	status.c	/^readQFile(int fd, char* qfile, int beingReceived, /
+reallyAlterJob	alter.c	/^reallyAlterJob(Job* job, const char* jobname, char/
+reallyAlterJobKilltime	alter.c	/^reallyAlterJobKilltime(Job* job, const char* jobna/
+reallyAlterJobMaxDials	alter.c	/^reallyAlterJobMaxDials(Job* job, const char* jobna/
+reallyAlterJobNotification	alter.c	/^reallyAlterJobNotification(Job* job, const char* j/
+reallyAlterJobTTS	alter.c	/^reallyAlterJobTTS(Job* job, const char* jobname, c/
+reallyRemoveJob	remove.c	/^reallyRemoveJob(const char* op, Job* job, const ch/
+removeJob	remove.c	/^removeJob(const char* modem, char* tag)$/
+rexMatch	regex.c++	/^rexMatch(const char* pat,$/
+sanitize	status.c	/^sanitize(char* dst, const char* src, u_int maxlen)/
+sendAllStatus	status.c	/^sendAllStatus(const char* modem, char* tag)$/
+sendClientJobLocked	status.c	/^sendClientJobLocked(Job* job, const char* jobname)/
+sendClientJobStatus	status.c	/^sendClientJobStatus(Job* job, const char* jobname)/
+sendJobStatus	status.c	/^sendJobStatus(const char* modem, char* onwhat)$/
+sendRecvStatus	status.c	/^sendRecvStatus(const char* modem, char* tag)$/
+sendServerStatus	status.c	/^sendServerStatus(const char* modem, char* tag)$/
+sendUserStatus	status.c	/^sendUserStatus(const char* modem, char* onwhat)$/
+setProtoVersion	main.c	/^setProtoVersion(const char* modemname, char* tag)$/
+setUserID	main.c	/^setUserID(const char* modemname, char* tag)$/
+setupAlteration	alter.c	/^setupAlteration(Job* job, const char* jobname)$/
+setupData	submit.c	/^setupData(int seqnum)$/
+submitJob	submit.c	/^submitJob(const char* modem, char* otag)$/
+topdomain	auth.c	/^topdomain(char* h)$/
+vsendClient	main.c	/^vsendClient(char* tag, char* fmt, va_list ap)$/

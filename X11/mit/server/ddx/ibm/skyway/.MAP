@@ -1,0 +1,15 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F SKYBITBL.GZ;1                     	skyBitBlt.c.gz
+F SKYCMAP_.GZ;1                     	skyCmap.c.gz
+F SKYCUR_C.GZ;1                     	skyCur.c.gz
+F SKYHDWR0.GZ;1                     	skyHdwr.c.gz
+F SKYHDWR1.GZ;1                     	skyHdwr.h.gz
+F SKYIMG_C.GZ;1                     	skyImg.c.gz
+F SKYINFO_.GZ;1                     	skyInfo.c.gz
+F SKYIO_C.GZ;1                      	skyIO.c.gz
+F SKYPROBE.GZ;1                     	skyProbe.c.gz
+F SKYPROCS.GZ;1                     	skyProcs.h.gz
+F SKYREG_H.GZ;1                     	skyReg.h.gz
+F SKYSAVE_.GZ;1                     	skySave.c.gz
+F SKYSCRIN.GZ;1                     	skyScrInit.c.gz
+F SKYSGC_C.GZ;1                     	skySGC.c.gz

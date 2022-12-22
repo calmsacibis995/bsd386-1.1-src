@@ -1,0 +1,15 @@
+F BLACKDVI.STY;1                    	blackdvi.sty
+F BLACKDVI.TEX;1                    	blackdvi.tex
+F COLORDVI.STY;1                    	colordvi.sty
+F COLORDVI.TEX;1                    	colordvi.tex
+F DVIPSMAC.TEX;1                    	dvipsmac.tex
+F EPSF.STY;1                        	epsf.sty
+F EPSF.TEX;1                        	epsf.tex
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/dvips/inputs
+F ROTATE.STY;1                      	rotate.sty
+F ROTATE.TEX;1                      	rotate.tex
+F ROTSAMPL.TEX;1                    	rotsample.tex
+F TEST.TEX;1                        	test.tex
+F TEXINFO.TEX;1                     	texinfo.tex
+F TWOUP.PS;1                        	twoup.ps

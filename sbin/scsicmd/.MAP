@@ -1,0 +1,10 @@
+F BOMB.C;1                          	bomb.c
+F BOMB.H;1                          	bomb.h
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/sbin/scsicmd
+F SCSICMD.8;1                       	scsicmd.8
+F SCSICMD.H;1                       	scsicmd.h
+F SUPPORT.C;1                       	support.c
+F TABLE.C;1                         	table.c
+F TAGS.;1                           	tags

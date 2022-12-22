@@ -1,0 +1,8 @@
+F ERROR.;1                          	error
+F GRAY25.;1                         	gray25
+F GRAY50.;1                         	gray50
+F HOURGLAS.;1                       	hourglass
+F INFO.;1                           	info
+F QUESTHEA.;1                       	questhead
+F QUESTION.;1                       	question
+F WARNING.;1                        	warning

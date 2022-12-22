@@ -1,0 +1,21 @@
+.\" Copyright 1992 BSDI
+.Dd August 3, 1992
+.Dt ARCH 1
+.Os
+.Sh NAME
+.Nm arch
+.Nd query architecture of current machine
+.Sh SYNOPSIS
+.Nm arch
+.Op Ar architecture
+.Sh DESCRIPTION
+The
+.Nm arch
+utility with no arguments returns the hardware
+architecture of the current machine (such as 'i386').
+.Pp
+When called with an argument, 
+.Nm arch
+compares the argument with the hardware architecture
+and exits with a status of 0 if they're the same,
+1 if different.

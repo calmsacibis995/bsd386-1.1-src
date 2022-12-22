@@ -1,0 +1,34 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/sco/README,v 1.1.1.1 1994/01/14 23:10:29 torek Exp $
+
+This stuff is from "Daniel I. Rosenblatt" <dir@csn.org>.
+Please contact him regarding problems.
+
+
+From "Daniel I. Rosenblatt" <dir@csn.org>:
+
+Stuff to make sure you check:
+	- all configurable pathnames (my setup is pretty bizarre)
+	- gcc has '-pipe' which is non-standard for gcc built on SCO UNIX
+		(I used gas 2.0 to enable this option)
+	- bin/notify calls sendmail, which is NOT configured by default
+		on SCO UNIX
+	- /etc/init.d/faxd is sym-linked to /etc/rc2.d/S80faxd ...,
+		the modes on the sym-link fool the startup code into
+		executing the scripts even if the scripts themselves
+		aren't executable
+	- faxd/modem sometimes seem to hang waiting for each other; I
+		haven't looked into this one yet
+	- incoming faxes are completely garbled/severely truncated; I
+		haven't figured out why yet
+
+Other random notes:
+	- my OS is SCO ODT 2.0; your mileage may vary
+	- gcc is 2.3.3, libg++ is 2.3, gas is 2.0, ld is from binutils-2.1
+	- I've got a SupraFAXModem Rev V1.70B-03, not what sam@sgi.com
+		used (V1.200-H); this might explain the next note and the
+		problem with incoming faxes being trashed
+	- with my version of the SupraFAXModem, I have to disable adaptive
+		answering when dialing out, i.e.:
+			ModemDialCmd +FAA=0DT%s@
+		if I don't, I get a data connection instead of a fax
+		connection when dialing another fax-modem to send a fax

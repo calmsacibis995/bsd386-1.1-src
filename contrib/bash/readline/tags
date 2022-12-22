@@ -1,0 +1,298 @@
+Mhistory	history.c	/^main ()$/
+Mreadline	readline.c	/^main ()$/
+Mtilde	tilde.c	/^main (argc, argv)$/
+_delete_quotes	complete.c	/^_delete_quotes (text)$/
+_rl_erase_at_end_of_line	display.c	/^_rl_erase_at_end_of_line (l)$/
+_rl_kill_kbd_macro	readline.c	/^_rl_kill_kbd_macro ()$/
+_rl_move_cursor_relative	display.c	/^_rl_move_cursor_relative (new, data)$/
+_rl_move_vert	display.c	/^_rl_move_vert (to)$/
+_rl_output_character_function	readline.c	/^_rl_output_character_function (c)$/
+_rl_output_some_chars	readline.c	/^_rl_output_some_chars (string, count)$/
+_rl_set_screen_size	readline.c	/^_rl_set_screen_size (tty, ignore_env)$/
+add_history	history.c	/^add_history (string)$/
+add_macro_char	readline.c	/^add_macro_char (c)$/
+alphabetic	readline.c	/^alphabetic (c)$/
+append_history	history.c	/^append_history (nelements, filename)$/
+backspace	readline.c	/^backspace (count)$/
+block_sigint	rltty.c	/^block_sigint ()$/
+clear_to_eol	display.c	/^clear_to_eol (count)$/
+compare_strings	complete.c	/^compare_strings (s1, s2)$/
+completion_matches	complete.c	/^completion_matches (text, entry_function)$/
+control_meta_key	rltty.c	/^control_meta_key (on)$/
+cr	signals.c	/^cr ()$/
+crlf	readline.c	/^crlf ()$/
+current_history	history.c	/^current_history ()$/
+delete_chars	display.c	/^delete_chars (count)$/
+digit	history.c	/^#define digit(c)  ((c) >= '0' && (c) <= '9')$/
+digit_value	vi_mode.c	/^#define digit_value(c) ((c) - '0')$/
+ding	readline.c	/^ding ()$/
+exchange	vi_mode.c	/^#define exchange(x, y) {int temp = x; x = y; y = t/
+filename_completion_function	complete.c	/^filename_completion_function (text, state)$/
+find_matching_open	parens.c	/^find_matching_open (string, from, closer)$/
+free_history_entry	readline.c	/^free_history_entry (entry)$/
+free_undo_list	readline.c	/^free_undo_list ()$/
+get_history_event	history.c	/^get_history_event (string, caller_index, delimitin/
+get_history_word_specifier	history.c	/^get_history_word_specifier (spec, from, caller_ind/
+get_tty_settings	rltty.c	/^get_tty_settings (tty, tiop)$/
+get_y_or_n	complete.c	/^get_y_or_n ()$/
+glean_key_from_name	bind.c	/^glean_key_from_name (name)$/
+handle_parser_directive	bind.c	/^handle_parser_directive (statement)$/
+history_arg_extract	history.c	/^history_arg_extract (first, last, string)$/
+history_do_write	history.c	/^history_do_write (filename, nelements, overwrite)$/
+history_expand	history.c	/^history_expand (string, output)$/
+history_filename	history.c	/^history_filename (filename)$/
+history_get	history.c	/^history_get (offset)$/
+history_get_history_state	history.c	/^history_get_history_state ()$/
+history_list	history.c	/^history_list ()$/
+history_search	history.c	/^history_search (string, direction)$/
+history_search_internal	history.c	/^history_search_internal (string, direction, anchor/
+history_search_pos	history.c	/^history_search_pos (string, dir, pos)$/
+history_search_prefix	history.c	/^history_search_prefix (string, direction)$/
+history_set_history_state	history.c	/^history_set_history_state (state)$/
+history_set_pos	history.c	/^history_set_pos (pos)$/
+history_tokenize	history.c	/^history_tokenize (string)$/
+history_total_bytes	history.c	/^history_total_bytes ()$/
+history_truncate_file	history.c	/^history_truncate_file (fname, lines)$/
+ibuffer_space	readline.c	/^ibuffer_space ()$/
+init_terminal_io	readline.c	/^init_terminal_io (terminal_name)$/
+insert_some_chars	display.c	/^insert_some_chars (string, count)$/
+invoking_keyseqs_in_map	bind.c	/^invoking_keyseqs_in_map (function, map)$/
+isident	vi_mode.c	/^#define isident(c) ((isletter(c) || digit(c) || c /
+isletter	vi_mode.c	/^#define isletter(c) (((c) >= 'A' && (c) <= 'Z') ||/
+maybe_replace_line	readline.c	/^maybe_replace_line ()$/
+maybe_save_line	readline.c	/^maybe_save_line ()$/
+maybe_unsave_line	readline.c	/^maybe_unsave_line ()$/
+member	history.c	/^#define member(c, s) ((c) ? ((char *)strchr ((s), /
+memory_error_and_abort	complete.c	/^memory_error_and_abort ()$/
+next_history	history.c	/^next_history ()$/
+next_macro_key	readline.c	/^next_macro_key ()$/
+noninc_dosearch	search.c	/^noninc_dosearch (string, dir)$/
+noninc_search	search.c	/^noninc_search (dir, pchar)$/
+noninc_search_from_pos	search.c	/^noninc_search_from_pos (string, pos, dir)$/
+numeric	readline.c	/^numeric (c)$/
+outchar	rltty.c	/^outchar (c)$/
+parser_else	bind.c	/^parser_else (args)$/
+parser_endif	bind.c	/^parser_endif (args)$/
+parser_if	bind.c	/^parser_if (args)$/
+pop_executing_macro	readline.c	/^pop_executing_macro ()$/
+prepare_terminal_settings	rltty.c	/^prepare_terminal_settings (meta_flag, otio, tiop)$/
+previous_history	history.c	/^previous_history ()$/
+push_executing_macro	readline.c	/^push_executing_macro ()$/
+qsort_string_compare	funmap.c	/^qsort_string_compare (s1, s2)$/
+read_history	history.c	/^read_history (filename)$/
+read_history_range	history.c	/^read_history_range (filename, from, to)$/
+readline	readline.c	/^readline (prompt)$/
+readline_default_bindings	readline.c	/^readline_default_bindings ()$/
+readline_initialize_everything	readline.c	/^readline_initialize_everything ()$/
+readline_internal	readline.c	/^readline_internal ()$/
+release_sigint	rltty.c	/^release_sigint ()$/
+remove_history	history.c	/^remove_history (which)$/
+replace_history_entry	history.c	/^replace_history_entry (which, line, data)$/
+rl_abort	readline.c	/^rl_abort ()$/
+rl_add_defun	bind.c	/^rl_add_defun (name, function, key)$/
+rl_add_funmap_entry	funmap.c	/^rl_add_funmap_entry (name, function)$/
+rl_add_undo	readline.c	/^rl_add_undo (what, start, end, text)$/
+rl_arrow_keys	readline.c	/^rl_arrow_keys (count, c)$/
+rl_back_to_indent	vi_mode.c	/^rl_back_to_indent (ignore1, ignore2)$/
+rl_backward	readline.c	/^rl_backward (count)$/
+rl_backward_kill_line	readline.c	/^rl_backward_kill_line (direction)$/
+rl_backward_kill_word	readline.c	/^rl_backward_kill_word (count)$/
+rl_backward_word	readline.c	/^rl_backward_word (count)$/
+rl_beg_of_line	readline.c	/^rl_beg_of_line ()$/
+rl_begin_undo_group	readline.c	/^rl_begin_undo_group ()$/
+rl_beginning_of_history	readline.c	/^rl_beginning_of_history ()$/
+rl_bind_key	bind.c	/^rl_bind_key (key, function)$/
+rl_bind_key_in_map	bind.c	/^rl_bind_key_in_map (key, function, map)$/
+rl_call_last_kbd_macro	readline.c	/^rl_call_last_kbd_macro (count, ignore)$/
+rl_capitalize_word	readline.c	/^rl_capitalize_word (count)$/
+rl_change_case	readline.c	/^rl_change_case (count, op)$/
+rl_character_len	display.c	/^rl_character_len (c, pos)$/
+rl_clean_up_for_exit	readline.c	/^rl_clean_up_for_exit ()$/
+rl_clear_message	display.c	/^rl_clear_message ()$/
+rl_clear_screen	readline.c	/^rl_clear_screen ()$/
+rl_clear_signals	signals.c	/^rl_clear_signals ()$/
+rl_complete	complete.c	/^rl_complete (ignore, invoking_key)$/
+rl_complete_internal	complete.c	/^rl_complete_internal (what_to_do)$/
+rl_copy_keymap	keymaps.c	/^rl_copy_keymap (map)$/
+rl_copy_text	readline.c	/^rl_copy_text (from, to)$/
+rl_delete	readline.c	/^rl_delete (count, invoking_key)$/
+rl_delete_horizontal_space	readline.c	/^rl_delete_horizontal_space (count, ignore)$/
+rl_delete_text	readline.c	/^rl_delete_text (from, to)$/
+rl_deprep_terminal	rltty.c	/^rl_deprep_terminal ()$/
+rl_digit_argument	readline.c	/^rl_digit_argument (ignore, key)$/
+rl_digit_loop	readline.c	/^rl_digit_loop ()$/
+rl_digit_loop1	vi_mode.c	/^rl_digit_loop1 ()$/
+rl_discard_argument	readline.c	/^rl_discard_argument ()$/
+rl_discard_keymap	keymaps.c	/^rl_discard_keymap (map)$/
+rl_dispatch	readline.c	/^rl_dispatch (key, map)$/
+rl_display_search	isearch.c	/^rl_display_search (search_string, reverse_p, where/
+rl_do_lowercase_version	readline.c	/^rl_do_lowercase_version (ignore1, ignore2)$/
+rl_do_undo	readline.c	/^rl_do_undo ()$/
+rl_downcase_word	readline.c	/^rl_downcase_word (count)$/
+rl_dump_functions	bind.c	/^rl_dump_functions (count)$/
+rl_emacs_editing_mode	readline.c	/^rl_emacs_editing_mode ()$/
+rl_end_kbd_macro	readline.c	/^rl_end_kbd_macro (count, ignore)$/
+rl_end_of_history	readline.c	/^rl_end_of_history ()$/
+rl_end_of_line	readline.c	/^rl_end_of_line ()$/
+rl_end_undo_group	readline.c	/^rl_end_undo_group ()$/
+rl_exchange_mark_and_point	readline.c	/^rl_exchange_mark_and_point ()$/
+rl_execute_next	readline.c	/^rl_execute_next (c)$/
+rl_extend_line_buffer	readline.c	/^rl_extend_line_buffer (len)$/
+rl_forced_update_display	display.c	/^rl_forced_update_display ()$/
+rl_forward	readline.c	/^rl_forward (count)$/
+rl_forward_search_history	isearch.c	/^rl_forward_search_history (sign, key)$/
+rl_forward_word	readline.c	/^rl_forward_word (count)$/
+rl_function_dumper	bind.c	/^rl_function_dumper (print_readably)$/
+rl_function_of_keyseq	bind.c	/^rl_function_of_keyseq (keyseq, map, type)$/
+rl_funmap_names	funmap.c	/^rl_funmap_names ()$/
+rl_gather_tyi	readline.c	/^rl_gather_tyi ()$/
+rl_generic_bind	bind.c	/^rl_generic_bind (type, keyseq, data, map)$/
+rl_get_char	readline.c	/^rl_get_char (key)$/
+rl_get_keymap	bind.c	/^rl_get_keymap ()$/
+rl_get_keymap_by_name	bind.c	/^rl_get_keymap_by_name (name)$/
+rl_get_next_history	readline.c	/^rl_get_next_history (count)$/
+rl_get_previous_history	readline.c	/^rl_get_previous_history (count)$/
+rl_getc	readline.c	/^rl_getc (stream)$/
+rl_handle_sigwinch	signals.c	/^rl_handle_sigwinch (sig)$/
+rl_init_argument	readline.c	/^rl_init_argument ()$/
+rl_initialize	readline.c	/^rl_initialize ()$/
+rl_initialize_funmap	funmap.c	/^rl_initialize_funmap ()$/
+rl_insert	readline.c	/^rl_insert (count, c)$/
+rl_insert_close	parens.c	/^rl_insert_close (count, invoking_key)$/
+rl_insert_completions	complete.c	/^rl_insert_completions (ignore, invoking_key)$/
+rl_insert_text	readline.c	/^rl_insert_text (string)$/
+rl_invoking_keyseqs	bind.c	/^rl_invoking_keyseqs (function)$/
+rl_kill_line	readline.c	/^rl_kill_line (direction)$/
+rl_kill_text	readline.c	/^rl_kill_text (from, to)$/
+rl_kill_word	readline.c	/^rl_kill_word (count)$/
+rl_list_funmap_names	bind.c	/^rl_list_funmap_names (ignore)$/
+rl_macro_bind	bind.c	/^rl_macro_bind (keyseq, macro, map)$/
+rl_make_bare_keymap	keymaps.c	/^rl_make_bare_keymap ()$/
+rl_make_keymap	keymaps.c	/^rl_make_keymap ()$/
+rl_message	display.c	/^rl_message (va_alist)$/
+rl_modifying	readline.c	/^rl_modifying (start, end)$/
+rl_named_function	bind.c	/^rl_named_function (string)$/
+rl_newline	readline.c	/^rl_newline (count, key)$/
+rl_noninc_forward_search	search.c	/^rl_noninc_forward_search (count, key)$/
+rl_noninc_forward_search_again	search.c	/^rl_noninc_forward_search_again (count, key)$/
+rl_noninc_reverse_search	search.c	/^rl_noninc_reverse_search (count, key)$/
+rl_noninc_reverse_search_again	search.c	/^rl_noninc_reverse_search_again (count, key)$/
+rl_on_new_line	display.c	/^rl_on_new_line ()$/
+rl_parse_and_bind	bind.c	/^rl_parse_and_bind (string)$/
+rl_possible_completions	complete.c	/^rl_possible_completions (ignore, invoking_key)$/
+rl_prep_terminal	rltty.c	/^rl_prep_terminal (meta_flag)$/
+rl_quoted_insert	readline.c	/^rl_quoted_insert (count)$/
+rl_re_read_init_file	bind.c	/^rl_re_read_init_file (count, ignore)$/
+rl_read_init_file	bind.c	/^rl_read_init_file (filename)$/
+rl_read_key	readline.c	/^rl_read_key ()$/
+rl_redisplay	display.c	/^rl_redisplay ()$/
+rl_refresh_line	readline.c	/^rl_refresh_line ()$/
+rl_reset_line_state	display.c	/^rl_reset_line_state ()$/
+rl_reset_terminal	readline.c	/^rl_reset_terminal (terminal_name)$/
+rl_restart_output	rltty.c	/^rl_restart_output (count, key)$/
+rl_reverse_search_history	isearch.c	/^rl_reverse_search_history (sign, key)$/
+rl_revert_line	readline.c	/^rl_revert_line ()$/
+rl_rubout	readline.c	/^rl_rubout (count)$/
+rl_search_history	isearch.c	/^rl_search_history (direction, invoking_key)$/
+rl_set_key	bind.c	/^rl_set_key (keyseq, function, map)$/
+rl_set_keymap	bind.c	/^rl_set_keymap (map)$/
+rl_set_keymap_from_edit_mode	bind.c	/^rl_set_keymap_from_edit_mode ()$/
+rl_set_mark	readline.c	/^rl_set_mark (position)$/
+rl_set_retained_kills	readline.c	/^rl_set_retained_kills (num)$/
+rl_set_sighandler	signals.c	/^rl_set_sighandler (sig, handler)$/
+rl_set_signals	signals.c	/^rl_set_signals ()$/
+rl_show_char	display.c	/^rl_show_char (c)$/
+rl_signal_handler	signals.c	/^rl_signal_handler (sig)$/
+rl_start_kbd_macro	readline.c	/^rl_start_kbd_macro (ignore1, ignore2)$/
+rl_stop_output	rltty.c	/^rl_stop_output (count, key)$/
+rl_string_extract_single_quoted	history.c	/^rl_string_extract_single_quoted (string, sindex)$/
+rl_strpbrk	complete.c	/^rl_strpbrk (string1, string2)$/
+rl_stuff_char	readline.c	/^rl_stuff_char (key)$/
+rl_tab_insert	readline.c	/^rl_tab_insert (count)$/
+rl_tilde_expand	complete.c	/^rl_tilde_expand (ignore, key)$/
+rl_translate_keyseq	bind.c	/^rl_translate_keyseq (seq, array, len)$/
+rl_transpose_chars	readline.c	/^rl_transpose_chars (count)$/
+rl_transpose_words	readline.c	/^rl_transpose_words (count)$/
+rl_unbind_key	bind.c	/^rl_unbind_key (key)$/
+rl_unbind_key_in_map	bind.c	/^rl_unbind_key_in_map (key, map)$/
+rl_undo_command	readline.c	/^rl_undo_command (count)$/
+rl_unget_char	readline.c	/^rl_unget_char (key)$/
+rl_universal_argument	readline.c	/^rl_universal_argument ()$/
+rl_unix_line_discard	readline.c	/^rl_unix_line_discard ()$/
+rl_unix_word_rubout	readline.c	/^rl_unix_word_rubout ()$/
+rl_upcase_word	readline.c	/^rl_upcase_word (count)$/
+rl_variable_bind	bind.c	/^rl_variable_bind (name, value)$/
+rl_vi_append_eol	vi_mode.c	/^rl_vi_append_eol ()$/
+rl_vi_append_mode	vi_mode.c	/^rl_vi_append_mode ()$/
+rl_vi_arg_digit	vi_mode.c	/^rl_vi_arg_digit (count, c)$/
+rl_vi_bWord	vi_mode.c	/^rl_vi_bWord (count)$/
+rl_vi_bracktype	vi_mode.c	/^rl_vi_bracktype (c)$/
+rl_vi_bword	vi_mode.c	/^rl_vi_bword (count)$/
+rl_vi_change_case	vi_mode.c	/^rl_vi_change_case (count, ignore)$/
+rl_vi_change_char	vi_mode.c	/^rl_vi_change_char (count, key)$/
+rl_vi_change_to	vi_mode.c	/^rl_vi_change_to (count, key)$/
+rl_vi_char_search	vi_mode.c	/^rl_vi_char_search (count, key)$/
+rl_vi_check	vi_mode.c	/^rl_vi_check ()$/
+rl_vi_column	vi_mode.c	/^rl_vi_column (count)$/
+rl_vi_comment	vi_mode.c	/^rl_vi_comment ()$/
+rl_vi_complete	vi_mode.c	/^rl_vi_complete (ignore, key)$/
+rl_vi_delete	vi_mode.c	/^rl_vi_delete (count)$/
+rl_vi_delete_to	vi_mode.c	/^rl_vi_delete_to (count, key)$/
+rl_vi_domove	vi_mode.c	/^rl_vi_domove (key, nextkey)$/
+rl_vi_eWord	vi_mode.c	/^rl_vi_eWord (count)$/
+rl_vi_editing_mode	readline.c	/^rl_vi_editing_mode ()$/
+rl_vi_end_word	vi_mode.c	/^rl_vi_end_word (count, key)$/
+rl_vi_eof_maybe	vi_mode.c	/^rl_vi_eof_maybe (count, c)$/
+rl_vi_eword	vi_mode.c	/^rl_vi_eword (count)$/
+rl_vi_fWord	vi_mode.c	/^rl_vi_fWord (count)$/
+rl_vi_fetch_history	vi_mode.c	/^rl_vi_fetch_history (count, c)$/
+rl_vi_first_print	vi_mode.c	/^rl_vi_first_print ()$/
+rl_vi_fword	vi_mode.c	/^rl_vi_fword (count)$/
+rl_vi_insert_beg	vi_mode.c	/^rl_vi_insert_beg ()$/
+rl_vi_insertion_mode	vi_mode.c	/^rl_vi_insertion_mode ()$/
+rl_vi_match	vi_mode.c	/^rl_vi_match ()$/
+rl_vi_movement_mode	vi_mode.c	/^rl_vi_movement_mode ()$/
+rl_vi_next_word	vi_mode.c	/^rl_vi_next_word (count, key)$/
+rl_vi_overstrike	vi_mode.c	/^rl_vi_overstrike (count, key)$/
+rl_vi_overstrike_delete	vi_mode.c	/^rl_vi_overstrike_delete (count)$/
+rl_vi_possible_completions	vi_mode.c	/^rl_vi_possible_completions()$/
+rl_vi_prev_word	vi_mode.c	/^rl_vi_prev_word (count, key)$/
+rl_vi_put	vi_mode.c	/^rl_vi_put (count, key)$/
+rl_vi_redo	vi_mode.c	/^rl_vi_redo (count, c)$/
+rl_vi_replace	vi_mode.c	/^rl_vi_replace (count, key)$/
+rl_vi_search	vi_mode.c	/^rl_vi_search (count, key)$/
+rl_vi_search_again	vi_mode.c	/^rl_vi_search_again (count, key)$/
+rl_vi_set_last	vi_mode.c	/^rl_vi_set_last ()$/
+rl_vi_subst	vi_mode.c	/^rl_vi_subst (count, key)$/
+rl_vi_textmod_command	vi_mode.c	/^rl_vi_textmod_command (c)$/
+rl_vi_tilde_expand	vi_mode.c	/^rl_vi_tilde_expand (ignore, key)$/
+rl_vi_yank_arg	vi_mode.c	/^rl_vi_yank_arg (count)$/
+rl_vi_yank_to	vi_mode.c	/^rl_vi_yank_to (count, key)$/
+rl_yank	readline.c	/^rl_yank ()$/
+rl_yank_nth_arg	readline.c	/^rl_yank_nth_arg (count, ignore)$/
+rl_yank_pop	readline.c	/^rl_yank_pop ()$/
+rltty_set_default_bindings	rltty.c	/^rltty_set_default_bindings (kmap)$/
+savestring	history.c	/^#define savestring(x) strcpy (xmalloc (1 + strlen /
+set_tty_settings	rltty.c	/^set_tty_settings (tty, tiop)$/
+start_using_history	readline.c	/^start_using_history ()$/
+stat_char	complete.c	/^stat_char (filename)$/
+stifle_history	history.c	/^stifle_history (max)$/
+stricmp	bind.c	/^stricmp (string1, string2)$/
+strindex	bind.c	/^strindex (s1, s2)$/
+strnicmp	bind.c	/^strnicmp (string1, string2, count)$/
+substring_member_of_array	bind.c	/^substring_member_of_array (string, array)$/
+tilde_expand	tilde.c	/^tilde_expand (string)$/
+tilde_expand_word	tilde.c	/^tilde_expand_word (filename)$/
+tilde_find_prefix	tilde.c	/^tilde_find_prefix (string, len)$/
+tilde_find_suffix	tilde.c	/^tilde_find_suffix (string)$/
+unstifle_history	history.c	/^unstifle_history ()$/
+update_line	display.c	/^update_line (old, new, current_line)$/
+username_completion_function	complete.c	/^username_completion_function (text, state)$/
+using_history	history.c	/^using_history ()$/
+vi_done_inserting	vi_mode.c	/^vi_done_inserting ()$/
+where_history	history.c	/^where_history ()$/
+whitespace	history.c	/^#define whitespace(c) (((c) == ' ') || ((c) == '\\/
+with_macro_input	readline.c	/^with_macro_input (string)$/
+write_history	history.c	/^write_history (filename)$/
+xmalloc	complete.c	/^xmalloc (bytes)$/
+xrealloc	complete.c	/^xrealloc (pointer, bytes)$/

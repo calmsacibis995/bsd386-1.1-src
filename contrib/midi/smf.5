@@ -1,0 +1,505 @@
+'\" t
+.TH SMF 5 "19 October 1987"
+.SH NAME
+smf \- standard MIDI format
+.SH DESCRIPTION
+.LP
+Files of this type contain
+.SM MIDI
+information in a portable non-device-specific
+format.
+Typically they hold songs or musical phrases.
+.LP
+.SM SMF
+files consist of one header chunk followed by
+one or more track chunks.
+All multiple byte values are high endian (the most significant
+byte always comes first).
+.SS "Header Chunk"
+.LP
+The header is made up of the following information
+in the following order:
+.TS
+cw(1i) cw(4i)
+l l.
+Field	Description
+Type	T{
+This is the chunk type.
+It is four
+.SM ASCII
+characters long.
+For a header chunk, the type
+should contain `MThd'.
+T}
+Length	T{
+This is the length of the header chunk.
+It is a 4 byte value and
+should be 6 for the header chunk.
+T}
+Format	T{
+The format is a two byte value that describe
+how the track chunks should be interpreted.
+There are currently three valid values, 0, 1
+and 2.
+A format 0 file contains only one multiple channel
+track chunk.
+A format 1 file contains one or more simultaneous tracks.
+A format 2 file contains one or more sequentially independent
+tracks.
+Tempo commands are contained solely in track 0 for
+a format 1 file, while formats 0 and 2 have the tempo
+commands interspersed with the
+.SM MIDI
+events.
+T}
+Ntrks	T{
+This is a two byte value that contains the number of
+track chunks to follow.
+T}
+Division	T{
+This is the last value.
+It is two bytes long and represents the number of divisions per
+quarter note.
+All timing values in the track chunks are represented in terms
+of this value.
+If this value is negative, it means timings will be done in
+.SM SMPTE.
+T}
+.TE
+.SS "Track Chunk"
+.LP
+Track chunks are made up a type and a length followed by the actual
+.SM MIDI
+data.
+.TS
+cw(1i) cw(4i)
+l l.
+Field	Description
+Type	T{
+This is the type field common to all
+chunks.
+It is four
+.SM ASCII
+characters long and contains `MTrk'
+for a track chunk.
+T}
+Length	T{
+This is a four byte value that contains the total
+length of the track chunk.
+T}
+Data	T{
+This the actual track data.
+T}
+.TE
+.LP
+The track data is a series of timed events.
+The events can be either
+.SM MIDI
+events,
+.SM SYSEX
+events or
+.SM META
+events.
+The timing for the events is represented as a variable length 
+value, though it is actually limited to a maximum of four bytes.
+This value is a 7 bit per byte value with the most significant
+bit first.
+All bytes have bit 8 set except for the final byte which has bit
+8 clear.
+Thus, all values between 0 and 127 can be represented in one byte.
+0x7f is represented as 0x7f, while 0x80 is represented as
+0x8100.
+The largest number that can be represented as a four byte variable
+length value is 0xffffff7f which is equal to 0x0fffffff in normal
+notation.
+This representation is used for other values in the track chunk
+as well.
+.SS MIDI Events
+.LP
+.SM MIDI
+events consist of a status byte followed by zero to two
+data bytes.
+All status bytes have their most significant byte set, while
+all data bytes have their most significant byte clear.
+The
+events are one of the following:
+note on, note off, key pressure, parameter, program, channel
+pressure, pitch wheel or a system message.
+All the events with the exception of the system message are
+encoded with a channel number in the lower nibble.
+.TS
+cw(1i) c c cw(3i)
+l l l l.
+Type	Range	Data Bytes	Description
+T{
+Note On
+T}	0x80 - 0x8f	2	T{
+A note on command.
+The first data byte is the pitch, the second is the
+velocity.
+A velocity of zero is equivelent to a note off command.
+T}
+T{
+Note Off
+T}	0x90 - 0x9f	2	T{
+A note off command.
+The first data byte is the pitch, the second is the
+velocity.
+T}
+T{
+Key Pressure
+T}	0xa0 - 0xaf	2	T{
+This is a key specific after-touch command.
+It reflects how hard a key is being pressed once it is
+down, as opposed to the velocity component of a note
+on command which reflects has fast the key was pressed.
+The first data byte is the pitch, the second the pressure.
+T}
+T{
+Parameter
+T}	0xb0 - 0xbf	2	T{
+This command changes the value of an arbitrary parameter.
+The first data byte is the parameter number and the
+second is the setting.
+T}
+T{
+Program
+T}	0xc0 - 0xcf	1	T{
+This command selects a instrument voicing for a
+.SM MIDI
+channel.
+The data byte is the program selection.
+T}
+T{
+Channel Pressure
+T}	0xd0 - 0xdf	1	T{
+This is similar to the key pressure event, but refers
+to a whole channel.
+The data byte is the channel pressure (after-touch).
+T}
+T{
+Pitch Wheel
+T}	0xe0 - 0xef	2	T{
+The changes the pitch for a whole channel.
+The two data bytes are take together to give on 14 bit value.
+The low order 7 bits are first.
+T}
+.TE
+.LP
+Events can use a running status, meaning that if the same event
+is to be repeated, only the data bytes need to be sent.
+The status byte is assumed to be the same as the last.
+Note off events can also be represented as note on events
+with the velocity set to zero.
+This in conjunction with the running status make it very
+easy to only use data bytes to represent most events.
+.LP
+.SM SYSEX
+events are in the range 0xf0 - 0xff
+.TS
+cw(1i) c c cw(3i)
+l l l l.
+Type	Value	Data Bytes	Description
+T{
+System Exclusive
+T}	0xf0	variable	T{
+Any amount of data can follow a system exclusive event.
+The event is terminated with a terminator byte (0xf7), though
+this is optional as any status byte will terminate
+the event.
+These event should probably be handled by the more
+detailed
+.SM SYSEX SMF
+event type.
+T}
+T{
+Song Position
+T}	0xf2	2	T{
+The two bytes are a single 14 bit value with the least
+significant byte first.
+The value is in terms of beats (every 6 clock pulses).
+T}
+T{
+Song Select
+T}	0xf3	1	T{
+This event and the song position event are for use by
+sequencers.
+T}
+T{
+Tune Request
+T}	0xf6	0	T{
+This is a request for analog synthesizers to tune their
+osciallators.
+T}
+T{
+Terminator
+T}	0xf7	0	T{
+This is the byte that terminates system exclusive events.
+T}
+.TE
+.LP
+The next group of status bytes are real-time events.
+They can appear anywhere, including the middle of other
+events, though this rarely happend.
+None of them have data bytes, or they themselves would
+be open to interruption from another real-time event.
+.TS
+cw(1i) c cw(4i)
+l l l.
+Type	Value	Description
+T{
+Timing Clock
+T}	0xf8	T{
+This timing clock message is supposed to be sent
+every 24 clocks and is used to synchronize devices,
+especially drum machines.
+T}
+T{
+Start
+T}	0xfa	T{
+This event is used to start devices at the same time.
+One master device would start the rest simulatiously.
+It is useful in performance situations.
+T}
+T{
+Continue
+T}	0xfb	T{
+This event continues playing in the same manner as
+the start real time event.
+T}
+T{
+Stop
+T}	0xfc	T{
+Again, this is similar to the start real time event,
+only this command stops playing.
+T}
+T{
+Active Sensing
+T}	0xfe	T{
+If this is to be used, it should be sent at least once
+every 300 ms.
+It is used so devices can timeout and revert to a default
+state if the active sensing commands stop coming.
+The timeout should not start until the first of these
+arrive.
+Until then, normal opperation should be the default.
+T}
+T{
+System Reset
+T}	0xff	T{
+Devices should reset to power up condition upon recept
+of this message.
+It should be used sparingly, and not sent automatically on
+power up.
+T}
+.TE
+Those are all of the possible
+.SM MIDI
+events.
+Usually, the vast majority of track chunks are made up of
+note on and note off events.
+.SS SYSEX Events
+.LP
+This event type is used to specify a
+.SM MIDI
+system exclusive event.
+It is more robust in that all system exclusive
+messages must be terminated with a terminator byte (0xf7)
+and that the message can be broken into parts each
+part with its own timing.
+There are two values which initial a
+.SM SYSEX
+event.
+The first value is 0xf0.
+This value initiates the start of either an entire system
+exclusive event, or a system exclusive event that has been
+broken into parts.
+In this case the 0xf0 is sent to the
+.SM MIDI
+device along with the data bytes.
+The other value is 0xf7.
+It signifies the start of a continued system exclusive event.
+In this case the 0xf7 is not sent to the
+.SM MIDI
+device.
+In both cases, the first value is followed by a multiple length
+value that specifies how many system exclusive data bytes follow.
+.SS META Events
+.LP
+All
+.SM META
+events begin with a 0xff byte.
+The byte following this specifes the byte of event.
+Immediately after the identification byte is a
+length byte, which contain the number of data bytes to follow.
+.TS
+cw(1i) c c cw(3i)
+l l l l.
+Type	Value	Data Bytes	Description
+T{
+Sequence Number
+T}	0x00	2	T{
+The two data bytes are taken together to represent a 16 bit value.
+This value is the sequence number.
+This event is an optional event, and if it occurs, should occur
+before any non-zero timing values and before and transmittable
+.SM MIDI
+events.
+In a format 2
+.SM SMF
+file it identifies each pattern, in formats 0 and 1 it should
+only appear at the begining of the first track, since the whole
+file is one sequence in these formats.
+T}
+T{
+Text Event
+T}	0x01	variable	T{
+This event can contain any text at all as the data bytes.
+The text should be printable
+.SM ASCII.
+It is optional.
+T}
+T{
+Copyright Notice
+T}	0x02	variable	T{
+This event follow the same format as the Text Event, but contains
+copyright information.
+The notice should be printable
+.SM ASCII
+text and should contain the characters `(C)', the year of the copyright
+and the owner of the copyright.
+This event should be the first event in the first track chunk, at time
+0.
+This event is optional.
+T}
+T{
+Sequence/Track Name
+T}	0x03	variable	T{
+This event follows the same format as the Text Event.
+In a format 0 track or the first track of a format 1
+.SM SMF
+file, this event should contain the name of the sequence, otherwise
+it should contain the name of the track.
+This event is optional.
+T}
+T{
+Instrument Name
+T}	0x04	variable	T{
+This event follows the same format as the Text Event.
+This event should specify what instrumentation is used on the track.
+It is optional.
+T}
+T{
+Lyric
+T}	0x05	variable	T{
+This event follows the same format as the Text Event.
+Lyrics to be sung should be put in this event.
+Generally, each syllable will be a separate lyric
+event which begins at the event's time.
+T}
+T{
+Marker
+T}	0x06	variable	T{
+This event follows the same format as the Text Event.
+This is normally found in a format 0 track or the first track of
+a format 1
+.SM SMF.
+It identifies the name of the files point in a sequence.
+T}
+T{
+Cue Point
+T}	0x07	variable	T{
+This event follows the same format as the Text Event.
+This event contains a description of something which happens
+on a film or videa screen at this point in the track.
+T}
+T{
+End of Track
+T}	0x2f	0	T{
+This event is not optional.
+It specifies and exact ending point for the track.
+It has no data bytes.
+T}
+T{
+Set Tempo
+T}	0x51	3	T{
+This event specifies the tempo in terms of microseconds per
+.SM MIDI
+quarter note.
+The most significant byte is first.
+T}
+T{
+.SM SMPTE
+Offset
+T}	0x54	5	T{
+This is an optional event that specifies the SMPTE time
+at which the track chunk is supposed to start.
+It should be present before any non-zero timing bytes.
+The 5 data bytes are in the following order: hours, minutes,
+seconds, frames, fractional frames.
+T}
+T{
+Time Signature
+T}	0x58	4	T{
+The first data byte is the numerator of the time signature and the
+second is the demoninator.
+The demoninator is expressed as a negative power of two.
+For 6/8 time, the first two values would be 0x06 0x03.
+The third value is the number of
+.SM MIDI
+clocks in a metronome click.
+The final value is the number of 32nd notes in a
+.SM MIDI
+quarter note.
+T}
+T{
+Key Signature
+T}	0x59	2	T{
+This event represents the key signature.
+The first data byte is a value from -7 to 7.
+-7 is 7 flats, -1 is 1 flat, 0 is the key of C, 1 is
+1 sharp, and 7 is 7 sharps.
+The second value is either 0 or 1.
+0 means it is a major key, 1 means a minor key.
+T}
+T{
+Sequencer Specific
+T}	0x7f	variable	T{
+Events specific to a sequencer.
+The first data byte should be a manufacturer
+.SM ID.
+T}
+.TE
+.SH ACKNOWLEDGEMENTS
+.LP
+Most of this information came from Doug Wyatt's annotated version
+of Dave Oppenheim's
+document on the Standard
+.SM MIDI
+Format file and
+Bob McQueer's document on the
+.SM MIDI
+spec.
+Both documents are
+availble for anonymous
+.SM FTP
+at ucsd.edu.
+.LP
+I have two address where the
+.SM MIDI
+1.0 specification is available.
+I don't which, if either, is correct.
+.nf
+International Midi Association
+5316 West 57th Street
+Los Angeles, CA 90056
+(415) 321-MIDI
+.sp
+IMA
+the International MIDI Association
+11857 Hartsook St.
+North Holllywoood, CA  91607
+(818) 505-8964
+.fi
+.SH "SEE ALSO"
+.BR mplay (1)

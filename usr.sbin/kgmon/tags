@@ -1,0 +1,6 @@
+Mkgmon	kgmon.c	/^main(argc, argv)$/
+dumpstate	kgmon.c	/^dumpstate()$/
+kfetch	kgmon.c	/^kfetch(index)$/
+resetstate	kgmon.c	/^resetstate()$/
+turnonoff	kgmon.c	/^turnonoff(onoff)$/
+zeroit	kgmon.c	/^zeroit(addr, len, zbuf, zsize)$/

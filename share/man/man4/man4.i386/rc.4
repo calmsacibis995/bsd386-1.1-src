@@ -1,0 +1,59 @@
+.\"	BSDI $Id: rc.4,v 1.3 1994/02/01 23:13:20 donn Exp $
+.\" Copyright (c) 1992, 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd February 1, 1994
+.Dt RC 4 i386
+.Os
+.Sh NAME
+.Nm rc
+.Nd
+.Tn SDL Communications
+RISCom/8 8-port serial multiplexor
+.Sh SYNOPSIS
+.Cd "device rc0 at isa? port 0x220"
+.Sh DESCRIPTION
+The RISCom/8 is an eight port
+.Tn EIA
+.Tn RS-232C
+.Pf ( Tn CCITT
+.Tn V.28 )
+communications multiplexor.  It uses a block of 16 I/O ports in the
+range 0x200 to 0x3f0 selectable by on-board switches. The block must
+be aligned on a 16 port
+boundary. The jumper-selectable hardware interrupt level is detected during
+autoconfiguration or alternatively can be specified in the system
+configuration file (in this case no check is performed). \%RISCom/8 supports
+the following irqs: 2(9), 3, 4, 5, 6, 7, 10, 11, 12 or 15.
+It can be installed in an 8-bit or 16-bit ISA slot (irqs 10 and higher
+require a 16-bit slot).
+.Pp
+Each port may be independently set to any speed between 50 and 76800 bits per second.
+Note that the 57600 speed is not exact (it is slow by about 3%).
+Also, the chip on the RISCom/8 may not be able to run all ports
+at the highest rates simultaneously.
+The aggregate capacity is about 460800 bits per second.
+.Pp
+An open on the rc driver will block until carrier is present, unless
+O_NONBLOCK or CLOCAL is set.
+.Pp
+Multiple RISCom/8 boards may be present in the system at one time.
+The least significant three bits of the minor device number select the
+line within a card, and the next three bits select the card number.
+.Sh DIAGNOSTICS
+.Bl -diag
+.It rc%d: illegal base address %x
+.sp
+Invalid port specification in kernel config file.
+.Pp
+.It rc%d: illegal IRQ %d
+.sp
+Invalid irq specification in kernel config file.
+.El
+.Sh SEE ALSO
+.Xr tty 4
+.Sh HISTORY
+The
+.Nm
+driver
+first appeared in BSDI.

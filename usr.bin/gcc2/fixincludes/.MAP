@@ -1,0 +1,7 @@
+F FIXINC.DGU;1                      	fixinc.dgux
+F FIXINC.MIP;1                      	fixinc.mips
+F FIXINC.PS2;1                      	fixinc.ps2
+F FIXINC.SCO;1                      	fixinc.sco
+F FIXINC.SVR;1                      	fixinc.svr4
+F FIXINCLU.;1                       	fixincludes
+F JUST_FIX.;1                       	just-fixinc

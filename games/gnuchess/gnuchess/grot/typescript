@@ -1,0 +1,117 @@
+Script started on Sat Jan 15 11:05:53 1994
+warning: could not update utmp entry
+> ./gcr
+
+Enter #moves #minutes: 60 5
+
+White 5:00  Black 5:00
+
+ R N B Q K B N R
+ P P P P P P P P
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ p p p p p p p p
+ r n b q k b n r
+
+Book used 0 of 250000 entries.
+Warning can't find book.
+Playing without hashfile
+
+Your move is? edit
+
+
+White 5:00  Black 5:00
+
+ R N B Q K B N R
+ P P P P P P P P
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ p p p p p p p p
+ r n b q k b n r
+
+.   Exit to main
+#   Clear board
+c   Change sides
+enter piece & location: 
+#
+Ke1
+K c
+Ke8
+pe7
+.
+
+
+White 5:00  Black 5:00
+
+ - - - - K - - -
+ - - - - P - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - k - - -
+
+
+Your move is? post
+
+Your move is? Ke2
+
+Move# 1    Target= 247    Clock: 30000
+ 2.     16    0       95   e8f7  e2e3  f7f6 
+ 3&     17    0      176   e8f7  e2e3  f7f6 
+ 3.     17    0      219   e8f7  e2e3  f7f6 
+ 4&     17    0      383   e8f7  e2e3  f7f6  e3f4 
+ 4.     17    0      709   e8f7  e2e3  f7f6  e3f4 
+ 5&     18    1     1171   e8f7  e2e3  f7f6  e3f4  f6e6 
+ 5.     18    1     1623   e8f7  e2e3  f7f6  e3f4  f6e6 
+ 6&     18    2     2605   e8f7  e2e3  f7f6  e3f4  f6e6  f4e4 
+ 6.     18    4     5342   e8f7  e2e3  f7f6  e3f4  f6e6  f4e4 
+1. ... e8f7
+Gen 9562 Node 5342 Tree 67 Eval 1 Rate 1335 EC 917/3747 RS hi 0 lo 0 
+Hin/Hout/Tcol/Coll/Fin/Fout = 603/925/0/0/0/0
+My move is: e8f7
+
+Your move is? bd
+
+
+White 4:44  Black 4:55
+
+ - - - - - - - -
+ - - - - P K - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - - - - -
+ - - - - k - - -
+ - - - - - - - -
+
+
+Your move is? Ke3
+
+Move# 2    Target= 248    Clock: 29542
+ 2.     16    0      139   f7g7  e3e4  g7g6  e4e5 
+ 3&     17    0      238   f7g7  e3e4  g7f6  e4f4 
+ 3.     17    0      308   f7g7  e3e4  g7f6  e4f4 
+ 4&     18    0      463   f7g7  e3e4  g7f6  e4f4  f6e6 
+ 4.     18    0      530   f7g7  e3e4  g7f6  e4f4  f6e6 
+ 5&     18    0     1076   f7g7  e3e4  g7f6  e4f4  f6e6 
+ 5.     18    1     1759   f7g7  e3e4  g7f6  e4f4  f6e6 
+ 6&     18    1     2795   f7g7  e3e4  g7f6  e4f4  f6e6 
+ 6.     18    3     5268   f7g7  e3e4  g7f6  e4f4  f6e6 
+2. ... f7g7
+Gen 9850 Node 5268 Tree 69 Eval 0 Rate 1756 EC 1278/7337 RS hi 0 lo 0 
+Hin/Hout/Tcol/Coll/Fin/Fout = 589/1847/0/0/0/0
+My move is: f7g7
+
+Your move is? bye
+Illegal move (no matching move)bye
+
+Your move is? quit
+> ^Dexit
+
+script done on Sat Jan 15 11:06:44 1994

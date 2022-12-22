@@ -1,0 +1,15 @@
+     trap [ arg ] [ sig ] ...
+          arg is a command to be read and executed when the shell
+          receives  sig.  Each sig can be given as a number or as
+          the name of a signal.  If arg is -, then all traps  sig
+          are  reset to their default values.  If arg is the null
+          string, then this signal is ignored by the shell and by
+          the  commands  it invokes.  If sig is ERR then arg will
+          be executed after each command.  If sig is  0  or  EXIT
+          and the trap statement is executed inside the body of a
+          function, then the command arg is  executed  after  the
+          function  completes.   If sig is 0 or EXIT and the trap
+          statement is not executed inside the body  of  a  func-
+          tion,  then  the command arg is executed when the shell
+          terminates.  The trap command with no arguments  prints
+          a list of commands associated with each signal.

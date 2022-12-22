@@ -1,0 +1,66 @@
+
+
+
+MADDINST(1)                    1992                   MADDINST(1)
+
+
+NNAAMMEE
+       maddinst  - Add/change instruments in a MIDI file on a per
+       track basis
+
+SSYYNNOOPPSSIISS
+       mmaaddddiinnsstt instrument-file [ midi-file ]
+
+DDEESSCCRRIIPPTTIIOONN
+       Used without arguments, mmaaddddiinnsstt  reads  a  standard  MIDI
+       format  [  SMF  ]  file  data  from stdin, and inserts the
+       appropriate MIDI commands at the begining of each track to
+       select  the  specified  voicing.   Any existing instrument
+       selection commands for the specified tracks  are  removed.
+       A  SMF file with the changes made is sent to stdout.  If a
+       midi-file is specified on the command line, that  is  used
+       in place of stdin.
+
+       The  informations  on  the tracks and instruments are con-
+       tained in the instrument-file.  The format of this file is
+       one  line for each track to be modified.  Each line should
+       contain the following fields  separated  by  white  space:
+       track number, channel number and instrument (voicing) num-
+       ber.  The track number specifies a track  in  the  SMF  (0
+       being  the  first).  The channel number is the channel the
+       instrument change command will be sent on (0  -  15),  and
+       the  instrument  number  is  the  instrument  you  wish to
+       select.  Any thing else on  the  line  after  these  three
+       fields will be ignored.  Comments should have a '#' in the
+       first column.
+
+BBUUGGSS
+       Currently, maddinst will not do multiple  instruments  per
+       track.  This would be useful in type 0 SMF files.
+
+SSEEEE AALLSSOO
+       mmppllaayy(1), ssmmff(5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+August                          3                               1
+
+

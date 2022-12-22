@@ -1,0 +1,5 @@
+F FILE2.SRC;1                       	file2.src
+F MAKEFILE.;1                       	Makefile
+F MD5_DATA.SRC;1                    	md5.data.src
+F MD5_DDAT.SRC;1                    	md5.ddata.src
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/md5/tests

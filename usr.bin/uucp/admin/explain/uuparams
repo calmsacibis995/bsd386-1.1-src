@@ -1,0 +1,7 @@
+
+	-a	Show all configuration parameters.
+	-d	Show default configuration.
+	-f	Show free space on SPOOLDIR file-system.
+	-n	Show version.
+	-v	Flag altered parameters with * if -a.
+	-w	Don't warn about inconsistencies.

@@ -1,0 +1,72 @@
+.nr H1 3
+.H 1 "Bug Fixes"
+.\"
+.\"What bugs have been fixed in <product> since its last release?
+.\"
+The following list describes bugs fixed in the software
+since the 2.1 release.
+.BL
+.LI
+The server now correctly handles renegotiation of session parameters
+due to variations in the input data; it used to violate the \s-1T.30\s+1
+protocol by requesting parameter renegotiation without notifying the
+remote side through the end-of-page message.
+.LI
+The session logging facility now properly logs system call errors.
+.LI
+The server no longer loses memory when receiving facsimile.
+.LI
+A mistake in the calculation of the random backoff interval when
+requeuing a job has been corrected.
+.sp
+\fIClass 1-specific Bug Fixes\fP
+.LI
+A bug has been fixed in the Class 1 driver for modems that have
+different transmit and receive
+capabilities\(emthe receive capabilities were
+being used to decide the best signalling rate at which to transmit.
+.LI
+A bug has been fixed in the Class 1 driver that caused spurious error
+messages to be returned when answering an incoming call.
+.LI
+The Class 1 driver now properly formulates the minimum scanline time
+parameter in the \s-1DCS\s+1 for all times.
+.LI
+The Class 1 driver is now more careful to avoid looping if the remote
+side prematurely drops carrier.
+.LI
+A bug has been fixed in the Class 1 driver that caused a failure
+message to be recorded for successfully received facsimile.
+.LI
+The Class 1 driver will no longer loop if the modem drops carrier without
+notifying the host when waiting for \s-1DCN\s+1 in Class1Modem::recvEnd (as
+done by the \s-1USR\s+1 Courier).
+.LI
+A bug was fixed in the Class 1 driver's transmit
+protocol (a \s-1DIS\s+1 response
+to sending training was not correctly handled).
+.LI
+The Class 1 driver now only tries to send training 3 times (per the spec).
+.LI
+The Class 1 driver now correctly specifies 7200bps V.17 in the \s-1DCS\s+1.
+.sp
+\fIClass 2-specific Bug Fixes\fP
+.LI
+Typos in the Class 2 error message table were fixed.
+.LI
+The Class 2 driver now ignores suprious modem status msgs when sending.
+.LI
+The Class 2 driver now generates fully specified
+\s-1+FDCC\s+1 and \s-1+FDIS\s+1 commands
+to workaround firmware bugs in some modems (defaulted parameters are
+incorrectly treated as 0 on \s-1PPI\s+1 modems and others).
+.sp
+[Miscellaneous bug fixes]
+.LI
+A bug in the \f2sendfax\fP program
+that caused fully qualified from addresses to not work has been
+corrected.
+.LI
+The \f2faxaddmodem\fP script no longer requires that
+the fax number must be specified in a fixed format.
+.LE

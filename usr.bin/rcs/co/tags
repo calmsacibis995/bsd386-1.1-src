@@ -1,0 +1,9 @@
+addjoin	co.c	/^addjoin(joinrev)$/
+buildjoin	co.c	/^buildjoin(initialfile)$/
+cleanup	co.c	/^cleanup()$/
+exiterr	co.c	/^exiterr()$/
+getancestor	co.c	/^getancestor(r1, r2)$/
+mainProg	co.c	/^mainProg(coId, "co", "$Id: co.c,v 1.1.1.1 1993\/12/
+preparejoin	co.c	/^preparejoin()$/
+rmlock	co.c	/^rmlock(delta)$/
+rmworkfile	co.c	/^rmworkfile()$/

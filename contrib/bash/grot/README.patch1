@@ -1,0 +1,23 @@
+This patch (bash-1.13.cwru.patch.1) fixes the following problems:
+
+1.  A construct like `( exec xxx yyy ) &' left xxx in the same process
+    group as the shell and vulnerable to SIGINT from the keyboard.
+    [execute_cmd.c]
+
+2.  The alpha and some other C compilers (SVR4.2) either could not
+    handle (and dumped core) or miscompiled comma expressions.  The
+    #defines that used them were changed.
+    [test.c]
+
+3.  getopts can now be compiled into bash on Linux systems.
+    [builtins/getopts.def]
+
+4.  The `read' builtin occasionally inappropriately freed memory.
+    [builtins/read.def]
+
+5.  The readline library did not compile on some systems as a result
+    of stray variable and function definitions.
+    [lib/readline/history.c, lib/readline/readline.c]
+
+
+To apply, cd to the bash source directory and type `patch -p0 < patch-file'.

@@ -1,0 +1,64 @@
+#password ODSJQf.4IJN7E    # "1234"
+
+vbell on
+autodetach on
+startup_message off
+
+# Extend the vt100 desciption with some sequences.
+termcap  vt100* ms:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC
+terminfo vt100* ms:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC
+
+#xterm understands both im/ic and doesn't have a status line.
+#Note: Do not specify im and ic in the real termcap/info file as
+#some programs (e.g. vi) will not work anymore.
+termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+
+#80/132 column switching must be enabled for Z0/Z1 to work
+termcap  xterm Z0=\E[?3h:Z1=\E[?3l
+terminfo xterm Z0=\E[?3h:Z1=\E[?3l
+
+#xterms is xterm with status line in title bar
+termcap  xterms 'hs:ts=\E]0;:fs=\007:ds=\E]0;iScreen\007:cs=\E[%i%d;%dr:LP:G0:im=\E[4h:ei=\E[4l'
+terminfo xterms 'hs:ts=\E]0;:fs=\007:ds=\E]0;iScreen\007:cs=\E[%i%p1%d;%p2%dr:LP:G0:im=\E[4h:ei=\E[4l'
+
+#make hp700 termcap/info better
+termcap  hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+terminfo hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+
+#wyse-75-42 must have flow control (xo = "terminal uses xon/xoff")
+#essential to have it here, as this is a slow terminal.
+termcap wy75-42 xo
+terminfo wy75-42 xo
+
+# New termcap sequences for cursor application mode.
+termcap wy* CS=\E[?1h:CE=\E[?1l
+terminfo wy* CS=\E[?1h:CE=\E[?1l
+
+# Make the output buffer large for (fast) xterms.
+termcap xterm* OL=10000
+terminfo xterm* OL=10000
+
+#remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+#make them better
+bind '\\' quit
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
+
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+
+# Yet another hack:
+# Prepend/append register [/] to the paste if ^a^] is pressed.
+# This lets me have autoindent mode in vi.
+register [ "\033:se noai\015a"
+register ] "\033:se ai\015a"
+bind ^] paste [.]

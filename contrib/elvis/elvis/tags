@@ -1,0 +1,226 @@
+ADD_META	regexp.c	/^#define ADD_META(s,m)	(*(s)++ = META, *(s)++ = BAS/
+BASE_META	regexp.c	/^#define BASE_META(m)	((m) - 256)$/
+BCLR	recycle.c	/^#define BCLR(bitno, byte)	((byte) &= ~(1 << (bitno/
+BSET	recycle.c	/^#define BSET(bitno, byte)	((byte) |= (1 << (bitno)/
+BTST	recycle.c	/^#define BTST(bitno, byte)	((byte) & (1 << (bitno))/
+CLR	recycle.c	/^#define CLR(blkno)		if ((blkno) < MAXBIT) BCLR((bl/
+DO_ERASE	tio.c	/^#define	DO_ERASE() \\$/
+FAIL	regexp.c	/^#define FAIL(why)	regerror(why); longjmp(errorhand/
+GET_META	regexp.c	/^#define GET_META(s)	(*(s) == META ? INT_META(*++(s/
+INT_META	regexp.c	/^#define INT_META(c)	((c) + 256)$/
+IS_CLASS	regexp.c	/^#define IS_CLASS(m)	((m) >= M_CLASS(0) && (m) <= M/
+IS_CLOSURE	regexp.c	/^#define IS_CLOSURE(m)	((m) >= M_SPLAT && (m) <= M_/
+IS_END	regexp.c	/^#define IS_END(m)	((m) >= M_END(0) && (m) <= M_END/
+IS_META	regexp.c	/^#define IS_META(m)	((m) >= 256)$/
+IS_START	regexp.c	/^#define IS_START(m)	((m) >= M_START(0) && (m) <= M/
+M_CLASS	regexp.c	/^#define M_CLASS(n)	(265+(n))	\/* internal code for/
+M_END	regexp.c	/^#define M_END(n)	(285+(n))	\/* internal code for /
+M_START	regexp.c	/^#define M_START(n)	(275+(n))	\/* internal code for/
+SET	recycle.c	/^#define SET(blkno)		if ((blkno) < MAXBIT) BSET((bl/
+TST	recycle.c	/^#define TST(blkno)		((blkno) < MAXBIT ? BTST((blkn/
+_ct_init	ctype.c	/^void _ct_init(flipcase)$/
+abortdo	blk.c	/^void abortdo()$/
+add	modify.c	/^void add(atmark, newtext)$/
+adjmove	vi.c	/^MARK adjmove(old, new, flags)$/
+afterdo	blk.c	/^void afterdo()$/
+allocate	recycle.c	/^long allocate()$/
+ansicolor	curses.c	/^int ansicolor(cmode, attrbyte)$/
+ansiquit	curses.c	/^int ansiquit()$/
+attrset	curses.c	/^void attrset(a)$/
+beforedo	blk.c	/^void beforedo(forundo)$/
+blkadd	blk.c	/^BLK *blkadd(logical)$/
+blkdirty	blk.c	/^void blkdirty(bp)$/
+blkflush	blk.c	/^void blkflush(this)$/
+blkget	blk.c	/^BLK *blkget(logical)$/
+blkinit	blk.c	/^void blkinit()$/
+blksync	blk.c	/^void blksync()$/
+calcsize	regexp.c	/^static unsigned calcsize(text)$/
+cb2str	cut.c	/^int cb2str(name, buf, size)$/
+change	modify.c	/^void change(frommark, tomark, newtext)$/
+cmd_append	cmd2.c	/^void cmd_append(frommark, tomark, cmd, bang, extra/
+cmd_args	cmd1.c	/^void cmd_args(frommark, tomark, cmd, bang, extra)$/
+cmd_at	cmd2.c	/^void cmd_at(frommark, tomark, cmd, bang, extra)$/
+cmd_cd	cmd1.c	/^void cmd_cd(frommark, tomark, cmd, bang, extra)$/
+cmd_color	cmd1.c	/^void cmd_color(frommark, tomark, cmd, bang, extra)/
+cmd_debug	cmd1.c	/^void cmd_debug(frommark, tomark, cmd, bang, extra)/
+cmd_delete	cmd2.c	/^void cmd_delete(frommark, tomark, cmd, bang, extra/
+cmd_digraph	cmd1.c	/^void cmd_digraph(frommark, tomark, cmd, bang, extr/
+cmd_edit	cmd1.c	/^void cmd_edit(frommark, tomark, cmd, bang, extra)$/
+cmd_errlist	cmd1.c	/^void cmd_errlist(frommark, tomark, cmd, bang, extr/
+cmd_file	cmd1.c	/^void cmd_file(frommark, tomark, cmd, bang, extra)$/
+cmd_global	cmd1.c	/^void cmd_global(frommark, tomark, cmd, bang, extra/
+cmd_join	cmd2.c	/^void cmd_join(frommark, tomark, cmd, bang, extra)$/
+cmd_make	cmd1.c	/^void cmd_make(frommark, tomark, cmd, bang, extra)$/
+cmd_map	cmd1.c	/^void cmd_map(frommark, tomark, cmd, bang, extra)$/
+cmd_mark	cmd1.c	/^void cmd_mark(frommark, tomark, cmd, bang, extra)$/
+cmd_mkexrc	cmd1.c	/^void cmd_mkexrc(frommark, tomark, cmd, bang, extra/
+cmd_move	cmd2.c	/^void cmd_move(frommark, tomark, cmd, bang, extra)$/
+cmd_next	cmd1.c	/^void cmd_next(frommark, tomark, cmd, bang, extra)$/
+cmd_print	cmd2.c	/^void cmd_print(frommark, tomark, cmd, bang, extra)/
+cmd_put	cmd2.c	/^void cmd_put(frommark, tomark, cmd, bang, extra)$/
+cmd_read	cmd2.c	/^void cmd_read(frommark, tomark, cmd, bang, extra)$/
+cmd_set	cmd1.c	/^void cmd_set(frommark, tomark, cmd, bang, extra)$/
+cmd_shell	cmd1.c	/^void cmd_shell(frommark, tomark, cmd, bang, extra)/
+cmd_shift	cmd2.c	/^void cmd_shift(frommark, tomark, cmd, bang, extra)/
+cmd_source	cmd2.c	/^void cmd_source(frommark, tomark, cmd, bang, extra/
+cmd_substitute	cmd2.c	/^void cmd_substitute(frommark, tomark, cmd, bang, e/
+cmd_suspend	cmd1.c	/^void cmd_suspend(frommark, tomark, cmd, bang, extr/
+cmd_tag	cmd1.c	/^void cmd_tag(frommark, tomark, cmd, bang, extra)$/
+cmd_undo	cmd2.c	/^void cmd_undo(frommark, tomark, cmd, bang, extra)$/
+cmd_validate	cmd1.c	/^void cmd_validate(frommark, tomark, cmd, bang, ext/
+cmd_version	cmd1.c	/^void cmd_version(frommark, tomark, cmd, bang, extr/
+cmd_write	cmd1.c	/^void cmd_write(frommark, tomark, cmd, bang, extra)/
+cmd_xit	cmd1.c	/^void cmd_xit(frommark, tomark, cmd, bang, extra)$/
+cut	cut.c	/^void cut(from, to)$/
+cutend	cut.c	/^void cutend()$/
+cutfree	cut.c	/^static void cutfree(buf)$/
+cutname	cut.c	/^void cutname(name)$/
+cutneeds	cut.c	/^int cutneeds(need)$/
+cutswitch	cut.c	/^void cutswitch()$/
+dbcheckmem	recycle.c	/^dbcheckmem(file, line)$/
+dbfree	recycle.c	/^dbfree(ptr, file, line)$/
+dbmalloc	recycle.c	/^char *dbmalloc(size, file, line)$/
+deathtrap	tmp.c	/^int deathtrap(sig)$/
+debout	modify.c	/^debout(msg, arg1, arg2, arg3, arg4, arg5)$/
+delete	modify.c	/^void delete(frommark, tomark)$/
+digraph	input.c	/^char digraph(key1, key2)$/
+do_digraph	input.c	/^void do_digraph(bang, extra)$/
+do_modelines	tmp.c	/^static void do_modelines(l, stop)$/
+doexcmd	ex.c	/^void doexcmd(cmdbuf)$/
+doexrc	ex.c	/^int doexrc(filename)$/
+drawtext	redraw.c	/^static void drawtext(text, lno, clr)$/
+dummy	unix.c	/^int dummy(signo)$/
+dumpopts	opts.c	/^void dumpopts(all)$/
+endcolor	curses.c	/^endcolor()$/
+endmsgs	tio.c	/^void endmsgs()$/
+endwin	curses.c	/^void endwin()$/
+ex	ex.c	/^void ex()$/
+exstring	ex.c	/^void exstring(buf, len, qchar)$/
+faddch	curses.c	/^int faddch(ch)$/
+fetchline	misc.c	/^char *fetchline(line)$/
+filter	system.c	/^int filter(from, to, cmd, back)$/
+garbage	recycle.c	/^void garbage()$/
+getsize	curses.c	/^int getsize(signo)$/
+gettoken	regexp.c	/^static int gettoken(sptr, re)$/
+hasattr	redraw.c	/^static int hasattr(lno, text)$/
+idx2col	redraw.c	/^int idx2col(curs, text, inputting)$/
+if	move1.c	/^	if (l > nlines)$/
+init_digraphs	main.c	/^static int init_digraphs()$/
+initopts	opts.c	/^void initopts()$/
+initscr	curses.c	/^void initscr()$/
+input	input.c	/^MARK input(from, to, when, delta)$/
+insch	curses.c	/^void insch(ch)$/
+isperiod	move1.c	/^static int isperiod(ptr)$/
+linespec	ex.c	/^char *linespec(s, markptr)$/
+m_Fch	move3.c	/^MARK	m_Fch(m, cnt, key)$/
+m_Nsrch	move2.c	/^MARK	m_Nsrch(m)$/
+m_Tch	move3.c	/^MARK	m_Tch(m, cnt, key)$/
+m__ch	move3.c	/^MARK	m__ch(m, cnt, cmd)$/
+m_bsrch	move2.c	/^MARK	m_bsrch(m, ptrn)$/
+m_bword	move5.c	/^MARK	m_bword(m, cnt, cmd)$/
+m_eword	move5.c	/^MARK	m_eword(m, cnt, cmd)$/
+m_fch	move3.c	/^MARK	m_fch(m, cnt, key)$/
+m_front	move1.c	/^MARK	m_front(m, cnt)$/
+m_fsrch	move2.c	/^MARK	m_fsrch(m, ptrn)$/
+m_fword	move5.c	/^MARK	m_fword(m, cnt, cmd, prevkey)$/
+m_left	move1.c	/^MARK	m_left(m, cnt)$/
+m_nsrch	move2.c	/^MARK	m_nsrch(m)$/
+m_paragraph	move1.c	/^MARK	m_paragraph(m, cnt, cmd)$/
+m_rear	move1.c	/^MARK	m_rear(m, cnt)$/
+m_right	move1.c	/^MARK	m_right(m, cnt, key, prevkey)$/
+m_row	move4.c	/^MARK m_row(m, cnt, key)$/
+m_scroll	move4.c	/^MARK m_scroll(m, cnt, key)$/
+m_sentence	move1.c	/^MARK	m_sentence(m, cnt, cmd)$/
+m_tch	move3.c	/^MARK	m_tch(m, cnt, key)$/
+m_tocol	move1.c	/^MARK	m_tocol(m, cnt, cmd)$/
+m_tomark	move1.c	/^MARK	m_tomark(m, cnt, key)$/
+m_updnto	move1.c	/^MARK	m_updnto(m, cnt, cmd)$/
+m_wsrch	move2.c	/^MARK m_wsrch(word, m, cnt)$/
+m_z	move4.c	/^MARK m_z(m, cnt, key)$/
+makeclass	regexp.c	/^static char *makeclass(text, bmap)$/
+mark2phys	redraw.c	/^int mark2phys(m, text, inputting)$/
+match	regexp.c	/^int match(re, str, prog, here)$/
+match1	regexp.c	/^int match1(re, ch, token)$/
+maybezap	cut.c	/^static void maybezap(num)$/
+mayhave	curses.c	/^static void mayhave(T, s)$/
+msg	tio.c	/^void msg (char *fmt, ...)$/
+musthave	curses.c	/^static void musthave(T, s)$/
+nudgecursor	redraw.c	/^static void nudgecursor(same, scan, new, lno)$/
+pair	curses.c	/^static void pair(T, U, sT, sU)$/
+parse_errmsg	cmd1.c	/^static char *parse_errmsg(text)$/
+parseptrn	ex.c	/^char	*parseptrn(ptrn)$/
+paste	cut.c	/^MARK paste(at, after, retend)$/
+pfetch	misc.c	/^void	pfetch(l)$/
+qaddstr	curses.c	/^void qaddstr(str)$/
+readcutblk	cut.c	/^static void readcutblk(cb, blkno)$/
+redraw	redraw.c	/^void redraw(curs, inputting)$/
+redrawrange	redraw.c	/^void redrawrange(after, pre, post)$/
+regcomp	regexp.c	/^regexp *regcomp(exp)$/
+regerror	misc.c	/^void regerror(txt)$/
+regexec	regexp.c	/^int regexec(re, str, bol)$/
+reghelp	regexp.c	/^static int reghelp(prog, string, bolflag)$/
+regsub	regsub.c	/^void regsub(re, src, dst)$/
+rename	cut.c	/^#define	rename(a,b)	Frename(0,a,b)$/
+resume_curses	curses.c	/^void resume_curses(quietly)$/
+rpclose	system.c	/^int rpclose(fd)$/
+rpipe	system.c	/^int rpipe(cmd, in)$/
+savecolor	cmd1.c	/^void savecolor(fd)$/
+savedigs	input.c	/^void savedigs(fd)$/
+saveopts	opts.c	/^void saveopts(fd)$/
+setopts	opts.c	/^void setopts(assignments)$/
+setviz	redraw.c	/^static void setviz(curs)$/
+showmsg	tio.c	/^static int showmsg()$/
+smartdrawtext	redraw.c	/^static void smartdrawtext(text, lno, showit)$/
+starttcap	curses.c	/^static void starttcap(term)$/
+storename	tmp.c	/^storename(name)$/
+suspend_curses	curses.c	/^void suspend_curses()$/
+switch	move1.c	/^	switch (cmd)$/
+sync	tmp.c	/^sync()$/
+tmpabort	tmp.c	/^int tmpabort(bang)$/
+tmpend	tmp.c	/^int tmpend(bang)$/
+tmpsave	tmp.c	/^int tmpsave(filename, bang)$/
+tmpstart	tmp.c	/^int tmpstart(filename)$/
+trapint	main.c	/^int trapint(signo)$/
+ttyread	unix.c	/^int ttyread(buf, len, time)$/
+undo	blk.c	/^int undo()$/
+v_1ex	vcmd.c	/^MARK v_1ex(m, text)$/
+v_again	vcmd.c	/^MARK v_again(m, n)$/
+v_at	vcmd.c	/^MARK v_at(m, cnt, key)$/
+v_change	vcmd.c	/^MARK v_change(m, n)$/
+v_delete	vcmd.c	/^MARK v_delete(m, n)$/
+v_errlist	vcmd.c	/^MARK v_errlist(m)$/
+v_filter	vcmd.c	/^MARK v_filter(m, n)$/
+v_increment	vcmd.c	/^MARK v_increment(keyword, m, cnt)$/
+v_insert	vcmd.c	/^MARK v_insert(m, cnt, key)$/
+v_join	vcmd.c	/^MARK v_join(m, cnt)$/
+v_keyword	vcmd.c	/^MARK v_keyword(keyword, m, cnt)$/
+v_lshift	vcmd.c	/^MARK v_lshift(m, n)$/
+v_mark	vcmd.c	/^MARK v_mark(m, count, key)$/
+v_overtype	vcmd.c	/^MARK v_overtype(m)$/
+v_paste	vcmd.c	/^MARK v_paste(m, cnt, cmd)$/
+v_popup	vcmd.c	/^MARK v_popup(m, n)$/
+v_quit	vcmd.c	/^MARK v_quit()$/
+v_redraw	vcmd.c	/^MARK v_redraw()$/
+v_reformat	vcmd.c	/^MARK v_reformat(m, n)$/
+v_replace	vcmd.c	/^MARK v_replace(m, cnt, key)$/
+v_rshift	vcmd.c	/^MARK v_rshift(m, n)$/
+v_selcut	vcmd.c	/^MARK v_selcut(m, cnt, key)$/
+v_start	vcmd.c	/^MARK v_start(m, cnt, cmd)$/
+v_status	vcmd.c	/^MARK v_status()$/
+v_subst	vcmd.c	/^MARK v_subst(m, cnt)$/
+v_suspend	vcmd.c	/^MARK v_suspend()$/
+v_switch	vcmd.c	/^MARK v_switch()$/
+v_tag	vcmd.c	/^MARK v_tag(keyword, m, cnt)$/
+v_ulcase	vcmd.c	/^MARK v_ulcase(m, cnt)$/
+v_undo	vcmd.c	/^MARK v_undo(m)$/
+v_undoline	vcmd.c	/^MARK v_undoline(m)$/
+v_xchar	vcmd.c	/^MARK v_xchar(m, cnt, cmd)$/
+v_xit	vcmd.c	/^MARK v_xit(m, cnt, key)$/
+v_yank	vcmd.c	/^MARK v_yank(m, n)$/
+vgets	tio.c	/^int vgets(prompt, buf, bsize)$/
+vi	vi.c	/^void vi()$/
+watch	vi.c	/^watch()$/
+while	move1.c	/^	while (l > 0 && l <= nlines && cnt-- > 0)$/
+wildcard	system.c	/^char *wildcard(names)$/
+wqrefresh	curses.c	/^void wqrefresh()$/
+wrefresh	curses.c	/^void wrefresh()$/

@@ -1,0 +1,16 @@
+.\" Copyright 1992 BSDI
+.Dd August 3, 1992
+.Dt DOS2BSD 1
+.Os
+.Sh NAME
+.Nm dos2bsd
+.Nd convert a DOS file to a BSD file
+.Sh SYNOPSIS
+.Nm dos2bsd
+.Op Ar sourcefile convertedfile
+.Sh DESCRIPTION
+The
+.Nm dos2bsd
+utility converts a normal DOS text file into a
+normal BSD text file.  This is 
+done by removing the ^M from the end of each line.

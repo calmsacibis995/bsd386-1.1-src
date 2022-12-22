@@ -1,0 +1,95 @@
+Mon May 31 05:28:25 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * term.c: Remove prototypes for system library routines.
+
+        * ispell.c (cmd) [!__STDC__]: Don't prototype args in
+        decl of pointer `func'.
+        Use `NOARGS' in prototypes for functions with no arguments instead
+        of explicit `void'.
+
+        * look.c [!__STDC__]: Prototype dogrep.
+
+        * access.c [!__STDC__]: Prototype set_bitvec. 
+
+        * ispell.h: Remove prototypes for system library routines.
+        [! __STDC__]: Remove args in prototype for `move', add semicolon
+        after prototype for `downcase'.
+
+        * ispell.el (batch-make-ispell): Don't format ispell.texinfo.
+
+        * expand.c, freq.c (near_miss_letters, nnear_miss_letters,
+        near_map): Added.  These used to be in a header file, but for some
+        reason bson moved these declarations out of it.
+
+        * ispell.h: prototype xmalloc and xcalloc, not malloc and calloc.
+
+        * configure.in: Do AC_ALLOCA.
+        Makefile.in (ALLOCA): Link it with everything that uses getopt.
+        alloca.c: New file (from /gd/gnu/lib).
+
+        * ispell.h: Declare function `intr' as RETSIGTYPE.
+
+Fri Apr 16 17:31:18 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * Makefile.in (DISTFILES): Generate dynamically when building
+          distrbutions. 
+
+        * look.c (main): If at start of dictionary, don't skip to next
+          newline, otherwise first word will never be matched. 
+
+        * ispell.texi: Fix capitalization in Old/New interface nodes (ugh,
+          case sensitivity in info node names!). 
+
+Fri Apr 16 15:16:55 1993  Jan Brittenson  (bson@kropotkin.gnu.ai.mit.edu)
+
+	* ispell.h: move all variable declarations to ispell.c.
+
+	* util.c (xcalloc): new function.
+
+	* *.c: change all calls to calloc() into xcalloc().
+
+Thu Apr 15 16:58:48 1993  Jan Brittenson  (bson@kropotkin.gnu.ai.mit.edu)
+
+	* ispell.c: make use of version[] from version.c
+
+	* ispell.h: declare VERSION_STRING to be version[].
+
+	* *.c: change all calls to malloc() into xmalloc().
+
+	* util.c: new file. New function xmalloc().
+
+	* build.c, ispell.c: include getopt.h. 
+
+	* *.[ch]: ANSIfy all prototypes, change	condition from FPROTO to
+	__STDC__. Change () to (void) where appropriate. Declare
+	undeclared arguments to int. Declare undeclared functions to
+	appropriate type. Changes too numerous to list here.
+
+	* configure.in: check for -ltermlib first of all.
+
+Thu Jan 21 19:32:17 1993  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * configure.in: removed source for ACL_HAVE_LIBRARY macro and
+          changed all references to AC_HAVE_LIBRARY (standard as of
+          autoconf 1.3). 
+
+Tue Dec 29 04:40:10 1992  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * Makefile.in: Make various targets work more robustly by adding
+          appropriate references to $(srcdir).
+
+        * Makefile.in (freq): Depend directly on freq.o, not freq.c.
+          (expand): Depend directly on expand.o, not expand.c. 
+
+        * configure.in: Added ACL_HAVE_LIBRARY macro & use it to test for
+          -ltermcap or -lcurses.
+
+Tue Sep 29 02:42:42 1992  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * getopt.c, getopt1.c, getopt.h: Added to distribution.
+
+        * version.c, configure.in, Makefile.in: New files.
+
+Tue Sep 22 10:28:01 1992  Noah Friedman  (friedman@nutrimat.gnu.ai.mit.edu)
+
+        * Ran all source files through indent -gnu.

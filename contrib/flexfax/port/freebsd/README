@@ -1,0 +1,53 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/freebsd/README,v 1.1.1.1 1994/01/14 23:10:28 torek Exp $
+
+Start of README
+---------------
+
+ The FreeBSD port is basically the same as the 386BSD port. But as
+FreeBSD comes with updated binaries and gcc there are a few changes.
+ Besides getting the flexFAX software you also need ghostscript, bash,
+and GNU make.
+ The easiest way to install software packages on FreeBSD is with
+pkg_install. The pkg_install sorces and binary packages of many
+packages are available from freebsd.cdrom.com:pub/FreeBSD/packages.
+
+	Jonas Olsson
+	ljo@po.cwru.edu
+
+Here's some of tricks to get it running
+----------------------------------------
+
+ The only make that works with the makefiles is GNU make-3.63 or newer,
+with standard /usr/bin/make (from distribution) you will get nowhere.
+Also with GNU make-3.62 you will have problems with incdepend
+targets.
+
+ The kernel needs to be recompiled with "options FIFO" in the config
+file. With FreeBSD 1.0 GAMMA and earlier you must start with a fresh
+compile directory for the kernel, i.e. rm -rf /sys/compile/<kernel>
+before config <kernel>. In FreeBSD 1.0 EPSILON and later this problem
+has been fixed
+
+ I have successfully sent and received faxes with my Supra FAXmodem
+v32bis. The getty with SunOS GettyArgs also works.
+
+ When running faxaddmodem use a tty* name, e.g. tty00, *not* sio, or
+anything else. The major and minor numbers of tty* is the same as for
+sio*. You might see some syslog and warning messages when running
+faxaddmodem, they are:
+
+1. FIFO.tty01: open: Device not configured
+   This happens on the two first tries of faxaddmodem and sequent runs of it
+   does not complain. After this all FIFO communication seems to work fine.
+
+2. A number of:
+     stty: stdout appears redirected, but stdin is the control descriptor
+   These are warnings from FreeBSD's stty, and seem harmless. They occur
+   because the script is not using the "stty -f /dev/tty* ..." syntax.
+
+
+
+
+
+
+

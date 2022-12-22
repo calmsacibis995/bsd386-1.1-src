@@ -1,0 +1,112 @@
+Mtip	tip.c	/^main(argc, argv)$/
+acuabort	acu.c	/^acuabort(s)$/
+acutype	acu.c	/^acutype(s)$/
+any	tip.c	/^any(c, p)$/
+anyof	cmds.c	/^anyof(s1, s2)$/
+args	cmds.c	/^args(buf, a)$/
+chdirectory	cmds.c	/^chdirectory()$/
+cleanup	tip.c	/^cleanup()$/
+clear_exclusive	termctl.c	/^clear_exclusive(fd)$/
+connect	acu.c	/^connect()$/
+consh	cmds.c	/^consh(c)$/
+cour_abort	aculib/courier.c	/^cour_abort()$/
+cour_connect	aculib/courier.c	/^cour_connect()$/
+cour_dialer	aculib/courier.c	/^cour_dialer(num, acu)$/
+cour_disconnect	aculib/courier.c	/^cour_disconnect()$/
+cour_nap	aculib/courier.c	/^cour_nap()$/
+cour_napx	aculib/courier.c	/^cour_napx()$/
+cour_swallow	aculib/courier.c	/^cour_swallow(match)$/
+cour_write	aculib/courier.c	/^cour_write(fd, cp, n)$/
+coursync	aculib/courier.c	/^coursync()$/
+ctrl	tip.c	/^ctrl(c)$/
+cu_put	cmds.c	/^cu_put(cc)$/
+cu_take	cmds.c	/^cu_take(cc)$/
+cumain	cu.c	/^cumain(argc, argv)$/
+daemon_uid	tip.c	/^daemon_uid()$/
+dead	hunt.c	/^dead()$/
+disable_chars	termctl.c	/^disable_chars(tt)$/
+disconnect	acu.c	/^disconnect(reason)$/
+escape	tip.c	/^escape()$/
+execute	cmds.c	/^execute(s)$/
+expand	cmds.c	/^expand(name)$/
+finish	cmds.c	/^finish()$/
+genbrk	termctl.c	/^genbrk()$/
+getent	remcap.c	/^getent(bp, name, cp)$/
+getfl	cmds.c	/^getfl(c)$/
+getremcap	remote.c	/^getremcap(host)$/
+getremote	remote.c	/^getremote(host)$/
+gobble	aculib/hayes.c	/^gobble(void) {$/
+goodbye	aculib/hayes.c	/^goodbye()$/
+hay_abort	aculib/hayes.c	/^hay_abort()$/
+hay_dialer	aculib/hayes.c	/^hay_dialer(phonenum, acu)$/
+hay_disconnect	aculib/hayes.c	/^hay_disconnect()$/
+hay_sync	aculib/hayes.c	/^hay_sync()$/
+help	tip.c	/^help(c)$/
+hunt	hunt.c	/^hunt(name)$/
+intEMT	tipout.c	/^intEMT()$/
+intIOT	tipout.c	/^intIOT()$/
+intSYS	tipout.c	/^intSYS()$/
+intTERM	tipout.c	/^intTERM()$/
+intcopy	cmds.c	/^intcopy()$/
+interp	tip.c	/^interp(s)$/
+intprompt	tip.c	/^intprompt()$/
+lazycmd	aculib/hayes.c	/^lazycmd(cmd)$/
+local_ttysetup	termctl.c	/^local_ttysetup(fd, tt1, tt2)$/
+logent	log.c	/^logent(group, num, acu, message)$/
+loginit	log.c	/^loginit()$/
+mask	aculib/courier.c	/^#define mask(s) (1<<((s)-1))$/
+min	aculib/hayes.c	/^#define	min(a,b)	((a < b) ? a : b)$/
+pipefile	cmds.c	/^pipefile()$/
+pipeout	cmds.c	/^pipeout(c)$/
+prompt	tip.c	/^prompt(s, p)$/
+prtime	cmds.c	/^prtime(s, a)$/
+pwrite	tip.c	/^pwrite(fd, buf, n)$/
+remote_ttysetup	termctl.c	/^remote_ttysetup(fd, speed, mode)$/
+send	cmds.c	/^send(c)$/
+sendcmd	aculib/hayes.c	/^sendcmd(cmd)$/
+sendfile	cmds.c	/^sendfile(cc)$/
+set_clocal	termctl.c	/^set_clocal(fd)$/
+set_exclusive	termctl.c	/^set_exclusive(fd)$/
+set_hupcl	termctl.c	/^set_hupcl(fd)$/
+setparity	tip.c	/^setparity(defparity)$/
+setscript	cmds.c	/^setscript()$/
+setvec	aculib/courier.c	/^#define setvec(vec, a) \\$/
+shell	cmds.c	/^shell()$/
+shell_uid	tip.c	/^shell_uid()$/
+showstr	aculib/hayes.c	/^showstr(str, len)$/
+sigALRM	aculib/hayes.c	/^sigALRM()$/
+size	tip.c	/^size(s)$/
+sname	tip.c	/^sname(s)$/
+status	aculib/hayes.c	/^status(fmt, va_alist)$/
+stopsnd	cmds.c	/^stopsnd()$/
+suspend	cmds.c	/^suspend(c)$/
+tandem	termctl.c	/^tandem(fd, option)$/
+tdecode	remcap.c	/^tdecode(str, area)$/
+tgetent	remcap.c	/^tgetent(bp, name)$/
+tgetflag	remcap.c	/^tgetflag(id)$/
+tgetnum	remcap.c	/^tgetnum(id)$/
+tgetstr	remcap.c	/^tgetstr(id, area)$/
+timeout	cmds.c	/^timeout()$/
+tipabort	cmds.c	/^tipabort(msg)$/
+tipin	tip.c	/^tipin()$/
+tipout	tipout.c	/^tipout()$/
+tnamatch	remcap.c	/^tnamatch(np)$/
+tnchktc	remcap.c	/^tnchktc()$/
+transfer	cmds.c	/^transfer(buf, xfd, eofchars)$/
+transmit	cmds.c	/^transmit(fd, eofchars, command)$/
+tskip	remcap.c	/^tskip(bp)$/
+tty_setup	termctl.c	/^tty_setup(fd, tt)$/
+user_uid	tip.c	/^user_uid()$/
+uu_lock	uucplock.c	/^uu_lock(ttyname)$/
+uu_unlock	uucplock.c	/^uu_unlock(ttyname)$/
+vaccess	value.c	/^vaccess(mode, rw)$/
+variable	cmds.c	/^variable()$/
+vassign	value.c	/^vassign(p, v)$/
+verbose_read	aculib/courier.c	/^verbose_read()$/
+vinit	value.c	/^vinit()$/
+vinterp	value.c	/^vinterp(s, stop)$/
+vlex	value.c	/^vlex(s)$/
+vlookup	value.c	/^vlookup(s)$/
+vprint	value.c	/^vprint(p)$/
+vstring	value.c	/^vstring(s,v)$/
+vtoken	value.c	/^vtoken(s)$/

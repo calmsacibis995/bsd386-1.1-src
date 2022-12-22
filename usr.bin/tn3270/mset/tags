@@ -1,0 +1,38 @@
+EatToNL	../ascii/map3270.c	/^EatToNL()$/
+FindMatchAtThisLevel	../ascii/map3270.c	/^FindMatchAtThisLevel(pState, character)$/
+FreeState	../ascii/map3270.c	/^FreeState(pState)$/
+Get	../ascii/map3270.c	/^Get()$/
+GetAlphaMericString	../ascii/map3270.c	/^GetAlphaMericString()$/
+GetBegin	../ascii/map3270.c	/^GetBegin()$/
+GetC	../ascii/map3270.c	/^GetC()$/
+GetCharString	../ascii/map3270.c	/^GetCharString()$/
+GetCharacter	../ascii/map3270.c	/^GetCharacter(character)$/
+GetDefinition	../ascii/map3270.c	/^GetDefinition()$/
+GetDefinitions	../ascii/map3270.c	/^GetDefinitions()$/
+GetEnd	../ascii/map3270.c	/^GetEnd()$/
+GetEntry	../ascii/map3270.c	/^GetEntry()$/
+GetEntry0	../ascii/map3270.c	/^GetEntry0()$/
+GetInput	../ascii/map3270.c	/^GetInput(tc, identifier)$/
+GetName	../ascii/map3270.c	/^GetName()$/
+GetNames	../ascii/map3270.c	/^GetNames()$/
+GetQuotedString	../ascii/map3270.c	/^GetQuotedString()$/
+GetState	../ascii/map3270.c	/^GetState()$/
+GetString	../ascii/map3270.c	/^GetString(string)$/
+GetWS	../ascii/map3270.c	/^GetWS()$/
+InitControl	../ascii/map3270.c	/^InitControl(keybdPointer, pickyarg, translator)$/
+IsPrint	../ascii/map3270.c	/^#define	IsPrint(c)	((isprint(c) && !isspace(c)) ||/
+Mmset	mset.c	/^main(argc, argv)$/
+MyStrcmp	mset.c	/^MyStrcmp(str1, str2)$/
+PasteEntry	../ascii/map3270.c	/^PasteEntry(head, string, count, identifier)$/
+Position	../ascii/map3270.c	/^Position(filename, keybdPointer)$/
+UnGet	../ascii/map3270.c	/^UnGet(c)$/
+addString	mset.c	/^addString(strcount, character)$/
+backRegister	mset.c	/^backRegister(regptr, sptr)$/
+doRegister	mset.c	/^doRegister(regptr)$/
+forwRegister	mset.c	/^forwRegister(regptr, sptr)$/
+panic	../ascii/map3270.c	/^#define	panic(s)	{ fprintf(stderr, s); exit(1); }$/
+printString	mset.c	/^printString(string, begin, tc_name)$/
+recurse	mset.c	/^recurse(strcount, head)$/
+strsave	../ascii/map3270.c	/^strsave(string)$/
+uncontrol	../ascii/map3270.c	/^uncontrol(c)$/
+ustrcmp	../ascii/map3270.c	/^ustrcmp(string1, string2)$/

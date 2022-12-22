@@ -1,0 +1,7 @@
+F BUILD.C;1                         	build.c
+F DICT.;1                           	dict
+F FREQ.C;1                          	freq.c
+F MAKEFILE.;1                       	Makefile
+F MKLEXTBL.C;1                      	mklextbl.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/spell/build
+F TAGS.;1                           	tags

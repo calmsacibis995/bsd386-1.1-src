@@ -1,0 +1,6 @@
+F CONFIG.H;1                        	config.h
+F ENDIAN.H;1                        	endian.h
+F HAVE_MAL.H;1                      	have_malloc.h
+F HAVE_STD.H;1                      	have_stdlib.h
+F HAVE_STR.H;1                      	have_string.h
+F TERMINAL.H;1                      	terminal.h

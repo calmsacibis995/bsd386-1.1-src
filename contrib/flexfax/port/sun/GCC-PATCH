@@ -1,0 +1,21 @@
+Tue Nov  3 10:48:26 1992  Brendan Kehoe  (brendan@lisa.cygnus.com)
+
+	* cp-search.c (dfs_pushdecls): Don't try to use the context of a
+	field which has none at the time.
+
+*** 1.39	1992/10/30 01:32:04
+--- cp-search.c	1992/11/03 18:42:19
+*************** dfs_pushdecls (binfo)
+*** 3312,3316 ****
+  		  context = DECL_CLASS_CONTEXT (value);
+  
+! 		  if (context == type || TYPE_DERIVES_FROM (context, type))
+  		    value = fields;
+  		  else
+--- 3312,3317 ----
+  		  context = DECL_CLASS_CONTEXT (value);
+  
+! 		  if (context && (context == type
+! 				  || TYPE_DERIVES_FROM (context, type)))
+  		    value = fields;
+  		  else

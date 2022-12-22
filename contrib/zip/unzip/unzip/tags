@@ -1,0 +1,62 @@
+DUMPBITS	explode.c	/^#define DUMPBITS(n) {b>>=(n);k-=(n);}$/
+FSetUpToProcessZipFile	unzip.c	/^BOOL FSetUpToProcessZipFile(int ncflag, int ntflag/
+FlushMemory	extract.c	/^int FlushMemory()   \/* return PK-type error code /
+GetCode	unshrink.c	/^#define GetCode(dest)   READBIT(codesize,dest)$/
+LoadFollowers	unreduce.c	/^static void LoadFollowers()$/
+Menvargs	envargs.c	/^main(argc, argv)$/
+Mmatch	match.c	/^int main(int argc, char *argv[])$/
+Munzip	unzip.c	/^int main(argc, argv)   \/* return PK-type error co/
+NEEDBITS	explode.c	/^#define NEEDBITS(n) {while(k<(n)){b|=((ULONG)NEXTB/
+ReadMemoryByte	extract.c	/^int ReadMemoryByte(x)   \/* return PK-type error c/
+TakeDownFromProcessZipFile	unzip.c	/^void TakeDownFromProcessZipFile(void)$/
+UpdateCRC	misc.c	/^void UpdateCRC(s, len)$/
+check_for_newer	misc.c	/^int check_for_newer(filename)   \/* return 1 if ex/
+count_args	envargs.c	/^count_args(s)$/
+create_output_file	file_io.c	/^int create_output_file()         \/* return non-0 /
+dateformat	misc.c	/^int dateformat()$/
+decrypt_member	extract.c	/^static int decrypt_member()   \/* return 10 if out/
+do_string	misc.c	/^int do_string(len, option)      \/* return PK-type/
+dos_to_unix_time	misc.c	/^time_t dos_to_unix_time(ddate, dtime)$/
+dump_args	envargs.c	/^dump_args(argc, argv)$/
+envargs	envargs.c	/^envargs(Pargc, Pargv, envstr)$/
+explode	explode.c	/^int explode()$/
+explode_lit4	explode.c	/^int explode_lit4(tb, tl, td, bb, bl, bd)$/
+explode_lit8	explode.c	/^int explode_lit8(tb, tl, td, bb, bl, bd)$/
+explode_nolit4	explode.c	/^int explode_nolit4(tl, td, bl, bd)$/
+explode_nolit8	explode.c	/^int explode_nolit8(tl, td, bl, bd)$/
+extract_or_test_files	extract.c	/^int extract_or_test_files()    \/* return PK-type /
+extract_or_test_member	extract.c	/^static int extract_or_test_member()    \/* return /
+flush	inflate.c	/^void flush(w)$/
+get_tree	explode.c	/^int get_tree(l, n)$/
+huft_build	inflate.c	/^int huft_build(b, n, s, d, e, t, m)$/
+huft_free	inflate.c	/^int huft_free(t)$/
+inflate	inflate.c	/^void inflate()$/
+inflate_block	inflate.c	/^int inflate_block(e)$/
+inflate_codes	inflate.c	/^int inflate_codes(tl, td, bl, bd)$/
+inflate_dynamic	inflate.c	/^int inflate_dynamic()$/
+inflate_entry	inflate.c	/^int inflate_entry()$/
+inflate_fixed	inflate.c	/^int inflate_fixed()$/
+inflate_stored	inflate.c	/^int inflate_stored()$/
+is_pattern	match.c	/^BOOLEAN is_pattern (char *p)$/
+is_valid_pattern	match.c	/^BOOLEAN is_valid_pattern (char *p, int *error_type/
+makelong	misc.c	/^ULONG makelong(sig)$/
+makeword	misc.c	/^UWORD makeword(b)$/
+mapname	mapname.c	/^int mapname(create_dirs)   \/* return 0 if no erro/
+match	match.c	/^int match(string,pattern)$/
+matche	match.c	/^static int matche(p, t)$/
+matche_after_star	match.c	/^static int matche_after_star (p,t)$/
+mem_err	envargs.c	/^mem_err()$/
+memcpy	misc.c	/^char *memcpy(dst, src, len)$/
+memextract	extract.c	/^int memextract(tgt, tgtsize, src, srcsize)  \/* re/
+memset	misc.c	/^char *memset(buf, init, len)$/
+open_input_file	file_io.c	/^int open_input_file()    \/* return non-zero if op/
+partial_clear	unshrink.c	/^static void partial_clear()$/
+process_zipfile	unzip.c	/^int process_zipfile()    \/* return PK-type error /
+readbuf	file_io.c	/^int readbuf(buf, size)$/
+return_VMS	misc.c	/^void return_VMS(zip_error)$/
+store_info	extract.c	/^static int store_info()   \/* return 1 if skipping/
+testp	extract.c	/^static int testp(h)   \/* return -1 if bad passwor/
+unReduce	unreduce.c	/^void unReduce()   \/* expand probabilistically red/
+unShrink	unshrink.c	/^void unShrink()$/
+usage	unzip.c	/^int usage(error)   \/* return PK-type error code */
+x0fff	explode.c	/^   and then and'ing with 0x0fff (4K-1) or 0x1fff (/

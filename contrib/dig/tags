@@ -1,0 +1,52 @@
+FD_CLR	res_send.c	/^#define	FD_CLR(n, p)	((p)->fds_bits[(n)\/NFDBITS] /
+FD_ISSET	res_send.c	/^#define	FD_ISSET(n, p)	((p)->fds_bits[(n)\/NFDBITS/
+FD_SET	res_send.c	/^#define	FD_SET(n, p)	((p)->fds_bits[(n)\/NFDBITS] /
+FD_ZERO	res_send.c	/^#define FD_ZERO(p)	bzero((char *)(p), sizeof(*(p))/
+Mdig	dig.c	/^main(argc, argv)$/
+UC	dig.c	/^#define UC(b)   (((int)b)&0xff)$/
+_endhtent	gethostnamadr.c	/^_endhtent()$/
+_gethtbyaddr	gethostnamadr.c	/^_gethtbyaddr(addr, len, type)$/
+_gethtbyname	gethostnamadr.c	/^_gethtbyname(name)$/
+_gethtent	gethostnamadr.c	/^_gethtent()$/
+_getlong	res_comp.c	/^_getlong(msgp)$/
+_getshort	res_comp.c	/^_getshort(msgp)$/
+_res_close	res_send.c	/^_res_close()$/
+_sethtent	gethostnamadr.c	/^_sethtent(f)$/
+any	gethostnamadr.c	/^any(cp, match)$/
+deproto	res_debug.c	/^char * deproto(protonum)$/
+dewks	res_debug.c	/^char * dewks(wks)$/
+difftv	qtime.c	/^*difftv(a,b,tmp)$/
+dn_comp	res_comp.c	/^dn_comp(exp_dn, comp_dn, length, dnptrs, lastdnptr/
+dn_expand	res_comp.c	/^dn_expand(msg, eomorig, comp_dn, exp_dn, length)$/
+dn_find	res_comp.c	/^dn_find(exp_dn, msg, dnptrs, lastdnptr)$/
+dn_skipname	res_comp.c	/^dn_skipname(comp_dn, eom)$/
+do_rrset	res_debug.c	/^do_rrset(msg,cp,cnt,pflag,file,hs)$/
+do_zone	list.c	/^do_zone(domain,qtype)$/
+endhostent	sethostent.c	/^endhostent()$/
+findtime	qtime.c	/^*findtime(id)$/
+fp_query	res_debug.c	/^fp_query(msg,file)$/
+getanswer	gethostnamadr.c	/^getanswer(answer, anslen, iquery)$/
+gethostbyaddr	gethostnamadr.c	/^gethostbyaddr(addr, len, type)$/
+gethostbyname	gethostnamadr.c	/^gethostbyname(name)$/
+herror	herror.c	/^herror(s)$/
+hostalias	res_query.c	/^hostalias(name)$/
+p_cdname	res_debug.c	/^p_cdname(cp, msg, p)$/
+p_class	res_debug.c	/^p_class(class)$/
+p_query	res_debug.c	/^p_query(msg)$/
+p_rr	res_debug.c	/^p_rr(cp, msg,p)$/
+p_type	res_debug.c	/^p_type(type)$/
+prnttime	qtime.c	/^prnttime(t)$/
+putlong	res_comp.c	/^putlong(l, msgp)$/
+putshort	res_comp.c	/^putshort(s, msgp)$/
+res_init	res_init.c	/^res_init()$/
+res_mkquery	res_mkquery.c	/^res_mkquery(op, dname, class, type, data, datalen,/
+res_query	res_query.c	/^res_query(name, class, type, answer, anslen)$/
+res_querydomain	res_query.c	/^res_querydomain(name, domain, class, type, answer,/
+res_search	res_query.c	/^res_search(name, class, type, answer, anslen)$/
+res_send	res_send.c	/^res_send(buf, buflen, answer, anslen)$/
+savetime	qtime.c	/^savetime(id,t)$/
+sethostent	sethostent.c	/^sethostent(stayopen)$/
+sethostfile	sethostent.c	/^sethostfile(name)$/
+stackarg	dig.c	/^stackarg(y,l)$/
+strcasecmp	strcasecmp.c	/^strcasecmp(s1, s2)$/
+strncasecmp	strcasecmp.c	/^strncasecmp(s1, s2, n)$/

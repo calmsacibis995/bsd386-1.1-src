@@ -1,0 +1,13 @@
+F ALTER.C;1                         	alter.c
+F AUTH.C;1                          	auth.c
+F DEFS.H;1                          	defs.h
+F JOBS.C;1                          	jobs.c
+F MAIN.C;1                          	main.c
+F MAKEDEPE.;1                       	Makedepend
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/flexfax/recvfax
+F REGEX.C__;1                       	regex.c++
+F REMOVE.C;1                        	remove.c
+F STATUS.C;1                        	status.c
+F SUBMIT.C;1                        	submit.c
+F TAGS.;1                           	tags

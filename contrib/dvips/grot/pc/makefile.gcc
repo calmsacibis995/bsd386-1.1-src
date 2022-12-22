@@ -1,0 +1,247 @@
+#
+#   Makefile for dvips.  Edit this first part of the file.
+#
+#   First, the things that absolutely must be edited for your system.
+
+# modified for NDMAKE and DJ GCC on MS-DOS by rjl@monu1.cc.monash.edu.au
+# 23rd March 1992
+# This version of dvips HAS NOT BEEN THOROUGHLY TESTED
+
+# compiler
+CCDIR = c:\gcc\bin
+CC = $(CCDIR)\gcc
+# include directory
+INCLUDE =-Ic:/gcc/include
+
+# All DIRs must use a single \ as a directory separator.
+# All PATHs must use \\ as a directory separator
+
+# the default path to search for TFM files 
+# (this usually is identical to TeX's defaultfontpath, which omits `.')
+# (private fonts are given an explicit directory, which overrides the path)
+# TFMPATH = c:\\emtex\\tfm
+TFMPATH = c:\\emtex\\tfm
+
+# the default path to search for PK files (usually omits `.')
+# Don't forget to add the directory that
+# MakeTeXPK puts the files!  (In this case, /LocalLibrary/Fonts...)
+# PKPATH = c:\\texfonts\\pixel.lj\\%ddpi\\%f.%p
+PKPATH = c:\\texfonts\\pixel.lj\\%ddpi\\%f.%p
+
+# the default path to search for VF files (usually omits `.')
+# VFPATH = c:\\texfonts\\vf
+VFPATH = c:\\texfonts\\vf
+
+# additional directories in which to search for subdirectories to find
+# both tfm and pk files
+FONTSUBDIRPATH = 
+
+# where the config files go
+# CONFIGDIR = c:\emtex\ps
+CONFIGDIR = c:\emtex\ps
+
+# the default path to search for config files
+# CONFIGPATH = .;c:\\emtex\\ps
+CONFIGPATH = .;c:\\emtex\\ps
+
+# the name of your config file
+# CONFIGFILE = config.ps
+CONFIGFILE = config.ps
+
+# where the header PS files go
+# HEADERDIR = c:\emtex\ps
+HEADERDIR = c:\emtex\ps
+
+# the default path to search for header files
+# HEADERPATH = .;c:\\emtex\\ps
+HEADERPATH = .;c:\\emtex\\ps
+
+# where epsf.tex and rotate.tex go (usually the TeX macros directory)
+# TEXMACRODIR = c:\emtex\texinput
+TEXMACRODIR = c:\emtex\texinput
+
+# the default path to search for epsf and psfiles
+# (usually the same as TeX's defaultinputpath)
+# FIGPATH = .;..;c:\\emtex\\texinput
+FIGPATH = .;..;c:\\emtex\\texinput
+
+# the default path to search for emTeX font libraries
+# FLIPATH = c:\\texfonts
+FLIPATH = c:\\texfonts
+
+# the names of emTeX font libraries
+# FLINAME = lj_0;lj_h;lj_1;lj_2;lj_3;lj_4;lj_5a;lj_5b;lj_sli
+FLINAME = lj_0;lj_h;lj_1;lj_2;lj_3;lj_4;lj_5a;lj_5b;lj_sli
+
+# change -DDEFRES=300 or whatever is required
+#    if the default resolution is not 300 dpi,
+# add -DDEBUG to turn on debugging capability
+# add -DTPIC for tpic support
+# add -DFONTLIB to search font libraries
+# add -DSEARCH_SUBDIRECTORIES to search the FONTSUBDIRPATH.
+# add -DHAVE_GETCWD if you have getcwd (relevant only for subdir searching)
+DEFS= -DTPIC -DDEBUG -DDEFRES=300 -DFONTLIB
+
+OPT = 
+
+LINKOPT = -lm
+
+# If you are compiling dvips for suid or other privileges, you will
+# definitely want to define the following symbol; else don't.
+# SECURE = -DSECURE
+SECURE =
+
+# If you want EMTEX specials, define the following.
+EMTEX = -DEMTEX
+
+# for SYSV (and friends which use <string.h> instead of <strings.h>)
+# define the c-compiler flag
+# -DMSDOS for MS-DOS systems (needs -DSYSV also)
+SYS = -DSYSV -DMSDOS
+
+# where the installed binary goes
+# BINDIR = c:\emtex
+BINDIR = c:\emtex
+
+# where the manual page goes
+# MANDIR = c:\emtex\doc
+MANDIR = c:\emtex\doc
+
+#MSDOS sets all paths in paths.rsp
+CFLAGS = $(DEFS) $(OPT) $(SYS) $(SECURE) $(EMTEX)
+
+SRC = dospecial.c dviinput.c fontdef.c loadfont.c dvips.c tfmload.c \
+	download.c prescan.c scanpage.c skippage.c output.c scalewidth.c \
+	dosection.c dopage.c resident.c search.c unpack.c drawPS.c \
+	header.c makefont.c repack.c virtualfont.c dpicheck.c finclude.c \
+	pprescan.c papersiz.c flib.c color.c bbox.c
+
+OBJ = dospecial.o dviinput.o fontdef.o loadfont.o dvips.o \
+        tfmload.o download.o prescan.o scanpage.o skippage.o \
+        output.o scalewidth.o dosection.o dopage.o resident.o \
+        search.o unpack.o drawPS.o header.o makefont.o repack.o \
+        virtualfont.o dpicheck.o finclude.o \
+        pprescan.o papersiz.o flib.o color.o bbox.o
+
+all : afm2tfm.exe dvips32.exe tex.pro texps.pro texc.pro \
+   special.pro finclude.pro color.pro crop.pro
+
+# default rules
+
+.c.o:  
+	$(CC) -c $(CFLAGS) @paths.rsp $<
+
+dvips32.exe : $(OBJ)
+	@>gcclink.rsp $(OBJ)
+	$(CC) -o dvips32 @gcclink.rsp $(LINKOPT)
+	copy /b $(CCDIR)\go32.exe+dvips32 dvips32.exe
+
+afm2tfm.exe: afm2tfm.c paths.rsp
+	$(CC) $(CFLAGS) @paths.rsp afm2tfm.c -o afm2tfm $(LINKOPT) 
+	copy /b $(CCDIR)\go32.exe+afm2tfm afm2tfm.exe
+
+paths.rsp: pc\makefile.gcc
+	@>paths.rsp \
+-DDJGPP \
+$(INCLUDE) \
+-DTFMPATH="$(TFMPATH)" \
+-DPKPATH="$(PKPATH)" \
+-DVFPATH="$(VFPATH)" \
+-DHEADERPATH="$(HEADERPATH)" \
+-DCONFIGPATH="$(CONFIGPATH)" \
+-DCONFIGFILE="$(CONFIGFILE)" \
+-DFONTSUBDIRPATH="$(FONTSUBDIRPATH)" \
+-DFIGPATH="$(FIGPATH)" \
+-DFLIPATH="$(FLIPATH)" \
+-DFLINAME="$(FLINAME)"
+
+$(OBJ) : structures.h debug.h paths.h paths.rsp
+
+squeeze.exe : squeeze.c paths.rsp
+	$(CC) $(CFLAGS) @paths.rsp squeeze.c -o squeeze
+	copy /b $(CCDIR)\go32.exe+squeeze squeeze.exe
+
+tex.pro : tex.lpr squeeze.exe
+	squeeze tex.lpro  tex.pro
+
+texc.pro: texc.lpr squeeze.exe
+	squeeze texc.lpro texc.pro
+
+texc.lpr: tex.lpr
+	@echo This does "texc.scr tex.lpr texc.lpr" on Unix
+	@echo For MSDOS, copy tex.lpr to texc.lpr
+	@echo then edit texc.lpr to remove the code
+        @echo for uncompressed fonts, and uncomment the
+        @echo code for unpacking compressed fonts
+
+texps.pro : texps.lpr squeeze.exe
+	squeeze texps.lpro texps.pro
+
+special.pro : special.lpr squeeze.exe
+	squeeze special.lpr special.pro
+
+finclude.pro: finclude.lpr squeeze.exe
+	squeeze finclude.lpr finclude.pro
+
+color.pro: color.lpr squeeze.exe
+	squeeze color.lpr color.pro
+
+crop.pro: crop.lpr squeeze.exe
+	squeeze crop.lpr crop.pro
+
+install : afm2tfm.exe dvips32.exe pc/maketexp.bat \
+	tex.pro texc.pro texps.pro special.pro finclude.pro color.pro crop.pro \
+	pc/config.ps psfonts.map epsf.tex epsf.sty rotate.tex rotate.sty \
+	dvips.tex dvipsmac.tex colordvi.sty colordvi.tex blackdvi.sty \
+	blackdvi.tex pc/dvips.doc pc/afm2tfm.doc
+	mkdir $(BINDIR)
+	mkdir $(HEADERDIR)
+	mkdir $(CONFIGDIR)
+	mkdir $(MANDIR)
+	mkdir $(TEXMACRODIR)
+	copy afm2tfm.exe $(BINDIR)\afm2tfm.exe
+	copy dvips32.exe $(BINDIR)\dvips32.exe
+ 	copy pc\maketexp.bat $(BINDIR)\maketexp.bat
+	copy tex.pro $(HEADERDIR)
+	copy texc.pro $(HEADERDIR)
+	copy texps.pro $(HEADERDIR)
+  	copy texps.pro $(HEADERDIR)
+	copy special.pro $(HEADERDIR)
+	copy finclude.pro $(HEADERDIR)
+	copy color.pro $(HEADERDIR)
+	copy crop.pro $(HEADERDIR)
+	copy pc\config.ps $(CONFIGDIR)\$(CONFIGFILE)
+	copy psfonts.map $(CONFIGDIR)
+	copy epsf.tex $(TEXMACRODIR)
+	copy epsf.sty $(TEXMACRODIR)
+	copy rotate.tex $(TEXMACRODIR)
+	copy rotate.sty $(TEXMACRODIR)
+	copy colordvi.sty $(TEXMACRODIR)
+	copy colordvi.tex $(TEXMACRODIR)
+	copy blackdvi.sty $(TEXMACRODIR)
+	copy blackdvi.tex $(TEXMACRODIR)
+	copy dvips.tex $(TEXMACRODIR)
+	copy dvipsmac.tex $(TEXMACRODIR)
+	copy pc\dvips.doc $(MANDIR)
+	copy pc\afm2tfm.doc $(MANDIR)
+
+veryclean :
+	del *.o
+	del dvips32.exe
+	del dvips32
+	del squeeze.exe
+	del squeeze
+	del afm2tfm.exe
+	del afm2tfm
+	del *.pro
+	del paths.rsp
+	del gcclink.rsp
+
+clean :
+	del *.o
+	del dvips32
+	del squeeze.exe
+	del squeeze
+	del afm2tfm
+	del paths.rsp
+	del gcclink.rsp

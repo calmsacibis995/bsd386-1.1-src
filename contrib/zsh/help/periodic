@@ -1,0 +1,3 @@
+     periodic
+          If the parameter PERIOD is set, this function  is  exe-
+          cuted every PERIOD seconds, just before a prompt.

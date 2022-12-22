@@ -1,0 +1,23 @@
+#! /bin/sh
+#
+# mailfax - email to fax gateway for sendmail
+#
+# This file should be installed as /usr/local/bin/mailfax
+#
+# Edit your sendmail configuration.  Include the following
+# mailer definition (or similar):
+# 
+# Mfax,	P=/usr/local/lib/fax/mailfax, F=DFMhu, M=100000,
+# 	A=mailfax $u $h $f
+# 
+# and add the following address rewriting rule to rule set 0:
+# 
+# # forward FAX messages to FlexFAX software
+# R$+<@$+.FAX>		$#fax $@ $2 $: $1		user@host.FAX
+#
+# Note that the mailfax script must be invoked as either root, daemon, or
+# uucp if the from address is to be changed with the -f option to sendfax.
+# This is typically the case when sendmail invokes a mailer program and
+# the from address identity is different that of the real uid.
+#
+/usr/local/bin/faxmail | /usr/local/bin/sendfax -n -d "$1@$2" -f "$3"

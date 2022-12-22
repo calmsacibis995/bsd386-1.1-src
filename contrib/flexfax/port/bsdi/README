@@ -1,0 +1,70 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/bsdi/README,v 1.1.1.1 1994/01/14 23:10:18 torek Exp $
+
+From: @natinst.com:fubar!dap (Damon Permezel)
+
+These comments pertain to version 1.0 of BSDi.
+
+You will need to obtain the following from your local source archive site:
+	gcc 2.3.3 or later, and a compatible libg++
+	GNU make
+	ghostscript 2.5.2 or later (2.5.2 is provided in 1.0)
+
+First step is to obtain the above, compile and install.
+See gs/README for instructions on how to add the "tiffhigh" and "tifflow"
+devices to Ghostscript.
+
+Next, you will have to modify your kernel configuration, to add the following:
+
+	options	FIFO
+
+The "FIFO" option causes support for named pipes in the filesystem.
+Without "FIFO" being enabled, FlexFax will not function.
+
+Rebuild your kernel (see "Rebuilding Your Kernel" on page 38 of the Revision
+1.0 release notes) and reboot from the new version.
+
+cd to the FlexFax source directory.
+
+Run ./configure.
+
+Make sure that all the paths, etc, are correct, and that the UUCP lock
+type is binary.
+
+as root, running bash, issue:
+
+	# ulimit -s unlimited
+	# ulimit -m unlimited
+	# ulimit -d unlimited
+	# gmake
+
+The `ulimit's are necessary to compile libtiff/tif_fax3.c, since it includes
+the libtiff/g3states.h include file, which is humungous.
+
+faxaddmodem requires /bin/bash, rather than sh.  To invoke it, use
+
+	# bash ./faxaddmodem.sh -os BSDi -s 38400
+
+
+I run FlexFax with a ZyXEL internal modem, running UUCP on the
+same port as faxes.  The GettyBSD.c++ file enables this, by exec()ing
+/usr/libexec/getty when a data call comes in.
+I run getty at a fixed rate of 38400, using the "hw.38400" entry in the
+gettytab.
+
+hw.38400:\
+	:to=30:tc=38400-baud:
+
+Prior to invoking login, getty resets the port to the "default" setting.
+I run the modem in a manner which requires "clocal" be turned on in order
+to talk to it.  Faxd turns on "clocal".  When login runs, I want "clocal"
+off.  Thus, the "default" settings for the modem are set so that "clocal"
+is turned of.  This causes SIGHUP to be sent to the session when the
+modem drops carrier.
+
+I have the following in /etc/rc.local to setup the "default" settings.
+
+stty -f /dev/tty02 -D cts_oflow rts_iflow 38400 cs8 -parenb -istrip -clocal
+
+
+Problems:
+	ZyXEL modem is buggy.  Fax reception often renders garbage.

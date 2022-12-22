@@ -1,0 +1,165 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxcover.1,v 1.1.1.1 1994/01/14 23:10:10 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXCOVER 1 "June 25, 1993"
+.SH NAME
+faxcover \- generate a cover page for an outgoing facsimile
+.SH SYNOPSIS
+.B faxcover
+[
+.B \-t
+.I to-name
+] [
+.B \-l
+.I to-location
+] [
+.B \-x
+.I to-company
+] [
+.B \-v
+.I to-voice-number
+] [
+.B \-c
+.I comments
+] [
+.B \-r
+.I regarding
+] [
+.B \-p
+.I page-count
+] [
+.B \-s
+.I pagesize-name
+] [
+.B \-C
+.I template-file
+]
+.B \-f
+.IR from-name
+.B \-n
+.I fax-number
+.SH DESCRIPTION
+.I Faxcover
+generates a PostScript\(tm cover page document on the standard output.
+The cover page fills the entire area of a default page and
+is created according to the information supplied
+on the command line and a 
+.I "cover sheet template"
+file.
+.PP
+.I Faxcover
+is normally invoked by the
+.IR sendfax (1)
+program to generate the cover page for each outgoing facsmile.
+.PP
+.I Faxcover
+works by creating a PostScript dictionary
+that contains definitions for the variable information
+that is to be placed on the facsimile cover page.
+Specifically, a dictionary with the following
+symbols are defined:
+.sp .5
+.nf
+.in +.1i
+.ta \w'\fIto-voice-number    'u +\w'destination geographic location    'u +\w'from-voice-number    'u
+\fBSymbol	Description	Symbol	Description\fP
+\fIto\fP	destination person	\fIfrom\fP	\fIsending\fP person
+\fIto-company\fP	destination company	\fIfrom-company\fP	sender's company
+\fIto-location\fP	destination geographic location	\fIfrom-location\fP	sender geographic location
+\fIto-voice-number\fP	person's voice phone number	\fIfrom-voice-number\fP	sender's voice phone number
+\fIto-fax-number\fP	destination fax phone number	\fIfrom-fax-number\fP	sender's fax phone number
+\fIregarding\fP	Re: subject	\fIcommentsX\fP	\fI\s-1X\s+1\fP'th line of comments
+\fIpage-count\fP	# pages other than cover page	\fItodays-date\fP	current date and time
+\fIpageWidth\fP	page width in millimeters	\fIpageLength\fP	page length in millimeters
+.in -.1i
+.fi
+.PP
+If the comments string is longer than 35 characters, it
+is broken, on word boundaries, into multiple PostScript strings.
+Each line is defined as 
+.I comments\s-1X\s+1
+where
+.I \s-1X\s+1
+is the line number; e.g.
+.I comments2
+for the second line of comments.
+.PP
+If information is unavailable for an item, the associated
+symbol is defined to be a null string.
+.PP
+Following the definition prologue,
+a cover sheet template file is copied.
+This file is expected to be a PostScript program
+that uses the supplied definitions to generate a
+cover page.
+The template must include a
+.B showpage
+operator to cause the page to be imaged.
+The above definitions will be defined in the
+.IR "current dictionary" .
+A trailing
+.B end
+operator is supplied by
+.IR faxcover ,
+so any manipulation of the dictionary stack should
+leave the current dictionary on the top of the
+stack on completion.
+.PP
+The default template file is named
+.IR faxcover.ps ;
+this can be overridden with the
+.B -C
+option by specifying a file in the
+.B FAXCOVER
+environment variable.
+If the file name is not an absolute path, then
+.I faxcover
+looks first for this file in the home directory
+of the sender.
+If no such file is present, then it looks in the
+library directory where the
+.I FlexFAX
+client application data are installed.
+If no template file is located,
+.I faxcover
+will terminate without generating a cover page.
+.SH DIAGNOSTICS
+Complaints about not being able to locate a template file.
+.SH FILES
+.ta \w'${LIBDATA}/faxcover.ps    'u
+~/.faxdb	personal fax number database
+.br
+${LIBDATA}/faxcover.ps	default cover page template
+.br
+${LIBDATA}/pagesizes	page size database
+.SH BUGS
+Information not supplied on the command line is
+currently obtained from the
+.I ~/.faxdb
+file.
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1)

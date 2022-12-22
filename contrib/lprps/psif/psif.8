@@ -1,0 +1,52 @@
+.\" -*- nroff -*-
+.\" $Id: psif.8,v 1.1 1994/01/15 15:56:53 sanders Exp $
+.TH PSIF 8
+.SH NAME
+psif \- PostScript input filter splitter for lpr
+.SH SYNOPSIS
+.B psif
+[
+.I args\|.\|.\|.
+]
+.SH DESCRIPTION
+.B psif
+executes either
+.B /usr/contrib/lib/psif-ps
+or
+.B /usr/contrib/lib/psif-text
+according to whether or not the first two characters of its standard
+input are
+.BR %! .
+.B psif
+will arrange that the process that it executes sees the same standard
+input that it did,
+and will pass the process the same arguments that it received.
+.LP
+Usually
+.B psif
+will be specified as the value of
+.B if
+capability in the printcap entry for a PostScript printer;
+.B /usr/contrib/lib/psif-text
+will be a shell script that runs a text to PostScript filter
+such as
+.BR textps (1),
+followed by a PostScript page reversal filter such as
+.BR psrev (1)
+(only needed for PostScript printers that stack face up),
+followed by PostScript communication filter such as
+.BR lprps (8);
+.B /usr/contrib/lib/psif-ps
+will be similar except that it will not run the text to PostScript filter.
+.SH FILES
+.TP \w'\fB/usr/contrib/lib/psif-text'u+3n
+.B /usr/contrib/lib/psif-text
+Filter for text files.
+.TP
+.B /usr/contrib/lib/psif-ps
+Filter for PostScript files.
+.SH "SEE ALSO"
+.BR textps (1),
+.BR psrev (1),
+.BR printcap (5),
+.BR lprps (8)

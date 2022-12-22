@@ -1,0 +1,5 @@
+F GBL_CTOR.H;1                      	gbl-ctors.h
+F LIBGCC2.C;1                       	libgcc2.c
+F LONGLONG.H;1                      	longlong.h
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/gcc2/libgcc2

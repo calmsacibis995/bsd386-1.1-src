@@ -1,0 +1,137 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/fax2ps.1,v 1.1.1.1 1994/01/14 23:10:09 torek Exp $
+.\"
+.\" Copyright (c) 1991, 1992, 1993 by Sam Leffler.
+.\" All rights reserved.
+.\"
+.\" This file is provided for unrestricted use provided that this
+.\" legend is included on all tape media and as a part of the
+.\" software program in whole or part.  Users may copy, modify or
+.\" distribute this file at will.
+.\"
+.TH FAX2PS 1 "January 15, 1993"
+.SH NAME
+fax2ps \- convert a
+.SM TIFF
+facsimile to compressed PostScript\(tm
+.SH SYNOPSIS
+.B fax2ps
+[
+.B \-a
+] [
+.B \-p
+.IR pagenumber
+] [
+.B \-x
+.IR xresolution
+] [
+.B \-y
+.IR yresolution
+] [
+.B \-s
+] [
+.B \-S
+] [
+.B \-W
+.IR pagewidth
+] [
+.B \-H
+.IR pageheight
+] [
+.IR file ...
+]
+.SH DESCRIPTION
+.I fax2ps
+reads one or more
+.SM TIFF
+facsimile image files and prints a compressed form of
+PostScript on the standard output that is suitable for printing.
+.PP
+By default, each page is scaled to reflect the
+image dimensions and resolutions stored in the file.
+The
+.B \-x
+and
+.B \-y
+options can be used to specify the horizontal and vertical
+image resolutions (lines/inch), respectively.
+If the
+.B \-S
+option is specified, each page is scaled to fill an output page.
+The default output page is 8.5 by 11 inches.
+Alternate page dimensions can be specified in inches with the
+.B \-W
+and
+.B \-H
+options.
+.PP
+By default
+.I fax2ps
+generates PostScript for all pages in the file.
+The
+.B \-p
+option can be used to select one or more pages from
+a multi-page document.
+.PP
+.I fax2ps
+generates a compressed form of PostScript that is
+optimized for sending pages of text to a PostScript
+printer attached to a host through a low-speed link (such
+as a serial line).
+Each output page is filled with white and then only
+the black areas are drawn.
+The PostScript specification of the black drawing operations
+is optimized by using a per-page dictionary of the most
+common horizontal move-draw operations required to fill
+the black regions on the page.
+This compression scheme typically results in a substantially
+reduced PostScript description, relative to the straightforward
+imaging of the page with a PostScript
+.I image
+operator.
+This algorithm can, however, be ineffective
+for continuous-tone and white-on-black images.
+For these images, it sometimes is more efficient to send
+the raster bitmap image directly; see
+.IR tiff2ps (1).
+.PP
+The compressed PostScript description uses codes constructed
+from an extended alphabet of 
+.I "safe characters"
+(i.e. those characters whose concatentation are unlikely
+to be interpreted as a PostScript operator or name).
+By default, this alphabet is comprised of
+upper-case alphabetics as well as some other
+printable characters.
+To restrict the alphabet to only upper-case alphabetics, the
+.B \-a
+option may be used.
+To force 
+.I fax2ps
+to include statistics about the effectiveness of the generated
+code dictionary in the output PostScript file, the
+.B \-s
+option may be specified.
+(The statistics are included as PostScript comments.)
+.SH DIAGNOSTICS
+Some messages about malformed 
+.SM TIFF
+images come from the
+.SM TIFF
+library.
+.PP
+Various messages about badly formatted facsimile images
+may be generated due to transmission errors in received
+facsimile.
+.I fax2ps
+attempts to recover from such data errors by resynchronizing
+decoding at the end of the current scanline.
+This can result in long horizontal black lines in the resultant
+PostScript image.
+.SH BUGS
+.I fax2ps
+should probably figure out when it is doing a poor
+job of compressing the output and just generate 
+PostScript to image the bitmap raster instead.
+.SH "SEE ALSO"
+.IR tiff2ps (1),
+.IR libtiff (3)

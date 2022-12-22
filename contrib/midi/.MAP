@@ -1,0 +1,8 @@
+D LIB                               	lib
+D MADDINST                          	maddinst
+F MAKEFILE.;1                       	Makefile
+D MINFO                             	minfo
+D MPLAY                             	mplay
+D MREC                              	mrec
+F SMF.5;1                           	smf.5
+D SONGS                             	songs

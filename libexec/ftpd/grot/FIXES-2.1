@@ -1,0 +1,63 @@
+
+-- xferstats: updated version written by Dave Datta.  (datta@cs.uwp.edu)
+
+-- upload: default was to not allow uploads ever.  This is backwards, if
+           no upload keywords are given, it should act like a normal server.
+
+-- double conversion: double conversion stuff works now... but  you know that
+           already.  Included is a gzip2comp (in util) for converting from
+           gzip format to compress.
+
+-- cwd_beenhere(): now calls realpath(".", cwd) to figure out the path.
+           This works for people in directories that are private.  That
+           is that some component of their path is not readable by them.
+           (cwdir() fails in such a case.)
+
+-- upload: trying to set a file mode of 0000 would fail.  This is now
+           possible.
+
+-- makedir: Did not work properly for real users.  This has also been 
+           fixed.
+
+-- fixed up support for NeXT and other systems.  I can not test these things,
+           so there are bound to be problems.
+
+-- getgrent.c: removed the need for getgrent.c from the support library.
+           This caused problems with systems running yellow pages (NIS).
+           All gids in the private file are now parsed before the chroot().
+           This gives us one less open file descriptor.
+
+-- upload/truncate: STORE was not properly trunctating files when 
+           overwriting them.
+
+-- upload failing with directories in makedir/put commands: STORE and
+           MAKEDIR were failing when giving full path names.
+
+-- process ids: multiple process ids were written into the pid-files when
+           a failed login attempt was made.  This caused problems with
+           usage counts.
+
+-- %E magic cookie: the %E cookie gets replaced with the "email" string
+           from the ftpaccess file.
+
+-- %F magic cookie: added trivial support for Solaris 2.1 (at least).
+           If you fix this for your system, send me a patch.
+
+-- %N magic cookie: did not work after the chroot().  The pid file has
+           to remain open for the duration of the server's life now in
+           order for this to work.
+
+-- support/paths.h: removed the need for this file.  It caused more
+           problems than it was worth.  The two #defines that were used
+           were moved to src/pathnames.h
+
+-- upload * no dirs: you can now specify a directory that does not allow
+           uploads but does allow the creation of directories.
+
+-- alias list: you can now get a listing of what aliases are available.
+           at the ftp prompt type "quote site alias".
+
+-- cdpath: you can now specify a cdpath (like the csh variable).
+
+-- email: you can specify an email address for the maintainer of the
+           archive.  This string will be used for the %E magic cookie.

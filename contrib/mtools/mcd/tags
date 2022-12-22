@@ -1,0 +1,3 @@
+Mmcd	mcd.c	/^main(argc, argv)$/
+dir_flush	mcd.c	/^dir_flush()$/
+disk_flush	mcd.c	/^disk_flush()$/

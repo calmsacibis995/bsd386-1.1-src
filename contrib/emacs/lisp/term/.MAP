@@ -1,0 +1,21 @@
+F APOLLO_E.GZ;1                     	apollo.el.gz
+F AT386_EL.GZ;1                     	at386.el.gz
+F BBN_EL.GZ;1                       	bbn.el.gz
+F BGNV_EL.GZ;1                      	bgnv.el.gz
+F BGRV_EL.GZ;1                      	bgrv.el.gz
+F BG_EL.GZ;1                        	bg.el.gz
+F BOBCAT_E.GZ;1                     	bobcat.el.gz
+F COPYING.GZ;1                      	COPYING.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/emacs/lisp/term
+F S4_EL.GZ;1                        	s4.el.gz
+F SUN_EL.GZ;1                       	sun.el.gz
+F SUPDUP_E.GZ;1                     	supdup.el.gz
+F UNIXPC_E.GZ;1                     	unixpc.el.gz
+F VT100_EL.GZ;1                     	vt100.el.gz
+F VT125_EL.GZ;1                     	vt125.el.gz
+F VT200_EL.GZ;1                     	vt200.el.gz
+F VT220_EL.GZ;1                     	vt220.el.gz
+F VT240_EL.GZ;1                     	vt240.el.gz
+F XTERM_EL.GZ;1                     	xterm.el.gz
+F X_WIN_EL.GZ;1                     	x-win.el.gz

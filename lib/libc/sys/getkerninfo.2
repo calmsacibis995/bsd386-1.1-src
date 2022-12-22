@@ -1,0 +1,142 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: getkerninfo.2,v 1.2 1993/03/08 16:10:45 polk Exp $
+.Dd March 2, 1993
+.Dt GETKERNINFO 2
+.Os
+.Sh NAME
+.Nm getkerninfo
+.Nd get kernel information
+.Sh SYNOPSIS
+.Fd #include <sys/types.h>
+.Fd #include <sys/kinfo.h>
+.Fd #include <sys/kinfo_proc.h>
+.Fd #include <sys/sysinfo.h>
+.Ft int
+.Fn getkerninfo "int op" "void *val" "int *size" "int arg"
+.Sh DESCRIPTION
+The
+.Fn getkerninfo
+function is used to retrieve various information from the kernel.
+In general, the 
+.Fa op
+parameter specifies the type of information to be retrieved,
+in conjunction with the selector
+.Fa arg ,
+which has a meaning depending on the operation.
+The information is copied into the buffer specified by
+.Fa val .
+The size of the buffer is given by the location specified by
+.Fa size
+before the call,
+and that location gives the amount of data copied after a successful call.
+The amount of data available is returned by a successful call,
+which could be larger than the size of the buffer supplied.
+In this case, not all of the available data are returned by the call.
+.Pp
+The amount of space required for a value may be obtained by calling
+.Fn getkerninfo
+with
+.Dv NULL
+.Fa val
+and
+.Fa size
+parameters.
+For some operations, the amount of space may change often; the system
+attempts to round up so that the return value is actually sufficient for a call
+to return the data shortly thereafter.
+.Pp
+The parameter
+.Fa op
+specifies both the type of data to be returned, and in some cases,
+the meaning of the additional selector
+.Fa arg .
+The types of data currently available are process information,
+routing table entries, system vnodes, the open file entries,
+and various system information.
+.Pp
+The following list describes the types of data that may currently
+be retrieved with
+.Fn getkerninfo ,
+according to the value of
+.Fa op
+and the value of
+.Fa arg .
+If the data type is followed by brackets
+.Pf ( Fa [] ) ,
+an array of the indicated type is returned, depending on the current
+number of such objects in the system.
+.Bl -column KINFO_PROC_SESSIONX "ARG Meaningxx"
+.It Sy "OP  " "	ARG Meaning  " "	type of data"
+.It Dv KINFO_PROC_ALL No "	none" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_PID No "	process ID" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_PGRP No "	process group" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_SESSION No "	process ID" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_TTY No "	tty device" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_UID No "	user ID" Fa "	struct kinfo_proc[]"
+.It Dv KINFO_PROC_RUID No "	real user ID" Fa "	struct kinfo_proc[]"
+
+.It Dv KINFO_RT_DUMP No "	none" "	*"
+.It Dv KINFO_RT_FLAGS No "	rtflags" "	*"
+
+.It Dv KINFO_VNODE No "	process ID" "	**"
+.It Dv KINFO_FILE No "	process ID" Fa "	struct filehead, struct file[]"
+
+.It Dv KINFO_SYSINFO No "	none" Fa "	struct sysinfo"
+.El
+.Pp
+* For
+.Dv KINFO_RT_DUMP
+and
+.Dv KINFO_RT_FLAGS ,
+the data is returned as a sequence of routing messages (see
+.Xr route 4
+for the header file, format and meaning).
+The length of each message is contained in the message header.
+.Pp
+** For
+.Dv KINFO_VNODE ,
+the returned data consists of an array, each element of which
+contains the kernel address of a vnode
+.Ns ( Fa struct vnode * Ns )
+followed by the vnode itself
+.Ns ( Fa struct vnode Ns ) .
+.Pp
+For most operations, the
+.Fn getkerninfo
+function returns a consistent snapshot of the data requested.
+(This is not currently true for
+.Dv KINFO_VNODE . )
+In order to do this, the destination buffer is locked into memory
+so that the data may be copied out without blocking.
+Calls are serialized to avoid deadlock.
+.Sh RETURN VALUES
+A \-1 return value
+indicates an error occurred and
+.Va errno
+is set to indicate the reason.
+Otherwise, the return value indicates the amount of space required
+to store the requested information, which might be larger than
+the amount of space provided (if any).
+.Sh ERRORS
+.Fn Getkerninfo
+will fail if one of the following occurs:
+.Bl -tag -width Er
+.It Bq Er EINVAL
+.Fa op
+was not valid.
+.It Bq Er EFAULT
+Either
+.Fa val
+or 
+.Fa size
+points to memory that is not a valid part of the process
+address space or was not writable.
+.Sh HISTORY
+The
+.Nm
+function call appeared in
+.Bx 4.3 Reno .
+It is not currently portable
+and is subject to change in future releases.

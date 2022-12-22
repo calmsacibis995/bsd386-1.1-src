@@ -1,0 +1,9 @@
+F CONVERT0.GZ;1                     	convert.pl.gz
+F CONVERT1.GZ;1                     	convert.sed.gz
+F FIXCOERC.GZ;1                     	fixcoerce.h.gz
+F ITEX_C.GZ;1                       	itex.c.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F MF1_C_PA.GZ;1                     	mf1.c.patch.gz
+F MF_CH.GZ;1                        	mf.ch.gz
+F MF_WEB.GZ;1                       	mf.web.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/tex/mf/mf_c_srcs

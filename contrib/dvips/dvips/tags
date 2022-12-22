@@ -1,0 +1,194 @@
+CMD	repack.c	/^#define CMD(n) (MAXOUT*(n))$/
+ENVVAR	resident.c	/^#define ENVVAR(test, default) getenv (test) ? test/
+GetKeyVal	dospecial.c	/^char  *GetKeyVal(str,tno) \/* returns NULL if none/
+IsSame	dospecial.c	/^int IsSame(a, b)$/
+Mdvips	dvips.c	/^int main(argc, argv)$/
+NOPOSSIB	repack.c	/^#define NOPOSSIB(n) ((n&(LSHPOSSIB|RSHPOSSIB|BLKPO/
+NOSHIFT	repack.c	/^#define NOSHIFT(n) ((n&(LSHPOSSIB|RSHPOSSIB))==0)$/
+P1C	dir-p.c	/^dir_p P1C(string, fn)$/
+P2C	concat.c	/^concat P2C(string, s1, string, s2)$/
+P3C	concat3.c	/^concat3 P3C(string, s1, string, s2, string, s3)$/
+PixRound	dopage.c	/^#define PixRound(x) ((integer)(x + (iconv >> 1)) /
+SetShade	drawPS.c	/^SetShade(cp)$/
+Tolower	dospecial.c	/^char Tolower(c)$/
+VPixRound	dopage.c	/^#define VPixRound(x) ((integer)(x + (viconv >> 1))/
+abortpage	dviinput.c	/^abortpage()$/
+addPath	drawPS.c	/^addPath(cp)$/
+add_directory	pathsrch.c	/^add_directory (dir_list_ptr, dir_count_ptr, dir)$/
+add_entry	resident.c	/^add_entry(TeXname, PSname, specinfo, downloadinfo)/
+add_header	header.c	/^add_header(s)$/
+add_name	header.c	/^add_name(s, what)$/
+adddpi	dpicheck.c	/^void adddpi(hsize)$/
+addsiz	dpicheck.c	/^void addsiz(rhsize)$/
+addts	repack.c	/^static void addts(what)$/
+addtse	repack.c	/^#define addtse(n) {lcm=tsp-tempstore;addts(n);} \//
+arc	drawPS.c	/^arc(cp, invis)$/
+background	color.c	/^background(bkgrnd)$/
+bad_config	resident.c	/^bad_config() {$/
+badpk	loadfont.c	/^badpk(s)$/
+badvf	virtualfont.c	/^badvf(s)$/
+bbdopage	bbox.c	/^void bbdopage()$/
+bbtfmload	bbox.c	/^void bbtfmload(n)$/
+blackenLast	drawPS.c	/^blackenLast()$/
+bopcolor	color.c	/^bopcolor(outtops)$/
+checkenv	resident.c	/^checkenv(which)$/
+chrcmd	output.c	/^chrcmd(c)$/
+cleanprinter	output.c	/^cleanprinter()$/
+cleanres	resident.c	/^cleanres() {$/
+cmdout	output.c	/^cmdout(s)$/
+colorcmdout	color.c	/^void colorcmdout(s)$/
+convDeg	drawPS.c	/^#define convDeg(x) (360*(x)\/(2*3.14159265358))$/
+convPS	drawPS.c	/^#define convPS(x) PixRound((x),convRESOLUTION)$/
+convVPS	drawPS.c	/^#define convVPS(x) PixRound((x),convVRESOLUTION)$/
+copyfile	output.c	/^copyfile(s)$/
+dobs	dospecial.c	/^static void dobs(q)$/
+dochar	repack.c	/^void dochar(from, width, height)$/
+dopage	dopage.c	/^dopage()$/
+dosection	dosection.c	/^dosection(s, c)$/
+dospecial	dospecial.c	/^void dospecial(numbytes)$/
+downchar	download.c	/^void downchar(c, cc)$/
+download	download.c	/^void download(p, psfont)$/
+dpicheck	dpicheck.c	/^dpicheck(dpi)$/
+drawchar	output.c	/^drawchar(c, cc)$/
+drawrule	output.c	/^drawrule(rw, rh)$/
+dvibyte	dviinput.c	/^dvibyte()$/
+emclear	dospecial.c	/^emclear()$/
+emptget	dospecial.c	/^struct empt *emptget(point)$/
+emptput	dospecial.c	/^struct empt *emptput(point, x, y)$/
+emunits	dospecial.c	/^float emunits(width,unit)$/
+epsftest	output.c	/^char *epsftest() {$/
+error	dvips.c	/^error(s)$/
+expand_default	pathsrch.c	/^expand_default (env_path, default_path)$/
+expand_subdir	pathsrch.c	/^expand_subdir (dir_list_ptr, dir_count_ptr, dirnam/
+figcopyfile	output.c	/^void figcopyfile(s, systemtype)$/
+fil2ps	dospecial.c	/^void fil2ps(task, iname)$/
+findbb	bbox.c	/^void findbb() {$/
+findpapersize	output.c	/^void findpapersize() {$/
+fliload	flib.c	/^fliload()$/
+flip	unpack.c	/^void flip(s, n)$/
+fliparse	flib.c	/^fliparse(path, name)$/
+flisearch	flib.c	/^flisearch(n, dpi)$/
+floatout	output.c	/^floatout(n)$/
+flushDashed	drawPS.c	/^flushDashed(cp, dotted)$/
+flushPath	drawPS.c	/^flushPath(invis)$/
+flushSpline	drawPS.c	/^flushSpline(cp)$/
+fontdef	fontdef.c	/^fontdef(siz)$/
+fontout	output.c	/^fontout(n)$/
+fonttableout	finclude.c	/^fonttableout()$/
+get_name	header.c	/^get_name(what)$/
+getbit	unpack.c	/^getbit ()$/
+getdefaults	resident.c	/^getdefaults(s)$/
+getlong	repack.c	/^long getlong(a)$/
+getname	finclude.c	/^getname(s)$/
+getnyb	unpack.c	/^getnyb ()$/
+getpsinfo	resident.c	/^void getpsinfo(name)$/
+handlepapersize	papersiz.c	/^void handlepapersize(p, x, y)$/
+hash	resident.c	/^hash(s)$/
+hconvPS	drawPS.c	/^#define hconvPS(x) (integer)(hh + convPS(x))$/
+help	dvips.c	/^void help() {$/
+hvpos	output.c	/^hvpos()$/
+ifontdef	finclude.c	/^ifontdef(name, area, scsize, dssize, scname)$/
+includechars	finclude.c	/^includechars(f, s)$/
+indelta	output.c	/^static int indelta(i)$/
+initcolor	color.c	/^void initcolor() {$/
+initialize	dvips.c	/^initialize()$/
+initprinter	output.c	/^initprinter()$/
+lectureuser	loadfont.c	/^lectureuser() {$/
+lfontout	download.c	/^lfontout(n)$/
+lookup	resident.c	/^lookup(name)$/
+lsh	repack.c	/^#define lsh(a,b) ( ((a)==0) ? ((b)==1) : ( ((a)==2/
+maccess	dospecial.c	/^int maccess(s)$/
+magstep	makefont.c	/^magstep(n, bdpi)$/
+makecopy	repack.c	/^makecopy(what, len, p)$/
+makefont	makefont.c	/^makefont(name, dpi, bdpi)$/
+makepsname	download.c	/^makepsname(s, n)$/
+matchfont	fontdef.c	/^matchfont(name, area, scsize, scname)$/
+mhexout	output.c	/^mhexout(p, len)$/
+my_real_fopen	search.c	/^FILE *my_real_fopen(n, t)$/
+myatodim	papersiz.c	/^long myatodim(s)$/
+myatol	papersiz.c	/^static long myatol(s)$/
+mymalloc	dvips.c	/^char *mymalloc(n)$/
+nameout	finclude.c	/^nameout(area, name)$/
+newfontdesc	fontdef.c	/^newfontdesc(cksum, scsize, dssize, name, area)$/
+newline	output.c	/^void newline()$/
+newoutname	dvips.c	/^void newoutname() {$/
+newstring	dvips.c	/^newstring(s)$/
+nlcmdout	output.c	/^nlcmdout(s)$/
+nscalewidth	bbox.c	/^integer nscalewidth(a, b)$/
+numout	output.c	/^numout(n)$/
+okascmd	finclude.c	/^okascmd(ss)$/
+outbangspecials	dospecial.c	/^outbangspecials() {$/
+pageend	output.c	/^pageend()$/
+pageinit	output.c	/^pageinit()$/
+paperspec	output.c	/^void paperspec(s, hed)$/
+pkbyte	loadfont.c	/^pkbyte()$/
+pkdouble	flib.c	/^pkdouble()$/
+pkopen	loadfont.c	/^pkopen(fd)$/
+pkpackednum	unpack.c	/^long pkpackednum () {$/
+pkquad	loadfont.c	/^pkquad()$/
+pksearch	search.c	/^pksearch(path, file, mode, n, dpi, vdpi)$/
+pktrio	loadfont.c	/^pktrio()$/
+popcolor	color.c	/^popcolor(outtops)$/
+ppreselectfont	pprescan.c	/^ppreselectfont(f)$/
+predospecial	dospecial.c	/^void predospecial(numbytes, scanning)$/
+prescanchar	scanpage.c	/^prescanchar(cd)$/
+prescanpages	prescan.c	/^prescanpages()$/
+preselectfont	scanpage.c	/^preselectfont(f)$/
+print_path	resident.c	/^print_path (title, p)$/
+pscanpage	pprescan.c	/^pscanpage()$/
+psflush	output.c	/^void psflush() {$/
+pushcolor	color.c	/^pushcolor(p,outtops)$/
+putlong	repack.c	/^void putlong(a, i)$/
+readable	pathsrch.c	/^readable (name)$/
+readpreamble	prescan.c	/^readpreamble()$/
+repack	repack.c	/^void repack(cp)$/
+resetcolorstack	color.c	/^resetcolorstack(p,outtops)$/
+residentfont	resident.c	/^residentfont(curfnt)$/
+revlist	dvips.c	/^void *revlist(p)$/
+rsh	repack.c	/^#define rsh(a,b) ( ((a)==0) ? ((b)==128) : ( ((a)=/
+scale	papersiz.c	/^static long scale(whole, num, den, sf)$/
+scalewidth	scalewidth.c	/^scalewidth(a, b)$/
+scan1fontcomment	finclude.c	/^scan1fontcomment(p)$/
+scanfontcomments	finclude.c	/^scanfontcomments(filename)$/
+scanpage	scanpage.c	/^scanpage()$/
+scanvm	finclude.c	/^scanvm(p)$/
+scout	output.c	/^scout(c)   \/* string character out *\/$/
+search	search.c	/^search(path, file, mode)$/
+send_headers	header.c	/^send_headers() {$/
+setPenSize	drawPS.c	/^setPenSize(cp)$/
+setfamily	finclude.c	/^setfamily(f)$/
+setup	output.c	/^void setup() {$/
+shadeLast	drawPS.c	/^shadeLast(cp)$/
+signedbyte	dviinput.c	/^signedbyte()$/
+signedpair	dviinput.c	/^signedpair()$/
+signedquad	dviinput.c	/^signedquad()$/
+signedtrio	dviinput.c	/^signedtrio()$/
+skipnop	fontdef.c	/^skipnop()$/
+skipover	dviinput.c	/^skipover(i)$/
+skippage	skippage.c	/^skippage()$/
+specerror	dospecial.c	/^void specerror(s)$/
+specialout	output.c	/^specialout(c)$/
+stringend	output.c	/^stringend()$/
+system	dvips.c	/^system(command)$/
+tell_needed_fonts	output.c	/^void tell_needed_fonts() {$/
+tfm16	tfmload.c	/^tfm16 ()$/
+tfm32	tfmload.c	/^tfm32 ()$/
+tfmbyte	tfmload.c	/^tfmbyte ()$/
+tfmload	tfmload.c	/^tfmload(curfnt)$/
+tfmopen	tfmload.c	/^tfmopen(fd)$/
+threebytes	dviinput.c	/^threebytes()$/
+topoints	output.c	/^static int topoints(i)$/
+truncate_pathname	pathsrch.c	/^truncate_pathname (name)$/
+trytobreakout	dospecial.c	/^static void trytobreakout(p)$/
+twobytes	dviinput.c	/^twobytes()$/
+unpack	unpack.c	/^unpack(pack, raster, cwidth, cheight, cmd)$/
+vconvPS	drawPS.c	/^#define vconvPS(x) (integer)(vv + convVPS(x))$/
+vfbyte	virtualfont.c	/^vfbyte()$/
+vfontdef	virtualfont.c	/^vfontdef(s, siz)$/
+vfopen	virtualfont.c	/^vfopen(fd)$/
+vfquad	virtualfont.c	/^vfquad()$/
+vftrio	virtualfont.c	/^vftrio()$/
+virtualfont	virtualfont.c	/^virtualfont(curfnt)$/
+whitenLast	drawPS.c	/^whitenLast()$/
+winargs	dvips.c	/^winargs()$/
+zPixRound	drawPS.c	/^zPixRound(x, convDPI)      \/* return rounded numb/

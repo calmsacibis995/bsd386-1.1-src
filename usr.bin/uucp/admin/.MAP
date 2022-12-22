@@ -1,0 +1,18 @@
+F CONFIG.;1                         	CONFIG
+F DAILY.SH;1                        	daily.sh
+D EXPLAIN                           	explain
+F L.SYS;1                           	L.sys
+F L_ALIASE.;1                       	L.aliases
+F L_CMDS.;1                         	L.cmds
+F L_DEVICE.;1                       	L-devices
+F L_DIALCO.;1                       	L-dialcodes
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/uucp/admin
+F REMOTE.UNK;1                      	remote.unknown
+F USERFILE.;1                       	USERFILE
+F UUAGE.SH;1                        	uuage.sh
+F UUPICK.SH;1                       	uupick.sh
+F UUTO.1;1                          	uuto.1
+F UUTO.SH;1                         	uuto.sh
+F UUXQT_HO.SH;1                     	uuxqt_hook.sh
+F WEEKLY.SH;1                       	weekly.sh

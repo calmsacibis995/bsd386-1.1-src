@@ -1,0 +1,4 @@
+cleanup	rcsdiff.c	/^cleanup()$/
+exiterr	rcsdiff.c	/^exiterr()$/
+mainProg	rcsdiff.c	/^mainProg(rcsdiffId, "rcsdiff", "$Id: rcsdiff.c,v 1/
+setup_label	rcsdiff.c	/^setup_label(b, name, date)$/

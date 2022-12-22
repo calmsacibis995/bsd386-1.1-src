@@ -1,0 +1,6 @@
+Mmread	mread.c	/^main(argc, argv)$/
+conv_stamp	mread.c	/^conv_stamp(time_field, date_field)$/
+dir_flush	mread.c	/^dir_flush()$/
+disk_flush	mread.c	/^disk_flush()$/
+open_file	mread.c	/^open_file(target, nowarn)$/
+set_mtime	mread.c	/^set_mtime(target, mtime)$/

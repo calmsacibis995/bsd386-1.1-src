@@ -1,0 +1,427 @@
+.\" ------------------------------------------------------------
+.\" Manual page for the wdiff program, based on the texinfo manual. 
+.\" 
+.\" Colin Brough, December 1992.
+.\" ------------------------------------------------------------
+.de Id
+.ds Rv \\$3
+.ds Dt \\$4
+..
+.Id $Id: wdiff.1,v 1.1.1.1 1994/01/13 21:15:46 polk Exp $
+.ds r \s-1RCS\s0
+.if n .ds - \%--
+.if t .ds - \(em
+.TH WDIFF 1 \*(Dt GNU
+.SH NAME
+wdiff \- display word differences between text files
+
+.SH SYNOPSIS
+.B wdiff
+[
+.B option \&.\|.\|.
+]
+.I old\_file new_file
+
+.SH COPYRIGHT
+Copyright (C) 1992 by the Free Software Foundation, Inc.
+
+.\" --------------------------------------------------
+.\" Now the body of the text...
+.\" --------------------------------------------------
+.SH DESCRIPTION
+
+.B wdiff
+compares two files, finding which words have been deleted or added to
+.I old_file
+to get
+.I new_file.
+A word is anything between whitespace.  The output is collected and
+used to produce an annotated copy of
+.I new_file
+on standard output. Suitable annotations produce a nice display of
+word differences between the original files.
+
+.B wdiff
+will exit with a status of 0 if no differences were found, a status of
+1 if any differences were found, or a status of 2 for any error.
+
+Usually underlining is used to mark deleted text, while bold or
+reverse video is used to mark inserted text; these defaults may be
+over-ridden by command line options.
+.I deleted text
+refers to text in
+.I old_file
+which is not in 
+.I new_file,
+while 
+.I inserted text
+refers to text on 
+.I new_file
+which is not in
+.I old_file.
+
+.\" --------------------------------------------------
+.\" Now the command line options.
+.\" --------------------------------------------------
+.SH OPTIONS
+.\" ------------------------------
+.TP
+.B \-\-help
+Has the same effect as \-h.
+.TP
+.B \-h
+Print an informative help message describing the options.
+.\" ------------------------------------------------------------
+.TP
+.B \-\-version
+Has the same effect as \-v.
+.TP
+.B \-v
+Print the version number of
+.B wdiff
+on the standard error output.
+.\" ------------------------------------------------------------
+.TP
+.B \-\-no\-deleted
+Has the same effect as \-1.
+.TP
+.B \-1
+Avoid producing deleted words on the output. If neither
+.B \-1
+or
+.B \-2
+is selected, the original right margin may be exceeded for some lines.
+.\" ------------------------------------------------------------
+.TP
+.B \-\-no\-inserted
+Has the same effect as \2.
+.TP
+.B \-2
+Avoid producing inserted words on the output. If neither
+.B \-1
+or
+.B \-2
+is selected, the original right margin may be exceeded for some lines.
+.\" ------------------------------------------------------------
+.TP
+.B \-\-no\-common
+Has the same effect as \-3.
+.TP
+.B \-3
+Avoid producing common words on the output.  When this option is not
+selected, common words and whitespace are taken from 
+.I new_file.
+When selected, differences are separated from one another by lines of
+dashes.  Moreover, if this option is selected at the same time as
+.B \-1
+or
+.B \-2,
+then none of the output will have any emphasis \- i.e. no bold or
+underlining.  Finally, if this option is not selected, but both
+.B \-1
+and
+.B \-2
+are, then sections of common words between differences are separated
+by lines of dashes.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-statistics
+Has the same effect as \-s.
+.TP
+.B \-s
+On completion, for each file, the total number of words, the number of
+common words between the files, the number of words deleted or
+inserted and the number of words that have changed is output. (A
+changed word is one that has been replaced or is part of a
+replacement.)  Except for the total number of words, all of the
+numbers are followed by a percentage relative to the total number of
+words in the file.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-auto-pager
+Has the same effect as \-a.
+.TP
+.B \-a
+A pager is interposed whenever the 
+.B wdiff
+output is directed to the user's terminal.  Without this option, no
+pager will be called; the user is then responsible for explicitly
+piping 
+.B wdiff
+output into a pager if required.
+
+The pager is selected by the value of the 
+.B PAGER
+environment
+variable when 
+.B wdiff
+is run.  If 
+.B PAGER
+is not defined at run time, then a default pager, selected at
+installation time, will be used instead.  A defined but empty value of 
+.B PAGER
+means no pager at all.
+
+When a pager is interposed through the use of this option, one of the
+options \-l or \-t is also selected, depending on whether the string
+"less" appears in the pager's name or not.
+
+It is often useful to define
+.I wdiff
+as an alias for
+.I wdiff -a.
+However, this "hides" the normal 
+.B wdiff
+behaviour. The default behaviour may be restored simply by piping the
+output from 
+.B wdiff
+through
+.B cat.
+This dissociates the output from the user terminal.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-printer
+Has the same effect as \-p.
+.TP
+.B \-p
+Use over-striking to emphasize parts of the output.  Each character of
+the deleted text is underlined by writing an underscore \_ first, then
+a backspace and then the letter to be underlined.  Each character of
+the inserted text is emboldened by writing it twice, with a backspace
+in between.  This option is not selected by default.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-less-mode
+Has the same effect as \-l.
+.TP
+.B \-l
+Use over-striking to emphasize parts of output.  This option works as
+option \-p, but also over-strikes whitespace associated with
+inserted text.  
+.B less
+shows such whitespace using reverse video.  This option is not
+selected by default.  However, it is automatically turned on whenever 
+.B wdiff
+launches
+.B less.
+(See option \-a.)
+
+This option is commonly used in conjunction with 
+.B less:
+
+.B wdiff -l
+.I old_file
+.I new_file
+.B | less
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-terminal
+Has the same effect as \-t.
+.TP
+.B \-t
+Force the production of 
+.I termcap
+strings for emphasising parts of output, even if the standard output
+is not associated with a terminal.  The
+.B TERM
+environment variable must contain the name of a valid
+.I termcap
+entry. If the terminal description permits, underlining is used for
+marking deleted text, while bold or reverse video is used for
+marking inserted text.  This option is not selected by default.
+However, it is automatically turned on whenever
+.B wdiff
+launches a pager, and it is known that the pager is
+.I not
+.B less.
+(See option \-a.)
+
+This option is commonly used when
+.B wdiff
+output is not redirected, but sent directly to the user's terminal, as
+in: 
+
+.B wdiff -t
+.I old_file
+.I new_file
+
+A common kludge uses
+.B wdiff
+together with the pager
+.B more,
+as in:
+
+.B wdiff -t
+.I old_file
+.I new_file
+.B | more
+
+
+However, some versions of 
+.B more
+use 
+.B termcap
+emphasis for their own purposes, so strange interactions are possible.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-start\-delete argument
+Has the same effect as \-w.
+.TP
+.B \-w argument
+Use 
+.I argument 
+as the "start delete" string.  This string will be output prior to
+every sequence of deleted text, to mark where it starts.  By default,
+no start delete string is used unless there is no other means of
+distinguishing where such text starts; in this case the default start
+delete string is
+.B [\-.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-end\-delete argument
+Has the same effect as \-x.
+.TP
+.B \-x argument
+Use 
+.I argument
+as the "end delete" string.  This string will be output after every
+sequence of deleted text, to mark where it ends.  By default, no end
+delete string is used unless there is no other means of distinguishing
+where such text ends; in this case the default end delete string is
+.B \-].
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-start\-insert argument
+Has the same effect as \-y.
+.TP
+.B \-y argument
+Use 
+.I argument
+as the "start insert" string.  This string will be output prior to any
+sequence of inserted text, to mark where it starts.  By default, no
+start insert string is used unless there is no other means of
+distinguishing where such text starts; in this case the default start
+insert string is
+.B {+.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-end\-insert argument
+Has the same effect as \-z.
+.TP
+.B \-z argument
+Use 
+.I argument
+as the "end insert" string.  This string will be output after any
+sequence of inserted text, to mark where it ends.  By default, no end
+insert string is used unless there is no other means of distinguishing
+where such text ends; in this case the default end insert string is
+.B +}.
+
+.\" ------------------------------------------------------------
+.TP
+.B \-\-avoid\-wraps
+Has the same effect as \-n.
+.TP
+.B \-n
+Avoid spanning the end of line while showing deleted or inserted text.
+Any single fragment of deleted or inserted text spanning many lines
+will be considered as being made up of many smaller fragments not
+containing a newline.  So deleted text, for example, will have an end
+delete string at the end of each line, just before the new line, and a
+start delete string at the beginning of the next line.  A long
+paragraph of inserted text will have each line bracketed between start
+insert and end insert strings.  This behaviour is not selected by
+default.
+
+.\" ------------------------------------------------------------
+.LP
+.\" --------------------------------------------------
+.\" Some text to round things off, after the command line options. 
+.\" --------------------------------------------------
+
+Note that options 
+.B \-p, \-t, 
+and 
+.B \-[wxyz] 
+are not mutually exclusive. If you use a combination of them, you will
+merely accumulate the effect of each.  Option 
+.B \-l
+is a variant of option 
+.B \-p.
+
+.\" --------------------------------------------------
+.\" Some useful example of the use of the options above
+.\" --------------------------------------------------
+.SH EXAMPLES
+
+The following command produces a copy of
+.I new_file,
+shifted right one space to accommodate change bars since the last
+revision, ignoring those changes coming only from paragraph refilling.
+Any line with new or changed text will get a
+.B |
+in column 1. However, deleted text is not shown nor marked.
+
+.B wdiff -1n
+.I old_file new_file 
+.B | sed -e 's/^/  /;/{+/s/^ /|/;s/{+//g;s/+}//g'
+
+
+.\" --------------------------------------------------
+.\" Now the bugs section.
+.\" --------------------------------------------------
+.SH BUGS
+If you find a bug in 
+.B wdiff,
+please send electronic mail to 
+.I pinard@iro.umontreal.ca.
+Include the version number, which you can find by running 
+.B wdiff \-\-version.
+Include in your message sufficient input to reproduce the problem and
+also, the output you expected.
+
+.B wdiff
+currently calls 
+.B diff.
+.B wdiff
+would be quicker and cleaner to implement if it were part of the
+.B diff
+suite of programs.
+
+Here are some (un-processed) suggestions:
+.TP
+\-
+Make an MS-DOS port.
+.TP
+\-
+Select by options exactly what is whitespace.
+.TP
+\- 
+Have a 
+.B wpatch
+program.  Hard to see a good way of doing this.
+.LP
+
+.\" --------------------------------------------------
+.\" Some final sections
+.\" --------------------------------------------------
+.SH IDENTIFICATION
+Author: Francois Pinard,
+.I pinard@iro.umontreal.ca
+.br
+Manual Page: Colin M. Brough,
+.I cmb@epcc.ed.ac.uk
+.br
+Revision Number: \*(Rv; Release Date: \*(Dt.
+
+.SH SEE ALSO
+diff(1), less(1), cat(1), more(1), termcap(3).

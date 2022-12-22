@@ -1,0 +1,88 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.Dd January 14, 1994
+.Dt EL 4 i386
+.Os
+.Sh NAME
+.Nm el
+.Nd
+.Tn 3Com
+EtherLink 16 (3C507) Ethernet interface
+.Sh SYNOPSIS
+.Cd "device el0 at isa? port 0x310 iomem 0xd0000 iosiz 65536"
+.Sh DESCRIPTION
+The
+.Nm el
+interface provides access to a 10 Mb/s Ethernet network.  It uses a
+software-selectable block of 16 i/o ports in range 0x200 through 0x3f0.
+The block must be aligned on a 16 port boundary.
+The card also uses port 0x100 to configure the base port.
+The shared memory window is programmable and its base address and size should
+be specified in the system configuration file.
+Size of a memory window can be 16, 32, 48 or 64 kilobytes; the base address
+can be 0xc0000, 0xc8000, 0xd0000 and 0xd8000 (16/32Kb windows only).
+The hardware interrupt level is programmable
+and is selected during autoconfiguration time or can be specified in the
+system configuration file.  Supported irqs are: 2(9), 3, 5, 7, 10, 11, 12, 15.
+This card should be installed in a 16-bit slot.
+.Pp
+3C507 supports software-selectable 10BASE-2/BNC and AUI/DIX interfaces.
+The interface flag
+.Dv IFF_LINK0
+selects BNC (thin Ethernet) when set.
+See
+.Xr ifconfig 8
+for details.
+.Pp
+Each of the host's network addresses
+is specified at boot time with an
+.Dv SIOCSIFADDR
+.Xr ioctl .
+The
+.Xr el
+interface employs the address resolution protocol described in
+.Xr arp 4
+to dynamically map between Internet and Ethernet addresses on the local
+network.
+.Pp
+The use of ``trailer'' encapsulation to minimize copying data on
+input and output is supported by the interface.
+The use of trailers is negotiated with
+.Tn ARP .
+This negotiation may be disabled, on a per-interface basis,
+by setting the
+.Dv IFF_NOTRAILERS
+flag with an
+.Dv SIOCSIFFLAGS
+.Xr ioctl .
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It el%d: illegal base port number 0x%x
+.sp
+Invalid port specification in kernel config file.
+.It el%d: illegal RAM address/size combination (0x%x, %d)
+.sp
+Invalid iomem or iosize specification in kernel config file.
+.It el%d: no irq available
+.sp
+Automatic interrupt selection was enabled, but all usable interrupts
+had already been claimed by other devices.
+.It el%d: unsupported IRQ number %d
+.sp
+Invalid irq specification in kernel config file.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh BUGS
+The system supports only one
+.Nm el
+interface per machine.
+This is a hardware limitation.
+.Sh HISTORY
+The
+.Nm el
+driver first appeared in BSDI.

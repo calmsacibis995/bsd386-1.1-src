@@ -1,0 +1,730 @@
+.\" @(#)Id: Filter.guid,v 5.7 1993/04/16 04:11:29 syd Exp 
+.\"
+.\"  A guide to the Elm Filter program
+.\"  format with:
+.\"	 'troff Filter.guid > Filter.format'
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  $Log: Filter.guid,v $
+# Revision 1.2  1994/01/14  00:51:01  cp
+# 2.4.23
+#
+.\" Revision 5.7  1993/04/16  04:11:29  syd
+.\" Fix wrong variable used in shell script
+.\" From: Bruce Tindall <sasbmt@unx.sas.com>
+.\"
+.\" Revision 5.6  1993/04/12  01:46:12  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.5  1993/01/27  19:45:15  syd
+.\" Filter turns spaces in quoted strings into _ and then back again. This destroys
+.\" any _ that where there in the first place. This patch removes that.
+.\" Also fixed a minor bug where 'filter -r' wrote out the wrong thing if the
+.\" relation in a rule was '~'.
+.\" From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+.\"
+.\" Revision 5.4  1993/01/27  19:40:01  syd
+.\" I implemented a change to filter's default verbose message format
+.\" including %x %X style date and time along with username
+.\" From: mark@drd.com (Mark Lawrence)
+.\"
+.\" Revision 5.3  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.2  1992/11/15  01:41:50  syd
+.\" Add regexp processing to filter.
+.\" Add execc operator
+.\" From: Jan Djarv <Jan.Djarv@sa.erisoft.se>
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 8
+.lg 0
+.nf
+.na
+.rs
+.za
+.sp |3.0i
+.ce 99
+.ps 20
+.ss 18
+.vs 12
+\f3The Elm Filter System Guide\f1
+.sp 4
+.ps 12
+.ss 14
+.vs 14
+\f2What the filter program is, what it does,
+and how to use it\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp |9.0i
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.fi
+.ad
+.bp 1
+.sv 5v
+.ps 14
+.ss 12
+.vs 16
+\f3The Elm Filter System Guide\f1
+.ds h0 "Elm Filter Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+One of the greatest problems with the burgeoning electronic mail
+explosion is that I tend to get lots of mail that I don't care about.
+Amusingly, perhaps, I have the equivalent of electronic junk mail.
+Not amusing, however, is the fact that this can rapidly
+accumulate and end up taking over my mailbox.
+.sp
+At the same time I often get mail that, while it is interesting
+and important, can easily be filed to be read later, without ever
+actually having to clutter up my incoming mailbox.
+.sp
+This, then, is what \f2filter\f1 does!  The \f2filter\f1 program
+allows you to define a set of rules by which all incoming mail is
+screened, and a subsequent set of actions to perform based on whether
+the conditions are met or not.  \f2Filter\f1 also has the ability to mail
+a summary of what actions it performed on the incoming mail as often as
+you'd like.
+.ne 5
+.hu Writing the Rules
+.sp
+The language for writing \f2filter\f1 rules is pretty simple, actually.
+The fundamental structure is:
+
+.nf
+.ti .5i
+if  (\f2condition\f1)  then  \f2action\f1
+.fi
+
+Where \f2condition\f1 is constructed by an arbitrary number of
+individual conditions of the form \*Q\f2field\f1  \f2relation\f1  \f2value\f1\*U
+(an optional further type of rule is of the form \*Qalways \f2action\f1\*U
+but should only be used as the last rule in the ruleset, for obvious
+reasons).
+The \f2field\f1 value can be:
+.sp
+.nf
+.in .5i
+subject
+sender
+from
+to
+lines
+.in 0
+.fi
+.sp
+For the field \f3lines\f1, the \f2relation\f1 can be any of the
+standard relationships (\*q>\*u, \*q<\*u, \*q>=\*u, \*q<=\*u, \*q!=\*u
+and \*q=\*u).
+\f3contains\f1 is equivalent to the relation \*q=\*u or
+you can skip the relationship entirely (e.g. \*Qsubject = "joe"\*U,
+\*Qsubject contains "joe"\*U, and \*Qsubject "joe"\*U are all equivalent).
+The \f2value\f1 is any quoted string that is to be matched against
+or a number if \f3lines\f1 is the \f2field\f1 being considered.
+.sp
+The relation \f3matches\f1 (or \*q~\*u) takes an \f2egrep\f1 like
+regular expression
+as the \f2value\f1. The regular expression must be enclosed in pairs of \*q/\*u.
+If you need a \*q/\*u in your expression write it as
+.ie t \*Q\\\ /\*U.
+.el   \*Q\\/\*U.
+.sp
+Individual conditions are joined together by using the word \f3and\f1,
+and the logic of a condition can be flipped by using \f3not\f1 as the
+first word (e.g. \*Qsubject "fun" and not subject "games"\*U).
+We'll see more examples of this later.
+.sp
+Note that the \*Qor\*U logical conjunction isn't a valid part of the
+\f2filter\f1 conditional statement.
+.sp
+Finally, \f2action\f1 can be any of:
+.sp
+.nr TW \w'savecopy \f2foldername\f1\0\0\0'u
+.si .5i
+.ad l
+.lp \f3Action \n(TWu
+Description
+.ft 1
+.lp "delete" \n(TWu
+Deletes the message
+.lp "save \f2foldername\f1" \n(TWu
+Saves a copy of the message in the specified foldername.
+.lp "savecopy \f2foldername\f1" \n(TWu
+Does the same as save, but also puts a copy in your mailbox.
+.lp "forward \f2address\f1" \n(TWu
+Sends the message to the specified address.
+.lp "forwardc \f2address\f1" \n(TWu
+Sends the message to the specified address and leaves a copy in your
+mailbox.
+.lp "execute \f2command\f1" \n(TWu
+Feeds the message to the specified command (or complex sequence of
+commands) as standard input.
+.lp "executec \f2command\f1" \n(TWu
+Like \f3execute\f1 but also leaves a copy in your mailbox.
+.lp "leave" \n(TWu
+Leaves the message in your mailbox.
+.ad
+.ei
+.in 0
+.sp
+Note that the \f3execute\f1 command assumes that you are doing
+something useful with incoming mail.  The command does \f2not\f1
+automatically append the message to your mail spool.  Use
+\f3executec\f1 for that.  A command such as:
+.sp
+.ft CW
+.zf
+.nf
+.ti .5i
+if (from = "dave") then execute "echo mail from dave > /dev/tty"
+.ft 1
+.fi
+.sp
+will result in \f2losing\f1 your mail.  A more suitable
+use for execute would be:
+.sp
+.ft CW
+.zf
+.nf
+.ti .5i
+if (from = "boss") then execute "vacation pat"
+.ft 1
+.fi
+.sp
+Foldernames can contain any of a number of macros, too, as we'll see in
+the example ruleset below.  The macros available for the string fields are:
+.sp
+.ne 5
+.nr TW \w'%1-%9\0\0\0'u
+.si .5i
+.ad l
+.lp \f3Macro \n(TWu
+Meaning
+.ft 1
+.lp "%d" \n(TWu
+day of the month
+.lp "%D" \n(TWu
+day of the week (0-6)
+.lp "%h" \n(TWu
+hour of the day (0-23)
+.lp "%m" \n(TWu
+month of the year (1-12)
+.lp "%r" \n(TWu
+return address of message
+.lp "%s" \n(TWu
+subject of original message
+.lp "%S" \n(TWu
+\*QRe: \f2subject of original message\f1\*U
+.lp "%t" \n(TWu
+current hour and minute in HH:MM format
+.lp "%y" \n(TWu
+year (last two digits)
+.lp "%&" \n(TWu
+the string that matched the last regular expression
+.lp "%1-%9" \n(TWu
+the corresponding subexpression in the last regular expression that matched
+.ad
+.ei
+.in 0
+.sp
+If a message has a subject of \*QThis is a test\*U, and the rule is
+.sp
+.ft CW
+.zf
+.nf
+.ti .5i
+if (subject matches /([a\-z]+) a ([a\-z]+)/) then "echo %& %1 %2"
+.ft 1
+.fi
+.sp
+then \f3%&\f1 expands to \*Qis a test\*U, \f3%1\f1 expands to \*Qis\*U
+and \f3%2\f1 expands to \*Qtest\*U.
+.sp
+Foldernames may contain a leading \*Q~/\*U which expands to
+your home directory.
+.sp
+The rules file can also contain comments (any line starting with a \*q#\*u)
+and blank lines.  Metacharacters may be escaped by a preceding \*q\\\*u
+to remove any special meaning.  If you need a \*q%\*u character as part
+of an argument (such as an address), use \*Q\\%\*U.
+If you need a double quote in a double quoted string, use \*Q\\"\*U.
+If you need a single quote in a single quoted string, use \*Q\\\'\*U.
+If you need a backslash in any kind of string, use \*Q\\\\\*U.
+.sp
+Unless you specify an alternate file via the \f3\-f\f1 option,
+the rules file needs to reside in your \f2.elm\f1 directory off
+your home directory and be
+called \f2.elm/filter\-rules\f1.  Here's an example:
+.sp
+.nf
+.ft CW
+.zf
+  # $HOME/.elm/filter\-rules
+  #
+  # Filter rules for the Elm Filter program. Don\'t change without some
+  # serious thought. (remember \- order counts)
+  #
+  # (for Dave Taylor)
+  # rule 1
+  if (from contains "!uucp") then delete
+  # rule 2
+  to "postmaster" ? save "/tmp/postmaster\-mail.%d"
+  # rule 3
+  if (to "culture" and lines > 20) ? save "~/Mail/culture"
+  # rule 4
+  subject = "filter test" ? forward "hpldat!test"
+  # rule 5
+  if [ subject = "elm" ] savecopy "~/Mail/elm\-incoming"
+  # rule 6
+  subject = "display\-to\-console" ? execute "cat \- > /dev/console"
+.fi
+.ft 1
+.sp
+(Notice the loose syntax \(em there are lots of valid ways to specify a
+rule in the \f2filter\f1 program!!)
+.sp
+To translate these into English:
+.sp
+.nr TW \w'1. 'u
+.in .5i
+.ti -\n(TWu
+1. All messages from \*Quucp\*U should be summarily deleted.
+
+.ti -\n(TWu
+2. All mail to \*Qpostmaster\*U should be saved in a folder (file) called
+\f2/tmp/postmaster\-mail.n\f1, where \f2n\f1 is the numeric-day-of-the-week.
+
+.ti -\n(TWu
+3. All mail addressed to \*Qculture\*U with at least 20 lines
+should be automatically appended to the folder
+\f2$HOME/Mail/culture\f1.
+
+.ti -\n(TWu
+4. All messages that contain the subject \*Qfilter test\*U should be
+forwarded to me, but via the address \*Qhpldat!test\*U (to force a
+non-user forward).
+
+.ti -\n(TWu
+5. All messages with a subject that contains the word \*Qelm\*U should
+be saved in the folder \f2$HOME/Mail/elm\-incoming\f1 and also dropped
+into my mailbox.
+
+.ti -\n(TWu
+6. Any message with the subject \*Qdisplay-to-console\*U will be immediately
+written to the console.
+.in 0
+.sp
+Notice that the \f2order\f1 of the rules is very important.  If we, for
+example, were to get a message from \*Quucp\*U that had the subject \*Qfilter test\*U,
+the \f2filter\f1 program would match rule 1 and delete the message.  It
+would never be forwarded to \*Qhpldat!test\*U.  It is for this reason that
+great care should be taken with the ordering of the rules.
+.ne 5
+.hu Checking the rules out
+.sp
+The \f2filter\f1 program has a convenient way of check out the rules you
+have written.  Simply invoke it with the \f3\-r\f1 (\f3rules\f1) option:
+.sp
+.nf
+.in .5i
+% \f3filter \-r\f1
+.ft CW
+.zf
+.in .5i+\w'Rule 1: 'u
+.ti .5i
+Rule 1: if (from = "!uucp") then
+Delete
+.ti .5i
+Rule 2: if (to = "postmaster") then
+Save  /tmp/postmaster\-mail.3
+.ti .5i
+Rule 3: if (to = "culture" and lines > 20) then
+Save  ~/Mail/culture
+.ti .5i
+Rule 4: if (subject = "filter test") then
+Forward  hpldat!test
+.ti .5i
+Rule 5: if (subject="elm") then
+Copy  and  Save  ~/Mail/elm\-incoming
+.ti .5i
+Rule 6: if (subject="display\-to\-console") then
+Execute "cat \- > /dev/console"
+.ft 1
+.in 0
+.fi
+.sp
+There are a few things to notice \(em first off, these are the parsed and
+rebuilt rules, so we see them all in a
+consistent format.  Also, notice on the filename for rule 2 that
+\f2filter\f1 has correctly expanded the \f3%d\f1 macro to be the day of the
+week (in this case, Wednesday, denoted by the digit \*q3\*u).
+.sp
+It is \f3highly\f1 recommended that you always check your ruleset before
+actually using it to filter your mail!
+.ne 5
+.hu Actually Using the Program
+.sp
+Now the bad news.  If you aren't running \f2sendmail\f1 or some
+other Mail Transport Agent that supports delivery to a program you cannot use
+this program as currently written.  Why?  Because the \f2filter\f1
+program expects to be put in your \f2.forward\f1 file (or equivalent concept
+for MTAs other than \f2sendmail\f1) that causes the messages to be
+delivered to the \f2filter\f1 program.  That is something that only
+\f2sendmail\f1 and other smart MTAs look at!
+.sp
+The format for the entry in the \f2.forward\f1 file (located in your
+home directory) is simply:
+.sp
+.nf
+.ti .5i
+"|/usr/local/bin/filter"
+.fi
+.sp
+Alright, it isn't quite \f2that\f1 simple!  Since \f2filter\f1 is invoked
+by processes that don't know where you are logged in, you need to have some
+way to trap the error messages.  For ease of use, it was decided to have all
+the messages written to the file specified by \f3\-o\f1 (or \f2stderr\f1)
+which means that you have two main
+choices for the actual entry.  Either:
+.sp
+.nf
+.ti .5i
+"|/usr/local/bin/filter \-o /dev/console"
+.fi
+.sp
+which will log all errors on the system console (each error is prefixed with
+\*Qfilter (\f2username\f1)\*U to distinguish it), or:
+.sp
+.nf
+.ti .5i
+"|/usr/local/bin/filter \-o /tmp/joe.filter_errors"
+.fi
+.sp
+if you want to have a copy saved to a file.  Note that the quotes are a required
+part of the line.  A possible strategy would be
+to have the errors written to a file and to then have a few lines in
+your \f2.login\f1 (or equivalent) script like:
+.sp
+.nf
+.ft CW
+.zf
+.in .5i+\w'if 'u
+.ti .5i
+if ( \-f /tmp/joe.filter_errors) then
+echo  "\0"
+echo "Filter program errors;"
+cat /tmp/joe.filter_errors
+echo "\0"
+.ti .5i
+endif
+.ft 1
+.in 0
+.fi
+.sp
+You can also use the \f3\-v\f1 option in combination with the above to have
+a more verbose log file (including action taken with date/time stamp)
+saved by having in your \f2.forward\f1 file:
+.sp
+.ft CW
+.zf
+.nf
+.ti .5i
+"|/usr/local/bin/filter \-vo /tmp/joe.filter_errors"
+.ft 1
+.fi
+.sp
+Suffice it to say, you can get pretty tricky with all this!!
+.ne 5
+.hu Summarizing the Actions Taken
+.sp
+The \f2filter\f1 program can keep a log of all actions performed, including
+what rules it matched against, in your \f2.elm\f1 directory in a file
+called \f2.elm/filterlog\f1.  You can either directly operate on this file,
+or, much more recommended, you can use one of the two summarization options to
+\f2filter\f1 and let \f2it\f1 do the work for you!
+.sp
+The difference between the two is best demonstrated by example:
+.sp
+.in .5i
+.nf
+% \f3filter \-s\f1
+.ft CW
+.zf
+                Summary of Filter Activity
+                \l'\w'Summary of Filter Activity'u\&-'
+A total of 418 messages were filtered:
+The default rule of putting mail into your mailbox
+.in .5i+\w'Rule #1: 'u
+applied 364 times (87%)
+.ti .5i
+Rule #1: (delete message)
+applied 1 time (0%)
+.ti .5i
+Rule #2: (save in "~/Filtered\-Mail/netnews.12")
+applied 8 times (2%)
+.ti .5i
+Rule #3: (save in "~/Filtered\-Mail/postmaster.12")
+applied 14 times (3%)
+.ti .5i
+Rule #5: (save in "~/Filtered\-Mail/risks.12")
+applied 3 times (1%)
+.ti .5i
+Rule #6: (save in "~/Filtered\-Mail/rays.12")
+applied 28 times (7%)
+.ft 1
+.sp
+.ti 0
+versus:
+.sp
+.ti .5i
+% \f3filter \-S\f1
+.ti .5i
+\f2[the output as listed above, followed by:]\f1
+.ft CW
+.zf
+.ti .5i
+Explicit log of each action;
+.ti .5i
+Mail from taylor about Filter Summary
+PUT in mailbox: the default action
+.ti .5i
+Mail from news@hplabsz.hpl.hp.com about Newsgroup comp.editors created
+PUT in mailbox: the default action
+.ti .5i
+Mail from root about Log file: cleanuplog
+PUT in mailbox: the default action
+.ft 1
+.ti .5i
+\f2[etc.]\f1
+.in 0
+.ft 1
+.fi
+.sp
+To actually use either of the summarizing options, there
+are two ways that are recommended.
+The preferred way is to have a line in either your \f2crontab\f1 file
+(ask your administrator for help with this) that invokes the \f2filter\f1
+program as often as you desire with the \f3\-s\f1 option.  For example, I
+have a summary mailed to me every morning at 8 o'clock:
+.sp
+.nf
+.ft CW
+.zf
+.ti .5i
+ 0 8 * * * "/usr/local/bin/filter \-s | elm \-s \'Filter Summary\' taylor"
+.ft 1
+.fi
+.sp
+An alternative is to have your \f2.login\f1 (or equivalent) execute the
+command each time you log in.
+.sp
+Note that if you want to have your log files cleared out each time the
+summary is generated you'll need to use the \f3\-c\f1 option too.  Also,
+if you want to keep a long list of actions performed you can do this
+by saving it as you display it.  A way to do this would be, if you were to
+have the invocation in your \f2.login\f1 (or equivalent) script, to use:
+.sp
+.nf
+.in .5i
+.ft CW
+.zf
+echo "Filter Log;"
+filter \-c \-s | tee \-a PERM.filter.log\f1
+.ft 1
+.in 0
+.fi
+.sp
+which would append a copy of all the output to the file \f2PERM.filter.log\f1
+and would avoid you having to read larger and larger summaries of
+what the program had done.
+.sp
+If you prefer not to have \f2filter\f1 generate log files, use the
+\f3\-q\f1 option.
+Messages that are written to \f2stderr\f1 or the \f3\-o\f1 file are
+still generated;
+only message to the log files are quashed.
+.ne 5
+.hu Further Testing of the Ruleset
+.sp
+Using the \f2readmsg\f1 command, it is quite easy to test the
+rules you've written to see if they do what you desire.
+.sp
+For example, we can use the \f3\-n\f1 option to \f2filter\f1, which means
+\*Qdon't actually do this, just tell me what rule you matched, if any, and
+what action you would have performed\*U (you can see why a single letter
+option is easier to type in!!), and feed it each message in our mailbox
+by using a command like:
+.sp
+.nf
+.in .5i
+% \f3set message=1\f1
+% \f3set total_messages=\`messages\`\f1
+% \f3while  (1)\f1
+> \f3if ($message > $total_messages) exit\f1
+> \f3readmsg \-h $message | filter \-n\f1
+> \f3@ message++\f1
+> \f3end\f1
+.in 0
+.fi
+.sp
+which will then hand each of the messages in your mailbox to the \f2filter\f1
+program and display what action would have been taken with that message and
+why.
+.sp
+For example, if we do this for a few interesting messages in my mailbox,
+we'd end up with output like:
+.sp
+.ft CW
+.zf
+.nf
+.in .5i
+Mail from taylor about filter test
+.ti +\w'Mail 'u
+FORWARDED to hpldat!taylor by rule;
+.ti +\w'Mail   'u
+subject="filter test"  ? forward "hpldat!test"
+Mail from bradley%hplkab@hplabsc about Re: AI-ED mailing address for HP
+.ti +\w'Mail 'u
+PUT in mailbox: the default action
+Mail from taylor about display-to-console
+.ti +\w'Mail 'u
+EXECUTED "cat \- > /dev/console"
+.ft 1
+.in 0
+.fi
+.sp
+(Sharp users will notice that this is exactly the same format as the longer
+summary listing.)
+.ne 5
+.hu What Forwarded Messages Look Like
+.sp
+When a message is forwarded to another user by the \f2action\f1 being specified
+as \*Q\f3forward\f1 \f2address\f1\*U, then \f2filter\f1 can generate one
+of two styles
+of message.  If the message is to you, then it simply adds it to your mailbox
+in such a way as to ensure that the return address is that of the person who
+sent the message.
+.sp
+If not, then the message is enclosed in a message of the form:
+.sp
+.in .5i
+.ft CW
+.zf
+.nf
+\&From taylor Thu Oct  2 15:07:04 1986
+\&Date: Thu, 2 Oct 86 15:06:58 pdt
+\&Subject: "filter test"
+\&From: The filter of taylor@hpldat <taylor>
+\&To: hpldat!taylor
+\&X-Filtered-By: filter, version 1.4
+\-\- Begin filtered message \-\-
+
+.in +\w'\-\- 'u
+\&From taylor Thu Oct  2 15:06:41 1986
+\&Date: Thu, 2 Oct 86 15:06:33 pdt
+\&From: Dave Taylor <taylor>
+\&Subject: filter test
+Just a simple test.
+.in -\w'\-\- 'u
+\-\- End of filtered message \-\-
+.ft 1
+.in 0
+.fi
+.sp
+The subject of the actual message is the same as the subject of the
+message being forwarded, but in quotes.  The \f3From:\f1 header indicates
+how the message was sent, and the \f3X-Filtered-By:\f1 header identifies what
+version of \f2filter\f1 was used.
+.ne 5
+.hu Areas to Improve
+.sp
+While the \f2filter\f1 program as presented herein is obviously a
+nice addition to the set of tools available for dealing with electronic
+mail, there are some key features that are missing and will be added in
+the future based on demand.
+.sp
+As I see it, the main things missing are:
+.in .5i
+
+.ti -\n(TWu
+1. Perhaps more \f2actions\f1 available (but what?)
+
+.ti -\n(TWu
+2. Certainly the ability to filter based on any field or combination of
+fields.
+.in 0
+.ne 5
+.hu Warnings and Things to Look Out For
+.sp
+Since this is a pretty simple program, there are a few pitfalls, some
+of which have already been mentioned:
+.sp
+.in .5i
+\f3Order\f1 counts in the rules.  Beware!
+.sp
+\f3Matching\f1 is pretty simple \(em make sure your patterns are sufficiently
+exclusive before having any destructive rules.
+.sp
+.in 0
+The log files can grow indefinitely unless you use the \f3\-c\f1 or
+\f3\-q\f1 options or you trim the files by other means.
+.sp
+Finally, as with the rest of the Elm mail system, I welcome feedback
+and suggestion on how to improve this program!!

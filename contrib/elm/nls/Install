@@ -1,0 +1,50 @@
+# This shell script is called with 2 arguments as
+#	Install LangFile Gencat CatName
+# It reads the file LANGS, and parses the lines in it.  Each line
+# is assumed to have 2 fields.  The first is the relative directory
+# path to the message catalog input for a particular language.
+# The second field is the name of the destination directory into
+# which the resulting message catalog should be placed.  The second
+# argument to Install is used as the name of the message catalog
+# in each destination directory.
+
+case $# in
+	3)	;;
+	*)	echo "usage: $0 LangFile CatName"
+		exit 1
+		;;
+esac
+LANGFILE=$1
+GENCAT=$2
+CATNAME=$3
+
+if [ ! -r "$LANGFILE" ]
+then
+	echo "Can not open \"$LANGFILE\" for reading"
+	exit 1
+fi
+
+while read InDir DestDir
+do
+	if [ -z "$InDir" ]
+	then
+		continue
+	fi
+	if [ "$InDir" = "#" ]
+	then
+		continue
+	fi
+	if [ ! -d $InDir ]
+	then
+		echo "\"$InDir\" is not a directory"
+		continue
+	fi
+	if [ ! -d $DestDir ]
+	then
+		echo "\"$DestDir\" is not a directory"
+		continue
+	fi
+	/bin/rm -f $DestDir/$CATNAME
+	echo "$GENCAT $DestDir/$CATNAME $InDir/*.m"
+	$GENCAT $DestDir/$CATNAME $InDir/*.m
+done < $LANGFILE

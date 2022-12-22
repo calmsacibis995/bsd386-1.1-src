@@ -1,0 +1,197 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: as.1,v 1.2 1993/02/05 17:47:42 polk Exp $
+.\"
+.Dd January 3, 1993
+.Os
+.Dt AS 1
+.Sh NAME
+.Nm as
+.Nd "the GNU assembler
+.Sh SYNOPSIS
+.Nm as
+.Op Fl DLRWfgkv
+.Op Fl o Ar output
+.Op Ar input Ar ...
+.Sh DESCRIPTION
+The assembler converts human-readable
+.Sq "assembly language
+into machine language instructions.
+The GNU C compiler
+.Pq Xr cc 1
+and other GNU compilers generate assembly language
+and use the GNU assembler to produce relocatable object files
+.Pq Xr a.out 5 ,
+which may be linked together to form executable binary files
+.Pq Xr ld 1 .
+.Pp
+The assembler has several options:
+.Bl -tag -width indent
+.It Fl D
+Turn on assembler debugging (if available).
+.It Fl L
+Force the assembler to generate entries
+for symbols that start with
+.Li L .
+By default, the assembler omits local symbols
+that start with the letter
+.Li L
+from the symbol table on output.
+By convention, compilers use symbols starting with
+.Li L
+for generic local labels.
+.It Fl R
+Merge the data segment into the text segment,
+making it read-only.
+.It Fl W
+Suppress warnings.
+.It Fl f
+Suppress the 
+.Sq preprocessor
+pass.
+The assembler will make an extra pass
+to remove comments and redundant white space
+from the input unless directed otherwise with
+.Fl f
+or
+.Li #NO_APP
+.Pq "see below" .
+.It Fl g
+Generate debugging symbols for source language debugging
+of assembly programs.
+.It Fl k
+Warn about problems with calculating symbol differences.
+.It Fl o Ar output
+Send the object file to the file
+.Ar output
+instead of the default
+.Pa a.out .
+.It Fl v
+Print the current version of
+.Nm as .
+.El
+.Pp
+The optional
+.Ar input
+file arguments should be names of assembly language source files.
+If no file arguments are provided,
+the assembler reads its standard input.
+.Pp
+The assembler writes its output as
+a relocatable
+.Dv OMAGIC
+object file.
+The link editor
+.Xr ld 1
+will merge relocatable object files
+into an absolute binary file
+which can be directly executed;
+for more details on object files, see
+.Xr a.out 5 .
+If an output file has no relocations,
+it may be executed without linking.
+.Pp
+The GNU assembler supports the
+.Ux
+dialect
+of 386/486 assembly language,
+rather than the Intel dialect.
+Assembly directives in the
+.Ux
+dialect have the form
+.Dq Li "opcode source,destination
+with register names prefixed by
+.Li %
+signs and constants by
+.Li $
+signs.
+The hash mark
+.Li #
+is the comment character \(em
+the assembler ignores all characters from a hash mark to the end of a line.
+.Pp
+To improve its speed when processing machine-generated code,
+the assembler has a mode in which it does not
+process extra white space or comments.
+The GNU compilers emit an initial
+.Li #NO_APP
+comment/directive to select the faster mode.
+A
+.Li #APP
+directive at the start of a line will return the assembler
+to its pre-processing mode.
+.Sh FILES
+.Bl -tag -width a.out -compact
+.It Pa a.out
+default output file
+.It Pa *.o
+conventional suffix for object files
+.Sh EXAMPLES
+.Bd -literal -compact
+# copy %ecx bytes of data from (%esi) to (%edi), working forwards
+cld
+movl %ecx,%eax
+andl $3,%eax
+shrl $2,%ecx
+rep; movsl
+movl %eax,%ecx
+rep; movsb
+.Sh DIAGNOSTICS
+There are any number of bogus error messages.
+Here are a few favorites:
+.Bd -literal -offset indent -compact
+%s: 2nd pass not implemented - get your code from random(3)
+Expression too complex, 2 symbols forgotten: \e"%s\e" \e"%s\e"
+\&.abort detected.  Abandoning ship.
+I want a comma after the n_other expression
+you can't 'pop cs' on the 386.
+.Sh SEE ALSO
+.Xr a.out 5 ,
+.Xr cc 1 ,
+.Xr cpp 1 ,
+.Xr gdb 1 ,
+.Xr ld 1
+.Sh AUTHORS
+The GNU assembler is a product of the Free Software Foundation.
+.Sh BUGS
+The
+.Fl o
+and
+.Fl v
+flags can't be bundled.
+.Pp
+.Nm As
+cheerfully overwrites an input file that
+was accidentally given as the output file.
+.Pp
+.Nm As
+often mishandles absolute addresses.
+When this bug crops up,
+it is possible to work around it
+by forcing the absolute address to be symbolic,
+and link-editing the proper value.
+.Pp
+.Nm As
+often screws up symbol differences,
+even when the current input file
+defines both symbols.
+An internal hack makes it possible to work
+around the problem by assembling the difference
+into a
+.Li .long
+directive.
+.Pp
+.Nm As
+with the
+.Fl g
+flag often gets source line number stabs off by one
+when an assembly source file has been processed by
+.Xr cpp 1 .
+.Pp
+The internals of
+.Nm as
+are quite wretched.
+Be prepared to spend more time than you would like
+if you attempt to fix any of its multitudinous misfeatures.

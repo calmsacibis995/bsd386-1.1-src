@@ -1,0 +1,438 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/sendfax.1,v 1.1.1.1 1994/01/14 23:10:12 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH SENDFAX 1 "July 27, 1993"
+.SH NAME
+sendfax \- submit a facsimile job for transmission
+.SH SYNOPSIS
+.B sendfax
+[
+.B \-a
+.I transmit-time
+] [
+.B \-c
+.I comments
+] [
+.B \-r
+.I regarding
+] [
+.B \-x
+.I to-company
+] [
+.B \-y
+.I to-location
+] [
+.B \-d
+.I destination
+] [
+.B \-f
+.I from
+] [
+.B \-h
+.IR host [ :modem ]
+] [
+.B \-i
+.I identifier
+] [
+.B \-k
+.I kill-time
+] [
+.B \-lm
+] [
+.B \-n
+] [
+.B \-p
+] [
+.B \-s
+.I pagesize-name
+] [
+.B \-t
+.I tries
+] [
+.B \-v
+] [
+.B \-DR
+] [
+.IR files ...
+]
+.SH DESCRIPTION
+.I Sendfax
+submits one or more facsimile transmission requests
+to a 
+.I FlexFAX
+facsimile server.
+Requests are normally processed immediately, although
+they may also be queued for transmission at a later time
+using a syntax identical to the
+.IR at (1)
+command.
+For each job that is queued,
+.I sendfax
+prints a
+.I "job identifier"
+on the standard output.
+This number can be supplied to the
+.IR faxrm (1)
+command to remove the job or to the
+.IR faxalter (1)
+command to alter certain of its parameters.
+.PP
+Facsimile documents are made from the concatenation
+of one or more files specified on the command line.
+If no files are supplied,
+.I sendfax
+reads data from the standard input unless polling is requested (see below).
+.I Sendfax
+passes PostScript\(tm and
+.SM TIFF
+Class F documents directly through to the fax server for transmission,
+and attempts to convert other file formats to either PostScript or
+.SM TIFF.
+In normal operation
+.I sendfax
+automatically converts
+.SM ASCII\c
+-text,
+.IR troff (1)
+output,
+and
+Silicon Graphics format images for transmission.
+Support for other file formats can be easily added
+through an extensible file typing and conversion facility; see
+.IR typerules (4F).
+Note that since
+.SM TIFF
+Class F documents are processed directly it is simple to forward
+a received facsimile.
+.PP
+By default,
+.I sendfax
+will generate a cover page for each
+facsimile that is to be transmitted.
+This cover page is created by the ancillary
+.IR faxcover (1)
+program using information deduced by
+.I sendfax
+and by information supplied on the command line:
+the
+.B \-x
+option is used to specify the receiver's company,
+the
+.B \-y
+option is used to specify the receiver's geographical location,
+the
+.B \-c
+option is used to specify a 
+.I comments
+field, the
+.B \-r
+option is used to specifiy a ``Re:'' subject, and,
+if a destination is specified as
+.IR user@fax-number ,
+the
+.I user
+string will be passed to
+.I faxcover
+as the identify of the recepient.
+Note that the above options must
+.I precede
+the
+.B \-d
+option on the command line.
+Note also, that multi-word names must be enclosed in quote marks;
+for example,
+``Sam Leff\&ler@+1.415.555.1212''.
+See
+.I faxcover
+for more information about how cover pages are created.
+If no cover page is desired, for example because
+it is already included in the document, the
+.B \-n
+option should be specified.
+.PP
+In addition to sending documents,
+.I sendfax
+can be used to effect polling of a remote facsimile machine.
+If the
+.B \-p
+option is specified, a polling request will be submitted.
+If a poll request is made in conjunction with the transmission
+of documents, the poll request will take place after the documents
+are transmitted.
+Documents retrieved by polling are returned to the requestor
+by electronic mail and may be viewed with a suitable viewer program.
+.PP
+A destination is the dialing string to use to contact
+the remote fax machine.
+Phone numbers may include non-numeric characters for
+readability\(em only digits and ``+'' (\fBfor denoting a
+country code\fP) are significant in placing a call.
+Dialing prefixes, such as ``1'' and ``011''
+(for long distance calling in the United States) need
+not be included if an unambigous number is specified.
+Examples of unambiguous phone numbers are:
+.nf
+.sp .5
+.in +0.5i
+.ta \w'+31.77.594.313    'u
+\+31.77.594.131	\fIto call the Netherlands\fP
++14159657824	\fIto call California\fP
+9657824	\fIto make a local call\fP
+1-215-356-1666	\fIto call Pennsylvania from within the US\fP
+.in -0.5i
+.sp .5
+.fi
+Non-numeric strings, such as ``*70'' (to defeat
+call waiting), may be included in the destination phone number.
+Whether or not they are stripped from the string used to
+dial the destination fax machine is configuration-specific.
+.PP
+By default, a facsimile is sent at low
+resolution (98 lines/inch).
+Medium resolution (196 lines/inch), often
+called
+.IR "fine mode" ,
+can be requested with the
+.B \-m
+option.
+Low resolution can also be explicitly requested with the
+.B \-l
+option.
+.PP
+Facsimile are normally imaged in system-default page size
+(usually letter-size pages, 8.5" by 11", for sites in North America).
+Alternate page sizes can be specified with the
+.B \-s
+option.
+Well known page sizes include:
+ISO A3,
+ISO A4,
+ISO A5,
+ISO A6,
+ISO B4,
+North American Letter,
+American Legal,
+American Ledger,
+American Executive,
+Japanese Letter,
+and
+Japanese Legal.
+Note that it may not be permissible to image into the
+full page area; the guaranteed reproduceable area for a page is 
+typically smaller.
+Also, note that while arbitrary page sizes can be specified to
+.IR sendfax ,
+only a limited number of page dimensions are supported by the
+Group 3 facsimile protocol.
+Thus if an odd-size facsimile is submitted for transmission
+it may not be possible to determine if it can be sent
+until the fax server establishes communication
+with the remote facsimile machine.
+.PP
+By default,
+.I sendfax
+uses the
+.B FAXSERVER
+environment variable to identify the facsimile server to
+which the job should be directed.
+This can be overridden with a
+.B \-h
+option.
+The server specified with the 
+.B \-h
+option and by the environment variable is a host name or
+address and, optionally, a modem identifier (if a specific
+modem is to be used).
+To syntax for the latter is either \fIhost\fP:\fBmodem\fP
+or \fBmodem\fP@\fIhost\fP; e.g. ``ttym2@oxford.berkeley.edu''.
+If no modem is specified, the job will be submitted to any
+available modem.
+.PP
+If the first attempt to send a facsimile is
+unsuccessful,
+.I FlexFAX
+will periodically try to resend the facsimile.
+By default, 
+.I FlexFAX
+will try to transmit the facsimile for one day from the time
+of the initial transmission.
+The
+.B \-k
+option can be used to specified an alternate time
+for killing the job.
+This time is specified using notation compatible with
+.IR at (1)
+and as a time relative to the time of the initial transmission
+attempt.
+Thus, for example, the default kill time is specified as
+``now +1 day'' (one day from the current time).
+To retry for an hour, ``now +1 hour'' could be used.
+The
+.B \-t
+option can also be used to specify a maximum number of times
+that the facsimile system should try to send the job.
+.PP
+If an error is encountered while processing a job, the
+facsimile server will send an electronic mail message to
+the account that submitted the job.
+If the
+.B \-D
+option is specified,
+.I FlexFAX
+will also notify the account by mail when the job is
+completed.
+In addition, if the
+.B \-R
+option is specified, notification will also be returned any
+time the job must be requeued for retransmission.
+Notification messages identify a job by its job identifier.
+An arbitary identification string can be specified instead
+with the
+.B \-i
+option.
+.PP
+If the
+.B \-v
+option is specified,
+.I sendfax
+will print information on the standard output
+about each conversion and cover sheet
+generation operation it does.
+If this option is specified twice, the protocol
+between
+.I sendfax
+and the
+.I faxd.recv
+server processes that do the submission work on the
+remote machines will also be displayed.
+.PP
+In normal operation the sender's identity for
+submitted jobs is set according to the user that
+invoked
+.IR sendfax .
+In some instances, however, it is useful to
+override this procedure and explicitly specify the 
+sender's identity.
+The
+.B \-f
+option can be used to explicitly specify a sender's identity if 
+.I sendfax
+is invoked by the root, daemon, or uucp user.
+The information specified with the
+.B \-f
+option can be a full ``From::'' line;
+e.g. ``Joe Blow <joe@foo.com>''
+and ``joe@foo.com (Joe Blow)'' are acceptable.
+.SH DIAGNOSTICS
+The following messages are generated because of problems
+encountered on the local machine.
+.PP
+.B "Could not call server."
+The facsimile server on the remote machine did not respond.
+.PP
+.B "No input data; tranmission aborted."
+No data was supplied (typically on the standard input).
+No facsimile will be sent.
+.PP
+.B "Error converting data; command was "%s."
+A data conversion operation failed; the shell
+command that was used is printed.
+.PP
+.B "Can not convert %s."
+Data needed to be converted for transmission, but the
+required conversion rule was not located.
+This may indicate that the 
+.I FlexFAX
+software was incorrectly installed; or perhaps
+that an
+.SM NFS\c
+-mounted directory is temporarily unavailable.
+.PP
+.B "%s: Can not determine file type."
+.I sendfax
+was unable to deduce the type of the file.
+.PP
+.B "%s: Not a regular file."
+The file is something other than a regular file; for
+example, a directory.
+.PP
+The following messages may be printed by
+.IR sendfax .
+These messages describe problems encountered by
+the server process on the remote machine.
+This list is incomplete;
+other messages may be generated by the server under
+unusual circumstances\(em consult
+.IR faxd.recv (1M)
+for the complete list.
+.PP
+.B "Warning, no server appears to be running."
+This is an information message that indicates the
+job was queued for processing, but that no facsimile
+server(s) appear to be running.
+.PP
+.B "Write error."
+.I faxd.recv
+encountered an I/O error while receiving a document
+to transmit.
+.PP
+.B "Can not get your network address."
+.I faxd.recv
+was unable to get the client's machine name in order
+to verify the client is allowed to submit a job.
+.PP
+.B "The server does not have a permissions file."
+The facsimile server is missing the file
+.BR etc/hosts .
+This file must be present and contain a list of the
+hosts that are allowed to submit jobs.
+.PP
+.B "Your host does not have permission to use the fax server."
+The client's host is not permitted to submit jobs to this server.
+Only those hosts listed in the file
+.B etc/hosts
+on the server machine are permitted to submit jobs.
+.SH FILES
+.ta \w'${LIBDATA}/typerules    'u
+.nf
+${LIBDATA}/typerules	file type and conversion rules
+${LIBDATA}/pagesizes	page size database
+${LIBDATA}/dialrules	optional client dialstring rules
+${BIN}/faxcover	for generating cover sheets
+/usr/tmp/sndfaxXXXXXX	temporary files
+.fi
+.SH "SEE ALSO"
+.IR at (1),
+.IR flexfax (1),
+.IR faxalter (1),
+.IR faxcover (1),
+.IR faxmail (1),
+.IR faxrm (1),
+.IR faxstat (1),
+.IR sgi2fax (1),
+.IR faxd (1M),
+.IR intro (4F),
+.IR typerules (4F)

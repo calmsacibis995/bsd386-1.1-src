@@ -1,0 +1,564 @@
+     bindkey -mevd
+     bindkey -r in-string ...
+     bindkey [ -a ] in-string [ command ] ...
+     bindkey -s [ -a ] in-string out-string ...
+          If one of the -e, -v, or -d options is given, reset the
+          keymaps  for  emacs mode, vi mode, or the default mode,
+          respectively; if the -m option is also given, allow the
+          use  of  a meta key.  If the -r option is given, remove
+          any binding for each in-string.  If the  -s  option  is
+          not  specified, bind each in-string to a specified com-
+          mand.  If no command is specified, print the binding of
+          in-string if it is bound, or return a nonzero exit code
+          if it is not bound.  If the  -s  option  is  specified,
+          bind each in-string to each specified out-string.  When
+          in-string is typed, out-string will be pushed back  and
+          treated  as input to the line editor.  If the -a option
+          is specified, bind the in-strings  in  the  alternative
+          keymap  instead  of  the standard one.  The alternative
+          keymap is used in vi command mode.
+
+          For either in-string or out-string, control  characters
+          may  be specified in the form ^X, and the backslash may
+          be used  to  introduce  one  of  the  following  escape
+          sequences:
+               \a   bell character
+               \n   linefeed (newline)
+               \b   backspace
+               \t   horizontal tab
+               \v   vertical tab
+               \f   form feed
+               \r   carriage return
+               \e   escape
+               \nnn character code in octal
+               \M-xxx
+                    character or escape sequence  with  meta  bit
+                    set
+
+          In all other cases, \ escapes the following  character.
+          Delete is written as `^?'.
+
+     vi-backward-blank-word (unbound) (B)
+          Move backward one word, where a word is  defined  as  a
+          series of non-blank characters.
+
+     backward-char (^B ESC-[D) ()
+          Move backward one character.
+
+     vi-backward-char () (h)
+          Move backward one character, without changing lines.
+
+     backward-word (ESC-B ESC-b) (unbound)
+          Move to the beginning of the previous word.
+
+     emacs-backward-word
+          Move to the beginning of the previous word.
+
+     vi-backward-word (unbound) (b)
+          Move to the beginning of the previous word, vi-style.
+
+     beginning-of-line (^A) (0)
+          Move to the beginning of the line.  If already  at  the
+          beginning  of  the  line,  move to the beginning of the
+          previous line, if any.
+
+     vi-beginning-of-line
+          Move to the beginning of  the  line,  without  changing
+          lines.
+
+     end-of-line (^E)
+          Move to the end of the line.  If already at the end  of
+          the line, move to the end of the next line, if any.
+
+     vi-end-of-line (unbound) ($)
+          Move to the end of the line.
+
+     vi-forward-blank-word (unbound) (W)
+          Move forward one word, where a word  is  defined  as  a
+          series of non-blank characters.
+
+     vi-forward-blank-word-end (unbound) (E)
+          Move to the end of the current word, or, if at the  end
+          of the current word, to the end of the next word, where
+          a word is defined as a series of non-blank characters.
+
+     forward-char (^F ESC-[C)
+          Move forward one character.
+
+     vi-forward-char (unbound) (space l)
+          Move forward one character.
+
+     vi-find-next-char (^X^F) (f)
+          Read a character from the keyboard,  and  move  to  the
+          next occurrence of it in the line.
+
+     vi-find-next-char-skip (unbound) (t)
+          Read a character from the keyboard,  and  move  to  the
+          position  just  before the next occurrence of it in the
+          line.
+
+     vi-find-prev-char (unbound) (F)
+          Read a character from the keyboard,  and  move  to  the
+          previous occurrence of it in the line.
+
+     vi-find-prev-char-skip (unbound) (T)
+          Read a character from the keyboard,  and  move  to  the
+          position  just  after  the previous occurrence of it in
+          the line.
+
+     vi-first-non-blank (unbound) (^)
+          Move to the first non-blank character in the line.
+
+     vi-forward-word (unbound) (w)
+          Move forward one word, vi-style.
+
+     forward-word (ESC-F ESC-f) (unbound)
+          Move to the beginning of the next word.   The  editor's
+          idea  of a word is specified with the WORDCHARS parame-
+          ter.
+
+     emacs-forward-word
+          Move to the end of the next word.
+
+     vi-forward-word-end (unbound) (e)
+          Move to the end of the next word.
+
+     vi-goto-column (ESC-|) (|)
+          Move to the column specified by the numeric argument.
+
+     vi-goto-mark (unbound) (`)
+          Move to the specified mark.
+
+     vi-goto-mark-line (unbound) (')
+          Move to beginning of the line containing the  specified
+          mark.
+
+     vi-repeat-find (unbound) (;)
+          Repeat the last vi-find command.
+
+     vi-rev-repeat-find (unbound) (,)
+          Repeat the last vi-find command in the opposite  direc-
+          tion.
+
+     beginning-of-buffer-or-history (ESC-<)
+          Move to the beginning of  the  buffer,  or  if  already
+          there, move to the first event in the history list.
+
+     beginning-of-line-hist
+          Move to the beginning of the line.  If already  at  the
+          beginning  of  the buffer, move to the previous history
+          line.
+
+     beginning-of-history
+          Move to the first event in the history list.
+
+     down-line-or-history (^N ESC-[B) (+ j)
+          Move down a line in the buffer, or if  already  at  the
+          bottom  line,  move  to  the  next event in the history
+          list.
+
+     down-history (unbound) (^N)
+          Move to the next event in the history list.
+
+     end-of-buffer-or-history (ESC->)
+          Move to the end of the buffer,  or  if  already  there,
+          move to the last event in the history list.
+
+     end-of-line-hist
+          Move to the end of the line.  If already at the end  of
+          the buffer, move to the next history line.
+
+     end-of-history
+          Move to the last event in the history list.
+
+     vi-fetch-history (unbound) (G)
+          Fetch the history line specified by the  numeric  argu-
+          ment.
+
+     history-incremental-search-backward (^R ^Xr)
+          Search backward incrementally for a  specified  string.
+          The  string  may begin with `^' to anchor the search to
+          the beginning of the line.
+
+     history-incremental-search-forward (^Xs)
+          Search forward incrementally for  a  specified  string.
+          The  string  may begin with `^' to anchor the search to
+          the beginning of the line.
+
+     history-search-backward (ESC-P ESC-p) (K)
+          Search backward in the history  for  a  line  beginning
+          with the first word in the buffer.
+
+     vi-history-search-backward (unbound) (/)
+          Search backward in the history for a specified  string.
+          The  string  may begin with `^' to anchor the search to
+          the beginning of the line.
+
+     history-search-forward (ESC-N ESC-n) (J)
+          Search forward in the history for a line beginning with
+          the first word in the buffer.
+
+     vi-history-search-forward (unbound) (?)
+          Search forward in the history for a  specified  string.
+          The  string  may begin with `^' to anchor the search to
+          the beginning of the line.
+
+     infer-next-history (^X^N)
+          Search in the history list  for  a  line  matching  the
+          current one and fetch the event following it.
+
+     insert-last-word (ESC-_ ESC-.)
+          Insert the last word from the previous history event at
+          the cursor position.
+
+     vi-repeat-search (unbound) (n)
+          Repeat the last vi history search.
+
+     vi-rev-repeat-search (unbound) (N)
+          Repeat the last vi history search, but in reverse.
+
+     toggle-literal-history (ESC-R ESC-r)
+          Toggle  between  literal  and  lexical  history.    The
+          default is lexical history unless the HISTLIT option is
+          set.
+
+     up-line-or-history (^P ESC-[A) (- k)
+          Move up a line in the buffer, or if already at the  top
+          line, move to the previous event in the history list.
+
+     up-history (unbound) (^P)
+          Move to the previous event in the history list.
+
+     vi-add-eol (unbound) (A)
+          Move to the end of the line and enter insert mode.
+
+     vi-add-next (unbound) (a)
+          Move forward one character and enter insert mode.
+
+     backward-delete-char (^H ^?) (^?)
+          Delete the character behind the cursor.
+
+     vi-backward-delete-char (unbound) (X)
+          Delete the character behind the cursor, without  chang-
+          ing lines.
+
+     backward-delete-word
+          Delete the word behind the cursor.
+
+     backward-kill-line
+          Kill from the beginning of the line to the cursor posi-
+          tion.
+
+     backward-kill-word (^W ESC-^H ESC-^?)
+          Kill the word behind the cursor.
+
+     vi-backward-kill-word (unbound) (^W)
+          Kill the word behind the cursor.
+
+     capitalize-word (ESC-C ESC-c)
+          Capitalize the current word and move past it.
+
+     vi-change (unbound) (c)
+          Read a movement command from  the  keyboard,  and  kill
+          from  the  cursor position to the endpoint of the move-
+          ment.  Then enter insert mode.  If the command  is  vi-
+          change, kill the current line.
+
+     vi-change-eol (unbound) (C)
+          Kill to the end of the line and enter insert mode.
+
+     vi-change-whole-line (unbound) (S s)
+          Kill the current line and enter insert mode.
+
+     copy-region-as-kill (ESC-W ESC-w)
+          Copy the area from the cursor to the mark to  the  kill
+          buffer.
+
+     copy-prev-word (ESC-^_)
+          Duplicate the word behind the cursor.
+
+     vi-delete (unbound) (d)
+          Read a movement command from  the  keyboard,  and  kill
+          from  the  cursor position to the endpoint of the move-
+          ment.  If the command is vi-delete,  kill  the  current
+          line.
+
+     delete-char (unbound) (x)
+          Delete the character under the cursor.
+
+     vi-delete-char (unbound) (x)
+          Delete the character under the cursor.
+
+     delete-word (ESC-D ESC-d)
+          Delete the current word.
+
+     down-case-word (ESC-L ESC-l)
+          Convert the current word to all lowercase and move past
+          it.
+
+     kill-word
+          Kill the current word.
+
+     gosmacs-transpose-chars
+          Exchange the two characters behind the cursor.
+
+     vi-indent (unbound) (>)
+          Indent a number of lines.
+
+     vi-insert (unbound) (i)
+          Enter insert mode.
+
+     vi-insert-bol (unbound) (I)
+          Move to the beginning of  the  line  and  enter  insert
+          mode.
+
+     vi-join (^X^J)
+          Join the current line with the next one.
+
+     kill-line (^K) (D)
+          Kill from the cursor to the end of the line.
+
+     kill-region
+          Kill from the cursor to the mark.
+
+     kill-buffer (^X^U) (^U)
+          Kill the entire buffer.
+
+     kill-whole-line (^U) (unbound)
+          Kill the current line.
+
+     vi-match-bracket (^X^B) (%)
+          Move to the bracket character (one of {},  (),  or  [])
+          that matches the one under the cursor.
+
+     vi-open-line-above (unbound) (O)
+          Open a line above the cursor and enter insert mode.
+
+     vi-open-line-below (unbound) (o)
+          Open a line below the cursor and enter insert mode.
+
+     vi-oper-swap-case
+          Read a movement command from the keyboard, and swap the
+          case  of all characters from the cursor position to the
+          endpoint of the movement.  If the movement  command  is
+          vi-oper-swap-case,  swap  the case of all characters on
+          the current line.
+
+     overwrite-mode (^X^O)
+          Toggle between overwrite mode and insert mode.
+
+     vi-put-after (unbound) (p)
+          Insert the contents of the kill buffer after  the  cur-
+          sor.
+
+     quoted-insert (^V)
+          Insert  the  next  character  typed  into  the   buffer
+          literally.
+
+     quote-line (ESC-')
+          Quote the current line; that is, put a '  character  at
+          the beginning and the end, and convert all ' characters
+          to '\''.
+
+     quote-region (ESC-")
+          Quote the region from the cursor to the mark.
+
+     vi-replace (unbound) (R)
+          Enter overwrite mode.
+
+     vi-repeat-change (unbound) (.)
+          Repeat the last vi mode text modification.
+
+     vi-replace-chars (unbound) (r)
+          Replace the character under the cursor with a character
+          read from the keyboard.
+
+     self-insert (printable characters)
+          Put a character in the buffer at the cursor position.
+
+     self-insert-unmeta (ESC-^I ESC-^J ESC-^M)
+          Put a character in the buffer after stripping the  meta
+          bit and converting ^M to ^J.
+
+     vi-substitute (unbound) (s)
+          Substitute the next character(s).
+
+     vi-swap-case (unbound) (~)
+          Swap the case of the character  under  the  cursor  and
+          move past it.
+
+     transpose-chars (^T)
+          Exchange the two characters to the left of  the  cursor
+          if  at  end  of line, else exchange the character under
+          the cursor with the character to the left.
+
+     transpose-words (ESC-T ESC-t)
+          Exchange the current word with the one before it.
+
+     vi-unindent (unbound) (<)
+          Unindent a number of lines.
+
+     up-case-word (ESC-U ESC-u)
+          Convert the current word to all caps and move past it.
+
+     yank (^Y) (P)
+          Insert the contents of the kill buffer  at  the  cursor
+          position.
+
+     yank-pop (ESC-y) (unbound)
+          Remove the text just yanked, rotate the kill-ring,  and
+          yank  the  new top.  Only works following yank or yank-
+          pop.
+
+     vi-yank (unbound) (y)
+          Read a movement command from the keyboard, and copy the
+          region  from the cursor position to the endpoint of the
+          movement into the kill buffer.  If the command  is  vi-
+          yank, copy the current line.
+
+     vi-yank-eol (unbound) (Y)
+          Copy the region from the cursor position to the end  of
+          the line into the kill buffer.
+
+     digit-argument (ESC-0..ESC-9) (0-9)
+          Start a new numeric argument, or  add  to  the  current
+          one.
+
+     universal-argument
+          Multiply the argument of the next command by 4.
+
+     accept-and-menu-complete
+          In a menu completion,  insert  the  current  completion
+          into  the buffer, and advance to the next possible com-
+          pletion.
+
+     complete-word (unbound) (\)
+          Attempt completion on the current word.
+
+     delete-char-or-list (^D)
+          Delete the character under the cursor.  If  the  cursor
+          is  at  the  end of the line, list possible completions
+          for the current word.
+
+     execute-named-cmd (ESC-x)
+          Read the name of a editor command and execute it.
+
+     execute-last-named-cmd (ESC-z)
+          Redo the last function executed with execute-named-cmd.
+
+     expand-cmd-path
+          Expand the current command to its full pathname.
+
+     expand-or-complete (TAB) (TAB ^X)
+          Attempt shell expansion on the current word.   If  that
+          fails, attempt completion.
+
+     expand-history (ESC-space ESC-!)
+          Perform history expansion on the edit buffer.
+
+     expand-word (^X*)
+          Attempt shell expansion on the current word.
+
+     list-choices (ESC-^D) (^D =)
+          List possible completions for the current word.
+
+     list-expand (^Xg ^XG) (^G)
+          List the expansion of the current word.
+
+     magic-space
+          Perform history expansion and insert a space  into  the
+          buffer.  This is intended to be bound to space.
+
+     menu-complete
+          Like complete-word,  except  that  menu  completion  is
+          used.  See the MENU_COMPLETE option below.
+
+     menu-expand-or-complete
+          Like expand-or-complete, except that menu completion is
+          used.
+
+     reverse-menu-complete
+          See the MENU_COMPLETE option below.
+
+     accept-and-hold (ESC-A ESC-a)
+          Push the contents of the buffer on the buffer stack and
+          execute it.
+
+     accept-and-infer-next-history
+          Execute the contents of the buffer.   Then  search  the
+          history  list  for  a line matching the current one and
+          push the event following onto the buffer stack.
+
+     accept-line (^J ^M)
+          Execute the contents of the buffer.
+
+     accept-line-and-down-history (^O)
+          Execute the current line, and  push  the  next  history
+          event on the the buffer stack.
+
+     vi-cmd-mode (^X^V) (^[)
+          Enter command mode; that is, use the alternate  keymap.
+          Yes, this is bound by default in emacs mode.
+
+     vi-caps-lock-panic (unbound) (H K)
+          Hang until any lowercase key is pressed.  This  is  for
+          vi  users  without the mental capacity to keep track of
+          their caps lock key (like the author).
+
+     clear-screen (^L ESC-^L)
+          Clear the screen and redraw the prompt.
+
+     exchange-point-and-mark (^X^X)
+          Exchange the cursor position with the position  of  the
+          mark.
+
+     get-line (ESC-G ESC-g)
+          Pop the top line off the buffer stack and insert it  at
+          the cursor position.
+
+     pound-insert (unbound) (#)
+          If there is no # character  at  the  beginning  of  the
+          current line, add one.  If there is one, remove it.  In
+          either   case,   accept   the   current   line.     The
+          INTERACTIVE_COMMENTS  option  must  be  set for this to
+          have any usefulness.
+
+     push-line (^Q ESC-Q ESC-q)
+          Push the current buffer onto the buffer stack and clear
+          the buffer.  Next time the editor starts up, the buffer
+          will be popped off the top  of  the  buffer  stack  and
+          loaded into the editing buffer.
+
+     redisplay (unbound) (^R)
+          Redisplays the edit buffer.
+
+     run-help (ESC-H ESC-h)
+          Push the buffer onto the buffer stack, and execute  the
+          command  "run-help  cmd", where cmd is the current com-
+          mand.  run-help is normally aliased to man.
+
+     send-break (^C)
+          Abort the parsing of the current line.
+
+     vi-set-buffer (unbound) (")
+          Specify a buffer to be used in the following command.
+
+     vi-set-mark (unbound) (m)
+          Set the specified mark at the cursor position.
+
+     set-mark-command (^@)
+          Set the mark at the cursor position.
+
+     spell-word (ESC-$ ESC-S ESC-s)
+          Attempt spelling correction on the current word.
+
+     undefined-key
+          Beep.
+
+     undo (^_ ^X^U) (u)
+          Incrementally undo the last text modification.
+
+     which-command (ESC-?)
+          Push the buffer onto the buffer stack, and execute  the
+          command  "which-command  cmd", where cmd is the current
+          command.  which-command is normally aliased to whence.

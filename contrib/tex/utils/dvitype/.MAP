@@ -1,0 +1,5 @@
+F DVITYPE0.GZ;1                     	dvitype.c.patch.gz
+F DVITYPE1.GZ;1                     	dvitype.ch.gz
+F DVITYPE2.GZ;1                     	dvitype.web.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/tex/utils/dvitype

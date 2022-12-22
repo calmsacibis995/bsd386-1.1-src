@@ -1,0 +1,1458 @@
+This is Info file dvips.info, produced by Makeinfo-1.47 from the input
+file dvips.texi.
+
+START-INFO-DIR-ENTRY
+* DVIps: (dvips.info).	 DVI to PostScript translator
+END-INFO-DIR-ENTRY
+
+
+File: dvips.info,  Node: Font Naming,  Next: Command Line Options,  Prev: PostScript fonts,  Up: Top
+
+Font Naming Conventions
+***********************
+
+   This section of the manual has been written by Karl Berry and
+specifies a standard for naming of fonts for TeX.  This standard has
+been adopted in dvips, and it is recommended that it be followed where
+possible.
+
+   As more typeface families become available for use with TeX, the need
+for a consistent, rational naming scheme for the font filenames
+concomitantly grows. Some (electronic) discussion has gone into the
+following proposal; I felt it was appropriate now to bring it before a
+wider community.  In some respects, it follows and simplifies Mittelbach
+and Schoepf's article in *TUGboat*, volume 11, number 2 (June 1990).
+
+   Here are some facts about fonts that went into the hopper when
+creating this proposal:
+
+   * TeX runs on virtually all computers, under almost as many operating
+     systems, all with their own idea of how files should be named.  Any
+     proposal regarding filenames, therefore, must cater to the lowest
+     common denominator.  That seems to be eight characters in length,
+     not counting any extension, and with case being insignificant. 
+     Characters other than letters and numerals are probably unusable.
+
+   * Most typefaces are offered by several vendors.  The version
+     offered by vendor A is not compatible with that of vendor B.
+
+   * Typefaces typically come in different weights (hairline to extra
+     heavy), different expansions (ultra condensed to wide), and an
+     open-ended range of variants (italic, sans serif, typewriter,
+     shadow,...).  No accepted standards exist for any of these
+     qualities, nor are any standards ever likely to gain acceptance.
+
+   * The Computer Modern typeface family preserves traditional
+     typesetting practice in at least one important respect: different
+     sizes of the same font are not scaled linearly.  This is in
+     contrast to most commercial fonts available.
+
+   Here is how I propose to divide up the eight characters:
+
+     FTTWVEDD
+
+where
+
+   * `F' represents the foundry that produced the font, and is omitted
+     if there isn't one.
+
+   * `TT' represents the typeface name.
+
+   * `W' represents the weight.
+
+   * `V' represents the variant, and is omitted if both it and the
+     expansion are "normal".
+
+   * `E' represents the expansion, and is omitted if it is "normal".
+
+   * `DD' represents the design size, and is omitted if the font is
+     linearly scaled from a single `tfm' file.
+
+   See the section on virtual fonts (towards the end) for an exception
+to the above.
+
+   The weight, variant, and expansion are probably all best taken from
+the original source of the typeface, instead of trying to relate them to
+some external standard.
+
+   Before giving the lists of abbreviations, let me point out two
+problems, to neither of which I have a good solution.
+  1. Assuming that only the English letters are used, two letters is
+     enough for only 676 typeface families (even assuming we want to
+     use all possible combinations, which is doubtful).  There are many
+     more than 676 typeface families in the world.
+
+  2. Fonts with design sizes over 100pt are not common, but neither are
+     they unheard of.
+
+   On to the specifics of the lists.  If you adopt this proposal at your
+own installation, and find that you have fonts with some property I
+missed, please write to me (see the end of the article for various
+addresses), so I can update the lists.  You can get the most up-to-date
+version of these lists electronically, by anonymous ftp from the host
+`ftp.cs.umb.edu'.  I will also send them to you by electronic mail, if
+necessary.
+
+   I give the letters in lowercase, which is preferred on systems where
+case is significant.  Most lists are in alphabetical order by the
+abbreviations.
+
+* Menu:
+
+* Foundry::                     Foundry
+* Typeface Families::           Typeface Families
+* Weight::                      Weight
+* Variants::                    Variants
+* Expansion::                   Expansion
+* Naming Virtual Fonts::        Naming Virtual Fonts
+* Examples::                    Examples
+
+
+File: dvips.info,  Node: Foundry,  Next: Typeface Families,  Up: Font Naming
+
+Foundry
+=======
+
+   This is the current list of foundries.
+
+`a'
+     Autologic
+
+`b'
+     Bitstream
+
+`c'
+     Agfa-Compugraphic
+
+`g'
+     Free Software Foundation (`g' for GNU)
+
+`h'
+     Bigelow \& Holmes (with apologies to Chuck)
+
+`i'
+     International Typeface Corporation
+
+`p'
+     Adobe (`p' for PostScript)
+
+`r'
+     reserved for use with virtual fonts; see below
+
+`s'
+     Sun
+
+
+File: dvips.info,  Node: Typeface Families,  Next: Weight,  Prev: Foundry,  Up: Font Naming
+
+Typeface Families
+=================
+
+   The list of typefaces is:
+
+`ad'
+     Adobe Garamond
+
+`ag'
+     Avant Garde
+
+`ao'
+     Antique Olive
+
+`at'
+     American Typewriter
+
+`bb'
+     Bembo
+
+`bd'
+     Bodoni
+
+`bg'
+     Benguiat
+
+`bk'
+     Bookman
+
+`bl'
+     Balloon
+
+`bv'
+     Baskerville
+
+`bw'
+     Broadway
+
+`cb'
+     Cooper Black
+
+`cl'
+     Cloister
+
+`cn'
+     Century
+
+`cr'
+     Courier
+
+`cs'
+     Century Schoolbook
+
+`gm'
+     Garamond
+
+`go'
+     Goudy Oldstyle
+
+`gs'
+     Gill Sans
+
+`hv'
+     Helvetica
+
+`jo'
+     Joanna
+
+`lc'
+     Lucida
+
+`lt'
+     Lutetia
+
+`nc'
+     New Century Schoolbook
+
+`op'
+     Optima
+
+`pl'
+     Palatino
+
+`pp'
+     Perpetua
+
+`rw'
+     Rockwell
+
+`st'
+     Stone
+
+`sy'
+     Symbol
+
+`tm'
+     Times
+
+`un'
+     Univers
+
+`uy'
+     University
+
+`zc'
+     Zapf Chancery
+
+`zd'
+     Zapf Dingbats
+
+
+File: dvips.info,  Node: Weight,  Next: Variants,  Prev: Typeface Families,  Up: Font Naming
+
+Weight
+======
+
+   This is a list of the possible weights, roughly in order from
+lightest to heaviest.
+
+`a'
+     hairline
+
+`b'
+     bold
+
+`c'
+     black
+
+`d'
+     demi
+
+`h'
+     heavy
+
+`i'
+     extra light
+
+`k'
+     book
+
+`l'
+     light
+
+`m'
+     medium
+
+`r'
+     regular
+
+`s'
+     semi
+
+`t'
+     thin
+
+`u'
+     ultra
+
+`x'
+     extra bold
+
+
+File: dvips.info,  Node: Variants,  Next: Expansion,  Prev: Weight,  Up: Font Naming
+
+Variants
+========
+
+   The variants are:
+
+`a'
+     alternate
+
+`b'
+     bright
+
+`c'
+     small caps
+
+`e'
+     engraved
+
+`g'
+     grooved (as in the IBM logo)
+
+`h'
+     shadow
+
+`i'
+     italic
+
+`l'
+     outline
+
+`n'
+     informal
+
+`o'
+     oblique (i.e., slanted)
+
+`r'
+     normal (roman or sans)
+
+`s'
+     sans serif
+
+`t'
+     typewriter
+
+`u'
+     unslanted italic
+
+`x'
+     expert
+
+   If the variant is `r', and the expansion is also normal, both the
+variant and the expansion are omitted.  When the normal version of the
+typeface is sans serif (e.g., Helvetica), `r' should be used, not `s'. 
+Use `s' only when the typeface family has both serif and sans serif
+variants.  The "alternate" variant (`a') is used by some Adobe fonts
+that have spiffy swashes and additional ligatures.  The "expert"
+variant (`x') is also used by some Adobe fonts with oldstyle figures
+and small caps.
+
+   Some fonts have multiple variants; Stone Informal Italic, for
+example. The only reasonable approach to these is to list all the
+letters for all the variants, choosing one to end with that is not also
+an expansion letter.  Of course, it is possible that the name will
+become too long if you do this, but ... well, I'm open to suggestions. 
+It's also possible the name will be ambiguous, if some new letter is
+used for expansions in the future.  You can avoid this problem by
+adding the expansion `r' (if it doesn't make the name too long), and
+never using `r' for the last variant.
+
+
+File: dvips.info,  Node: Expansion,  Next: Naming Virtual Fonts,  Prev: Variants,  Up: Font Naming
+
+Expansion
+=========
+
+   This is a list of the possible expansions, in order from narrowest to
+widest.
+
+`c'
+     condensed (by hand)
+
+`e'
+     expanded (automatic)
+
+`n'
+     narrow (automatic)
+
+`o'
+     extra condensed
+
+`r'
+     regular, normal, medium (usually omitted)
+
+`w'
+     wide
+
+`x'
+     extended (by hand)
+
+   Expansion of fonts is sometimes done automatically (as in PostScript
+`scale'), and sometimes done by humans.  I chose `narrow' and
+`expanded' to imply the former, and `condensed' and `extended' to imply
+the latter, as I believe this reflects common usage.
+
+
+File: dvips.info,  Node: Naming Virtual Fonts,  Next: Examples,  Prev: Expansion,  Up: Font Naming
+
+Naming Virtual Fonts
+====================
+
+   In concert with releasing TeX 3.0 and METAFONT 2.7, Don Knuth wrote
+two new utility programs: `VFtoVP' and `VPtoVF', which convert to and
+from "virtual" fonts.  Virtual fonts provide a general interface
+between the writers of TeX macros and font suppliers.  In general,
+therefore, it is impossible to come up with a general scheme for naming
+virtual fonts, since each virtual font is an individual creation,
+possibly bringing together many unrelated fonts.
+
+   Nevertheless, one common case is to use virtual fonts to map TeX's
+default accent and other character code conventions onto a
+vendor-supplied font.  For example, dvips does this for fonts given in
+the PostScript "standard encoding".  In this case, each font consists
+of a "virtual" `tfm' file, which is what TeX uses, a "raw" `tfm' file,
+which corresponds to the actual device font, and a `vf' file, which
+describes the relationship between the two.
+
+   This adds another dimension to the space of font names, namely,
+"virtualness" (or rather, "rawness", since it is the virtual `tfm'
+files that the users want to see).  But we have already used up all
+eight characters in the font names.
+
+   The best solution I have been able to think of is this: prepend `r'
+to the raw `tfm' files; the virtual `tfm' files should be named with
+the usual foundry prefix.  For example, the virtual Times-Roman tfm
+file is named `ptmr', as usual; the raw Times-Roman `tfm' file is named
+`rptmr'.  To prevent intolerable confusion, I promise never to give a
+foundry the letter `r'.
+
+   This scheme will work only as long as the virtualized fonts do not
+have design sizes; if they do, another foundry letter will have to be
+allocated, it seems to me.
+
+   A pox upon the houses of those who decided on fixed-length filenames!
+
+
+File: dvips.info,  Node: Examples,  Prev: Naming Virtual Fonts,  Up: Font Naming
+
+Examples
+========
+
+   In closing, I will give two examples.  First, the fonts in the
+Univers typeface family were assigned numbers by its designer, Adrien
+Frutiger. (You can see the scheme on, for example, page 29 of `The Art
+of Typo.icon.ography', by Martin Solomon.)  Naturally, we want to give
+them names.
+
+`unb'
+     75 (bold)
+
+`unbi'
+     76 (bold italic)
+
+`unbrx'
+     73 (bold extended)
+
+`und'
+     65 (demibold)
+
+`undi'
+     66 (demibold italic)
+
+`undic'
+     68 (demibold condensed italic)
+
+`undrc'
+     67 (demibold condensed)
+
+`undrx'
+     63 (demibold extended)
+
+`unl'
+     45 (light)
+
+`unli'
+     46 (light italic)
+
+`unlic'
+     48 (light condensed italic)
+
+`unlrc'
+     47 (light condensed)
+
+`unlro'
+     49 (light extra condensed)
+
+`unm'
+     55 (medium)
+
+`unmi'
+     56 (medium italic)
+
+`unmic'
+     58 (medium condensed italic)
+
+`unmrc'
+     57 (medium condensed)
+
+`unmro'
+     59 (medium extra condensed)
+
+`unmrx'
+     53 (medium extended)
+
+`unxrx'
+     83 (extra bold extended)
+
+   Second, here are names for the standard PostScript fonts and their
+variants: Fonts marked by an asterisk do not require using virtual
+fonts; the raw fonts can be used directly because no remapping is
+necessary; every character is encoded.
+
+`pagd'
+     AvantGarde-Demi
+
+`pagdo'
+     AvantGarde-DemiOblique
+
+`pagk'
+     AvantGarde-Book
+
+`pagkc'
+     AvantGarde-Book (small caps)
+
+`pagko'
+     AvantGarde-BookOblique
+
+`pbkd'
+     Bookman-Demi
+
+`pbkdi'
+     Bookman-DemiItalic
+
+`pbkl'
+     Bookman-Light
+
+`pbklc'
+     Bookman-Light (small caps)
+
+`pbkli'
+     Bookman-LightItalic
+
+`pcrb'
+     Courier-Bold
+
+`pcrbo'
+     Courier-BoldOblique
+
+`pcrr'
+     Courier
+
+`pcrro'
+     Courier-Oblique
+
+`phvb'
+     Helvetica-Bold
+
+`phvbo'
+     Helvetica-BoldOblique
+
+`phvbon'
+     Helvetica-Narrow-BoldOblique
+
+`phvbrn'
+     Helvetica-Narrow-Bold
+
+`phvr'
+     Helvetica
+
+`phvrc'
+     Helvetica (small caps)
+
+`phvro'
+     Helvetica-Oblique
+
+`phvron'
+     Helvetica-Narrow-Oblique
+
+`phvrrn'
+     Helvetica-Narrow
+
+`pncb'
+     NewCenturySchlbk-Bold
+
+`pncbi'
+     NewCenturySchlbk-BoldItalic
+
+`pncr'
+     NewCenturySchlbk
+
+`pncrc'
+     NewCenturySchlbk (small caps)
+
+`pncri'
+     NewCenturySchlbk-Italic
+
+`pplb'
+     Palatino-Bold
+
+`pplbi'
+     Palatino-BoldItalic
+
+`pplbu'
+     Palatino-BoldUnslanted
+
+`pplr'
+     Palatino
+
+`pplrc'
+     Palatino (small caps)
+
+`pplri'
+     Palatino-Italic
+
+`pplro'
+     Palatino-Oblique
+
+`pplrre'
+     Palatino-Expanded
+
+`pplrrn'
+     Palatino-Narrow
+
+`pplru'
+     Palatino-Unslanted
+
+`psyr'
+     Symbol*
+
+`psyro'
+     Symbol-Oblique*
+
+`ptmb'
+     Times-Bold
+
+`ptmbi'
+     Times-BoldItalic
+
+`ptmr'
+     Times-Roman
+
+`ptmrc'
+     Times-Roman (small caps)
+
+`ptmri'
+     Times-Italic
+
+`ptmro'
+     Times-Oblique
+
+`ptmrre'
+     Times-Expanded
+
+`ptmrrn'
+     Times-Narrow
+
+`pzcmi'
+     ZapfChancery-MediumItalic
+
+`pzdr'
+     ZapfDingbats*
+
+   Please contact Karl Berry if you have any comments or additions. 
+Karl can be reached at `karl@cs.umb.edu', or at 135 Center Hill Road,
+Plymouth, MA 02360.
+
+
+File: dvips.info,  Node: Command Line Options,  Next: Config File,  Prev: Font Naming,  Up: Top
+
+Command Line Options
+********************
+
+   The dvips driver has a plethora of command line options.  Reading
+through this section will give a good idea of the capabilities of the
+driver.
+
+   Many of the parameterless options listed here can be turned off by
+immediately suffixing the option with a zero (0); for instance, to turn
+off page reversal if it is turned on by default, use `-r0'.  The
+options that can be turned off in this way are `a', `f', `k', `i', `m',
+`q', `r', `s', `E', `F', `K', `M', `N', `U', and `Z'.
+
+   This is a handy summary of the options; it is printed out when you
+run dvips with no arguments.
+
+          Usage: dvips [options] filename[.dvi]
+      a*  Conserve memory, not time      t s Paper format
+      b # Page copies, for posters e.g.  x # Override dvi magnification
+      c # Uncollated copies              C # Collated copies
+      d # Debugging                      D # Resolution
+      e # Maxdrift value                 E*  Try to create EPSF
+      f*  Run as filter                  F*  Send control-D at end
+      h f Add header file                K*  Pull comments from inclusions
+      i*  Separate file per section      M*  Don't make fonts
+      k*  Print crop marks               N*  No structured comments
+      l # Last page                      O c Set/change paper offset
+      m*  Manual feed                    P s Load config.$s
+      n # Maximum number of pages        S # Max section size in pages
+      o f Output file                    T c Specify desired page size
+      p # First page                     U*  Disable string param trick
+      q*  Run quietly                    X # Horizontal resolution
+      r*  Reverse order of pages         Y # Vertical resolution
+      s*  Enclose output in save/restore Z*  Compress bitmap fonts
+          # = number   f = file   s = string  * = suffix, `0' to turn off
+          c = comma-separated dimension pair (e.g., 3.2in,-32.1cm)
+
+`-a'
+     Conserve memory by making three passes over the `dvi' file instead
+     of two and only loading those characters actually used.  Generally
+     only useful on machines with a very limited amount of memory, like
+     some PCs.
+
+`-c NUM'
+     Generate NUM copies of every page. Default is 1. (For collated
+     copies, see the `-C' option below.)
+
+`-b NUM'
+     Generate NUM copies of each page, but duplicating the page body
+     rather than using the `#numcopies' option.  This can be useful in
+     conjunction with a header file setting `\bop-hook' to do color
+     separations or other neat tricks.
+
+`-d NUM'
+     Set the debug flags.  This is intended only for emergencies or for
+     unusual fact-finding expeditions; it will work only if dvips has
+     been compiled with the `DEBUG' option.  The source file `debug.h'
+     indicates what the values of NUM can be, or see section 15 of this
+     manual.  Use a value of -1 for maximum output.
+
+`-e NUM'
+     Make sure that each character is placed at most this many pixels
+     from its `true' resolution-independent position on the page. The
+     default value of this parameter is resolution dependent (it is the
+     number of entries in the list [100, 200, 300, 400, 500, 600, 800,
+     1000, 1200, 1600, 2000, 2400, 2800, 3200, ...] that are less than
+     or equal to the resolution in dots per inch). Allowing individual
+     characters to `drift' from their correctly rounded positions by a
+     few pixels, while regaining the true position at the beginning of
+     each new word, improves the spacing of letters in words.
+
+`-f'
+     Run as a filter. Read the `dvi' file from standard input and write
+     the PostScript to standard output.  The standard input must be
+     seekable, so it cannot be a pipe.  If you must use a pipe, write a
+     shell script that copies the pipe output to a temporary file and
+     then points dvips at this file.  This option also disables the
+     automatic reading of the `PRINTER' environment variable, and turns
+     off the automatic sending of control D if it was turned on with
+     the `-F' option or in the configuration file; use `-F' after this
+     option if you want both.
+
+`-h NAME'
+     Prepend file NAME as an additional header file. (However, if the
+     name is simply `-', suppress all header files from the output.) 
+     This header file gets added to the PostScript `userdict'.
+
+`-i'
+     Make each section be a separate file.  Under certain circumstances,
+     dvips will split the document up into `sections' to be processed
+     independently; this is most often done for memory reasons.  Using
+     this option tells dvips to place each section into a separate
+     file; the new file names are created replacing the suffix of the
+     supplied output file name by a three-digit sequence number.  This
+     option is most often used in conjunction with the `-S' option
+     which sets the maximum section length in pages.  For instance,
+     some phototypesetters cannot print more than ten or so consecutive
+     pages before running out of steam; these options can be used to
+     automatically split a book into ten-page sections, each to its own
+     file.
+
+`-k'
+     Print crop marks.  This option increases the paper size (which
+     should be specified, either with a paper size special or with the
+     `-T' option) by a half inch in each dimension.  It translates each
+     page by a quarter inch and draws cross-style crop marks.  It is
+     mostly useful with typesetters that can set the page size
+     automatically.
+
+`-l NUM'
+     The last page printed will be the first one numbered NUM. Default
+     is the last page in the document.  If the NUM is prefixed by an
+     equals sign, then it (and any argument to the `-p' option) is
+     treated as a sequence number, rather than a value to compare with
+     `\count0' values.  Thus, using `-l =9' will end with the ninth
+     page of the document, no matter what the pages are actually
+     numbered.
+
+`-m'
+     Specify manual feed for printer.
+
+`-n NUM'
+     At most NUM pages will be printed. Default is 100000.
+
+`-o NAME'
+     The output will be sent to file NAME. If no file name is given,
+     the default name is `FILE.ps' where the `dvi' file was called
+     `FILE.dvi'; if this option isn't given, any default in the
+     configuration file is used.  If the first character of the
+     supplied output file name is an exclamation mark, then the
+     remainder will be used as an argument to `popen'; thus, specifying
+     `!lpr' as the output file will automatically queue the file for
+     printing.  This option also disables the automatic reading of the
+     `PRINTER' environment variable, and turns off the automatic
+     sending of control D if it was turned on with the `-F' option or in
+     the configuration file; use `-F' after this option if you want
+     both.
+
+`-p NUM'
+     The first page printed will be the first one numbered NUM. Default
+     is the first page in the document.  If the NUM is prefixed by an
+     equals sign, then it (and any argument to the `-l' option) is
+     treated as a sequence number, rather than a value to compare with
+     `\count0' values.  Thus, using `-p =3' will start with the third
+     page of the document, no matter what the pages are actually
+     numbered.
+
+`-q'
+     Run in quiet mode.  Don't chatter about pages converted, etc.;
+     report nothing but errors to standard error.
+
+`-r'
+     Stack pages in reverse order.  Normally, page 1 will be printed
+     first.
+
+`-s'
+     Causes the entire global output to be enclosed in a save/restore
+     pair. This causes the file to not be truly conformant, and is thus
+     not recommended, but is useful if you are driving the printer
+     directly and don't care too much about the portability of the
+     output.
+
+`-t PAPERTYPE'
+     This sets the paper type to PAPERTYPE.  The PAPERTYPE should be
+     defined in one of the configuration files, along with the
+     appropriate code to select it.  See the documentation for `@'in the
+     configuration file option descriptions.  You can also specify `-t
+     landscape', which rotates a document by 90 degrees.  To rotate a
+     document whose size is not letter, you can use the `-t' option
+     twice, once for the page size, and once for `landscape'.  The upper
+     left corner of each page in the `dvi' file is placed one inch from
+     the left and one inch from the top.  Use of this option is highly
+     dependent on the configuration file.  Note that executing the
+     `letter' or `a4' or other PostScript operators cause the document
+     to be nonconforming and can cause it not to print on certain
+     printers, so the default paper size should not execute such an
+     operator if at all possible.
+
+`-x NUM'
+     Set the magnification ratio to NUM/1000. Overrides the
+     magnification specified in the `dvi' file.  Must be between 10 and
+     100000.
+
+`-C NUM'
+     Create NUM copies, but collated (by replicating the data in the
+     PostScript file).  Slower than the `-c' option, but easier on the
+     hands, and faster than resubmitting the same PostScript file
+     multiple times.
+
+`-D NUM'
+     Set the resolution in dpi (dots per inch) to NUM. This affects the
+     choice of bitmap fonts that are loaded and also the positioning of
+     letters in resident PostScript fonts. Must be between 10 and 10000.
+     This affects both the horizontal and vertical resolution.  If a
+     high resolution (something greater than 400 dpi, say) is selected,
+     the `-Z' flag should probably also be used.
+
+`-E'
+     Makes dvips attempt to generate an EPSF file with a tight bounding
+     box. This only works on one-page files, and it only looks at marks
+     made by characters and rules, not by any included graphics.  In
+     addition, it gets the glyph metrics from the `tfm' file, so
+     characters that lie outside their enclosing `tfm' box may confuse
+     it.  In addition, the bounding box might be a bit too loose if the
+     character glyph has significant left or right side bearings. 
+     Nonetheless, this option works well for creating small EPSF files
+     for equations or tables or the like. (Note, of course, that
+     `dvips' output is resolution dependent and thus does not make very
+     good EPSF files, especially if the images are to be scaled; use
+     these EPSF files with a great deal of care.)
+
+`-F'
+     Causes Control-D (ASCII code 4) to be appended as the very last
+     character of the PostScript file.  This is useful when dvips is
+     driving the printer directly instead of working through a spooler,
+     as is common on extremely small systems.  Otherwise, it is not
+     recommended.
+
+`-K'
+     This option causes comments in included PostScript graphics, font
+     files, and headers to be removed.  This is sometimes necessary to
+     get around bugs in spoolers or PostScript post-processing
+     programs.  Specifically, the `%%Page' comments, when left in,
+     often cause difficulties.  Use of this flag can cause some
+     included graphics to fail, since the PostScript header macros from
+     some software packages read portions of the input stream line by
+     line, searching for a particular comment.  This option has been
+     turned off by default because PostScript previewers and spoolers
+     have been getting better.
+
+`-M'
+     Turns off the automatic font generation facility.  If any fonts are
+     missing, commands to generate the fonts are appended to the file
+     `missfont.log' in the current directory; this file can then be
+     executed and deleted to create the missing fonts.
+
+`-N'
+     Turns off structured comments; this might be necessary on some
+     systems that try to interpret PostScript comments in weird ways,
+     or on some PostScript printers.  Old versions of TranScript in
+     particular cannot handle modern Encapsulated PostScript.
+
+`-O OFFSET'
+     Move the origin by a certain amount.  The OFFSET is a
+     comma-separated pair of dimensions, such as `.1in,-.3cm' (in the
+     same syntax used in the `papersize' special).  The origin of the
+     page is shifted from the default position (of one inch down, one
+     inch to the right from the upper left corner of the paper) by this
+     amount.
+
+`-P PRINTERNAME'
+     Sets up the output for the appropriate printer.  This is
+     implemented by reading in `config.PRINTERNAME', which can then set
+     the output pipe (as in, `o !lpr -Pprintername') as well as the font
+     paths and any other defaults for that printer only.  It is
+     recommended that all standard defaults go in the one master
+     `config.ps' file and only things that vary printer to printer go
+     in the `config.PRINTERNAME' files.  Note that `config.ps' is read
+     before `config.PRINTERNAME'.  In addition, another file called
+     `~/.dvipsrc' is searched for immediately after `config.ps'; this
+     file is intended for user defaults.  If no `-P' command is given,
+     the environment variable `PRINTER' is checked.  If that variable
+     exists, and a corresponding configuration file exists, that
+     configuration file is read in.
+
+`-S NUM'
+     Set the maximum number of pages in each `section'.  This option is
+     most commonly used with the `-i' option; see that documentation
+     above for more information.
+
+`-T OFFSET'
+     Set the paper size to the given pair of dimensions.  This option
+     takes its arguments in the same style as `-O'.  It overrides any
+     paper size special in the `dvi' file.
+
+`-U'
+     Disable a PostScript virtual memory saving optimization that
+     stores the character metric information in the same string that is
+     used to store the bitmap information.  This is only necessary when
+     driving the Xerox 4045 PostScript interpreter.  It is caused by a
+     bug in that interpreter that results in `garbage' on the bottom of
+     each character.  Not recommended unless you must drive this
+     printer.
+
+`-X NUM'
+     Set the horizontal resolution in dots per inch to NUM.
+
+`-Y NUM'
+     Set the vertical resolution in dots per inch to NUM.
+
+`-Z'
+     Causes bitmapped fonts to be compressed before they are downloaded,
+     thereby reducing the size of the PostScript font-downloading
+     information.  Especially useful at high resolutions or when very
+     large fonts are used.  Will slow down printing somewhat,
+     especially on early 68000-based PostScript printers.
+
+
+File: dvips.info,  Node: Config File,  Next: Config File Options,  Prev: Command Line Options,  Up: Top
+
+Configuration File Searching
+****************************
+
+   The dvips program has a system of loading configuration files such
+that certain parameters can be set globally across the system, others
+can be set on a per-printer basis, and yet others can be set by the
+user.  When dvips starts up, first the global `config.ps' file is
+searched for and loaded.  This file is looked for along the path for
+configuration files, which is by default `.:/usr/lib/tex/ps'.  After
+this master configuration file is loaded, a file by the name of
+`.dvipsrc' is loaded from the current user's home directory, if such a
+file exists. This file is loaded in exactly the same way as the global
+configuration file, and it can override any options set in the global
+file.
+
+   Then the command line is read and parsed.  If the `-P' option is
+encountered, at that point in the command line a configuration file for
+that printer is read in.  Thus, the printer configuration file can
+override anything in the global or user configuration file, and it can
+also override anything seen in the command line up to the point that the
+`-P' option was encountered.
+
+   After the command line has been completely scanned, if there was no
+`-P' option selected, and also the `-o' and `-f' command line options
+were not used, a `PRINTER' environment variable is searched for.  If
+this variable exists, and a configuration file for the printer
+mentioned in it exists, this configuration file is loaded last of all.
+
+   Note that because the printer-specific configuration files are read
+after the user's configuration file, the user cannot override things in
+the printer configuration files.  On the other hand, the configuration
+path usually includes the current directory, and can be set to include
+the user's home directory (or any other directory of the user), so the
+user can always provide his or her own printer-specific configuration
+files that will be found before the system global ones.
+
+   If your printer uses a different resolution than 300 dpi, make sure
+that you have given a METAFONT mode as well as a resolution in the
+printer configuration file.  Also make sure that METAFONT knows about
+the mode, by entering it into your local `mode_def' file (typically
+`waits.mf'; `amiga.mf' on the Amiga, `next.mf' on the NeXT) and
+recreating the `plain.base' file for METAFONT, including the `mod_def'
+file.  (Another good mode definition file is `modes.mf' by Karl Berry,
+which is available from `ftp.cs.umb.edu' in `pub/tex/modes.mf'.)  The
+most common problem in generating fonts with METAFONT is that this file
+with the mode definitions is not included when creating the `plain.base'
+file.
+
+
+File: dvips.info,  Node: Config File Options,  Next: Font Generation,  Prev: Config File,  Up: Top
+
+Configuration File Options
+**************************
+
+   Most of the configuration file options are similar to the command
+line options, but there are a few new ones.
+
+   Again, many may be turned off by suffixing the letter with a zero
+(0). These options are `a', `f', `q', `r', `K', `N', `U', and `Z'.
+
+   Within a configuration file, any empty line or line starting with a
+space, asterisk, equal sign, or a pound sign is ignored.
+
+`o  NAME HSIZE VSIZE'
+     This option is used to set the paper size defaults and options for
+     the particular printer this configuration file describes.  There
+     are three formats for this option.  If the option is specified on
+     a line by itself, with no parameters, it instructs dvips to
+     discard all other paper size information (possibly from another
+     configuration file) and start fresh.  If three parameters are
+     given, as above, with the first parameter being a name and the
+     second and third being a dimension (as in 8.5in or 3.2cc, just
+     like in the `papersize' special), then the option is interpreted
+     as starting a new paper size description, where NAME is the name
+     and HSIZE and VSIZE describe the horizontal and vertical size of
+     the sheet of paper, respectively.  If both HSIZE and VSIZE are
+     equal to zero (although you must still specify units!) then any
+     page size will match it.  If the `@' character is immediately
+     followed by a `+' sign, then the remainder of the line (after
+     skipping any leading blanks) is treated as PostScript code to send
+     to the printer to select that particular paper size.  After all
+     that, if the first character of the line is an exclamation point,
+     then the line is put in the initial comments section of the final
+     output file; else, it is put in the setup section of the output
+     file.  For instance, a subset of the paper size information
+     supplied in the default `config.ps' looks like
+
+          @ letterSize 8.5in 11in
+          @ letter 8.5in 11in
+          @+ %%BeginPaperSize: Letter
+          @+ letter
+          @+ %%EndPaperSize
+          @ legal 8.5in 14in
+          @+ ! %%DocumentPaperSizes: Legal
+          @+ %%BeginPaperSize: Legal
+          @+ legal
+          @+ %%EndPaperSize
+
+     Note that you can even include structured comments in the
+     configuration file!  When dvips has a paper format name given on
+     the command line, it looks for a match by the NAME; when it has a
+     `papersize' special, it looks for a match by dimensions.  The
+     first match found (in the order the paper size information is
+     found in the configuration file) is used.  If nothing matches, a
+     warning is printed and the first paper size given is used, so the
+     first paper size should always be the default.  The dimensions
+     must match within a quarter of an inch. Landscape mode for all of
+     the paper sizes are automatically supported. If your printer has a
+     command to set a special paper size, then give dimensions of `0in
+     0in'; the PostScript code that sets the paper size can refer to
+     the dimensions the user requested as `hsize' and `vsize'; these
+     will be macros defined in the PostScript that return the requested
+     size in default PostScript units.  Note that virtually all of the
+     PostScript commands you use here are device dependent and degrade
+     the portability of the file; that is why the default first paper
+     size entry should not send any PostScript commands down (although a
+     structured comment or two would be okay).  Also, some printers want
+     `BeginPaperSize' comments and paper size setting commands; others
+     (such as the NeXT) want `PaperSize' comments and they will handle
+     setting the paper size.  There is no solution I could find that
+     works for both (except maybe specifying both.)  See the supplied
+     `config.ps' file for a more realistic example.
+
+`a'
+     Conserve memory by making three passes over the `dvi' file instead
+     of two and only loading those characters actually used.  Generally
+     only useful on machines with a very limited amount of memory, like
+     some PCs.
+
+`b NUM'
+     Generate NUM copies of each page, but duplicating the page body
+     rather than using the `#numcopies' option.  This can be useful in
+     conjunction with a header file setting `\bop-hook' to do color
+     separations or other neat tricks.
+
+`e NUM'
+     Set the maximum drift parameter to NUM dots (pixels) as explained
+     above.
+
+`f'
+     Run as a filter by default.
+
+`h NAME'
+     Add NAME as a PostScript header file to be downloaded at the
+     beginning.
+
+`i NUM'
+     Make each section be a separate file, and set the maximum number of
+     pages in a given file to NUM.  Under certain circumstances, dvips
+     will split the document into `sections' to be processed
+     independently; this is most often done for memory reasons.  Using
+     this option tells dvips to place each section into a separate
+     file; the new file names are created by replacing the suffix of
+     the supplied output file name with a three-digit sequence number. 
+     This is essentially a combination of the command line options `-i'
+     and `-S'; see the documentation for these options for more
+     information.
+
+`m NUM'
+     The value NUM is the virtual memory available for fonts and
+     strings in the printer.  Default is 180000.  This value must be
+     accurate if memory conservation and document splitting is to work
+     correctly.  To determine this value, send the following file to
+     the printer:
+
+          %! Hey, we're PostScript
+          /Times-Roman findfont 30 scalefont setfont 144 432 moveto
+          vmstatus exch sub 40 string cvs show pop showpage
+
+     Note that the number returned by this file is the total memory
+     free; it is often a good idea to tell dvips that the printer has
+     somewhat less memory.  This is because many programs download
+     permanent macros that can reduce the memory in the printer.  In
+     general, a memory size of about `300000' is plenty, since dvips
+     can automatically split a document if required.  It is unfortunate
+     that PostScript printers with much less virtual memory still
+     exist.  Some systems or printers can dynamically increase the
+     memory available to a PostScript interpreter, in which case this
+     file might return a ridiculously low number; the NeXT computer is
+     such a machine.  For these systems, a value of one million works
+     well.
+
+`o NAME'
+     The default output file is set to NAME.  As above, it can be a
+     pipe.  Useful in printer-specific configuration files to redirect
+     the output to a particular printer queue.
+
+`p NAME'
+     The file to examine for PostScript font aliases is NAME.  It
+     defaults to `psfonts.map'.  This option allows different printers
+     to use different resident fonts.  If the name starts with a `+'
+     character, then the rest of the name (after any leading spaces) is
+     used as an additional map file; thus, it is possible to have local
+     map files pointed to by local configuration files that append to
+     the global map file.
+
+`q'
+     Run in quiet mode by default.
+
+`r'
+     Reverse the order of pages by default.
+
+`s'
+     Enclose the entire document in a global save/restore pair by
+     default. Not recommended, but useful in some environments; this
+     breaks the conformance of the document to the Adobe PostScript
+     structuring conventions.
+
+`D NUM'
+     Set the vertical and horizontal resolution to NUM dots per inch.
+     Useful in printer-specific configuration files.
+
+`E COMMAND'
+     Executes the command listed; can be used to get the current date
+     into a header file for inclusion, for instance.  Possibly
+     dangerous; in many installations this may be disabled, in which
+     case a warning message will be printed if the option is used.
+
+`H PATH'
+     The (colon-separated) path to search for PostScript header files is
+     PATH.
+
+`K'
+     Filter comments out of included PostScript files; see the
+     description above for more information.
+
+`M MODE'
+     Set MODE as the METAFONT mode to be used when generating fonts. 
+     This is passed along to `MakeTeXPK' and overrides mode derivation
+     from the base resolution.
+
+`N'
+     Disable PostScript comments by default.
+
+`O OFFSET'
+     Move the origin by a certain amount.  The OFFSET is a
+     comma-separated pair of dimensions, such as `.1in,-.3cm' (in the
+     same syntax as used in the `papersize' special).  The origin of the
+     page is shifted from the default position (of one inch down, one
+     inch to the right from the upper left corner of the paper) by this
+     amount.
+
+`P PATH'
+     The (colon-separated) path to search for bitmap `pk' font files is
+     PATH.  The `TEXPKS' environment variable will override this. If a
+     `%' character is found in PATH, the following substitutions will
+     be made, and then a search will be made for the resulting
+     filenames.
+
+    `%f'
+          is replaced by the font name.
+
+    `%b'
+          is replaced by the output device horizontal resolution dots
+          per inch.
+
+    `%d'
+          is replaced by the font size in dots per inch.
+
+    `%p'
+          is replaced by the font family; this is always `pk'.
+
+    `%m'
+          is replaced by the font mode; this is the mode given in the
+          `M' option.
+
+     Note that, for each path element, if it contains a percent sign,
+     you must give the full file name, including path, rather than just
+     the directory name; a path element such as `/fonts/%b' will try to
+     open `/fonts/300' when looking for `cmr10.329pk', for instance, and
+     this may not be what is intended; `/fonts/%b/%f.%dpk' is needed.
+     If a path element does not contain a percent sign, there is no
+     need to specify the entire file name (because you can't, unless
+     you list all possible specific font names!)
+
+`R NUM NUM ...'
+     Sets up a list of default resolutions to search for `pk' fonts, if
+     the requested size is not available.  The output will then scale
+     the font found using PostScript scaling to the requested size. 
+     Note that the resultant output will be ugly, and thus a warning is
+     issued.  To turn this off, use a line with just the `R' and no
+     numbers.
+
+`S PATH'
+     The path to search for special illustrations (Encapsulated
+     PostScript files or psfiles) is PATH.  The `TEXINPUTS' environment
+     variable will override this.
+
+`T PATH'
+     The path to search for the `tfm' files is PATH.  The `TEXFONTS'
+     environment variable will override this.  This path is used for
+     resident fonts and fonts that can't otherwise be found.  It's
+     usually best to make it identical to the path used by TeX.
+
+`U'
+     Turns off a memory-saving optimization; this is necessary for the
+     Xerox 4045 printer, but not recommended otherwise.  See the
+     description above for more information.
+
+`V PATH'
+     The path to search for virtual font `vf' files is PATH.  This may
+     be device-dependent if you use virtual fonts to simulate actual
+     fonts on different devices.
+
+`W STRING'
+     Sends STRING to stderr, if a parameter is given; otherwise it
+     cancels another previous message.  This is useful in the default
+     configuration file if you want to require the user to specify a
+     printer, for instance, or if you want to notify the user that the
+     resultant output has special characteristics.
+
+`X NUM'
+     Set the horizontal resolution to NUM dots per inch.
+
+`Y NUM'
+     Set the vertical resolution to NUM dots per inch.
+
+`Z'
+     Compress all downloaded fonts by default, as above.
+
+
+File: dvips.info,  Node: Font Generation,  Next: Path Interpretation,  Prev: Config File Options,  Up: Top
+
+Automatic Font Generation
+*************************
+
+   One major problem with TeX and the Computer Modern fonts is the huge
+amount of disk space a full set of high resolution fonts can take.  The
+dvips program solves this problem by creating fonts on demand, so only
+those fonts that are actually used are stored on disk.  At a typical
+site, less than one-fifth of the full set of Computer Modern fonts are
+used over a long period, so this saves a great deal of disk space.
+
+   Furthermore, the addition of dynamic font generation allows fonts to
+be used at any size, including typesetter resolutions and extremely huge
+banner sizes.  Nothing special needs to be done; the fonts will be
+automatically created and installed as needed.
+
+   The downside is that it does take a certain amount of time to create
+a new font if it has never been used before.  But once a font is
+created, it will exist on disk, and the next time that document is
+printed it will print very quickly.
+
+   It is the `MakeTeXPK' shell script that is responsible for making
+these fonts.  The `MakeTeXPK' script supplied invokes METAFONT to
+create the font and then copies the resultant `pk' file to a
+world-writable font cache area.
+
+   `MakeTeXPK' can be customized to do other things to get the font. 
+For instance, if you are installing dvips to replace (or run alongside)
+an existing PostScript driver, and that driver demands `gf' fonts, you
+can easily modify `MakeTeXPK' to invoke `gftopk' to convert the `gf'
+files to `pk' files for dvips.  This provides the same space savings
+listed above.
+
+   Because dvips (and thus `MakeTeXPK') is run by a wide variety of
+users, there must be a system-wide place to put the cached font files. 
+In order for everyone to be able to supply fonts, the directory must be
+world writable.  If your system administrator considers this a security
+hole, `MakeTeXPK' can write to `/tmp/pk' or some such directory, and
+periodically the cached fonts can be moved to a more general system
+area. Note that the cache directory must exist on the `pk' file search
+path in order for `MakeTeXPK' to work.
+
+
+File: dvips.info,  Node: Path Interpretation,  Next: Environment Variables,  Prev: Font Generation,  Up: Top
+
+Path Interpretation
+*******************
+
+   The dvips program needs to read a wide variety of files from a large
+set of directories.  It uses a set of paths to do this.  The actual
+paths are listed in the next section; this section describes how the
+paths are interpreted.
+
+   All path variables are names of directories (path elements),
+separated by colons.  Each path element can be either the literal name
+of a directory or one of the `~' forms common under UNIX.  If a path
+element is a single tilde, it is replaced by the contents of the
+environment variable `HOME', which is normally set to the user's home
+directory.  If the path element is a tilde followed by anything, the
+part after the tilde is interpreted as a user name, and his home
+directory is fetched from the system password file and used as the real
+path element.
+
+   Where environment variables can override paths, an additional path
+element form is allowed.  If a path element is the empty string, it is
+replaced with the system defaults.  Thus, to search the user's home
+directory, followed by the system default paths, assuming the current
+shell is `csh', the following command would be used:
+     % setenv TEXINPUTS ~
+
+This is a path of two elements.  The first is the user's home directory.
+The second path element is the empty string, indicating that the system
+defaults should be searched.
+
+   The `system defaults' as defined here means the strings set in the
+`Makefile' before compilation, rather than any defaults set in
+`config.ps' or printer-specific configuration files.  This is to
+prevent path blowup, where more and more directories are added to the
+path by each level of configuration file.
+
+
+File: dvips.info,  Node: Environment Variables,  Next: Bells and Whistles,  Prev: Path Interpretation,  Up: Top
+
+Environment Variables
+*********************
+
+   The dvips program reads a certain set of environment variables to
+configure its operation.  The path variables are read after all
+configuration files are read, so they override values in the
+configuration files.  (The `TEXCONFIG' variable, of course, is read
+before the configuration files.)  The rest are read as needed.
+
+   Note that all defaults supplied here are just as supplied in the
+provided `Makefile'; they will almost certainly have been changed
+during installation at your particular site.
+
+`HOME *= no default*'
+     This environment variable is automatically set by the shell and is
+     used to replace any occurrences of `~' in a path.
+
+`MAKETEXPK *= `MakeTeXPK %n %d %b %m'*'
+     This environment variable sets the command to be executed to
+     create a missing font.  A `%n' is replaced by the base name of the
+     font to be created (such as `cmr10'); a `%d' is replaced by the
+     resultant horizontal resolution of the font; a `%b' is replaced by
+     the horizontal resolution at which dvips is currently generating
+     output, and any `%m' is replaced by a string that METAFONT can use
+     as the right hand side of an assignment to `mag' to create the
+     desired font at the proper resolution.  If a mode for METAFONT is
+     set in a configuration file, that is automatically appended to the
+     command before execution.  Note that these substitutions are
+     different than the ones performed on PK paths.
+
+`PRINTER *= no default*'
+     This environment variable is read to determine which default
+     printer configuration file to read in.  Note that it is the
+     responsibility of the configuration file to send output to the
+     proper print queue, if such functionality is desired.
+
+`TEXFONTS *= `/LocalLibrary/Fonts/TeXFonts/tfm:/usr/lib/tex/fonts/tfm'*'
+     This is where `tfm' files are searched for.  A `tfm' file only
+     needs to be loaded if the font is a resident (PostScript) font or
+     if for some reason no `pk' file could be found.
+
+`TEXPKS *= `/LocalLibrary/Fonts/TeXFonts/pk:/usr/lib/tex/fonts/pk'*'
+     This environment variable is a path on which to search for `pk'
+     fonts.  Certain substitutions are performed if a percent sign is
+     found anywhere in the path.  See the description of the `P'
+     configuration file option for more information.
+
+`TEXINPUTS *= `.:..:/usr/lib/tex/inputs'*'
+     This environment variable is used to find PostScript figures when
+     they are included.
+
+`TEXCONFIG *= `.:/usr/lib/tex/ps'*'
+     This environment variable sets the directories to search for
+     configuration files, including the system-wide one.  Using this
+     single environment variable and the appropriate configuration
+     files, it is possible to set up the program for any environment. 
+     (The other path environment variables can thus be redundant.)
+
+`VFFONTS *= `.:/usr/lib/tex/fonts/vf'*'
+     This environment variable sets where dvips looks for virtual
+     fonts.  A correct virtual font path is essential if PostScript
+     fonts are to be used.
+
+

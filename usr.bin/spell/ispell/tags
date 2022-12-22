@@ -1,0 +1,138 @@
+HASH_EMPTY_P	access.c	/^#define HASH_EMPTY_P(h) (H_TO_HTE(h)->next == HASH/
+HASH_NEXT	access.c	/^#define HASH_NEXT(h) (H_TO_HTE(h)->next)$/
+H_TO_FLAGS	access.c	/^#define H_TO_FLAGS(h) (ftbls[(h)\/FLAGS_PER_TABLE]/
+H_TO_HTE	access.c	/^#define H_TO_HTE(h) (htbls[(h)\/HTE_PER_TABLE] + (/
+INDEX_TO_STRING	access.c	/^#define INDEX_TO_STRING(index) (stbls[(index)\/BYT/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgetopt1	getopt1.c	/^main (argc, argv)$/
+Mispell	ispell.c	/^main (argc, argv)$/
+Mnextprime	nextprime.c	/^main ()$/
+Mpriv	priv.c	/^main ()$/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_flag	suf.c	/^add_flag (h, flag)$/
+addchars	priv.c	/^addchars (word)$/
+alloc	access.c	/^alloc (n)$/
+alloc_tables	access.c	/^alloc_tables (hsize, ssize)$/
+askmode	screen.c	/^askmode (verbose)$/
+backup	term.c	/^backup ()$/
+checkfile	screen.c	/^checkfile (in, outx, end)$/
+cmd_accept	ispell.c	/^cmd_accept (arg)$/
+cmd_delete	ispell.c	/^cmd_delete (arg)$/
+cmd_dump	ispell.c	/^cmd_dump (arg)$/
+cmd_file	ispell.c	/^cmd_file (arg)$/
+cmd_generic	ispell.c	/^cmd_generic (arg)$/
+cmd_insert	ispell.c	/^cmd_insert (arg)$/
+cmd_reload	ispell.c	/^cmd_reload (arg)$/
+cmd_tex	ispell.c	/^cmd_tex (arg)$/
+cmd_troff	ispell.c	/^cmd_troff (arg)$/
+copy_out_string	access.c	/^copy_out_string (s, n)$/
+copyout	screen.c	/^copyout (cc, cnt, out)$/
+correct	screen.c	/^correct (token, toksiz, start, end, pcurrentchar)$/
+d_ending	suf.c	/^d_ending (w, len)$/
+dochild	term.c	/^dochild (fun)$/
+dofile	screen.c	/^dofile (filename)$/
+dolook	screen.c	/^dolook (str)$/
+dolook_interactive	screen.c	/^dolook_interactive (str)$/
+done	ispell.c	/^done ()$/
+downcase	downcase.c	/^downcase (p, q)$/
+dumphashstat	access.c	/^dumphashstat (NOARGS)$/
+e_ending	suf.c	/^e_ending (w, len)$/
+erase	term.c	/^erase ()$/
+exchange	getopt.c	/^exchange (argv)$/
+expand	exp.c	/^expand (w)$/
+extraletter	gen.c	/^extraletter (word)$/
+find_flags	access.c	/^find_flags (h)$/
+find_hte	access.c	/^find_hte (h)$/
+find_string	access.c	/^find_string (index)$/
+fixcase	case.c	/^fixcase (word, c)$/
+g_ending	suf.c	/^g_ending (w, len)$/
+get_flags	access.c	/^get_flags (hindex)$/
+getline	screen.c	/^getline (s, siz)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt1.c	/^getopt_long (argc, argv, options, long_options, op/
+getopt_long_only	getopt1.c	/^getopt_long_only (argc, argv, options, long_option/
+gettermcap	term.c	/^gettermcap ()$/
+givehelp	screen.c	/^givehelp ()$/
+giveihelp	screen.c	/^giveihelp ()$/
+good	good.c	/^good (w, len, alllower)$/
+h_ending	suf.c	/^h_ending (w, len)$/
+hash	hash.c	/^hash (p)$/
+hash_awrite	access.c	/^hash_awrite (out)$/
+hash_emptyp	access.c	/^hash_emptyp (h)$/
+hash_ewrite	access.c	/^hash_ewrite (out)$/
+hash_find_end	access.c	/^hash_find_end (index)$/
+hash_init	access.c	/^hash_init (name)$/
+hash_lookup	access.c	/^hash_lookup (string, alen)$/
+hash_retrieve	access.c	/^hash_retrieve (index, htep)$/
+hash_set_next	access.c	/^hash_set_next (index, new_next)$/
+hash_store	access.c	/^hash_store (index, htep)$/
+hash_write	access.c	/^hash_write (f)$/
+hashchainlen	access.c	/^hashchainlen (h)$/
+htetostr	access.c	/^htetostr (htep, h)$/
+insert	gen.c	/^insert (word)$/
+inserttoken	screen.c	/^inserttoken (buf, start, end, token, pcurrentchar)/
+intr	ispell.c	/^intr ()$/
+inverse	term.c	/^inverse ()$/
+lexalloc	lexfsm.c	/^lexalloc (NOARGS)$/
+lexdump	lexfsm.c	/^lexdump (f)$/
+lexload	lexfsm.c	/^lexload (f, nlet)$/
+lexprint	lexfsm.c	/^lexprint (out, verbose)$/
+lexsize	lexfsm.c	/^lexsize (NOARGS)$/
+lexword	lexfsm.c	/^lexword (in, len, out)$/
+lookfun	screen.c	/^lookfun (NOARGS)$/
+lookup	suf.c	/^lookup (w)$/
+makepossibilities	gen.c	/^makepossibilities (word)$/
+min	access.c	/^#define min(a,b) ((a) < (b) ? (a) : (b))$/
+missingletter	gen.c	/^missingletter (word)$/
+move	term.c	/^move (row, col)$/
+my_bcopy	getopt.c	/^#define	my_bcopy(src, dst, n)	memcpy ((dst), (src)/
+my_index	getopt.c	/^my_index (str, chr)$/
+n_ending	suf.c	/^n_ending (w, len)$/
+nextprime	nextprime.c	/^nextprime (x)$/
+normal	term.c	/^normal ()$/
+onstop	term.c	/^onstop (signo)$/
+p	ispell.c	/^#define p(str) printf("%s\\n", str)$/
+p_delete	priv.c	/^p_delete (word)$/
+p_dump	priv.c	/^p_dump (file)$/
+p_enter	priv.c	/^p_enter (word, copy, keep)$/
+p_load	priv.c	/^p_load (file, keep)$/
+p_lookup	priv.c	/^p_lookup (word, alllower)$/
+p_reload	priv.c	/^p_reload ()$/
+prhashchain	access.c	/^prhashchain ()$/
+putch	term.c	/^putch (c)$/
+r_ending	suf.c	/^r_ending (w, len)$/
+reap	suf.c	/^reap (h)$/
+reapall	suf.c	/^reapall ()$/
+reapone	suf.c	/^reapone (n)$/
+s_ending	suf.c	/^s_ending (w, len)$/
+set_bitvec	access.c	/^set_bitvec (bitvec, n)$/
+shellescape	term.c	/^shellescape (buf)$/
+shellfun	term.c	/^shellfun ()$/
+show_copying	ispell.c	/^show_copying ()$/
+show_signon	ispell.c	/^show_signon ()$/
+show_warranty	ispell.c	/^show_warranty ()$/
+skip_to_next_word	screen.c	/^skip_to_next_word (out)$/
+skip_to_next_word_generic	screen.c	/^skip_to_next_word_generic ()$/
+skip_to_next_word_tex	tex.c	/^skip_to_next_word_tex (outfile)$/
+skip_to_next_word_troff	screen.c	/^skip_to_next_word_troff ()$/
+spellmode	ispell.c	/^spellmode (ac, av, ind)$/
+stop	term.c	/^stop ()$/
+store_flags	access.c	/^store_flags (hindex, flags)$/
+subcmd	ispell.c	/^subcmd (buf)$/
+submode	ispell.c	/^submode (NOARGS)$/
+sufcheck	suf.c	/^sufcheck (w, len)$/
+t_ending	suf.c	/^t_ending (w, len)$/
+tcgetattr	term.c	/^tcgetattr (fd, tp)$/
+tcsetattr	term.c	/^tcsetattr (fd, how, tp)$/
+termbeep	term.c	/^termbeep ()$/
+termflush	term.c	/^termflush ()$/
+terminit	term.c	/^terminit ()$/
+termreinit	term.c	/^termreinit ()$/
+termuninit	term.c	/^termuninit ()$/
+tputs	term.c	/^tputs (str, lines, put)$/
+transposedletter	gen.c	/^transposedletter (word)$/
+usage	ispell.c	/^usage ()$/
+wrongletter	gen.c	/^wrongletter (word)$/
+xcalloc	util.c	/^xcalloc (nblocks, nbytes)$/
+xmalloc	util.c	/^xmalloc (nbytes)$/
+y_ending	suf.c	/^y_ending (w, len)$/

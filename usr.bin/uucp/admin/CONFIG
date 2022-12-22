@@ -1,0 +1,12 @@
+#
+#       New UUCP run-time configuration file.
+#
+#	For all options: `uuparams -a'.
+#	For explanations: `man 5 uuparams'.
+#
+# Make sure NODENAME is defined to the UUCP name you want to use;
+# the default is to take the gethostname() result and truncate at
+# the first '.' which may or may not be what you wanted.
+#NODENAME		= somesite
+# this should move to /var/run some time when tip/kermit/getty are ready for it
+LOCKDIR		= /var/spool/uucp

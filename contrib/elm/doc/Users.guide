@@ -1,0 +1,1153 @@
+.\" @(#)Id: Users.guide,v 5.8 1993/05/08 20:00:22 syd Exp 
+.\"
+.\"  Users guide to the ELM mail system.
+.\"  format with:
+.\"	'tbl Users.guide | troff tmac.n - > Users.fmtd'
+.\"
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"
+.\"  $Log: Users.guide,v $
+# Revision 1.2  1994/01/14  00:51:10  cp
+# 2.4.23
+#
+.\" Revision 5.8  1993/05/08  20:00:22  syd
+.\" fix mail added >From lines
+.\" From: Syd
+.\"
+.\" Revision 5.7  1993/04/12  02:12:07  syd
+.\" Added elmalias.1 man page.  Updated Users.guide to mention elmalias.
+.\" From: chip@chinacat.unicom.com (Chip Rosenthal)
+.\"
+.\" Revision 5.6  1993/04/12  01:42:16  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.5  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.4  1992/12/11  02:01:13  syd
+.\" fix Obvious typos.
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.3  1992/10/17  21:59:56  syd
+.\" Fix spelling of name
+.\" From: Larry Philps <larryp@sco.COM>
+.\"
+.\" Revision 5.2  1992/10/11  01:33:36  syd
+.\" fixed a bug in the .lp macro in doc/tmac.n.  The lp macros is always
+.\" called with a unit specified for the second argument, however, the
+.\" macro added a "n" unit specifier to that argument.  The following patch
+.\" fixes this problem.
+.\"
+.\" The various .guide books use the troff .tl macro liberally, but often the
+.\" extra ' characters needed at the end of the lines to explicitly specify
+.\" the trailing nulls fields were left off.  The following patch fixes the
+.\" erroneous lines.
+.\" From: Larry Philps <larryp@sco.COM>
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.\"
+.tm I trust we've run this through "tbl" first...
+.\"  Define the big box macro for troff
+.de eb
+.sp -1
+.nf
+.ie t \{\
+\h'-.5n'\L'|\\nau-1'\l'\\n(.lu+1n\(ul'\L'-|\\nau+1'\l'|0u-.5n\(ul'
+.\}
+.el \{\
+\h'-.5n'\l'\\n(.lu+1n'
+.\}
+.fi
+..
+.\"  Define break line for user interaction displays
+.de bl
+.ie t .tl '\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-'''
+.el .tl '-----------------------------------------------------------------'''
+..
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 0
+.lg 0
+.nf
+.na
+.rs
+.za
+.\" This will keep the nroff version of the title page on one sheet.
+.if t .sv |2.0i
+.ce 99
+.ps 20
+.ss 18
+.vs 12
+\f3The Elm Users Guide\f1
+.sp 3
+.ps 12
+.ss 14
+.vs 14
+\f2A painless introduction to electronic mail
+using the \f3Elm\fP mail system\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.fi
+.ad
+.ps 8
+.if t .vs 9
+.sp 4
+\f3ABSTRACT\f1
+.ce 0
+.sp
+.in +1i
+.ll -1i
+While various UNIX utilities have been designed to
+take advantage of the CRT screen
+(rather than line-oriented systems)
+electronic mail systems haven't \*Qcaught the wave\*U.
+This document
+presents Elm, a sophisticated
+full-screen mail system for interactive use.
+Elm offers all the features of
+\f2/bin/mail\f1, \f2Berkeley Mail\f1, \f2uumail\f1, \f2NMail\f1 and
+the AT&T Mail family of UNIX mailers (namely \f2PMX/TERM\f1) in a
+unified and intuitive fashion.
+.br
+.ll +1i
+.in -1i
+.sp |9.0i
+.ce 99
+.ps 12
+.ss 14
+.vs 14
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.fi
+.ad
+.bp 1
+.sv 5v
+.ps 14
+.ss 12
+.vs 16
+\f3Elm Users Guide\f1
+.ds h0 "Elm Users Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+.hn 1 Introduction
+
+The
+.ux
+operating system was originally written on a small PDP machine,
+to work with teletypewriters.  Consequently, all the original software for
+the operating system was written with a \*Qtty\*U in mind;
+with line oriented interfaces, rather than screen oriented.
+
+Gradually this began to change, and, with the addition of the Berkeley \f2vi\f1
+visual shell to the \f2ed\f1
+line editor, the trend began to be brought to the attention of
+.ux
+systems designers.
+And yet, this transition has seemed
+too subtle for many software engineers,
+and so precious few
+.ux
+programs are available
+designed to exploit the entire CRT screen.
+
+Consequently, after becoming more and more disenchanted
+with the existing electronic mail facilities (\f2binmail\f1
+and \f2Berkeley Mail\f1)
+Dave Taylor decided to undertake creating his own system.
+Once the ball was rolling it became quite
+difficult not to keep enhancing it, especially as he and
+the Elm Development Group
+became more and more familiar with various different mail
+systems, but the result, we hope, is a solid, unified interface
+to electronic mail suitable for almost any environment.
+
+One thing that sets the Elm mail system off from
+other packages is that it
+comes with an extensive documentation set, including;
+\f2The Elm Users Guide\f1, which you're holding,
+\f2The Elm Reference Guide\f1,
+\f2The Elm Alias Users Guide\f1,
+\f2The Elm Filter System Users Guide\f1,
+\f2The Elm Forms Mode Guide\f1,
+and \f2The Elm Configuration Guide\f1.
+The names of each indicate
+what they discuss (not unreasonably).
+
+This particular document contains;
+this introduction, a tutorial session with the mailer, a
+discussion of non-interactive uses of Elm,
+a brief foray into the Elm utilities,
+and finally, credits and references.
+
+\f2The Elm Reference Guide\f1 contains a
+much more in-depth discussion of all the possible options
+available within the Elm environment, including
+the \f2.elm/elmrc\f1 file,
+the available outbound mail processing features,
+a section for expert users, suggestions
+on debugging strange installations, and
+many other useful topics.
+
+\f2The Elm Alias Users Guide\f1 is the place
+to go to learn about the format of the \f2.elm/aliases.text\f1
+file and the associated data files, system aliases, and other
+related topics.
+
+One of the more innovative features of Elm is
+the ability to transmit and receive \*Qforms\*U (as
+defined by the AT&T Mail system).  To learn about
+how to create and reply to forms you should refer
+to \f2The Elm Forms Mode Guide\f1.
+
+If you find yourself getting too much mail delivered in
+your mailbox, you might be a good candidate for the
+\f2filter\f1 program.  To learn more about what
+this program is and how to use it please
+consult \f2The Elm Filter System Users Guide\f1.
+
+Finally, if you're working with the actual source code
+and are interested in what all the locally configured
+options are and mean, please see
+\f2The Elm Configuration Guide\f1.  It is
+strongly suggested that all system administrators
+and people installing the system print out the
+local \f2sysdefs.h\f1 file and have it handy while
+reading the configuration guide.
+
+The recommended order of learning the Elm
+system is to skim this guide until you feel
+confident enough to start up the program.  Once
+that's reached, \f2use it!\f1  Soon you'll find
+areas that you need to expand into, and you can
+achieve that by going into the options
+screen within Elm and changing your
+user level accordingly.
+After a while, sit down again and read through this
+guide.  You should have a couple of \*Qaha!\*U intuitive
+flashes.  After another period of time, you're
+ready to delve into the real power of the system
+and read the reference guide.  The other manuals
+should be read as the need arises.
+
+In any case, the system should be usable without reading
+\f2any\f1 of the documentation!
+
+Any comments or problems with any of the documentation or the program
+itself are welcome; if you can't get electronic mail to the Elm
+Development Group, please feel free instead to drop me a note via the
+overland mail address in the title page.
+.br
+.ne 20
+.sp
+.hn 1 The Main System
+
+Upon entry to the program, the main screen will be
+displayed as below:
+
+.\" display start, constant width, remember loc for BOX
+.ft CW
+.zf
+.ps 9
+.mk a
+.sp
+.ce
+Mailbox is \'/usr/mail/mymail\' with 15 messages  [Elm 2.4PL22]
+.TS
+r l n l l l l.
+ \->	N	1	Apr 24	Larry Fenske	(49)	Hello there
+	N	2	Apr 24	jad@hpcnoe	(84)	Chico?  Why go there?
+	E	3	Apr 23	Carl Smith	(53)	Dinner tonight?
+	NU	4	Apr 18	Don Knuth	(354)	Your version of TeX...
+	N	5	Apr 18	games	(26)	Bug in cribbage game
+	 A	6	Apr 15	kevin	(27)	More software requests
+		7	Apr 13	John Jacobs	(194)	How can you hate RUSH?
+	 U	8	Apr 8	decvax!mouse	(68)	Re: your Usenet article
+		9	Apr 6	root	(7)
+	O	10	Apr 5	root	(13)
+.TE
+.sp
+.ce 3
+You can use any of the following commands by pressing the first character;
+d)elete or u)ndelete mail, m)ail a message, r)eply or f)orward mail, q)uit
+To read a message, press <return>.  j = move down, k = move up, ? = help
+ Command : @
+.sp
+.\" draw box, proportional Roman font back, display end
+.eb
+.ps 10
+.ft 1
+
+There are a number of things to notice about this, the main screen;
+
+.lp \h'12p'\(bu 20p
+Most likely, on your computer the message currently \*Qactive\*U will be
+displayed in an inverse bar rather than being delimited by the two
+character arrow as here.  It's nothing to worry about; displaying
+inverse video is just quite difficult on printable guides!
+
+.lp \h'12p'\(bu 20p
+The first line on the screen always displays the name of the current folder,
+the number of messages in the folder, and the current Elm version number.
+
+.lp \h'12p'\(bu 20p
+The arrow (\*Q\->\*U) or inverse video bar will always
+indicate which is the current message.
+
+.lp \h'12p'\(bu 20p
+The first field that appears associated with each message is
+the status field.  This can be blank (as with most of the
+ones above, or can have any combination of the following:
+
+The first character signifies temporary status:
+
+.ta .75iC 102p
+.nf
+	E	for an \f2expired\f1 message
+	N	for a \f2new\f1 message
+	O	for an \f2old\f1 (i.e. not new but not read) message
+	D	for a \f2deleted\f1 message
+
+The second character which signifies permanent status:
+
+	C	for \f2confidential\f1 mail
+	U	for \f2urgent\f1 mail
+	P	for a \f2private\f1 message
+	A	for messages that have an \f2action\f1 associated with them
+	F	for a \f2form\f1 letter
+	M	for a \f2MIME\f1 compliant message
+.fi
+
+The third character of the status field can be a \*q+\*u to
+indicate that the message is \f2tagged\f1 too.
+
+.lp \h'12p'\(bu 20p
+Continuing from left to right, the next field is the message
+number.  For the most part you can ignore these unless you want
+to quickly move to a specific message (as we'll see later).
+
+.lp \h'12p'\(bu 20p
+The date associated with each message is typically
+the date the person actually \f2sent\f1 the message.
+
+.lp \h'12p'\(bu 20p
+The next field displayed indicates whom the message is from.
+Elm will try to display the \f2full name\f1 of the person who
+sent the message, rather than the their return address or computer login.
+Some systems don't generate the correct headers, though, hence
+messages like numbers 2 and 8, where it's their return address.
+
+.lp \h'12p'\(bu 20p
+The number in parentheses is the total number of lines in the message.
+
+.lp \h'12p'\(bu 20p
+The final field is the subject of the message.  Notice
+that messages might not have any subject, as in messages #9 and #10.
+
+.lp \h'12p'\(bu 20p
+A maximum of ten messages are displayed at one time.\s-2\u1\d\s0
+.fn
+1. On screens with more than 24 lines, additional messages are
+displayed automatically.  Furthermore, if you choose to turn off
+the menu display, you can have an even greater number
+displayed.
+.ef
+Further into the document we'll learn how to change \*Qpages\*U in the folder.
+
+.lp \h'12p'\(bu 20p
+The three line menu display will always
+indicate the relevant commands.  There are actually two possible
+menus that can be displayed, based
+on the \f2user level\f1 as set from either the options screen or
+the \f2.elm/elmrc\f1
+file.  The alternate menu, for more advanced users,
+lists more options;
+.sp
+.ft CW
+.zf
+.ps 9
+.ce 3
+|=pipe, !=shell, ?=help, <n>=set current to n, /=search pattern
+a)lias, C)copy, c)hange folder, d)elete, e)dit, f)orward, g)roup reply, m)ail,
+n)ext, o)ptions, p)rint, r)eply, s)ave, t)ag, q)uit, u)ndelete, or e(x)it
+.ps 10
+.ft 1
+
+.lp \h'12p'\(bu 20p
+Finally, the \*q@\*u character indicates where the cursor would be, awaiting
+your input.
+
+.sp
+.in 0
+The typical action at this point is to use the \f2<return>\f1
+key to read the current message, which will clear the
+screen and display the current message:
+
+.ne 10
+.ft CW
+.zf
+.ps 9
+.mk a
+.tl ' Message 1/15 from Larry Fenske''Apr 24 \'87 at 8:45 pm edt'
+.tl ''Hello there''
+.nf
+ Dave,
+      Just wanted to drop you a brief note to see what was going on with
+ you this afternoon.  Life here has been the usual fun and games...
+	     Ah well, off to the great wilds beyond the desk!
+				Larry
+ Command (\'i\' to return to index): @
+.fi
+.eb
+.ft 1
+.ps 10
+
+Before we go further with our example, however, let's very
+quickly look at all the functions available from the main
+screen:
+.\" ensure we get a reasonable chunk of this table on the page...
+.br
+.ne 10
+.lp \h'18p'\f3Command 90p
+Action\f1
+
+.lp "\h'18p'<return> or <space>" 90p
+Read current message.
+.lp \h'18p'| 90p
+Pipe current message or tagged messages to specified system command.
+.lp \h'18p'! 90p
+Shell escape.
+.lp \h'18p'$ 90p
+Resynchronize folder.
+.lp \h'18p'? 90p
+Help mode \(em any key pressed will be explained.
+.lp "\h'18p'+ or <right>" 90p
+Display next page of subjects.
+.lp "\h'18p'\- or <left>" 90p
+Display previous page of subjects.
+.lp \h'18p'= 90p
+Set current message to 1.
+.lp \h'18p'* 90p
+Set current to last message.
+.lp \h'18p'<number><return> 90p
+Set current message to number \f2number\f1.
+.lp \h'18p'/ 90p
+Search for pattern in subject/from lines.
+.lp \h'18p'// 90p
+Search for pattern in entire folder.
+.lp \h'18p'< 90p
+Scan message for calendar entries.\s-2\u2\d\s0
+.fn
+2. Some sites might opt not to have the calendar feature available.
+.ef
+.lp \h'18p'> 90p
+A synonym for \f3s\f1 \(em \f3save\f1 message or messages.
+.sp
+.lp \h'18p'a 90p
+Alias, change to \*Qalias\*U mode.
+.lp \h'18p'b 90p
+Bounce \(em remail message (see \f3f\f1 \(em \f3forward\f1 too).
+.lp \h'18p'C 90p
+Copy current message or tagged messages to folder.
+.lp \h'18p'c 90p
+Change to another folder.
+.lp \h'18p'd 90p
+Delete current message.
+.lp \h'18p'<control>-D 90p
+Delete all messages matching specified pattern.
+.lp \h'18p'e 90p
+Edit current folder, resyncing upon re-entry.\s-2\u3\d\s0
+.fn
+3. Some sites might opt not to have the edit folder feature available.
+.ef
+.lp \h'18p'f 90p
+Forward message to specified user.\s-2\u4\d\s0
+.fn
+4. The difference between \f3forward\f1 and \f3bounce\f1 is rather
+subtle \(em a forwarded message is \f2from\f1 you, with the
+original message included, whereas a bounced message
+is still from the original sender.
+.ef
+.lp \h'18p'g 90p
+Group reply \(em reply to everyone who received the current message.
+.lp \h'18p'h 90p
+Display message with headers.
+.lp \h'18p'i 90p
+Return to index screen after displaying message.
+.lp \h'18p'J 90p
+Set current to next message.
+.lp "\h'18p'j or <down>" 90p
+Set current to next message not marked deleted.
+.lp \h'18p'K 90p
+Set current to previous message.
+.lp "\h'18p'k or <up>" 90p
+Set current to previous message not marked deleted.
+.lp \h'18p'l 90p
+Limit displayed messages based on the specified criteria.
+.lp \h'18p'<control>-L 90p
+Rewrite screen.
+.lp \h'18p'm 90p
+Mail to arbitrary user(s).
+.lp \h'18p'n 90p
+Read current message, then increment to next message not marked deleted.
+.lp \h'18p'o 90p
+Alter current system options.
+.lp \h'18p'p 90p
+Print current message or tagged messages.
+.lp \h'18p'q 90p
+Quit \(em maybe prompting for messages to delete, store, or keep.
+.lp \h'18p'Q 90p
+Quick quit \(em like quit but without prompting.
+.lp \h'18p'r 90p
+Reply to the author of current message.
+.lp \h'18p's 90p
+Save current message or tagged messages to folder.
+.lp \h'18p't 90p
+Tag current message.
+.lp \h'18p'<control>-T 90p
+Tag all messages matching specified pattern.
+.lp \h'18p'u 90p
+Undelete current message.
+.lp \h'18p'<control>-U 90p
+Undelete all messages matching specified pattern.
+.lp \h'18p'x 90p
+Exit \(em prompt if mailbox changed, don't record as read, don't save.
+.lp \h'18p'X 90p
+Exit immediately \(em don't record as read, don't save.
+.in 0
+.sp
+.ne 10
+But let's go back to our example and see some of this at
+work, shall we?
+.sp
+We were reading the message from Larry and the screen looked
+like:
+
+.ne 10
+.ft CW
+.zf
+.ps 9
+.mk a
+.tl ' Message 1/15 from Larry Fenske''Apr 24 \'87 at 8:45 pm edt'
+.tl ''Hello there''
+.nf
+ Dave,
+      Just wanted to drop you a brief note to see what was going on with
+ you this afternoon.  Life here has been the usual fun and games...
+	      Ah well, off to the great wilds beyond the desk!
+				Larry
+ Command (\'i\' to return to index): @
+.fi
+.eb
+.ft 1
+.ps 10
+
+From this point let's go ahead and reply to the message.  To
+do this, we can use the \f3reply\f1 command.
+To do this, we type \*qr\*u and the last few lines change to
+something like:
+.ft CW
+.zf
+.ps 9
+.sp
+.bl
+.tl 'Command: Reply to message''Copy message? (y/n) @ '
+.sp 2
+.ft 1
+.ps 10
+To which we decide that we don't need the text of this message in
+our new one, so we reply \f2no\f1 by pressing the \*qn\*u key.  The
+bottom part of the window then changes to:
+.ft CW
+.zf
+.ps 9
+.sp
+.bl
+.ie t .tl 'Command: Reply to message'To: Larry Fenske ''
+.el   .tl 'Command: Reply to message''To: Larry Fenske '
+.tl 'Subject: Re: Hello there@'''
+.ft 1
+.ps 10
+.sp 2
+At this point we can either decide to enter a new subject (you could
+use either \f2backup word\f1 (\f2<control>-W\f1) or \f2backup line\f1 (this
+is the same as your \*Qline kill\*U character,
+\f2<control>-X\f1 or \f2<control>-U\f1
+usually)) or go with this one by pressing \f2<return>\f1.  We'll
+just leave it as it is and press \f2<return>\f1, changing the
+screen to:
+.ps 9
+.ft CW
+.zf
+.sp
+.bl
+.ie t .tl 'Command: reply to message'To: Larry Fenske ''
+.el   .tl 'Command: reply to message''To: Larry Fenske '
+.tl 'Subject: Re: Hello there'''
+.tl 'Copies to: @'''
+.ps 10
+.ft 1
+.sp
+There's no one we want to have receive copies of this message, so we'll
+just press \f2<return>\f1 again to indicate this.
+
+Once you've answered these questions the program will put you into
+your favorite editor and let you compose a response.  When you're
+done it then asks:
+.ps 9
+.ft CW
+.zf
+.sp
+.tl 'Please choose one of the following options by parenthesized letter: @'''
+.tl ''e)dit message, edit h)eaders, s)end it, or f)orget it.''
+.ft 1
+.ps 10
+.sp
+Since we're just interested in sending the message out, we'll
+choose the \f3send\f1 option and press \*qs\*u.  The program
+then sends the message, indicating that by the line below
+saying:
+.sp
+.ps 9
+.ft CW
+.zf
+    Sending mail...
+.ft 1
+.ps 10
+.sp
+then putting at the bottom of the screen ``Mail sent!'' and giving us
+the prompt:
+.ps 9
+.ft CW
+.zf
+.sp
+.bl
+.tl 'Command:''(Use \'i\' to return to index.)''
+.sp
+.ps 10
+.ft 1
+Pretty easy, isn't it?  Let's continue by going back to the main
+screen pressing the \*qi\*u key to request the \f2index\f1.  The
+screen is then:
+
+.ne 20
+.ft CW
+.zf
+.ps 9
+.mk a
+.sp
+.ce
+Mailbox is \'/usr/mail/mymail\' with 15 messages  [Elm 2.4PL22]
+.TS
+r l r l l l l.
+ \->		1	Apr 24	Larry Fenske	(49)	Hello there
+	N	2	Apr 24	jad@hpcnoe	(84)	Chico?  Why go there?
+	E	3	Apr 23	Carl Smith	(53)	Dinner tonight?
+	NU	4	Apr 18	Don Knuth	(354)	Your version of TeX...
+	N	5	Apr 18	games	(26)	Bug in cribbage game
+	 A	6	Apr 15	kevin	(27)	More software requests
+		7	Apr 13	John Jacobs	(194)	How can you hate RUSH?
+	 U	8	Apr 8	decvax!mouse	(68)	Re: your Usenet article
+		9	Apr 6	root	(7)
+	O	10	Apr 5	root	(13)
+.TE
+.sp
+.ce 3
+You can use any of the following commands by pressing the first character;
+d)elete or u)ndelete mail, m)ail a message, r)eply or f)orward mail, q)uit
+To read a message, press <return>.  j = move down, k = move up, ? = help
+ Command : @
+.sp
+.\" draw box, proportional Roman font back, display end
+.eb
+.ft 1
+.ps 10
+
+Notice that the first message is no longer marked as \f2new\f1
+since we've now read it.
+.sp
+Let's go ahead and read the message from kevin (message #6) since
+it has some sort of \f2action\f1 associated with it anyway.  To
+do this, we simply press the \*q6\*u key, which will change the
+bottom of the screen to:
+.sp
+.ps 9
+.ft CW
+.zf
+.tl 'Command: New Current Message''Set current message to : 6@'
+.ft 1
+.ps 10
+.sp
+We'll just press \f2<return>\f1 to move the active message
+pointer (the arrow).
+.sp
+Now we're pointing at the new message, so let's go ahead and read
+it by pressing \f2<return>\f1 again, giving us:
+
+.ne 10
+.ft CW
+.zf
+.ps 9
+.mk a
+.tl ' Message 6/15 from kevin''Apr 15 \'87 at 11:36 am pst'
+.tl ''More software requests''
+ Action: please acknowledge receipt
+ I don\'t suppose you have a nifty netnews reader around too, do you??
+ \-\-
+ kevin
+ Command (\'i\' to return to index): @
+.eb
+.sp
+.ps 10
+.ft 1
+
+.br
+.ne 5
+Well, it turns out that we don't, but a friend of ours does, so
+let's \f3forward\f1 the message to them by pressing \*qf\*u:
+.ps 9
+.ft CW
+.zf
+.sp
+.tl 'Command: Forward message''Edit outgoing message (y/n) ? @ '
+.ft 1
+.ps 10
+.sp 2
+No need to edit it, so let's answer \f2no\f1 with \*qn\*u:
+.sp
+.ps 9
+.ft CW
+.zf
+.tl 'Command: Forward message''Edit outgoing message (y/n) ? No '
+.tl 'To: @'''
+.ps 10
+.ft 1
+.sp
+We type in the address of the person we're forwarding to (in
+this case
+.ft CW
+.zf
+usenet\f1) and press
+\f2<return>\f1:
+.ft CW
+.zf
+.ps 9
+.sp
+.ie t .tl 'Command: Forward message'To: usenet ''
+.el   .tl 'Command: Forward message''To: usenet '
+.tl 'Subject: More software requests (fwd)@'''
+.ft 1
+.ps 10
+.sp
+To which we again press \f2<return>\f1 to take the default subject.
+Elm asks for any possible copy recipients, asks us if we're
+sure we want to send it, and shoots it off.
+.sp
+Enough mail for now, however, so we just \f3exit\f1 by pressing
+the \*qx\*u key at the \*QCommand:\*U prompt and the program drops us
+back into our shell.
+.sp
+As you can see, it's quite easy to use the Elm system, so
+rather than continue with our example, let's
+look at some other aspects of the program.
+.br
+.ne 5
+.sp
+.hn 1 Non-Interactive Uses of Elm
+
+Before we go ahead and discuss the Elm utilities, it's worth
+noting that
+there are a couple of other ways to use the main mail
+system, namely to \*Qsend only\*U and to send files (batchmail).
+
+To send a message to someone without any of the associated
+overhead of reading in a mail folder, you can invoke the
+mailer with the name(s) of the people to send to.  For example:
+
+.nf
+.ti +.5i
+$ \f3elm dave_taylor\f1
+.fi
+
+Elm then prompts for Subject, Copies, and then drops
+you in your editor (defined in the \f2.elm/elmrc\f1 file) to compose
+the message.   When composition is complete, the program
+verifies transmission then terminates.
+
+.ne 6
+Elm also supports batch type mailing, of files and so on,
+by using the following command:
+
+.nf
+.ti +.5i
+$ \f3elm dave_taylor < help.c\f1
+.fi
+
+which reads in the file and transmits it to the specified user.
+
+.ne 3
+A subject may be specified with \*Q\-s \f2subject\f1\*U as an option
+to Elm in either \*Qsend only\*U or \*Qbatch\*U modes, as in:
+
+.nf
+.ti +.5i
+$ \f3elm \-s "File help.c, as promised" dave_taylor < help.c\f1
+.fi
+
+.ne 3
+Elm also has an option to specify that a certain file be used as the
+initial text of the message.  This makes it easier to use Elm with
+other programs that interface with a mailer.  Use \*Q\-i \f2file\f1\*U as an
+option to Elm in \*Qsend only\*U mode.  For example, to specify to \f2rn\f1
+to use Elm as the mailer, define the following in \f3RNINIT\f1:
+
+.ft CW
+.zf
+.nf
+.ti +.5i
+\-EMAILPOSTER="elm \-i %h \-s \\"Re: %S\\" %t"
+.fi
+.ft 1
+
+See the man page for \f2rn\f1(1) or the newsreader you use for more specific
+information.
+
+.br
+.ne 5
+.sp
+.hn 1 The Elm Utilities
+
+The Elm mail system is really much more than a single
+program for reading and writing mail.  It's a unified
+environment for intelligently dealing with electronic
+correspondence.  As a consequence, it contains a number of other
+programs to aid in the easy processing of \*Qemail\*U,
+including the following;
+
+.lp \h'10p'answer 1.0i
+An answering-machine transcription program.  Please see the
+manual entry for more information on how to use this program.
+
+.lp \h'10p'autoreply 1.0i
+This program, in conjunction with the \f2arepdaemon\f1, enables users
+to automatically reply to incoming mail when they're not directly
+available.
+
+.lp \h'10p'checkalias 1.0i
+A script for checking aliases simply.
+
+.lp \h'10p'elmalias 1.0i
+A tool to obtain information on defined aliases.
+
+.lp \h'10p'listalias 1.0i
+A script to produce sorted listings of aliases.
+
+.lp \h'10p'messages 1.0i
+A script that lists the number of messages in the specified
+folder.  Suitable for login scripts and such.
+
+.lp \h'10p'newmail 1.0i
+This program monitors a mailbox or set of mailboxes and can
+output notification of new mail in one of two possible
+formats; either:
+
+.ne 6
+.nf
+.ft CW
+.zf
+.ps 9
+.ti +.5i
+>> New mail from Jimmy Carter \-\- Urgent matters of state
+.br
+.ti +.5i
+>> New mail from joe@ucbvax.arpa \-\- Did I hear someone say PARTY??
+.ft 1
+.ps 10
+
+if running as \f2newmail\f1 or:
+
+.ft CW
+.zf
+.ps 9
+.ti +.5i
+Jimmy Carter \-\- Urgent matters of state
+.br
+.ti +.5i
+joe@ucbvax.arpa \-\- Did I hear someone say PARTY??
+.ft 1
+.ps 10
+.fi
+
+if running as \f2wnewmail\f1.  BSD Users will find this is
+a far superior \f2biff\f1 program.
+
+.lp \h'10p'wnewmail 1.0i
+This is the same program as \f2newmail\f1, but has different
+defaults if invoked this way.
+
+.lp \h'10p'readmsg 1.0i
+This handy little program can be used in two ways.  First off,
+it can be used to easily read a specific message in the
+incoming mailbox, specified by ordinal number, by a string that
+the message contains, by the metacharacter \*q$\*u which
+represents the last message in the folder, or \*q*\*u which matches
+all the messages in the folder.
+
+For example;
+
+.ti +.5i
+$ \f3readmsg 4 5 9 | lpr\f1
+
+would generate a printout, \f2sans\f1 superfluous headers, of the fourth,
+fifth and ninth messages in your mailbox.
+
+.ti +.5i
+$ \f3readmsg Carter | page\f1
+
+would be a fast way to read what \*uole Jimmy has to say, and
+
+.ti +.5i
+$ \f3readmsg \-h hear someone say\f1
+
+would list, including all the message headers, the message
+containing the string \*Qhear someone say\*U.
+
+.lp \h'10p'frm 1.0i
+Similar to the Berkeley \f2from\f1 command, this will
+give you a \*Qtable of contents\*U or a summary of either the current
+mailbox or a mailbox of your choice.   It's useful to
+see what mail is pending, or what's in a mailbox.
+If used with the \*Q\-n\*U option, it will number each message
+in a way compatible with the arguments \f2readmsg\f1
+expects to get, too!
+
+.lp \h'10p'newalias 1.0i
+This is used to install new user/group aliases.  Please see
+\f2The Elm Alias Users Guide\f1 for further information.
+
+.lp \h'10p'fastmail 1.0i
+Sometimes you want to have a batchmailing system that works as
+quickly as possible, not bothering with aliases or any of the
+other \*Qdeluxe\*U features of Elm.  An example of this would
+be if you have a large mailing list for a newsletter, say.
+This command, \f2fastmail\f1, is designed just for that purpose.
+It avoids the lengthy startup time of Elm while still
+generating valid RFC-822\s-2\u5\d\s0 mail.
+.fn
+5. If you don't know what RFC-822 is, don't worry about it!
+.ef
+Please see the manual entry for more information on this
+command.
+.in 0
+.br
+.ne 5
+.sp
+.hn 1 "Credits and So on \(em Elm's early years from Dave Taylor"
+
+This mailer has been evolving over the past few years with
+invaluable comments on the interface and general mail
+issues from the following people;
+Jim Davis, Steve Wolf (or should that say Steve!! Wolf!!!! perhaps?),
+Larry Fenske, Rob Sartin,
+John Dilley and Carl Dierschow.
+.sp
+For the Berkeley implementation, lots of help came from
+both John Lebovitz and Ken Stone.
+.sp
+For the Amdahl/UTS implementation, thanks to Scott McGregor and
+Stan Isaacs.
+.sp
+For the Sun problems, Dave England in Lancaster (UK) turned out to be
+\*Qbloody useful\*U, as he would no doubt say.
+.sp
+The Pyramid version is due to the work of Steve Malone
+of the University of Washington.
+.sp
+A number of other people have been amazingly disciplined at reporting
+problems and (usually, much to my relief) indicating the fixes needed,
+especially Guy Hillyer, Bruce Townsend and Eric Negaard.
+.sp
+There have been many, many others, too numerous to mention, that
+have inspired me with questions like \*QWhy can't Elm...\*U or
+\*QWhy does it ...\*U or \*QCan we make it...\*U too.  A loud round of
+applause and an enthusiastic THANK YOU to you all!!
+.sp
+Also helpful was the ability to have my \*Qown\*U machine to
+close up the many many iterative loops that this software
+has gone through \(em since being on a big multi-user machine
+tends to slow it down to a standstill.
+For that, I thank Hewlett-Packard Colorado Networks Division for their
+initial support, and now HP Laboratories for the wonderful working
+environment that I have here (more than any one person is safe having,
+I suspect).
+.sp
+Mailers that have influenced the design and implementation of Elm,
+for better or worse, include the following;
+
+.lp \h'4p'\f2/bin/mail\f1 1.0i
+The most basic of mailers, this one was simply the example of how \f2not\f1
+to force the user to interact with a program.
+
+.lp "\h'4p'\f2Berkeley Mail\f1" 1.0i
+A surprisingly sophisticated mailer, especially the version with 4.3 BSD,
+\f2Berkeley Mail\f1 still suffers from the tendency to force the user to
+know too much about the system, and also lacks a friendly, non-cryptic
+interface for the large subset of the population that use
+.ux
+but aren't
+interested in becoming a \*Qhacker\*U.
+
+.lp \h'4p'\f2MH\f1 1.0i
+This is another nifty mailer.  The main difference between this and the
+other mailers about is that it is a discrete set of programs rather than
+a single unified interface.  This is quite useful for those people that
+receive \f2lots\f1 of mail and are willing to spend some time learning
+the intricacies of the program.  It's quite powerful, but again, misses some
+of the basic friendly features the majority of users are interested in.
+
+.lp \h'4p'\f2dmail\f1 1.0i
+A sort of mutated cross between \f2MH\f1 and \f2Berkeley Mail\f1, it was
+this program that convinced me to implement the \f3limit\f1 functions.
+
+.lp \h'4p'\f2NMail\f1 1.0i
+A part of the HP AI Workstation Software Environment, this program hints
+at the power that mailers could be given to help deal with mail in a quick
+and intelligent fashion.  Most of what it can do, and a lot more, are
+therefore part of Elm.  Indubitably.  And quite fast too!
+
+.lp \h'4p'\f2PMX/TERM\f1 1.0i
+Part of the AT&T Mail package, a single glance at this interface convinced
+me that a PC interface, with almost half of the screen taken up by a silly
+function key mapping, is most certainly \f2not\f1 the way to do things!!
+On the other hand, it also shows that the \*Qforms\*U mode can be quite
+nicely integrated into a more sophisticated mailer.
+
+.lp \h'4p'\f2fmail\f1 1.0i
+A nickel addition to the \f2/bin/mail\f1 program to add some rudimentary
+screen interface stuff, this nonetheless interesting mailer is part of
+the AT&T Toolchest.
+
+.lp \h'4p'\f2Laurel\f1 1.0i
+A program only available within Xerox PARC, this was an interesting
+early attempt at a graphics based full-screen mail program.  The one,
+perhaps trivial, part of the interface I really like was the fact that
+it would \f2cross out\f1 a message that was marked for deletion.  One
+day when we get real graphics and the ability to use them in
+a facility (not too) like \f2termcap\f1, perhaps Elm will do
+this too!
+
+.lp \h'4p'\f2Mailtool\f1 1.0i
+Part of the Sun distribution package, this program is a really nice
+example of what can be done by putting a smart shell on top of a dumb
+program \(em it uses \f2/bin/mail\f1 for all the \*Qdirty work\*U.  Other than
+that, it's not a particularly interesting interface or mailer, and it
+certainly doesn't add much functionality!
+
+.lp \h'4p'\f2Metamail\f1 1.0i
+What can I say?  This isn't even a real mailer,\s-2\u6\d\s0
+.fn
+6. Not to be confused with the multi-media mailer, \f2metamail\f1, from
+Nathaniel Borenstein of Bellcore.
+.ef
+but is just what I dream
+of as an interface to mail in the future.  A program that works sort of
+like HAL did in \f22001: A Space Odyssey\f1 \(em where it interrupts
+me as appropriate for important mail, and can answer inane and other
+queries itself according to what I teach it.  Maybe Elm, by some sort
+of groupmind metamorphosis, will change into that someday.  Maybe not.  Maybe
+no one bothers to read this far into the document!!
+
+.in 0
+Finally, it's also been a very useful experience overall,
+confirming my beliefs that iterative software design and
+keeping a close watch on users (not to mention an open
+mind and mailbox!) improves a product manyfold.  Comments,
+feedback and bug reports (and fixes!) are, of course, always welcome!
+.br
+.ne 5
+.sp
+.hn 1 "Credits and So on Part II \(em The Usenet Elm Development Group"
+
+As coordinator of the Elm Development Group, I must add to the credits.
+This group of volunteers has taken the Elm code from Dave Taylor and
+added features, made it more robust, and more portable.
+.sp
+For getting the Usenet Elm group going, for without which I wouldn't be
+writing this, thanks to Greg Hackney at Southwestern Bell Telephone Co.
+.sp
+For the Configuration system and its newer Dist 2.0 version, thanks are
+due to Larry Wall of JPL-NASA.
+.sp
+For his over two hundred sets of changes to version 2.2, Elm owes a lot
+to Rob Bernardo who was at Pacbell at that time.
+.sp
+The ability to run Elm at all on Intel 286 machines owes a lot to the
+insistent nudging of the coordinator by Chip Salzenberg,
+Chip Rosenthal, and Tim Evans.
+.sp
+For getting us the rights to use the news macros and converting all
+the documentation over to those macros, thanks to Mike Brown.
+.sp
+For pushing us into the \*u90s and forcing the issues of
+NLS and foreign language support, I thank Jan Saell of Administration & Systemkonsult AB
+along with Larry Philps of SCO Canada.
+.P
+I'd also like to thank the many current and prior members of the Elm
+development and testing groups.  The list varies from time to time
+as people come and go.  Also, to all the Elm users out there who
+send in patches.  The group can use all the extra help it gets.
+As a postScript, if you wish to join the group, all it takes is some
+time to work on things, and to ask.
+
+Syd Weinstein, Elm Coordinator.

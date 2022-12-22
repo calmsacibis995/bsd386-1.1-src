@@ -1,0 +1,47 @@
+Msusp	susp.c	/^main(argc, argv)$/
+bcd_to_int	misc.c	/^bcd_to_int(val)$/
+cd_suf	susp.c	/^cd_suf(path, fsec, signature, idx, buf, buflen)$/
+cdclose	common.c	/^cdclose(cdinfo)$/
+cdeject	common.c	/^cdeject(cdinfo)$/
+cdopen	common.c	/^cdopen(fname)$/
+cdplay	common.c	/^cdplay(cdinfo, start_frame, end_frame)$/
+cdstatus	common.c	/^cdstatus(cdinfo, cdstatus)$/
+cdstop	common.c	/^cdstop(cdinfo)$/
+cdvolume	common.c	/^cdvolume(cdinfo, volume)$/
+frame_to_msf	misc.c	/^frame_to_msf(frame, minp, secp, framep)$/
+int_to_bcd	misc.c	/^int_to_bcd(val)$/
+make_cdinfo	misc.c	/^make_cdinfo(fd, ntracks)$/
+mitsumi_close	mitsumi.c	/^mitsumi_close(cdinfo)$/
+mitsumi_cmd	mitsumi.c	/^mitsumi_cmd(fd, cmdbytes, cmdlen, results, results/
+mitsumi_eject	mitsumi.c	/^mitsumi_eject(cdinfo)$/
+mitsumi_play	mitsumi.c	/^mitsumi_play(cdinfo, start_frame, end_frame)$/
+mitsumi_probe	mitsumi.c	/^mitsumi_probe(fd, vendor, product, rev, vers)$/
+mitsumi_status	mitsumi.c	/^mitsumi_status(cdinfo, cdstatus)$/
+mitsumi_stop	mitsumi.c	/^mitsumi_stop(cdinfo)$/
+mitsumi_volume	mitsumi.c	/^mitsumi_volume(cdinfo, volume)$/
+msf_to_frame	misc.c	/^msf_to_frame(minute, second, frame)$/
+panasonic_close	panasonic.c	/^panasonic_close(cdinfo)$/
+panasonic_eject	panasonic.c	/^panasonic_eject(cdinfo)$/
+panasonic_play	panasonic.c	/^panasonic_play(cdinfo, start_frame, end_frame)$/
+panasonic_probe	panasonic.c	/^panasonic_probe(fd, vendor, product, rev, vers)$/
+panasonic_status	panasonic.c	/^panasonic_status(cdinfo, cdstatus)$/
+panasonic_stop	panasonic.c	/^panasonic_stop(cdinfo)$/
+panasonic_volume	panasonic.c	/^panasonic_volume(cdinfo, volume)$/
+scsi2_close	scsi2.c	/^scsi2_close(cdinfo)$/
+scsi2_eject	scsi2.c	/^scsi2_eject(cdinfo)$/
+scsi2_play	scsi2.c	/^scsi2_play(cdinfo, start_frame, end_frame)$/
+scsi2_probe	scsi2.c	/^scsi2_probe(fd, vendor, product, rev, vers)$/
+scsi2_status	scsi2.c	/^scsi2_status(cdinfo, cdstatus)$/
+scsi2_stop	scsi2.c	/^scsi2_stop(cdinfo)$/
+scsi2_volume	scsi2.c	/^scsi2_volume(cdinfo, volume)$/
+scsi_cmd	misc.c	/^scsi_cmd(fd, cdb, buf, buflen)$/
+scsi_cmd_write	misc.c	/^scsi_cmd_write(fd, cdb, buf, buflen)$/
+scsi_inquiry	misc.c	/^scsi_inquiry(fd, vendor, ident, rev, vers)$/
+scsi_strcpy	misc.c	/^scsi_strcpy (dest, src, len)$/
+toshiba_close	toshiba.c	/^toshiba_close(cdinfo)$/
+toshiba_eject	toshiba.c	/^toshiba_eject(cdinfo)$/
+toshiba_play	toshiba.c	/^toshiba_play(cdinfo, start_frame, end_frame)$/
+toshiba_probe	toshiba.c	/^toshiba_probe(fd, vendor, product, rev, vers)$/
+toshiba_status	toshiba.c	/^toshiba_status(cdinfo, cdstatus)$/
+toshiba_stop	toshiba.c	/^toshiba_stop(cdinfo)$/
+toshiba_volume	toshiba.c	/^toshiba_volume(cdinfo, volume)$/

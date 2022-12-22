@@ -1,0 +1,5 @@
+F BPATCH.1;1                        	bpatch.1
+F BPATCH.C;1                        	bpatch.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/bpatch
+F TAGS.;1                           	tags

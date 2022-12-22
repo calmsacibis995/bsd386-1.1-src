@@ -1,0 +1,118 @@
+.\" Copyright (c) 1992,1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: eaha.4,v 1.2 1993/03/23 22:56:21 polk Exp $
+.\"
+.Dd March 23, 1993
+.Dt EAHA 4 i386
+.Os
+.Sh NAME
+.Nm eaha
+.Nd Adaptec 1740A/1742A EISA SCSI host adapter driver
+.Sh SYNOPSIS
+.Cd "controller	eaha0 at isa?"
+.Sh DESCRIPTION
+The
+.Nm eaha
+driver is a software interface to the Adaptec AHA-1740, AHA-1740A
+and AHA-1742A host adapters
+for the Small Computer Systems Interface (X3.131-1992) bus.
+The driver assumes that the card has been programmed for
+.Sq enhanced mode
+operation, which permits it to take advantage of EISA features;
+in the other mode,
+.Sq standard mode ,
+the card behaves like an AHA-1542B
+(see
+.Xr aha 4 ) .
+To program the card for enhanced mode operation,
+you will need to run the manufacturer's
+EISA Configuration Utility for your machine under DOS,
+load the Adaptec configuration files (if they weren't provided
+by the manufacturer),
+and set all the relevant card parameters to their
+enhanced mode defaults.
+.Pp
+The Adaptec cards provide automatic SCSI protocol handling,
+in which the driver just sends a SCSI Command Descriptor Block and the
+SCSI protocol state is managed on-board.
+They provide parallel operations, using a
+.Sq mailbox
+protocol which allows the host to send
+several operations that the board will schedule automatically.
+The cards also support
+EISA bus master DMA, using an on-board
+DMA controller that takes advantage of EISA bus bandwidth
+and does not use any ISA DRQ resources.
+The cards can program their own IRQ;
+the driver selects an available IRQ value from the set
+of 9, 10, 11, 12, 14 or 15 and
+programs it when the card is configured.
+The Adaptec firmware offers
+scatter/gather mapping, a technique for handling
+transfers out of virtual memory that
+works by providing the card with
+a map of the physical addresses in a virtual region.
+Unlike the AHA-1542B, the AHA-1742A supports full 32-bit physical addresses.
+Two SCSI features supported in firmware are
+automatic synchronous SCSI protocol negotiation,
+which can identify SCSI peripherals that support high-speed
+operation and match transfer speeds,
+and automatic connect/disconnect bus control,
+which allows the host adapter to disconnect
+from long-running operations such as seeks or rewinds
+and to connect to other operations on other targets
+while waiting for the original operation to reconnect.
+The AHA-1742A differs from the AHA-1740A in
+providing an on-board floppy controller
+which is handled using a standard floppy interface
+(see
+.Xr floppy 4 ) .
+.Pp
+The
+.Nm eaha
+driver is designed to be used as a machine-dependent back end
+for machine-independent SCSI pseudo-devices
+(see
+.Xr sd 4 ,
+.Xr st 4 ) .
+It handles parallelism across targets using
+extended Enhanced Control Blocks;
+each
+.Va soft_ecb
+contains an Adaptec Enhanced Control Block
+plus information on scatter/gather map use
+and hooks for upcalls on interrupt.
+The driver handles polled and interrupting SCSI commands,
+for use during autoconfiguration and multi-user operation.
+It allocates and manages a pool of these
+.Va soft_ecb
+structures at known physical addresses so that
+physical DMA is simple and convenient.
+.Pp
+Booting from a SCSI disk attached to an Adaptec host adapter
+requires boot code with knowledge of the host adapter.
+A SCSI disk boot block named
+.Pa eahaboot
+and a 14-sector boot named
+.Pa booteaha
+must be installed using
+.Xr disklabel 8
+on a SCSI disk in order to boot from the Adaptec interface.
+The Adaptec card simulates the BIOS interface
+for a standard PC hard disk for the purpose of booting.
+The card uses a set of specific drive selection criteria
+to choose a default boot disk;
+these parameters are set using the EISA Configuration Utility.
+.Sh SEE ALSO
+.Xr aha 4 ,
+.Xr sd 4 ,
+.Xr st 4
+.Sh BUGS
+The eaha driver should be configured as late as possible
+so that it won't choose an IRQ that
+some other card with a fixed IRQ needs.
+.Pp
+The default synchronous transfer rate can be too high for some SCSI devices.
+If trouble occurs, try lowering it with the ECU.

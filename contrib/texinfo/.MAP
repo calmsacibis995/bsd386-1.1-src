@@ -1,0 +1,12 @@
+F COPYING.;1                        	COPYING
+D EMACS                             	emacs
+D GROT                              	grot
+D INFO                              	info
+F INTRODUC.;1                       	INTRODUCTION
+D LIBTXI                            	libtxi
+F MAKEFILE.;1                       	Makefile
+D MAKEINFO                          	makeinfo
+F README.GNU;1                      	README.gnu
+F TEXI.TEX;1                        	texi.texi
+F TEXINFO.TEX;1                     	texinfo.tex
+D UTIL                              	util

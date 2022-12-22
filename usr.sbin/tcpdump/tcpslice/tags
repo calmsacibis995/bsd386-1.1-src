@@ -1,0 +1,52 @@
+CHECK_FIELD	tcpslice.c	/^#define CHECK_FIELD(field_name) 		\\$/
+EXTRACT_LONG	../tcpdump/search.c	/^#define EXTRACT_LONG(buf) (buf[0] << 24 | buf[1] </
+EXTRACT_SHORT	../tcpdump/bpf_filter.c	/^#define EXTRACT_SHORT(p)	((u_short)ntohs(*(u_short/
+IS_LEAP_YEAR	../tcpdump/gwtm2secs.c	/^#define IS_LEAP_YEAR(year)	\\$/
+MINDEX	../tcpdump/bpf_filter.c	/^#define MINDEX(m, k) \\$/
+Mtcpslice	tcpslice.c	/^main(argc, argv)$/
+SET_VAL	tcpslice.c	/^#define SET_VAL(lhs,rhs)	\\$/
+ZERO_FIELD_IF_NOT_SET	tcpslice.c	/^#define ZERO_FIELD_IF_NOT_SET(field_name,zero_val)/
+bpf_filter	../tcpdump/bpf_filter.c	/^bpf_filter(pc, p, wirelen, buflen)$/
+bpf_validate	../tcpdump/bpf_filter.c	/^bpf_validate(f, len)$/
+clock_sigfigs	../tcpdump/md.c	/^clock_sigfigs()$/
+copy_argv	../tcpdump/util.c	/^copy_argv(argv)$/
+dump_times	tcpslice.c	/^dump_times(filename)$/
+error	../tcpdump/util.c	/^error(va_alist)$/
+extract_header	../tcpdump/search.c	/^static void extract_header( buf, hdr )$/
+extract_slice	tcpslice.c	/^extract_slice(filename, start_time, stop_time)$/
+fill_tm	tcpslice.c	/^fill_tm(time_string, is_delta, t, usecs_addr)$/
+find_header	../tcpdump/search.c	/^static int find_header( buf, buf_len, first_time, /
+first_packet_time	tcpslice.c	/^first_packet_time(filename)$/
+get_file_range	tcpslice.c	/^get_file_range( filename, first_time, last_time )$/
+gwtm2secs	../tcpdump/gwtm2secs.c	/^time_t gwtm2secs( tm )$/
+interpolated_position	../tcpdump/search.c	/^long interpolated_position( min_time, min_pos, max/
+is_timestamp	tcpslice.c	/^int is_timestamp( str )$/
+local_time_zone	tcpslice.c	/^long local_time_zone(timestamp)$/
+m_xhalf	../tcpdump/bpf_filter.c	/^m_xhalf(m, k, err)$/
+m_xword	../tcpdump/bpf_filter.c	/^m_xword(m, k, err)$/
+net_mask	../tcpdump/util.c	/^net_mask(addr)$/
+parse_time	tcpslice.c	/^parse_time(time_string, base_time)$/
+printfn	../tcpdump/util.c	/^printfn(s, ep)$/
+read_infile	../tcpdump/util.c	/^read_infile(fname)$/
+read_up_to	../tcpdump/search.c	/^static int read_up_to( desired_time )$/
+reasonable_header	../tcpdump/search.c	/^static int reasonable_header( hdr, first_time, las/
+sf_err	../tcpdump/savefile.c	/^sf_err(code)$/
+sf_find_end	../tcpdump/search.c	/^int sf_find_end( first_timestamp, last_timestamp )/
+sf_find_packet	../tcpdump/search.c	/^int sf_find_packet( min_time, min_pos, max_time, m/
+sf_next_packet	../tcpdump/savefile.c	/^sf_next_packet(hdr, buf, buflen)$/
+sf_read	../tcpdump/savefile.c	/^sf_read(filtp, cnt, snaplen, printit)$/
+sf_read_init	../tcpdump/savefile.c	/^sf_read_init(fname, linktypep, thiszonep, snaplenp/
+sf_timestamp_less_than	../tcpdump/search.c	/^int sf_timestamp_less_than( t1, t2 )$/
+sf_write	../tcpdump/savefile.c	/^sf_write(sp, tvp, length, caplen)$/
+sf_write_header	../tcpdump/savefile.c	/^sf_write_header(fp, linktype, thiszone, snaplen, p/
+sf_write_init	../tcpdump/savefile.c	/^sf_write_init(fname, linktype, thiszone, snaplen, /
+stoi	../tcpdump/util.c	/^stoi(s)$/
+stripdir	../tcpdump/util.c	/^stripdir(s)$/
+swap_hdr	../tcpdump/savefile.c	/^swap_hdr(hp)$/
+timestamp_to_string	tcpslice.c	/^timestamp_to_string(timestamp)$/
+timeval_diff	../tcpdump/search.c	/^static double timeval_diff( tv1, tv2 )$/
+ts_print	../tcpdump/util.c	/^ts_print(tvp)$/
+usage	tcpslice.c	/^usage()$/
+vfprintf	../tcpdump/util.c	/^vfprintf(f, fmt, args)$/
+warning	../tcpdump/util.c	/^warning(va_alist)$/
+xdtoi	../tcpdump/util.c	/^xdtoi(c)$/

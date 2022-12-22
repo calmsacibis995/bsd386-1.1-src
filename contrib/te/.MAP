@@ -1,0 +1,21 @@
+F DOT_TECO.;1                       	dot.tecorc
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+F MAKETECO.DOC;1                    	maketeco.doc
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/te
+F TAGS.;1                           	tags
+F TE.1;1                            	te.1
+F TECO.DOC;1                        	teco.doc
+F TECO_DAT.DOC;1                    	teco_data.doc
+F TE_CHARI.C;1                      	te_chario.c
+F TE_DATA.C;1                       	te_data.c
+F TE_DEFS.H;1                       	te_defs.h
+F TE_EXEC0.C;1                      	te_exec0.c
+F TE_EXEC1.C;1                      	te_exec1.c
+F TE_EXEC2.C;1                      	te_exec2.c
+F TE_MAIN.C;1                       	te_main.c
+F TE_RDCMD.C;1                      	te_rdcmd.c
+F TE_SRCH.C;1                       	te_srch.c
+F TE_SUBS.C;1                       	te_subs.c
+F TE_UTILS.C;1                      	te_utils.c
+F TE_WINDO.C;1                      	te_window.c

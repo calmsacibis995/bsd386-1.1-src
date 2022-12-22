@@ -1,0 +1,13 @@
+Mtextps	textps.c	/^main(argc, argv)$/
+add_char	textps.c	/^void add_char(c, pos, p)$/
+delete_output_char	textps.c	/^void delete_output_char(p)$/
+do_file	textps.c	/^void do_file()$/
+new_output_char	textps.c	/^output_char *new_output_char()$/
+page_end	textps.c	/^void page_end()$/
+page_start	textps.c	/^void page_start()$/
+print_line	textps.c	/^void print_line(output_line, vpos)$/
+prologue	textps.c	/^void prologue()$/
+pschar	textps.c	/^void pschar(c)$/
+psnum	textps.c	/^void psnum(f)$/
+trailer	textps.c	/^void trailer()$/
+usage	textps.c	/^void usage()$/

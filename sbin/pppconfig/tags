@@ -1,0 +1,9 @@
+Mpppconfig	pppconfig.c	/^main(argc, argv)$/
+Perror	pppconfig.c	/^Perror(cmd)$/
+idletime	pppconfig.c	/^idletime(arg)$/
+maxconf	pppconfig.c	/^maxconf(arg)$/
+maxterm	pppconfig.c	/^maxterm(arg)$/
+mru	pppconfig.c	/^mru(arg)$/
+setcmap	pppconfig.c	/^setcmap(arg)$/
+setflags	pppconfig.c	/^setflags(val)$/
+timeout	pppconfig.c	/^timeout(arg)$/

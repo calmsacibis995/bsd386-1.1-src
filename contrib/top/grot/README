@@ -1,0 +1,115 @@
+                             TOP
+                         Version 3.2
+
+                       William LeFebvre
+		     and a cast of dozens
+
+
+If you do not want to read this entire file, then at least read
+the section at the end entitled "KNOWN PROBLEMS".
+
+"top" is a program that will give continual reports about the state of
+the system, including a list of the top cpu using processes.  Version 3
+of "top" has three primary design goals: provide an accurate snapshot of
+the system and process state, not be one of the top processes itself, be
+as portable as possible.
+
+Version 3 has many bug fixes from version 2.5, and it has also been
+reorganized in a major way to make it easy to port to other platforms.
+All system dependent code is now contained in one file.
+
+Top now includes a configuration script called "Configure".  It helps
+the installer choose the correct parameters for this particular
+installation.  This script MUST be run before attempting to compile top.
+
+Top requires read access to the memory files "/dev/kmem" and "/dev/mem"
+as well as the system image "/vmunix".  Some installations have these
+files protected from general access.  These sites would have to install
+this program in the same way that programs such as "ps" are installed.
+
+CAVEAT: version 3 of top has internal commands that kill and renice
+processes.  Although I have taken steps to insure that top makes
+appropriate checks with these commands, I cannot guarantee that these
+internal commands are totally secure.  IF YOU INSTALL top as a SETUID
+program, you do so AT YOUR OWN RISK!  I realize that some operating
+systems will require top to run setuid, and I will do everything I can
+to make sure that top is a secure setuid program.
+
+Configure will ask you to input values for certain parameters.  Before
+each parameter, Configure will display a description of what the
+parameter does.  Read the description and choose an appropriate value.
+Sometimes a default will appear in brackets.  Typing just return will
+choose the default.
+
+System support now takes the form of "modules".  Adding support for
+a different architecture requires only adding a module.  Configure
+asks which module to use when it is configuring top.  See the file
+"Porting" for a description of how to write your own module.
+
+To compile and install "top", read the file "INSTALL" and follow the
+diurections and advice contained therein.
+
+Once you have created a binary for one particular type of machine, you
+can reconfigure for another type with "./Configure modulename" where
+"modulename" is replaced with the appropriate module name.  All other
+parameter values are kept the same.
+
+If you make any kind of change to "top" that you feel would be
+beneficial to others who use this program, or if you find and fix a bug,
+please send me the change.
+
+AVAILABILITY
+
+The latest version of "top" is always available via anonymous FTP from
+the host "eecs.nwu.edu" in the directory "/pub/top".  Additional modules
+will be made available in the directory "/pub/top/m".
+
+KNOWN PROBLEMS:
+
+Gnu CC
+
+Gnu CC likes very much to use its own include files.  Not being a gcc
+expert, I can't explain why it does this.  But I can tell you that in
+at least some instances that I have encounterd, the files in gnu-cc's
+"include/sys" directory are INCORRECT.  Unfortunately, using the
+standard include files with Gnu CC doesn't seem to produce a usable
+result, either.  If you feel you must use gcc to compile top, then I
+would recommend you make machine.o with CFLAGS=-I/usr/include, then
+make the rest of the object files normally.  This seems to work
+reasonably well.
+
+
+Multiprocessor Solaris 2 machines:
+
+There is a bug in the sunos5 module which prevents it from working
+correctly on machines that contain more than one processor (single
+processor sun4m machines seem to run just fine).  A fix is pending.
+
+
+System V R 4.2
+
+Load average and memory displays do not work.  The problem has been
+traced down to a potential bug in the "mem" driver.  The author
+of the svr42 module is working on a fix.
+
+
+Memory output overflow
+
+Some "well endowed" machines will cause top to overflow some of the
+fields in the memory line and the "SIZE" and "RES" columns.  Version
+3.2 will have an elegant fix for this (memory values over a certain
+value will be displayed in megabytes with a trailing "M").
+
+
+
+		William LeFebvre
+		Department of Electrical Engineering and Computer Science
+		Northwestern University
+		<phil@eecs.nwu.edu>
+
+
+		U.S. Mail address:
+		    William LeFebvre
+		    EECS Department
+		    2145 Sheridan Road
+		    Evanston, IL  60208

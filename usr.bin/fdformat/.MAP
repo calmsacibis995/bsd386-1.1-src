@@ -1,0 +1,5 @@
+F FDFORMAT.1;1                      	fdformat.1
+F FDFORMAT.C;1                      	fdformat.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/fdformat
+F TAGS.;1                           	tags

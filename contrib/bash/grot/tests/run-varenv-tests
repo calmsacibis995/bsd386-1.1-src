@@ -1,0 +1,2 @@
+../bash ./varenv.sh | grep -v '^expect' > xx
+diff xx varenv.sh.right && rm -f xx

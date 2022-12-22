@@ -1,0 +1,67 @@
+.\" Copyright (c) 1992 Berkeley Software Design, Inc
+.\" All rights reserved.
+.\"
+.\"
+.\"	@(#)fdformat.1	1.0 (BSDI) 02/09/92
+.\"
+.Dd Feb 9, 1992
+.Dt FDFORMAT 1
+.Os BSD 4
+.Sh NAME
+.Nm fdformat
+.Nd format floppy disk
+.Sh SYNOPSIS
+.Nm fdformat
+.Op Fl l
+.Op Fl v
+.Ar device
+.Ar type
+.Sh DESCRIPTION
+The
+.Nm fdformat
+utility formats floppy disks.
+The
+.Ar device
+argument is the name of the device special file
+(normally in the
+.Pa /dev
+directory).
+If the name does not begin with a slash,
+the prefix
+.Pa /dev/
+is prepended to the name.
+The
+.Ar type
+is the name of a disk description entry in /etc/disktab.
+The conventional names are
+.Li floppy
+for 1.44MB HD 3.5 and
+.Li floppy15
+for 1.2MB HD 5.25 disks.
+.Pp
+The following options are available:
+.Bl -tag -width flag
+.It Fl l
+Place a disk label on the disk after formatting.
+.It Fl v
+Verbose:
+print track and head number during formatting.
+.El
+.Pp
+Floppies which are to be used as BSD/386 filesystems need to be
+formatted with 
+.Nm fdformat,
+labeled with
+.Nm disklabel
+(or the -l option of
+.Nm fdformat
+), and then 
+.Nm newfs
+should be used to create a filesystem on the floppy.
+.Sh SEE ALSO
+.Xr floppy 4
+.Sh HISTORY
+The
+.Nm fdformat
+command first appeared in
+BSDI.

@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MKMANIFE.1;1                      	mkmanifest.1
+F MKMANIFE.C;1                      	mkmanifest.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/mtools/mkmanifest
+F TAGS.;1                           	tags

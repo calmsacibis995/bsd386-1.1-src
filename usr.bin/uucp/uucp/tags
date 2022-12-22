@@ -1,0 +1,20 @@
+Mmain	main.c	/^main(argc, argv)$/
+Uux	do_uucp.c	/^Uux($/
+check_dir	do_uucp.c	/^check_dir($/
+check_read	do_uucp.c	/^check_read($/
+check_write	do_uucp.c	/^check_write($/
+copy	do_uucp.c	/^copy($/
+do_uucp	do_uucp.c	/^do_uucp()$/
+explainArgs	uucp_args.c	/^explainArgs(PassVal val, Pointer ptr, char * str)$/
+explainVn	uucp_args.c	/^explainVn(PassVal val, Pointer ptr, char * str)$/
+finish	do_uucp.c	/^finish(int error)$/
+get1File	uucp_args.c	/^get1File(PassVal val, Pointer ptr, char * str)$/
+getDebug	uucp_args.c	/^getDebug(PassVal val, Pointer arg, char * str)$/
+getFile	uucp_args.c	/^getFile(PassVal val, Pointer ptr, char * str)$/
+getGrade	uucp_args.c	/^getGrade(PassVal val, Pointer ptr, char * str)$/
+getSPOOLDIR	uucp_args.c	/^getSPOOLDIR(PassVal val, Pointer ptr, char * str)$/
+make_cmd_file	do_uucp.c	/^make_cmd_file($/
+new_node	do_uucp.c	/^new_node($/
+setfalse	uucp_args.c	/^setfalse(PassVal val, Pointer ptr, char * str)$/
+stat_file	do_uucp.c	/^stat_file($/
+uucp_args	uucp_args.c	/^uucp_args($/

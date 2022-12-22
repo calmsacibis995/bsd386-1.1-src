@@ -1,0 +1,6 @@
+D CMFONTS                           	cmfonts
+D LATEXFON                          	latexfonts
+F MAKEFIL0.GZ;1                     	Makefile.defs.gz
+F MAKEFIL1.GZ;1                     	Makefile.gz
+F MAKEFIL2.GZ;1                     	Makefile.mags.gz
+D UTILITYF                          	utilityfonts

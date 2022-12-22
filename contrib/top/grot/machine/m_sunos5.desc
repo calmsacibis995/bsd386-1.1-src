@@ -1,0 +1,54 @@
+
+top - a top users display for Unix
+
+SYNOPSIS:  Any Sun running SunOS 5.x (Solaris 2.x)
+
+DESCRIPTION:
+This is the machine-dependent module for SunOS 5.x (Solaris 2).
+There is some support for MP architectures.
+This makes top work on the following systems:
+SunOS 5.0 (not tested)
+SunOS 5.1
+
+Tested on a SPARCclassic with SunOS 5.1, using gcc-2.3.3.
+
+LIBS: -R/usr/lib -lelf -lkvm
+
+
+AUTHORS:      Torsten Kasch 		<torsten@techfak.uni-bielefeld.de>
+Robert Boucher		<boucher@sofkin.ca>
+CONTRIBUTORS: Marc Cohen 		<marc@aai.com>
+Charles Hedrick 	<hedrick@geneva.rutgers.edu>
+	         William L. Jones 	<jones@chpc>
+
+#define _KMEMUSER
+#include "top.h"
+#include "machine.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <dirent.h>
+#include <nlist.h>
+#include <string.h>
+#include <kvm.h>
+#include <sys/types.h>
+#include <sys/param.h>
+#include <sys/signal.h>
+#include <sys/fault.h>
+#include <sys/sysinfo.h>
+#include <sys/sysmacros.h>
+#include <sys/syscall.h>
+#include <sys/user.h>
+#include <sys/proc.h>
+#include <sys/procfs.h>
+#include <sys/vm.h>
+#include <sys/var.h>
+#include <sys/cpuvar.h>
+#include <sys/file.h>
+#include <sys/time.h>
+#include <sys/priocntl.h>
+#include <sys/tspriocntl.h>
+#include <vm/anon.h>
+#include <math.h>

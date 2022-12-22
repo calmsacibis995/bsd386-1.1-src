@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#/bin/echo $@ `/bin/date` | /usr/ucb/Mail -s "Unknown host $*" root
+/bin/echo $@ `/bin/date` >>/var/log/uucp/Foreign

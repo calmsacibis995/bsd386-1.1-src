@@ -1,0 +1,12 @@
+F HIPASS.C;1                        	hipass.c
+F HIPASS.H;1                        	hipass.h
+F IMGTOFAX.C;1                      	imgtofax.c
+F IZOOM.C;1                         	izoom.c
+F IZOOM.H;1                         	izoom.h
+F LUM.H;1                           	lum.h
+F LUT.C;1                           	lut.c
+F LUT.H;1                           	lut.h
+F MAKEDEPE.;1                       	Makedepend
+F MAKEFILE.;1                       	Makefile
+F RAND.C;1                          	rand.c
+F ROW.C;1                           	row.c

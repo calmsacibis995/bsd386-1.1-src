@@ -1,0 +1,7 @@
+     sched [+]hh:mm command ...
+     sched [ -item ]
+          Make an entry in the scheduled list of commands to exe-
+          cute.   The time may be specified in either absolute or
+          relative time.  With no arguments, prints the  list  of
+          scheduled  commands.   With the argument -item, removes
+          the given item from the list.

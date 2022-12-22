@@ -1,0 +1,55 @@
+AcceptKeystroke	inbound.c	/^AcceptKeystroke(scancode, shiftstate)$/
+AddChar	inbound.c	/^AddChar(character)$/
+AddHost	outbound.c	/^AddHost(position, character)$/
+BackTab	inbound.c	/^BackTab()$/
+Clear3270	outbound.c	/^Clear3270()$/
+ColBak	inbound.c	/^ColBak()$/
+ColTab	inbound.c	/^ColTab()$/
+DataFrom3270	inbound.c	/^DataFrom3270(buffer, count)$/
+DataFromNetwork	outbound.c	/^DataFromNetwork(Buffer, count, control)$/
+Delete	inbound.c	/^Delete(where, from)$/
+DoReadBuffer	inbound.c	/^DoReadBuffer()$/
+DoReadModified	inbound.c	/^DoReadModified(cmd)$/
+EmptyChar	inbound.c	/^#define EmptyChar()	(ourPTail == ourPHead)$/
+EraseEndOfField	inbound.c	/^EraseEndOfField()$/
+FieldDec	outbound.c	/^FieldDec(position)$/
+FieldInc	outbound.c	/^FieldInc(position)$/
+FlushChar	inbound.c	/^FlushChar()$/
+FullChar	inbound.c	/^#define FullChar()	(ourPHead == ourBuffer+sizeof o/
+Home	inbound.c	/^Home()$/
+Init3270	outbound.c	/^Init3270()$/
+LastOfField	inbound.c	/^LastOfField(i)$/
+ModifyMdt	inbound.c	/^ModifyMdt(x,on)$/
+OneCharacter	inbound.c	/^OneCharacter(c, insert)$/
+OptInit	options.c	/^OptInit()$/
+OptOrder	options.c	/^OptOrder(pointer, count, control)$/
+SendField	inbound.c	/^SendField(i, cmd)$/
+SendToIBM	inbound.c	/^SendToIBM()$/
+SendTransparent	inbound.c	/^SendTransparent(buffer, count)$/
+SendUnformatted	inbound.c	/^SendUnformatted()$/
+SetHighestLowest	outbound.c	/^#define SetHighestLowest(position) { \\$/
+SetXIsProtected	inbound.c	/^#define	SetXIsProtected()	(XWasSF = 1)$/
+Stop3270	outbound.c	/^Stop3270()$/
+Tab	inbound.c	/^Tab()$/
+XIsProtected	inbound.c	/^#define	XIsProtected(p)	(IsStartField(p)? \\$/
+access_api	api.c	/^#define	access_api(foo,length,copyin)	(foo)$/
+connect_to_keyboard	api.c	/^connect_to_keyboard(regs, sregs)$/
+copy_string	api.c	/^copy_string(regs, sregs)$/
+copy_subroutine	api.c	/^copy_subroutine(target, source, parms, what_is_use/
+disable_input	api.c	/^disable_input(regs, sregs)$/
+disconnect_from_keyboard	api.c	/^disconnect_from_keyboard(regs, sregs)$/
+enable_input	api.c	/^enable_input(regs, sregs)$/
+handle_api	api.c	/^handle_api(regs, sregs)$/
+init_ctlr	outbound.c	/^init_ctlr()$/
+init_inbound	inbound.c	/^init_inbound()$/
+init_oia	oia.c	/^init_oia()$/
+movetothem	api.c	/^movetothem(es, di, parms, length)$/
+movetous	api.c	/^movetous(parms, es, di, length)$/
+name_resolution	api.c	/^name_resolution(regs, sregs)$/
+query_session_cursor	api.c	/^query_session_cursor(regs, sregs)$/
+query_session_id	api.c	/^query_session_id(regs, sregs)$/
+query_session_parameters	api.c	/^query_session_parameters(regs, sregs)$/
+read_oia_group	api.c	/^read_oia_group(regs, sregs)$/
+unaccess_api	api.c	/^#define	unaccess_api(foo,goo,length,copyout)$/
+unknown_op	api.c	/^unknown_op(regs, sregs)$/
+write_keystroke	api.c	/^write_keystroke(regs, sregs)$/

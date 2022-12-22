@@ -1,0 +1,34 @@
+Msz	sz.c	/^main(argc, argv)$/
+alrm	sz.c	/^alrm()$/
+bibi	sz.c	/^bibi(n)$/
+bttyout	sz.c	/^bttyout(c)$/
+canit	sz.c	/^canit()$/
+chartest	sz.c	/^chartest(m)$/
+chkinvok	sz.c	/^chkinvok(s)$/
+countem	sz.c	/^countem(argc, argv)$/
+filbuf	sz.c	/^filbuf(buf, count)$/
+flushmo	sz.c	/^flushmo()$/
+fooseek	sz.c	/^fooseek(fptr, pos, whence)$/
+getinsync	sz.c	/^getinsync(flag)$/
+getnak	sz.c	/^getnak()$/
+getzrxinit	sz.c	/^getzrxinit()$/
+onintr	sz.c	/^onintr()$/
+purgeline	sz.c	/^purgeline()$/
+readline	sz.c	/^readline(timeout)$/
+saybibi	sz.c	/^saybibi()$/
+sendline	sz.c	/^#define sendline(c) putchar(c & 0377)$/
+sendzsinit	sz.c	/^sendzsinit()$/
+substr	sz.c	/^substr(s, t)$/
+usage	sz.c	/^usage()$/
+vfile	sz.c	/^vfile(f, a, b, c)$/
+wcputsec	sz.c	/^wcputsec(buf, sectnum, cseclen)$/
+wcs	sz.c	/^wcs(oname)$/
+wcsend	sz.c	/^wcsend(argc, argp)$/
+wctx	sz.c	/^wctx(flen)$/
+wctxpn	sz.c	/^wctxpn(name)$/
+xsendline	sz.c	/^#define xsendline(c) sendline(c)$/
+zfilbuf	sz.c	/^zfilbuf()$/
+zperr	sz.c	/^zperr(s,p,u)$/
+zsendcmd	sz.c	/^zsendcmd(buf, blen)$/
+zsendfdata	sz.c	/^zsendfdata()$/
+zsendfile	sz.c	/^zsendfile(buf, blen)$/

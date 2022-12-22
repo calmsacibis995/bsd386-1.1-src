@@ -1,0 +1,8 @@
+F GROFF_M0.MAN;1                    	groff_mm.man
+F GROFF_M1.MAN;1                    	groff_mmse.man
+D GROT                              	grot
+F MAKEFILE.;1                       	Makefile
+D MM                                	mm
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/mm
+F TMAC.M;1                          	tmac.m
+F TMAC.MSE;1                        	tmac.mse

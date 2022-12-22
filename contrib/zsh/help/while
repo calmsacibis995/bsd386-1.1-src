@@ -1,0 +1,8 @@
+      while list
+      do list
+      done Execute the do list as  long  as  the  while  list
+	   returns a zero exit status.
+
+      while ( list ) {
+      list
+      }    An alternate form of while.

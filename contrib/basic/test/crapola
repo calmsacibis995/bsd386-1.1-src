@@ -1,0 +1,8 @@
+  100	print 'this'
+  110	print 
+  112	print 
+  113	print ''''''
+  115	syntax
+
+  120	print 'that'
+  130	end

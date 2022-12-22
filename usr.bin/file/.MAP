@@ -1,0 +1,23 @@
+F APPRENTI.C;1                      	apprentice.c
+F ASCMAGIC.C;1                      	ascmagic.c
+F COMPRESS.C;1                      	compress.c
+F FILE.1;1                          	file.1
+F FILE.C;1                          	file.c
+F FILE.H;1                          	file.h
+F FSMAGIC.C;1                       	fsmagic.c
+D GROT                              	grot
+F IS_TAR.C;1                        	is_tar.c
+F LEGAL.NOT;1                       	LEGAL.NOTICE
+D MAGIC                             	magic
+F MAINT.;1                          	MAINT
+F MAKEFILE.;1                       	Makefile
+F NAMES.H;1                         	names.h
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/file
+F PATCHLEV.H;1                      	patchlevel.h
+F PATHNAME.H;1                      	pathnames.h
+F PRINT.C;1                         	print.c
+F README.;1                         	README
+F README.BSD;1                      	README.BSDI
+F SOFTMAGI.C;1                      	softmagic.c
+F TAGS.;1                           	tags
+F TAR.H;1                           	tar.h

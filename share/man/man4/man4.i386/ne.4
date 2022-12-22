@@ -1,0 +1,52 @@
+.\" Copyright (c) 1992, 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: ne.4,v 1.4 1993/03/08 16:21:25 polk Exp $
+.\"
+.Dd October 9, 1992
+.Dt NE 4 i386
+.Os
+.Sh NAME
+.Nm ne
+.Nd
+.Td Novell
+NE1000/NE2000 Ethernet interface
+.Sh SYNOPSIS
+.Cd "device ne0 at isa? port 0x360"
+.Sh DESCRIPTION
+The
+.Nm ne
+interface provides access to a 10 Mb/s Ethernet network.  It uses a
+jumper-selectable block of 32 I/O ports in the range 0x300 through 0x360.  The block must be
+aligned on a 32 port boundary.  The jumper-selectable hardware interrupt level is
+detected at autoconfiguration time or alternatively may be specified in the system
+configuration file. Supported IRQs are: 2(9), 3, 4 and 5.
+An NE1000 can be installed in any 8-bit or 16-bit slot; an NE2000
+should be installed in a 16-bit slot.
+The type of interface (10BASE-2/BNC or
+AUI/DIX) is selected by the on-board jumpers.
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It ne%d: invalid i/o base address %x
+.br
+Invalid port specification in kernel config file.
+.Pp
+.It ne%d: invalid IRQ number %d
+.br
+Invalid IRQ specification in kernel config file.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr arp 4
+.Sh BUGS
+Some NE1000 cards won't be found by autoconfiguration
+if the Ethernet cable is not connected.
+Transmission of data over disconnected cable is not supported.
+This is a hardware problem.
+.Sh HISTORY
+The NE2000
+.Nm ne
+driver first appeared in Berkeley Networking-2.
+The NE1000 support was added in BSD/386.

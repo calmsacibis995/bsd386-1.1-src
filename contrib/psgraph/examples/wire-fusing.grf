@@ -1,0 +1,231 @@
+# to view: 
+#   psgraph -P wire-fusing.grf > wire-fusing.ps
+# for scribe: 
+#   psgraph wire-fusing.grf > wire-fusing.ps
+# titlefont "Times-Roman15"
+# title "Effect of wire length on burnout current for gold bondwire arrays"
+width 3.4
+height 3.4
+center 6.8
+x log
+x font "Times-Roman12"
+x label "Bondwire Length (mm)"
+y log
+y font "Times-Roman12"
+y label "Fusing Current per Wire (A)"
+font "Times-Roman11"
+markerscale 0.5
+grid 2
+break
+break
+# 
+# set bounds of the graph
+# marker none
+# 0.28 0.11
+# 12.7 3.3
+# break
+#
+marker plus
+6 6.7 "isolated wire"
+# 2 mil wire
+break
+# spline
+# line solid
+line none
+# 4.32	1.72
+4.70	1.62
+5.08	1.55
+# 5.72	1.52
+# 6.22	1.40
+6.60	1.30
+6.99	1.29
+7.11	1.37
+14.63	1.12
+16.48	1.12
+3.81	1.85
+# 4.32	1.64
+4.88	1.59
+4.88	1.58
+5.28	1.625
+# 5.97	1.440
+6.35	1.460
+6.48	1.460
+6.99	1.39
+7.24	1.430
+3.81	1.885
+4.83	1.72
+# 5.92	1.590
+3.81	1.82
+# 4.52	1.700
+5.26	1.562
+# 5.72	1.571
+6.96	1.390
+# 4.50	1.68
+5.28	1.58
+# 5.92	1.47
+7.75	1.27
+3.53	2.42
+2.92	2.62
+2.59	2.87
+2.31	3.38
+2.24	3.45
+2.01	3.53
+1.91	3.85
+3.66	2.28
+2.77	2.98
+2.49	3.00
+2.44	2.98
+1.98	3.73
+1.78	4.37
+1.37	4.92
+1.27	5.94
+1.12	6.30
+1.73	4.35
+1.37	5.05
+1.17	6.53
+break
+#
+#
+marker plus
+# "isolated wire"
+# 1 mil wire
+break
+# spline
+# line solid
+1.85	1.15
+3.23	.9
+1.24	1.66
+1.19	1.71
+1.12	1.62
+11.06   .573
+9.62    .590
+9.25    .595
+8.93    .600
+8.20    .615
+7.47   .625
+6.75   .645
+6.37   .655
+5.67   .686
+4.93   .745
+4.25   .771
+3.91   .789
+break
+#
+#
+marker circle
+6 5.193 "3-wire group, 356 micron pitch"
+# 2 mil wire
+break
+# spline
+# line solid
+4.22	1.58
+5.61	1.43
+5.92	1.38
+break
+#
+#
+marker down
+6 4.026 "3-wire group, 178 micron pitch"
+# 2 mil wire
+break
+# spline
+# line solid
+4.88	1.40
+6.05	1.23
+3.95	1.66
+4.83	1.40
+5.61	1.27
+6.27	1.10
+7.04	1.20
+break
+#
+#
+marker down
+# "3-wire group, 178 micron pitch"
+# 1 mil wire
+break
+# spline
+# line solid
+11.41   .480
+7.12    .505
+5.29	.560
+4.59	.615
+break
+#
+#
+marker square
+6 3.121 "8-wire group, 178 micron pitch"
+# 2 mil wire
+break
+# spline
+# line solid
+1.12	3.10
+1.60	3.09
+2.08	2.58
+2.59	2.35
+2.59	2.21
+3.02	2.08
+3.05	2.08
+3.07	1.98
+3.40	1.96
+3.89	1.83
+4.3    1.74
+# 4.47	1.64
+# 4.52	1.63
+# 5.33	1.41
+# 6.02	1.41 
+break
+#
+#
+marker down
+# "8-wire group, 7 mil pitch"
+# 1 mil wire
+break
+# spline
+# line solid
+1.04	1.718
+1.08	1.806
+1.58	1.41
+2.00	1.106
+2.60 	0.881
+2.67	0.750  
+# 2.61	0.688
+3.81	0.638
+break
+#
+#
+break
+marker none
+line dotted
+spline
+# 2 mil wire
+1.02	9.53
+12.9    .754
+break
+# 1 mil wire
+1.02	2.38
+6.83    .356
+break
+#
+#
+break
+marker none
+line dotted
+spline
+# I = const
+# 2 mil wire
+17.75	1.067
+4.31	1.067
+break
+# 1 mil wire
+17.75	.533
+2.16	.533
+break
+line none
+marker none
+1.2  .533 "Eqn (11)"
+6.0 .3 "Eqn (13)"
+18  1.2 "50.8 micron wire"
+18  .6 "25.4 micron wire"
+break
+#

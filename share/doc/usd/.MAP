@@ -1,0 +1,16 @@
+F 00_CONTE.;1                       	00.contents
+D 04_CSH                            	04.csh
+D 07_MAIL                           	07.Mail
+D 09_NEWSR                          	09.newsread
+D 10_ETIQ                           	10.etiq
+D 11_NOTES                          	11.notes
+D 14_EDIT                           	14.edit
+D 15_VI                             	15.vi
+D 16_EX                             	16.ex
+D 21_MSDIF                          	21.msdiffs
+D 22_MEMAC                          	22.memacros
+D 23_MEREF                          	23.meref
+D 33_ROGUE                          	33.rogue
+D 34_TREK                           	34.trek
+F MAKEFILE.;1                       	Makefile
+F TITLE.;1                          	Title

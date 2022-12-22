@@ -1,0 +1,2 @@
+Mfaxanswer	faxanswer.c	/^main(int argc, char** argv)$/
+fatal	faxanswer.c	/^fatal(char* fmt, ...)$/

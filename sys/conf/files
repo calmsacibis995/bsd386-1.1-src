@@ -1,0 +1,205 @@
+kern/init_sysent.c	standard
+kern/kern_acct.c	standard
+kern/kern_descrip.c	standard
+kern/kern_exec.c	standard
+kern/kern_fork.c	standard
+kern/kern_kinfo.c	standard
+kern/kern_ktrace.c	standard
+kern/kern_malloc.c	standard
+kern/kern_proc.c	standard
+kern/kern_prot.c	standard
+kern/kern_resource.c	standard
+kern/kern_subr.c	standard
+kern/kern_time.c	standard
+kern/kern_xxx.c		standard
+kern/dead_vnops.c	standard
+kern/spec_vnops.c	standard
+kern/fifo_vnops.c	optional fifo
+kern/subr_autoconf.c	standard
+kern/subr_pdev.c	standard
+kern/subr_log.c		standard
+kern/subr_mcount.c	optional profiling-routine
+kern/subr_prf.c		standard
+kern/subr_xxx.c		standard
+kern/sys_socket.c	standard
+kern/tty_compat.c	standard
+kern/tty_conf.c		standard
+kern/tty_pty.c		optional pty
+kern/tty_tb.c		optional tb
+kern/tty_tty.c		standard
+kern/vfs_bio.c		standard
+kern/vfs_cache.c	standard
+kern/vfs_conf.c		standard
+kern/vfs_lookup.c	standard
+kern/vfs_subr.c		standard
+kern/vfs_vnops.c	standard
+kern/uipc_domain.c	standard
+kern/uipc_mbuf.c	standard
+kern/uipc_proto.c	standard
+kern/uipc_socket.c	standard
+kern/uipc_socket2.c	standard
+kern/uipc_syscalls.c	standard
+kern/uipc_usrreq.c	standard
+vm/kern_lock.c		standard
+vm/vm_fault.c		standard
+vm/vm_glue.c		standard
+vm/vm_init.c		standard
+vm/vm_kern.c		standard
+vm/vm_map.c		standard
+vm/vm_meter.c		standard
+vm/vm_mmap.c		standard
+vm/vm_object.c		standard
+vm/vm_page.c		standard
+vm/vm_pageout.c		standard
+vm/vm_pager.c		standard
+vm/vm_swap.c		standard
+vm/vm_unix.c		standard
+vm/vm_user.c		standard
+vm/device_pager.c	standard
+vm/swap_pager.c		standard
+vm/vnode_pager.c	standard
+ufs/ufs_alloc.c		standard
+ufs/ufs_lockf.c		standard
+ufs/ufs_lookup.c	standard
+ufs/ufs_subr.c		standard
+ufs/ufs_tables.c	standard
+ufs/ufs_vfsops.c	standard
+ufs/ufs_quota.c		optional quota
+ufs/mfs_vnops.c		optional mfs
+ufs/mfs_vfsops.c	optional mfs
+iso9660/iso9660_lookup.c optional iso9660
+iso9660/iso9660_node.c	optional iso9660
+iso9660/iso9660_util.c	optional iso9660
+iso9660/iso9660_vfsops.c optional iso9660
+iso9660/iso9660_vnops.c	optional iso9660
+msdosfs/msdosfs_conv.c	optional msdosfs
+msdosfs/msdosfs_denode.c optional msdosfs
+msdosfs/msdosfs_fat.c	 optional msdosfs
+msdosfs/msdosfs_lookup.c optional msdosfs
+msdosfs/msdosfs_vfsops.c optional msdosfs
+msdosfs/msdosfs_vnops.c optional msdosfs
+nfs/nfs_bio.c		optional nfs
+nfs/nfs_node.c		optional nfs
+nfs/nfs_serv.c		optional nfs
+nfs/nfs_socket.c	optional nfs
+nfs/nfs_srvcache.c	optional nfs
+nfs/nfs_subs.c		optional nfs
+nfs/nfs_syscalls.c	optional nfs
+nfs/nfs_vfsops.c	optional nfs
+nfs/nfs_vnops.c		optional nfs
+net/af.c		standard
+net/bpf.c		optional bpfilter
+net/bpf_filter.c	optional bpfilter
+net/if.c		standard
+net/if_ethersubr.c	optional ether
+net/if_loop.c		optional loop
+net/if_p2psubr.c	optional ppp
+net/if_p2psubr.c	optional cisco_hdlc
+net/if_appp.c		optional appp
+net/if_sl.c		optional sl
+net/ppp_frame.c		optional ppp
+net/ppp_fsm.c		optional ppp
+net/ppp_ipcp.c		optional ppp
+net/ppp_lcp.c		optional ppp
+net/raw_cb.c		standard
+net/raw_usrreq.c	standard
+net/radix.c		standard
+net/route.c		standard
+net/rtsock.c		standard
+net/if_c_hdlc.c		optional cisco_hdlc
+net/slcompress.c	optional sl
+net/slcompress.c	optional ppp
+netimp/if_imp.c		optional imp
+netimp/if_imphost.c	optional imp
+netimp/raw_imp.c	optional imp
+netinet/if_ether.c	optional ether
+netinet/igmp.c		optional multicast
+netinet/in.c		optional inet
+netinet/in_pcb.c	optional inet
+netinet/in_proto.c	optional inet
+netinet/ip_icmp.c	optional inet
+netinet/ip_input.c	optional inet
+netinet/ip_mroute.c	optional inet multicast mrouting
+netinet/ip_output.c	optional inet
+netinet/raw_ip.c	optional inet
+netinet/tcp_debug.c	optional inet
+netinet/tcp_input.c	optional inet
+netinet/tcp_output.c	optional inet
+netinet/tcp_subr.c	optional inet
+netinet/tcp_timer.c	optional inet
+netinet/tcp_usrreq.c	optional inet
+netinet/udp_usrreq.c	optional inet
+netns/idp_usrreq.c	optional ns
+netns/ns.c		optional ns
+netns/ns_error.c	optional ns
+netns/ns_ip.c		optional ns nsip
+netns/ns_input.c	optional ns
+netns/ns_output.c	optional ns
+netns/ns_pcb.c		optional ns
+netns/ns_proto.c	optional ns
+netns/spp_debug.c	optional ns
+netns/spp_usrreq.c	optional ns
+netiso/clnp_debug.c	optional iso
+netiso/clnp_er.c	optional iso
+netiso/clnp_frag.c	optional iso
+netiso/clnp_input.c	optional iso
+netiso/clnp_options.c	optional iso
+netiso/clnp_output.c	optional iso
+netiso/clnp_raw.c	optional iso
+netiso/clnp_subr.c	optional iso
+netiso/clnp_timer.c	optional iso
+netiso/cltp_usrreq.c	optional iso
+netiso/esis.c		optional iso
+netiso/iso.c		optional iso
+netiso/iso_chksum.c	optional iso
+netiso/iso_pcb.c	optional iso
+netiso/iso_proto.c	optional iso
+netiso/iso_snpac.c	optional iso
+netiso/tp_astring.c	optional iso
+netiso/tp_astring.c	optional tpip
+netiso/tp_cons.c	optional iso
+netiso/tp_driver.c	optional iso
+netiso/tp_driver.c	optional tpip
+netiso/tp_emit.c	optional iso
+netiso/tp_emit.c	optional tpip
+netiso/tp_inet.c	optional iso
+netiso/tp_inet.c	optional tpip
+netiso/tp_input.c	optional iso
+netiso/tp_input.c	optional tpip
+netiso/tp_iso.c		optional iso
+netiso/tp_meas.c	optional iso
+netiso/tp_meas.c	optional tpip
+netiso/tp_output.c	optional iso
+netiso/tp_output.c	optional tpip
+netiso/tp_pcb.c		optional iso
+netiso/tp_pcb.c		optional tpip
+netiso/tp_subr.c	optional iso
+netiso/tp_subr.c	optional tpip
+netiso/tp_subr2.c	optional iso
+netiso/tp_subr2.c	optional tpip
+netiso/tp_timer.c	optional iso
+netiso/tp_timer.c	optional tpip
+netiso/tp_trace.c	optional iso
+netiso/tp_trace.c	optional tpip
+netiso/tp_usrreq.c	optional iso
+netiso/tp_usrreq.c	optional tpip
+netiso/if_eon.c		optional eon
+netccitt/ccitt_proto.c	optional ccitt
+netccitt/hd_debug.c	optional ccitt
+netccitt/hd_input.c	optional ccitt
+netccitt/hd_output.c	optional ccitt
+netccitt/hd_subr.c	optional ccitt
+netccitt/hd_timer.c	optional ccitt
+netccitt/if_x25subr.c	optional ccitt
+netccitt/pk_acct.c	optional ccitt
+netccitt/pk_debug.c	optional ccitt
+netccitt/pk_input.c	optional ccitt
+netccitt/pk_output.c	optional ccitt
+netccitt/pk_subr.c	optional ccitt
+netccitt/pk_timer.c	optional ccitt
+netccitt/pk_usrreq.c	optional ccitt
+scsi/scsi_subr.c	optional scsi
+scsi/sd.c		optional sd device-driver
+scsi/st.c		optional st device-driver
+net/gw_screen.c		optional gwscreen
+netinet/ip_screen.c	optional gwscreen

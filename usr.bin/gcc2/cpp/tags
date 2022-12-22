@@ -1,0 +1,147 @@
+CALL_CHUNKFUN	../common/obstack.c	/^#define CALL_CHUNKFUN(h, size) \\$/
+CALL_FREEFUN	../common/obstack.c	/^#define CALL_FREEFUN(h, old_chunk) \\$/
+CHECK_DEPTH	cccp.c	/^#define CHECK_DEPTH(code) \\$/
+HASHSTEP	cccp.c	/^#define HASHSTEP(old, c) ((old << 2) + c)$/
+MAKE_POS	cccp.c	/^#define MAKE_POS(v) (v & 0x7fffffff) \/* make numb/
+MAX	cccp.c	/^#define MAX(X,Y) ((X) > (Y) ? (X) : (Y))$/
+MIN	cccp.c	/^#define MIN(X,Y) ((X) < (Y) ? (X) : (Y))$/
+Mcccp	cccp.c	/^main (argc, argv)$/
+Mcexp	cexp.c	/^main ()$/
+SKIP_ALL_WHITE_SPACE	cccp.c	/^#define SKIP_ALL_WHITE_SPACE(p) do { while (is_spa/
+SKIP_WHITE_SPACE	cccp.c	/^#define SKIP_WHITE_SPACE(p) do { while (is_hor_spa/
+S_ISDIR	cccp.c	/^#define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)$/
+S_ISREG	cccp.c	/^#define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)$/
+_obstack_allocated_p	../common/obstack.c	/^_obstack_allocated_p (h, obj)$/
+_obstack_begin	../common/obstack.c	/^_obstack_begin (h, size, alignment, chunkfun, free/
+_obstack_begin_1	../common/obstack.c	/^_obstack_begin_1 (h, size, alignment, chunkfun, fr/
+_obstack_free	../common/obstack.c	/^_obstack_free (h, obj)$/
+_obstack_newchunk	../common/obstack.c	/^_obstack_newchunk (h, length)$/
+add_import	cccp.c	/^add_import (fd, fname)$/
+append_include_chain	cccp.c	/^append_include_chain (first, last)$/
+assertion_install	cccp.c	/^assertion_install (name, len, hash)$/
+assertion_lookup	cccp.c	/^assertion_lookup (name, len, hash)$/
+bcmp	cccp.c	/^bcmp (b1, b2, length)	\/* This could be a macro! */
+bcopy	cccp.c	/^bcopy (b1, b2, length)$/
+bzero	cccp.c	/^bzero (b, length)$/
+change_newlines	cccp.c	/^change_newlines (start, length)$/
+check_assertion	cccp.c	/^check_assertion (name, sym_length, tokens_specifie/
+check_expand	cccp.c	/^#define check_expand(OBUF, NEEDED)  \\$/
+check_macro_name	cccp.c	/^check_macro_name (symname, usage)$/
+check_precompiled	cccp.c	/^check_precompiled (pcf, fname, limit)$/
+check_preconditions	cccp.c	/^check_preconditions (prec)$/
+collect_expansion	cccp.c	/^collect_expansion (buf, end, nargs, arglist)$/
+comp_def_part	cccp.c	/^comp_def_part (first, beg1, len1, beg2, len2, last/
+compare_defs	cccp.c	/^compare_defs (d1, d2)$/
+compare_token_lists	cccp.c	/^compare_token_lists (l1, l2)$/
+conditional_skip	cccp.c	/^conditional_skip (ip, skip, type, control_macro)$/
+create_definition	cccp.c	/^create_definition (buf, limit, op)$/
+delete_assertion	cccp.c	/^delete_assertion (hp)$/
+delete_macro	cccp.c	/^delete_macro (hp)$/
+deps_output	cccp.c	/^deps_output (string, size)$/
+discard_comments	cccp.c	/^discard_comments (start, length, newlines)$/
+do_assert	cccp.c	/^do_assert (buf, limit, op, keyword)$/
+do_define	cccp.c	/^do_define (buf, limit, op, keyword)$/
+do_elif	cccp.c	/^do_elif (buf, limit, op, keyword)$/
+do_else	cccp.c	/^do_else (buf, limit, op, keyword)$/
+do_endif	cccp.c	/^do_endif (buf, limit, op, keyword)$/
+do_error	cccp.c	/^do_error (buf, limit, op, keyword)$/
+do_ident	cccp.c	/^do_ident (buf, limit)$/
+do_if	cccp.c	/^do_if (buf, limit, op, keyword)$/
+do_include	cccp.c	/^do_include (buf, limit, op, keyword)$/
+do_line	cccp.c	/^do_line (buf, limit, op, keyword)$/
+do_once	cccp.c	/^do_once ()$/
+do_pragma	cccp.c	/^do_pragma (buf, limit)$/
+do_sccs	cccp.c	/^do_sccs ()$/
+do_unassert	cccp.c	/^do_unassert (buf, limit, op, keyword)$/
+do_undef	cccp.c	/^do_undef (buf, limit, op, keyword)$/
+do_warning	cccp.c	/^do_warning (buf, limit, op, keyword)$/
+do_xifdef	cccp.c	/^do_xifdef (buf, limit, op, keyword)$/
+dump_all_macros	cccp.c	/^dump_all_macros ()$/
+dump_arg_n	cccp.c	/^dump_arg_n (defn, argnum, of)$/
+dump_defn_1	cccp.c	/^dump_defn_1 (base, start, length, of)$/
+dump_single_macro	cccp.c	/^dump_single_macro (hp, of)$/
+error	cccp.c	/^error (msg, arg1, arg2, arg3)$/
+error_from_errno	cccp.c	/^error_from_errno (name)$/
+error_with_line	cccp.c	/^error_with_line (line, msg, arg1, arg2, arg3)$/
+eval_if_expression	cccp.c	/^eval_if_expression (buf, length)$/
+expand_to_temp_buffer	cccp.c	/^expand_to_temp_buffer (buf, limit, output_marks, a/
+fancy_abort	cccp.c	/^fancy_abort ()$/
+fatal	cccp.c	/^fatal (str, arg)$/
+file_size_and_mode	cccp.c	/^file_size_and_mode (fd, mode_pointer, size_pointer/
+finclude	cccp.c	/^finclude (f, fname, op, system_header_p, dirptr)$/
+fopen	cccp.c	/^#define fopen(fname,mode)	VMS_fopen (fname,mode)$/
+free_token_list	cccp.c	/^free_token_list (tokens)$/
+freopen	cccp.c	/^#define freopen(fname,mode,ofile) VMS_freopen (fna/
+get_lintcmd	cccp.c	/^get_lintcmd (ibp, limit, argstart, arglen, cmdlen)/
+grow_outbuf	cccp.c	/^grow_outbuf (obuf, needed)$/
+hack_vms_include_specification	cccp.c	/^hack_vms_include_specification (fname)$/
+handle_directive	cccp.c	/^handle_directive (ip, op)$/
+hashf	cccp.c	/^hashf (name, len, hashsize)$/
+import_hash	cccp.c	/^import_hash (f)$/
+initialize_builtins	cccp.c	/^initialize_builtins (inp, outp)$/
+initialize_char_syntax	cccp.c	/^initialize_char_syntax ()$/
+initialize_random_junk	cexp.c	/^initialize_random_junk ()$/
+install	cccp.c	/^install (name, len, type, ivalue, value, hash)$/
+integer_overflow	cexp.c	/^integer_overflow ()$/
+is_system_include	cccp.c	/^is_system_include (filename)$/
+left_shift	cexp.c	/^left_shift (a, b)$/
+line_for_error	cccp.c	/^line_for_error (line)$/
+lookup	cccp.c	/^lookup (name, len, hash)$/
+lookup_import	cccp.c	/^lookup_import (filename)$/
+macarg	cccp.c	/^macarg (argptr, rest_args)$/
+macarg1	cccp.c	/^macarg1 (start, limit, depthptr, newlines, comment/
+macroexpand	cccp.c	/^macroexpand (hp, op)$/
+make_assertion	cccp.c	/^make_assertion (option, str)$/
+make_definition	cccp.c	/^make_definition (str, op)$/
+make_undef	cccp.c	/^make_undef (str, op)$/
+memory_full	cccp.c	/^memory_full ()$/
+name_newline_fix	cccp.c	/^name_newline_fix (bp)$/
+newline_fix	cccp.c	/^newline_fix (bp)$/
+obstack_free	../common/obstack.c	/^obstack_free (h, obj)$/
+open	cccp.c	/^#define open(fname,mode,prot)	VMS_open (fname,mode/
+output_dots	cccp.c	/^output_dots (fd, depth)$/
+output_line_command	cccp.c	/^output_line_command (ip, op, conditional, file_cha/
+parse_c_expression	cexp.c	/^parse_c_expression (string)$/
+parse_escape	cexp.c	/^parse_escape (string_ptr)$/
+parse_number	cexp.c	/^parse_number (olen)$/
+pass_thru_directive	cccp.c	/^pass_thru_directive (buf, limit, op, keyword)$/
+path_include	cccp.c	/^path_include (path)$/
+pcfinclude	cccp.c	/^pcfinclude (buf, limit, name, op)$/
+pcstring_used	cccp.c	/^pcstring_used (hp)$/
+pedwarn	cccp.c	/^pedwarn (msg, arg1, arg2, arg3)$/
+pedwarn_with_file_and_line	cccp.c	/^pedwarn_with_file_and_line (file, line, msg, arg1,/
+pedwarn_with_line	cccp.c	/^pedwarn_with_line (line, msg, arg1, arg2, arg3)$/
+perror_with_name	cccp.c	/^perror_with_name (name)$/
+pfatal_with_name	cccp.c	/^pfatal_with_name (name)$/
+pipe_closed	cccp.c	/^pipe_closed (signo)$/
+possible_sum_sign	cexp.c	/^#define possible_sum_sign(a, b, sum) ((((a) ^ (b))/
+print_containing_files	cccp.c	/^print_containing_files ()$/
+quote_string	cccp.c	/^quote_string (dst, src)$/
+read	cccp.c	/^#define read(fd,buf,size)	VMS_read (fd,buf,size)$/
+read_token_list	cccp.c	/^read_token_list (bpp, limit, error_flag)$/
+record_control_macro	cccp.c	/^record_control_macro (file, macro_name)$/
+redundant_include_p	cccp.c	/^redundant_include_p (name)$/
+rescan	cccp.c	/^rescan (op, output_marks)$/
+right_shift	cexp.c	/^right_shift (a, b)$/
+safe_read	cccp.c	/^safe_read (desc, ptr, len)$/
+safe_write	cccp.c	/^safe_write (desc, ptr, len)$/
+savestring	cccp.c	/^savestring (input)$/
+skip_if_group	cccp.c	/^skip_if_group (ip, any)$/
+skip_paren_group	cccp.c	/^skip_paren_group (ip)$/
+skip_quoted_string	cccp.c	/^skip_quoted_string (bp, limit, start_line, count_n/
+skip_to_end_of_comment	cccp.c	/^skip_to_end_of_comment (ip, line_counter, nowarn)$/
+special_symbol	cccp.c	/^special_symbol (hp, op)$/
+strncat	cccp.c	/^#define strncat(dst,src,cnt) VMS_strncat (dst,src,/
+timestamp	cccp.c	/^timestamp ()$/
+trigraph_pcp	cccp.c	/^trigraph_pcp (buf)$/
+validate_else	cccp.c	/^validate_else (p)$/
+warning	cccp.c	/^warning (msg, arg1, arg2, arg3)$/
+warning_with_line	cccp.c	/^warning_with_line (line, msg, arg1, arg2, arg3)$/
+write	cccp.c	/^#define write(fd,buf,size)	VMS_write (fd,buf,size)/
+write_output	cccp.c	/^write_output ()$/
+xcalloc	cccp.c	/^xcalloc (number, size)$/
+xmalloc	cccp.c	/^xmalloc (size)$/
+xrealloc	cccp.c	/^xrealloc (old, size)$/
+yyerror	cexp.c	/^yyerror (s)$/
+yylex	cexp.c	/^yylex ()$/
+yyparse	cexp.c	/^yyparse()$/

@@ -1,0 +1,236 @@
+*** net/if_sl.c.dist	Wed Dec  2 06:33:45 1992
+--- net/if_sl.c	Sun Feb 14 14:19:08 1993
+***************
+*** 100,106 ****
+--- 100,113 ----
+  
+  #include "slcompress.h"
+  #include "if_slvar.h"
++ #include "slip.h"
+  
++ #include "bpfilter.h"
++ #if NBPFILTER > 0
++ #include <sys/time.h>
++ #include <net/bpf.h>
++ #endif
++ 
+  /*
+   * SLMAX is a hard limit on input packet size.  To simplify the code
+   * and improve performance, we require that packets fit in an mbuf
+***************
+*** 141,150 ****
+   * time.  So, setting SLIP_HIWAT to ~100 guarantees that we'll lose
+   * at most 1% while maintaining good interactive response.
+   */
+  #define BUFOFFSET	128
+  #define	SLMAX		(MCLBYTES - BUFOFFSET)
+  #define	SLBUFSIZE	(SLMAX + BUFOFFSET)
+! #define	SLMTU		296
+  #define	SLIP_HIWAT	100
+  #define CLISTRESERVE	1024	/* Can't let buffer space get too low */
+  
+--- 148,161 ----
+   * time.  So, setting SLIP_HIWAT to ~100 guarantees that we'll lose
+   * at most 1% while maintaining good interactive response.
+   */
++ #if NBPFILTER > 0
++ #define BUFOFFSET	(128+SLIP_HDRLEN)
++ #else
+  #define BUFOFFSET	128
++ #endif
+  #define	SLMAX		(MCLBYTES - BUFOFFSET)
+  #define	SLBUFSIZE	(SLMAX + BUFOFFSET)
+! #define	SLMTU		576
+  #define	SLIP_HIWAT	100
+  #define CLISTRESERVE	1024	/* Can't let buffer space get too low */
+  
+***************
+*** 211,216 ****
+--- 222,230 ----
+  		sc->sc_if.if_snd.ifq_maxlen = 50;
+  		sc->sc_fastq.ifq_maxlen = 32;
+  		if_attach(&sc->sc_if);
++ #if NBPFILTER > 0
++ 		bpfattach(&sc->sc_bpf, &sc->sc_if, DLT_SLIP, SLIP_HDRLEN);
++ #endif
+  	}
+  }
+  
+***************
+*** 269,274 ****
+--- 283,289 ----
+  			cqttyinit(tp, SLIP_CLQSIZE);
+  			sc->sc_ttyp = tp;
+  			sc->sc_if.if_baudrate = tp->t_ospeed;
++ 			sc->sc_proc = p;
+  			ttyflush(tp, FREAD | FWRITE);
+  			return (0);
+  		}
+***************
+*** 350,355 ****
+--- 365,374 ----
+  	register struct ip *ip;
+  	register struct ifqueue *ifq;
+  	int s;
++ #if NBPFILTER > 0
++ 	u_char bpfbuf[SLMTU + SLIP_HDRLEN];
++ 	register int len;
++ #endif
+  
+  	/*
+  	 * `Cannot happen' (see slioctl).  Someday we will extend
+***************
+*** 371,376 ****
+--- 390,416 ----
+  		m_freem(m);
+  		return (EHOSTUNREACH);
+  	}
++ #if NBPFILTER > 0
++ 	if (sc->sc_bpf) {
++ 		/*
++ 		 * We need to save the TCP/IP header before it's compressed.
++ 		 * To avoid complicated code, we just copy the entire packet
++ 		 * into a stack buffer (since this is a serial line, packets
++ 		 * should be short and/or the copy should be negligible cost
++ 		 * compared to the packet transmission time).
++ 		 */
++ 		register struct mbuf *m1 = m;
++ 		register u_char *cp = bpfbuf + SLIP_HDRLEN;
++ 		len = 0;
++ 		do {
++ 			register int mlen = m1->m_len;
++ 
++ 			bcopy(mtod(m1, caddr_t), cp, mlen);
++ 			cp += mlen;
++ 			len += mlen;
++ 		} while (m1 = m1->m_next);
++ 	}
++ #endif
+  	ifq = &sc->sc_if.if_snd;
+  	if ((ip = mtod(m, struct ip *))->ip_p == IPPROTO_TCP) {
+  		register int p = ((int *)ip)[ip->ip_hl];
+***************
+*** 396,401 ****
+--- 436,452 ----
+  		m_freem(m);
+  		return (0);
+  	}
++ #if NBPFILTER > 0
++ 	if (sc->sc_bpf) {
++ 		/*
++ 		 * Put the SLIP pseudo-"link header" in place.  The compressed
++ 		 * header is now at the beginning of the mbuf.
++ 		 */
++ 		bpfbuf[SLX_DIR] = SLIPDIR_OUT;
++ 		bcopy(mtod(m, caddr_t), &bpfbuf[SLX_CHDR], CHDR_LEN);
++ 		bpf_tap(sc->sc_bpf, bpfbuf, len + SLIP_HDRLEN);
++ 	}
++ #endif
+  	s = splimp();
+  	if (IF_QFULL(ifq)) {
+  		IF_DROP(ifq);
+***************
+*** 408,413 ****
+--- 459,466 ----
+  	sc->sc_if.if_lastchange = time;
+  	if (sc->sc_ttyp->t_outq.c_cc == 0)
+  		slstart(sc->sc_ttyp);
++ 	else
++ 		(*sc->sc_ttyp->t_oproc)(sc->sc_ttyp);
+  	splx(s);
+  	return (0);
+  }
+***************
+*** 598,603 ****
+--- 651,659 ----
+  	register int len;
+  	int s;
+  	extern struct ttytotals ttytotals;
++ #if NBPFILTER > 0
++ 	u_char chdr[CHDR_LEN];
++ #endif
+  
+  	ttytotals.tty_nin++;
+  	sc = (struct sl_softc *)tp->t_sc;
+***************
+*** 627,633 ****
+--- 683,693 ----
+  				sc->sc_abortcount = 0;
+  			if (sc->sc_abortcount >= ABT_SOFT &&
+  			    time.tv_sec >= sc->sc_lasttime + ABT_WAIT) {
++ #ifndef DONT_SEND_SIGNAL
++ 				psignal(sc->sc_proc, SIGHUP);
++ #else
+  				slclose(tp);
++ #endif
+  				return;
+  			}
+  		}
+***************
+*** 657,662 ****
+--- 717,734 ----
+  			/* less than min length packet - ignore */
+  			goto newpack;
+  
++ #if NBPFILTER > 0
++ 		if (sc->sc_bpf)
++ 			/*
++ 			 * Save the compressed header, so we can
++ 			 * tack it on later.  Note that we just
++ 			 * we will end up copying garbage in some
++ 			 * cases but this is okay.  We remember
++ 			 * where the buffer started so we can
++ 			 * compute the new header length.
++ 			 */
++ 			bcopy(sc->sc_buf, chdr, CHDR_LEN);
++ #endif
+  		if ((c = (*sc->sc_buf & 0xf0)) != (IPVERSION << 4)) {
+  			if (c & 0x80)
+  				c = TYPE_COMPRESSED_TCP;
+***************
+*** 684,689 ****
+--- 756,776 ----
+  			} else
+  				goto error;
+  		}
++ #if NBPFILTER > 0
++ 		if (sc->sc_bpf) {
++ 			/*
++ 			 * Put the SLIP pseudo-"link header" in place.
++ 			 * We couldn't do this any earlier since
++ 			 * decompression probably moved the buffer
++ 			 * pointer.  Then, invoke BPF.
++ 			 */
++ 			register u_char *hp = sc->sc_buf - SLIP_HDRLEN;
++ 
++ 			hp[SLX_DIR] = SLIPDIR_IN;
++ 			bcopy(chdr, &hp[SLX_CHDR], CHDR_LEN);
++ 			bpf_tap(sc->sc_bpf, hp, len + SLIP_HDRLEN);
++ 		}
++ #endif
+  		m = sl_btom(sc, len);
+  		if (m == NULL)
+  			goto error;
+*** net/if_slvar.h.dist	Tue Jun  2 10:09:43 1992
+--- net/if_slvar.h	Thu Feb  4 10:58:23 1993
+***************
+*** 52,57 ****
+--- 52,58 ----
+  	u_int	sc_escape;	/* =1 if last char input was FRAME_ESCAPE */
+  	u_int	sc_bytessent;
+  	u_int	sc_bytesrcvd;
++ 	struct proc *sc_proc;		/* attached process */
+  	long	sc_lasttime;		/* last time a char arrived */
+  	long	sc_starttime;		/* last time a char arrived */
+  	long	sc_abortcount;		/* number of abort esacpe chars */
+***************
+*** 58,63 ****
+--- 59,66 ----
+  #ifdef INET				/* XXX */
+  	struct	slcompress sc_comp;	/* tcp compression data */
+  #endif
++ 	caddr_t	sc_bpf;			/* bpf magic cookie */
++ 
+  };
+  
+  /* visible flags */

@@ -1,0 +1,15 @@
+F CHANGELO.;1                       	ChangeLog
+F CONFIGUR.;1                       	configure
+F CONFIGUR.IN;1                     	configure.in
+F COPYING.;1                        	COPYING
+F INSTALL.;1                        	INSTALL
+F MAKEFILE.IN;1                     	Makefile.in
+F NEWS.;1                           	NEWS
+F README.;1                         	README
+F TERMCAP.TEX;1                     	termcap.texi
+F TERMCAP0.INF;1                    	termcap.info
+F TERMCAP1.INF;1                    	termcap.info-1
+F TERMCAP2.INF;1                    	termcap.info-2
+F TERMCAP3.INF;1                    	termcap.info-3
+F TERMCAP4.INF;1                    	termcap.info-4
+F TEXINFO.TEX;1                     	texinfo.tex

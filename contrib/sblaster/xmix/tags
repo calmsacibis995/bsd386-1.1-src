@@ -1,0 +1,16 @@
+CENTER	xmix.c	/^#define CENTER(widg)	 XtVaSetValues (widg, XtNwidt/
+DPRINTF	xmix.c	/^#define DPRINTF(x)      printf x$/
+Handle_slam_slider	xmix.c	/^Handle_slam_slider (Widget w, XtPointer client_dat/
+Handle_slider	xmix.c	/^Handle_slider (Widget w, XtPointer client_data, Xt/
+Handle_source	xmix.c	/^Handle_source (Widget w, XtPointer client_data, Xt/
+Handle_toggle	xmix.c	/^Handle_toggle (Widget w, XtPointer client_data, Xt/
+MK_BITMAP	xmix.c	/^#define MK_BITMAP(bits, width, height) \\$/
+Mxmix	xmix.c	/^main (int argc, char **argv)$/
+PORTION	xmix.c	/^#define PORTION(val)	(1.0 - (float)val \/ 15.0)$/
+Quit	xmix.c	/^  Quit (Widget w, XtPointer client_data, XtPointer/
+install_pixmaps	xmix.c	/^void install_pixmaps (void)$/
+sync_display	xmix.c	/^sync_display (void)$/
+sync_lock	xmix.c	/^sync_lock (int flag, Widget w)$/
+sync_params_display	xmix.c	/^sync_params_display (void)$/
+sync_sliders	xmix.c	/^sync_sliders (void)$/
+sync_source_display	xmix.c	/^sync_source_display (void)$/

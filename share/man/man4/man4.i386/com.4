@@ -1,0 +1,150 @@
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	$Id: com.4,v 1.6 1994/01/31 08:41:39 donn Exp $
+.Dd January 30, 1994
+.Dt COM 4 i386
+.Os
+.Sh NAME
+.Nm com
+.Nd 8051/16440/16550 serial port driver
+.Sh SYNOPSIS
+.Cd "device com0 at isa? port 0x3f8 [flags val]"
+.Sh DESCRIPTION
+The COM driver supports standard PC compatible serial ports
+and some simple serial multiport cards.
+Each serial port uses a block of 8 I/O ports which
+must be aligned on an 8 port boundary.
+The standard serial ports
+(com0 through com3, generally known in hardware documentation as
+COM1 through COM4)
+are often provided by cards with 2 serial ports and possibly other devices.
+Multiport cards generally provide 4 or more serial ports,
+which can be configured in ways other than the standard COM1 through COM4
+configurations.
+Some multiport cards can be jumpered to provide standard COM1-4 ports
+and/or a group of ports that share an interrupt.
+With such cards, the standard ports should be configured as described here,
+and the remaining ports should be configured as shown for multiport cards.
+.Pp
+Each standard com device (com0 through com3)
+and each multiport card should have its own interrupt.
+The hardware interrupt
+level is detected during autoconfiguration, or it may be specified
+in the configuration file.  The FIFO on 16550 UARTs
+is enabled automatically.
+.Pp
+The standard com ports (com0 through com3, aka COM1 through COM4),
+can be configured as follows:
+.Bd -literal -offset indent
+device com0 at isa? port 0x3f8
+device com1 at isa? port 0x3e8
+device com2 at isa? port 0x2f8
+device com3 at isa? port 0x2e8
+.Ed
+.Pp
+Each of these ports must have a separate irq, which is automatically
+detected in these examples.
+Note that the conventional irq for com2 is the same as for com2,
+similarly for com3 and com1, and thus different values must be used.
+.Pp
+The flags parameter in the configuration entries is used to set up
+the shared irq mechanism for ports on a multiport card.
+The flags value is
+composed of three fields: the interrupt indicator port (bits 0x3ff),
+the group number (bits 0xf000), and the sub-unit number (bits
+0xf0000).
+The devices with the same group number and interrupt indicator
+share the interrupt determined by sub-unit 0 of the group.
+The unit with sub-unit 0 must be listed first in the configuration file.
+.Pp
+For AST-compatible cards,
+the interrupt indicator bits should be set to the I/O address of the
+interrupt indicator register of the serial card.  Some multiplexor
+cards do not have an interrupt indicator register.  For such cards,
+set this field to 0.
+.Pp
+The group number is used to show which serial ports share an
+interrupt.  It should be 0 for all ports on the first multiplexor
+card, 1 for the all ports on the second, etc.
+.Pp
+The sub-unit number is used to identify the different serial ports on
+a single multiport card.  It should be 0 for the first port, 1 for the second,
+etc.
+.Pp
+For example, to configure two AST-compatible 4-port cards,
+use the following device lines:
+.Bd -literal -offset indent
+device com4 at isa? port 0x2a0 flags 0x002bf
+device com5 at isa? port 0x2a8 flags 0x102bf
+device com6 at isa? port 0x2b0 flags 0x202bf
+device com7 at isa? port 0x2b8 flags 0x302bf
+
+device com8 at isa? port 0x1a0 flags 0x011bf
+device com9 at isa? port 0x1a8 flags 0x111bf
+device com10 at isa? port 0x1b0 flags 0x211bf
+device com11 at isa? port 0x1b8 flags 0x311bf
+
+.Ed
+Also, make sure the two cards are jumpered for different interrupts.
+.Pp
+A similar scheme is used with the USENET II serial cards and other cards
+that do not use the interrupt indicator port to enable shared interrupts.
+For these cards the interrupt indicator port is set to 0, and the group
+number must be non-zero.
+Devices with the same group number share an interrupt.
+For example, use the following device lines
+to configure a Boca Research BB1008, which does not have an interrupt
+identification register.
+The first 4 lines could also be used for a USENET II 4-port card,
+omitting the irq value for automatic interrupt configuration.
+.Bd -literal -offset indent
+device com4 at isa? port 0x100 irq 4 flags 0x01000
+device com5 at isa? port 0x108 irq 4 flags 0x11000
+device com6 at isa? port 0x110 irq 4 flags 0x21000
+device com7 at isa? port 0x118 irq 4 flags 0x31000
+device com8 at isa? port 0x120 irq 4 flags 0x41000
+device com9 at isa? port 0x128 irq 4 flags 0x51000
+device com10 at isa? port 0x130 irq 4 flags 0x61000
+device com11 at isa? port 0x138 irq 4 flags 0x71000
+.Ed
+.Pp
+Automatic irq discovery does not work for Boca Research cards,
+and the irq must be included in the configuration file.  Also,
+shared irq mode for multiple boards is not supported;
+i.e. each Boca Research and compatible multiplexor should have a different irq.
+.Pp
+For other hardware, the flags should be omitted or set to 0.
+.Pp
+The use of the same interrupt by different ports at different times
+is not currently supported.
+However, the experimental option
+.Bd -literal -offset indent
+options COM_SHARE_IRQ
+.Ed
+.Pp
+in the kernel configuration file causes the interrupt line to be disabled
+when a port is closed, potentially allowing different standard ports
+(com0 through com3) to share an interrupt.
+.Pp
+The speed may be set to anything up to 38400 bits per second, plus
+57600 and 115200 (you must use
+.Xr termios 4 ,
+rather than the old style ioctl interface to use non-traditional
+speeds).
+.Pp
+An open on the com driver will block until carrier is present, unless
+O_NONBLOCK or CLOCAL is set.
+.Pp
+Hardware flow control via RTS and CTS may be enabled using the
+CRTS_IFLOW and CCTS_OFLOW flags in the c_cflag field in the termios
+structure.
+.Sh FILES
+.Pa /dev/tty00 ,
+.Pa /dev/tty01 ,
+etc.
+.Sh HISTORY
+The
+.Nm com
+driver first appeared in Berkeley Networking-2.  Multiport card support
+was added by BSDI.

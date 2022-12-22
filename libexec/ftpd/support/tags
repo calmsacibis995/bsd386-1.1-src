@@ -1,0 +1,10 @@
+ISDIR	ftw.c	/^#define	ISDIR(sb)	((sb.st_mode&S_IFMT) == S_IFDIR)/
+ISDOT	ftw.c	/^#define	ISDOT(dp) \\$/
+auth_fd	authuser.c	/^auth_fd(register int fd, register long unsigned in/
+auth_tcpuser	authuser.c	/^auth_tcpuser(register long unsigned int in, regist/
+auth_xline	authuser.c	/^auth_xline(register char *user, register int fd, r/
+chwalk	ftw.c	/^chwalk(register char *name)$/
+strcasestr	strcasestr.c	/^strcasestr(register char *s, register char *find)$/
+strstr	strcasestr.c	/^strstr(const char *s, const char *find)$/
+usercmp	authuser.c	/^usercmp(register char *u, register char *v)$/
+walk	ftw.c	/^walk(register char *name)$/

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if test $# -eq 0 ; then
+	dd 2>/dev/null;
+else
+	while test $# -ne 0 ; do
+		if test -f $1; then
+			dd if=$1 2>/dev/null;
+		else
+			echo "cat: $1: No such file or directory"
+		fi
+		shift;
+	done
+fi

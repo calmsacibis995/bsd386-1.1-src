@@ -1,0 +1,74 @@
+# NMAKE Makefile
+# D.Feinleib 7/92 t-davefe@microsoft.com
+# Windows NT
+
+# Nmake macros for building Windows NT applications
+!include <ntwin32.mak>
+
+PROJ=zip
+OBJ=BITS.obj CRYPT.obj DEFLATE.obj FILEIO.obj GLOBALS.obj MKTIME.obj TREES.obj UTIL.obj ZIP.obj ZIPFILE.obj ZIPUP.obj
+LIBSA=comdlg32.lib gdi32.lib kernel32.lib libc.lib libcx32.lib lz32.lib mpr.lib netapi32.lib ntdll.lib 
+LIBSB=winstrm.lib rpcndr.lib rpcns4.lib rpcrt4.lib shell32.lib user32.lib userrtl.lib
+LIBS=$(LIBSA) $(LIBSB)
+cvars=$(cvars) -DMSDOS -DCRYPT -DNO_ASM
+
+all : zip.exe
+
+BITS.obj : BITS.c
+    $(cc) $(cflags) $(cvars) BITS.c
+    $(cvtobj) BITS.obj
+
+CRYPT.obj : CRYPT.c
+    $(cc) $(cflags) $(cvars) CRYPT.c
+    $(cvtobj) CRYPT.obj
+
+DEFLATE.obj : DEFLATE.c
+    $(cc) $(cflags) $(cvars) DEFLATE.c
+    $(cvtobj) DEFLATE.obj
+
+FILEIO.obj : FILEIO.c
+    $(cc) $(cflags) $(cvars) FILEIO.c
+    $(cvtobj) FILEIO.obj
+
+GLOBALS.obj : GLOBALS.c
+    $(cc) $(cflags) $(cvars) GLOBALS.c
+    $(cvtobj) GLOBALS.obj
+
+MKTIME.obj : MKTIME.c
+    $(cc) $(cflags) $(cvars) MKTIME.c
+    $(cvtobj) MKTIME.obj
+
+TREES.obj : TREES.c
+    $(cc) $(cflags) $(cvars) TREES.c
+    $(cvtobj) TREES.obj
+
+UTIL.obj : UTIL.c
+    $(cc) $(cflags) $(cvars) UTIL.c
+    $(cvtobj) UTIL.obj
+
+ZIP.obj : ZIP.c
+    $(cc) $(cflags) $(cvars) ZIP.c
+    $(cvtobj) ZIP.obj
+
+ZIPCLOAK.obj : ZIPCLOAK.c
+    $(cc) $(cflags) $(cvars) ZIPCLOAK.c
+    $(cvtobj) ZIPCLOAK.obj
+
+ZIPFILE.obj : ZIPFILE.c
+    $(cc) $(cflags) $(cvars) ZIPFILE.c
+    $(cvtobj) ZIPFILE.obj
+
+ZIPNOTE.obj : ZIPNOTE.c
+    $(cc) $(cflags) $(cvars) ZIPNOTE.c
+    $(cvtobj) ZIPNOTE.obj
+
+ZIPSPLIT.obj : ZIPSPLIT.c
+    $(cc) $(cflags) $(cvars) ZIPSPLIT.c
+    $(cvtobj) ZIPSPLIT.obj
+
+ZIPUP.obj : ZIPUP.c
+    $(cc) $(cflags) $(cvars) ZIPUP.c
+    $(cvtobj) ZIPUP.obj
+
+zip.exe : $(OBJ)
+    $(link) $(conflags) -out:$(PROJ).exe $(OBJ) $(LIBS)

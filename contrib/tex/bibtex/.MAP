@@ -1,0 +1,9 @@
+F BIBTEX_C.GZ;1                     	bibtex.ch.gz
+F BIBTEX_W.GZ;1                     	bibtex.web.gz
+F COERCE_H.GZ;1                     	coerce.h.gz
+F CONVERT.GZ;1                      	convert.gz
+F CONVERT_.GZ;1                     	convert.pl.gz
+D GROT                              	grot
+F MAKEFILE.GZ;1                     	Makefile.gz
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/tex/bibtex
+F SMALL_DI.GZ;1                     	small.diff.gz

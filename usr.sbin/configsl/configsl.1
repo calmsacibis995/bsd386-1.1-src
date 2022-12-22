@@ -1,0 +1,27 @@
+.\"	BSDI $Id: configsl.1,v 1.1.1.1 1992/11/20 19:17:02 trent Exp $
+.\"
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.Dd November 19, 1992
+.Dt CONFIGSL 1
+.Os BSDI 4
+.Sh NAME
+.Nm configsl
+.Nd generate script to establish basic SLIP connection
+.Sh SYNOPSIS
+.Nm configsl
+.Sh DESCRIPTION
+.Nm Configsl
+is an interactive program which queries the user for information
+about their SLIP link.  This information
+is used to generate the file 
+.Pa /usr/local/bin/slipup, 
+which
+is a script that the user can then run to establish a
+SLIP connection. 
+.Pp
+.Nm Configsl has no options.
+.Sh HISTORY
+First appared in BSD/386 release 1.0.

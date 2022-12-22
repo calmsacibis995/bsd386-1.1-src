@@ -1,0 +1,7 @@
+Do different intro if errors are being logged.
+
+Catch control characters in lprps.  Handle -c option.
+
+psif should either mail or syslog errors.
+
+Option to psrev to force page reversal no matter what the %%PageOrder: is?

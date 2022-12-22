@@ -1,0 +1,16 @@
+__slbexpand	fgetline.c	/^__slbexpand(fp, newsize)$/
+_doprnt	doprnt.c	/^_doprnt(char *format, va_list ap, FILE *stream)$/
+_doscan	doscan.c	/^_doscan(char *format, va_list ap, FILE *stream)$/
+cfree	cfree.c	/^cfree(p)$/
+cuserid	cuserid.c	/^cuserid(s)$/
+ecvt	ecvt.c	/^ecvt(value, ndigit, decpt, sign)$/
+fcvt	fcvt.c	/^fcvt(value, ndigit, decpt, sign)$/
+fgetline	fgetline.c	/^fgetline(fp, lenp)$/
+ftime	ftime.c	/^ftime(tbp)$/
+gcvt	gcvt.c	/^gcvt(value, ndigit, buf)$/
+gtty	stty.c	/^gtty(fd, buf) struct sgtty *buf; { return (ioctl(f/
+insque	insque.c	/^insque(elem, prev)$/
+re_comp	regcompat.c	/^re_comp(s)$/
+re_exec	regcompat.c	/^re_exec(s)$/
+remque	insque.c	/^remque(elem)$/
+stty	stty.c	/^stty(fd, buf) struct sgtty *buf; { return (ioctl(f/

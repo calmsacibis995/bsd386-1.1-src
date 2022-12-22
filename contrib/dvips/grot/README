@@ -1,0 +1,31 @@
+All real documentation is in the file dvips.tex.  There is also a file
+called test.tex that you can read and run to test some basic capabilities of
+dvips.  INSTALLATION has the primary installation instructions.
+
+This version of dvips is modified from Tom Rokicki's original in that it
+uses the same code for path searching as TeX, the GNU font utilities,
+and my modified xdvi.  If you find it useful, you might want to send
+mail to Tom suggesting that he merge my changes into the main release.
+
+I also changed the configuration process to use a GNU-style `configure'
+script to guess system-dependent information, instead of requiring the
+installer to do this in the Makefile.
+
+The one real loss is that %-specifiers no longer work.  I intend to
+implement them eventually.  The directory organizations I prefer don't
+need them, as you might guess.  (I put each typeface in its own
+directory, with all TFM's, VF's, and PK's combined, not separating out
+different resolutions.)
+
+As distributed, installing this package will create various executables
+in /usr/local/bin, and the corresponding man pages in
+/usr/local/man/man1.  It will also create /usr/local/lib/tex/dvips for
+the PostScript prologue and other header files, and
+/usr/local/lib/tex/macros/dvips for the (La)TeX style files which work
+with dvips.
+
+Bugs should probably be reported to me, rather than Tom, so he is not
+bothered with bugs that aren't in his program.
+
+karl@cs.umb.edu
+Member of the League for Programming Freedom -- write league@prep.ai.mit.edu.

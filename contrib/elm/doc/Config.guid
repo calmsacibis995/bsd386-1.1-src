@@ -1,0 +1,440 @@
+.\" @(#)Id: Config.guid,v 5.9 1993/07/30 02:23:21 syd Exp 
+.\"
+.\"  A guide to the ELM alias system and so on.
+.\"  format with:
+.\"      'troff tmac.n Config.guid > Config.fmtd'
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  $Log: Config.guid,v $
+# Revision 1.2  1994/01/14  00:50:58  cp
+# 2.4.23
+#
+.\" Revision 5.9  1993/07/30  02:23:21  syd
+.\" fix -q to -g in newalias call
+.\"
+.\" Revision 5.8  1993/04/12  04:00:55  syd
+.\" remove unused ALIAS parameters
+.\"
+.\" Revision 5.7  1993/04/12  01:47:45  syd
+.\" Update for quotes
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.6  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.5  1992/11/27  02:51:18  syd
+.\" Make the docs catch up with the code, config.changes -> config.over
+.\" From: Syd
+.\"
+.\" Revision 5.4  1992/11/22  00:49:31  syd
+.\" Add support for a "config.over" file to override Configure decisions.
+.\" From: chip@chinacat.unicom.com (Chip Rosenthal)
+.\"
+.\" Revision 5.3  1992/10/24  13:51:44  syd
+.\" More typos
+.\" From: dwolfe@pffft.sps.mot.com (Dave Wolfe)
+.\"
+.\" Revision 5.2  1992/10/11  01:15:53  syd
+.\" A cleaned up Config.guid follows.  Corrected some spelling errors,
+.\" and played with some formatting:
+.\" From: David Barr <barr@pop.psu.edu>
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\"
+.\"
+.tm Have we been run through "tbl" first?? I hope so!
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 0
+.lg 0
+.nf
+.na
+.rs
+.za
+.sp |3.0i
+.ce 99
+.ps 20
+\f3Elm Configuration Guide\f1
+.sp 4
+.ps 12
+.ss 14
+.vs 14
+\f2How to install and customize the Elm mail system\f1
+.sp 3
+The Elm Mail System
+(Version 2.4)
+.sp 2
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp |9.0i
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.ps 10
+.ss 12
+.vs 12
+.fi
+.ad
+.bp 1
+.fi
+.ad
+.bp 1
+.sv 5v
+.ps 14
+\f3Elm Configuration Guide\f1
+.ds h0 "Elm Configuration Guide
+.ds h1
+.ds h2 "Version 2.4
+.ds f0 "October 1, 1992
+.ds f1
+.ds f2 "Page %
+.sp
+.ps 10
+.ss 12
+.vs 12
+(The Elm Mail System, \*(h2)
+.sp
+\*(f0
+.sp 2
+.sp 2
+Syd Weinstein
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 2
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s-1@\s+1intuitive.com  or  limbo\s-1!\s+1taylor
+.ce 0
+.sp 3
+This document is intended as a supplement to the \f2Elm Users Guide\f1
+and \f2Elm Reference Guide\f1
+and should be of interest mainly to people at a site installing,
+maintaining, and/or modifying the source code to the Elm mail system.
+.sp
+It is \f2required\f1 that installation be done by using the
+\f2Configure\f1 script supplied with the system.  Please see the
+file \f2Instruct\f1 for further information on running \f2Configure\f1.
+.sp
+The remainder of this document discusses the various questions
+asked by the \f2Configure\f1 script and the
+options available via direct editing of various files and
+parameters.  As indicated above, almost all of the sites that install
+Elm should find the \f2Configure\f1 script more than
+sufficient.
+.hu Using \f2Configure\fP
+
+\f2Configure\fP is a shell script that automatically determines the
+type of system it is running on and tunes the parameters of Elm to fit
+that system and its environment.  Where the installer has a choice, it
+asks questions of the installer.  \f2Configure\fP provides its own
+instructions when run, so they are not repeated here.  However, when
+the installer is presented with a choice, this next section explains
+some of the options available.  Not all the questions or options to
+those questions are explained here.
+.sp
+.ne 6
+\f3Use fcntl style locking?\f1
+.br
+\f3Use flock style locking?\f1
+.br
+\f3Use dotlock (.lock) style locking?\f1
+.sp
+Elm, like all Mail User Agents (MUAs), has times when it needs exclusive
+access to the mail spool file.  There are three methods of locking the
+mail spool file: \f2.lock\f1 files, \f2fcntl\f1, and \f2flock\f1.
+\&\f2.lock\f1 files is the original method,
+and is used by MUAs and Mail Transport Agents (MTAs).  Whenever
+possible \f2.lock\f1 files should be enabled to assure backwards
+compatibility with older MUAs and MTAs.
+.sp
+BSD systems introduced \f2flock\f1 style locking.  It uses the
+\f2flock(2)\f1 system call
+to lock the file on the local node.  System V later introduced
+\f2fcntl\f1 style locking, which can also use a protocol for remote locking
+across the network.  Where both styles are available, it is advisable
+to use both, unless you are sure that only one is in use at your site.
+Under many System V Release 4 (SVR4) systems, they both use the same underlying
+system call (\f2flock\f1 is translated into \f2fcntl\f1 style locking),
+so for that version of
+.ux ,
+\f2flock\f1 is not needed and \f2fcntl\f1 style alone can be used.
+.sp
+.ne 4
+\f3Enable calendar feature?\f1
+.sp
+Elm has a feature to take specially marked lines within mail messages
+and add them to a file for use by the system calendar program.  The
+command to do this extraction needs to be enabled to work.  There is
+also a follow on question regarding the name of the calendar file:
+.sp
+.ti .5i
+\f3Default calendar file?\f1
+.sp
+which is usually \f2calendar\f1 on most systems.  This file resides in
+the user's home directory, not their \f2.elm\f1 directory.
+.sp
+.ne 5
+\f3Does your /etc/passwd file keep full names in Berkeley/V7 format (name
+first thing after \*q:\*u in GCOS field)?\f1
+.sp
+Elm uses the full name from the password file if it is available.
+There are two major ways this name is stored.  Berkeley/V7 systems
+place the name as the entire GCOS field string, that is it starts
+directly after the \*q:\*u that delimits the fields.  USG (UNIX Systems
+Group, or AT&T) systems put the user's name after a department number
+and separate it from that number by a hyphen (\*q\-\*u).
+The end of the user's full
+name in these systems is a \*q(\*u.  Look at your \f2/etc/passwd\f1 file and if
+either version applies, answer \f2yes\f1 to this question; if neither
+applies, answer \f2no\f1.  Elm can still get the user's name from the
+\&\f2.fullname\f1 file in their home directory.
+.sp
+.ne 6
+\f3Every now and then someone has a gethostname()/uname() that lies about
+the hostname but can't be fixed for political or economic reasons.
+Would you like to pretend gethostname()/uname() isn't there and maybe
+compile in the hostname?\f1
+.sp
+Elm needs to know the correct name of the host on which it is executing
+to be able to create the proper headers for the outbound mail.  Some
+systems use one name for uucp and another name for the system and
+others just don't reply to the subroutines with the proper name.  In
+this case it will be necessary to compile in the name.  In all other
+cases this should not be needed.  It is provided just in case there is
+a problem with your system.
+.sp
+.ne 4
+\f3Honors Content-Length: header?\f1
+.sp
+Starting with SVR4, many of the MTAs are
+binary transparent.  This allows for sending binary messages, such as
+encoded voice or graphics.  In doing so, they no longer can tolerate changes in
+the message content by the mailers to aid in determining the start of
+the next message.  To solve this problem the \f3Content-Length:\f1 header was
+added.  Elm generates the \f3Content-Length:\f1 header, but to make full use
+of it, Elm should also not escape such sequences as \*QFrom \*U at the
+start of a line of the message.  If your MTA (mailer)
+does honor the \f3Content-Length:\f1 header for determining the start of the
+next message, answer this question \f2yes\f1.
+.sp
+Along the same lines, but now obsolete and being phased out, is a
+problem where an MTA thinks a message is terminated
+by a single lone period on a line.  \f2sendmail\f1 has an option to turn off
+this behavior and this option is set by default in \f2Configure\f1.  If your
+mailer cannot turn off this option, add a line to \f2sysdefs.SH\f1 to define
+the symbol \f3NEED_LONE_PERIOD_ESCAPE\f1.  This symbol turns a line with
+a lone period into a period and a blank to avoid this problem.
+This symbol is ignored if the \*QHonors Content-Length: header?\*U question
+is answered \f2yes\f1.
+.sp
+.ne 4
+\f3Does your mailer understand INTERNET addresses?\f1
+.sp
+Elm works with systems that can process the \*q@\*u character of
+Internet format addresses or with the \*q!\*u format of \f2uucp\f1
+addresses.  If your MTA understands the \*q@\*u format addresses, they
+should be used and this question answered \f2yes\f1.  If messages
+bounce when you send them with \*q@\*u format addresses (such as
+\*Qelm@dsi.com\*U), then answer this question \f2no\f1.
+.sp
+.ne 4
+\f3Am I going to be running as a setgid program?\f1
+.sp
+On USG and many other type systems, access to the mailboxes and
+the mailbox directory is via the group permissions.  The MUAs,
+such as Elm, need write access in this directory to be able
+to move the mailbox around for internal editing and to create lock
+files.  If the permissions on your mailbox directory are \*Qdrwxrwxr-x\*U
+(no write access for \*Qothers\*U),
+then Elm needs to be a \f2setgid\f1 program.
+.sp
+.ne 4
+\f3What is the default editor on your system?\f1
+.sp
+If no editor is specified in the user's \f2.elm/elmrc\f1 file, this is
+which editor to use.  The editor is used to compose outbound mail
+messages.
+.sp
+.ne 4
+\f3What pager do you prefer to use with Elm?\f1
+.sp
+This is the standard pager to use for reading messages.  Besides the
+usual system pagers, two Elm specific internal options exist: \f2builtin\f1
+and \f2builtin+\f1.  The \f2builtin\f1 pager is faster to execute but much less
+flexible than the system provided pagers.  The \f2builtin+\f1 pager just clears
+the page before displaying the next page, otherwise the two versions
+are identical.
+.hu Other Configurable Parameters
+The following parameters rarely need to be changed, but are provided if
+you need them.  \f2Configure\fP does not prompt for their values.  To
+change them, edit the \f2hdrs/sysdefs.h\f1 file directly after running
+\f2Configure\f1.
+.lp MAX_IN_WEEDLIST 1.0i
+The maximum number of headers that can be specified in the weedout
+list of the \f2.elm/elmrc\f1 file.  A suggested alternative approach if this
+number is too small is to specify initial substrings in the file
+rather than increasing the number.  For example, say you want to
+weedout the headers \*QLatitude:\*U and \*QLatitudinal-Coords:\*U, you
+could simply specify \*QLatitud\*U and match them both!  Furthermore
+you could also specify headers like \*QX\-\*U and remove all the user
+defined headers!
+.lp MAX_HOPS 1.0i
+When using the \f3group reply\f1 command, this is the maximum number of
+hops that a message can have taken.  This is used to try to optimize the
+return address (remove cyclic loops and so on) and regular use
+should show that the default of 35 is plenty more than you'll
+ever need!
+.lp system_text_file 1.0i
+This is the source text file for the system level aliases.
+See either the \f2newalias\f1 man page or \f2The Elm
+Alias System Users Guide\f1 for further details.
+.lp system_hash_file 1.0i
+This is the file that contains the hashed version of the system
+aliases generated by \f2newalias\f1.
+.lp system_data_file 1.0i
+This is the other file the \f2newalias\f1 command installs in the system
+alias area and contains the actual addresses for each of the aliases
+contained in the hashed data file.
+.lp DEBUGFILE 1.0i
+The name of the file to put in the user's home directory if they choose to
+use the \f3\-d\f1 (\f3debug\f1) option.
+.lp OLDEBUG 1.0i
+The name of the file to save the previous debug output as (this feature
+was added to ensure that users wanting to mail bug reports wouldn't
+automatically overwrite the debug log of the session in question).
+.lp temp_lock_dir 1.0i
+Directory for lock files for XENIX.
+.lp temp_file 1.0i
+Temporary file for sending outbound messages.
+.lp temp_form_file 1.0i
+A place to store temporary forms (for Forms Mode) while answering them.
+.lp temp_mbox 1.0i
+Place to keep a copy of the incoming mailbox to avoid collisions with newer
+mail.
+.lp temp_print  1.0i
+File to use when creating a printout of a message.
+.lp temp_edit 1.0i
+File to use when editing the mailbox file on XENIX.
+.lp temp_uuname 1.0i
+Where to redirect output of the \f2uuname\f1 command.
+.lp mailtime_file 1.0i
+File to compare date to to determine if a given message is new
+since the last time the mail was read or not.
+.lp readmsg_file 1.0i
+File to use when communicating with the \f2readmsg\f1 program (see
+that program for more information).
+.lp smflags  1.0i
+Defines the options to hand to \f2sendmail\f1 if and when the program
+chooses to use it.
+.lp smflagsv 1.0i
+Defines the options to hand to \f2sendmail\f1 in verbose voyeur mode.
+.lp mailer 1.0i
+If you don't have \f2sendmail\f1, this is the mailer that'll be used.
+.lp helpfile 1.0i
+The help file name prefix.
+.lp ELMRC_INFO 1.0i
+The file containing textual messages associated with each
+Elm variable setting in the user's \f2.elm/elmrc\f1
+file.  This is used when the user chooses to save the
+options from within the main program.
+.lp elmrcfile 1.0i
+The name of the automatic control file within the \f2.elm\f1
+directory (by default \f2elmrc\f1).
+.lp old_elmrcfile 1.0i
+When a new \f2elmrc\f1 file is saved, the old one is also saved by
+renaming it to whatever this identifier is set to.
+.lp system_rc_file 1.0i
+The name of the global \f2elmrc\f1 file (default is \f2$lib/elm.rc\f1).  This
+is where the system administrator puts global default values for any
+parameters controlled by the \f2.elm/elmrc\f1 file.
+.lp mailheaders  1.0i
+The name of the optional file that users may have that is
+included in the headers of each outbound message.
+.lp dead_letter 1.0i
+If the user decides not to send a message it is instead saved
+to this filename in their home directory.
+.lp unedited_mail 1.0i
+In the strange case when the mailer suddenly finds all the directories
+it uses shut off (like \f2/usr/mail\f1 and \f2/tmp\f1)
+then it'll put the current
+mailbox into this file in the user's home directory.
+.lp newalias 1.0i
+How to install new aliases (note that you MUST have the \f3\-g\f1 option!).
+.lp readmsg 1.0i
+What the \f2readmsg\f1 program is installed as.
+.hu Runtime configuration \(em the global \f2$lib/elm.rc\fP file
+
+No global default file is provided as part of the installation of
+Elm.  If you wish to override any default parameters for all
+users, create a file as defined in the \f3system_rc_file\f1 above.  An
+easy way to create it is to copy a saved \f2.elm/elmrc\f1 and edit it
+to remove all user-specific parameters.  Of particular interest are
+three additional parameters you may set: \f3hostdomain\f1, \f3hostfullname\f1,
+and \f3hostname\f1.  See \f3String Variables\f1 in section 2
+of the \f2Elm Reference Guide\f1 for details on these variables.
+.hu When \f2Configure\fP Fails
+
+The \f2Configure\f1 script has run successfully tens of thousands of
+times.  But maybe your system is the one in ten thousand that will
+confuse it.  For example, \f2Configure\f1 assumes that if your system
+has a feature it would like, then it should be used.  If vendors never
+made mistakes, then that might be a good assumption.  In reality,
+\f2Configure\f1 might want to use a feature you'd prefer it didn't.
+.sp
+When \f2Configure\f1 completes its examination of your system, it
+gives you a final chance to make changes.  When \f2Configure\f1 asks
+.sp
+.ti .5i
+\f3If you need to edit config.sh, do it as a shell escape here:\f1
+.sp
+you may briefly jump out of \f2Configure\f1 to make changes.  For
+example, if \f2vi\f1 is your preferred editor, type \f3!vi config.sh\f1.
+.sp
+Unfortunately, \f2Configure\f1 makes the same mistakes every time it
+runs.  This means that if you ever apply updates or changes to the
+Elm system and rerun \f2Configure\f1, you will have to manually make
+the same configuration changes.  Or more likely, you'll forget that
+the changes are required.
+.sp
+The solution to this problem is to create a \f2config.over\f1 file
+in the Elm base directory.  This file may contain any valid \f2sh\f1
+commands, and is loaded by \f2Configure\f1 immediately before the
+\f2config.sh\f1 file is created.
+For example, supposed that \f2Configure\f1 creates a \f2config.sh\f1
+file with the definition
+.sp
+.ti .5i
+\f3d_feature=define\f1
+.sp
+but instead you want it to say
+.sp
+.ti .5i
+\f3d_feature=undef\f1
+.sp
+All you need to do is create a \f2config.over\f1 file and put that
+final line in it.

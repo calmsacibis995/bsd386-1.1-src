@@ -1,0 +1,16 @@
+F CCITT.C;1                         	ccitt.c
+F HOST.C;1                          	host.c
+F IF.C;1                            	if.c
+F INET.C;1                          	inet.c
+F ISO.C;1                           	iso.c
+F MAIN.C;1                          	main.c
+F MAKEFILE.;1                       	Makefile
+F MBUF.C;1                          	mbuf.c
+F MROUTE.C;1                        	mroute.c
+F NETSTAT.1;1                       	netstat.1
+F NETSTAT.H;1                       	netstat.h
+F NS.C;1                            	ns.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/netstat
+F ROUTE.C;1                         	route.c
+F TAGS.;1                           	tags
+F UNIX.C;1                          	unix.c

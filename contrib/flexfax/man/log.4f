@@ -1,0 +1,365 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/log.4f,v 1.1.1.1 1994/01/14 23:10:12 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH LOG 4F "January 15, 1993"
+.SH NAME
+log/* \- session log files
+.SH DESCRIPTION
+Files in the
+.B etc/log
+directory in the
+.I FlexFAX
+spooling area contain logging/tracing information about
+transmit and receive sessions.
+One file exists for each machine, with the filename
+created from the remote machine's fully-qualified
+phone number.
+Transmit session tracing is placed in the file named by
+the destination phone number.
+Receive session tracing is placed in the file whose name
+is the ``local phone number''.
+The amount and kind of tracing information that is recorded
+is defined by the
+.B SessionTracing
+parameter specified in the modem configuration file; see
+.IR config (4F).
+.SH "SERVER OPERATION"
+The following messages may appear when server operation tracing
+(bit 1) is enabled:
+.PP
+\fB"MODEM: Unknown hint "%s" ignored"\fP.
+.PP
+\fB"MODEM %s %s/%s"\fP.
+.PP
+\fB"%s: Can not lock device."\fP.
+.PP
+\fB"%s: Can not open modem (%m)"\fP.
+.PP
+\fB"%s: Can not open modem (timed out)."\fP.
+.PP
+\fB"%s: setuid root failed (%m)"\fP.
+.PP
+\fB"%s: fcntl: %m"\fP.
+.PP
+\fB"%s: Can not deduce modem type."\fP.
+.PP
+\fB"RECV: Permission denied (unacceptable client TSI)"\fP.
+.PP
+\fB"RECV: Unable to create file "%s" for received data"\fP.
+.PP
+\fB"RECV data in "%s""\fP.
+.PP
+\fB"RECV: empty file "%s" deleted"\fP.
+.PP
+\fB"ACCEPT TSI "%s""\fP.
+.PP
+\fB"REJECT TSI "%s""\fP.
+.PP
+\fB"POLL with CIG "%s""\fP.
+.PP
+\fB"POLL: Unable to create file "%s" for received data"\fP.
+.PP
+\fB"POLL: empty file "%s" deleted"\fP.
+.PP
+\fB"internal muckup, lost polling request"\fP.
+.PP
+\fB"SEND FAILED: %s"\fP.
+.PP
+\fB"SEND file "%s""\fP.
+.PP
+\fB"SEND: %s "%s", dirnum %d"\fP.
+.PP
+\fB"SEND: %s (file %s, compression %d)"\fP.
+.PP
+\fB"REJECT: %s"\fP.
+.PP
+\fB"REJECT: %s, max remote page width %u, image width %lu"\fP.
+.PP
+\fB"REJECT: %s, image resolution %g line/mm"\fP.
+.PP
+\fB"REJECT: %s, max remote page length %d, image length %lu"\fP.
+.PP
+\fB"REJECT: %s"\fP.
+.PP
+\fB"STATE CHANGE: %s -> %s (timeout %ld)"\fP.
+.PP
+\fB"STATE CHANGE: %s -> %s"\fP.
+.PP
+\fB"ANSWER: FAX CONNECTION"\fP.
+.PP
+\fB"ANSWER: DATA CONNECTION"\fP.
+.PP
+\fB"ANSWER: Could not switch modem to data service"\fP.
+.PP
+\fB"ANSWER: VOICE CONNECTION"\fP.
+.PP
+\fB"ANSWER: %s"\fP.
+.PP
+\fB"ANSWER: Can not lock modem device"\fP.
+.PP
+\fB"GETTY: start pid %u, \"%s\""\fP.
+.PP
+\fB"GETTY: terminated, exit status %#o"\fP.
+.PP
+\fB"GETTY: could not create"\fP.
+.PP
+\fB"GETTY: can not fork"\fP.
+.PP
+\fB"runGetty::setregid: %m"\fP.
+.PP
+\fB"runGetty::setreuid: %m"\fP.
+.PP
+\fB"No support for XON/XOFF flow control with Class 1 driver"\fP.
+.PP
+\fB"No support for RTS/CTS flow control with Everex driver"\fP.
+.SH "FAX PROTOCOL"
+The following messages may appear when the facsimile protocol tracing
+(bit 2) is enabled:
+.PP
+\fB"%s: %s (Phase B)"\fP.
+An error occurred during Phase B of Group 3 protocol processing.
+.PP
+\fB"DELAY %u ms"\fP.
+A %u-millisecond delay was done on the host.
+.PP
+\fB"DIAL %s"\fP.
+The phone number %s was dialed.  Note that this is the 
+phone number passed as an argument to the
+.I ModemDialCmd
+parameter and so may not include additional
+dialing prefixes sent to the modem.
+.PP
+\fB"Error sending T.30 prologue frames"\fP.
+An error occurred while trying to transmit the
+.SM "T.30 DCS"
+frames.
+.PP
+\fB"HDLC frame too short (%u bytes)"\fP.
+An
+.SM HDLC
+protocol message was not at least 3 bytes long.
+.PP
+\fB"HDLC frame with bad address field %#x"\fP.
+An
+.SM HDLC
+protocol message was sent/received with an address field other
+than 0xff.
+.PP
+\fB"HDLC frame with bad control field %#x"\fP.
+An
+.SM HDLC
+protocol message was sent/received with an invalid
+control field.
+.PP
+\fB"MODEM ERROR: %s"\fP.
+While waiting for a modem response/result an error was
+encountered (e.g. an ``\s-1ERROR\s+1'' result code).
+.PP
+\fB"MODEM protocol botch (\"%s\"), %s"\fP.
+.PP
+\fB"MODEM protocol botch, can not parse \"%s\""\fP.
+.PP
+\fB"MODEM protocol botch: +FET: without +FPTS:"\fP.
+.PP
+\fB"POLL: %s (begin)"\fP.
+.PP
+\fB"POLL: %s (end)"\fP.
+.PP
+\fB"POLL: begin"\fP.
+.PP
+\fB"POLL: end"\fP.
+.PP
+\fB"Problem receiving post-page HDLC frame"\fP.
+.PP
+\fB"Problem sending TCF data"\fP.
+.PP
+\fB"RECV PPM: %s"\fP.
+.PP
+\fB"RECV PPR: %s"\fP.
+.PP
+\fB"RECV interrupt request ignored"\fP.
+.PP
+\fB"RECV training"\fP.
+.PP
+\fB"RECV unknown PPM %#x"\fP.
+.PP
+\fB"RECV: %d bytes of data"\fP.
+.PP
+\fB"RECV: %lu bytes, %lu rows"\fP.
+.PP
+\fB"RECV: %s (begin)"\fP.
+.PP
+\fB"RECV: %s (end)"\fP.
+.PP
+\fB"RECV: %s"\fP.
+.PP
+\fB"RECV: TCF %u bytes, %u%% non-zero, %u zero-run"\fP.
+.PP
+\fB"RECV: bad code word 0x%x, len %d, row %lu"\fP.
+.PP
+\fB"RECV: begin"\fP.
+.PP
+\fB"RECV: end"\fP.
+.PP
+\fB"RECV: begin page"\fP.
+.PP
+\fB"RECV: end page"\fP.
+.PP
+\fB"RECV: premature EOF"\fP.
+.PP
+\fB"RECV: row %lu, got EOL, eols %d"\fP.
+.PP
+\fB"REMOTE %s PostScript transfer"\fP.
+.PP
+\fB"REMOTE CSI \"%s\""\fP.
+.PP
+\fB"REMOTE HANGUP: %s (code %s)"\fP.
+.PP
+\fB"REMOTE NSF %#x"\fP.
+.PP
+\fB"REMOTE NSS \"%s\""\fP.
+.PP
+\fB"REMOTE TSI \"%s\""\fP.
+.PP
+\fB"REMOTE best format %s"\fP.
+.PP
+\fB"REMOTE best rate %s"\fP.
+.PP
+\fB"REMOTE best vres %s"\fP.
+.PP
+\fB"REMOTE has document to POLL"\fP.
+.PP
+\fB"REMOTE max %s"\fP.
+.PP
+\fB"REMOTE wants %s"\fP.
+.PP
+\fB"SEND %s RTC", is2D ? "2D" : "1D"\fP.
+.PP
+\fB"SEND begin page"\fP.
+.PP
+\fB"SEND end page"\fP.
+.PP
+\fB"SEND recv %s"\fP.
+.PP
+\fB"SEND recv unknown FCF %#x"\fP.
+.PP
+\fB"SEND training at %s"\fP.
+.PP
+\fB"SEND training"\fP.
+.PP
+\fB"SENT %u bytes of data"\fP.
+.PP
+\fB"TRAINING failed"\fP.
+.PP
+\fB"TRAINING succeeded"\fP.
+.PP
+\fB"USE %s"\fP.
+.PP
+.SH "MODEM OPERATIONS"
+The following messages may appear when modem operation tracing
+(bit 3) is enabled:
+.PP
+\fB"MODEM line set to %d baud (input XON/XOFF %s)"\fP.
+The
+.SM DTE-DCE
+communication rate was set %d bits/sec on the host and software
+flow control for data received from the modem was either enabled
+or disabled.
+.PP
+\fB"MODEM input XON/XOFF enabled"\fP.
+\fB"MODEM input XON/XOFF disabled"\fP.
+Software flow control for data received from the modem was
+either enabled or disabled.
+.PP
+\fB"<-- break"\fP.
+A break signal was sent to the modem.
+At present only the Everex modem driver sends breaks.
+.PP
+\fB"TIMEOUT: %s modem"\fP.
+A timeout occurred while doing a modem-related operation; typically
+reading or writing data.
+.PP
+\fB"Error #%u reading from modem"\fP.
+An error was returned by a 
+.IR read (2)
+system call.
+This usually happens when the modem prematurely drops the
+.SM DCD
+signal.
+.SH "MODEM COMMUNICATION"
+The following messages may appear when modem communication tracing
+(bit 4) is enabled:
+.PP
+\fB"--> [%d:%s]"\fP.
+A %d-byte line of data was received from the modem.
+Printable data are displayed.
+.PP
+\fB"<-- data [%d]"\fP.
+%d bytes of unprintable data were sent to the modem, typically
+facsimile data.
+.PP
+\fB"<-- [%d:%s]"\fP.
+%d bytes of printable data were sent to the modem.
+The data are displayed.
+.SH "TIMEOUTS"
+The following messages may appear when timeout tracing (bit 5) is enabled:
+.PP
+\fB"start %d second timer"\fP.
+Start a %d-second timeout.
+.PP
+\fB"stop timer"\fP.
+Stop the current timeout before it expires.
+.PP
+\fB"stop timer - timer expired"\fP.
+The current timeout expired.
+.SH "HDLC FRAMES"
+When tracing of raw
+.SM HDLC
+frames (bit 6) is enabled each frame sent and received is logged:
+\fB"<-- HDLC<%u:%.*s>"\fP
+for sent frames and
+\fB"--> HDLC<%u:%.*s>"\fP
+for received frames.
+These messages indicate that a %u-byte long
+.SM HDLC
+frame was sent or received.
+The first byte should always be 0xff, the address field specified
+for dialup communication.
+The second byte should be a frame control field.
+The contents of the frame is displayed as sequence of bytes in hexadecimal.
+.SH "BINARY I/O"
+When binary input/output (bit 7) is traced there are two types of messages
+logged:
+.PP
+\fB"<-- <%u:%.*s>"\fP
+for data sent to the modem and
+\fB"--> <%u:%.*s>"\fP
+for data received from the modem.
+Each message indicates that %u bytes of data were transferred.
+The data is displayed as a sequence of bytes in hexadecimal.
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR config (4F)

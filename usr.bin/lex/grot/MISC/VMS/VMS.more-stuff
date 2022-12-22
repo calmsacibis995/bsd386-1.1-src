@@ -1,0 +1,2185 @@
+(Message inbox:129)
+Date:  Sun, 25 Nov 90 18:33 EDT
+From:  Stu McGraw <SYSMAN%hilbert@gte.com>
+Subject:  Re: Flex bug and fix
+To:  vern@helios.ee.lbl.gov
+X-Vms-To:  IN%"vern@helios.ee.lbl.gov"
+
+Hi Vern,
+
+	Here is the stuff for VMS I wrote to you about last
+week.  The context diff for main.c is in main.dif.  README.VMS
+is a list of files and what they are for.  changes.vms is
+a description of exactly what I did.  All three of these files
+are for you and can be removed if you want.  The rest can just
+go into a ./VMS subdirectory -- there is an install.vms file
+that gives pretty thorough instructions (I hope so after the 
+hours I spent on it!) for installing the stuff on VMS.  If any-
+one has any problems with the VMS parts I'll be happy to help 
+them with it if you refer them to me (or feel free to edit any
+of the files to say that).  If you do include this stuff with
+the flex distribution, I'll try and keep it uptodate with new
+versions (circumstances permitting of course).  Or if there's 
+anything you'd rather see done differently let me know.  And 
+thanks again for a terrific tool!
+						-- Stu
+--
+Stuart McGraw,	 	sjm0@gte.com
+GTE Labs, Waltham MA	{hsuc6,harvard}!bunny!hilbert.gte.com!mcgraw 
+(617) 466-2525		mcgraw@hilbert.gte.com
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of shell archive."
+# Contents:  README.VMS changes.vms cli.c dclmake.com flex.cld_template
+#   flex.hlp install.vms main.dif makefile.vms vmscmdln.c
+# Wrapped by sjm0@bunny.gte.com on Sun Nov 25 16:07:31 1990
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'README.VMS' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'README.VMS'\"
+else
+echo shar: Extracting \"'README.VMS'\" \(730 characters\)
+sed "s/^X//" >'README.VMS' <<'END_OF_FILE'
+X
+X-----------------------------
+XFlex version 2.3.6 (11/17/90)
+X-----------------------------
+X
+The vms subdirectory contains support for making flex
+on VMS with either a unix-style or VMS-style command 
+line interface. 
+X
+Read install.vms for installation instuctions.
+X
+XFiles:
+X------
+README.VMS -- this file
+changes.vms -- description of changes to flex for VMS
+cli.c -- c interface routines to vms system cli routines
+dclmake.com -- command file to build flex
+flex.cld_template -- base command definition file for flex
+flex.hlp -- help file entry for flex
+install.vms -- installation instructions for VMS
+main.dif -- context diff for main.c (v2.3.6)
+makefile.vms -- makefile for VMS
+vaxcmdln.c -- source for vms command line support
+END_OF_FILE
+if test 730 -ne `wc -c <'README.VMS'`; then
+    echo shar: \"'README.VMS'\" unpacked with wrong size!
+fi
+# end of 'README.VMS'
+fi
+if test -f 'changes.vms' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'changes.vms'\"
+else
+echo shar: Extracting \"'changes.vms'\" \(3637 characters\)
+sed "s/^X//" >'changes.vms' <<'END_OF_FILE'
+Changes to flex 2.3.6 to improve life on VMS
+X11/17/90 - Stuart McGraw, GTE Labs (sjm0@gte.com)
+X
+modified files:
+X---------------
+main.c
+X	-- If foo doesn't exist, "flex -vpb foo" trys to dereference a
+X	NULL pointer (causes access violation on VMS) because the error
+X	calls flexend() which tries to print statistics (-v flag) before
+X	the pointers it uses have been initialized.  Fixed by setting a
+X	new variable 'initialized' just before flexinit() returns (after
+X	everything's been initialized) and suppressing the statistics
+X	report in flexend() if it isn't set.
+X
+X	-- Use VMSCMDLN define to select original unix command line
+X	parsing or alternate VMS command line parsing (done by including
+X	vaxcmdln.c which contains the code).  This also required moving
+X	a few snippets of code around to keep the unix-only and vms-only
+X	sections contiguous.
+X
+X	-- The VMS conditional for the exit status value in flexend()
+X	was deleted since it better done by redefining exit() (done as
+X	a CC command line macro though it could also be done in flexdef.h.)
+X        This applies to all exits (error exits in scan.c and parse.c 
+X	previously exited with VMS success status) and gets rid of the
+X        annoying NONAME-W-NOMESSAGE message from VMS when an error occurs
+X	in flex.
+X
+X	-- VAXC generates a truly grotesque string for argv[0].  Added a
+X	few lines of code if flexinit() to turn it into something reasonable.
+X
+X	-- Made the name of the backtracking info file parameterizable.
+X	This also lets flex print the actual name of the file out in error
+X	messages (it would always print "lex.backtrack" before, even when
+X	the name was lex.bck).
+X
+new files:
+X----------
+makefile.vms
+X	Rewrote the previous makefile (Makefile.VMS).  Changes include:
+X
+X	-- Allows building and installing either the unix-style command
+X	line version of flex, or the VMS-style command line version.
+X
+X	-- Use flex_exe, flex_library, and flex_manual for default names
+X	rather than tools$$exe, tools$$library, and tools$$manual since
+X	the latter violate DEC logical name recommendations ($ reserved
+X	for DEC).
+X
+X	-- Compile everything with /def="exit(s)=_exit((s)?0x1000002A:0)".
+X	This will result in a VMS error status for all error exits 
+X	(including those in the lexer and parser subroutines) with-
+X	out requiring any source code changes.  It also gets rid of
+X	those annoying NONAME-W-NOMESSAGE messages that occurred before
+X	and changes the exit status from warning to error.
+X
+X	-- Testing can be done using the local version of flex, or the
+X	publicly installed version for flex's built with either command
+X	line option.
+X
+X	-- Reordered operations to make it easier to convert it to the
+X	dclmake.com file.
+X
+dclmake.com
+X	-- A dcl procedure to do the compiling/linking/testing/installing
+X	done by makefile.vms for those without MAKE or MMS.
+X
+vaxcmdln.c
+X	-- Contains code that is conditionally #included in flexinit()
+X	(main.c) to handle VMS command line parsing.  In a separate file
+X	so as not to clutter up the main code with alot of vms dependent 
+X	junk.
+X
+cli.c
+X	-- A couple of general purpose support routines for VMS command 
+X	line parsing and called from the code in vmscmdln.c.  These are
+X	just C language interfaces to two VMS system calls.
+X
+flex.cld_template
+X	-- Command definition file for the VMS command line interface
+X	sans the define verb and image lines.  Used to generate the local 
+X	and public flex.cld files.
+X
+flex.hlp
+X	-- VMS help file edited from the version 2.3.6 version flex.man
+X	file for use with the VMS-style command line interface.
+X
+changes.vms
+X	-- This file.
+X
+install.vms
+X	-- Installation instructions for VMS.
+X
+README.VMS
+X	-- A short pointer to the other files.
+END_OF_FILE
+if test 3637 -ne `wc -c <'changes.vms'`; then
+    echo shar: \"'changes.vms'\" unpacked with wrong size!
+fi
+# end of 'changes.vms'
+fi
+if test -f 'cli.c' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'cli.c'\"
+else
+echo shar: Extracting \"'cli.c'\" \(7593 characters\)
+sed "s/^X//" >'cli.c' <<'END_OF_FILE'
+X/*============================================================================
+=
+X
+X	CLI.C -- Simple C interfaces to VMS CLI$ utilities.
+X
+X-----------------------------------------------------------------------------*
+/
+X
+X#include descrip
+X#include climsgdef
+X#define STS$M_SUCCESS 1
+X
+X/*============================================================================
+=
+X
+X	cli_value -- Get the value of a CLI parameter or qualifier.
+X
+X    This is an interface to the VMS utility routine CLI$VALUE that
+X    is easy to call in a C language program.  It does the grunge
+X    work of creating string descriptors from C style NUL terminated
+X    strings etc.  cli_value returns the value associated with the
+X    specified command line entity in the character array pointed to
+X    by 'value'.
+X
+X    If the requested entity was present in the command line (even in
+X    negated form), cli_value's function return value is a non-zero
+X    (TRUE) value.  If the entity was absent, a zero value (FALSE) is
+X    returned by cli_value.  The actual value returned depends on whether
+X    'value' was NULL or not.  If it wasn't, cli_value returns a TRUE
+X    value that is the status returned by CLI$VALUE.  If 'value' was
+X    NULL, cli_value returns the status returned by CLI$PRESENT.  (This
+X    to provide access to the return values from CLI$PRESENT since CLI_-
+X    KEYWORD returns only 0 or 1).
+X
+X
+X    Calling sequence:
+X	n = cli_value (name, value, value_size);
+X
+X    Parameters:
+X	char *name;
+X	  Pointer to a NUL terminated character string that contains
+X	  the name of the parameter, qualifier or keyword path whose
+X	  value is wanted.
+X	char *value;
+X	  NULL or a pointer to a character buffer of 'value_size' bytes
+X	  that will receive the entity's value.  If not NULL, the entity's
+X	  value is copied into 'value' in the form of a NUL terminated
+X	  text string.  If the entity was absent, 'value' is set to a
+X	  null string ("").
+X	int value_size;
+X	  The size of the buffer 'value' in bytes.  No more than this many
+X	  byte will be written to 'value'.
+X
+X    Returns:  int n;
+X	cli_value returns 0 (FALSE) if the requested parameter,
+X	qualifier, or keyword path, was absent from the command
+X	line.  If it was present (even in negated form), cli_value
+X	returns a non-zero (TRUE) value that depends on whether or
+X	not 'value' is non-NULL.  
+X
+X	If 'value' was non-NULL, the value returned is the status
+X	from the CLI$VALUE routine (CLI$_COMMA, CLI$_CONCAT,
+X	CLI$_NORMAL).
+X
+X	If 'value' was NULL, then cli_value returns the status from
+X	the CLI$PRESENT routine (CLI$_PRESENT, CLI$NEGATED, CLI$_LOCPRES,
+X	CLI$LOCNEG, CLI$_DEFAULTED).
+X
+X    Examples:
+X	The most common way of using cli_value is to get the value of
+X	a parameter or qualifier.  If a .CLD file contained:
+X
+X		PARAMETER P1, LABEL=INFILE,
+X			VALUE (REQUIRED, TYPE=$INFILE)
+X
+X	then the call below would read the value of the parameter and put
+X	it in 'input_fn'.
+X
+X		char input_fn[256];
+X		 ....
+X		cli_value ("INFILE", input_fn, sizeof (input_fn));
+X
+X	Reading a list of values is just as easy:
+X
+X		PARAMETER P1, LABEL=INFILE, 
+X			VALUE (REQUIRED, LIST, TYPE=$INFILE)
+X
+X		char input_fn[256];
+X		 ....
+X		while (cli_value ("INFILE", input_fn, sizeof (input_fn)))
+X		    {
+X		    ....process 'input_fn'....
+X		    }
+X
+X
+X-----------------------------------------------------------------------------
+X
+X    4/12/88 - Stuart McGraw.
+X	Put a trailing NUL in 'value' regardless of the return code
+X	since CLI$GET_VALUE will blank fill it even if the requested
+X	qualifier is absent.
+X    3/2/86 - Stuart McGraw, GTE Labs (sjm0@gte.com)
+X
+X-----------------------------------------------------------------------------*
+/
+X
+int
+cli_value (name, value, vsize)
+X    char *name;
+X    char *value;
+X    int vsize;
+X	{
+X	int status;
+X	short ret_length = 0;
+X	struct dsc$descriptor qul;
+X	struct dsc$descriptor qvl;
+X
+X	qul.dsc$b_class = DSC$K_CLASS_S;
+X	qul.dsc$b_dtype = DSC$K_DTYPE_T;
+X	qul.dsc$w_length = strlen (name);
+X	qul.dsc$a_pointer = name;
+X
+X	if (value) {
+X	    qvl.dsc$b_class = DSC$K_CLASS_S;
+X	    qvl.dsc$b_dtype = DSC$K_DTYPE_T;
+X	    qvl.dsc$w_length = vsize - 1;
+X	    qvl.dsc$a_pointer = value;
+X
+X	    status = CLI$GET_VALUE (&qul, &qvl, &ret_length);
+X	    value[ret_length] = 0;
+X	    if (status == CLI$_ABSENT)
+X		return (0);
+X	    return (status);
+X	    }
+X	status = CLI$PRESENT (&qul);
+X	return (status == CLI$_ABSENT ? 0 : status);
+X	}
+X
+X/*============================================================================
+=
+X
+X	cli_qualifier -- Return TRUE or FALSE depending on presence of entity.
+X
+X    Will return a 1 (TRUE) if the entity 'name' was specified or
+X    present by default in the DCL command line or 0 (FALSE) if it was
+X    specified and negated.  If it wasn't specified at all (and no default
+X    was specified in the CLD tables), the value 'deflt' is returned.
+X
+X    Calling sequence:
+X	n = cli_qualifier (name, deflt);
+X
+X    Parameters:
+X	char *name;
+X	  Pointer to a NUL terminated string that contains the name
+X	  of the command line parameter, qualifier, or keyword path.
+X	int deflt;
+X	  A value that will be returned if the entity was not present
+X	  in the command line (either explicitly or by default).
+X
+X    Returns:
+X	int n;
+X	  1 if the entity was present and not negated.  0 if the
+X	  entity was present and negated.  The value of 'deflt'
+X	  if the entity wasn't present.
+X
+X    Examples:
+X	This simplest use is to set the value of a variable depending
+X	on whether or not a qualifier was specified in the command line.
+X	Assuming a .CLD file like:
+X
+X	    QUALIFIER DEBUG
+X
+X	we could use the this code to set the variable 'dbg':
+X
+X	    dbg = cli_qualifier ("DEBUG", 0);
+X
+X	For this use, you generally don't want to make use  of the
+X        'deflt' parameter.   To make /DEBUG the default it is better
+X	to modify the .CLD file to:
+X
+X	    QUALIFIER FLAG, DEFAULT
+X
+X	since this lets you change defaults without recompiling the
+X	program.
+X
+X	The next example illustrate where the 'deflt' parameter is 
+X	useful.  Assume a command definition file that looks like:
+X
+X		DEFINE TYPE DEBUG_TYPES
+X		    keyword ALL
+X		    keyword RANGE
+X		    keyword AUDIO
+X		    keyword INITIAL
+X		    keyword CLEANUP
+X		QUALIFIER DEBUG, VALUE (TYPE=DEBUG_TYPES)
+X
+X	where we want to be able to use the qualifier like:
+X
+X		/DEBUG=(RANGE,AUDIO)
+X		/DBUG=ALL
+X		/DEBUG=(ALL,NOCLEANUP)
+X
+X	Here is how that can easily be done by using the ALL value as a
+X	default for the remainder:
+X
+X		all       = cli_qualifier ("DEBUG.ALL", 0);
+X		dbg_rng   = cli_qualifier ("DEBUG.RANGE", all);
+X		dbg_audio = cli_qualifier ("DEBUG.AUDIO", all);
+X		dbg_init  = cli_qualifier ("DEBUG.INITIAL", all);
+X		dbg_clnup = cli_qualifier ("DEBUG.CLEANUP", all);
+X
+X
+X------------------------------------------------------------------------------
+X
+X    3/2/86 - Stuart McGraw, GTE Labs. (sjm0@gte.com)
+X
+X-----------------------------------------------------------------------------*
+/
+X
+int
+cli_qualifier (name, deflt)
+X    char *name;
+X    int deflt;
+X	{
+X	int status;
+X	struct dsc$descriptor qul;
+X
+X	qul.dsc$b_class = DSC$K_CLASS_S;
+X	qul.dsc$b_dtype = DSC$K_DTYPE_T;
+X	qul.dsc$w_length = strlen (name);
+X	qul.dsc$a_pointer = name;
+X
+X	status = CLI$PRESENT (&qul);
+X	if (status == CLI$_PRESENT  ||
+X	  status == CLI$_DEFAULTED ||
+X	  status == CLI$_LOCPRES) {
+X	    return (1);
+X	    }
+X	if (status == CLI$_NEGATED ||
+X	  status == CLI$_LOCNEG) {
+X	    return (0);
+X	    }
+X	/* else (status == CLI$_ABSENT) */
+X	return (deflt);
+X	}
+X
+X/*
+X    cli_qualifier used to be called cli_keyword.  The routine below is
+X    so that old programs that call the former will still link and run
+X    without any source code changes.
+X*/
+int
+cli_keyword (name, deflt)
+X    char *name;
+X    int deflt;
+X	{
+X	return cli_qualifier (name, deflt);
+X	}
+END_OF_FILE
+if test 7593 -ne `wc -c <'cli.c'`; then
+    echo shar: \"'cli.c'\" unpacked with wrong size!
+fi
+# end of 'cli.c'
+fi
+if test -f 'dclmake.com' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'dclmake.com'\"
+else
+echo shar: Extracting \"'dclmake.com'\" \(9758 characters\)
+sed "s/^X//" >'dclmake.com' <<'END_OF_FILE'
+X$	v = f$verify (0)
+X$! IMPORTANT:  Before you use this procedure, read INSTALL.VMS and the
+X$! comments below.  You will need an alloca object module and GNU bison.
+X$! Define the logical names flex_exe, flex_library, and flex_manual.
+X$!
+X$! For flex version 2.3.6 (11/17/90)
+X$!
+X$! You use this procedure to compile, link and test flex by doing:
+X$!
+X$!		@ DCLMAKE BUILD
+X$!
+X$! To install flex in the public directory, be sure that the logical
+X$! names "flex_exe", "flex_library", and "flex_manual" are correctly
+X$! defined and do:
+X$!
+X$!		@ DCLMAKE INSTALL_TEST
+X$!
+X$! You can also use this procedure to compile individual source files
+X$! by saying:
+X$!
+X$!		@ DCLMAKE COMPILE name
+X$!
+X$! where "name" is the source file's name without the file type, e.g.
+X$! "@DCLMAKE COMPILE CCL".  With no filename, DCLMAKE will compile all
+X$! the source files.  Link by doing: "@DCLMAKE LINK", test the local
+X$! flex with "@DCLMAKE TEST", install the public files with "@DCLMAKE
+X$! INSTALL", and test the installed files with "@DCLMAKE TEST_FLEX".
+X$!
+X$! When "test" or "test_flex" is executed you shoud see the message
+X$! "Test successful".  A make abort after the diff command is a failure.
+X$! To get some idea of what went wrong, do a diff between lexyy.c (the file
+X$! just generated by flex) and initscan.c (what it should have generated).
+X$!
+X$!
+X$!
+X$! The flex parser generated by bison requires an alloca routine which
+X$! you must supply.  Change the line below if your alloca.obj is some-
+X$! where other than the current directory.
+X$ALLOCA = "alloca.obj"
+X$!ALLOCA = "gnu_bison:[000000]vmshlp.obj"
+X$
+X$! Use one of the following two defines.  The first will build flex with
+X$! a VMS-style command line interface, the second builds flex with a unix-
+X$! style command line interface.
+X$!
+X$! For a VMS-style interface...
+X$VERSION = "vms"
+X$! For a unix-style interface...
+X$!VERSION = ""
+X$
+X$
+X$! BIN, LIB, MAN, CLD, HLP are set to reflect the locations where you
+X$! would like to store the executables, library (flex.skel), the manual
+X$! pages, the command definition file, and the help library module. 
+X$! You can leave these unchanged if you define the VMS logical names:
+X$!
+X$!	flex_exe      -- disk/dir of the executable image	
+X$!	flex_manual   -- disk/dir of the *.man files 
+X$!	flex_library  -- disk/dir of flex.skel and the .cld file
+X$!
+X$! These logical names ***MUST*** be defined before installing or
+X$! running flex.  They don't have to be defined to build flex.  You
+X$! may want to define these, either system wide in the system startup
+X$! procedure, or in your login.com file.  Alternatively, you can change
+X$! the definitions of BIN, LIB, CLD, MAN and HLP in here to refer to pre-
+X$! defined locations.  
+X$!
+X$! ...the installed location of the flex executable...
+X$BIN = "flex_exe:"
+X$
+X$! ...the installed location of the flex skeleton file...
+X$LIB = "flex_library:"
+X$
+X$! ...the installed location of the flex vms command definition file
+X$! (only matters when installing the VMS command line version)...
+X$CLD = "flex_library:"
+X$
+X$! ...the installed location of the flex man pages.
+X$MAN = "flex_manual:"
+X$
+X$! ...the help library to put the bison help module into. 
+X$! (only matters when installing the VMS command line version)...
+X$HLP = "sys$common:[syshlp]helplib.hlb"
+X$
+X$! The default skeleton file that flex will use.
+X$DEFAULT_SKEL = "''LIB'flex.skel"
+X$
+X$! Flags that initscan.c was created with.  The tests will use the same
+X$! ones so that they should produce an output identical to initscan.c.
+X$VMS_FLEX_FLAGS = "/NOCASE/NOECHO/EIGHT"
+X$UNIX_FLEX_FLAGS = "-is8"
+X$
+X$! Qualifiers for the link and cc commands.  Values here should be
+X$! fine.  You may want to modify these to build a debuggable version
+X$! of the executable.
+X$LFLAGS = ""
+X$!LFLAGS = "/debug"
+X$CFLAGS = ""
+X$!CFLAGS = "/nolist/debug/noopt"
+X$
+X$! CC command line defines that are used for (almost) all compilations.
+X$! The redefinition of exit will cause any error exits to returns a VMS 
+X$! error status (SYS-E-ABORT) but one that won't result in a system 
+X$! message (presumably flex printed an error message first). 
+X$CDEFS = "VMS,USG,""exit(s)=_exit((s)?0x1000002A:0)"""
+X$
+X$! CC command define for the default skeleton file.
+X$SKELDEF = """DEFAULT_SKELETON_FILE=""""''DEFAULT_SKEL'"""""""
+X$
+X$OBJ =     "ccl.obj,dfa.obj,ecs.obj,gen.obj,misc.obj,nfa.obj," + -
+X	   "parse.obj,scan.obj,sym.obj,tblcmp.obj,yylex.obj"
+X$
+X$
+X$	on warning then stop
+X$	continue = "FALSE"
+X$	if "''VERSION'" .eqs. "" .and. f$env ("DEPTH") .eq. 1 then -
+X	    write sys$output "***** DCLMAKE for UNIX command line interface ***
+**"
+X$	if "''VERSION'" .nes. "" .and. f$env ("DEPTH") .eq. 1 then -
+X	    write sys$output "***** DCLMAKE for VMS command line interface ****
+*"
+X$	set verify
+X$	if p1 .eqs. "COMPILE" .and. p2 .nes. "" then goto 'p2'
+X$	goto 'p1'
+X$
+X$done :
+X$	v = f$verify (v)
+X$	exit
+X$
+X$build : 
+X$	@'f$env ("procedure")' compile
+X$	@'f$env ("procedure")' test
+X$	goto done
+X$
+X$install_test :
+X$	@'f$env ("procedure")' install
+X$	@'f$env ("procedure")' test_flex
+X$	goto done
+X$
+X$link :
+X$	goto 'VERSION'_link
+X$
+X$test_flex :
+X$	goto 'VERSION'_test_flex
+X$
+X$test :
+X$	goto 'VERSION'_test
+X$
+X$
+X$install :
+X$	copy/log flex.skel 'LIB'flex.skel/prot=(g:r,w:r)
+X$
+X$	copy/log flex'VERSION'.exe 'BIN'flex'VERSION'.exe/prot=(g:re,w:re)
+X$
+X$	if f$search("flex.man") .nes. "" then -
+X	    copy/log flex.man 'MAN'flex.man/prot=(g:r,w:r)
+X$
+X$	if f$search("flexdoc.man") .nes. "" then -
+X	    copy/log flex.man 'MAN'flexdoc.man/prot=(g:r,w:r)
+X$
+X$if "''VERSION'" .eqs. "" then goto done
+X$
+X$	libr/log 'HLP' flex.hlp/replace
+X$
+X$	open/write tempfl 'CLD'flex.cld
+X$	write tempfl "define verb FLEX"
+X$	write tempfl "	image ''BIN'FLEXVMS.EXE"
+X$	copy/log flex.cld_template tempfl/prot=(g:r,w:r)
+X$	close tempfl
+X$	goto done
+X$
+X$! Local cld file is named xflex so that 'CLD' can be defined as the flex
+X$! directory and the flex.cld file will be updated correctly.
+X$xflex.cld : flex.cld_template
+X$	open/write tempfl xflex.cld
+X$	write tempfl "define verb XFLEX"
+X$	write tempfl "	image ''f$env ("default")'FLEXVMS.EXE"
+X$	copy flex.cld_template tempfl
+X$	close tempfl
+X$	goto done
+X$
+X$compile:
+X$	continue = "TRUE"
+X$
+X$ccl : 
+X$	cc 'CFLAGS' /define=('CDEFS') ccl.c
+X$	if .not. continue then goto done
+X$
+X$dfa : 
+X$	cc 'CFLAGS' /define=('CDEFS') dfa.c
+X$	if .not. continue then goto done
+X$
+X$ecs : 
+X$	cc 'CFLAGS' /define=('CDEFS') ecs.c
+X$	if .not. continue then goto done
+X$
+X$gen : 
+X$	cc 'CFLAGS' /define=('CDEFS') gen.c
+X$	if .not. continue then goto done
+X$
+X$main : 
+X$	cc 'CFLAGS' /define=('CDEFS','SKELDEF') main.c
+X$	if .not. continue then goto done
+X$
+X$mainvms : 
+X$	cc 'CFLAGS' /define=('CDEFS','SKELDEF',VMSCMDLN) main.c /obj=mainvms.ob
+j
+X$	if .not. continue then goto done
+X$
+X$misc : 
+X$	cc 'CFLAGS' /define=('CDEFS') misc.c
+X$	if .not. continue then goto done
+X$
+X$nfa : 
+X$	cc 'CFLAGS' /define=('CDEFS') nfa.c
+X$	if .not. continue then goto done
+X$
+X$parse : 
+X$! You may need a "set command dev:[dir]bison here if the bison
+X$! command is not in the system DCL tables.
+X$!	set com gnu_bison:[000000]:bison
+X$	bison/defines/fixed_outfiles parse.y
+X$	copy y_tab.c parse.c
+X$	dele/noconf y_tab.c;*
+X$
+X$	copy y_tab.h parse.h
+X$	dele/noconf y_tab.h;*
+X$
+X$	cc 'CFLAGS' /define=('CDEFS',"void=int",-
+X	  "bcopy(b1,b2,n)=memcpy(b2,b1,n)") parse.c
+X$	if .not. continue then goto done
+X$
+X$scan : 
+X$	copy initscan.c scan.c
+X$	cc 'CFLAGS' /define=('CDEFS') scan.c
+X$	if .not. continue then goto done
+X$
+X$sym : 
+X$	cc 'CFLAGS' /define=('CDEFS') sym.c
+X$	if .not. continue then goto done
+X$
+X$tblcmp : 
+X$	cc 'CFLAGS' /define=('CDEFS') tblcmp.c
+X$	if .not. continue then goto done
+X$
+X$yylex : 
+X$	cc 'CFLAGS' /define=('CDEFS') yylex.c
+X$	if .not. continue then goto done
+X$
+X$cli : 
+X$	cc 'CFLAGS' cli.c
+X$	if .not. continue then goto done
+X$
+X$_link : 
+X$	link 'LFLAGS' /exe=flex.exe main.obj, -
+X		'OBJ', -
+X		'ALLOCA', sys$input/opt
+X	    SYS$SHARE:VAXCRTL.EXE/SHARE
+X$	goto done
+X$
+X$vms_link :
+X$	link 'LFLAGS' /exe=flexvms.exe mainvms.obj, cli.obj, -
+X		'OBJ', -
+X		'ALLOCA', sys$input/opt
+X	    SYS$SHARE:VAXCRTL.EXE/SHARE
+X$	goto done
+X$
+X$clean_all : 
+X$	continue = "TRUE"
+X$clean :
+X$	! Cleanup by deleting unnecessary object files etc.
+X$	if f$search ("scan.c") .nes. "" then dele/log/noconf scan.c;*
+X$	if f$search ("parse.c") .nes. "" then dele/log/noconf parse.c;*
+X$	if f$search ("parse.h") .nes. "" then dele/log/noconf parse.h;*
+X$	if f$search ("lexyy.c") .nes. "" then dele/log/noconf lexyy.c;*
+X$	if f$search ("*.obj") .nes. "" then dele/log/noconf *.obj;*/exclu=(allo
+ca.obj,bcopy.obj)
+X$	if f$search ("y_tab.*") .nes. "" then dele/log/noconf y_tab.*;*
+X$	if .not. continue then goto done
+X$
+X$	if f$search ("flex.exe") .nes. "" then dele/log/noconf flex.exe;*
+X$	if f$search ("flexvms.exe") .nes. "" then dele/log/noconf flexvms.exe;*
+X$	if f$search ("xflex.cld") .nes. "" then dele/log/noconf xflex.cld;*
+X$	if f$search ("vaxcrtl.opt") .nes. "" then dele/log/noconf vaxcrtl.opt;*
+X$	purge/log
+X$	goto done
+X$
+X$! The weird name used for the VMS flex commands below is to prevent the
+X$! DCL command from being shadowed by a DCL symbol named flex.  
+X$
+X$vms_test_flex : 
+X$	set com 'LIB'flex.cld
+X$	flex_$make$ 'VMS_FLEX_FLAGS' scan.l
+X$	diff/max=1/out=NL: initscan.c lexyy.c
+X$	write sys$output "!!!! Test successful !!!!"
+X$	dele/noconf lexyy.c;*
+X$	goto done
+X$
+X$_test_flex : 
+X$	flex := $'BIN'flex
+X$	flex 'UNIX_FLEX_FLAGS' scan.l 
+X$	diff/max=1/out=NL: initscan.c lexyy.c
+X$	write sys$output "!!!! Test successful !!!!"
+X$	dele/noconf lexyy.c;*
+X$	goto done
+X$
+X$vms_test : 
+X$	set com xflex.cld
+X$	xflex 'VMS_FLEX_FLAGS' /SKEL=flex.skel scan.l
+X$	diff/max=1/out=NL: initscan.c lexyy.c
+X$	write sys$output "!!!! Test successful !!!!"
+X$	dele/noconf lexyy.c;*
+X$	goto done
+X$
+X$_test : 
+X$	flex := $sys$disk:[]flex
+X$	flex 'UNIX_FLEX_FLAGS' "-Sflex.skel" scan.l 
+X$	diff/max=1/out=NL: initscan.c lexyy.c
+X$	write sys$output "!!!! Test successful !!!!"
+X$	dele/noconf lexyy.c;*
+X$	goto done
+END_OF_FILE
+if test 9758 -ne `wc -c <'dclmake.com'`; then
+    echo shar: \"'dclmake.com'\" unpacked with wrong size!
+fi
+# end of 'dclmake.com'
+fi
+if test -f 'flex.cld_template' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'flex.cld_template'\"
+else
+echo shar: Extracting \"'flex.cld_template'\" \(969 characters\)
+sed "s/^X//" >'flex.cld_template' <<'END_OF_FILE'
+parameter p1, label=FILENAME, prompt="Filename"
+X	value( required, type=$file )
+qualifier output, nonnegatable, 
+X	default, value( type=$file, default=LEXYY.C )
+qualifier backtrack_report,
+X	value( type=$file, default=LEX.BACKTRACK )
+qualifier skeleton, nonnegatable, 
+X	value( type=$file )
+qualifier tables, nonnegatable,
+X	default, value( list, type=table_types )
+qualifier statistics,
+X	value( list, type=stat_types )
+qualifier debug
+qualifier echo
+qualifier eightbit
+qualifier trace
+qualifier case_sensitive, default
+qualifier line, default
+qualifier interactive
+X
+disallow tables.fast and tables.full
+disallow (tables.full or tables.fast) and tables.meta_equivalence
+disallow (tables.full or tables.fast) and tables.normal
+disallow (tables.full or tables.fast) and interactive
+X
+define type table_types
+X	keyword fast
+X	keyword full
+X	keyword normal
+X	keyword equivalence,default
+X	keyword meta_equivalence,default
+X
+define type stat_types
+X	keyword performance
+X	keyword summary
+END_OF_FILE
+if test 969 -ne `wc -c <'flex.cld_template'`; then
+    echo shar: \"'flex.cld_template'\" unpacked with wrong size!
+fi
+# end of 'flex.cld_template'
+fi
+if test -f 'flex.hlp' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'flex.hlp'\"
+else
+echo shar: Extracting \"'flex.hlp'\" \(23464 characters\)
+sed "s/^X//" >'flex.hlp' <<'END_OF_FILE'
+X1 FLEX
+X     Flex - a fast lexical analyzer generator
+X
+X Syntax:
+X     FLEX [qualifiers] filespec[,...]
+X
+X Flex is a tool for generating scanners: programs which
+X recognize lexical patterns in text.  Flex reads the given
+X input files, or SYS$INPUT if no file names are given, for
+X a description of a scanner to generate.  The description
+X is in the form of pairs of regular expressions and C code,
+X called rules.  Flex generates as output a C source file,
+X lexyy.c, which defines a routine yylex(). This file is
+X compiled and linked with your program, which calls yylex().
+X When the executable is run, it analyzes its input for
+X occurrences of the regular expressions.  Whenever it finds
+X one, it executes the corresponding C code.
+X
+X For full documentation, see flex_manual:flexdoc.man.  (This
+X manual describes command line options in their unix-style
+X form.  See the "Unix" topic for the VMS equivalents.)
+X 
+X This information is based on flex version 2.3.6
+X2 Parameters
+X filespec
+X     The input file contains flex source code from which a
+X     lexer C subroutine is generated.  There is no default
+X     for the filetype, you must enter both the file name and
+X     type (e.g. foo.lex).  Wildcards are not allowed.
+X2 Qualifiers
+X/OUTPUT=filespec
+X    /OUTPUT=filespec
+X    /OUTPUT=LEXYY.C (D)
+X
+X The name of the output file that flex will create and write
+X the lexer code to.  You must specify both the file name and
+X type in "filespec"; there is no default type.  If /OUTPUT
+X is not supplied, the filename lexyy.c is used by default.  
+X/BACKTRACK_REPORT
+X    /BACKTRACK_REPORT
+X    /NOBACKTRACK_REPORT (D)
+X
+X Generate  backtracking  information  to  the  file
+X lex.backtrack.  This is a list of scanner states which
+X require backtracking and the input characters on which
+X they do so.  By adding rules one can remove backtracking
+X states.  If all backtracking states are eliminated and
+X /TABLES=FAST or /TABLES=FULL is used, the generated scanner
+X will run faster.
+X
+X /BACKTRACK_REPORT is equivalent to -b in the unix version.
+X/DEBUG
+X     /DEBUG 
+X     /NODEBUG (D)
+X
+X Makes the generated scanner run in debug mode.  When-
+X ever a pattern is recognized and the global vatiable
+X yy_flex_debug is non-zero (which is the default), the
+X scanner will write to SYS$ERROR a line of the form:
+X
+X        --accepting rule at line 53 ("the matched text")
+X
+X The line number refers to the location of the rule in
+X the file defining the scanner (i.e., the file that was
+X fed to flex).  Messages are also generated when the
+X scanner backtracks, accepts the default rule, reaches
+X the end of its input buffer (or encounters a NUL; the
+X two look the same as far as the scanner's concerned),
+X or reaches an end-of-file.
+X
+X /DEBUG is equivalent to -d in the unix version.
+X/CASE_SENSITIVE
+X     /CASE_SENSITIVE (D)
+X     /NOCASE_SENSITIVE
+X
+X Instructs flex to generate a case-insensitive scanner.
+X The case of letters given in the flex input patterns
+X will be ignored, and tokens in the input will be
+X matched regardless of case.  The matched text given in
+X yytext will have the preserved case (i.e., it will not
+X be folded).
+X
+X /CASE_SENSITIVE is equivalent to -i in the unix version.
+X/STATISTICS=([PERFORMANCE],[SUMMARY])
+X
+X     /STATISTICS=([PERFORMANCE],[SUMMARY])
+X     /NOSTATISTICS (D)
+X
+X If the keyword PERFORMANCE is specified, flex generates
+X a performance report to SYS$ERROR.  The report consists
+X of comments regarding features of the flex input file
+X which will cause a loss of performance in the resulting
+X scanner.
+X
+X The keyword SUMMARY specifies that flex should write to
+X SYS$ERROR a summary of statistics regarding the scanner
+X it generates.
+X
+X You can specify either or both keywords.
+X
+X /STATISTICS=PERFORMANCE is equivalent to -p in the unix
+X version.  /STATISTICS=SUMMARY is equivalent to -v in the
+X unix version.
+X/ECHO
+X     /ECHO (D)
+X     /NOECHO 
+X
+X /NOECHO causes the default rule (that unmatched scanner
+X input is echoed to SYS$OUTPUT) to be suppressed.  If the
+X scanner encounters input that does not match any of its
+X rules, it aborts with an error.
+X
+X /ECHO is equivalent to -s in the unix version.
+X/INTERACTIVE
+X     /INTERACTIVE
+X     /NOINTERACTIVE (D)
+X
+X Instructs flex to generate an interactive scanner, that
+X is, a scanner which stops immediately rather than look-
+X ing ahead if it knows that the currently scanned text
+X cannot be part of a longer rule's match.  Again, see
+X flexdoc(1) for details.
+X /INTERACTIVE cannot be used in conjunction with full or
+X fast tables, i.e., /TABLES=FULL or /TABLES=FAST.
+X
+X /INTERACTIVE is equivalent to -I in the unix version.
+X/LINE
+X     /LINE (D)
+X     /NOLINE
+X
+X Instructs flex not to generate #line directives in
+X output file. The default is to generate such directives
+X so error messages in the actions will be correctly located
+X with respect to the original flex input file, and not
+X to the fairly meaningless line numbers of lex.yy.c.
+X
+X /NOLINE is equivalent to -L in the unix version.
+X/TRACE
+X     /TRACE
+X     /NOTRACE (D)
+X
+X Makes flex run in trace mode.  It will generate a lot
+X of messages concerning the form of the input and the
+X resultant non-deterministic and deterministic finite
+X automata.  This option is mostly for use in maintaining
+X flex.
+X
+X Because of the large amount of output that can be 
+X generated, you may want to redefine SYS$OUTPUT to a
+X file when using this option.
+X
+X /TRACE is equivalent to -t in the unix version.
+X/EIGHTBIT
+X     /EIGHTBIT
+X     /NOEIGHTBIT (D)
+X
+X Instructs flex to generate an 8-bit scanner.  At some
+X sites, this is the default.  On others, the default is
+X 7-bit characters.  To see which is the case, check the
+X /STATISTICS=SUMARY output for "equivalence classes created".
+X If the denominator of the number shown is 128, then by
+X default flex is generating 7-bit characters.  If it is
+X 256, then the default is 8-bit characters.
+X
+X /EIGHTBIT is equivalent to -8 in the unix version.
+X/TABLES=[type,...]
+X    /TABLES
+X    /TABLES=(EQUIVALENCE,FAST,FULL,META_EQUIVALENCE,NORMAL)
+X    /TABLES=(EQUIVALENCE,META_EQUIVALENCE) (D)
+X
+X Controls the degree of table compression.
+X
+X /TABLES=EQUIVALENCE directs flex to construct equivalence
+X classes, i.e., sets of characters which have identical lexical
+X properties.  Equivalence classes usually give dramatic reductions
+X in the final table/object file sizes (typically a factor of 2-5)
+X and are pretty cheap performance-wise (one array look-up per char-
+X acter scanned).
+X
+X /TABLES=FULL specifies that the full scanner tables should be
+X generated - flex should not compress the tables by taking advan-
+X tages of similar transition functions for different states.
+X
+X /TABLES=FAST specifies that the alternate fast scanner represen-
+X tation (described in flexdoc(1)) should be used.
+X
+X /TABLES=META_EQUIVALENCE directs flex to construct meta-
+X equivalence classes, which are sets of equivalence classes (or
+X characters, if equivalence classes are not being used) that are
+X commonly used together.  Meta-equivalence classes are often a big
+X win when using compressed tables, but they have a moderate per-
+X formance impact (one or two "if" tests and one array look-up per
+X character scanned).
+X
+X /TABLES=NORMAL (or just /TABLES) specifies that the scanner
+X tables should be compressed but neither equivalence classes nor
+X meta-equivalence classes should be used.
+X
+X The options FULL or FAST and META_EQUIVALENCE do not make sense
+X together - there is no opportunity for meta-equivalence classes
+X if the table is not being compressed.  Otherwise the options may
+X be freely mixed.  FAST or FULL are also incompatible with
+X /INTERACTIVE.
+X
+X The default setting is /TABLES=(EQUIVALENCE,META_EQUIVALENCE),
+X which specifies that flex should generate equivalence classes
+X and meta-equivalence classes.  This setting provides the highest
+X degree of table compression.  You can trade off faster-executing
+X scanners at the cost of larger tables with the following generally
+X being true:
+X
+X    slowest                 smallest
+X      /TABLES=(EQUIVALENCE,META_EQUIVALENCE) (default)
+X      /TABLES=META_EQUIVALENCE
+X      /TABLES=EQUIVALENCE
+X      /TABLES=NORMAL or /TABLES
+X      /TABLES=(FULL or FAST, EQUIVALENCE)
+X      /TABLES=FULL or FAST
+X    fastest                  largest
+X
+X /TABLES is equivalent to -C in the unix version.  
+X /TABLES=EQUIV is equivalent to -Ce in the unix version.  
+X /TABLES=META is equivalent to -Cm in the unix version.  
+X /TABLES=FULL is equivalent to -Cf or -f in the unix version.  
+X /TABLES=FAST is equivalent to -CF or -F in the unix version.  
+X
+X/SKELETON=filespec
+X     /SKELETON=filespec
+X
+X Overrides the default skeleton file from which flex
+X constructs its scanners.  The default is flex.skel in
+X a site dependent publicly accessible directory.  You'll
+X never need this option unless you are doing flex maint-
+X enance or development.
+X
+X /SKELETON is equivalent to -Sfile in the unix version.  
+X2 Regular_expressions
+X     The patterns in the input are written using an extended set
+X     of regular expressions.  These are:
+X
+X         x          match the character 'x'
+X         .          any character except newline
+X         [xyz]      a "character class"; in this case, the pattern
+X                      matches either an 'x', a 'y', or a 'z'
+X         [abj-oZ]   a "character class" with a range in it; matches
+X                      an 'a', a 'b', any letter from 'j' through 'o',
+X                      or a 'Z'
+X         [^A-Z]     a "negated character class", i.e., any character
+X                      but those in the class.  In this case, any
+X                      character EXCEPT an uppercase letter.
+X         [^A-Z\n]   any character EXCEPT an uppercase letter or
+X                      a newline
+X         r*         zero or more r's, where r is any regular expression
+X         r+         one or more r's
+X         r?         zero or one r's (that is, "an optional r")
+X         r{2,5}     anywhere from two to five r's
+X         r{2,}      two or more r's
+X         r{4}       exactly 4 r's
+X         {name}     the expansion of the "name" definition (see above)
+X         "[xyz]\"foo"
+X                    the literal string: [xyz]"foo
+X         \X         if X is an 'a', 'b', 'f', 'n', 'r', 't', or 'v',
+X                      then the ANSI-C interpretation of \x.
+X                      Otherwise, a literal 'X' (used to escape
+X                      operators such as '*')
+X         \123       the character with octal value 123
+X         \x2a       the character with hexadecimal value 2a
+X         (r)        match an r; parentheses are used to override
+X                      precedence (see below)
+X
+X
+X         rs         the regular expression r followed by the
+X                      regular expression s; called "concatenation"
+X
+X
+X         r|s        either an r or an s
+X
+X
+X         r/s        an r but only if it is followed by an s.  The
+X                      s is not part of the matched text.  This type
+X                      of pattern is called as "trailing context".
+X         ^r         an r, but only at the beginning of a line
+X         r$         an r, but only at the end of a line.  Equivalent
+X                      to "r/\n".
+X
+X
+X         <s>r       an r, but only in start condition s (see
+X                      below for discussion of start conditions)
+X         <s1,s2,s3>r
+X                    same, but in any of start conditions s1,
+X                      s2, or s3
+X
+X
+X         <<EOF>>    an end-of-file
+X         <s1,s2><<EOF>>
+X                    an end-of-file when in start condition s1 or s2
+X
+X     The regular expressions listed above are grouped according
+X     to precedence, from highest precedence at the top to lowest
+X     at the bottom.  Those grouped together have equal precedence.
+X
+X     Some notes on patterns:
+X
+X     -    Negated character classes match newlines unless "\n"
+X          (or an equivalent escape sequence) is one of the char-
+X          acters explicitly present in the negated character
+X          class (e.g., "[^A-Z\n]").
+X
+X     -    A rule can have at most one instance of trailing con-
+X          text (the '/' operator or the '$' operator).  The start
+X          condition, '^', and "<<EOF>>" patterns can only occur
+X          at the beginning of a pattern, and, as well as with '/'
+X          and '$', cannot be grouped inside parentheses.  The
+X          following are all illegal:
+X
+X              foo/bar$
+X              foo|(bar$)
+X              foo|^bar
+X              <sc1>foo<sc2>bar
+X
+X
+X2 Special_actions
+X     In addition to arbitrary C code, the following can appear in
+X     actions:
+X
+X     -    ECHO copies yytext to the scanner's output.
+X
+X     -    BEGIN followed by the name of a start condition places
+X          the scanner in the corresponding start condition.
+X
+X     -    REJECT directs the scanner to proceed on to the "second
+X          best" rule which matched the input (or a prefix of the
+X          input).  yytext and yyleng are set up appropriately.
+X          Note that REJECT is a particularly expensive feature in
+X          terms scanner performance; if it is used in any of the
+X          scanner's actions it will slow down all of the
+X          scanner's matching.  Furthermore, REJECT cannot be used
+X          with the /TABLES=FULL or /TABLES=FAST options.
+X
+X          Note also that unlike the other special actions, REJECT
+X          is a branch; code immediately following it in the
+X          action will not be executed.
+X
+X     -    yymore() tells the scanner that the next time it
+X          matches a rule, the corresponding token should be
+X          appended onto the current value of yytext rather than
+X          replacing it.
+X
+X     -    yyless(n) returns all but the first n characters of the
+X          current token back to the input stream, where they will
+X          be rescanned when the scanner looks for the next match.
+X          yytext and yyleng are adjusted appropriately (e.g.,
+X          yyleng will now be equal to n ).
+X
+X     -    unput(c) puts the character c back onto the input
+X          stream.  It will be the next character scanned.
+X
+X     -    input() reads the next character from the input stream
+X          (this routine is called yyinput() if the scanner is
+X          compiled using C++).
+X
+X     -    yyterminate() can be used in lieu of a return statement
+X          in an action.  It terminates the scanner and returns a
+X          0 to the scanner's caller, indicating "all done".
+X
+X          By default, yyterminate() is also called when an end-
+X          of-file is encountered.  It is a macro and may be rede-
+X          fined.
+X
+X     -    YY_NEW_FILE is an action available only in <<EOF>>
+X          rules.  It means "Okay, I've set up a new input file,
+X          continue scanning".
+X
+X     -    yy_create_buffer( file, size ) takes a FILE pointer and
+X          an integer size. It returns a YY_BUFFER_STATE handle to
+X          a new input buffer large enough to accomodate size
+X          characters and associated with the given file.  When in
+X          doubt, use YY_BUF_SIZE for the size.
+X
+X     -    yy_switch_to_buffer( new_buffer ) switches the
+X          scanner's processing to scan for tokens from the given
+X          buffer, which must be a YY_BUFFER_STATE.
+X
+X     -    yy_delete_buffer( buffer ) deletes the given buffer.
+X
+X2 Variables
+X     -    char *yytext holds the text of the current token.  It
+X          may not be modified.
+X
+X     -    int yyleng holds the length of the current token.  It
+X          may not be modified.
+X
+X     -    FILE *yyin is the file which by default flex reads
+X          from.  It may be redefined but doing so only makes
+X          sense before scanning begins.  Changing it in the mid-
+X          dle of scanning will have unexpected results since flex
+X          buffers its input.  Once scanning terminates because an
+X          end-of-file has been seen, void yyrestart( FILE
+X          *new_file ) may be called to point yyin at the new
+X          input file.
+X
+X     -    FILE *yyout is the file to which ECHO actions are done.
+X          It can be reassigned by the user.
+X
+X     -    YY_CURRENT_BUFFER returns a YY_BUFFER_STATE handle to
+X          the current buffer.
+X
+X2 Macros
+X     -    YY_DECL controls how the scanning routine is declared.
+X          By default, it is "int yylex()", or, if prototypes are
+X          being used, "int yylex(void)".  This definition may be
+X          changed by redefining the "YY_DECL" macro.  Note that
+X          if you give arguments to the scanning routine using a
+X          K&R-style/non-prototyped function declaration, you must
+X          terminate the definition with a semi-colon (;).
+X
+X     -    The nature of how the scanner gets its input can be
+X          controlled by redefining the YY_INPUT macro.
+X          YY_INPUT's calling sequence is
+X          "YY_INPUT(buf,result,max_size)".  Its action is to
+X          place up to max_size characters in the character array
+X          buf and return in the integer variable result either
+X          the number of characters read or the constant YY_NULL
+X          (0 on Unix systems) to indicate EOF.  The default
+X          YY_INPUT reads from the global file-pointer "yyin".  A
+X          sample redefinition of YY_INPUT (in the definitions
+X          section of the input file):
+X
+X              %{
+X              #undef YY_INPUT
+X              #define YY_INPUT(buf,result,max_size) \
+X                  { \
+X                  int c = getchar(); \
+X                  result = (c == EOF) ? YY_NULL : (buf[0] = c, 1); \
+X                  }
+X              %}
+X
+X
+X     -    When the scanner receives an end-of-file indication
+X          from YY_INPUT, it then checks the yywrap() function.
+X          If yywrap() returns false (zero), then it is assumed
+X          that the function has gone ahead and set up yyin to
+X          point to another input file, and scanning continues.
+X          If it returns true (non-zero), then the scanner ter-
+X          minates, returning 0 to its caller.
+X
+X          The default yywrap() always returns 1.  Presently, to
+X          redefine it you must first "#undef yywrap", as it is
+X          currently implemented as a macro.  It is likely that
+X          yywrap() will soon be defined to be a function rather
+X          than a macro.
+X
+X     -    YY_USER_ACTION can be redefined to provide an action
+X          which is always executed prior to the matched rule's
+X          action.
+X
+X     -    The macro YY_USER_INIT may be redefined to provide an
+X          action which is always executed before the first scan.
+X
+X     -    In the generated scanner, the actions are all gathered
+X          in one large switch statement and separated using
+X          YY_BREAK, which may be redefined.  By default, it is
+X          simply a "break", to separate each rule's action from
+X          the following rule's.
+X
+X2 Diagnostics
+X     reject_used_but_not_detected undefined or
+X
+X     yymore_used_but_not_detected undefined - These errors can
+X     occur at compile time.  They indicate that the scanner uses
+X     REJECT or yymore() but that flex failed to notice the fact,
+X     meaning that flex scanned the first two sections looking for
+X     occurrences of these actions and failed to find any, but
+X     somehow you snuck some in (via a #include file, for exam-
+X     ple).  Make an explicit reference to the action in your flex
+X     input file.  (Note that previously flex supported a
+X     %used/%unused mechanism for dealing with this problem; this
+X     feature is still supported but now deprecated, and will go
+X     away soon unless the author hears from people who can argue
+X     compellingly that they need it.)
+X
+X     flex scanner jammed - a scanner compiled with /NOECHO has
+X     encountered an input string which wasn't matched by any of
+X     its rules.
+X
+X     flex input buffer overflowed - a scanner rule matched a
+X     string long enough to overflow the scanner's internal input
+X     buffer (16K bytes - controlled by YY_BUF_MAX in
+X     "flex.skel").
+X
+X     scanner requires -8 flag - Your scanner specification
+X     includes recognizing 8-bit characters and you did not
+X     specify the /EIGHTBIT qualifier (and your site has not
+X     installed flex with /EIGHTBIT as the default).
+X
+X     fatal flex scanner internal error--end of buffer missed -
+X     This can occur in an scanner which is reentered after a
+X     long-jump has jumped out (or over) the scanner's activation
+X     frame.  Before reentering the scanner, use:
+X
+X         yyrestart( yyin );
+X
+X
+X     too many %t classes! - You managed to put every single char-
+X     acter into its own %t class.  flex requires that at least
+X     one of the classes share characters.
+X
+X2 Author
+X     Vern Paxson, with the help of many ideas and much inspira-
+X     tion from Van Jacobson.  Original version by Jef Poskanzer.
+X
+X     See flexdoc.man for additional credits and the address to
+X     send comments to.
+X
+X2 Problems
+X     Some trailing context patterns cannot be properly matched
+X     and generate warning messages ("Dangerous trailing con-
+X     text").  These are patterns where the ending of the first
+X     part of the rule matches the beginning of the second part,
+X     such as "zx*/xy*", where the 'x*' matches the 'x' at the
+X     beginning of the trailing context.  (Note that the POSIX
+X     draft states that the text matched by such patterns is unde-
+X     fined.)
+X
+X     For some trailing context rules, parts which are actually
+X     fixed-length are not recognized as such, leading to the
+X     abovementioned performance loss.  In particular, parts using
+X     '|' or {n} (such as "foo{3}") are always considered
+X     variable-length.
+X
+X     Combining trailing context with the special '|' action can
+X     result in fixed trailing context being turned into the more
+X     expensive variable trailing context.  For example, this hap-
+X     pens in the following example:
+X
+X         %%
+X         abc      |
+X         xyz/def
+X
+X
+X     Use of unput() invalidates yytext and yyleng.
+X
+X     Use of unput() to push back more text than was matched can
+X     result in the pushed-back text matching a beginning-of-line
+X     ('^') rule even though it didn't come at the beginning of
+X     the line (though this is rare!).
+X
+X     Pattern-matching of NUL's is substantially slower than
+X     matching other characters.
+X
+X     flex does not generate correct #line directives for code
+X     internal to the scanner; thus, bugs in flex.skel yield bogus
+X     line numbers.
+X
+X     Due to both buffering of input and read-ahead, you cannot
+X     intermix calls to <stdio.h> routines, such as, for example,
+X     getchar(), with flex rules and expect it to work.  Call
+X     input() instead.
+X
+X     The total table entries listed by the /STATISTICS=SUMMARY
+X     flag excludes the number of table entries needed to determine
+X     what rule has been matched.  The number of entries is equal
+X     to the number of DFA states if the scanner does not use REJECT,
+X     and somewhat greater than the number of states if it does.
+X
+X     REJECT cannot be used with the /TABLES=FAST or /TABLES=FULL
+X     options.
+X
+X     Some of the macros, such as yywrap(), may in the future
+X     become functions which live in the flex library.  This will
+X     doubtless break a lot of code, but may be required for
+X     POSIX-compliance.
+X
+X     The flex internal algorithms need documentation.
+X2 Unix
+X The unix command line options and their VMS equivalents are:
+X
+X	-b	 /BACKTRACK_REPORT
+X	-C[efFm] /TABLES=[([EQUIV],[FULL],[FAST],[META])]
+X	-f	 /TABLES=FULL
+X	-F	 /TABLES=FAST
+X	-i	 /NOCASE_SENSITIVE
+X	-I	 /INTERACTIVE
+X	-L	 /NOLINE
+X	-p	 /STATISTICS=PERFORMANCE
+X	-s	 /NOECHO
+X	-Sfile	 /SKELETON=file
+X	-t	 /OUTPUT=SYS$OUTPUT
+X	-T	 /TRACE
+X	-v	 /STATISTICS=SUMMARY
+X	-8	 /EIGHTBIT
+X
+END_OF_FILE
+if test 23464 -ne `wc -c <'flex.hlp'`; then
+    echo shar: \"'flex.hlp'\" unpacked with wrong size!
+fi
+# end of 'flex.hlp'
+fi
+if test -f 'install.vms' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'install.vms'\"
+else
+echo shar: Extracting \"'install.vms'\" \(8010 characters\)
+sed "s/^X//" >'install.vms' <<'END_OF_FILE'
+X
+X----------------------
+Installing flex on VMS   (flex version 2.3.6)
+X----------------------
+X
+X1.  Get the flex distribution and unpack it into a directory.  
+X
+X2.  The [.vms] subdirectory contains all the files for VMS.  Copy (or 
+X    rename) them to the main flex directory [-].  (Actually, if you
+X    want the unix command line interface (see below), you don't need
+X    any of these files other than makefile.vms or dclmake.com.  The
+X    rest are documentation or for the VMS command line interface.)
+X
+X3.  To build flex you need bison (the GNU project's yacc replacement)
+X    to generate parse.y and parse.h.  If you don't have bison you may be
+X    able to get these two files from someone else.  Rename them to
+X    initparse.y and initparse.h since the makefile clean procedure will
+X    delete them if you leave the names unchanged.  Otherwise, you'll just
+X    have to get bison.  (But if you need flex, you probably need bison
+X    as well!)
+X
+X4.  To build flex you need access to an alloca() routine.  There are
+X    several available ones.  If you have the bison sources easily acces-
+X    sible you may want to use the assembler alloca in vmshlp.c.  Please
+X    note that this is a somewhat dangerous thing to do since the routine
+X    diddles with the runtime stack and may break if the C compiler or C
+X    source code changes.  If this happens try compiling without optimization
+X    the routines that call alloca().  Slower but safer is the public-
+X    domain "semi-portable" version (which works fine on VMS) written by
+X    Doug Gwyn and distributed with GNU emacs (also available in the usenet
+X    comp.sources archives and many other public-domain source code repos-
+X    itories).  In any event you need to have an object module on your
+X    system somewhere that contains a working alloca() routine. 
+X
+X5.  Flex documentation is in two files, flex.1 and flexdoc.1.  These are
+X    unformatted nroff source for the unix man pages.  flex.1 describes
+X    the flex command and a condensed version of the material in flexdoc.1.
+X    flexdoc.1 contains a fuller description of flex input files and
+X    flex use.  The VMS help file was derived from flex.1.  
+X    If you have access to a unix system, you can format these two files
+X    with the commands:
+X
+X		% nroff -man <flex.1 | col -b >flex.man
+X		% nroff -man <flexdoc.1 | col -b >flexdoc.man 
+X
+X    Otherwise, you'll have to get them via ftp or some other way, or
+X    rely on the information in flex.hlp.
+X
+X6.  You can build flex with either of two interfaces.  One (the default)
+X    is a VMS-style interface and is run like other native VMS commands:
+X
+X    	$ flex/tables=equiv/stat=(perf,sum) foo.lex
+X
+X    It includes a VMS help file entry.  The other is a unix-like interface.
+X    Flex is defined as a foreign command and is run with a unix-style
+X    command:
+X
+X	$ flex -vpCe foo.lex
+X
+X    Decide which interface you want.  If you change your mind later, just
+X    recompile main.c and relink.
+X
+X7.  If you have DEC's MMS or one of the MAKE programs that aren't too
+X    different from it, you can use makefile.vms to build flex.  You may
+X    have to make some minor syntactical adjustments for your variant of
+X    MAKE.  If you don't have a make program, you can use dclmake.com to
+X    build flex.  It does the same things that the makefile does but you'll
+X    have to tell it what you want.  The term makefile is used to refer to
+X    either makefile.vms or dclmake.com from here on.
+X
+X    There are two steps involved: build a local copy of flex and test it,
+X    and then, if you want to make it available for public use, the makefile
+X    will install it by copying the needed files to a public directory.
+X
+X8.  Read whichever makefile you're going to use (makefile.vms or dclmake.com),
+X    read it and make any changes you need to.  As distributed, they make
+X    the following assumptions: 
+X
+X    The makefile is configured to build flex with a VMS-style command
+X    line interface by default.  You can change this to the unix-style
+X    interface.
+X
+X    That you have copied into the flex directory an alloc.obj object
+X    module that contains a working alloca() routine.  If you want to
+X    refer to an alloca module that lives elsewhere you can specify the
+X    location in the makefile.
+X
+X    That the bison command is available in the system DCL tables.  If 
+X    not, you'll have to put a "set command dev:[dir]bison" command in
+X    the makefile just before the bison command.
+X
+X    If you'll be installing flex for public use, the makefile assumes
+X    that the executable will go in directory pointed to by the logical
+X    name "flex_exe", the flex skeleton template into the logical directory
+X    "flex_library", and the flex documentation files into "flex_manual".
+X    (The latter will only occur if you have the formatted documentation 
+X    files flex.man and flexdoc.man in the flex directory.)
+X    In addition, if you're building the VMS-style interface, the make-
+X    file will put the flex help module into the system help library,
+X    and the flex command definition file into the "flex_library".
+X    You'll have to define these lolgical names before doing an install
+X    or running the installed version, or change the definitions in the
+X    makefile.
+X
+X9.  Compile, link and test the executable. If you're using MAKE or MMS,
+X    rename makefile.vms to whatever your make program looks for and
+X    do:
+X		$ MAKE TEST 
+X
+X    (use MMS for MAKE if that's what you have).  If you are using
+X    dclmake.com, do:
+X
+X		$ @DCLMAKE  BUILD
+X
+X    Both procedures will compile all the sources, link them, then test
+X    them by using flex to generate what should by an exact copy of the
+X    flex lexer routine.  They will then run DIFFERENCES to confirm that
+X    the generated lexer source is identical to the distributed one and
+X    and print a "Test successful" message.
+X
+X10. You can now run your new flex.  For the VMS version, do:
+X
+X		SET COMMAND disk:[dir]XFLEX.CLD
+X
+X    (note the X) where 'disk' and 'dir' is the full specification for the
+X    flex directory if you are not in that directory.  For the unix inter-
+X    face version define a foreign command with:
+X
+X		FLEX :== $disk:[dir]FLEX.EXE
+X
+X    'disk' and 'dir' are required in this case whatever your current direc-
+X    tory.  Since flex was built with a default skeleton file name that points
+X    to a possibly non-existant file (since it hasn't been installed yet), you
+X    should explicitly specify a skeleton file with /SKELETON or -S options
+X    each time you run this local version of flex.  Alternatively, if flex was
+X    built with LIB=flex_library (the default), you can define the logical name
+X    flex_library to point to the flex directory.
+X
+X11. When your satisfied it's working you're ready to install it.  Make
+X    sure the logical names "flex_exe", flex_library", and "flex_manual"
+X    are defined correctly.  Then do either:
+X
+X		MAKE ALL
+X    or
+X
+X		@DCLMAKE INSTALL_TEST
+X
+X    The makefile will copy flex.exe to flex_exe:, flex.skel to flex_lib:,
+X    flex.man and flexdoc.man to flex_manual: (if those two files are present),
+X    and if you've selected the VMS version, flex.cld to flex_library: and
+X    flex.hlp into the system help library, sys$common:[syshlp]helplib.hlb.
+X    It will then run the same test that was done before but on the newly
+X    installed flex.
+X
+X12. Finally, you want to make sure the flex logical names are available
+X    to whoever is going to be using flex.  You can do this by having the
+X    system startup procedure define them system wide at boot time, defining
+X    them in sylogin.com, or making a command procedure available to define
+X    them when needed.  For the unix-interface version you also want to
+X    assign the flex foreign command symbol.  For the VMS-interface version,
+X    you can install the flex command definition in the system DCL tables,
+X    or do a "SET COMMAND FLEX_LIBRARY:FLEX.CLD" in sylogin.com or tell
+X    users to do it in their login.com files.
+X
+X-------------------------------------------------
+X11/17/90 - Stuart McGraw, GTE Labs (sjm0@gte.com)
+END_OF_FILE
+if test 8010 -ne `wc -c <'install.vms'`; then
+    echo shar: \"'install.vms'\" unpacked with wrong size!
+fi
+# end of 'install.vms'
+fi
+if test -f 'main.dif' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'main.dif'\"
+else
+echo shar: Extracting \"'main.dif'\" \(3045 characters\)
+sed "s/^X//" >'main.dif' <<'END_OF_FILE'
+X*** flex/main.c	Fri Oct 12 10:56:35 1990
+X--- main.c	Fri Nov 23 13:39:07 1990
+X***************
+X*** 104,109 ****
+X--- 104,110 ----
+X  static int outfile_created = 0;
+X  static int use_stdout;
+X  static char *skelname = NULL;
+X+ static int initialized = 0;
+X  
+X  
+X  int main( argc, argv )
+X***************
+X*** 243,249 ****
+X  	    flexfatal( "error occurred when closing backtracking file" );
+X  	}
+X  
+X!     if ( printstats )
+X  	{
+X  	endtime = flex_gettime();
+X  
+X--- 244,250 ----
+X  	    flexfatal( "error occurred when closing backtracking file" );
+X  	}
+X  
+X!     if ( printstats && initialized )
+X  	{
+X  	endtime = flex_gettime();
+X  
+X***************
+X*** 372,382 ****
+X  	fprintf( stderr, "  %d total table entries needed\n", tblsiz );
+X  	}
+X  
+X- #ifndef VMS
+X      exit( status );
+X- #else
+X-     exit( status + 1 );
+X- #endif
+X      }
+X  
+X  
+X--- 373,379 ----
+X***************
+X*** 395,400 ****
+X--- 392,402 ----
+X      {
+X      int i, sawcmpflag;
+X      char *arg, *flex_gettime(), *mktemp();
+X+ #ifndef SHORT_FILE_NAMES
+X+     char *backtrack_fn = "lex.backtrack";
+X+ #else
+X+     char *backtrack_fn = "lex.bck";
+X+ #endif
+X  
+X      printstats = syntaxerror = trace = spprdflt = interactive = caseins = fa
+lse;
+X      backtrack_report = performance_report = ddebug = fulltbl = fullspd = fal
+se;
+X***************
+X*** 407,414 ****
+X--- 409,428 ----
+X  
+X      csize = DEFAULT_CSIZE;
+X  
+X+ #ifndef VMSCMDLN
+X+ 
+X      program_name = argv[0];
+X  
+X+ /* If GCC doesn't use the VAXCRTL cmdline parsing this should be #ifdef VAXC
+ */
+X+ #ifdef VMS
+X+     {		/* Fixup the grotesque argv[0] */
+X+     char *p;
+X+     if (NULL != (p = strrchr (argv[0], '.'))) *p = '\0';
+X+     if (NULL != (p = strrchr (argv[0], ']'))) program_name = p + 1;
+X+     }
+X+ #endif
+X+     
+X+ 
+X      /* read flags */
+X      for ( --argc, ++argv; argc ; --argc, ++argv )
+X  	{
+X***************
+X*** 540,545 ****
+X--- 554,568 ----
+X  	;
+X  	}
+X  
+X+     num_input_files = argc;
+X+     input_files = argv;
+X+ 
+X+ #else /* VMSCMDLN */
+X+ 
+X+ #include "vmscmdln.c"
+X+ 
+X+ #endif /* VMSCMDLN */
+X+ 
+X      if ( (fulltbl || fullspd) && usemecs )
+X  	flexerror( "full table and -Cm don't make sense together" );
+X  
+X***************
+X*** 567,586 ****
+X  	outfile_created = 1;
+X  	}
+X  
+X-     num_input_files = argc;
+X-     input_files = argv;
+X      set_input_file( num_input_files > 0 ? input_files[0] : NULL );
+X  
+X      if ( backtrack_report )
+X  	{
+X! #ifndef SHORT_FILE_NAMES
+X! 	backtrack_file = fopen( "lex.backtrack", "w" );
+X! #else
+X! 	backtrack_file = fopen( "lex.bck", "w" );
+X! #endif
+X  
+X  	if ( backtrack_file == NULL )
+X! 	    flexerror( "could not create lex.backtrack" );
+X  	}
+X  
+X      else
+X--- 590,603 ----
+X  	outfile_created = 1;
+X  	}
+X  
+X      set_input_file( num_input_files > 0 ? input_files[0] : NULL );
+X  
+X      if ( backtrack_report )
+X  	{
+X! 	backtrack_file = fopen( backtrack_fn, "w" );
+X  
+X  	if ( backtrack_file == NULL )
+X! 	    lerrsf( "could not create backtrack file %s", backtrack_fn );
+X  	}
+X  
+X      else
+X***************
+X*** 657,662 ****
+X--- 674,681 ----
+X  	}
+X  
+X      set_up_initial_allocations();
+X+ 
+X+     initialized = TRUE;
+X      }
+X  
+X  
+END_OF_FILE
+if test 3045 -ne `wc -c <'main.dif'`; then
+    echo shar: \"'main.dif'\" unpacked with wrong size!
+fi
+# end of 'main.dif'
+fi
+if test -f 'makefile.vms' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'makefile.vms'\"
+else
+echo shar: Extracting \"'makefile.vms'\" \(9933 characters\)
+sed "s/^X//" >'makefile.vms' <<'END_OF_FILE'
+X############################ VMS MAKEFILE ##############################
+X# IMPORTANT:  Before you use this makefile, read INSTALL.VMS and the
+X# comments below.  You will need an alloca object module and GNU bison.
+X# Define the logical names flex_exe, flex_library, and flex_manual.
+X#
+X# For flex version 2.3.6 (11/17/90)
+X#
+X# If you do not have DEC's MMS or a MAKE program compatible with it you
+X# may have to make some syntactical adjustments to suit your particular
+X# MAKE program.  After you have made any changes required for your site,
+X# rename this file to MAKEFILE. (or DESCRIP.MMS if using MMS) and you can
+X# use any of these MAKE (or MMS) commands:
+X#
+X#   $ make 			-- same as "mms flex" 
+X#   $ make flex			-- compile and link the local flex.exe 
+X#   $ make test			-- mms flex; then test the local flex.e
+xe
+X#   $ make clean		-- delete all unneeded files
+X#   $ make clean_all		-- mms clean; delete flex.exe and purge
+X#
+X# To install the flex files in a public location do the following.
+X# You need write access to the directories defined below by BIN, LIB, MAN,
+X# and, if you're installing the VMS comand line version, CLD and the help
+X# library defined by HLP.  Then you can:
+X#
+X#   $ make all			-- same as "mms install", "mms test_flex"
+X#   $ make install		-- "mms flex" then move files to public dirs.
+X#   $ make test_flex		-- test the installed public version
+X#
+X# When "mms test" or "mms test_flex" is executed you shoud see the message
+X# "Test successful".  A make abort after the diff command is a failure.
+X# To get some idea of what went wrong, do a diff between lexyy.c (the file
+X# just generated by flex) and initscan.c (what it should have generated).
+X#
+X#
+X#
+X# The flex parser generated by bison requires an alloca routine which
+X# you must supply.  Change the line below if your alloca.obj is some-
+X# where other than the current directory.
+ALLOCA = alloca.obj
+X#ALLOCA = gnu_bison:[000000]vmshlp.obj
+X
+X# Use one of the following two defines.  The first will build flex with
+X# a VMS-style command line interface, the second builds flex with a unix-
+X# style command line interface.
+X#
+X# For a VMS-style interface...
+VERSION = vms
+X# For a unix-style interface...
+X#VERSION =
+X
+X
+X# BIN, LIB, MAN, CLD, HLP are set to reflect the locations where you
+X# would like to store the executables, library (flex.skel), the manual
+X# pages, the command definition file, and the help library module. 
+X# You can leave these unchanged if you define the VMS logical names:
+X#
+X#	flex_exe      -- disk/dir of the executable image	
+X#	flex_manual   -- disk/dir of the *.man files 
+X#	flex_library  -- disk/dir of flex.skel and the .cld file
+X#
+X# These logical names ***MUST*** be defined before installing or
+X# running flex.  They don't have to be defined to build flex.  You
+X# may want to define these, either system wide in the system startup
+X# procedure, or in your login.com file.  Alternatively, you can change
+X# the definitions of BIN, LIB, CLD, MAN and HLP in here to refer to pre-
+X# defined locations.  
+X#
+X# ...the installed location of the flex executable...
+BIN = flex_exe:
+X
+X# ...the installed location of the flex skeleton file...
+LIB = flex_library:
+X
+X# ...the installed location of the flex vms command definition file
+X# (only matters when installing the VMS command line version)...
+CLD = flex_library:
+X
+X# ...the installed location of the flex man pages.
+MAN = flex_manual:
+X
+X# ...the help library to put the bison help module into. 
+X# (only matters when installing the VMS command line version)...
+HLP = sys$common:[syshlp]helplib.hlb
+X
+X# The default skeleton file that flex will use.
+DEFAULT_SKEL = $(LIB)flex.skel
+X
+X# Flags that initscan.c was created with.  The tests will use the same
+X# ones so that they should produce an output identical to initscan.c.
+VMS_FLEX_FLAGS  = /NOCASE/NOECHO/EIGHT
+UNIX_FLEX_FLAGS = -is8
+X
+X# Qualifiers for the link and cc commands.  Values here should be
+X# fine.  You may want to modify these to build a debuggable version
+X# of the executable.
+LFLAGS = 
+X#LFLAGS = /debug
+CFLAGS = 
+X#CFLAGS = /nolist/debug/noopt
+X
+X# CC command line defines that are used for (almost) all compilations.
+X# The redefinition of exit will cause any error exits to returns a VMS 
+X# error status (SYS-E-ABORT) but one that won't result in a system 
+X# message (presumably flex printed an error message first). 
+CDEFS = VMS,USG,"exit(s)=_exit((s)?0x1000002A:0)"
+X
+X# CC command define for the default skeleton file.
+SKELDEF = "DEFAULT_SKELETON_FILE=""$(DEFAULT_SKEL)"""
+X
+XFLEXOBJS = ccl.obj dfa.obj ecs.obj gen.obj misc.obj nfa.obj \
+X	   parse.obj scan.obj sym.obj tblcmp.obj yylex.obj 
+X
+OBJ =      ccl.obj,dfa.obj,ecs.obj,gen.obj,misc.obj,nfa.obj, \
+X	   parse.obj,scan.obj,sym.obj,tblcmp.obj,yylex.obj
+X
+X
+flex : flex$(VERSION).exe 
+X	@ ! Flex.exe built
+X
+test : flex $(VERSION)_test
+X	@ ! Flex.exe built and tested
+X
+all : $(VERSION)_install $(VERSION)_test_flex
+X	@ ! Flex installed and tested
+X
+install : $(VERSION)_install
+X	@ ! Flex installed
+X
+X_install : bin lib man
+X	@ ! Flex installed
+X
+vms_install : bin lib cld man hlp
+X	@ ! Flex installed
+X
+lib : $(LIB)flex.skel
+X	@ ! Installed $(LIB)flex.skel
+X
+bin : $(BIN)flex$(VERSION).exe
+X	@ ! Installed @(BIN)flex.exe
+X
+man : $(MAN)flex.man $(MAN)flexdoc.man
+X	@ ! installed $(MAN)flex.man
+X
+cld : $(CLD)flex.cld
+X	@ ! Installed @(CLD)flex.cld
+X
+hlp : $(HLP)(flex)
+X	@ ! Installed $(HLP)(flex)
+X
+X$(LIB)flex.skel : flex.skel
+X	copy/log flex.skel $(LIB)flex.skel/prot=(g:r,w:r)
+X
+X$(BIN)flex$(VERSION).exe : flex$(VERSION).exe
+X	copy/log flex$(VERSION).exe $(BIN)flex$(VERSION).exe/prot=(g:re,w:re)
+X
+X$(MAN)flex.man : flex.man
+X	if f$search("flex.man") .nes. "" then -
+X	    copy/log flex.man $(MAN)flex.man/prot=(g:r,w:r)
+X
+X$(MAN)flexdoc.man : flexdoc.man
+X	if f$search("flexdoc.man") .nes. "" then -
+X	    copy/log flex.man $(MAN)flexdoc.man/prot=(g:r,w:r)
+X
+X$(HLP)(flex) : flex.hlp
+X	libr/log $(HLP) flex.hlp/replace
+X
+X$(CLD)flex.cld : flex.cld_template 
+X	open/write tempfl $(CLD)flex.cld
+X	write tempfl "define verb FLEX"
+X	write tempfl "	image $(BIN)FLEXVMS.EXE"
+X	copy/log flex.cld_template tempfl/prot=(g:r,w:r)
+X	close tempfl
+X
+X# Local cld file is named xflex so that $(CLD) can be defined as the flex
+X# directory and the flex.cld file will be updated correctly.
+xflex.cld : flex.cld_template
+X	open/write tempfl xflex.cld
+X	write tempfl "define verb XFLEX"
+X	write tempfl "	image ''f$env ("default")'FLEXVMS.EXE"
+X	copy flex.cld_template tempfl
+X	close tempfl
+X
+ccl.obj : ccl.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) ccl.c
+X
+dfa.obj : dfa.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) dfa.c
+X
+ecs.obj : ecs.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) ecs.c
+X
+gen.obj : gen.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) gen.c
+X
+main.obj : main.c flexdef.h 
+X	cc $(CFLAGS) /define=($(CDEFS),$(SKELDEF)) main.c
+X
+mainvms.obj : main.c flexdef.h vmscmdln.c
+X	cc $(CFLAGS) /define=($(CDEFS),$(SKELDEF),VMSCMDLN) main.c /obj=mainvms
+.obj
+X
+misc.obj : misc.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) misc.c
+X
+nfa.obj : nfa.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) nfa.c
+X
+parse.c : parse.y
+X# You may need a "set command dev:[dir]bison here if the bison
+X# command is not in the system DCL tables.
+X#	set com gnu_bison:[000000]:bison
+X	bison/defines/fixed_outfiles parse.y
+X	copy y_tab.c parse.c
+X	dele/noconf y_tab.c;*
+X
+parse.h : parse.c
+X	copy y_tab.h parse.h
+X	dele/noconf y_tab.h;*
+X
+parse.obj : parse.c flexdef.h parse.h
+X	cc $(CFLAGS) /define=($(CDEFS),"void=int", -
+X	  "bcopy(b1,b2,n)=memcpy(b2,b1,n)") parse.c
+X
+scan.c : initscan.c
+X	copy initscan.c scan.c
+X
+scan.obj : scan.c parse.h flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) scan.c
+X
+sym.obj : sym.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) sym.c
+X
+tblcmp.obj : tblcmp.c flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) tblcmp.c
+X
+yylex.obj : yylex.c parse.h flexdef.h
+X	cc $(CFLAGS) /define=($(CDEFS)) yylex.c
+X
+cli.obj : cli.c
+X	cc $(CFLAGS) cli.c
+X
+flex.exe :  main.obj $(FLEXOBJS) $(ALLOCA) vaxcrtl.opt
+X	link $(LFLAGS) /exe=flex.exe main.obj, -
+X		$(OBJ), -
+X		$(ALLOCA), sys$disk:[]vaxcrtl.opt/opt
+X
+flexvms.exe : mainvms.obj cli.obj $(FLEXOBJS) $(ALLOCA) vaxcrtl.opt
+X	link $(LFLAGS) /exe=flexvms.exe mainvms.obj, cli.obj, -
+X		$(OBJ), -
+X		$(ALLOCA), sys$disk:[]vaxcrtl.opt/opt
+X
+vaxcrtl.opt :
+X	open/write tempfl vaxcrtl.opt
+X	write tempfl "SYS$SHARE:VAXCRTL.EXE/SHARE"
+X	close tempfl
+X
+clean :
+X	@ ! Cleanup by deleting unnecessary object files etc.
+X	@ if f$search ("scan.c") .nes. "" then dele/log/noconf scan.c;*
+X	@ if f$search ("parse.c") .nes. "" then dele/log/noconf parse.c;*
+X	@ if f$search ("parse.h") .nes. "" then dele/log/noconf parse.h;*
+X	@ if f$search ("lexyy.c") .nes. "" then dele/log/noconf lexyy.c;*
+X	@ if f$search ("*.obj") .nes. "" then dele/log/noconf *.obj;*/exclu=(al
+loca.obj,bcopy.obj)
+X	@ if f$search ("y_tab.*") .nes. "" then dele/log/noconf y_tab.*;*
+X
+clean_all : clean
+X	@ if f$search ("flex.exe") .nes. "" then dele/log/noconf flex.exe;*
+X	@ if f$search ("flexvms.exe") .nes. "" then dele/log/noconf flexvms.exe
+;*
+X	@ if f$search ("xflex.cld") .nes. "" then dele/log/noconf xflex.cld;*
+X	@ if f$search ("vaxcrtl.opt") .nes. "" then dele/log/noconf vaxcrtl.opt
+;*
+X	@ purge/log
+X
+X# The weird name used for the VMS flex commands below is to prevent the
+X# DCL command from being shadowed by a DCL symbol named flex.  
+X
+vms_test_flex : 
+X	set com $(LIB)flex.cld
+X	flex_$make$ $(VMS_FLEX_FLAGS) scan.l
+X	diff/max=1/out=NL: initscan.c lexyy.c
+X	@ write sys$output "!!!! Test successful !!!!"
+X	- dele/noconf lexyy.c;*
+X
+X_test_flex : 
+X	flex := $$(BIN)flex
+X	flex $(UNIX_FLEX_FLAGS) scan.l 
+X	diff/max=1/out=NL: initscan.c lexyy.c
+X	@ write sys$output "!!!! Test successful !!!!"
+X	- dele/noconf lexyy.c;*
+X
+vms_test : xflex.cld
+X	set com xflex.cld
+X	xflex $(VMS_FLEX_FLAGS) /SKEL=flex.skel scan.l
+X	diff/max=1/out=NL: initscan.c lexyy.c
+X	@ write sys$output "!!!! Test successful !!!!"
+X	- dele/noconf lexyy.c;*
+X
+X_test : 
+X	flex := $sys$disk:[]flex
+X	flex $(UNIX_FLEX_FLAGS) "-Sflex.skel" scan.l 
+X	diff/max=1/out=NL: initscan.c lexyy.c
+X	@ write sys$output "!!!! Test successful !!!!"
+X	- dele/noconf lexyy.c;*
+END_OF_FILE
+if test 9933 -ne `wc -c <'makefile.vms'`; then
+    echo shar: \"'makefile.vms'\" unpacked with wrong size!
+fi
+# end of 'makefile.vms'
+fi
+if test -f 'vmscmdln.c' -a "${1}" != "-c" ; then 
+  echo shar: Will not clobber existing file \"'vmscmdln.c'\"
+else
+echo shar: Extracting \"'vmscmdln.c'\" \(3259 characters\)
+sed "s/^X//" >'vmscmdln.c' <<'END_OF_FILE'
+X/*
+X *	This code is included by main.c when the macro VMSCMDLN is 
+X *	defined to request a VMS-style command line interface.
+X */
+X{
+X    int n;
+X    char *p, *s, c;
+X    static char outfnbuf[256];
+X    static char skelfnbuf[256];
+X    static char btfnbuf[256];
+X    static char infnbuf[256];
+X    static char **infnptr = NULL;
+X    static int maxn = 0;
+X    Char clower();
+X
+X    program_name	=  "flex";
+X/*
+X *  Default values for the various command line parameters and
+X *  qualifiers should be set in the .CLD file using the DEFAULT
+X *  and VALUE=(DEFAULT,...) keywords, not here.   This allows
+X *  them to be changed without recompiling any code.
+X */
+X    ddebug 		=  cli_qualifier( "DEBUG", 0 );
+X    trace		=  cli_qualifier( "TRACE", 0 );
+X    interactive 	=  cli_qualifier( "INTERACTIVE", 0 );
+X    caseins 		= !cli_qualifier( "CASE_SENSITIVE", 0 );
+X    gen_line_dirs 	=  cli_qualifier( "LINE", 0);
+X    performance_report 	=  cli_qualifier( "STATISTICS.PERFORMANCE", 0 )
+;
+X    backtrack_report	=  cli_qualifier( "BACKTRACK_REPORT", 0 );
+X    spprdflt 		= !cli_qualifier( "ECHO", 0 );
+X    printstats 		=  cli_qualifier( "STATISTICS.SUMMARY", 0 );
+X    fulltbl		=  cli_qualifier( "TABLES.FAST", 0 );
+X    fullspd		=  cli_qualifier( "TABLES.FULL", 0 );
+X    useecs  		=  cli_qualifier( "TABLES.EQUIVALENCE", 0 );
+X    usemecs		=  cli_qualifier( "TABLES.META_EQUIVALENCE", 0 );
+X    if ( cli_qualifier( "EIGHTBIT", 0 ) ) csize = CSIZE;
+X/*
+X *  In the code below, filenames are converted to lower case.  This is
+X *  most important for the input filenames so that the .c files generated
+X *  by this version of flex will be identical (including the input file-
+X *  names that end up in the #line directives) with the .c files generated
+X *  by the unix version.  For the other filenames it's just a matter of
+X *  consistency of apperance in messages.
+X */
+X/*
+X *  Get the names of all the input files, allocating space for them as
+X *  needed.  Pointers to them are kept in an array 'infnptr' that is
+X *  expanded as needed (though I doubt anybody will have more than 50
+X *  input files on a command line!).
+X */
+X    for ( n=0; cli_value( "FILENAME", infnbuf, sizeof( infnbuf ) ); n++ ) {
+X	if (n >= maxn) 
+X	    infnptr = (char **)realloc( infnptr,
+X					sizeof( *infnptr ) * ( maxn+=50 ) );
+X	s = (char *)malloc( strlen( infnbuf ) + 1 );
+X	infnptr[n] = s;
+X	for ( p=infnbuf; c=(*p); p++ )
+X	    *s++ = clower( c ); 
+X	}
+X    num_input_files = n;
+X    input_files = infnptr;
+X/*
+X *  Get the output file name.  This may always have a value
+X *  if the .CLD file defines it with a default value.
+X */
+X    if ( cli_value( "OUTPUT", outfnbuf, sizeof( outfnbuf ) ) ) {
+X	for ( p=outfnbuf; c=(*p); p++ ) *p = clower( c );  
+X	outfile = outfnbuf;
+X	}
+X/*
+X *  Get the skeleton file name.  This may always have a 
+X *  value if the .CLD file defines it with a default value.
+X */
+X    if ( cli_value( "SKELETON", skelfnbuf, sizeof( skelfnbuf ) ) ) {
+X	for ( p=skelfnbuf; c=(*p); p++ ) *p = clower( c ); 
+X	skelname = skelfnbuf;
+X	}
+X/*
+X *  Get the backtracking info file name.  This may always have a 
+X *  value if the .CLD file defines it with a default value.
+X */
+X    if ( cli_value( "BACKTRACK_REPORT", btfnbuf, sizeof( btfnbuf ) ) ) {
+X	for ( p=btfnbuf; c=(*p); p++ ) *p = clower( c ); 
+X	backtrack_fn = btfnbuf;
+X	}
+X   }
+END_OF_FILE
+if test 3259 -ne `wc -c <'vmscmdln.c'`; then
+    echo shar: \"'vmscmdln.c'\" unpacked with wrong size!
+fi
+# end of 'vmscmdln.c'
+fi
+echo shar: End of shell archive.
+exit 0

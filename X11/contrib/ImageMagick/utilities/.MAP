@@ -1,0 +1,12 @@
+F COMBINE0.GZ;1                     	combine.c.gz
+F COMBINE1.GZ;1                     	combine.man.gz
+F CONVERT0.GZ;1                     	convert.c.gz
+F CONVERT1.GZ;1                     	convert.man.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F MAKEFIL0.GZ;1                     	Makefile.gz
+F MAKEFIL1.GZ;1                     	Makefile.unix.gz
+F MAKE_COM.GZ;1                     	Make.com.gz
+F MOGRIFY0.GZ;1                     	mogrify.c.gz
+F MOGRIFY1.GZ;1                     	mogrify.man.gz
+F SEGMENT0.GZ;1                     	segment.c.gz
+F SEGMENT1.GZ;1                     	segment.man.gz

@@ -1,0 +1,8 @@
+
+	-a	Include aliases.
+	-c	Show `cu' names.
+	-l	Show local system name.
+	-m	Match is exact.
+	-s	Sort names.
+	-?	Explain arguments.
+	-#	Show version.

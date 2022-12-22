@@ -1,0 +1,5 @@
+Mdu	du.c	/^main(argc, argv)$/
+err	du.c	/^err(fmt, va_alist)$/
+getbsize	../../bin/df/getbsize.c	/^getbsize(prog, headerlenp, blocksizep)$/
+linkchk	du.c	/^linkchk(p)$/
+usage	du.c	/^usage()$/

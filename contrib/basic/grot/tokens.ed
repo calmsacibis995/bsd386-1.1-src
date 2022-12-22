@@ -1,0 +1,24 @@
+1i
+#ifndef TOKENS_INCLUDED
+
+#define	TOKENS_INCLUDED
+
+#ifndef STRINGS_INCLUDED
+#	include "strings.h"
+#endif
+
+#ifndef LINES_INCLUDED
+#	include "lines.h"
+#endif
+
+#ifndef TREES_INCLUDED
+#	include "trees.h"
+#endif
+
+.
+$a
+
+#endif TOKENS_INCLUDED
+.
+w
+q

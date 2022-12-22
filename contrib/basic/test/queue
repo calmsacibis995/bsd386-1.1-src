@@ -1,0 +1,82 @@
+
+ 10 rem simulation of a single server queue with constant service time
+ 20 rem and exponentially distributed inter-arrival time.
+ 30
+ 40 rem simulation of the waiting line at a one window post office (or
+ 50 rem movie theater).
+ 60
+ 70 rem written by:            henry d. shapiro
+ 80 rem                        cs 150   sec 001
+ 90 rem                        03/03/82
+100
+110 rem variable dicitionary
+120 rem   a  -- inter-arrival time for arrivals to end of queue
+130 rem         (input by user)
+140 rem   s  -- (constant) service time (input by user)
+150 rem   t  -- time (in minutes)
+160 rem   l  -- length of time that simulation is run (input by user)
+170 rem   m  -- maximum queue length ever achieved (we could measure some
+180 rem         more complicated things like:  average waiting time, average
+190 rem         queue length, idle time for server, etc.)
+200 rem   q  -- current queue length
+210 rem   n  -- number of customers served
+220 rem   t1 -- time of next arrival.  (t1 > t since arrival is always in
+230 rem         the future.  note that this is a event driven simulation
+240 rem         and that t is always updated to the sooner of t1 and s1.
+250 rem   s1 -- the time for completion of service for the person who is
+260 rem         at the head of the queue or 'infinity' if the queue is
+270 rem         empty (since we never complete service for a non-existent
+280 rem         person).
+290
+300 rem initialization
+310 let m=0
+320 let n=0
+330 let q=0
+340 let t=0
+350 print "input average inter-arrival time, (constant) service time,"
+360 print "and length of time that the simulation is to be run (in minutes)";
+370 input a,s,l
+380
+390 rem set t1 to time for very first arrival.  (do not be concerned about
+400 rem the mathematical looking formula -- that does not come from computer
+410 rem science -- and it is not part of the course.)
+420 let t1=-a*log(1-rnd)
+430
+440 rem nobody to serve at time zero (since arrival not until time t1) so
+450 rem finish serving the 'first' person in line at time 'infinity'
+460 let s1=10e25
+470
+480 rem find out if the next event is a service completion or an arrival
+490 if s1<t1 then 640
+500 rem an arrival is next (ties are irrelevant)
+510   if t1>l then 770
+520   let t=t1
+530   let q=q+1
+540   if q>m then let m=q
+550   t1=t + (-a*log(1-rnd))
+560
+570   rem -- next line is tricky.  if this new person is the first person
+580   rem    in line (line used to be empty) schedule his service completion.
+590   rem    (net effect is to change s1 from 'infinity' to s minutes into
+600   rem    the future.)
+610   if q=1 then let s1=t+s
+620   goto 490
+630
+640 rem service completion is next
+650   if s1>l then 770
+660   let t=s1
+670   let q=q-1
+680   let n=n+1
+690
+700   rem -- next line is tricky.  if there is someone in line then next
+710   rem    service completion will occur (constant) s minutes from now .
+720   rem    if line becomes empty, set service completion time to
+730   rem    infinity.
+740   if q=0 then let s1=10e25 else let s1=t+s
+750   goto 490
+760
+770 rem simulation over
+780 print "number of customers served =";n
+790 print "maximum length of queue =";m
+800 print "current queue length =";q
+810 end

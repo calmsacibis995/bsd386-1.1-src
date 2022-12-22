@@ -1,0 +1,131 @@
+From cbosgd!sdcrdcf!daemon Sat Nov 29 21:36:26 1986
+Received: by mirror.TMC.COM (4.12/UUCP-Project/rel-1.0/08-20-86)
+	id AA12731; Sat, 29 Nov 86 21:36:21 est
+Received: by cbosgd.ATT.COM (smail2.1)
+	id AA20992; 29 Nov 86 21:09:01 EST (Sat)
+Received: by sdc.uucp (4.12/sdcrdcf)
+	id AA25526; Sat, 29 Nov 86 17:51:00 pst
+Date: Sat, 29 Nov 86 17:51:00 pst
+From: sdcrdcf!daemon (The Devil Himself)
+Message-Id: <8611300151.AA25526@sdc.uucp>
+Subject: patch version 2.0 patch #5
+Apparently-To: cbosgd!mirror!rs
+Status: R
+
+[The latest patch for patch version 2.0 is #5.]
+
+mailpatch speaking for lwall
+
+System: patch version 2.0
+Patch #: 5
+Priority: HIGH
+Subject: Patch misplaces patches when fuzz factor > 0
+Authorial-Remark: OOPS.
+From: erix!per (Per Hedeland)
+
+Description:
+	If a fuzz factor > 0 is used when applying a patch hunk, it will
+	be applied (fuzz factor) lines too far into the file.
+
+Fix:	Since patch_match starts checking "fuzz" lines into the patch,
+	it must (of course) add "fuzz" to the starting point in the
+	file as well.
+
+	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch uses a fuzz factor to apply this, you're screwed.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,hplabs,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and LIST
+	is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+	You can also get them by anonymous FTP from sdc-camarillo.arpa.
+
+Index: patchlevel.h
+Prereq: 4
+1c1
+< #define PATCHLEVEL 4
+---
+> #define PATCHLEVEL 5
+ 
+Index: patch.c
+Prereq: 2.0.1.1
+*** patch.c.old	Fri Nov 21 09:43:33 1986
+*** patch.c	Fri Nov 21 09:43:42 1986
+***************
+*** 1,5
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch5,v 1.2 1992/01/04 19:03:35 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+
+--- 1,5 -----
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch5,v 1.2 1992/01/04 19:03:35 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+***************
+*** 9,14
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch5,v $
+# Revision 1.2  1992/01/04  19:03:35  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  86/10/29  13:10:22  lwall
+   * Backwards search could terminate prematurely.
+   * 
+
+--- 9,17 -----
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch5,v $
+# Revision 1.2  1992/01/04  19:03:35  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.2  86/11/21  09:39:15  lwall
++  * Fuzz factor caused offset of installed lines.
++  * 
+   * Revision 2.0.1.1  86/10/29  13:10:22  lwall
+   * Backwards search could terminate prematurely.
+   * 
+***************
+*** 785,791
+      Reg2 LINENUM iline;
+      Reg3 LINENUM pat_lines = pch_ptrn_lines() - fuzz;
+  
+!     for (iline=base+offset; pline <= pat_lines; pline++,iline++) {
+  	if (canonicalize) {
+  	    if (!similar(ifetch(iline, (offset >= 0)),
+  			 pfetch(pline),
+
+--- 788,794 -----
+      Reg2 LINENUM iline;
+      Reg3 LINENUM pat_lines = pch_ptrn_lines() - fuzz;
+  
+!     for (iline=base+offset+fuzz; pline <= pat_lines; pline++,iline++) {
+  	if (canonicalize) {
+  	    if (!similar(ifetch(iline, (offset >= 0)),
+  			 pfetch(pline),
+

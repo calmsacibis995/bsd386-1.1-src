@@ -1,0 +1,12 @@
+
+	-	Data from `stdin'.
+	-c	Don't copy files [default].
+	-C	Copy files.
+	-l	Link files where possible.
+	-L	Local nodes only for uucico.
+	-n	Don't send mail on completion.
+	-p	Data from `stdin' (same as `-').
+	-r	Don't start job after spooling.
+	-z	Notify by mail on failure only.
+	-?	Explain arguments.
+	-#	Show version.

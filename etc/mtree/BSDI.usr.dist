@@ -1,0 +1,600 @@
+#	  fs: /usr
+#	  by: polk
+#	date: Wed Mar 10 13:41:50 MST 1993
+
+X11	type=dir uname=root gname=wheel mode=0755
+..
+bin	type=dir uname=root gname=wheel mode=0755
+..
+contrib	type=dir uname=root gname=wheel mode=0755
+	bin	type=dir uname=root gname=wheel mode=0755
+	..
+	lib	type=dir uname=root gname=wheel mode=0755
+		calc	type=dir uname=root gname=wheel mode=0755
+			help	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		dvips	type=dir uname=root gname=wheel mode=0755
+		..
+		emacs	type=dir uname=root gname=wheel mode=0755
+			etc	type=dir uname=root gname=wheel mode=0755
+			..
+			info	type=dir uname=root gname=wheel mode=0755
+			..
+			lisp	type=dir uname=root gname=wheel mode=0755
+				term	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+			lock	type=dir uname=root gname=wheel mode=0777
+			..
+		..
+		epoch	type=dir uname=root gname=wheel mode=0755
+			lisp	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		gmake	type=dir uname=root gname=wheel mode=0755
+		..
+		irc	type=dir uname=root gname=wheel mode=0755
+		..
+		jove	type=dir uname=root gname=wheel mode=0755
+		..
+		lprps	type=dir uname=root gname=wheel mode=0755
+		..
+		md5	type=dir uname=root gname=wheel mode=0755
+		..
+		perl	type=dir uname=root gname=wheel mode=0755
+			sys	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		shs	type=dir uname=root gname=wheel mode=0755
+		..
+		tcl	type=dir uname=root gname=wheel mode=0755
+		..
+		tex	type=dir uname=root gname=wheel mode=0755
+			fonts	type=dir uname=root gname=wheel mode=0755
+				tmp	type=dir uname=root gname=wheel mode=0755
+				..
+				cmfonts	type=dir uname=root gname=wheel mode=0755
+				..
+				latexfonts	type=dir uname=root gname=wheel mode=0755
+				..
+				utilityfonts	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+			bib	type=dir uname=root gname=wheel mode=0755
+			..
+			formats	type=dir uname=root gname=wheel mode=0755
+			..
+			inputs	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		tk	type=dir uname=root gname=wheel mode=0755
+			demos	type=dir uname=root gname=wheel mode=0755
+				bitmaps	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+		..
+		elm	type=dir uname=root gname=wheel mode=0755
+		..
+		ghostscript	type=dir uname=root gname=wheel mode=0755
+			fonts	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		psgraph	type=dir uname=root gname=wheel mode=0755
+		..
+		flexfax	type=dir uname=root gname=wheel mode=0755
+			afm	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		mf	type=dir uname=root gname=wheel mode=0755
+			bases	type=dir uname=root gname=wheel mode=0755
+			..
+			inputs	type=dir uname=root gname=wheel mode=0755
+				cmfonts	type=dir uname=root gname=wheel mode=0755
+				..
+				latexfonts	type=dir uname=root gname=wheel mode=0755
+				..
+				utilityfonts	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+		..
+	..
+	man	type=dir uname=root gname=wheel mode=0755
+		cat1	type=dir uname=root gname=wheel mode=0755
+		..
+		cat2	type=dir uname=root gname=wheel mode=0755
+		..
+		cat3	type=dir uname=root gname=wheel mode=0755
+		..
+		cat4	type=dir uname=root gname=wheel mode=0755
+		..
+		cat5	type=dir uname=root gname=wheel mode=0755
+		..
+		cat6	type=dir uname=root gname=wheel mode=0755
+		..
+		cat7	type=dir uname=root gname=wheel mode=0755
+		..
+		cat8	type=dir uname=root gname=wheel mode=0755
+		..
+		man1	type=dir uname=root gname=wheel mode=0755
+		..
+		man2	type=dir uname=root gname=wheel mode=0755
+		..
+		man3	type=dir uname=root gname=wheel mode=0755
+		..
+		man4	type=dir uname=root gname=wheel mode=0755
+		..
+		man5	type=dir uname=root gname=wheel mode=0755
+		..
+		man6	type=dir uname=root gname=wheel mode=0755
+		..
+		man7	type=dir uname=root gname=wheel mode=0755
+		..
+		man8	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+	mh	type=dir uname=root gname=wheel mode=0755
+		bin	type=dir uname=root gname=wheel mode=0755
+		..
+		lib	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+	tclman	type=dir uname=root gname=wheel mode=0755
+		cat1	type=dir uname=root gname=wheel mode=0755
+		..
+		man1	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+..
+dos	type=dir uname=root gname=wheel mode=0755
+..
+games	type=dir uname=root gname=wheel mode=0755
+	hide	type=dir uname=games gname=wheel mode=0700
+	..
+	lib	type=dir uname=root gname=wheel mode=0755
+	..
+..
+include	type=dir uname=root gname=wheel mode=0755
+	arpa	type=dir uname=root gname=wheel mode=0755
+	..
+	iso9660	type=dir uname=root gname=wheel mode=0755
+	..
+	kerberosIV	type=dir uname=root gname=wheel mode=0755
+	..
+	net	type=dir uname=root gname=wheel mode=0777
+	..
+	netccitt	type=dir uname=root gname=wheel mode=0777
+	..
+	netimp	type=dir uname=root gname=wheel mode=0777
+	..
+	netinet	type=dir uname=root gname=wheel mode=0777
+	..
+	netiso	type=dir uname=root gname=wheel mode=0777
+	..
+	netns	type=dir uname=root gname=wheel mode=0777
+	..
+	nfs	type=dir uname=root gname=wheel mode=0777
+	..
+	protocols	type=dir uname=root gname=wheel mode=0755
+	..
+	rpc	type=dir uname=root gname=wheel mode=0755
+	..
+	sys	type=dir uname=root gname=wheel mode=0755
+	..
+	ufs	type=dir uname=root gname=wheel mode=0755
+	..
+	vm	type=dir uname=root gname=wheel mode=0755
+	..
+	machine	type=dir uname=root gname=wheel mode=0755
+	..
+	xnscourier	type=dir uname=root gname=wheel mode=0755
+	..
+	g++	type=dir uname=root gname=wheel mode=0755
+		gen	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+..
+lib	type=dir uname=root gname=wheel mode=0755
+..
+libdata	type=dir uname=root gname=wheel mode=0755
+..
+libexec	type=dir uname=root gname=wheel mode=0755
+	gcc2	type=dir uname=root gname=wheel mode=0755
+	..
+	lpr	type=dir uname=root gname=wheel mode=0755
+	..
+..
+local	type=dir uname=root gname=wheel mode=0755
+	bin	type=dir uname=root gname=wheel mode=0755
+	..
+	man	type=dir uname=root gname=wheel mode=0755
+		cat1	type=dir uname=root gname=wheel mode=0755
+		..
+		cat2	type=dir uname=root gname=wheel mode=0755
+		..
+		cat3	type=dir uname=root gname=wheel mode=0755
+		..
+		cat4	type=dir uname=root gname=wheel mode=0755
+		..
+		cat5	type=dir uname=root gname=wheel mode=0755
+		..
+		cat6	type=dir uname=root gname=wheel mode=0755
+		..
+		cat7	type=dir uname=root gname=wheel mode=0755
+		..
+		cat8	type=dir uname=root gname=wheel mode=0755
+		..
+		man1	type=dir uname=root gname=wheel mode=0755
+		..
+		man2	type=dir uname=root gname=wheel mode=0755
+		..
+		man3	type=dir uname=root gname=wheel mode=0755
+		..
+		man4	type=dir uname=root gname=wheel mode=0755
+		..
+		man5	type=dir uname=root gname=wheel mode=0755
+		..
+		man6	type=dir uname=root gname=wheel mode=0755
+		..
+		man7	type=dir uname=root gname=wheel mode=0755
+		..
+		man8	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+..
+bootstraps	type=dir uname=root gname=wheel mode=0755
+..
+obj	type=dir uname=root gname=wheel mode=0755
+..
+old	type=dir uname=root gname=wheel mode=0755
+..
+sbin	type=dir uname=root gname=wheel mode=0755
+..
+share	type=dir uname=root gname=wheel mode=0755
+	calendar	type=dir uname=root gname=wheel mode=0755
+	..
+	dict	type=dir uname=root gname=wheel mode=0755
+		papers	type=dir uname=root gname=wheel mode=0755
+		..
+		special	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+	doc	type=dir uname=root gname=wheel mode=0755
+		bsdi	type=dir uname=root gname=wheel mode=0755
+		..
+		sendmail	type=dir uname=root gname=wheel mode=0755
+			intro	type=dir uname=root gname=wheel mode=0755
+			..
+			op	type=dir uname=root gname=wheel mode=0755
+			..
+			usenix	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		ps1	type=dir uname=root gname=wheel mode=0755
+			04.pascal	type=dir uname=root gname=wheel mode=0755
+			..
+			06.sysman	type=dir uname=root gname=wheel mode=0755
+			..
+			07.ipctut	type=dir uname=root gname=wheel mode=0755
+			..
+			08.ipc		type=dir uname=root gname=wheel mode=0755
+			..
+			13.rcs		type=dir uname=root gname=wheel mode=0755
+				man	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+			14.sccs		type=dir uname=root gname=wheel mode=0755
+			..
+			18.curses	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		smm	type=dir uname=root gname=wheel mode=0755
+			01.setup	type=dir uname=root gname=wheel mode=0755
+				common	type=dir uname=root gname=wheel mode=0755
+				..
+				tahoe	type=dir uname=root gname=wheel mode=0755
+				..
+				vax	type=dir uname=root gname=wheel mode=0755
+				..
+			..
+			02.config	type=dir uname=root gname=wheel mode=0755
+			..
+			04.quotas	type=dir uname=root gname=wheel mode=0755
+			..
+			05.fsck		type=dir uname=root gname=wheel mode=0755
+			..
+			06.lpd		type=dir uname=root gname=wheel mode=0755
+			..
+			07.sendmailop	type=dir uname=root gname=wheel mode=0755
+			..
+			08.timedop	type=dir uname=root gname=wheel mode=0755
+			..
+			10.newsop	type=dir uname=root gname=wheel mode=0755
+			..
+			11.named	type=dir uname=root gname=wheel mode=0755
+			..
+			14.fastfs	type=dir uname=root gname=wheel mode=0755
+			..
+			15.net		type=dir uname=root gname=wheel mode=0755
+			..
+			16.sendmail	type=dir uname=root gname=wheel mode=0755
+			..
+			20.termdesc	type=dir uname=root gname=wheel mode=0755
+			..
+			22.timed	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		usd	type=dir uname=root gname=wheel mode=0755
+			04.csh		type=dir uname=root gname=wheel mode=0755
+			..
+			07.Mail		type=dir uname=root gname=wheel mode=0755
+			..
+			09.newsread	type=dir uname=root gname=wheel mode=0755
+			..
+			10.etiq		type=dir uname=root gname=wheel mode=0755
+			..
+			11.notes	type=dir uname=root gname=wheel mode=0755
+			..
+			14.edit		type=dir uname=root gname=wheel mode=0755
+			..
+			15.vi		type=dir uname=root gname=wheel mode=0755
+			..
+			16.ex		type=dir uname=root gname=wheel mode=0755
+			..
+			21.msdiffs	type=dir uname=root gname=wheel mode=0755
+			..
+			22.memacros	type=dir uname=root gname=wheel mode=0755
+			..
+			23.meref	type=dir uname=root gname=wheel mode=0755
+			..
+			33.rogue	type=dir uname=root gname=wheel mode=0755
+			..
+			34.trek		type=dir uname=root gname=wheel mode=0755
+			..
+		..
+	..
+	games	type=dir uname=root gname=wheel mode=0755
+		atc	type=dir uname=games gname=wheel mode=0755
+		..
+		ching	type=dir uname=games gname=wheel mode=0755
+		..
+		fortune	type=dir uname=games gname=wheel mode=0755
+		..
+		larn	type=dir uname=games gname=wheel mode=0755
+		..
+		quiz.db	type=dir uname=games gname=wheel mode=0755
+		..
+	..
+	groff_font	type=dir uname=root gname=wheel mode=0775
+		devX100		type=dir uname=root gname=wheel mode=0775
+		..
+		devX100-12	type=dir uname=root gname=wheel mode=0775
+		..
+		devX75		type=dir uname=root gname=wheel mode=0775
+		..
+		devX75-12	type=dir uname=root gname=wheel mode=0775
+		..
+		devascii	type=dir uname=root gname=wheel mode=0775
+		..
+		devdvi	type=dir uname=root gname=wheel mode=0775
+			generate type=dir uname=root gname=wheel mode=0775
+			..
+		..
+		devlatin1	type=dir uname=root gname=wheel mode=0775
+		..
+		devps	type=dir uname=root gname=wheel mode=0775
+			generate type=dir uname=root gname=wheel mode=0775
+			..
+		..
+	..
+	man	type=dir uname=root gname=wheel mode=0755
+		cat.old	type=dir uname=root gname=wheel mode=0755
+		..
+		cat1	type=dir uname=root gname=wheel mode=0755
+		..
+		cat2	type=dir uname=root gname=wheel mode=0755
+		..
+		cat3	type=dir uname=root gname=wheel mode=0755
+		..
+		cat3f	type=dir uname=root gname=wheel mode=0755
+		..
+		cat4	type=dir uname=root gname=wheel mode=0755
+			hp300	type=dir uname=root gname=wheel mode=0755
+			..
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		cat5	type=dir uname=root gname=wheel mode=0755
+		..
+		cat6	type=dir uname=root gname=wheel mode=0755
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		cat7	type=dir uname=root gname=wheel mode=0755
+		..
+		cat8	type=dir uname=root gname=wheel mode=0755
+			hp300	type=dir uname=root gname=wheel mode=0755
+			..
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		old	type=dir uname=root gname=wheel mode=0755
+			cat1	type=dir uname=root gname=wheel mode=0755
+			..
+			cat2	type=dir uname=root gname=wheel mode=0755
+			..
+			cat3	type=dir uname=root gname=wheel mode=0755
+			..
+			cat4	type=dir uname=root gname=wheel mode=0755
+			..
+			cat5	type=dir uname=root gname=wheel mode=0755
+			..
+			cat6	type=dir uname=root gname=wheel mode=0755
+			..
+			cat7	type=dir uname=root gname=wheel mode=0755
+			..
+			cat8	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		man.old	type=dir uname=root gname=wheel mode=0755
+		..
+		man1	type=dir uname=root gname=wheel mode=0755
+		..
+		man2	type=dir uname=root gname=wheel mode=0755
+		..
+		man3	type=dir uname=root gname=wheel mode=0755
+		..
+		man3f	type=dir uname=root gname=wheel mode=0755
+		..
+		man4	type=dir uname=root gname=wheel mode=0755
+			hp300	type=dir uname=root gname=wheel mode=0755
+			..
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		man5	type=dir uname=root gname=wheel mode=0755
+		..
+		man6	type=dir uname=root gname=wheel mode=0755
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		man7	type=dir uname=root gname=wheel mode=0755
+		..
+		man8	type=dir uname=root gname=wheel mode=0755
+			hp300	type=dir uname=root gname=wheel mode=0755
+			..
+			tahoe	type=dir uname=root gname=wheel mode=0755
+			..
+			vax	type=dir uname=root gname=wheel mode=0755
+			..
+			i386	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+		old	type=dir uname=root gname=wheel mode=0755
+			man1	type=dir uname=root gname=wheel mode=0755
+			..
+			man2	type=dir uname=root gname=wheel mode=0755
+			..
+			man3	type=dir uname=root gname=wheel mode=0755
+			..
+			man4	type=dir uname=root gname=wheel mode=0755
+			..
+			man5	type=dir uname=root gname=wheel mode=0755
+			..
+			man6	type=dir uname=root gname=wheel mode=0755
+			..
+			man7	type=dir uname=root gname=wheel mode=0755
+			..
+			man8	type=dir uname=root gname=wheel mode=0755
+			..
+		..
+	..
+	me	type=dir uname=root gname=wheel mode=0755
+	..
+	misc	type=dir uname=root gname=wheel mode=0755
+	..
+	mk	type=dir uname=root gname=wheel mode=0755
+	..
+	ms	type=dir uname=root gname=wheel mode=0755
+	..
+	skel	type=dir uname=root gname=wheel mode=0755
+	..
+	sendmail	type=dir uname=root gname=wheel mode=0755
+		cf	type=dir uname=root gname=wheel mode=0755
+		..
+		domain	type=dir uname=root gname=wheel mode=0755
+		..
+		feature	type=dir uname=root gname=wheel mode=0755
+		..
+		hack	type=dir uname=root gname=wheel mode=0755
+		..
+		m4	type=dir uname=root gname=wheel mode=0755
+		..
+		mailer	type=dir uname=root gname=wheel mode=0755
+		..
+		ostype	type=dir uname=root gname=wheel mode=0755
+		..
+		sh	type=dir uname=root gname=wheel mode=0755
+		..
+		siteconfig	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+	tabset	type=dir uname=root gname=wheel mode=0755
+	..
+	tmac	type=dir uname=root gname=wheel mode=0755
+		mm	type=dir uname=root gname=wheel mode=0755
+		..
+	..
+	vgafont	type=dir uname=root gname=wheel mode=0755
+	..
+	zoneinfo	type=dir uname=root gname=wheel mode=0555
+		Australia	type=dir uname=root gname=wheel mode=0555
+		..
+		Brazil	type=dir uname=root gname=wheel mode=0555
+		..
+		Canada	type=dir uname=root gname=wheel mode=0555
+		..
+		Chile	type=dir uname=root gname=wheel mode=0555
+		..
+		Mexico	type=dir uname=root gname=wheel mode=0555
+		..
+		SystemV	type=dir uname=root gname=wheel mode=0555
+		..
+		US	type=dir uname=root gname=wheel mode=0555
+		..
+		posix	type=dir uname=root gname=wheel mode=0555
+			Australia	type=dir uname=root gname=wheel mode=0555
+			..
+			Brazil	type=dir uname=root gname=wheel mode=0555
+			..
+			Canada	type=dir uname=root gname=wheel mode=0555
+			..
+			Chile	type=dir uname=root gname=wheel mode=0555
+			..
+			Mexico	type=dir uname=root gname=wheel mode=0555
+			..
+			SystemV	type=dir uname=root gname=wheel mode=0555
+			..
+			US	type=dir uname=root gname=wheel mode=0555
+			..
+		..
+		right	type=dir uname=root gname=wheel mode=0555
+			Australia	type=dir uname=root gname=wheel mode=0555
+			..
+			Brazil	type=dir uname=root gname=wheel mode=0555
+			..
+			Canada	type=dir uname=root gname=wheel mode=0555
+			..
+			Chile	type=dir uname=root gname=wheel mode=0555
+			..
+			Mexico	type=dir uname=root gname=wheel mode=0555
+			..
+			SystemV	type=dir uname=root gname=wheel mode=0555
+			..
+			US	type=dir uname=root gname=wheel mode=0555
+			..
+		..
+	..
+..
+src	type=dir uname=root gname=wheel mode=0755
+..

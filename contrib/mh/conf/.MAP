@@ -1,0 +1,11 @@
+D CONFIG                            	config
+F CONFIG_S.GZ;1                     	config.sed.gz
+D DOC                               	doc
+D EXAMPLES                          	examples
+D MAKEFILE                          	makefiles
+F MAKEFILE.GZ;1                     	Makefile.gz
+F MH.GZ;1                           	MH.gz
+F MHCONFIG.GZ;1                     	mhconfig.c.gz
+F MHDOC.GZ;1                        	mhdoc.gz
+F MH_GEN_8.GZ;1                     	mh-gen.8.gz
+D TAILOR                            	tailor

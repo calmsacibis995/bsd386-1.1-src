@@ -1,0 +1,3 @@
+Mdialtest.c++	dialtest.c++	/^main(int argc, char* argv[])$/
+prompt	dialtest.c++	/^prompt()$/
+usage	dialtest.c++	/^usage()$/

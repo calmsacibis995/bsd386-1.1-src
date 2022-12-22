@@ -1,0 +1,45 @@
+# This file is a shell script fragment that supplies the information
+# necessary for a configure script to process the program in
+# this directory.  For more information, look at ../configure.
+
+configdirs="tests dbz stdio"
+srctrigger=libioP.h
+srcname="input/output library"
+package_makefile_frag=Make.pack
+
+# per-host:
+
+# per-target:
+
+case "${target}" in
+  *-*-hpux*)       my_target=hpux ;;
+  *-*-sco3.2v4*)   my_target=sco4 ;;
+  *-*-isc*)        my_target=isc ;;
+  *-*-*)           my_target=${target_cpu}
+esac
+
+if [ -f ${srcdir}/config/${my_target}.mt ] ; then
+  target_makefile_frag=config/${my_target}.mt
+fi
+
+TO_TOPDIR=../
+ALL='_G_config.h libio.a libiostream.a $(OSPRIM_OBJECTS)'
+CINCLUDES='-I. -I$(srcdir)'
+CXXINCLUDES='-I. -I$(srcdir)'
+MOSTLYCLEAN='*.o core iostream.list'
+CLEAN='_G_config.h *.a'
+INFO_FILES=iostream
+(. ${srcdir}/config.shared) >${package_makefile_frag}
+
+# post-target:
+
+# If cross-compiling, don't build gperf or the utils.  They
+# will get built by the target compiler, which is confusing.
+# We cannot test the installation.  We install in $(tooldir).
+if [ ${host} != ${target} ] ; then
+    sed \
+	-e 's|INSTALLDIR.*=.*$|INSTALLDIR = $(tooldir)/lib|' \
+	Makefile >Makefile.tem
+    mv -f Makefile.tem Makefile
+fi
+

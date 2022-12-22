@@ -1,0 +1,20 @@
+kern/init_sysent.c	standard
+kern/subr_pdev.c	standard
+kern/tty_conf.c		standard
+kern/vfs_conf.c		standard
+kern/uipc_domain.c	standard
+kern/uipc_proto.c	standard
+net/bpf.c		optional bpfilter
+net/bpf_filter.c	optional bpfilter
+net/if.c		standard
+net/if_ethersubr.c	optional ether
+net/if_loop.c		optional loop
+net/if_p2psubr.c	optional ppp
+net/if_p2psubr.c	optional cisco_hdlc
+net/route.c		standard
+netinet/in_proto.c	optional inet
+netns/idp_usrreq.c	optional ns
+netns/ns_proto.c	optional ns
+netccitt/if_x25subr.c	optional ccitt
+net/gw_screen.c		optional gwscreen
+netinet/ip_screen.c	optional gwscreen

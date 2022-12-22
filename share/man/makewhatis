@@ -1,0 +1,9 @@
+#!/bin/sh
+#	BSDI	$Id: makewhatis,v 1.2 1993/12/17 03:45:40 sanders Exp $
+out=/usr/share/man/whatis.db
+dirs="/usr/share/man /usr/X11/man /usr/contrib/man /usr/local/man"
+[ $# != 0 ] && dirs="$@"
+find $dirs -type f -name '*.0*' -print | \
+	/usr/share/man/makewhatis.perl | \
+	sort -u > $out
+exit 0

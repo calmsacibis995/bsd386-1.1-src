@@ -1,0 +1,5 @@
+F DAEMON.1;1                        	daemon.1
+F DAEMON.C;1                        	daemon.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/daemon
+F TAGS.;1                           	tags

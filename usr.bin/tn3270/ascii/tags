@@ -1,0 +1,39 @@
+AddChar	termin.c	/^AddChar(c)$/
+DataFromTerminal	termin.c	/^DataFromTerminal(buffer, count)$/
+EatToNL	map3270.c	/^EatToNL()$/
+FindMatchAtThisLevel	map3270.c	/^FindMatchAtThisLevel(pState, character)$/
+FlushChar	termin.c	/^FlushChar()$/
+FreeState	map3270.c	/^FreeState(pState)$/
+Get	map3270.c	/^Get()$/
+GetAlphaMericString	map3270.c	/^GetAlphaMericString()$/
+GetBegin	map3270.c	/^GetBegin()$/
+GetC	map3270.c	/^GetC()$/
+GetCharString	map3270.c	/^GetCharString()$/
+GetCharacter	map3270.c	/^GetCharacter(character)$/
+GetDefinition	map3270.c	/^GetDefinition()$/
+GetDefinitions	map3270.c	/^GetDefinitions()$/
+GetEnd	map3270.c	/^GetEnd()$/
+GetEntry	map3270.c	/^GetEntry()$/
+GetEntry0	map3270.c	/^GetEntry0()$/
+GetInput	map3270.c	/^GetInput(tc, identifier)$/
+GetName	map3270.c	/^GetName()$/
+GetNames	map3270.c	/^GetNames()$/
+GetQuotedString	map3270.c	/^GetQuotedString()$/
+GetState	map3270.c	/^GetState()$/
+GetString	map3270.c	/^GetString(string)$/
+GetWS	map3270.c	/^GetWS()$/
+InitControl	map3270.c	/^InitControl(keybdPointer, pickyarg, translator)$/
+InitMapping	termin.c	/^InitMapping()$/
+IsControl	termin.c	/^#define IsControl(c)	(!isprint(c) || (isspace(c) &/
+IsPrint	map3270.c	/^#define	IsPrint(c)	((isprint(c) && !isspace(c)) ||/
+NextState	termin.c	/^#define NextState(x)	(x->next)$/
+PasteEntry	map3270.c	/^PasteEntry(head, string, count, identifier)$/
+Position	map3270.c	/^Position(filename, keybdPointer)$/
+TerminalIn	termin.c	/^TerminalIn()$/
+TransInput	termin.c	/^TransInput(onoff, mode)$/
+UnGet	map3270.c	/^UnGet(c)$/
+init_keyboard	termin.c	/^init_keyboard()$/
+panic	map3270.c	/^#define	panic(s)	{ fprintf(stderr, s); exit(1); }$/
+strsave	map3270.c	/^strsave(string)$/
+uncontrol	map3270.c	/^uncontrol(c)$/
+ustrcmp	map3270.c	/^ustrcmp(string1, string2)$/

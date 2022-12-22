@@ -1,0 +1,29 @@
+Contents of the VMS sub-archive for UnZip 5.0 and later:
+
+  Contents                   this file
+  VMS.notes                  general VMS info about installing and using UnZip
+  unzip.rnh                  UnZip manual page, RUNOFF format
+  vms.c                      VMS file manipulation code
+  make_gcc_unzip.com         command file to compile UnZip and ZipInfo w/ GNU C
+  make_vaxc_unzip.com        command file to compile UnZip and ZipInfo w/ VAX C
+  makefile                   MAKE/VMS makefile for UnZip and ZipInfo
+  descrip.mms                MMS makefile for UnZip and ZipInfo
+  vmsshare.opt               options file used in descrip.mms
+  bilf/bilf.c                BILF source code
+  bilf/bilf.exe              BILF executable (binary)
+  bilf/make_bilf.com         command file to compile BILF with VAX C
+
+BILF may be required for older zipfiles or for those created under other
+operating systems.  Instructions for its use are in the source code.
+
+The non-decryption version of UnZip compiles fine with VMS GCC, although
+you may get a lot of warnings (especially for vms.c).  Ignore them; GCC
+is hyper-picky.
+
+MAKE/VMS v3.4 is Todd Aven's 1989 make utility (Software Sweatshop, NY); his
+e-mail address is listed as todd@cincom.umd.edu.  The version used here has two
+revisions by Ned Freed (1989, 1990) and one by Greg Roelofs (1992--options to
+use either creation date or revision date for determining out-of-date-ness).
+Check valeria.cs.ucla.edu in /pub/VMS or /infozip for vms_make.zip, or send 
+e-mail to zip-bugs@cs.ucla.edu if it's not there.  The original is stored on 
+vmsa.oac.uci.edu.

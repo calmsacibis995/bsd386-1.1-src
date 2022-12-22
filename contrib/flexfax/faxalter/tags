@@ -1,0 +1,7 @@
+Mfaxalter.c++	faxalter.c++	/^main(int argc, char** argv)$/
+faxAlterApp	faxalter.c++	/^faxAlterApp::faxAlterApp() {}$/
+initialize	faxalter.c++	/^faxAlterApp::initialize(int argc, char** argv)$/
+isCmd	faxalter.c++	/^#define isCmd(s)	(strcasecmp(s, cmd) == 0)$/
+recvConf	faxalter.c++	/^faxAlterApp::recvConf(const char* cmd, const char*/
+recvEof	faxalter.c++	/^faxAlterApp::recvEof()$/
+recvError	faxalter.c++	/^faxAlterApp::recvError(const int err)$/

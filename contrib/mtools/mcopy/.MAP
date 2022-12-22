@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MCOPY.1;1                         	mcopy.1
+F MCOPY.C;1                         	mcopy.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/mtools/mcopy
+F TAGS.;1                           	tags

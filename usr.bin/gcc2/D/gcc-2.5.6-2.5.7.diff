@@ -1,0 +1,1446 @@
+Changes for GCC version 2.5.7 from version 2.5.6.
+
+Changes in files you can reconstruct with Bison, etags, makeinfo, and
+TeX have been omitted.  Some of these files are updated just by
+building the compiler.  You can update rest of these files by
+executing this command
+
+   make TAGS info dvi -f Makefile.in
+
+in the directory of GCC sources, provided the necessary tools
+(etags, makeinfo, TeX and texi2dvi) are installed.
+
+Before applying these diffs, go to the directory gcc-2.5.6.
+Then use the command
+
+    patch -p1
+
+feeding it the following diffs as input.
+Then rename the directory to gcc-2.5.7.
+
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/ChangeLog gcc-2.5.7/ChangeLog
+*** gcc-2.5.6/ChangeLog	Sun Dec 12 18:13:04 1993
+--- gcc-2.5.7/ChangeLog	Sun Dec 12 06:48:10 1993
+***************
+*** 1,2 ****
+--- 1,105 ----
++ Sun Dec 12 06:47:14 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* Version 2.5.7 released.
++ 
++ Sun Dec 12 06:18:33 1993  Jim Wilson  (wilson@sphagnum.cygnus.com)
++ 
++ 	* function.c (thread_prologue_and_epilogue_insns): When constructing
++ 	USE chain, set both NEXT_INSN and PREV_INSN links.  Also, preserve
++ 	order of USE insns in chain.
++ 
++ Sun Dec 12 06:13:51 1993  DJ Delorie  (dj@ctron.com)
++ 
++ 	* configure.bat: Update to relect recent changes elsewhere.
++ 	* objc/makefile.dos: Likewise.
++ 
++ Sat Dec 11 18:09:50 1993  Per Bothner  (bothner@cygnus.com)
++ 
++ 	* dbxout.c (dbxout_type):  The "base type" of a SET_TYPE is its
++ 	DOMAIN_TYPE, not its TREE_TYPE.
++ 	* dwarfout.c (output_type): Likewise.
++ 
++ Sat Dec 11 07:36:57 1993  David Rifkind  (dave@yarc.com)
++ 
++ 	* rs6000.md: Add a few missing new nmemonics.
++ 
++ Sat Dec 11 06:57:55 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* cccp.c (INPUT_STACK_MAX): Double size.
++ 
++ 	* integrate.c (initialize_for_inline): Handle CONCAT when setting up
++ 	parmdecl_map.
++ 
++ 	* rs6000.md (modsi3): Reject REG in predicate to avoid undefined
++ 	reference and extra pseudo creation if will fail.
++ 
++ Fri Dec 10 10:03:36 1993  Mike Stump  (mrs@cygnus.com)
++ 
++ 	* toplev.c (lang_options): Change -fnodollars-in-identifiers to
++ 	-fno-dollars-in-identifiers to match docs.
++ 
++ Fri Dec 10 15:42:02 1993  Jim Wilson  (wilson@mole.gnu.ai.mit.edu)
++ 
++ 	* c-lex.c (yylex): When reading malformed floating point constant,
++ 	avoid printing error more than once, and avoid passing malformed
++ 	number to subsequent atof call.
++ 
++ Fri Dec 10 06:03:35 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* rs6000.c (easy_fp_constant): Use input_operand to see if
++ 	each word can be loaded in one insn.
++ 
++ 	* rs6000.md: Change numerous occurrences of TARGET_POWERPC
++ 	to ! TARGET_POWER and make related changes.
++ 
++ 	* rs6000.md (modsi3): Rework to operate correctly for both POWER
++ 	and PowerPC.
++ 
++ Thu Dec  9 16:19:05 1993  Brendan Kehoe  (brendan@lisa.cygnus.com)
++ 
++ 	* cp-tree.h (OPERATOR_TYPENAME_P): Define outside of
++ 	NO_{DOLLAR,DOT} macro checks, so it always gets defined.
++ 	(VTABLE_NAME_P): Define for NO_DOT && NO_DOLLAR_IN_LABEL.
++ 
++ Wed Dec  8 05:46:26 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* flow.c (mark_used_regs, case CLOBBER): Refine previous change
++ 	to just look at the address of a MEM inside a CLOBBER.
++ 
++ 	* fold-const.c (fold, case *_{DIV,MOD}_EXPR): When using
++ 	distributive law, take care when C2 is negative.
++ 
++ Tue Dec  7 08:45:59 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* flow.c (mark_used_regs): Look inside a CLOBBER; it may be the only
++ 	place regs are used if it has a stack slot that is from an inlined
++ 	function.
++ 
++ Mon Dec  6 20:56:11 1993  David Rifkind  (dave@yarc.com)
++ 
++ 	* expr.c (move_block_{to,from}_reg): Check HAVE_{load,store}_multiple
++ 	value; don't just #idef the symbol.
++ 
++ Mon Dec  6 08:01:59 1993  Torbjorn Granlund  (tege@cygnus.com)
++ 
++ 	* pa.c (hppa_legitimize_address): If we can't legitimize,
++ 	do nothing; don't call abort.
++ 
++ Mon Dec  6 07:38:30 1993  Richard Earnshaw  (rwe11@cl.cam.ac.uk)
++ 
++ 	* arm.c (output_ascii_pseudo_op): 8-bit chars should be zero-extended.
++ 	* arm.h (ASM_OUTPUT_ASCII): Likewise.
++ 
++ Mon Dec  6 07:32:59 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
++ 
++ 	* objc/encoding.h: Include ctype.h.
++ 
++ 	* expr.c (expand_expr, case PLACEHOLDER_EXPR): Remove top entry 
++ 	from PLACEHOLDER_LIST when expanding the value in it.
++ 
++ Mon Dec  6 05:40:38 1993  Doug Evans  (dje@cygnus.com)
++ 
++ 	* emit-rtl.c (start_sequence): Save current sequence_rtl_expr.
++ 
+  Fri Dec  3 07:07:01 1993  Richard Kenner  (kenner@vlsi1.ultra.nyu.edu)
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/NEWS gcc-2.5.7/NEWS
+*** gcc-2.5.6/NEWS	Fri Dec  3 07:45:17 1993
+--- gcc-2.5.7/NEWS	Sun Dec 12 06:49:23 1993
+***************
+*** 1,2 ****
+--- 1,7 ----
++ Noteworthy change in GCC version 2.5.7:
++ 
++ This release only fixes a few bugs, one of which was causing bootstrap
++ compare errors on some systems.
++ 
+  Noteworthy change in GCC version 2.5.6:
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/README gcc-2.5.7/README
+*** gcc-2.5.6/README	Fri Dec  3 07:45:41 1993
+--- gcc-2.5.7/README	Sun Dec 12 06:50:02 1993
+***************
+*** 1,3 ****
+! This directory contains the version 2.5.6 release of the GNU C
+  compiler.  It includes all of the support for compiling C++ and
+  Objective C, including a run-time library for Objective C.
+--- 1,3 ----
+! This directory contains the version 2.5.7 release of the GNU C
+  compiler.  It includes all of the support for compiling C++ and
+  Objective C, including a run-time library for Objective C.
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/c-lex.c gcc-2.5.7/c-lex.c
+*** gcc-2.5.6/c-lex.c	Wed Sep 29 01:42:10 1993
+--- gcc-2.5.7/c-lex.c	Fri Dec 10 15:40:46 1993
+***************
+*** 1331,1338 ****
+  		if (base == 16)
+  		  error ("floating constant may not be in radix 16");
+! 		if (floatflag == AFTER_POINT)
+  		  {
+  		    error ("malformed floating constant");
+  		    floatflag = TOO_MANY_POINTS;
+  		  }
+  		else
+--- 1331,1344 ----
+  		if (base == 16)
+  		  error ("floating constant may not be in radix 16");
+! 		if (floatflag == TOO_MANY_POINTS)
+! 		  /* We have already emitted an error.  Don't need another.  */
+! 		  ;
+! 		else if (floatflag == AFTER_POINT)
+  		  {
+  		    error ("malformed floating constant");
+  		    floatflag = TOO_MANY_POINTS;
++ 		    /* Avoid another error from atof by forcing all characters
++ 		       from here on to be ignored.  */
++ 		    p[-1] = '\0';
+  		  }
+  		else
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/cccp.c gcc-2.5.7/cccp.c
+*** gcc-2.5.6/cccp.c	Fri Nov  5 17:28:28 1993
+--- gcc-2.5.7/cccp.c	Sat Dec 11 08:49:38 1993
+***************
+*** 480,484 ****
+     It is zero for rescanning results of macro expansion
+     and for expanding macro arguments.  */
+! #define INPUT_STACK_MAX 200
+  static struct file_buf {
+    char *fname;
+--- 480,484 ----
+     It is zero for rescanning results of macro expansion
+     and for expanding macro arguments.  */
+! #define INPUT_STACK_MAX 400
+  static struct file_buf {
+    char *fname;
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/arm/arm.c gcc-2.5.7/config/arm/arm.c
+*** gcc-2.5.6/config/arm/arm.c	Tue Nov 23 17:34:20 1993
+--- gcc-2.5.7/config/arm/arm.c	Mon Dec  6 07:33:49 1993
+***************
+*** 1508,1512 ****
+  output_ascii_pseudo_op (stream, p, len)
+       FILE *stream;
+!      char *p;
+       int len;
+  {
+--- 1508,1512 ----
+  output_ascii_pseudo_op (stream, p, len)
+       FILE *stream;
+!      unsigned char *p;
+       int len;
+  {
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/arm/arm.h gcc-2.5.7/config/arm/arm.h
+*** gcc-2.5.6/config/arm/arm.h	Fri Oct 29 16:43:08 1993
+--- gcc-2.5.7/config/arm/arm.h	Mon Dec  6 07:37:48 1993
+***************
+*** 1595,1599 ****
+  
+  #define ASM_OUTPUT_ASCII(STREAM, PTR, LEN)  \
+!   output_ascii_pseudo_op ((STREAM), (PTR), (LEN))
+  
+  /* Output a gap.  In fact we fill it with nulls.  */
+--- 1595,1599 ----
+  
+  #define ASM_OUTPUT_ASCII(STREAM, PTR, LEN)  \
+!   output_ascii_pseudo_op ((STREAM), (unsigned char *)(PTR), (LEN))
+  
+  /* Output a gap.  In fact we fill it with nulls.  */
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/pa/pa.c gcc-2.5.7/config/pa/pa.c
+*** gcc-2.5.6/config/pa/pa.c	Sat Oct 30 16:32:36 1993
+--- gcc-2.5.7/config/pa/pa.c	Mon Dec  6 08:01:29 1993
+***************
+*** 1,4 ****
+  /* Subroutines for insn-output.c for HPPA.
+!    Copyright (C) 1992 Free Software Foundation, Inc.
+     Contributed by Tim Moore (moore@cs.utah.edu), based on sparc.c
+  
+--- 1,4 ----
+  /* Subroutines for insn-output.c for HPPA.
+!    Copyright (C) 1992, 1993 Free Software Foundation, Inc.
+     Contributed by Tim Moore (moore@cs.utah.edu), based on sparc.c
+  
+***************
+*** 706,718 ****
+  	y = XEXP (y, 0);
+  
+!       /* 'y' had better be a PLUS or MINUS expression at this point.  */
+!       if (GET_CODE (y) != PLUS && GET_CODE (y) != MINUS)
+! 	abort();
+! 
+!       regx1 = force_reg (Pmode, force_operand (XEXP (x, 0), 0));
+!       regy1 = force_reg (Pmode, force_operand (XEXP (y, 0), 0));
+!       regy2 = force_reg (Pmode, force_operand (XEXP (y, 1), 0));
+!       regx1 = force_reg (Pmode, gen_rtx (GET_CODE (y), Pmode, regx1, regy2));
+!       return force_reg (Pmode, gen_rtx (PLUS, Pmode, regx1, regy1));
+      }
+  
+--- 706,717 ----
+  	y = XEXP (y, 0);
+  
+!       if (GET_CODE (y) == PLUS || GET_CODE (y) == MINUS)
+! 	{
+! 	  regx1 = force_reg (Pmode, force_operand (XEXP (x, 0), 0));
+! 	  regy1 = force_reg (Pmode, force_operand (XEXP (y, 0), 0));
+! 	  regy2 = force_reg (Pmode, force_operand (XEXP (y, 1), 0));
+! 	  regx1 = force_reg (Pmode, gen_rtx (GET_CODE (y), Pmode, regx1, regy2));
+! 	  return force_reg (Pmode, gen_rtx (PLUS, Pmode, regx1, regy1));
+! 	}
+      }
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/rs6000/rs6000.c gcc-2.5.7/config/rs6000/rs6000.c
+*** gcc-2.5.6/config/rs6000/rs6000.c	Fri Nov 19 16:20:23 1993
+--- gcc-2.5.7/config/rs6000/rs6000.c	Fri Dec 10 07:39:09 1993
+***************
+*** 288,299 ****
+  }
+  
+! /* Return 1 if the operand is a CONST_DOUBLE and it can be put into a
+!    register with one instruction per word.  For SFmode, this means  that
+!    the low 16-bits are zero.  For DFmode, it means the low 16-bits of
+!    the first word are zero and the high 16 bits of the second word
+!    are zero (usually all bits in the low-order word will be zero).
+  
+-    We only do this if we can safely read CONST_DOUBLE_{LOW,HIGH}.  */
+- 
+  int
+  easy_fp_constant (op, mode)
+--- 288,295 ----
+  }
+  
+! /* Return 1 if the operand is a CONST_DOUBLE and it can be put into a register
+!    with one instruction per word.  We only do this if we can safely read
+!    CONST_DOUBLE_{LOW,HIGH}.  */
+  
+  int
+  easy_fp_constant (op, mode)
+***************
+*** 311,320 ****
+    low = operand_subword (op, 1, 0, mode);
+  
+!   if (high == 0 || GET_CODE (high) != CONST_INT || (INTVAL (high) & 0xffff))
+      return 0;
+  
+    return (mode == SFmode
+! 	  || (low != 0 && GET_CODE (low) == CONST_INT
+! 	      && (INTVAL (low) & 0xffff0000) == 0));
+  }
+        
+--- 307,315 ----
+    low = operand_subword (op, 1, 0, mode);
+  
+!   if (high == 0 || ! input_operand (high, word_mode))
+      return 0;
+  
+    return (mode == SFmode
+! 	  || (low != 0 && input_operand (low, word_mode)));
+  }
+        
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/rs6000/rs6000.md gcc-2.5.7/config/rs6000/rs6000.md
+*** gcc-2.5.6/config/rs6000/rs6000.md	Thu Dec  2 06:27:16 1993
+--- gcc-2.5.7/config/rs6000/rs6000.md	Sat Dec 11 18:46:03 1993
+***************
+*** 630,634 ****
+  	(ffs:SI (match_operand:SI 1 "register_operand" "r")))]
+    ""
+!   "neg %0,%1\;and %0,%0,%1\;cntlz %0,%0\;{sfi|subfic} %0,%0,32"
+    [(set_attr "length" "16")])
+  
+--- 630,634 ----
+  	(ffs:SI (match_operand:SI 1 "register_operand" "r")))]
+    ""
+!   "neg %0,%1\;and %0,%0,%1\;{cntlz|cntlzw} %0,%0\;{sfi|subfic} %0,%0,32"
+    [(set_attr "length" "16")])
+  
+***************
+*** 685,689 ****
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "TARGET_POWERPC"
+    "mullw. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 685,689 ----
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "! TARGET_POWER"
+    "mullw. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 708,712 ****
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(mult:SI (match_dup 1) (match_dup 2)))]
+!   "TARGET_POWERPC"
+    "mullw. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 708,712 ----
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(mult:SI (match_dup 1) (match_dup 2)))]
+!   "! TARGET_POWER"
+    "mullw. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 756,774 ****
+      ;
+  
+!   else if (TARGET_POWER)
+      FAIL;
+  
+!   else if (TARGET_POWERPC)
+!     operands[2] = force_reg (SImode, operands[2]);
+  }")
+  
+  (define_expand "modsi3"
+!   [(set (match_dup 3)
+! 	(div:SI (match_operand:SI 1 "gpc_reg_operand" "")
+! 		(match_operand:SI 2 "reg_or_cint_operand" "")))
+!    (parallel [(set (match_dup 4) (ashift:SI (match_dup 3) (match_dup 5)))
+! 	      (clobber (scratch:SI))])
+!    (set (match_operand:SI 0 "gpc_reg_operand" "")
+! 	(minus:SI (match_dup 1) (match_dup 4)))]
+    ""
+    "
+--- 756,769 ----
+      ;
+  
+!   else if (! TARGET_POWERPC)
+      FAIL;
+  
+!   operands[2] = force_reg (SImode, operands[2]);
+  }")
+  
+  (define_expand "modsi3"
+!   [(use (match_operand:SI 0 "gpc_reg_operand" ""))
+!    (use (match_operand:SI 1 "gpc_reg_operand" ""))
+!    (use (match_operand:SI 2 "const_int_operand" ""))]
+    ""
+    "
+***************
+*** 775,785 ****
+  {
+    int i = exact_log2 (INTVAL (operands[2]));
+  
+!   if (GET_CODE (operands[2]) != CONST_INT || i < 0)
+      FAIL;
+  
+!   operands[3] = gen_reg_rtx (SImode);
+!   operands[4] = gen_reg_rtx (SImode);
+!   operands[5] = gen_rtx (CONST_INT, VOIDmode, i);
+  }")
+  
+--- 770,787 ----
+  {
+    int i = exact_log2 (INTVAL (operands[2]));
++   rtx temp1;
++   rtx temp2;
+  
+!   if (i < 0)
+      FAIL;
+  
+!   temp1 = gen_reg_rtx (SImode);
+!   temp2 = gen_reg_rtx (SImode);
+! 
+!   emit_insn (gen_divsi3 (temp1, operands[1], operands[2]));
+!   emit_insn (gen_ashlsi3 (temp2, temp1, GEN_INT (i)));
+!   emit_insn (gen_subsi3 (operands[0], operands[1], temp2));
+!   DONE;
+! 
+  }")
+  
+***************
+*** 1561,1565 ****
+      emit_insn (gen_ashlsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_ashlsi3_powerpc (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+--- 1563,1567 ----
+      emit_insn (gen_ashlsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_ashlsi3_no_power (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+***************
+*** 1576,1584 ****
+    [(set_attr "length" "8")])
+  
+! (define_insn "ashlsi3_powerpc"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashift:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		   (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "TARGET_POWERPC"
+    "slw%I2 %0,%1,%2"
+    [(set_attr "length" "8")])
+--- 1578,1586 ----
+    [(set_attr "length" "8")])
+  
+! (define_insn "ashlsi3_no_power"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashift:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		   (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "! TARGET_POWER"
+    "slw%I2 %0,%1,%2"
+    [(set_attr "length" "8")])
+***************
+*** 1596,1599 ****
+--- 1598,1602 ----
+     {sli.|slwi.} %3,%1,%h2"
+    [(set_attr "type" "delayed_compare")])
++ 
+  (define_insn ""
+    [(set (match_operand:CC 0 "cc_reg_operand" "=x")
+***************
+*** 1619,1622 ****
+--- 1622,1626 ----
+     {sli.|slwi.} %0,%1,%h2"
+    [(set_attr "type" "delayed_compare")])
++ 
+  (define_insn ""
+    [(set (match_operand:CC 3 "cc_reg_operand" "=x")
+***************
+*** 1675,1679 ****
+      emit_insn (gen_lshrsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_lshrsi3_powerpc (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+--- 1679,1683 ----
+      emit_insn (gen_lshrsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_lshrsi3_no_power (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+***************
+*** 1689,1697 ****
+    {s%A2i|s%A2wi} %0,%1,%h2")
+  
+! (define_insn "lshrsi3_powerpc"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(lshiftrt:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		     (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "TARGET_POWERPC"
+    "srw%I2 %0,%1,%2")
+  
+--- 1693,1701 ----
+    {s%A2i|s%A2wi} %0,%1,%h2")
+  
+! (define_insn "lshrsi3_no_power"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(lshiftrt:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		     (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "! TARGET_POWER"
+    "srw%I2 %0,%1,%2")
+  
+***************
+*** 1715,1719 ****
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "TARGET_POWERPC"
+    "srw%I2. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 1719,1723 ----
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "! TARGET_POWER"
+    "srw%I2. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 1740,1744 ****
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(lshiftrt:SI (match_dup 1) (match_dup 2)))]
+!   "TARGET_POWERPC"
+    "srw%I2. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 1744,1748 ----
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(lshiftrt:SI (match_dup 1) (match_dup 2)))]
+!   "! TARGET_POWER"
+    "srw%I2. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 1887,1891 ****
+      emit_insn (gen_ashrsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_ashrsi3_powerpc (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+--- 1891,1895 ----
+      emit_insn (gen_ashrsi3_power (operands[0], operands[1], operands[2]));
+    else
+!     emit_insn (gen_ashrsi3_no_power (operands[0], operands[1], operands[2]));
+    DONE;
+  }")
+***************
+*** 1901,1909 ****
+     {srai|srawi} %0,%1,%h2")
+  
+! (define_insn "ashrsi3_powerpc"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashiftrt:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		     (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "TARGET_POWERPC"
+    "sraw%I2 %0,%1,%2")
+  
+--- 1905,1913 ----
+     {srai|srawi} %0,%1,%h2")
+  
+! (define_insn "ashrsi3_no_power"
+    [(set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashiftrt:SI (match_operand:SI 1 "gpc_reg_operand" "r")
+  		     (match_operand:SI 2 "reg_or_cint_operand" "ri")))]
+!   "! TARGET_POWER"
+    "sraw%I2 %0,%1,%2")
+  
+***************
+*** 1927,1931 ****
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "TARGET_POWERPC"
+    "sraw%I2. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 1931,1935 ----
+  		    (const_int 0)))
+     (clobber (match_scratch:SI 3 "=r"))]
+!   "! TARGET_POWER"
+    "sraw%I2. %3,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 1942,1946 ****
+    "@
+     srea. %0,%1,%2
+!    srai. %0,%1,%h2"
+    [(set_attr "type" "delayed_compare")])
+  
+--- 1946,1950 ----
+    "@
+     srea. %0,%1,%2
+!    {srai.|srawi.} %0,%1,%h2"
+    [(set_attr "type" "delayed_compare")])
+  
+***************
+*** 1952,1956 ****
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashiftrt:SI (match_dup 1) (match_dup 2)))]
+!   "TARGET_POWERPC"
+    "sraw%I2. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+--- 1956,1960 ----
+     (set (match_operand:SI 0 "gpc_reg_operand" "=r")
+  	(ashiftrt:SI (match_dup 1) (match_dup 2)))]
+!   "! TARGET_POWER"
+    "sraw%I2. %0,%1,%2"
+    [(set_attr "type" "delayed_compare")])
+***************
+*** 1965,1969 ****
+      emit_insn (gen_extendqisi2_power (operands[0], operands[1]));
+    else
+!     emit_insn (gen_extendqisi2_powerpc (operands[0], operands[1]));
+    DONE;
+  }")
+--- 1969,1973 ----
+      emit_insn (gen_extendqisi2_power (operands[0], operands[1]));
+    else
+!     emit_insn (gen_extendqisi2_no_power (operands[0], operands[1]));
+    DONE;
+  }")
+***************
+*** 1983,1987 ****
+    operands[2] = gen_reg_rtx (SImode); }")
+  
+! (define_expand "extendqisi2_powerpc"
+    [(set (match_dup 2)
+  		   (ashift:SI (match_operand:QI 1 "gpc_reg_operand" "")
+--- 1987,1991 ----
+    operands[2] = gen_reg_rtx (SImode); }")
+  
+! (define_expand "extendqisi2_no_power"
+    [(set (match_dup 2)
+  		   (ashift:SI (match_operand:QI 1 "gpc_reg_operand" "")
+***************
+*** 1990,1994 ****
+  		   (ashiftrt:SI (match_dup 2)
+  				(const_int 24)))]
+!   "TARGET_POWERPC"
+    "
+  { operands[1] = gen_lowpart (SImode, operands[1]);
+--- 1994,1998 ----
+  		   (ashiftrt:SI (match_dup 2)
+  				(const_int 24)))]
+!   "! TARGET_POWER"
+    "
+  { operands[1] = gen_lowpart (SImode, operands[1]);
+***************
+*** 2004,2008 ****
+      emit_insn (gen_extendqihi2_power (operands[0], operands[1]));
+    else
+!     emit_insn (gen_extendqihi2_powerpc (operands[0], operands[1]));
+    DONE;
+  }")
+--- 2008,2012 ----
+      emit_insn (gen_extendqihi2_power (operands[0], operands[1]));
+    else
+!     emit_insn (gen_extendqihi2_no_power (operands[0], operands[1]));
+    DONE;
+  }")
+***************
+*** 2023,2027 ****
+    operands[2] = gen_reg_rtx (SImode); }")
+  
+! (define_expand "extendqihi2_powerpc"
+    [(set (match_dup 2)
+  		   (ashift:SI (match_operand:QI 1 "gpc_reg_operand" "")
+--- 2027,2031 ----
+    operands[2] = gen_reg_rtx (SImode); }")
+  
+! (define_expand "extendqihi2_no_power"
+    [(set (match_dup 2)
+  		   (ashift:SI (match_operand:QI 1 "gpc_reg_operand" "")
+***************
+*** 2030,2034 ****
+  		   (ashiftrt:SI (match_dup 2)
+  				(const_int 24)))]
+!   "TARGET_POWERPC"
+    "
+  { operands[0] = gen_lowpart (SImode, operands[0]);
+--- 2034,2038 ----
+  		   (ashiftrt:SI (match_dup 2)
+  				(const_int 24)))]
+!   "! TARGET_POWER"
+    "
+  { operands[0] = gen_lowpart (SImode, operands[0]);
+***************
+*** 2554,2558 ****
+    "
+  {
+!   if (TARGET_POWERPC
+        && short_cint_operand (operands[2], DImode))
+      FAIL;
+--- 2558,2562 ----
+    "
+  {
+!   if (! TARGET_POWER
+        && short_cint_operand (operands[2], DImode))
+      FAIL;
+***************
+*** 2573,2577 ****
+  	(plus:DI (match_operand:DI 1 "gpc_reg_operand" "%r")
+  		 (match_operand:DI 2 "gpc_reg_operand" "r")))]
+!   "TARGET_POWERPC"
+    "addc %L0,%L1,%L2\;adde %0,%1,%2"
+    [(set_attr "length" "8")])
+--- 2577,2581 ----
+  	(plus:DI (match_operand:DI 1 "gpc_reg_operand" "%r")
+  		 (match_operand:DI 2 "gpc_reg_operand" "r")))]
+!   "! TARGET_POWER"
+    "addc %L0,%L1,%L2\;adde %0,%1,%2"
+    [(set_attr "length" "8")])
+***************
+*** 2584,2588 ****
+    "
+  {
+!   if (TARGET_POWERPC
+        && short_cint_operand (operands[1], DImode))
+      FAIL;
+--- 2588,2592 ----
+    "
+  {
+!   if (! TARGET_POWER
+        && short_cint_operand (operands[1], DImode))
+      FAIL;
+***************
+*** 2603,2607 ****
+  	(minus:DI (match_operand:DI 1 "gpc_reg_operand" "r")
+  		  (match_operand:DI 2 "gpc_reg_operand" "r")))]
+!   "TARGET_POWERPC"
+    "subfc %L0,%L2,%L1\;subfe %0,%2,%1"
+    [(set_attr "length" "8")])
+--- 2607,2611 ----
+  	(minus:DI (match_operand:DI 1 "gpc_reg_operand" "r")
+  		  (match_operand:DI 2 "gpc_reg_operand" "r")))]
+!   "! TARGET_POWER"
+    "subfc %L0,%L2,%L1\;subfe %0,%2,%1"
+    [(set_attr "length" "8")])
+***************
+*** 2616,2630 ****
+    [(set (match_operand:DI 0 "gpc_reg_operand" "=r")
+  	(neg:DI (match_operand:DI 1 "gpc_reg_operand" "r")))]
+!   "TARGET_POWER"
+    "{sfi|subfic} %L0,%L1,0\;{sfze|subfze} %0,%1"
+    [(set_attr "length" "8")])
+  
+- (define_insn ""
+-   [(set (match_operand:DI 0 "gpc_reg_operand" "=r")
+- 	(neg:DI (match_operand:DI 1 "gpc_reg_operand" "r")))]
+-   "TARGET_POWERPC"
+-   "subfic %L0,%L1,0\;subfze %0,%1"
+-   [(set_attr "length" "8")])
+- 
+  (define_insn "mulsidi3"
+    [(set (match_operand:DI 0 "gpc_reg_operand" "=r")
+--- 2620,2627 ----
+    [(set (match_operand:DI 0 "gpc_reg_operand" "=r")
+  	(neg:DI (match_operand:DI 1 "gpc_reg_operand" "r")))]
+!   ""
+    "{sfi|subfic} %L0,%L1,0\;{sfze|subfze} %0,%1"
+    [(set_attr "length" "8")])
+  
+  (define_insn "mulsidi3"
+    [(set (match_operand:DI 0 "gpc_reg_operand" "=r")
+***************
+*** 2749,2753 ****
+    [(set (match_operand:SI 0 "nonimmediate_operand" "=r,r,m,r,r,r,*h")
+  	(match_operand:SI 1 "input_operand" "r,m,r,I,J,*h,r"))]
+!   "TARGET_POWERPC && (gpc_reg_operand (operands[0], SImode)
+     || gpc_reg_operand (operands[1], SImode))"
+    "@
+--- 2746,2750 ----
+    [(set (match_operand:SI 0 "nonimmediate_operand" "=r,r,m,r,r,r,*h")
+  	(match_operand:SI 1 "input_operand" "r,m,r,I,J,*h,r"))]
+!   "! TARGET_POWER && (gpc_reg_operand (operands[0], SImode)
+     || gpc_reg_operand (operands[1], SImode))"
+    "@
+***************
+*** 2827,2831 ****
+    [(set (match_operand:HI 0 "nonimmediate_operand" "=r,r,m,r,r,*h")
+  	(match_operand:HI 1 "input_operand" "r,m,r,i,*h,r"))]
+!   "TARGET_POWERPC && (gpc_reg_operand (operands[0], HImode)
+     || gpc_reg_operand (operands[1], HImode))"
+    "@
+--- 2824,2828 ----
+    [(set (match_operand:HI 0 "nonimmediate_operand" "=r,r,m,r,r,*h")
+  	(match_operand:HI 1 "input_operand" "r,m,r,i,*h,r"))]
+!   "! TARGET_POWER && (gpc_reg_operand (operands[0], HImode)
+     || gpc_reg_operand (operands[1], HImode))"
+    "@
+***************
+*** 2875,2879 ****
+    [(set (match_operand:QI 0 "nonimmediate_operand" "=r,r,m,r,r,*h")
+  	(match_operand:QI 1 "input_operand" "r,m,r,i,*h,r"))]
+!   "TARGET_POWERPC && (gpc_reg_operand (operands[0], QImode)
+     || gpc_reg_operand (operands[1], QImode))"
+    "@
+--- 2872,2876 ----
+    [(set (match_operand:QI 0 "nonimmediate_operand" "=r,r,m,r,r,*h")
+  	(match_operand:QI 1 "input_operand" "r,m,r,i,*h,r"))]
+!   "! TARGET_POWER && (gpc_reg_operand (operands[0], QImode)
+     || gpc_reg_operand (operands[1], QImode))"
+    "@
+***************
+*** 4087,4091 ****
+  		    (match_operand:SI 2 "reg_or_short_operand" "rI")))]
+    ""
+!   "cmp%I2 %0,%1,%2"
+    [(set_attr "type" "compare")])
+  
+--- 4084,4088 ----
+  		    (match_operand:SI 2 "reg_or_short_operand" "rI")))]
+    ""
+!   "{cmp%I2|cmpw%I2} %0,%1,%2"
+    [(set_attr "type" "compare")])
+  
+***************
+*** 4123,4127 ****
+  		       (match_operand:SI 2 "reg_or_u_short_operand" "rI")))]
+    ""
+!   "cmpl%I2 %0,%1,%W2"
+    [(set_attr "type" "compare")])
+  
+--- 4120,4124 ----
+  		       (match_operand:SI 2 "reg_or_u_short_operand" "rI")))]
+    ""
+!   "{cmpl%I2|cmplw%I2} %0,%1,%W2"
+    [(set_attr "type" "compare")])
+  
+***************
+*** 4501,4505 ****
+    "@
+     doz %3,%2,%1\;{sfi|subfic} %0,%3,0\;{ae|adde} %0,%0,%3
+!    {ai|addic} %0,%1,-1\;{aze|addze} %0,%0\;sri %0,%0,31"
+    [(set_attr "length" "12")])
+  
+--- 4498,4502 ----
+    "@
+     doz %3,%2,%1\;{sfi|subfic} %0,%3,0\;{ae|adde} %0,%0,%3
+!    {ai|addic} %0,%1,-1\;{aze|addze} %0,%0\;{sri|srwi} %0,%0,31"
+    [(set_attr "length" "12")])
+  
+***************
+*** 4516,4520 ****
+    "@
+     doz %3,%2,%1\;{sfi|subfic} %0,%3,0\;{ae.|adde.} %0,%0,%3
+!    {ai|addic} %0,%1,-1\;{aze|addze} %0,%0\;sri. %0,%0,31"
+    [(set_attr "type" "delayed_compare,compare")
+     (set_attr "length" "12")])
+--- 4513,4517 ----
+    "@
+     doz %3,%2,%1\;{sfi|subfic} %0,%3,0\;{ae.|adde.} %0,%0,%3
+!    {ai|addic} %0,%1,-1\;{aze|addze} %0,%0\;{sri.|srwi.} %0,%0,31"
+    [(set_attr "type" "delayed_compare,compare")
+     (set_attr "length" "12")])
+***************
+*** 4687,4691 ****
+  	       (match_operand:SI 2 "reg_or_short_operand" "rI")))]
+    "TARGET_POWER"
+!   "doz%I2 %0,%1,%2\;nabs %0,%0\;sri %0,%0,31"
+     [(set_attr "length" "12")])
+  
+--- 4684,4688 ----
+  	       (match_operand:SI 2 "reg_or_short_operand" "rI")))]
+    "TARGET_POWER"
+!   "doz%I2 %0,%1,%2\;nabs %0,%0\;{sri|srwi} %0,%0,31"
+     [(set_attr "length" "12")])
+  
+***************
+*** 4699,4703 ****
+  	(lt:SI (match_dup 1) (match_dup 2)))]
+    "TARGET_POWER"
+!   "doz%I2 %0,%1,%2\;nabs %0,%0\;sri. %0,%0,31"
+    [(set_attr "type" "delayed_compare")
+     (set_attr "length" "12")])
+--- 4696,4700 ----
+  	(lt:SI (match_dup 1) (match_dup 2)))]
+    "TARGET_POWER"
+!   "doz%I2 %0,%1,%2\;nabs %0,%0\;{sri.|srwi.} %0,%0,31"
+    [(set_attr "type" "delayed_compare")
+     (set_attr "length" "12")])
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/sparc/sparc.h gcc-2.5.7/config/sparc/sparc.h
+*** gcc-2.5.6/config/sparc/sparc.h	Tue Nov 30 19:27:45 1993
+--- gcc-2.5.7/config/sparc/sparc.h	Wed Dec  8 18:02:00 1993
+***************
+*** 775,778 ****
+--- 775,783 ----
+  #define FUNCTION_VALUE_REGNO_P(N) ((N) == 8 || (N) == 32)
+  
++ /* Define the size of space to allocate for the return value of an
++    untyped_call.  */
++ 
++ #define APPLY_RESULT_SIZE 16
++ 
+  /* 1 if N is a possible register number for function argument passing.
+     On SPARC, these are the "output" registers.  */
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/config/sparc/sparc.md gcc-2.5.7/config/sparc/sparc.md
+*** gcc-2.5.6/config/sparc/sparc.md	Fri Dec  3 06:35:23 1993
+--- gcc-2.5.7/config/sparc/sparc.md	Wed Dec  8 18:02:10 1993
+***************
+*** 2856,2860 ****
+  {
+    operands[2] = adj_offsettable_operand (operands[1], 8);
+!   return \"call %a0,0\;nop\;nop\;std %%o0,%1\;st %%f0,%2\";
+  }"
+    [(set_attr "type" "multi")])
+--- 2856,2860 ----
+  {
+    operands[2] = adj_offsettable_operand (operands[1], 8);
+!   return \"call %a0,0\;nop\;nop\;std %%o0,%1\;std %%f0,%2\";
+  }"
+    [(set_attr "type" "multi")])
+***************
+*** 2873,2877 ****
+  {
+    operands[2] = adj_offsettable_operand (operands[1], 8);
+!   return \"call %a0,0\;nop\;nop\;std %%o0,%1\;st %%f0,%2\";
+  }"
+    [(set_attr "type" "multi")])
+--- 2873,2877 ----
+  {
+    operands[2] = adj_offsettable_operand (operands[1], 8);
+!   return \"call %a0,0\;nop\;nop\;std %%o0,%1\;std %%f0,%2\";
+  }"
+    [(set_attr "type" "multi")])
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/configure.bat gcc-2.5.7/configure.bat
+*** gcc-2.5.6/configure.bat	Sat Oct  9 17:38:19 1993
+--- gcc-2.5.7/configure.bat	Sun Dec 12 06:11:55 1993
+***************
+*** 5,8 ****
+--- 5,9 ----
+  update config\i386\xm-dos.h config.h
+  update config\i386\xm-dos.h hconfig.h
++ update config\i386\xm-dos.h tconfig.h
+  update config\i386\go32.h tm.h
+  update config\i386\i386.md md
+***************
+*** 27,31 ****
+  echo "s/`echo \$(srcdir)\///g				">> config.sed
+  echo "s/ | sed 's,\^\\\.\/,,'`//g			">> config.sed
+! echo "s/^	cd \$(srcdir)[ 	]*;//			">> config.sed
+  
+  echo "/^# USE_HOST_OBSTACK/ i\				">> config.sed
+--- 28,32 ----
+  echo "s/`echo \$(srcdir)\///g				">> config.sed
+  echo "s/ | sed 's,\^\\\.\/,,'`//g			">> config.sed
+! echo "s/^	cd \$(srcdir)[ 	]*;/	/		">> config.sed
+  
+  echo "/^# USE_HOST_OBSTACK/ i\				">> config.sed
+***************
+*** 37,76 ****
+  echo "  /update/ i\					">> config.sed
+  echo "	  go32 genattrtab md > t-attrtab.c		">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^cccp.o[ 	]*:/,/-c/ {			">> config.sed
+- echo "  s/	\$(CC)/	>cccp_o.rf/			">> config.sed
+- echo "  /-c/ a\						">> config.sed
+- echo "	$(CC) @cccp_o.rf				">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^gcc.o[ 	]*:/,/-c/ {				">> config.sed
+- echo "  s/	\$(CC)/	>gcc_o.rf/			">> config.sed
+- echo "  /-c/ a\						">> config.sed
+- echo "	$(CC) @gcc_o.rf					">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^gcc[ 	]*:/,/-o/ {				">> config.sed
+- echo "  s/	\$(CC)/	>gcc.rf/			">> config.sed
+- echo "  /-o/ a\						">> config.sed
+- echo "	$(CC) @gcc.rf					">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^cc1[ 	]*:/,/-o/ {				">> config.sed
+- echo "  s/	\$(CC)/	>cc1.rf/			">> config.sed
+- echo "  /-o/ a\						">> config.sed
+- echo "	$(CC) @cc1.rf					">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^cc1plus[ 	]*:/,/-o/ {			">> config.sed
+- echo "  s/	\$(CC)/	>cc1plus.rf/			">> config.sed
+- echo "  /-o/ a\						">> config.sed
+- echo "	$(CC) @cc1plus.rf				">> config.sed
+- echo "}							">> config.sed
+- 
+- echo "/^cc1obj[ 	]*:/,/-o/ {			">> config.sed
+- echo "  s/	\$(CC)/	>cc1obj.rf/			">> config.sed
+- echo "  /-o/ a\						">> config.sed
+- echo "	$(CC) @cc1obj.rf				">> config.sed
+  echo "}							">> config.sed
+  
+--- 38,41 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/cp-tree.h gcc-2.5.7/cp-tree.h
+*** gcc-2.5.6/cp-tree.h	Wed Nov 24 00:21:08 1993
+--- gcc-2.5.7/cp-tree.h	Thu Dec  9 19:36:52 1993
+***************
+*** 1224,1227 ****
+--- 1224,1233 ----
+  #define OPERATOR_FORMAT "__%s"
+  #define OPERATOR_TYPENAME_FORMAT "__op"
++ #define OPERATOR_TYPENAME_P(ID_NODE) \
++   (IDENTIFIER_POINTER (ID_NODE)[0] == '_'	\
++    && IDENTIFIER_POINTER (ID_NODE)[1] == '_'	\
++    && IDENTIFIER_POINTER (ID_NODE)[2] == 'o'	\
++    && IDENTIFIER_POINTER (ID_NODE)[3] == 'p')
++ 
+  
+  /* Cannot use '$' up front, because this confuses gdb
+***************
+*** 1297,1300 ****
+--- 1303,1309 ----
+  #define VTABLE_BASE "__vtb"
+  #define VTABLE_NAME_FORMAT "__vt_%s"
++ #define VTABLE_NAME_P(ID_NODE) \
++   (!strncmp (IDENTIFIER_POINTER (ID_NODE), VTABLE_NAME_FORMAT, \
++ 	     sizeof (VTABLE_NAME_FORMAT) - 1))
+  #define VFIELD_BASE "__vfb"
+  #define VFIELD_NAME "__vptr_"
+***************
+*** 1351,1360 ****
+    && IDENTIFIER_POINTER (ID_NODE)[2] == 'b' \
+    && IDENTIFIER_POINTER (ID_NODE)[3] == JOINER)
+- 
+- #define OPERATOR_TYPENAME_P(ID_NODE) \
+-   (IDENTIFIER_POINTER (ID_NODE)[0] == '_'	\
+-    && IDENTIFIER_POINTER (ID_NODE)[1] == '_'	\
+-    && IDENTIFIER_POINTER (ID_NODE)[2] == 'o'	\
+-    && IDENTIFIER_POINTER (ID_NODE)[3] == 'p')
+  
+  #define TEMP_NAME_P(ID_NODE) (!strncmp (IDENTIFIER_POINTER (ID_NODE), AUTO_TEMP_NAME, sizeof (AUTO_TEMP_NAME)-1))
+--- 1360,1363 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/dbxout.c gcc-2.5.7/dbxout.c
+*** gcc-2.5.6/dbxout.c	Sat Nov 13 17:07:51 1993
+--- gcc-2.5.7/dbxout.c	Sat Dec 11 18:07:44 1993
+***************
+*** 1101,1105 ****
+        putc ('S', asmfile);
+        CHARS (1);
+!       dbxout_type (TREE_TYPE (type), 0, 0);
+        break;
+  
+--- 1101,1105 ----
+        putc ('S', asmfile);
+        CHARS (1);
+!       dbxout_type (TYPE_DOMAIN (type), 0, 0);
+        break;
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/dwarfout.c gcc-2.5.7/dwarfout.c
+*** gcc-2.5.6/dwarfout.c	Tue Nov 23 21:18:03 1993
+--- gcc-2.5.7/dwarfout.c	Sat Dec 11 18:25:38 1993
+***************
+*** 3995,3999 ****
+  
+        case SET_TYPE:
+! 	output_type (TREE_TYPE (type), containing_scope);
+  	output_die (output_set_type_die, type);
+  	break;
+--- 3995,3999 ----
+  
+        case SET_TYPE:
+! 	output_type (TYPE_DOMAIN (type), containing_scope);
+  	output_die (output_set_type_die, type);
+  	break;
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/emit-rtl.c gcc-2.5.7/emit-rtl.c
+*** gcc-2.5.6/emit-rtl.c	Thu Dec  2 07:56:05 1993
+--- gcc-2.5.7/emit-rtl.c	Mon Dec  6 05:38:52 1993
+***************
+*** 2776,2779 ****
+--- 2776,2780 ----
+    tem->first = first_insn;
+    tem->last = last_insn;
++   tem->sequence_rtl_expr = sequence_rtl_expr;
+  
+    sequence_stack = tem;
+***************
+*** 2843,2846 ****
+--- 2844,2848 ----
+    top->first = first_insn;
+    top->last = last_insn;
++   /* ??? Why don't we save sequence_rtl_expr here?  */
+  
+    end_sequence ();
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/expr.c gcc-2.5.7/expr.c
+*** gcc-2.5.6/expr.c	Thu Nov 25 18:07:41 1993
+--- gcc-2.5.7/expr.c	Mon Dec  6 20:53:44 1993
+***************
+*** 1574,1587 ****
+    /* See if the machine can do this with a load multiple insn.  */
+  #ifdef HAVE_load_multiple
+!   last = get_last_insn ();
+!   pat = gen_load_multiple (gen_rtx (REG, word_mode, regno), x,
+! 			   GEN_INT (nregs));
+!   if (pat)
+      {
+!       emit_insn (pat);
+!       return;
+      }
+-   else
+-     delete_insns_since (last);
+  #endif
+  
+--- 1574,1590 ----
+    /* See if the machine can do this with a load multiple insn.  */
+  #ifdef HAVE_load_multiple
+!   if (HAVE_load_multiple)
+      {
+!       last = get_last_insn ();
+!       pat = gen_load_multiple (gen_rtx (REG, word_mode, regno), x,
+! 			       GEN_INT (nregs));
+!       if (pat)
+! 	{
+! 	  emit_insn (pat);
+! 	  return;
+! 	}
+!       else
+! 	delete_insns_since (last);
+      }
+  #endif
+  
+***************
+*** 1626,1639 ****
+    /* See if the machine can do this with a store multiple insn.  */
+  #ifdef HAVE_store_multiple
+!   last = get_last_insn ();
+!   pat = gen_store_multiple (x, gen_rtx (REG, word_mode, regno),
+! 			    GEN_INT (nregs));
+!   if (pat)
+      {
+!       emit_insn (pat);
+!       return;
+      }
+-   else
+-     delete_insns_since (last);
+  #endif
+  
+--- 1629,1645 ----
+    /* See if the machine can do this with a store multiple insn.  */
+  #ifdef HAVE_store_multiple
+!   if (HAVE_store_multiple)
+      {
+!       last = get_last_insn ();
+!       pat = gen_store_multiple (x, gen_rtx (REG, word_mode, regno),
+! 				GEN_INT (nregs));
+!       if (pat)
+! 	{
+! 	  emit_insn (pat);
+! 	  return;
+! 	}
+!       else
+! 	delete_insns_since (last);
+      }
+  #endif
+  
+***************
+*** 3979,3982 ****
+--- 3985,3989 ----
+  	{
+  	  tree object;
++ 	  tree old_list = placeholder_list;
+  
+  	  for (object = TREE_PURPOSE (placeholder_list);
+***************
+*** 3990,3994 ****
+  
+  	  if (object && TREE_TYPE (object) == type)
+! 	    return expand_expr (object, original_target, tmode, modifier);
+  	}
+  
+--- 3997,4010 ----
+  
+  	  if (object && TREE_TYPE (object) == type)
+! 	    {
+! 	      /* Expand this object skipping the list entries before
+! 		 it was found in case it is also a PLACEHOLDER_EXPR.
+! 		 In that case, we want to translate it using subsequent
+! 		 entries.  */
+! 	      placeholder_list = TREE_CHAIN (placeholder_list);
+! 	      temp = expand_expr (object, original_target, tmode, modifier);
+! 	      placeholder_list = old_list;
+! 	      return temp;
+! 	    }
+  	}
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/flow.c gcc-2.5.7/flow.c
+*** gcc-2.5.6/flow.c	Sun Nov 14 23:16:11 1993
+--- gcc-2.5.7/flow.c	Wed Dec  8 06:16:59 1993
+***************
+*** 1,4 ****
+  /* Data flow analysis for GNU compiler.
+!    Copyright (C) 1987, 1988, 1992 Free Software Foundation, Inc.
+  
+  This file is part of GNU CC.
+--- 1,4 ----
+  /* Data flow analysis for GNU compiler.
+!    Copyright (C) 1987, 1988, 1992, 1993 Free Software Foundation, Inc.
+  
+  This file is part of GNU CC.
+***************
+*** 2160,2164 ****
+      case CONST_DOUBLE:
+      case PC:
+-     case CLOBBER:
+      case ADDR_VEC:
+      case ADDR_DIFF_VEC:
+--- 2160,2163 ----
+***************
+*** 2171,2174 ****
+--- 2170,2180 ----
+        return;
+  #endif
++ 
++     case CLOBBER:
++       /* If we are clobbering a MEM, mark any registers inside the address
++ 	 as being used.  */
++       if (GET_CODE (XEXP (x, 0)) == MEM)
++ 	mark_used_regs (needed, live, XEXP (XEXP (x, 0), 0), final, insn);
++       return;
+  
+      case MEM:
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/fold-const.c gcc-2.5.7/fold-const.c
+*** gcc-2.5.6/fold-const.c	Sun Nov 14 19:24:41 1993
+--- gcc-2.5.7/fold-const.c	Wed Dec  8 05:45:24 1993
+***************
+*** 3923,3927 ****
+  	 expressions, which often appear in the offsets or sizes of
+  	 objects with a varying size.  Only deal with positive divisors
+! 	 and multiplicands. 
+  
+  	 Look for NOPs and SAVE_EXPRs inside.  */
+--- 3923,3927 ----
+  	 expressions, which often appear in the offsets or sizes of
+  	 objects with a varying size.  Only deal with positive divisors
+! 	 and multiplicands.   If C2 is negative, we must have C2 % C3 == 0.
+  
+  	 Look for NOPs and SAVE_EXPRs inside.  */
+***************
+*** 3943,3947 ****
+  	    c2 = TREE_OPERAND (xarg0, 1), xarg0 = TREE_OPERAND (xarg0, 0);
+  	  else if (TREE_CODE (xarg0) == MINUS_EXPR
+! 		   && TREE_CODE (TREE_OPERAND (xarg0, 1)) == INTEGER_CST)
+  	    {
+  	      c2 = fold (build1 (NEGATE_EXPR, type, TREE_OPERAND (xarg0, 1)));
+--- 3943,3950 ----
+  	    c2 = TREE_OPERAND (xarg0, 1), xarg0 = TREE_OPERAND (xarg0, 0);
+  	  else if (TREE_CODE (xarg0) == MINUS_EXPR
+! 		   && TREE_CODE (TREE_OPERAND (xarg0, 1)) == INTEGER_CST
+! 		   /* If we are doing this computation unsigned, the negate
+! 		      is incorrect.  */
+! 		   && ! TREE_UNSIGNED (type))
+  	    {
+  	      c2 = fold (build1 (NEGATE_EXPR, type, TREE_OPERAND (xarg0, 1)));
+***************
+*** 3960,3964 ****
+  					      TREE_OPERAND (xarg0, 1), arg1, 1))
+  		  || integer_zerop (const_binop (TRUNC_MOD_EXPR, arg1,
+! 						 TREE_OPERAND (xarg0, 1), 1))))
+  	    {
+  	      tree outer_div = integer_one_node;
+--- 3963,3970 ----
+  					      TREE_OPERAND (xarg0, 1), arg1, 1))
+  		  || integer_zerop (const_binop (TRUNC_MOD_EXPR, arg1,
+! 						 TREE_OPERAND (xarg0, 1), 1)))
+! 	      && (tree_int_cst_lt (integer_zero_node, c2)
+! 		  || integer_zerop (const_binop (TRUNC_MOD_EXPR, c2,
+! 						 arg1, 1))))
+  	    {
+  	      tree outer_div = integer_one_node;
+***************
+*** 4021,4025 ****
+  	    c2 = TREE_OPERAND (xarg0, 1), xarg0 = TREE_OPERAND (xarg0, 0);
+  	  else if (TREE_CODE (xarg0) == MINUS_EXPR
+! 		   && TREE_CODE (TREE_OPERAND (xarg0, 1)) == INTEGER_CST)
+  	    {
+  	      c2 = fold (build1 (NEGATE_EXPR, type, TREE_OPERAND (xarg0, 1)));
+--- 4027,4032 ----
+  	    c2 = TREE_OPERAND (xarg0, 1), xarg0 = TREE_OPERAND (xarg0, 0);
+  	  else if (TREE_CODE (xarg0) == MINUS_EXPR
+! 		   && TREE_CODE (TREE_OPERAND (xarg0, 1)) == INTEGER_CST
+! 		   && ! TREE_UNSIGNED (type))
+  	    {
+  	      c2 = fold (build1 (NEGATE_EXPR, type, TREE_OPERAND (xarg0, 1)));
+***************
+*** 4033,4037 ****
+  	      && integer_zerop (const_binop (TRUNC_MOD_EXPR,
+  					     TREE_OPERAND (xarg0, 1),
+! 					     arg1, 1)))
+  	    /* The result is (C2%C3).  */
+  	    return omit_one_operand (type, const_binop (code, c2, arg1, 1),
+--- 4040,4045 ----
+  	      && integer_zerop (const_binop (TRUNC_MOD_EXPR,
+  					     TREE_OPERAND (xarg0, 1),
+! 					     arg1, 1))
+! 	      && tree_int_cst_lt (integer_zero_node, c2))
+  	    /* The result is (C2%C3).  */
+  	    return omit_one_operand (type, const_binop (code, c2, arg1, 1),
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/function.c gcc-2.5.7/function.c
+*** gcc-2.5.6/function.c	Thu Nov 25 18:07:16 1993
+--- gcc-2.5.7/function.c	Sun Dec 12 06:17:30 1993
+***************
+*** 5260,5268 ****
+  	      NEXT_INSN (PREV_INSN (tem)) = NEXT_INSN (tem);
+  	      PREV_INSN (NEXT_INSN (tem)) = PREV_INSN (tem);
+! 	      if (! first_use)
+! 		first_use = tem;
+! 	      if (last_use)
+! 		NEXT_INSN (last_use) = tem;
+! 	      else
+  		last_use = tem;
+  	    }
+--- 5260,5270 ----
+  	      NEXT_INSN (PREV_INSN (tem)) = NEXT_INSN (tem);
+  	      PREV_INSN (NEXT_INSN (tem)) = PREV_INSN (tem);
+! 	      if (first_use)
+! 		{
+! 		  NEXT_INSN (tem) = first_use;
+! 		  PREV_INSN (first_use) = tem;
+! 		}
+! 	      first_use = tem;
+! 	      if (!last_use)
+  		last_use = tem;
+  	    }
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/integrate.c gcc-2.5.7/integrate.c
+*** gcc-2.5.6/integrate.c	Thu Nov 18 05:32:12 1993
+--- gcc-2.5.7/integrate.c	Sat Dec 11 18:40:24 1993
+***************
+*** 277,280 ****
+--- 277,291 ----
+        if (GET_CODE (p) == REG)
+  	parmdecl_map[REGNO (p)] = parms;
++       else if (GET_CODE (p) == CONCAT)
++ 	{
++ 	  rtx preal = gen_realpart (GET_MODE (XEXP (p, 0)), p);
++ 	  rtx pimag = gen_imagpart (GET_MODE (preal), p);
++ 
++ 	  if (GET_CODE (preal) == REG)
++ 	    parmdecl_map[REGNO (preal)] = parms;
++ 	  if (GET_CODE (pimag) == REG)
++ 	    parmdecl_map[REGNO (pimag)] = parms;
++ 	}
++ 
+        /* This flag is cleared later
+  	 if the function ever modifies the value of the parm.  */
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/objc/encoding.h gcc-2.5.7/objc/encoding.h
+*** gcc-2.5.6/objc/encoding.h	Tue Aug 24 06:05:15 1993
+--- gcc-2.5.7/objc/encoding.h	Mon Dec  6 07:39:39 1993
+***************
+*** 29,32 ****
+--- 29,33 ----
+  #define __encoding_INCLUDE_GNU
+  
++ #include <ctype.h>
+  #include "objc/objc-api.h"
+  
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/objc/makefile.dos gcc-2.5.7/objc/makefile.dos
+*** gcc-2.5.6/objc/makefile.dos	Thu Jul  1 19:27:30 1993
+--- gcc-2.5.7/objc/makefile.dos	Sun Dec 12 06:12:21 1993
+***************
+*** 17,21 ****
+  #  Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
+  
+! # This Makefile is configured for NDMAKE
+  
+  GCC_FOR_TARGET=gcc
+--- 17,21 ----
+  #  Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
+  
+! # This Makefile is configured for GnuMAKE
+  
+  GCC_FOR_TARGET=gcc
+***************
+*** 23,27 ****
+  .SUFFIXES: .o .m
+  
+! OPTIMIZE = -O
+  
+  # Always search these dirs when compiling.
+--- 23,27 ----
+  .SUFFIXES: .o .m
+  
+! OPTIMIZE = -O2
+  
+  # Always search these dirs when compiling.
+***************
+*** 41,46 ****
+  libobjc.a: $(OBJC_O)
+  	-rm -f libobjc.a
+! 	>lo.rf rc libobjc.a $(OBJC_O)
+! 	ar @lo.rf
+  	ranlib libobjc.a
+  
+--- 41,45 ----
+  libobjc.a: $(OBJC_O)
+  	-rm -f libobjc.a
+! 	ar rc libobjc.a $(OBJC_O)
+  	ranlib libobjc.a
+  
+***************
+*** 49,64 ****
+  	 object.h protocol.h mutex.h \
+  	 typedstream.h
+- 
+- sendmsg.o: sendmsg.c fflags
+- 	$(GCC_FOR_TARGET) @fflags -c  $(GCC_CFLAGS) $(SUBDIR_INCLUDES) sendmsg.c
+- 
+- ## Next to are for heuristics on forwarding mechanism... 
+- xforward: xforward.c
+- 	-$(GCC_FOR_TARGET) -c $(GCC_CFLAGS) $(SUBDIR_INCLUDES) xforward.c
+- 	-$(GCC_FOR_TARGET) ./xforward.o -o xforward
+- 
+- fflags: xforward
+- 	-rm -f fflags
+- 	go32 xforward > fflags
+  
+  mostlyclean:
+--- 48,51 ----
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/toplev.c gcc-2.5.7/toplev.c
+*** gcc-2.5.6/toplev.c	Sat Oct 30 04:21:39 1993
+--- gcc-2.5.7/toplev.c	Fri Dec 10 19:59:54 1993
+***************
+*** 561,565 ****
+    "-fident",
+    "-fdollars-in-identifiers",
+!   "-fnodollars-in-identifiers",
+    "-ansi",
+    "-Wimplicit",
+--- 561,565 ----
+    "-fident",
+    "-fdollars-in-identifiers",
+!   "-fno-dollars-in-identifiers",
+    "-ansi",
+    "-Wimplicit",
+diff -rc2P -x c-parse.y -x c-parse.c -x c-parse.h -x objc-parse.y -x cp-parse.c -x cp-parse.h -x cexp.c -x bi-parser.c -x objc-parse.c -x TAGS -x gcc.?? -x gcc.??s -x gcc.aux -x cpp.??s -x cpp.?? -x cpp.aux -x cpp.info* -x gcc.info* gcc-2.5.6/version.c gcc-2.5.7/version.c
+*** gcc-2.5.6/version.c	Fri Dec  3 07:42:25 1993
+--- gcc-2.5.7/version.c	Sun Dec 12 06:47:06 1993
+***************
+*** 1 ****
+! char *version_string = "2.5.6";
+--- 1 ----
+! char *version_string = "2.5.7";

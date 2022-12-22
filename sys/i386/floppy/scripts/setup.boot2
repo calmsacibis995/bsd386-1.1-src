@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo -n "Creating MFS filesystem..."
+mount_mfs -s 1440 "$@" /dev/rfd0c /var/tmp
+echo "Done."
+
+echo -n "Copying files into place..."
+mkdir /var/tmp/etc
+cat /etc/hosts.real > /var/tmp/etc/hosts
+cat /etc/disktab.real > /var/tmp/etc/disktab
+cat /etc/fstab.real > /var/tmp/etc/fstab
+echo "Done."
+
+echo -n "Uncompressing select binaries..."
+tail +21 /bin/rsh | gzip -cd > /tmp/rsh
+tail +21 /bin/pax | gzip -cd > /tmp/pax
+tail +21 /bin/dd  | gzip -cd > /tmp/dd
+tail +21 /bin/mt  | gzip -cd > /tmp/mt
+chmod 755 /tmp/rsh /tmp/pax /tmp/dd /tmp/mt
+echo "Done."
+
+echo

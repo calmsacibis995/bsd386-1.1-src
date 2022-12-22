@@ -1,0 +1,9 @@
+F DISK.H;1                          	disk.h
+F DISKTAPE.H;1                      	disktape.h
+F SCSI.H;1                          	scsi.h
+F SCSIVAR.H;1                       	scsivar.h
+F SCSI_IOC.H;1                      	scsi_ioctl.h
+F SCSI_SUB.C;1                      	scsi_subr.c
+F SD.C;1                            	sd.c
+F ST.C;1                            	st.c
+F TAPE.H;1                          	tape.h

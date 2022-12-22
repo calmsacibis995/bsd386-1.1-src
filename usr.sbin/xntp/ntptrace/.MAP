@@ -1,0 +1,7 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.TMP;1                    	Makefile.tmpl
+F NTPTRACE.8;1                      	ntptrace.8
+F NTPTRACE.C;1                      	ntptrace.c
+F NTPTRACE.H;1                      	ntptrace.h
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/xntp/ntptrace
+F README.;1                         	README

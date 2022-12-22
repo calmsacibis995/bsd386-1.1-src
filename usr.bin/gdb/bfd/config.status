@@ -1,0 +1,5 @@
+#!/bin/sh
+# This file was generated automatically by configure.  Do not edit.
+# /usr/src/local/gdb-4.5.lbl/bfd was configured as follows:
+.././configure sun4 -target=sun4 -norecursion 
+# 

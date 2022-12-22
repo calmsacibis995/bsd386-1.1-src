@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/perl/grot/eg/ADB,v 1.1.1.1 1992/07/27 23:24:06 polk Exp $
+
+# This script is only useful when used in your crash directory.
+
+$num = shift;
+exec 'adb', '-k', "vmunix.$num", "vmcore.$num";

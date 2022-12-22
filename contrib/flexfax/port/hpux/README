@@ -1,0 +1,16 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/port/hpux/README,v 1.1.1.1 1994/01/14 23:10:37 torek Exp $
+
+This port was done on an HP 9000/730 w/ HPUX 9.01 and HP C++.  I
+wasn't able to try gcc 'cuz there was no libg++ installed (the
+missing include files made it impossible to compile most of the
+c++ code).
+
+Notes:
+
+o no cc -M to generate dependencies for mkdepend--I used gcc -M instead;
+  beware that it generates a bunch of warnings that can be ignored
+o /bin/sh's getopts doesn't seem to work so generic mkdepend fails;
+  used Linux version that doesn't use getopts
+o standard make can't hack Makefiles, must use gmake instead
+o everything builds correctly, but couldn't test make install or
+  faxadddmodem 'cuz I didn't have root permission

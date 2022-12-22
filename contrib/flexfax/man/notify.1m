@@ -1,0 +1,116 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/notify.1m,v 1.1.1.1 1994/01/14 23:10:12 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH NOTIFY 1M "August 30, 1993"
+.SH NAME
+notify \- \s-1FlexFAX\s+1 user notification script
+.SH SYNOPSIS
+.B bin/notify
+.I qfile
+.I why
+.I jobtime
+.I pid
+.I number
+[
+.I nextTry
+]
+.SH DESCRIPTION
+.B bin/notify
+is the command script invoked by the facsimile server to notify a
+user about the status of an outgoing facsimile job.
+The default notification script sends the appropriate user
+electronic mail describing the event or action.
+The arguments are:
+.TP 10
+.B qfile
+the pathname of the job description file relative to the root
+of the spooling hierarchy.
+.TP
+.B why
+a string that specifies why the user is being notified; one of:
+.sp .5
+.nf
+.ta  +\w'poll_no_document    'u +\w'Notes    'u
+\fBWhy\fP	Notes	\fBMeaning\fP
+done		job was completed successfully
+failed	\(dg \(dd	job was not completed
+requeued	\(dd	job was not completed, but was requeued for retry
+removed		job was deleted from the queue
+killed	\(dg	job was deleted from the queue
+timedout	\(dg	job could not be sent after repeated attempts
+format_failed	\(dg	conversion of PostScript failed
+no_formatter	\(dg	the PostScript to facsimile conversion program was not found
+poll_rejected		a polling request was rejected by the remote side
+poll_no_document		a polling request failed because nothing was available
+poll_failed		a polling request failed for an unknown reason
+file_rejected		a submitted file was rejected, usually because of format
+.sp .5
+.fi
+\(dg Any pages that were not sucessfully transmitted should be
+returned to the sender.
+.br
+\(dd A transcript of the failed communication is returned
+to the sender with the
+.IR transcript (1M)
+command.
+.TP
+.B jobtime
+the total transmission time of a successful job or the connect
+time of a failed request (passed as a string).
+.TP
+.B pid
+the process identifier of the facsmile server process that invoked
+the notification service.
+.TP 
+.B number
+the canonical phone number of the destination facsimile machine.
+.TP
+.B nextTry
+the time (passed as a string) at which the next attempt will be
+made to complete the job.
+This parameter is passed only if
+.B why
+is ``requeued''.
+.SH NOTES
+The following programs may be invoked to return unsent documents
+to the sender:
+.IR tar (1),
+.IR uuencode (1),
+and
+.IR compress (1).
+Which programs and the exact format is site dependent.
+.SH FILES
+.nf
+.ta \w'${SPOOL}    'u
+${SPOOL}	spooling area
+bin/transcript	for returning communication transcript
+/usr/lib/sendmail	for delivering mail
+.fi
+.SH "SEE ALSO"
+.IR faxd (1M),
+.IR transcript (1M),
+.IR intro (4F),
+.IR sendq (4F)

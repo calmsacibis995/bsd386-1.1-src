@@ -1,0 +1,8 @@
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F VGAASM_H.GZ;1                     	vgaAsm.h.gz
+F VGABANK0.GZ;1                     	vgaBank.h.gz
+F VGABANK1.GZ;1                     	vgaBank.s.gz
+F VGACMAP_.GZ;1                     	vgaCmap.c.gz
+F VGAHW_C.GZ;1                      	vgaHW.c.gz
+F VGA_C.GZ;1                        	vga.c.gz
+F VGA_H.GZ;1                        	vga.h.gz

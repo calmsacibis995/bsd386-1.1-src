@@ -1,0 +1,9 @@
+#
+#
+#
+
+echo this is sb
+
+exec 0< sc
+
+echo after exec in sb

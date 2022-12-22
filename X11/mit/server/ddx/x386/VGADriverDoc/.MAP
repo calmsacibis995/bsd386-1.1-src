@@ -1,0 +1,5 @@
+F IMAKEFI0.GZ;1                     	Imakefile.gz
+F IMAKEFI1.GZ;1                     	Imakefile.stub.gz
+F STUB_BAN.GZ;1                     	stub_bank.s.gz
+F STUB_DRI.GZ;1                     	stub_driver.c.gz
+F VGADRIVE.GZ;1                     	VGADriver.Doc.gz

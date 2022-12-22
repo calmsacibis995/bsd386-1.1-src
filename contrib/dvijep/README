@@ -1,0 +1,27 @@
+This directory contains a TeX DVI driver for the HP Laserjet Plus.  It
+is just one driver of many in the Beebe package from the University of
+Utah.  The complete package, including extensive documentation and
+ported to BSD/386 by George Hartzell, is available by anonymous ftp
+from BSDI.COM - look in the index for the file utah-dvi.tar.Z.
+
+The following devices are supported in the complete package:
+
+dvialw  	Apple LaserWriter (dvips is said to be much better)
+dvibit		Version 3.10 BBN BitGraph terminal
+dvican		Canon LBP-8 A2 laser printer
+dvica2		Canon LBP-8 A2 laser printer (another)
+dvigd		Golden Dawn Golden Laser 100 printer
+dviimp		Imagen imPRESS-language laser printer family
+dvijep		Hewlett-Packard LaserJet Plus
+dvijet		Hewlett-Packard LaserJet (at 100 dpi resolution!)
+dvil3p		DEC LN03 Plus laser printer
+dvil75		DEC LA75 144 dpi printer
+dvim72		Apple Imagewriter 72 dpi printer
+dvimac		Apple Imagewriter 144 dpi printer
+dvimpi		MPI Sprinter 72 dpi printer
+dvio72		OKIDATA Pacemark 2410 72 dpi printer
+dvioki		OKIDATA Pacemark 2410 144 dpi printer
+dviprx		Printronix 60h x 72v dpi printer
+dvitos		Toshiba P-1351 180 dpi printer
+dvie72		Epson dot matrix
+dvieps		Epson dot matrix (another)

@@ -1,0 +1,8 @@
+F KPASSWD_.H;1                      	kpasswd_proto.h
+F KRB_PASS.C;1                      	krb_passwd.c
+F LOCAL_PA.C;1                      	local_passwd.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/passwd
+F PASSWD.1;1                        	passwd.1
+F PASSWD.C;1                        	passwd.c
+F TAGS.;1                           	tags

@@ -1,0 +1,21 @@
+F BITS.C;1                          	bits.c
+F DEFLATE.C;1                       	deflate.c
+F FILEIO.C;1                        	fileio.c
+F GLOBALS.C;1                       	globals.c
+D GROT                              	grot
+F MAKECRC.C;1                       	makecrc.c
+F MAKEFILE.;1                       	Makefile
+F MATCH.S;1                         	match.s
+F MKTIME.C;1                        	mktime.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/zip/zip
+F REVISION.H;1                      	revision.h
+F TAGS.;1                           	tags
+F TAILOR.H;1                        	tailor.h
+F TREES.C;1                         	trees.c
+F UTIL.C;1                          	util.c
+F ZIP.1;1                           	zip.1
+F ZIP.C;1                           	zip.c
+F ZIP.H;1                           	zip.h
+F ZIPERR.H;1                        	ziperr.h
+F ZIPFILE.C;1                       	zipfile.c
+F ZIPUP.C;1                         	zipup.c

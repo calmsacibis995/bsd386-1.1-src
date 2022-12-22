@@ -1,0 +1,25 @@
+F ANALYZE.C;1                       	analyze.c
+F CMPBUF.C;1                        	cmpbuf.c
+F CMPBUF.H;1                        	cmpbuf.h
+F CONFIG.H;1                        	config.h
+F CONTEXT.C;1                       	context.c
+F DIFF.1;1                          	diff.1
+F DIFF.C;1                          	diff.c
+F DIFF.H;1                          	diff.h
+F DIR.C;1                           	dir.c
+F ED.C;1                            	ed.c
+F GETOPT.C;1                        	getopt.c
+F GETOPT.H;1                        	getopt.h
+F GETOPT1.C;1                       	getopt1.c
+F IFDEF.C;1                         	ifdef.c
+F IO.C;1                            	io.c
+F MAKEFILE.;1                       	Makefile
+F NORMAL.C;1                        	normal.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/diff/diff
+F REGEX.C;1                         	regex.c
+F REGEX.H;1                         	regex.h
+F SIDE.C;1                          	side.c
+F SYSTEM.H;1                        	system.h
+F TAGS.;1                           	tags
+F UTIL.C;1                          	util.c
+F VERSION.C;1                       	version.c

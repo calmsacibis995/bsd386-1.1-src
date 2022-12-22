@@ -1,0 +1,10 @@
+D GROT                              	grot
+D LPRPS                             	lprps
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+D MISC                              	misc
+D PSIF                              	psif
+D PSOF                              	psof
+D PSREV                             	psrev
+F README.;1                         	README
+D TEXTPS                            	textps

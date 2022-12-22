@@ -1,0 +1,5 @@
+F FINDSRC.1;1                       	findsrc.1
+F FINDSRC.C;1                       	findsrc.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/cshar/findsrc
+F TAGS.;1                           	tags

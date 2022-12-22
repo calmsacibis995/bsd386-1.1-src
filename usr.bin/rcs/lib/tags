@@ -1,0 +1,223 @@
+Iclose	rcslex.c	/^	Iclose(f)$/
+Ieof	rcslex.c	/^exiting void Ieof() { fatserror("unexpected end of/
+Ierror	rcslex.c	/^exiting void Ierror() { efaterror("input error"); /
+Ifclose	rcslex.c	/^void Ifclose(f) RILE *f; { if (f && Iclose(f)!=0) /
+Igetmore	rcslex.c	/^Igetmore(f)$/
+InitAdmin	rcsfnms.c	/^InitAdmin()$/
+Iopen	rcslex.c	/^Iopen(filename, mode, status)$/
+Irewind	rcslex.c	/^void Irewind(f) FILE *f; { if (fseek(f,0L,SEEK_SET/
+Izclose	rcslex.c	/^void Izclose(p) RILE **p; { Ifclose(*p); *p = 0; }/
+Lexinit	rcslex.c	/^Lexinit()$/
+Mrcsfcmp	rcsfcmp.c	/^main(argc, argv)$/
+Mrcsfnms	rcsfnms.c	/^main(argc, argv)$/
+Mrcskeep	rcskeep.c	/^main(argc, argv)$/
+Mrcslex	rcslex.c	/^main(argc,argv)$/
+Mrcsrev	rcsrev.c	/^main(argc,argv)$/
+Mrcssyn	rcssyn.c	/^main(argc,argv)$/
+Oerror	rcslex.c	/^Oerror()$/
+Ofclose	rcslex.c	/^void Ofclose(f) FILE *f; { if (f && fclose(f)!=0) /
+Ozclose	rcslex.c	/^void Ozclose(p) FILE **p; { Ofclose(*p); *p = 0; }/
+absent	rcsrev.c	/^absent(revno, field)$/
+addlock	rcsedit.c	/^addlock(delta)$/
+addsymbol	rcsedit.c	/^addsymbol(num, name, rebind)$/
+advise_access	rcslex.c	/^advise_access(f, advice)$/
+aflush	rcsedit.c	/^aflush(f)$/
+afputc	rcslex.c	/^afputc(c, f)$/
+aprintf	rcslex.c	/^aprintf(iop, fmt, va_alist)$/
+aputs	rcslex.c	/^aputs(s, iop)$/
+awrite	rcsutil.c	/^awrite(buf, chars, f)$/
+badDiffOutput	rcssyn.c	/^badDiffOutput(buf)$/
+badly_terminated	rcskeep.c	/^badly_terminated()$/
+basename	rcsfnms.c	/^basename(p)$/
+bindex	rcsfnms.c	/^bindex(sp,ch)$/
+branchtip	rcsrev.c	/^branchtip(branch)$/
+bufalloc	rcsfnms.c	/^bufalloc(b, size)$/
+bufargcat	rcsutil.c	/^bufargcat(b, c, s)$/
+bufautoend	rcsfnms.c	/^bufautoend(b)$/
+bufenlarge	rcsfnms.c	/^bufenlarge(b, alim)$/
+bufrealloc	rcsfnms.c	/^bufrealloc(b, size)$/
+bufremember	rcsfnms.c	/^bufremember(b, s)$/
+bufscat	rcsfnms.c	/^bufscat(b, s)$/
+bufscpy	rcsfnms.c	/^bufscpy(b, s)$/
+buildrevision	rcsgen.c	/^buildrevision(deltas, target, outfile, expandflag)/
+cacheid	rcsutil.c	/^#define cacheid(E) static uid_t i; static int s; i/
+cantfindbranch	rcsrev.c	/^cantfindbranch(revno, date, author, state)$/
+catchints	rcsutil.c	/^catchints()$/
+catchsig	rcsutil.c	/^catchsig(s)$/
+cgetenv	rcsutil.c	/^cgetenv(name)$/
+check_sig	rcsutil.c	/^  check_sig(r)$/
+checkaccesslist	rcsedit.c	/^checkaccesslist()$/
+checkid	rcslex.c	/^checkid(id, delimiter)$/
+checknum	rcskeep.c	/^checknum(sp,fields)$/
+checksid	rcslex.c	/^checksid(id)$/
+chnamemod	rcsedit.c	/^  chnamemod(fromp,from,to,mode) FILE **fromp; char/
+cleanlogmsg	rcsgen.c	/^cleanlogmsg(m, s)$/
+cmpnum	rcsrev.c	/^int cmpnum(num1, num2)$/
+cmpnumfld	rcsrev.c	/^int cmpnumfld(num1, num2, fld)$/
+compartial	rcsrev.c	/^compartial(num1, num2, length)$/
+copylines	rcsedit.c	/^copylines(upto,delta)$/
+copystring	rcsedit.c	/^copystring()$/
+date2str	rcsutil.c	/^date2str(date, datebuf)$/
+deletelines	rcsedit.c	/^deletelines(n, nlines)$/
+diagnose	rcslex.c	/^	\/*VARARGS1*\/ void diagnose(format, va_alist) ch/
+diffLineNumberTooLarge	rcssyn.c	/^diffLineNumberTooLarge(buf)$/
+dirlen	rcsfnms.c	/^dirlen(p)$/
+dirtempunlink	rcsedit.c	/^dirtempunlink()$/
+do_link	rcsedit.c	/^do_link(s, t)$/
+donerewrite	rcsedit.c	/^donerewrite(changed)$/
+dorewrite	rcsedit.c	/^dorewrite(lockflag, changed)$/
+editEndsPrematurely	rcsedit.c	/^editEndsPrematurely()$/
+editLineNumberOverflow	rcsedit.c	/^editLineNumberOverflow()$/
+editstring	rcsedit.c	/^  editstring(delta)$/
+eerror	rcslex.c	/^void eerror(s) char const *s; { enerror(errno,s); /
+efaterror	rcslex.c	/^exiting void efaterror(s) char const *s; { enfater/
+eflush	rcslex.c	/^void eflush()$/
+enerror	rcslex.c	/^enerror(e,s)$/
+enfaterror	rcslex.c	/^enfaterror(e,s)$/
+enterstring	rcsedit.c	/^enterstring()$/
+eoflex	rcslex.c	/^eoflex()$/
+error	rcslex.c	/^	\/*VARARGS1*\/ void error(format, va_alist) char /
+errsay	rcslex.c	/^static void errsay() { oflush(); aprintf(stderr,"%/
+euid	rcsutil.c	/^	uid_t euid() { cacheid(geteuid()); }$/
+exiterr	rcsfnms.c	/^exiterr()$/
+expandline	rcsedit.c	/^expandline(infile, outfile, delta, delimstuffed, f/
+expandsym	rcsrev.c	/^int expandsym(source, target)$/
+fastcopy	rcsutil.c	/^fastcopy(inf,outf)$/
+fatcleanup	rcslex.c	/^fatcleanup(already_newline)$/
+faterror	rcslex.c	/^	\/*VARARGS1*\/ exiting void faterror(format, va_a/
+fatsay	rcslex.c	/^static void fatsay() { oflush(); VOID fprintf(stde/
+fatserror	rcslex.c	/^	fatserror(format, va_alist) char const *format; v/
+fd2RILE	rcslex.c	/^fd2RILE(fd, filename, mode, status)$/
+fdreopen	rcsutil.c	/^fdreopen(fd, file, flags)$/
+fexpandsym	rcsrev.c	/^fexpandsym(source, target, fp)$/
+ffree	rcsutil.c	/^ffree()$/
+ffree1	rcsutil.c	/^ffree1(f)$/
+filenametoolong	rcsfnms.c	/^filenametoolong(path)$/
+fin2open	rcsfnms.c	/^fin2open(d, dlen, base, baselen, x, xlen, rcsopen,/
+findlock	rcsedit.c	/^findlock(delete, target)$/
+finishedit	rcsedit.c	/^finishedit(delta, outfile, done)$/
+finisheditline	rcsedit.c	/^finisheditline(fin, fout, l, delta)$/
+finopen	rcsfnms.c	/^finopen(rcsopen, mustread)$/
+fopen_update_truncate	rcsedit.c	/^fopen_update_truncate(filename)$/
+fremember	rcsutil.c	/^fremember(ptr)$/
+fstr_save	rcsutil.c	/^fstr_save(s)$/
+ftestalloc	rcsutil.c	/^ftestalloc(size)$/
+fvfprintf	rcslex.c	/^	fvfprintf(stream,format,args) FILE *stream; char /
+genbranch	rcsrev.c	/^genbranch(bpoint, revno, length, date, author, sta/
+genrevs	rcsrev.c	/^struct hshentry * genrevs(revno,date,author,state,/
+get0val	rcskeep.c	/^get0val(c, fp, target, optional)$/
+getRCSINIT	rcsutil.c	/^getRCSINIT(argc, argv, newargv)$/
+getadmin	rcssyn.c	/^getadmin()$/
+getbranchno	rcsrev.c	/^getbranchno(revno,branchno)$/
+getcaller	rcsedit.c	/^getcaller()$/
+getcstdin	rcsgen.c	/^getcstdin()$/
+getcwd	rcsfnms.c	/^getcwd(path, size)$/
+getdelta	rcssyn.c	/^getdelta()$/
+getdesc	rcssyn.c	/^getdesc(prdesc)$/
+getdiffcmd	rcssyn.c	/^getdiffcmd(finfile, delimiter, foutfile, dc)$/
+getdnum	rcssyn.c	/^getdnum()$/
+getfullRCSname	rcsfnms.c	/^getfullRCSname()$/
+getid	rcslex.c	/^getid()$/
+getkey	rcslex.c	/^getkey(key)$/
+getkeyopt	rcslex.c	/^getkeyopt(key)$/
+getkeystring	rcslex.c	/^getkeystring(key)$/
+getkeyval	rcssyn.c	/^getkeyval(keyword, token, optional)$/
+getlex	rcslex.c	/^int getlex(token)$/
+getnum	rcslex.c	/^struct hshentry * getnum()$/
+getphrases	rcslex.c	/^getphrases(key)$/
+getsstdin	rcsgen.c	/^getsstdin(option, name, note, buf)$/
+gettree	rcssyn.c	/^gettree()$/
+getusername	rcsutil.c	/^getusername(suspicious)$/
+getval	rcskeep.c	/^getval(fp, target, optional)$/
+given	partime.c	/^#define given(v) (0 <= (v))$/
+goodzone	partime.c	/^goodzone(t, offset, am)$/
+ignoreints	rcsutil.c	/^ignoreints()$/
+ignorephrase	rcssyn.c	/^ignorephrase()$/
+initdiffcmd	rcssyn.c	/^initdiffcmd(dc)$/
+insertline	rcsedit.c	/^insertline(n, l)$/
+isSLASH	rcsfnms.c	/^isSLASH(c)$/
+keepdate	rcskeep.c	/^keepdate(fp)$/
+keepdirtemp	rcsedit.c	/^keepdirtemp(name)$/
+keepid	rcskeep.c	/^keepid(c, fp, b)$/
+keeprev	rcskeep.c	/^keeprev(fp)$/
+keyreplace	rcsedit.c	/^keyreplace(marker,delta,out)$/
+libId	maketime.c	/^libId(maketId, "$Id: maketime.c,v 1.1.1.1 1993\/12/
+lookup	rcslex.c	/^lookup(str)$/
+lookupsym	rcsrev.c	/^lookupsym(id)$/
+makedirtemp	rcsedit.c	/^makedirtemp(name, n)$/
+maketemp	rcsfnms.c	/^maketemp(n)$/
+maketime	maketime.c	/^maketime(atm,zone)$/
+memcmp	rcsutil.c	/^memcmp(s1, s2, n)$/
+memcpy	rcsutil.c	/^memcpy(s1, s2, n)$/
+movefd	rcsutil.c	/^movefd(old, new)$/
+movelines	rcsedit.c	/^movelines(s1, s2, n)$/
+nextlex	rcslex.c	/^nextlex()$/
+nosetid	rcsutil.c	/^nosetid()$/
+oflush	rcslex.c	/^void oflush()$/
+okalloc	rcsutil.c	/^okalloc(p)$/
+openfcopy	rcsedit.c	/^openfcopy(f)$/
+pairfilenames	rcsfnms.c	/^pairfilenames(argc, argv, rcsopen, mustread, quiet/
+partialno	rcsrev.c	/^char * partialno(rev1,rev2,length)$/
+partime	partime.c	/^partime(astr, atm, zone)$/
+printstring	rcslex.c	/^printstring()$/
+pt12hack	partime.c	/^pt12hack(tm, aval)$/
+ptitoken	partime.c	/^ptitoken(tkp)$/
+ptmatchstr	partime.c	/^ptmatchstr(astr,cnt,astruc)$/
+ptstash	partime.c	/^ptstash(adr,val)$/
+pttoken	partime.c	/^pttoken(tkp)$/
+putadmin	rcssyn.c	/^putadmin(fout)$/
+putdelta	rcssyn.c	/^putdelta(node,fout)$/
+putdesc	rcsgen.c	/^putdesc(textflag, textfile)$/
+putdftext	rcssyn.c	/^putdftext(num,log,finfile,foutfile,diffmt)$/
+putdtext	rcssyn.c	/^int putdtext(num,log,srcfilename,fout,diffmt)$/
+putstring	rcssyn.c	/^putstring(out, delim, s, log)$/
+puttree	rcssyn.c	/^puttree(root,fout)$/
+rcsfcmp	rcsfcmp.c	/^rcsfcmp(xfp, xstatp, ufname, delta)$/
+rcsreadopen	rcsfnms.c	/^rcsreadopen(RCSname, status, mustread)$/
+rcssuffix	rcsfnms.c	/^rcssuffix(name)$/
+rcswriteopen	rcsedit.c	/^rcswriteopen(RCSbuf, status, mustread)$/
+readstring	rcslex.c	/^readstring()$/
+redefined	rcslex.c	/^redefined(c)$/
+redirect	rcsutil.c	/^redirect(old, new)$/
+resolve_symlink	rcsedit.c	/^resolve_symlink(L)$/
+restoreints	rcsutil.c	/^restoreints()$/
+ruid	rcsutil.c	/^	uid_t ruid() { cacheid(getuid()); }$/
+run	rcsutil.c	/^run(infile, outfile, va_alist)$/
+runv	rcsutil.c	/^runv(inoutargs)$/
+savestring	rcslex.c	/^savestring(target)$/
+scandeltatext	rcsgen.c	/^scandeltatext(delta, func, needlog)$/
+setRCSversion	rcsutil.c	/^setRCSversion(str)$/
+set_uid_to	rcsutil.c	/^set_uid_to(u)$/
+seteid	rcsutil.c	/^seteid()$/
+setfiledate	maketime.c	/^setfiledate(file, date)$/
+setrid	rcsutil.c	/^setrid()$/
+setup_catchsig	rcsutil.c	/^  setup_catchsig()$/
+snapshotedit	rcsedit.c	/^snapshotedit(f)$/
+snapshotline	rcsedit.c	/^snapshotline(f, l)$/
+store1	rcsrev.c	/^store1(store, next)$/
+str2date	maketime.c	/^str2date(source, target)$/
+str2expmode	rcssyn.c	/^str2expmode(s)$/
+str2time	maketime.c	/^str2time(source)$/
+str_save	rcsutil.c	/^str_save(s)$/
+strn2expmode	rcssyn.c	/^strn2expmode(s, n)$/
+suffix_matches	rcsfnms.c	/^suffix_matches(suffix, pattern)$/
+suffixlen	rcsfnms.c	/^suffixlen(x)$/
+swapeditfiles	rcsedit.c	/^swapeditfiles(outfile)$/
+tempunlink	rcsfnms.c	/^tempunlink()$/
+testIeof	rcslex.c	/^testIeof(f)$/
+testIerror	rcslex.c	/^void testIerror(f) FILE *f; { if (ferror(f)) Ierro/
+testOerror	rcslex.c	/^void testOerror(o) FILE *o; { if (ferror(o)) Oerro/
+testalloc	rcsutil.c	/^testalloc(size)$/
+testrealloc	rcsutil.c	/^testrealloc(ptr, size)$/
+time2date	maketime.c	/^time2date(unixtime,date)$/
+time2tm	maketime.c	/^time2tm(unixtime)$/
+tiprev	rcsrev.c	/^tiprev()$/
+tmp	rcsfnms.c	/^tmp()$/
+trymatch	rcskeys.c	/^trymatch(string)$/
+tryopen	rcsutil.c	/^tryopen(fd,file,flags)$/
+ttystdin	rcsgen.c	/^int ttystdin()$/
+un_link	rcsedit.c	/^un_link(s)$/
+unexpected_EOF	rcssyn.c	/^unexpected_EOF()$/
+warn	rcslex.c	/^	\/*VARARGS1*\/ void warn(format, va_alist) char c/
+xpandstring	rcsedit.c	/^xpandstring(delta)$/
+yesorno	rcsgen.c	/^	yesorno(default_answer, question, va_alist)$/

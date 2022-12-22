@@ -1,0 +1,61 @@
+.\"
+.V= $Id: uusnap.1,v 1.1 1994/01/31 01:27:17 donn Exp $
+.\"
+.ds S1 UUSNAP
+.ds S2 \fIUusnap\fP
+.ds S3 \fIuusnap\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uusnap
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uusnap \- show status of \*(S5 neighbor systems
+.SH SYNOPSIS
+.B uusnap
+.RI [\- flags ]
+.RI [ "match ..." ]
+.SH DESCRIPTION
+\*(S2 lists the \*(S5 names of known systems, and the status of each.
+If one or more
+.I match
+arguments are given,
+output is restricted to names which match them (simple character compare).
+No match results in no output, and an error exit status of
+.SM EX_NOHOST.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-P\fP\fIparams\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-a
+Show all systems, even ``uninteresting'' ones such as those with no
+traffic queued for them.
+.TP
+.BI \-v
+Show more data about each system.
+.TP
+.BI \-P params
+Alters the pathname for the \*(S5 parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.SH FILES
+.PD 0
+.TP \w'\f(CW/var/spool/uucppublic\fPX'u
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all network programs (see
+.IR uuparams (5)).
+.TP
+\f(CWPARAMSDIR/L.aliases\fP
+System name aliases.
+.TP
+\f(CWPARAMSDIR/L.sys\fP
+System name data-base.
+.PD
+.SH SEE ALSO
+.BR uucp (1),
+.BR uux (1),
+.BR uuparams (5).

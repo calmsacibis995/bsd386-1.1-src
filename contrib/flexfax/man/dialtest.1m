@@ -1,0 +1,96 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/dialtest.1m,v 1.1.1.1 1994/01/14 23:10:09 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1993 Sam Leffler
+.\" Copyright (c) 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH DIALTEST 1M "September 24, 1993"
+.SH NAME
+dialtest \-
+.I FlexFAX
+dial string processing rules test program
+.SH SYNOPSIS
+.B bin/dialtest
+[
+.B \-a
+.I areacode
+] [
+.B \-c
+.I countrycode
+] [
+.B \-i
+.I internationalprefix
+] [
+.B \-l
+.I longdistanceprefix
+] [
+.B \-v
+]
+.I dialrules
+.SH DESCRIPTION
+.I dialtest
+is an interactive program for the testing and development of
+dial string processing rules for use with
+.IR FlexFAX .
+.I dialtest
+reads the file of rules specified on the command line
+and then prompts for a dial string.
+For each string typed in,
+.I dialtest
+prints the result of applying the canonicalization
+and dial-string preparation rule sets.
+A rule set whose name is
+.I setname
+can be specified by typing ``\fIsetname\fP(\fIstring\fP)'';
+for example, ``\fICanonicalName\fP(+1.415.965.7824)''.
+.PP
+By default
+.I dialtest
+uses ``415'', ``1'', ``011'', and ``1'' for the area code,
+country code, international dialing prefix, and long distance
+dialing prefix, respectively.
+Alternative values can be specified on the command line
+with the
+.BR \-a ,
+.BR \-c ,
+.BR \-i ,
+and
+.BR \-l
+options.
+.PP
+If the
+.B \-v
+option is specified,
+.I dialtest
+will print each input line before displaying the results of
+applying the dial string rules to the input string.
+This can be useful, for example, in shell scripts.
+.PP
+Note that
+.I dialtest
+reads the rules file only when it is initially started up.
+This means that
+.I dialtest
+must be restarted for it to apply changes to a rules file.
+.SH "SEE ALSO"
+.IR dialrules (4F)

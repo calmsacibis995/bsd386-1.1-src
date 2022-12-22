@@ -1,0 +1,1283 @@
+Common subdirectories: Release-2.3/latest/MISC and Think-C/MISC
+Only in Think-C: MakeRes.c
+diff -wrc Release-2.3/latest/Makefile Think-C/Makefile
+*** Release-2.3/latest/Makefile	Wed Jun 27 21:44:07 1990
+--- Think-C/Makefile	Tue Jan 28 02:52:35 1992
+***************
+*** 40,50 ****
+  # Raw, unformatted troff source will be installed if INSTALLMAN=man, nroff
+  # preformatted versions will be installed if INSTALLMAN=cat.
+  DESTDIR =
+! BINDIR = /usr/local
+! LIBDIR = /usr/local/lib
+! AUXDIR = /usr/local/lib
+! MANDIR = /usr/man/manl
+! MANEXT = l
+  INSTALLMAN = man
+  
+  # MAKE = make
+--- 40,50 ----
+  # Raw, unformatted troff source will be installed if INSTALLMAN=man, nroff
+  # preformatted versions will be installed if INSTALLMAN=cat.
+  DESTDIR =
+! BINDIR = /local/share.sun4.emil/bin
+! LIBDIR = /local/share.sun4.emil/lib/flex
+! AUXDIR = /local/share.sun4.emil/lib/flex
+! MANDIR = /local/share.emil/man/man1
+! MANEXT = 1
+  INSTALLMAN = man
+  
+  # MAKE = make
+Only in Think-C: Makefile.ORG
+Only in Think-C: Makefile~
+Only in Think-C: THINK_C_Projects_etc.hqx
+Only in Think-C: THINK_C_notes
+diff -wrc Release-2.3/latest/ccl.c Think-C/ccl.c
+*** Release-2.3/latest/ccl.c	Wed Jun 27 21:44:07 1990
+--- Think-C/ccl.c	Tue Jan 28 02:51:57 1992
+***************
+*** 80,86 ****
+   *    new_ccl = cclinit();
+   */
+  
+! int cclinit()
+  
+      {
+      if ( ++lastccl >= current_maxccls )
+--- 80,86 ----
+   *    new_ccl = cclinit();
+   */
+  
+! int cclinit(void)
+  
+      {
+      if ( ++lastccl >= current_maxccls )
+***************
+*** 165,171 ****
+  
+  	    if ( i - 1 > start_char )
+  		/* this was a run */
+! 		fprintf( file, "-%s", readable_form( i - 1 ) );
+  
+  	    putc( ' ', file );
+  	    }
+--- 165,171 ----
+  
+  	    if ( i - 1 > start_char )
+  		/* this was a run */
+! 		fprintf( file, "-%s", ( i - 1 ) );
+  
+  	    putc( ' ', file );
+  	    }
+diff -wrc Release-2.3/latest/dfa.c Think-C/dfa.c
+*** Release-2.3/latest/dfa.c	Wed Jun 27 21:44:08 1990
+--- Think-C/dfa.c	Tue Jan 28 02:52:04 1992
+***************
+*** 40,45 ****
+--- 40,46 ----
+  void dump_transitions PROTO((FILE*, int[]));
+  void sympartition PROTO((int[], int, int[], int[]));
+  int symfollowset PROTO((int[], int, int, int[]));
++ int snstods PROTO((int sns[], int numstates, int accset[], int nacc, int hashval, int *newds_addr));
+  
+  
+  /* check_for_backtracking - check a DFA state for backtracking
+***************
+*** 53,59 ****
+   * associated with this state
+   */
+  
+! void check_for_backtracking( ds, state )
+  int ds;
+  int state[];
+  
+--- 54,60 ----
+   * associated with this state
+   */
+  
+! static void check_for_backtracking( ds, state )
+  int ds;
+  int state[];
+  
+***************
+*** 100,106 ****
+   *    accset[1 .. nacc] is the list of accepting numbers for the DFA state.
+   */
+  
+! void check_trailing_context( nfa_states, num_states, accset, nacc )
+  int *nfa_states, num_states;
+  int *accset;
+  register int nacc;
+--- 101,107 ----
+   *    accset[1 .. nacc] is the list of accepting numbers for the DFA state.
+   */
+  
+! static void check_trailing_context( nfa_states, num_states, accset, nacc )
+  int *nfa_states, num_states;
+  int *accset;
+  register int nacc;
+***************
+*** 256,262 ****
+   *    hashval is the hash value for the dfa corresponding to the state set
+   */
+  
+! int *epsclosure( t, ns_addr, accset, nacc_addr, hv_addr )
+  int *t, *ns_addr, accset[], *nacc_addr, *hv_addr;
+  
+      {
+--- 257,263 ----
+   *    hashval is the hash value for the dfa corresponding to the state set
+   */
+  
+! static int *epsclosure( t, ns_addr, accset, nacc_addr, hv_addr )
+  int *t, *ns_addr, accset[], *nacc_addr, *hv_addr;
+  
+      {
+***************
+*** 408,414 ****
+   *  dfa starts out in state #1.
+   */
+  
+! void ntod()
+  
+      {
+      int *accset, ds, nacc, newds;
+--- 409,415 ----
+   *  dfa starts out in state #1.
+   */
+  
+! void ntod(void)
+  
+      {
+      int *accset, ds, nacc, newds;
+***************
+*** 416,422 ****
+      int num_full_table_rows;	/* used only for -f */
+      int *nset, *dset;
+      int targptr, totaltrans, i, comstate, comfreq, targ;
+!     int *epsclosure(), snstods(), symlist[CSIZE + 1];
+      int num_start_states;
+      int todo_head, todo_next;
+  
+--- 417,423 ----
+      int num_full_table_rows;	/* used only for -f */
+      int *nset, *dset;
+      int targptr, totaltrans, i, comstate, comfreq, targ;
+!     int symlist[CSIZE + 1];
+      int num_start_states;
+      int todo_head, todo_next;
+  
+diff -wrc Release-2.3/latest/ecs.c Think-C/ecs.c
+*** Release-2.3/latest/ecs.c	Wed Jun 27 21:44:08 1990
+--- Think-C/ecs.c	Tue Jan 28 02:52:06 1992
+***************
+*** 39,45 ****
+   *    ccl2ecl();
+   */
+  
+! void ccl2ecl()
+  
+      {
+      int i, ich, newlen, cclp, ccls, cclmec;
+--- 39,45 ----
+   *    ccl2ecl();
+   */
+  
+! void ccl2ecl(void)
+  
+      {
+      int i, ich, newlen, cclp, ccls, cclmec;
+diff -wrc Release-2.3/latest/flex.skel Think-C/flex.skel
+*** Release-2.3/latest/flex.skel	Thu Aug 30 12:53:49 1990
+--- Think-C/flex.skel	Tue Jan 28 02:52:12 1992
+***************
+*** 17,22 ****
+--- 17,30 ----
+  #endif
+  
+  
++ /* THINK C has ANSI C libraries. */
++ #ifdef THINK_C
++ #ifndef __STDC__
++ #define __STDC__
++ #endif
++ #endif
++ 
++ 
+  #ifdef __cplusplus
+  
+  #include <stdlib.h>
+***************
+*** 42,47 ****
+--- 50,61 ----
+  
+  #define YY_USE_PROTOS
+  #define YY_USE_CONST
++ /* THINK C  version 4 cannot handle const declarations. */
++ #ifdef THINK_C
++ #if THINK_C == 1
++ #undef YY_USE_CONST
++ #endif
++ #endif
+  
+  #endif	/* __STDC__ */
+  #endif	/* ! __cplusplus */
+***************
+*** 90,98 ****
+--- 104,118 ----
+  /* gets input and stuffs it into "buf".  number of characters read, or YY_NULL,
+   * is returned in "result".
+   */
++ #ifdef THINK_C
+  #define YY_INPUT(buf,result,max_size) \
++ 	if ( (result = fread( (char *) buf, 1, max_size, yyin )) < 0 ) \
++ 	    YY_FATAL_ERROR( "fread() in flex scanner failed" );
++ #else
++ #define YY_INPUT(buf,result,max_size) \
+  	if ( (result = read( fileno(yyin), (char *) buf, max_size )) < 0 ) \
+  	    YY_FATAL_ERROR( "read() in flex scanner failed" );
++ #endif
+  #define YY_NULL 0
+  
+  /* no semi-colon after return; correct usage is to write "yyterminate();" -
+diff -wrc Release-2.3/latest/flexdef.h Think-C/flexdef.h
+*** Release-2.3/latest/flexdef.h	Thu Aug 30 12:53:50 1990
+--- Think-C/flexdef.h	Tue Jan 28 02:52:15 1992
+***************
+*** 45,52 ****
+--- 45,56 ----
+  
+  /* size of input alphabet - should be size of ASCII set */
+  #ifndef DEFAULT_CSIZE
++ #ifdef THINK_C
++ #define DEFAULT_CSIZE 256
++ #else
+  #define DEFAULT_CSIZE 128
+  #endif
++ #endif
+  
+  #ifndef PROTO
+  #ifdef __STDC__
+***************
+*** 56,66 ****
+--- 60,80 ----
+  #endif
+  #endif
+  
++ #ifndef __STDC__
++ #define size_t int
++ #endif
+  
+  #ifdef USG
+  #define SYS_V
+  #endif
+  
++ #ifdef THINK_C
++ #ifndef __STDC__
++ #define __STDC__
++ #endif
++ #define SYS_V
++ #endif
++ 
+  #ifdef SYS_V
+  #include <string.h>
+  #else
+***************
+*** 333,339 ****
+--- 347,362 ----
+      int int_val;
+      } ;
+  
++ #ifdef THINK_C
++ /* Necessary in THINK C version 4? */
++ #if THINK_C == 1
++ typedef struct hash_entry **hash_table;
++ #else
+  typedef struct hash_entry *hash_table[];
++ #endif
++ #else
++ typedef struct hash_entry *hash_table[];
++ #endif
+  
+  #define NAME_TABLE_HASH_SIZE 101
+  #define START_COND_HASH_SIZE 101
+***************
+*** 621,627 ****
+  extern int tmpuses, totnst, peakpairs, numuniq, numdup, hshsave;
+  extern int num_backtracking, bol_needed;
+  
+! void *allocate_array(), *reallocate_array();
+  
+  #define allocate_integer_array(size) \
+  	(int *) allocate_array( size, sizeof( int ) )
+--- 644,651 ----
+  extern int tmpuses, totnst, peakpairs, numuniq, numdup, hshsave;
+  extern int num_backtracking, bol_needed;
+  
+! void *allocate_array(int size, size_t element_size),
+!      *reallocate_array(void *array, int size, size_t element_size);
+  
+  #define allocate_integer_array(size) \
+  	(int *) allocate_array( size, sizeof( int ) )
+***************
+*** 668,674 ****
+  /* from file ccl.c */
+  
+  extern void ccladd PROTO((int, int));	/* Add a single character to a ccl */
+! extern int cclinit PROTO(());	/* make an empty ccl */
+  extern void cclnegate PROTO((int));	/* negate a ccl */
+  
+  /* list the members of a set of characters in CCL form */
+--- 692,698 ----
+  /* from file ccl.c */
+  
+  extern void ccladd PROTO((int, int));	/* Add a single character to a ccl */
+! extern int cclinit PROTO((void));	/* make an empty ccl */
+  extern void cclnegate PROTO((int));	/* negate a ccl */
+  
+  /* list the members of a set of characters in CCL form */
+***************
+*** 678,692 ****
+  /* from file dfa.c */
+  
+  /* increase the maximum number of dfas */
+! extern void increase_max_dfas PROTO(());
+  
+! extern void ntod PROTO(());	/* convert a ndfa to a dfa */
+  
+  
+  /* from file ecs.c */
+  
+  /* convert character classes to set of equivalence classes */
+! extern void ccl2ecl PROTO(());
+  
+  /* associate equivalence class numbers with class members */
+  extern int cre8ecs PROTO((int[], int[], int));
+--- 702,716 ----
+  /* from file dfa.c */
+  
+  /* increase the maximum number of dfas */
+! extern void increase_max_dfas PROTO((void));
+  
+! extern void ntod PROTO((void));	/* convert a ndfa to a dfa */
+  
+  
+  /* from file ecs.c */
+  
+  /* convert character classes to set of equivalence classes */
+! extern void ccl2ecl PROTO((void));
+  
+  /* associate equivalence class numbers with class members */
+  extern int cre8ecs PROTO((int[], int[], int));
+***************
+*** 703,711 ****
+  
+  /* from file gen.c */
+  
+! extern void make_tables PROTO(());	/* generate transition tables */
+  
+  
+  /* from file main.c */
+  
+  extern void flexend PROTO((int));
+--- 727,743 ----
+  
+  /* from file gen.c */
+  
+! extern void make_tables PROTO((void));	/* generate transition tables */
+  
+  
++ /* from file macutils.c */
++ 
++ #ifdef THINK_C
++ /* load a static table from the current resource file */
++ extern short int *load_table (int id);
++ #endif
++ 
++ 
+  /* from file main.c */
+  
+  extern void flexend PROTO((int));
+***************
+*** 714,720 ****
+  /* from file misc.c */
+  
+  /* write out the actions from the temporary file to lex.yy.c */
+! extern void action_out PROTO(());
+  
+  /* true if a string is all lower case */
+  extern int all_lower PROTO((register Char *));
+--- 746,752 ----
+  /* from file misc.c */
+  
+  /* write out the actions from the temporary file to lex.yy.c */
+! extern void action_out PROTO((void));
+  
+  /* true if a string is all lower case */
+  extern int all_lower PROTO((register Char *));
+***************
+*** 725,735 ****
+  /* bubble sort an integer array */
+  extern void bubble PROTO((int [], int));
+  
+  /* shell sort a character array */
+  extern void cshell PROTO((Char [], int, int));
+  
+! extern void dataend PROTO(());	/* finish up a block of data declarations */
+  
+  /* report an error message and terminate */
+  extern void flexerror PROTO((char[]));
+  
+--- 757,779 ----
+  /* bubble sort an integer array */
+  extern void bubble PROTO((int [], int));
+  
++ /* replace upper-case letter to lower-case */
++ extern Char clower PROTO((int c));
++ 
++ /* returns a dynamically allocated copy of a string */
++ char *copy_string PROTO((char *str));
++ 
++ /* returns a dynamically allocated copy of a (potentially) unsigned string */
++ extern Char *copy_unsigned_string PROTO((Char *str));
++ 
+  /* shell sort a character array */
+  extern void cshell PROTO((Char [], int, int));
+  
+! extern void dataend PROTO((void));	/* finish up a block of data declarations */
+  
++ /* return character corresponding to escape sequence */
++ Char myesc PROTO((Char array[]));
++ 
+  /* report an error message and terminate */
+  extern void flexerror PROTO((char[]));
+  
+***************
+*** 736,741 ****
+--- 780,788 ----
+  /* report a fatal error message and terminate */
+  extern void flexfatal PROTO((char[]));
+  
++ /* return current time */
++ extern char *flex_gettime PROTO((void));
++ 
+  /* report an error message formatted with one integer argument */
+  extern void lerrif PROTO((char[], int));
+  
+***************
+*** 753,760 ****
+  /* return the integer represented by a string of digits */
+  extern int myctoi PROTO((Char []));
+  
+  /* write out one section of the skeleton file */
+! extern void skelout PROTO(());
+  
+  /* output a yy_trans_info structure */
+  extern void transition_struct_out PROTO((int, int));
+--- 800,810 ----
+  /* return the integer represented by a string of digits */
+  extern int myctoi PROTO((Char []));
+  
++ /* readable_form - return the the human-readable form of a character */
++ extern char *readable_form PROTO((int c));
++ 
+  /* write out one section of the skeleton file */
+! extern void skelout PROTO((void));
+  
+  /* output a yy_trans_info structure */
+  extern void transition_struct_out PROTO((int, int));
+***************
+*** 799,805 ****
+  /* create a state with a transition on a given symbol */
+  extern int mkstate PROTO((int));
+  
+! extern void new_rule PROTO(());	/* initialize for a new rule */
+  
+  
+  /* from file parse.y */
+--- 849,855 ----
+  /* create a state with a transition on a given symbol */
+  extern int mkstate PROTO((int));
+  
+! extern void new_rule PROTO((void));	/* initialize for a new rule */
+  
+  
+  /* from file parse.y */
+***************
+*** 811,827 ****
+  extern void pinpoint_message PROTO((char[]));
+  
+  extern void synerr PROTO((char []));	/* report a syntax error */
+! extern int yyparse PROTO(());	/* the YACC parser */
+  
+  
+  /* from file scan.l */
+  
+! extern int flexscan PROTO(());	/* the Flex-generated scanner for flex */
+  
+  /* open the given file (if NULL, stdin) for scanning */
+  extern void set_input_file PROTO((char*));
+  
+! extern int yywrap PROTO(());	/* wrapup a file in the lexical analyzer */
+  
+  
+  /* from file sym.c */
+--- 861,877 ----
+  extern void pinpoint_message PROTO((char[]));
+  
+  extern void synerr PROTO((char []));	/* report a syntax error */
+! extern int yyparse PROTO((void));	/* the YACC parser */
+  
+  
+  /* from file scan.l */
+  
+! extern int flexscan PROTO((void));	/* the Flex-generated scanner for flex */
+  
+  /* open the given file (if NULL, stdin) for scanning */
+  extern void set_input_file PROTO((char*));
+  
+! extern int yywrap PROTO((void));	/* wrapup a file in the lexical analyzer */
+  
+  
+  /* from file sym.c */
+***************
+*** 832,837 ****
+--- 882,890 ----
+  /* lookup the number associated with character class */
+  extern int ccllookup PROTO((Char []));
+  
++ /* lookup a name definition */
++ extern Char *ndlookup PROTO((char nd[]));
++ 
+  extern void ndinstal PROTO((char[], Char[]));	/* install a name definition */
+  extern void scinstal PROTO((char[], int));	/* make a start condition */
+  
+***************
+*** 844,852 ****
+  /* build table entries for dfa state */
+  extern void bldtbl PROTO((int[], int, int, int, int));
+  
+! extern void cmptmps PROTO(());	/* compress template table entries */
+! extern void inittbl PROTO(());	/* initialize transition tables */
+! extern void mkdeftbl PROTO(());	/* make the default, "jam" table entries */
+  
+  /* create table entries for a state (or state fragment) which has
+   * only one out-transition */
+--- 897,905 ----
+  /* build table entries for dfa state */
+  extern void bldtbl PROTO((int[], int, int, int, int));
+  
+! extern void cmptmps PROTO((void));	/* compress template table entries */
+! extern void inittbl PROTO((void));	/* initialize transition tables */
+! extern void mkdeftbl PROTO((void));	/* make the default, "jam" table entries */
+  
+  /* create table entries for a state (or state fragment) which has
+   * only one out-transition */
+***************
+*** 861,871 ****
+  
+  /* from file yylex.c */
+  
+! extern int yylex PROTO(());
+  
+  
+  /* The Unix kernel calls used here */
+  
+  extern int read PROTO((int, char*, int));
+- extern int unlink PROTO((char*));
+  extern int write PROTO((int, char*, int));
+--- 914,929 ----
+  
+  /* from file yylex.c */
+  
+! extern int yylex PROTO((void));
+  
+  
+  /* The Unix kernel calls used here */
+  
+  extern int read PROTO((int, char*, int));
+  extern int write PROTO((int, char*, int));
++ 
++ #ifdef THINK_C
++ #define unlink remove
++ #else
++ extern int unlink PROTO((char*));
++ #endif
+diff -wrc Release-2.3/latest/gen.c Think-C/gen.c
+*** Release-2.3/latest/gen.c	Thu Mar 28 12:04:16 1991
+--- Think-C/gen.c	Tue Jan 28 02:52:21 1992
+***************
+*** 37,43 ****
+  /* declare functions that have forward references */
+  
+  void gen_next_state PROTO((int));
+! void genecs PROTO(());
+  void indent_put2s PROTO((char [], char []));
+  void indent_puts PROTO((char []));
+  
+--- 37,43 ----
+  /* declare functions that have forward references */
+  
+  void gen_next_state PROTO((int));
+! void genecs PROTO((void));
+  void indent_put2s PROTO((char [], char []));
+  void indent_puts PROTO((char []));
+  
+***************
+*** 59,65 ****
+  
+  /* indent to the current level */
+  
+! void do_indent()
+  
+      {
+      register int i = indent_level * 4;
+--- 59,65 ----
+  
+  /* indent to the current level */
+  
+! static void do_indent(void)
+  
+      {
+      register int i = indent_level * 4;
+***************
+*** 80,86 ****
+  
+  /* generate the code to keep backtracking information */
+  
+! void gen_backtracking()
+  
+      {
+      if ( reject || num_backtracking == 0 )
+--- 80,86 ----
+  
+  /* generate the code to keep backtracking information */
+  
+! static void gen_backtracking(void)
+  
+      {
+      if ( reject || num_backtracking == 0 )
+***************
+*** 102,108 ****
+  
+  /* generate the code to perform the backtrack */
+  
+! void gen_bt_action()
+  
+      {
+      if ( reject || num_backtracking == 0 )
+--- 102,108 ----
+  
+  /* generate the code to perform the backtrack */
+  
+! static void gen_bt_action(void )
+  
+      {
+      if ( reject || num_backtracking == 0 )
+***************
+*** 136,142 ****
+   *     genctbl();
+   */
+  
+! void genctbl()
+  
+      {
+      register int i;
+--- 136,142 ----
+   *     genctbl();
+   */
+  
+! static void genctbl(void)
+  
+      {
+      register int i;
+***************
+*** 270,276 ****
+  
+  /* generate the code to find the action number */
+  
+! void gen_find_action()
+  
+      {
+      if ( fullspd )
+--- 270,276 ----
+  
+  /* generate the code to find the action number */
+  
+! static void gen_find_action(void)
+  
+      {
+      if ( fullspd )
+***************
+*** 391,397 ****
+   *     genftbl();
+   */
+  
+! void genftbl()
+  
+      {
+      register int i;
+--- 391,397 ----
+   *     genftbl();
+   */
+  
+! static void genftbl(void)
+  
+      {
+      register int i;
+***************
+*** 425,431 ****
+  
+  /* generate the code to find the next compressed-table state */
+  
+! void gen_next_compressed_state( char_map )
+  char *char_map;
+  
+      {
+--- 425,431 ----
+  
+  /* generate the code to find the next compressed-table state */
+  
+! static void gen_next_compressed_state( char_map )
+  char *char_map;
+  
+      {
+***************
+*** 471,477 ****
+  
+  /* generate the code to find the next match */
+  
+! void gen_next_match()
+  
+      {
+      /* NOTE - changes in here should be reflected in gen_next_state() and
+--- 471,477 ----
+  
+  /* generate the code to find the next match */
+  
+! static void gen_next_match(void)
+  
+      {
+      /* NOTE - changes in here should be reflected in gen_next_state() and
+***************
+*** 626,632 ****
+  
+  /* generate the code to make a NUL transition */
+  
+! void gen_NUL_trans()
+  
+      { /* NOTE - changes in here should be reflected in get_next_match() */
+      int need_backtracking = (num_backtracking > 0 && ! reject);
+--- 626,632 ----
+  
+  /* generate the code to make a NUL transition */
+  
+! static void gen_NUL_trans(void)
+  
+      { /* NOTE - changes in here should be reflected in get_next_match() */
+      int need_backtracking = (num_backtracking > 0 && ! reject);
+***************
+*** 702,708 ****
+  
+  /* generate the code to find the start state */
+  
+! void gen_start_state()
+  
+      {
+      if ( fullspd )
+--- 702,708 ----
+  
+  /* generate the code to find the start state */
+  
+! static void gen_start_state(void)
+  
+      {
+      if ( fullspd )
+***************
+*** 737,743 ****
+   *    gentabs();
+   */
+  
+! void gentabs()
+  
+      {
+      int i, j, k, *accset, nacc, *acc_array, total_states;
+--- 737,743 ----
+   *    gentabs();
+   */
+  
+! static void gentabs(void)
+  
+      {
+      int i, j, k, *accset, nacc, *acc_array, total_states;
+***************
+*** 1007,1013 ****
+   * Generates transition tables and finishes generating output file
+   */
+  
+! void make_tables()
+  
+      {
+      register int i;
+--- 1007,1013 ----
+   * Generates transition tables and finishes generating output file
+   */
+  
+! void make_tables(void)
+  
+      {
+      register int i;
+Only in Think-C: macutils.c
+diff -wrc Release-2.3/latest/main.c Think-C/main.c
+*** Release-2.3/latest/main.c	Wed Jun 27 21:44:29 1990
+--- Think-C/main.c	Tue Jan 28 02:52:32 1992
+***************
+*** 26,31 ****
+--- 26,35 ----
+   * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+   */
+  
++ #ifdef THINK_C
++ #include <console.h>
++ #endif
++ 
+  #ifndef lint
+  char copyright[] =
+  "@(#) Copyright (c) 1990 The Regents of the University of California.\n\
+***************
+*** 46,53 ****
+  /* declare functions that have forward references */
+  
+  void flexinit PROTO((int, char**));
+! void readin PROTO(());
+! void set_up_initial_allocations PROTO(());
+  
+  
+  /* these globals are all defined and commented in flexdef.h */
+--- 50,57 ----
+  /* declare functions that have forward references */
+  
+  void flexinit PROTO((int, char**));
+! void readin PROTO((void));
+! void set_up_initial_allocations PROTO((void));
+  
+  
+  /* these globals are all defined and commented in flexdef.h */
+***************
+*** 111,116 ****
+--- 115,123 ----
+  char **argv;
+  
+      {
++ #ifdef THINK_C
++ 	argc = ccommand (&argv);
++ #endif
+      flexinit( argc, argv );
+  
+      readin();
+***************
+*** 190,196 ****
+  
+      {
+      int tblsiz;
+-     char *flex_gettime();
+  
+      if ( skelfile != NULL )
+  	{
+--- 197,202 ----
+***************
+*** 394,400 ****
+  
+      {
+      int i, sawcmpflag;
+!     char *arg, *flex_gettime(), *mktemp();
+  
+      printstats = syntaxerror = trace = spprdflt = interactive = caseins = false;
+      backtrack_report = performance_report = ddebug = fulltbl = fullspd = false;
+--- 400,410 ----
+  
+      {
+      int i, sawcmpflag;
+! #ifdef THINK_C
+! 	char *arg;
+! #else
+!     char *arg, *mktemp();
+! #endif
+  
+      printstats = syntaxerror = trace = spprdflt = interactive = caseins = false;
+      backtrack_report = performance_report = ddebug = fulltbl = fullspd = false;
+***************
+*** 609,615 ****
+--- 619,629 ----
+  #else
+  	(void) strcpy( temp_action_file_name, "flexXXXXXX.tmp" );
+  #endif
++ #ifdef THINK_C
++ 	(void) tmpnam( temp_action_file_name );
++ #else
+  	(void) mktemp( temp_action_file_name );
++ #endif
+  
+  	action_file_name = temp_action_file_name;
+  	}
+***************
+*** 666,672 ****
+   *    readin();
+   */
+  
+! void readin()
+  
+      {
+      skelout();
+--- 680,686 ----
+   *    readin();
+   */
+  
+! void readin(void)
+  
+      {
+      skelout();
+***************
+*** 711,717 ****
+  
+  /* set_up_initial_allocations - allocate memory for internal tables */
+  
+! void set_up_initial_allocations()
+  
+      {
+      current_mns = INITIAL_MNS;
+--- 725,731 ----
+  
+  /* set_up_initial_allocations - allocate memory for internal tables */
+  
+! void set_up_initial_allocations(void)
+  
+      {
+      current_mns = INITIAL_MNS;
+diff -wrc Release-2.3/latest/misc.c Think-C/misc.c
+*** Release-2.3/latest/misc.c	Thu Aug 30 12:53:48 1990
+--- Think-C/misc.c	Tue Jan 28 02:53:00 1992
+***************
+*** 44,50 ****
+  
+  /* declare functions that have forward references */
+  
+! void dataflush PROTO(());
+  int otoi PROTO((Char []));
+  
+  
+--- 44,50 ----
+  
+  /* declare functions that have forward references */
+  
+! void dataflush PROTO((void));
+  int otoi PROTO((Char []));
+  
+  
+***************
+*** 56,62 ****
+   *     Copies the action file up to %% (or end-of-file) to lex.yy.c
+   */
+  
+! void action_out()
+  
+      {
+      char buf[MAXLINE];
+--- 56,62 ----
+   *     Copies the action file up to %% (or end-of-file) to lex.yy.c
+   */
+  
+! void action_out(void)
+  
+      {
+      char buf[MAXLINE];
+***************
+*** 72,78 ****
+  /* allocate_array - allocate memory for an integer array of the given size */
+  
+  void *allocate_array( size, element_size )
+! int size, element_size;
+  
+      {
+      register void *mem;
+--- 72,79 ----
+  /* allocate_array - allocate memory for an integer array of the given size */
+  
+  void *allocate_array( size, element_size )
+! int size;
+! size_t element_size;
+  
+      {
+      register void *mem;
+***************
+*** 325,331 ****
+   *    dataflush();
+   */
+  
+! void dataflush()
+  
+      {
+      putchar( '\n' );
+--- 326,332 ----
+   *    dataflush();
+   */
+  
+! static void dataflush(void)
+  
+      {
+      putchar( '\n' );
+***************
+*** 390,395 ****
+--- 391,400 ----
+  
+  /* include sys/types.h to use time_t and make lint happy */
+  
++ #ifdef THINK_C
++ #include <ctype.h>
++ #include <time.h>
++ #else
+  #ifndef MS_DOS
+  #ifndef VMS
+  #include <sys/types.h>
+***************
+*** 397,402 ****
+--- 402,408 ----
+  #include <types.h>
+  #endif
+  #endif
++ #endif
+  
+  #ifdef MS_DOS
+  #include <time.h>
+***************
+*** 409,415 ****
+--- 415,425 ----
+      time_t t, time();
+      char *result, *ctime(), *copy_string();
+  
++ #ifdef THINK_C
++     t = time( (time_t *) 0 );
++ #else
+      t = time( (long *) 0 );
++ #endif
+  
+      result = copy_string( ctime( &t ) );
+  
+***************
+*** 465,471 ****
+   *    val = htoi( str );
+   */
+  
+! int htoi( str )
+  Char str[];
+  
+      {
+--- 475,481 ----
+   *    val = htoi( str );
+   */
+  
+! static int htoi( str )
+  Char str[];
+  
+      {
+***************
+*** 486,492 ****
+   *    val = is_hex_digit( ch );
+   */
+  
+! int is_hex_digit( ch )
+  int ch;
+  
+      {
+--- 496,502 ----
+   *    val = is_hex_digit( ch );
+   */
+  
+! static int is_hex_digit( ch )
+  int ch;
+  
+      {
+***************
+*** 755,761 ****
+  
+  void *reallocate_array( array, size, element_size )
+  void *array;
+! int size, element_size;
+  
+      {
+      register void *new_array;
+--- 765,772 ----
+  
+  void *reallocate_array( array, size, element_size )
+  void *array;
+! int size;
+! size_t element_size;
+  
+      {
+      register void *new_array;
+Only in Think-C: parse.c
+Only in Think-C: parse.h
+diff -wrc Release-2.3/latest/parse.y Think-C/parse.y
+*** Release-2.3/latest/parse.y	Wed Jun 27 21:44:40 1990
+--- Think-C/parse.y	Tue Jan 28 02:53:13 1992
+***************
+*** 631,637 ****
+   *                    conditions
+   */
+  
+! void build_eof_action()
+  
+      {
+      register int i;
+--- 631,637 ----
+   *                    conditions
+   */
+  
+! static void build_eof_action(void)
+  
+      {
+      register int i;
+***************
+*** 695,701 ****
+   *	     currently, messages are ignore
+   */
+  
+! void yyerror( msg )
+  char msg[];
+  
+      {
+--- 695,701 ----
+   *	     currently, messages are ignore
+   */
+  
+! static void yyerror( msg )
+  char msg[];
+  
+      {
+Only in Think-C: scan.c
+diff -wrc Release-2.3/latest/scan.l Think-C/scan.l
+*** Release-2.3/latest/scan.l	Wed Jun 27 21:44:41 1990
+--- Think-C/scan.l	Tue Jan 28 02:53:22 1992
+***************
+*** 340,346 ****
+  
+  <SECT2>"{"{NAME}"}"	{
+  			register Char *nmdefptr;
+! 			Char *ndlookup();
+  
+  			(void) strcpy( nmstr, (char *) yytext );
+  			nmstr[yyleng - 1] = '\0';  /* chop trailing brace */
+--- 340,346 ----
+  
+  <SECT2>"{"{NAME}"}"	{
+  			register Char *nmdefptr;
+! 			extern Char *ndlookup();
+  
+  			(void) strcpy( nmstr, (char *) yytext );
+  			nmstr[yyleng - 1] = '\0';  /* chop trailing brace */
+diff -wrc Release-2.3/latest/sym.c Think-C/sym.c
+*** Release-2.3/latest/sym.c	Wed Jun 27 21:44:41 1990
+--- Think-C/sym.c	Tue Jan 28 02:53:25 1992
+***************
+*** 32,37 ****
+--- 32,43 ----
+  #endif
+  
+  #include "flexdef.h"
++ #ifdef THINK_C
++ /* For THINK C version 4? */
++ #if THINK_C == 1
++ #include <stdlib.h>
++ #endif
++ #endif
+  
+  
+  /* declare functions that have forward references */
+***************
+*** 43,49 ****
+  struct hash_entry *sctbl[START_COND_HASH_SIZE];
+  struct hash_entry *ccltab[CCL_HASH_SIZE];
+  
+! struct hash_entry *findsym();
+  
+  
+  /* addsym - add symbol and definitions to symbol table
+--- 49,55 ----
+  struct hash_entry *sctbl[START_COND_HASH_SIZE];
+  struct hash_entry *ccltab[CCL_HASH_SIZE];
+  
+! struct hash_entry *findsym PROTO((char sym[], hash_table table, int table_size));
+  
+  
+  /* addsym - add symbol and definitions to symbol table
+***************
+*** 58,64 ****
+   * -1 is returned if the symbol already exists, and the change not made.
+   */
+  
+! int addsym( sym, str_def, int_def, table, table_size )
+  register char sym[];
+  char *str_def;
+  int int_def;
+--- 64,70 ----
+   * -1 is returned if the symbol already exists, and the change not made.
+   */
+  
+! static int addsym( sym, str_def, int_def, table, table_size )
+  register char sym[];
+  char *str_def;
+  int int_def;
+***************
+*** 234,240 ****
+   *    def/NULL = ndlookup( nd );
+   */
+  
+! Char *ndlookup( nd )
+  char nd[];
+  
+      {
+--- 240,246 ----
+   *    def/NULL = ndlookup( nd );
+   */
+  
+! extern Char *ndlookup( nd )
+  char nd[];
+  
+      {
+diff -wrc Release-2.3/latest/tblcmp.c Think-C/tblcmp.c
+*** Release-2.3/latest/tblcmp.c	Wed Jun 27 21:44:41 1990
+--- Think-C/tblcmp.c	Tue Jan 28 02:53:27 1992
+***************
+*** 296,302 ****
+  
+  /* expand_nxt_chk - expand the next check arrays */
+  
+! void expand_nxt_chk()
+  
+      {
+      register int old_max = current_max_xpairs;
+--- 296,302 ----
+  
+  /* expand_nxt_chk - expand the next check arrays */
+  
+! static void expand_nxt_chk()
+  
+      {
+      register int old_max = current_max_xpairs;
+***************
+*** 332,338 ****
+   * and an action number will be added in [-1].
+   */
+  
+! int find_table_space( state, numtrans )
+  int *state, numtrans;
+      
+      {
+--- 332,338 ----
+   * and an action number will be added in [-1].
+   */
+  
+! static int find_table_space( state, numtrans )
+  int *state, numtrans;
+      
+      {

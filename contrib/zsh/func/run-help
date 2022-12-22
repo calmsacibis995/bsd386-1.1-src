@@ -1,0 +1,17 @@
+#! /bin/zsh
+# zsh script to peruse the help directory
+#
+if [[ $1 = "-l" ]]; then
+  if [[ ${HELPDIR:-} != "" ]]; then
+    echo 'Here is a list of topics for which help is available:'
+    echo ""
+    ls $HELPDIR
+  else
+    echo 'There is no help available at this time'
+  fi
+elif [[ ${HELPDIR:-} != "" && -r $HELPDIR/$1 ]]
+then
+    ${PAGER:-more} $HELPDIR/$1
+else
+    man $1
+fi

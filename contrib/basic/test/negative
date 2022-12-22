@@ -1,0 +1,6 @@
+  100	for i = 1 to 99
+  110		print 'well';
+  120		input x
+  130		print x
+  140	next i
+  150	end

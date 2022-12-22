@@ -1,0 +1,9 @@
+D COMMON                            	common
+D DOC                               	doc
+D GROT                              	grot
+D INCLUDE                           	include
+D IRC                               	irc
+D IRCD                              	ircd
+F LICENCE.;1                        	LICENCE
+F MAKEFILE.;1                       	Makefile
+F NOTICE.;1                         	NOTICE

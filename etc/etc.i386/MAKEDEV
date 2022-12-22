@@ -1,0 +1,432 @@
+#!/bin/sh -
+#
+#	BSDI $Id: MAKEDEV,v 1.35 1994/02/01 00:55:22 polk Exp $
+#
+# Copyright (c) 1991 The Regents of the University of California.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgement:
+#	This product includes software developed by the University of
+#	California, Berkeley and its contributors.
+# 4. Neither the name of the University nor the names of its contributors
+#    may be used to endorse or promote products derived from this software
+#    without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+#	from @(#)MAKEDEV	5.1 (Berkeley) 3/22/91
+#
+
+# Device "make" file.  Valid arguments:
+#	std	standard devices
+#	local	configuration specific devices
+#
+# Tapes:
+#	wt*	QIC-interfaced (e.g. not SCSI) 3M cartridge tape
+#	st*	generic SCSI tape
+#
+# Disks:
+#	wd*	"winchester" disk drives (ST506,IDE,ESDI,RLL,...)
+#	fd*	"floppy" disk drives (3 1/2", 5 1/4")
+#	sd*	generic SCSI disks
+#	mcd*	Mitsumi CDROM
+#
+# Terminal ports:
+#	com*	standard PC COM ports		 (tty[01][0-9])
+#			(tty* is alias for com*)
+#	rc*	SDL Communications RISCom/8	 (tty[a-f][0-7])
+#	si*	Specialix SLXOS serial adapter	 (tty[ab][0-31])
+#						 (tty[ab][0-31]_xp)
+#						 (si_control)
+#	ms*	MAXPEED SS-8/XU2, SS-4/XU2, etc. (tty[h-o][0-7])
+#
+# Pseudo terminals:
+#	pty*	set of 16 master and slave pseudo terminals
+#
+# Printers:
+#	lp*	standard PC LPT ports
+#
+# Call units:
+#
+# Special purpose devices:
+#	conskbd*	PC display console (and virtual screens)
+#	bpf*		Berkeley packet filter
+#
+
+PATH=/etc:/sbin:/usr/sbin:/bin/:/usr/bin
+umask 77
+for i
+do
+case $i in
+
+floppystd)
+	# Standard devices
+	mknod console		c 0 0
+	mknod drum		c 4 0	; chmod 640 drum ; chgrp kmem drum
+	mknod kmem		c 2 1	; chmod 640 kmem ; chgrp kmem kmem
+	mknod mem		c 2 0	; chmod 640 mem  ; chgrp kmem mem
+	mknod null		c 2 2	; chmod 666 null
+	mknod zero		c 2 12	; chmod 666 zero
+	mknod tty		c 1 0	; chmod 666 tty
+	mknod klog		c 7 0	; chmod 600 klog
+	mknod stdin		c 15 0	; chmod 666 stdin
+	mknod stdout		c 15 1	; chmod 666 stdout
+	mknod stderr		c 15 2	; chmod 666 stderr
+
+	# VGA and Keyboard
+	mknod vga		c 16 0	; chmod 600 vga
+	mknod kbd		c 17 0	; chmod 600 kbd
+	mknod pcaux0		c 13 0	; chmod 600 pcaux0
+	
+	# Parallel printer 
+	mknod lp0		c 20 0	; chmod 600 lp0
+	mknod lp1		c 20 1	; chmod 600 lp1
+
+	# Sound Blaster Pro
+	mknod sb_fm		c 28 1	; chmod 664 sb_fm
+	mknod sb_dsp		c 28 2	; chmod 664 sb_dsp
+	mknod sb_midi		c 28 3	; chmod 664 sb_midi
+	mknod sb_mixer		c 28 4	; chmod 664 sb_mixer
+
+	# Recursively make standard disks, tapes, etc.
+	sh $0 fd0 fd1 wd0 wd1 wd2 wd3 sd0 sd1 sd2 sd3 mcd0
+	sh $0 wt0 st0 st1
+	sh $0 com0 com1 pty0 pty1
+	sh $0 conskbd0 bpf
+	;;
+
+std)
+	# Recursively make all the devices on the std floppy
+	sh $0 floppystd
+
+	# Add all the other regular devs
+	mkdir fd > /dev/null 2>&1
+	(cd fd && eval `echo "" | awk ' BEGIN { \
+		for (i = 0; i < 64; i++) \
+			printf("mknod %d c 15 %d;", i, i)}'`)
+	chown -R bin.bin fd
+	chmod 555 fd
+	chmod 666 fd/*
+
+	# Bus Mouse
+	mknod bms0		c 21 0  ; chmod 600 bms0
+	mknod lms0		c 25 0  ; chmod 600 lms0
+	ln -s bms0 mouse
+	;;
+
+wt*)
+	umask 0 ; unit=`expr $i : '..\(.*\)'`
+	name=wt; blk=3; chr=10;
+	case $unit in
+	0|1)
+		mknod r${name}${unit}_q150 c $chr `expr $unit + 000`
+		mknod nr${name}${unit}_q150 c $chr `expr $unit + 004`
+
+		mknod r${name}${unit}_q120 c $chr `expr $unit + 010`
+		mknod nr${name}${unit}_q120 c $chr `expr $unit + 014`
+
+		mknod r${name}${unit}_q24 c $chr `expr $unit + 020`
+		mknod nr${name}${unit}_q24 c $chr `expr $unit + 024`
+
+		ln r${name}${unit}_q150 r${name}$unit ; : no density specified
+		ln nr${name}${unit}_q150 nr${name}$unit ; : no density specified
+
+		ln nr${name}$unit r${name}`expr $unit + 4` ; : old style no rewind 
+		;;
+	*)
+		echo bad unit for tape in: $i
+		;;
+	esac
+	umask 77
+	;;
+
+st*)
+	umask 0
+	unit=`expr $i : '..\(.*\)'`
+	blk=5
+	chr=19
+	case $unit in
+	[0123])
+		# SCSI density codes for QIC tape (incomplete)
+		# XXX block devices currently unsupported
+		qic11=4; qic24=5; qic120=15; qic150=16; qic525=17
+		fixed8mm=168;	# High bit indicates fixed length records
+		mknod rst${unit} c $chr $unit
+		mknod nrst${unit} c $chr `expr $unit + 4`
+		mknod rst${unit}_f8mm c $chr `expr $unit + $fixed8mm`
+		mknod nrst${unit}_f8mm c $chr `expr $unit + $fixed8mm + 4`
+		mknod rst${unit}_q11 c $chr `expr $unit + $qic11 \* 8`
+		mknod nrst${unit}_q11 c $chr `expr $unit + $qic11 \* 8 + 4`
+		mknod rst${unit}_q24 c $chr `expr $unit + $qic24 \* 8`
+		mknod nrst${unit}_q24 c $chr `expr $unit + $qic24 \* 8 + 4`
+		mknod rst${unit}_q120 c $chr `expr $unit + $qic120 \* 8`
+		mknod nrst${unit}_q120 c $chr `expr $unit + $qic120 \* 8 + 4`
+		mknod rst${unit}_q150 c $chr `expr $unit + $qic150 \* 8`
+		mknod nrst${unit}_q150 c $chr `expr $unit + $qic150 \* 8 + 4`
+		mknod rst${unit}_q525 c $chr `expr $unit + $qic525 \* 8`
+		mknod nrst${unit}_q525 c $chr `expr $unit + $qic525 \* 8 + 4`
+		;;
+	*)
+		echo bad unit for st in: $i
+		;;
+	esac
+	umask 77
+	;;
+
+fd*|wd*|sd*|mcd*)
+	umask 2 ; unit=`expr $i : '[a-z][a-z]*\(.*\)'`
+	case $i in
+	fd*) name=fd; blk=2; chr=9;;
+	wd*) name=wd; blk=0; chr=3;;
+	sd*) name=sd; blk=4; chr=18;;
+	mcd*) name=mcd; blk=6; chr=23;;
+	esac
+	case $unit in
+	0|1|2|3|4|5|6|7)
+		mknod ${name}${unit}a	b $blk `expr $unit '*' 8 + 0`
+		mknod ${name}${unit}b	b $blk `expr $unit '*' 8 + 1`
+		mknod ${name}${unit}c	b $blk `expr $unit '*' 8 + 2`
+		mknod ${name}${unit}d	b $blk `expr $unit '*' 8 + 3`
+		mknod ${name}${unit}e	b $blk `expr $unit '*' 8 + 4`
+		mknod ${name}${unit}f	b $blk `expr $unit '*' 8 + 5`
+		mknod ${name}${unit}g	b $blk `expr $unit '*' 8 + 6`
+		mknod ${name}${unit}h	b $blk `expr $unit '*' 8 + 7`
+		mknod r${name}${unit}a	c $chr `expr $unit '*' 8 + 0`
+		mknod r${name}${unit}b	c $chr `expr $unit '*' 8 + 1`
+		mknod r${name}${unit}c	c $chr `expr $unit '*' 8 + 2`
+		mknod r${name}${unit}d	c $chr `expr $unit '*' 8 + 3`
+		mknod r${name}${unit}e	c $chr `expr $unit '*' 8 + 4`
+		mknod r${name}${unit}f	c $chr `expr $unit '*' 8 + 5`
+		mknod r${name}${unit}g	c $chr `expr $unit '*' 8 + 6`
+		mknod r${name}${unit}h	c $chr `expr $unit '*' 8 + 7`
+		chgrp operator ${name}${unit}[a-h] r${name}${unit}[a-h]
+		if [ $name = fd ]; then
+			chmod 666 ${name}${unit}[a-h] r${name}${unit}[a-h]
+			rm -f floppy${unit}
+			ln ${name}${unit}c floppy${unit}
+			rm -f rfloppy${unit}
+			ln r${name}${unit}c rfloppy${unit}
+			rm -f fd${unit}
+			ln ${name}${unit}c fd${unit}
+			rm -f rfd${unit}
+			ln r${name}${unit}c rfd${unit}
+			cpart=`expr $unit '*' 8 + 2`
+			mknod rfd${unit}_1440_3.5  c $chr `expr $cpart + 128`
+			mknod rfd${unit}_720_3.5   c $chr `expr $cpart + 224`
+			mknod rfd${unit}_1200_5.25 c $chr `expr $cpart +  64`
+			mknod rfd${unit}_720_5.25  c $chr `expr $cpart + 160`
+			mknod rfd${unit}_360_5.25  c $chr `expr $cpart + 192`
+			chgrp operator rfd${unit}_*
+			chmod 666 rfd${unit}_*
+		else
+			chmod 640 ${name}${unit}[a-h] r${name}${unit}[a-h]
+		fi
+		;;
+	*)
+		echo bad unit for disk in: $i
+		;;
+	esac
+	umask 77
+	;;
+
+com*|tty*)
+	unit=`expr $i : '[a-z][a-z][a-z]\(.*\)'`
+	case $unit in
+	[0-9])
+		mknod tty0${unit} c 8 $unit
+		;;
+	[01][0-9])
+		mknod tty${unit} c 8 $unit
+		;;
+	*)
+		echo bad unit for com in: $i
+		;;
+	esac
+	;;
+
+pty*)
+	class=`expr $i : 'pty\(.*\)'`
+	case $class in
+	0) offset=0 name=p;;
+	1) offset=16 name=q;;
+	2) offset=32 name=r;;
+	3) offset=48 name=s;;
+# Note that telnetd, rlogind, and xterm (at least) only look at p-s.
+	4) offset=64 name=t;;
+	*) echo bad unit for pty in: $i;;
+	esac
+	case $class in
+	0|1|2|3|4)
+		umask 0
+		eval `echo $offset $name | awk ' { b=$1; n=$2 } END {
+			for (i = 0; i < 16; i++)
+				printf("mknod tty%s%x c 5 %d; \
+					mknod pty%s%x c 6 %d; ", \
+					n, i, b+i, n, i, b+i); }'`
+		umask 77
+		;;
+	esac
+	;;
+
+conskbd*)
+	unit=`expr $i : 'conskbd\(.*\)'`
+	name=conskbd
+	chr=12
+	case $unit in
+	0)
+		mknod ${name}${unit}	c $chr $unit
+        	for i in 2 3 4 5 6 7 8
+        	do
+                	if [ ! -f ttyc${i} ] ; then
+                        mknod ttyc${i} c ${chr} `expr ${i} - 1`
+                fi
+        done
+        umask 333
+		;;
+	*)
+		echo bad unit for $name in: $1
+		;;
+	esac
+	;;
+
+midi)
+        maj=22
+        umask 555
+        for i in 0 1 2 3 4 5 6 7
+        do
+                if [ ! -f midi${i} ] ; then
+                        mknod midi${i} c ${maj} ${i}
+                fi
+        done
+        umask 333
+        if [ ! -f midicntl ] ; then
+                mknod midicntl c ${maj} 128
+        fi
+        umask 111
+        if [ ! -f midicond ] ; then
+                mknod midicond c ${maj} 8
+        fi
+        ;;
+
+
+bpf*)
+	name=bpf
+	chr=14
+	for unit in 0 1 2 3 4 5 6 7 8 9
+	do
+		mknod ${name}${unit}	c $chr $unit
+		chmod 440 ${name}${unit}
+	done
+	;;
+
+rc*)
+	unit=`expr $i : 'rc\(.*\)'`
+	case $unit in
+	0) offset=0  name=a;;
+	1) offset=8  name=b;;
+	2) offset=16 name=e;;
+	3) offset=24 name=f;;
+	4) offset=32 name=g;;
+	*) echo bad unit for rc in: $i;;
+	esac
+	case $unit in
+	0|1|2|3|4|5)
+		umask 0
+		eval `echo $offset $name | awk ' { b=$1; n=$2 } END {
+			for (i = 0; i < 8; i++)
+				printf("mknod tty%s%x c 11 %d; ", \
+					n, i, b+i); }'`
+		umask 77
+		;;
+	esac
+	;;
+
+si*)
+	unit=`expr $i : 'si\([^.]*\)'`
+	case $unit in
+	0) offset=0  name=a;;
+	1) offset=32 name=b;;
+	*) echo bad unit for si in: $i;;
+	esac
+	dev=`echo $i | sed 's/_xp$//'`
+	case $dev in
+	si[01])		subunit=0; first=0; last=31;;
+	si[01].[0-3])	subunit=`expr $dev : 'si[01].\(.*\)'`
+			first=`expr $subunit \* 8`
+			last=`expr $first + 7`
+			subunit=$first;;
+	*)		echo bad subunit for si in: $i
+			unit=-1;;
+	esac
+	case $i in
+	*_xp)	xp="_xp"; first=`expr $first + 64`
+		last=`expr $last + 64`;;
+	esac
+	case $unit in
+	0|1)
+		if [ ! -c si_control ]; then
+			mknod si_control c 27 128
+		fi
+		umask 0
+		eval `echo $offset $name $subunit $first $last $xp | \
+		awk ' { b=$1; n=$2; subunit=$3; first=$4; last=$5; xp=$6 } END {
+			s=subunit;
+			for (i=first; i <= last; i++)
+				printf("mknod tty%s%d%s c 27 %d; ", \
+					n, s++, xp, b+i); }'`
+		umask 77
+		;;
+	esac
+	;;
+
+ms*)
+	unit=`expr $i : 'ms\(.*\)'`
+	case $unit in
+	0) offset=0  name=h;;
+	1) offset=8  name=i;;
+	2) offset=16 name=j;;
+	3) offset=24 name=k;;
+	4) offset=32 name=l;;
+	5) offset=40 name=m;;
+	6) offset=48 name=n;;
+	7) offset=56 name=o;;
+	*) echo bad unit for ms in: $i;;
+	esac
+	case $unit in
+	0|1|2|3|4|5|6|7)
+		umask 0
+		eval `echo $offset $name | awk ' { b=$1; n=$2 } END {
+			for (i = 0; i < 8; i++)
+				printf("mknod tty%s%x c 24 %d; ", \
+					n, i, b+i); }'`
+		umask 77
+		;;
+	esac
+	;;
+
+local)
+	umask 0
+	sh MAKEDEV.local
+	;;
+
+esac
+done

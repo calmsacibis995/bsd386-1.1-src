@@ -1,0 +1,51 @@
+(Message inbox:144)
+Date:     Fri, 10 May 1991 16:08:06 EDT
+From:  YOUNG@TATTOO.CS.WIDENER.EDU
+Subject:  alloca.mar
+To:  vern@horse.ee.lbl.gov
+X-Vmsmail-To:  SMTP%"vern@horse.ee.lbl.gov"
+
+> By the way, flex doesn't need alloca() (unless,
+> perhaps, if you build the parser using bison?), so I'll comment out that part
+> of the .com file.
+
+
+Vern,
+
+       ALLOCA is not a function that VMS C supports (far as I can tell ) so
+       there is a kludge that GNU uses and I include here (for those that don't
+       have GNU source). What follows is the calls to ALLOCA in parse.c 
+       (created using Bison).  Again, VMS does not have a yacc so GNU bison
+       suffices.
+
+      yyss = (short *) alloca (yymaxdepth * sizeof (*yyssp));
+      yyvs = (YYSTYPE *) alloca (yymaxdepth * sizeof (*yyvsp));
+      yyls = (YYLTYPE *) alloca (yymaxdepth * sizeof (*yylsp));
+
+ Building FLEX on a VMS machine was not *that* hard.  The C source compiles
+ very good so it is just a matter of getting Bison actually ( a C compiler
+ would also help :).  I forgot about the alloca.mar fix-up . . . 
+
+
+			Rob.
+
+
+
+--- cut here for alloca.mar ---
+
+	.TITLE	ALLOCA	Allocate dynamic storage on stack/free on return
+	.IDENT	/1.00/
+
+	.PSECT	$CODE,LONG,PIC,REL,SHR,EXE,RD,NOWRT
+	.ENTRY	ALLOCA,^M<>
+	SUBL2	4(AP),SP
+	MOVL	16(FP),R1
+	MOVQ	8(FP),AP
+	BICL2	#3,SP
+	ADDL2	#28,SP
+	MOVL	SP,R0
+	JMP 	(R1)
+
+	.END
+
+

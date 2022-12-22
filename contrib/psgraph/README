@@ -1,0 +1,38 @@
+README for: "psgraph" version of 21 February 1992
+
+"Psgraph" takes input files vaguely like those accepted by graph(1),
+and produces PostScript output.  The manual page explains the rest.
+
+Psgraph was written by Chris Kent of DECWRL (now Chris Kantarjiev
+of Xerox PARC), based on some code from Bob Brown of NASA RIACS,
+and has been hacked on by Brian Reid and Jeff Mogul of DECWRL.
+
+Bug reports may be sent to "psgraph-bugs@decwrl.dec.com", but
+we don't promise to respond or to fix anything.
+
+Please obey the part in the LICENSE file that says not to redistribute
+this software to anyone, unless you do it for free and include the
+LICENSE file and all copyright notices.
+
+To install psgraph, you might have to modify Makefile and psgraph.h
+to reflect where you want to install the files.  In psgraph.h,
+the important line is:
+#define PROLOG  "/usr/local/lib/ps/psgraph.pro"
+
+To obtain another copy of the code (in case someone updates the
+code later on):
+        ftp gatekeeper.dec.com
+        user anonymous
+                <give your name when asked for the password>
+        cd pub/DEC
+        type binary
+        get psgraph.tar.Z
+then "uncompress psgraph.tar.Z", cd to an empty directory where
+you want to put the sources, and "tar xf psgraph.tar".
+
+The psgraph program is known to work on
+	Ultrix (Vax and MIPS hardware), using standard Ultrix compilers
+	SunOs, using Sun's compilers
+
+
+	

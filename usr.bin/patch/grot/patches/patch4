@@ -1,0 +1,221 @@
+From cbosgd!sdcrdcf!daemon Sat Nov 29 21:36:19 1986
+Received: by mirror.TMC.COM (4.12/UUCP-Project/rel-1.0/08-20-86)
+	id AA12721; Sat, 29 Nov 86 21:36:13 est
+Received: by cbosgd.ATT.COM (smail2.1)
+	id AA20978; 29 Nov 86 21:08:49 EST (Sat)
+Received: by sdc.uucp (4.12/sdcrdcf)
+	id AA25502; Sat, 29 Nov 86 17:50:35 pst
+Date: Sat, 29 Nov 86 17:50:35 pst
+From: sdcrdcf!daemon (The Devil Himself)
+Message-Id: <8611300150.AA25502@sdc.uucp>
+Subject: patch version 2.0 patch #4
+Apparently-To: cbosgd!mirror!rs
+Status: R
+
+[The latest patch for patch version 2.0 is #5.]
+
+mailpatch speaking for lwall
+
+System: patch version 2.0
+Patch #: 4
+Priority: HIGH
+Subject: Certain long hunks are not dynamically allocated correctly
+From: Herb Chong and Hokey
+
+Description:
+	If the pattern portion of a hunk is longer than the initially
+	allocated maximum hunk size, the hunk is not grown larger in time.
+	The malloc arena gets stomped on non-4bsd sites.  4bsd sites
+	generally survive this because more memory is generally allocated
+	than you asked for.
+
+	There was also a minor difficulty with error numbers on new-style
+	context diffs that require backtracking to parse correctly because
+	the input line number was not reset along with the file position.
+	Note that backtracking is VERY rare--you have to have a patch
+	that ends with a deletion, so that the replacement text is missing,
+	and at least one line at the place where the replacement text WOULD
+	have been must look like a replacement line.  Only then does
+	backtracking occur.  (Backtracking would be entirely unnecessary
+	if patches were unambiguously terminated, but they aren't.  Note
+	that the version of patch that comes with 4.3bsd doesn't backtrack
+	at all.)
+
+Repeat-By:
+	Compile up patch with a version of malloc that doesn't round up
+	to a power of two.  Apply a patch with more than 125 lines in
+	the pattern (not the replacement) part of the hunk.  Run patch
+	and watch the fireworks.  Delete the core dump.
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,hplabs,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 NUM ...
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and NUM
+	is the number of one or more patches you need, separated by spaces.
+	You can also get them by anonymous FTP from sdc-camarillo.arpa.
+
+Index: patchlevel.h
+Prereq: 3
+1c1
+< #define PATCHLEVEL 3
+---
+> #define PATCHLEVEL 4
+ 
+Index: pch.c
+Prereq: 2.0.1.2
+*** pch.c.old	Fri Nov 14 10:11:00 1986
+*** pch.c	Fri Nov 14 10:11:14 1986
+***************
+*** 1,4
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch4,v 1.2 1992/01/04 19:03:33 kolstad Exp $
+   *
+   * $Log: patch4,v $
+# Revision 1.2  1992/01/04  19:03:33  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.2  86/11/03  17:49:52  lwall
+
+--- 1,4 -----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch4,v 1.2 1992/01/04 19:03:33 kolstad Exp $
+   *
+   * $Log: patch4,v $
+# Revision 1.2  1992/01/04  19:03:33  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.3  86/11/14  10:08:33  lwall
+***************
+*** 1,6
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch4,v 1.2 1992/01/04 19:03:33 kolstad Exp $
+   *
+   * $Log: patch4,v $
+# Revision 1.2  1992/01/04  19:03:33  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.2  86/11/03  17:49:52  lwall
+   * New-style delete triggers spurious assertion error.
+   * 
+
+--- 1,10 -----
+  /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch4,v 1.2 1992/01/04 19:03:33 kolstad Exp $
+   *
+   * $Log: patch4,v $
+# Revision 1.2  1992/01/04  19:03:33  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.3  86/11/14  10:08:33  lwall
++  * Fixed problem where a long pattern wouldn't grow the hunk.
++  * Also restored p_input_line when backtracking so error messages are right.
++  * 
+   * Revision 2.0.1.2  86/11/03  17:49:52  lwall
+   * New-style delete triggers spurious assertion error.
+   * 
+***************
+*** 401,406
+  	bool repl_missing = FALSE;	/* we are now backtracking */
+  	long repl_backtrack_position = 0;
+  					/* file pos of first repl line */
+  	Reg7 LINENUM ptrn_copiable = 0;
+  					/* # of copiable lines in ptrn */
+  
+
+--- 405,411 -----
+  	bool repl_missing = FALSE;	/* we are now backtracking */
+  	long repl_backtrack_position = 0;
+  					/* file pos of first repl line */
++ 	LINENUM repl_patch_line;	/* input line number for same */
+  	Reg7 LINENUM ptrn_copiable = 0;
+  					/* # of copiable lines in ptrn */
+  
+***************
+*** 425,431
+  		}
+  	    }
+  	    p_input_line++;
+! 	    p_char[++p_end] = *buf;
+  	    p_line[p_end] = Nullch;
+  	    switch (*buf) {
+  	    case '*':
+
+--- 430,438 -----
+  		}
+  	    }
+  	    p_input_line++;
+! 	    p_end++;
+! 	    assert(p_end < hunkmax);
+! 	    p_char[p_end] = *buf;
+  	    p_line[p_end] = Nullch;
+  	    switch (*buf) {
+  	    case '*':
+***************
+*** 468,473
+  		    p_ptrn_lines = 0;
+  		    p_first = 1;
+  		}
+  		break;
+  	    case '-':
+  		if (buf[1] == '-') {
+
+--- 475,484 -----
+  		    p_ptrn_lines = 0;
+  		    p_first = 1;
+  		}
++ 		p_max = p_ptrn_lines + 6;	/* we need this much at least */
++ 		while (p_max >= hunkmax)
++ 		    grow_hunkmax();
++ 		p_max = hunkmax;
+  		break;
+  	    case '-':
+  		if (buf[1] == '-') {
+***************
+*** 492,497
+  		    }
+  		    repl_beginning = p_end;
+  		    repl_backtrack_position = ftell(pfp);
+  		    p_line[p_end] = savestr(buf);
+  		    if (out_of_mem) {
+  			p_end--;
+
+--- 503,509 -----
+  		    }
+  		    repl_beginning = p_end;
+  		    repl_backtrack_position = ftell(pfp);
++ 		    repl_patch_line = p_input_line;
+  		    p_line[p_end] = savestr(buf);
+  		    if (out_of_mem) {
+  			p_end--;
+***************
+*** 601,606
+  	if (repl_missing) {
+  	    
+  	    /* reset state back to just after --- */
+  	    for (p_end--; p_end > repl_beginning; p_end--)
+  		free(p_line[p_end]);
+  	    Fseek(pfp, repl_backtrack_position, 0);
+
+--- 613,619 -----
+  	if (repl_missing) {
+  	    
+  	    /* reset state back to just after --- */
++ 	    p_input_line = repl_patch_line;
+  	    for (p_end--; p_end > repl_beginning; p_end--)
+  		free(p_line[p_end]);
+  	    Fseek(pfp, repl_backtrack_position, 0);
+

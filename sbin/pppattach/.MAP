@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/sbin/pppattach
+F PPPATTAC.8;1                      	pppattach.8
+F PPPATTAC.C;1                      	pppattach.c
+F TAGS.;1                           	tags

@@ -1,0 +1,164 @@
+.\"
+.V= $Id: uucpd.8,v 1.2 1994/01/31 01:27:04 donn Exp $
+.\"
+.ds S1 UUCPD
+.ds S2 \fIUucpd\fP
+.ds S3 \fIuucpd\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uucpd
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uucpd \- \*(S5 server
+.SH SYNOPSIS
+.if t \f(CW/usr/etc/in.uucpd\fP
+.if n /usr/etc/in.uucpd
+.RI [\- flags ]
+.SH DESCRIPTION
+\*(S2 is the server for supporting
+.SM UUCP
+connections over
+.SM TCP/IP
+networks.
+.LP
+\*(S2 is invoked by
+.BR inetd (8)
+when a
+.SM UUCP
+connection is established
+(that is, a connection to the port indicated in the
+.I uucp
+service specification;
+see
+.BR services (5)),
+and executes the following protocol:
+.TP 4
+1)
+The server prompts with
+.if t `\f(CWlogin:\ \fP'.
+.if n `login:\ '.
+The
+.BR uucico (8C)
+process at the other end must supply a username.
+.TP
+2)
+Unless the username refers to an account without a password,
+the server then prompts with
+.if t `\f(CWPassword:\ \fP'.
+.if n `Password:\ '.
+The
+.B uucico
+process at the other end must supply the password for that account.
+.LP
+If the username is not valid,
+or if the password is not the correct password for that
+account, the connection is dropped.
+Otherwise,
+the specified user shell
+is run, with the user
+.SM ID,
+group
+.SM ID,
+and access groups set,
+and home directory for that account,
+with the environment variable
+.SB USER
+set to the specified username.
+Entries are made in
+.B /var/log/wtmp
+and
+.B /var/log/lastlog
+for the username (if writeable).
+.PP
+Alternatively, if no
+.I inetd (8)
+program exists,
+(and if invoked with the `\fB\-d\fP' flag),
+\*(S3 may be invoked to act as a listener process,
+forking off a copy to accept each \*(S5 request as it arrives.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-P\fP\fIparams\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-d
+If \*(S3 has been compiled with
+.SM NO_INETD
+defined, this flag causes \*(S3 to act as a listener process.
+.TP
+.BI \-l level
+Turns on logging.
+A optional number following the flag sets the level (default \fB1\fP).
+.TP
+.BI \-P params
+This flag changes the \*(S5 parameters filename from the default
+[\f(CW/etc/uucp/CONFIG\fP].
+.TP
+.BI \-x level
+If present, this flag is passed through to
+.IR uucico .
+.SH PARAMETERS
+\*(S2
+uses the following parameters
+(see
+.IR uuparams (5)):
+.if n .ds tw 4
+.if t .ds tw \w'\s-1ACCESS_REMOTE_FILES\s0X'u
+.TP "\*(tw"
+.SM LOGDIR
+Defines directory for logging records
+[default: /var/log/uucp].
+.TP
+.SM TELNETD
+Define pathname for
+.IR telnetd (8)
+if \*(S3 should pass non-\s-1UUCICO\s0 accounts to
+.IR telnetd .
+.TP
+.SM UUCICO
+Pathname for 
+.IR uucico (8)
+that is checked against user shell path.
+.TP
+.SM UUCICO_ONLY
+`1' if you wish \*(S3
+to only allow logins to accounts with user shell = \s-1UUCICO\s0.
+(Otherwise, if 
+.SM TELNETD
+is non-null, it starts up
+.IR telnetd(8)
+for non-\s-1UUCICO\s0 accounts.)
+.SH FILES
+.PD 0
+.TP \w'\f(CWLOGDIR/uucpd/uucpd\fPX'u
+\f(CW/etc/uucp/CONFIG\fP
+.SM UUCP
+program parameters.
+.TP
+\f(CW/var/log/lastlog\fP
+Time of last login.
+.TP
+\f(CW/var/log/wtmp\fP	
+Accounting.
+.TP
+\f(CWLOGDIR/uucpd/uucpd\fP
+Activity log if logging enabled.
+.PD
+.SH SEE ALSO
+.BR services (5),
+.BR uuparams (5),
+.BR inetd (8),
+.BR telnetd (8),
+.BR uucico (8).
+.SH DIAGNOSTICS
+.LP
+All diagnostic messages are returned on the connection,
+after which the connection is closed.
+.TP
+.B ... read error.
+An error occurred while reading the username or password.
+.TP
+.B Login incorrect.
+The username is invalid
+or the password is not the correct password for the account.

@@ -1,0 +1,9 @@
+F CONSORTI.GZ;1                     	Consortium.man.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F SECURITY.GZ;1                     	security.man.gz
+F STANDARD.GZ;1                     	Standards.man.gz
+D XEXT                              	Xext
+D XI                                	XI
+D XLIB                              	Xlib
+D XT                                	Xt
+F X_MAN.GZ;1                        	X.man.gz

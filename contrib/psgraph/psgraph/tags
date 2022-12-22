@@ -1,0 +1,60 @@
+GT	grid.c	/^#define	GT(a,b)		(argp->distg>0 ? ((a)-(b))>0 : ((/
+LT	grid.c	/^#define LT(a,b)		(argp->distg>0 ? ((a)-(b))<0 : ((/
+Mmain	main.c	/^main(argc,argv)$/
+SX	output.c	/^SX(x)$/
+SY	output.c	/^SY(y)$/
+axisText	output.c	/^axisText(buf, d, font)$/
+clip	output.c	/^clip( x1, y1, x2, y2, xs, ys, xe, ye )$/
+cliplimits	output.c	/^cliplimits( xmin, ymin, xmax, ymax, xflip, yflip)$/
+code	output.c	/^code( x, y )$/
+contline	output.c	/^contline(x,y)$/
+copyFile	main.c	/^copyFile(fileName, stream)$/
+copyLimit	main.c	/^copyLimit(a, l)$/
+doLinearLimits	main.c	/^doLinearLimits(v)$/
+doLogLimits	main.c	/^doLogLimits(v)$/
+doTitle	grid.c	/^doTitle()$/
+doXaxis	grid.c	/^doXaxis()$/
+doYaxis	grid.c	/^doYaxis()$/
+docmd	input.c	/^docmd(argc,argv)$/
+doinput	input.c	/^doinput(s)$/
+dolimits	main.c	/^dolimits(v)$/
+domarker	output.c	/^domarker(x,y)$/
+domods	input.c	/^domods(argc, argv, p)$/
+doplot	output.c	/^doplot()$/
+dumppoints	output.c	/^dumppoints(points, numpoints)$/
+endGridTemp	output.c	/^endGridTemp()$/
+graymarker	output.c	/^graymarker(s)$/
+gridLine	output.c	/^gridLine(x1, y1, x2, y2, g)$/
+gridval	grid.c	/^gridval(cp)$/
+init	main.c	/^init(p)$/
+initLimit	main.c	/^initLimit(l)$/
+ipow	grid.c	/^float ipow(x,i)$/
+isfloat	main.c	/^isfloat(cp)$/
+limargs	grid.c	/^limargs(p,argc,argv,arg)$/
+linearX	grid.c	/^linearX()$/
+linearY	grid.c	/^linearY()$/
+logX	grid.c	/^logX()$/
+logY	grid.c	/^logY()$/
+newfont	output.c	/^newfont(font)$/
+newstr	main.c	/^char *newstr(s)$/
+nextarg	main.c	/^nextarg(line, start)$/
+numpnts	main.c	/^numpnts()$/
+parse	main.c	/^parse(line, argc, argv)$/
+procargs	main.c	/^procargs(argc, argv)$/
+process	main.c	/^process()$/
+scale1	grid.c	/^scale1(xmin, xmax, n, xpmin, xpmax, dist)$/
+scalemarker	output.c	/^scalemarker(s)$/
+setcolor	output.c	/^setcolor(color)$/
+setmarker	output.c	/^setmarker(m)$/
+setupAxes	grid.c	/^setupAxes()$/
+startGridTemp	output.c	/^startGridTemp()$/
+startline	output.c	/^startline(x,y)$/
+stroke	output.c	/^stroke(x1,y1,x2,y2)$/
+sx	output.c	/^sx(x)$/
+sy	output.c	/^sy(y)$/
+text	output.c	/^text(s,x,y,mod)$/
+tick	output.c	/^tick(x, y, d, big, g)$/
+tickText	output.c	/^tickText(x, y, val, d, font)$/
+transpose	main.c	/^transpose()$/
+usagexit	main.c	/^usagexit(pgm)$/
+wtext	output.c	/^wtext(s,x,y,mod)$/

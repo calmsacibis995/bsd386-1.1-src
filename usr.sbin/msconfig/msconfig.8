@@ -1,0 +1,157 @@
+'\" -*- mode: nroff -*-
+.\"	BSDI $Id: msconfig.8,v 1.1.1.1 1993/03/23 05:31:45 polk Exp $
+'\" from Id: msconfig.8,v 1.3.0.2 1993/03/12 19:57:07 dlu Rel
+.Dd March 10, 1993
+.Os BSD 4
+.Dt MSCONFIG 8 i386
+.Sh NAME
+.Nm msconfig
+.Nd configure Maxpeed driver
+.Sh SYNOPSIS
+.Nm
+.Fl f Ar port
+.Op Fl D
+.Fl d Ar donor
+.Op Fl h Ar freq
+.Op Fl l Ar lowat
+.Op Fl x Ar level
+.Op Fl F Ar bits
+.Op Fl s
+.Op Fl v
+.Op Fl L
+.Sh DESCRIPTION
+.Pp
+.Nm Msconfig
+is used to set or query the configuration of the Maxpeed driver
+.Pq Xr ms 4 .
+To set configuration options, the user must be root.
+.Bl -tag -width "-d recipient"
+.It Fl D
+Reset the driver to its default state.  A board must be specified and
+signal sharing will be disabled on that board.  Resetting the driver
+and the board is the first thing that is done so it may be combined
+with other options.
+.It Fl d Ar donor
+Port donating modem control signals.  Must be on the same board as
+recipient.
+.It Fl F Ar bits
+Set the driver config flags.  Allows runtime setting of driver
+options.  All of the flags are set at once.  The flags set in the
+kernel configuration file may be reset with the
+.Fl D .
+.Pp
+The
+.Ar bits
+argument is put together by or'ing together the following
+values:
+.Bl -tag -width 0x01XX
+.It Li 0x01
+To enable raw input speedups.  Consider turning this off only if you are
+seeing anomalous behavior with programs that do input in raw mode, or
+if you are curious about how much difference it makes.
+.It Li 0x02
+To avoid erroneous setting of DTR when sharing signals with ROM
+versions prior to D7.
+.It Li 0x08
+To work around missing status pointers in D5 and D6 ROMs.
+.El
+.It Fl f Ar port
+Specify the port (or board) for
+.Nm msconfig
+to act upon.  If a board is being specified, any port on the board will
+do as long as you have read permission on it.
+.It Fl h Ar freq
+Set the polling frequency for the driver.  The argument is the polling
+frequency in Hertz.  Applies to all boards.
+.Pp
+Within the driver
+.Ar freq
+is converted to clock ticks and stored as an
+integer
+so the behavior is not always intuitive
+(ie; 34 Hz becomes 50).  The actual value set will be reported if the
+.Fl v
+flag is present.
+UUCP
+performance
+is particularly sensitive to the polling frequency.  The best
+performance will probably be obtained when the polling frequency is
+high enough that
+UUCP
+will never be starved for acks.
+SLIP
+probably has similar characteristics but hasn't been subject to much
+tuning work.
+.It Fl L
+Use
+.Fn syslog
+to log actions and errors.  Implies
+.Fl v .
+.It Fl l Ar lowat
+Set the output low water mark.  This is the level (of characters) to
+which the output queue on the board must drain before more characters
+are transferred to the board.  In general lower is better as it reduces
+driver overhead, but at high speeds on a loaded system a port may be
+starved if the low water mark is too low.  Applies to all boards.
+.It Fl s
+Print the controller's ROM signature.
+.It Fl v
+Be verbose.
+Normally
+.Nm
+speaks only if something is wrong.  Verbose output is handy if you are
+bored or if you wish to log the configuration of the driver.
+.It Fl x Ar level
+Set level of diagnostic output produced by the driver.  If the driver
+was compiled with MSDIAG defined then a
+.Ar level
+greater than 0 will cause messages to be output when unusual events
+occur.  Most of the messages describe ``can't happen'' conditions
+within the driver \(en so any output is worthy of investigation.  If I
+was wrong about what can't happen, a
+.Ar level
+of 0 will let you get some work done.
+.El
+.Sh EXAMPLES
+.Pp
+To configure signal sharing on an SS-8/2 you might put the following
+in
+.Pa /etc/rc.local
+:
+.D1 Ic "msconfig -f ttyh0 -d ttyh4 && (
+.D1 Ic "	stty -f /dev/ttyh0 rts_iflow cts_oflow
+.D1 Ic "	stty -f /dev/ttyh4 clocal
+.D1 Ic "\&)
+.Pp
+To enquire about the configuration of the driver:
+.D1 Ic msconfig -f /dev/ttyh4
+Any signal sharing on the same board as
+.Pa /dev/ttyh4
+would also be reported.
+.Pp
+You could try:
+.D1 Ic msconfig -f /dev/ttyh0 -h 100
+to see if you could get any more performance out of SLIP or UUCP.
+.Pp
+When you are done experimenting
+.D1 Ic msconfig -f ttyh0 -D
+will reset the board to its default parameters.  Signal sharing is
+disabled by
+.Fl D
+so you could do this instead 
+to reset defaults and reconfigure signal sharing:
+.D1 Ic msconfig -f ttyh0 -D -d ttyh4
+.Sh DIAGNOSTICS
+.Nm
+tries to do nothing if there is an error with its arguments or with
+accessing the specified devices.  Error messages are intended to be
+self\-explanatory.  Zero is returned on success, non\-zero on failure. 
+.Sh SEE ALSO
+.Xr ms 4
+.Sh AUTHOR
+Doug Urner (dlu@tfm.com)
+.Sh BUGS
+Life will get very interesting if you use
+.Nm
+to tell the driver that you have ports wired differently than they
+actually are.

@@ -1,0 +1,15 @@
+F CFREE.C;1                         	cfree.c
+F CUSERID.C;1                       	cuserid.c
+F DOPRNT.C;1                        	doprnt.c
+F DOSCAN.C;1                        	doscan.c
+F ECVT.C;1                          	ecvt.c
+F FCVT.C;1                          	fcvt.c
+F FGETLINE.C;1                      	fgetline.c
+F FTIME.C;1                         	ftime.c
+F GCVT.C;1                          	gcvt.c
+F INSQUE.C;1                        	insque.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/lib/libcompat
+F REGCOMPA.C;1                      	regcompat.c
+F STTY.C;1                          	stty.c
+F TAGS.;1                           	tags

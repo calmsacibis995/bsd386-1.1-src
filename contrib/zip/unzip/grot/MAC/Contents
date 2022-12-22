@@ -1,0 +1,24 @@
+Contents of the MAC sub-archive for UnZip 5.0 and later:
+
+  Contents                this file
+  macfile.c               Macintosh filesystem code
+  macstat.c               Macintosh stat() emulation
+  macstat.h               header file for stat() emulation
+  aztec.make              MPW makefile for Aztec C (binary)
+  mpw.make                MPW makefile for MPW C (binary)
+  thinkc.hqx              Think C project file (BinHex)
+  thinkc.rsrc.hqx         resource file for Macintosh unzip (BinHex)
+
+The makefiles are marked "binary" because they contain a few special
+characters (which look a lot like D's and 6's under Unix).  They're
+basically readable, but e-mailing them without protection is likely
+to strip the high bit off these characters, rendering the makefiles
+less than useful.  Be forewarned...
+
+The Think C files are BinHexed because they contain Mac resource forks
+in addition to the ordinary data forks (or maybe they only contain re-
+source forks...whatever).  While Zip 1.9 and UnZip 5.0 can save/restore
+such information, it's not too helpful to make use of this feature until
+everyone *has* UnZip 5.0.  Also, there's no way to store such information
+in a .tar.Z file, for instance.  Both of the .hqx files must be converted
+with BinHex 4.0 (or later).

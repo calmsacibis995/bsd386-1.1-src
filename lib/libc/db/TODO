@@ -1,0 +1,64 @@
+BTREE:
+
+Margo argues that when doing page locking it's necessary to set a MAX value,
+i.e. no more than N keys on a page before it splits.  She wants to do page
+locking and make it 1 key per page so she avoids hot spots.  This isn't too
+bad in the N > 1 case, however, it's incredibly nasty if N is 1.
+  -- It's easier in Mike's code because he splits the tree and then
+     reacquires the pages for insertion, but it's virtually impossible in
+     my code because all the problems with splitting to the left surface
+     again.  I don't want to slow down the normal split because of this
+     case, so I'm not willing to reacquire the entire tree every time I
+     split.
+
+  -- If reading the database dominates, then the locks are shared and
+     there's no problem.  If writing the database is significant, putting
+     a single record in a leaf page doesn't help, because *every*
+     insertion requires that we split the leaf page and write lock the
+     internal node.  Since the internal node has many records in it we
+     have the exact same hot spot that we would have had we inserted the
+     record into the leaf page.  The place where this wins is when you do
+     lookup/replace without insertions (or deletions if consolidating on
+     delete) since you only lock the single entry on the leaf page.
+
+If index_t's are shorts, the size of a key/data item ON PAGE can also
+be a short.
+
+Change overflow pages to put the key and data (if both overflow) onto
+a single set of pages.
+
+Change RINTERNAL to { recno_t, pgno_t } as the index with no key.
+
+Once the memory pool is in place, the btree code has to figure out the
+free pages and use them.
+
+Add a write-through bit so don't have to do repeated syncs to flush to
+disk.
+
+When a page becomes empty through deletion, it could be placed on the free
+list.  It might be possible to ftrunc the file on close to reclaim file
+system space as well.
+
+Root split code should do "sort" style splits, too.
+
+We currently don't do prefix compression on big keys -- it should really
+work okay, just have to go get the key.  Should win big on some data sets,
+but there's the argument that the user has already selected a stupid page
+size so there's no reason to make the effort.
+
+Change split code to flow keys/data to next/prev pages instead of splitting
+if the load on the page is low.  (see Knuth Vol. 3, page 479).  This might
+get back some of the loss by not recognizing sort splits on reverse sorted
+data.
+
+Currently, there's no specification of where duplicate records are
+inserted and, in fact, they are inserted in random locations.  It might
+be worthwhile to insert them at the beginning of end of the list of
+duplicates.
+
+RECNO:
+
+The flag in the recno interface indicating that cursor returns need not
+return a key value (R_NOKEY) needs to be implemented.  Rec_seq should
+set both key and data on return (dependent on R_NOKEY) and rec_get should
+not set key.

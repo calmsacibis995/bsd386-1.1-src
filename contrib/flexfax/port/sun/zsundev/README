@@ -1,0 +1,18 @@
+zsunbuf is a STREAMS module to turn off input buffering in the SunOS 4 zs
+driver. It was written in the hope of getting flexfax to drive a Class 1
+modem on a Sun.
+
+As root, "make load" to install it.  You may wish to look at the Makefile
+first!
+
+Then apply faxd.patch to your flexfax sources and make a new faxd.
+[Sam: already done in version 2.2 or later.]
+
+If this fixes your Class 1 problems, you may wish to recompile zsunbuf
+without -DDEBUG to prevent the console messages and add the modload
+command to /etc/rc.local.
+
+If it doesn't, you may wish to check that zsunbuf is doing something
+to your zs driver -- see the file TESTING for further details.
+
+Tim Rylance <tkr@puffball.demon.co.uk>, 21st April 1993.

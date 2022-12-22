@@ -1,0 +1,12 @@
+D BINCHECK                          	bincheckr
+D CHECKGAM                          	checkgame
+D DOC                               	doc
+D GAME                              	game
+D GNUAN                             	gnuan
+D GNUCHES0                          	gnuchess
+D GNUCHES1                          	gnuchessn
+F MAKEFILE.;1                       	Makefile
+D MISC                              	misc
+D POSTPRIN                          	postprint
+F README.PL6;1                      	README.pl65
+D TEST                              	test

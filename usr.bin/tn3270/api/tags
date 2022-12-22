@@ -1,0 +1,47 @@
+IBUFADDED	api_exch.c	/^#define	IBUFADDED(i)		ibuf_last += (i)$/
+IBUFAVAILABLE	api_exch.c	/^#define	IBUFAVAILABLE()		(ibuf_last-ibuf_next)$/
+IBUFFER	api_exch.c	/^#define	IBUFFER()		ibuffer$/
+IBUFFREE	api_exch.c	/^#define	IBUFFREE()		(ibuffer+sizeof ibuffer-ibuf_l/
+IBUFGETBYTES	api_exch.c	/^#define	IBUFGETBYTES(w,l)	{ memcpy(w, ibuf_next, l/
+IBUFRESET	api_exch.c	/^#define	IBUFRESET()		(ibuf_next = ibuf_last = ibuf/
+OBUFADDBYTES	api_exch.c	/^#define	OBUFADDBYTES(w,l)	{ memcpy(obuf_next, w, l/
+OBUFAVAILABLE	api_exch.c	/^#define	OBUFAVAILABLE()		(obuf_next - obuffer)$/
+OBUFFER	api_exch.c	/^#define	OBUFFER()		obuffer$/
+OBUFRESET	api_exch.c	/^#define	OBUFRESET()		obuf_next = obuffer$/
+OBUFROOM	api_exch.c	/^#define	OBUFROOM()		(obuffer+sizeof obuffer-obuf_n/
+WHO_ARE_WE	api_exch.c	/^#define	WHO_ARE_WE()	fprintf(stderr, "(API %s) ", /
+api_close_api	api_bsd.c	/^api_close_api()$/
+api_connect_to_keyboard	apilib.c	/^api_connect_to_keyboard(parms)$/
+api_copy_string	apilib.c	/^api_copy_string(parms)$/
+api_disable_input	apilib.c	/^api_disable_input(parms)$/
+api_disconnect_from_keyboard	apilib.c	/^api_disconnect_from_keyboard(parms)$/
+api_enable_input	apilib.c	/^api_enable_input(parms)$/
+api_exch_api	api_bsd.c	/^api_exch_api(regs, sregs, parms, length)$/
+api_exch_flush	api_exch.c	/^api_exch_flush()$/
+api_exch_incommand	api_exch.c	/^api_exch_incommand(command)$/
+api_exch_init	api_exch.c	/^api_exch_init(sock_number, ourname)$/
+api_exch_intype	api_exch.c	/^api_exch_intype(type, length, location)$/
+api_exch_nextcommand	api_exch.c	/^api_exch_nextcommand()$/
+api_exch_outcommand	api_exch.c	/^api_exch_outcommand(command)$/
+api_exch_outtype	api_exch.c	/^api_exch_outtype(type, length, location)$/
+api_finish	apilib.c	/^api_finish()$/
+api_init	apilib.c	/^api_init()$/
+api_issue	apilib.c	/^api_issue(ah, al, bh, bl, cx, dx, parms, length)$/
+api_issue_regs	apilib.c	/^api_issue_regs(ah, al, bh, bl, cx, dx, parms, leng/
+api_name_resolve	apilib.c	/^api_name_resolve(name)$/
+api_open_api	api_bsd.c	/^api_open_api(string)$/
+api_ps_or_oia_modified	apilib.c	/^api_ps_or_oia_modified()$/
+api_query_session_cursor	apilib.c	/^api_query_session_cursor(parms)$/
+api_query_session_id	apilib.c	/^api_query_session_id(parms)$/
+api_query_session_parameters	apilib.c	/^api_query_session_parameters(parms)$/
+api_read_oia_group	apilib.c	/^api_read_oia_group(parms)$/
+api_write_keystroke	apilib.c	/^api_write_keystroke(parms)$/
+ascii_to_index	astosc.c	/^ascii_to_index(string)$/
+enter_receive	api_exch.c	/^enter_receive()$/
+enter_send	api_exch.c	/^enter_send()$/
+exch_to_ascii	api_exch.c	/^exch_to_ascii(exch)$/
+iget	api_exch.c	/^iget(location, length)$/
+outflush	api_exch.c	/^outflush()$/
+receive_state	api_exch.c	/^receive_state()$/
+send_state	api_exch.c	/^send_state()$/
+ustrcmp	astosc.c	/^ustrcmp(string1, string2)$/

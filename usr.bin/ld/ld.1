@@ -1,0 +1,302 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: ld.1,v 1.1 1993/02/05 18:15:57 polk Exp $
+.\"
+.Dd January 20, 1993
+.Os
+.Dt LD 1
+.Sh NAME
+.Nm ld
+.Nd "the GNU link editor
+.Sh SYNOPSIS
+.Nm ld
+.Op Fl A Ar file
+.Op Fl D Ar size
+.Op Fl L Ar directory
+.Op Fl M
+.Op Fl N
+.Op Fl S
+.Op Fl T Ar address
+.Op Fl Tdata Ar address
+.Op Fl Ttext Ar address
+.Op Fl X
+.Op Fl d
+.Op Fl e Ar symbol
+.Op Fl l Ns Ar c
+.Op Fl n
+.Op Fl o Ar file
+.Op Fl q
+.Op Fl r
+.Op Fl s
+.Op Fl t
+.Op Fl u Ar symbol
+.Op Fl x
+.Op Fl y Ns Ar symbol
+.Op Fl z
+.Ar files ...
+.Sh DESCRIPTION
+The link editor reads relocatable object files
+and edits them into a single image,
+resolving undefined symbols into addresses.
+By default, it also resolves relocations
+and generates an absolute binary file
+suitable for direct execution.
+The link editor is normally run automatically as
+the last pass of a compiler such as
+.Xr cc 1 .
+Compilers will often pass link editor flags
+from their own command lines to the link editor.
+.Pp
+There are many options:
+.Pp
+.Bl -tag -width indent
+.It Fl A Ar file
+Don't incorporate
+the text and data from
+.Ar file
+into the output file, just use the symbols.
+This flag must appear before any input files in the argument list.
+The
+.Fl A
+flag can be used to implement crude dynamic loading.
+.It Fl D Ar size
+Pad the data segment to
+.Ar size .
+The padding may overlap with the bss segment.
+.It Fl L Ar directory
+Search the given
+.Ar directory
+for library archives in addition to the default directories,
+.Pa /usr/lib
+and
+.Pa /usr/local/lib .
+.Nm Ld
+searches directories supplied with the
+.Fl L
+flag in order by appearance in the argument list
+and before the default directories.
+.It Fl M
+Print a crude load map on the standard output.
+.It Fl N
+Create an
+.Dv OMAGIC
+format
+.Pq Xr a.out 5
+unshared executable binary.
+This is the default format for relocatable object files,
+and is the default output format for
+.Nm ld
+when the
+.Fl r
+flag is used.
+.It Fl S
+Strip special debugger symbols
+.Pq Xr stab 5 .
+.It Fl T Ar address
+Relocate the start of the text segment to the hexadecimal value
+.Ar address .
+The format of the binary output file
+.Pq Xr a.out 5
+normally determines the starting address of the text segment, but the
+.Fl T
+flag overrides the default.
+.It Fl Tdata Ar address
+Relocate the start of the data segment.
+.It Fl Ttext Ar address
+Identical to
+.Fl T .
+.It Fl X
+Strip local symbols which start with the letter
+.Li L .
+Note that the assembler
+.Pq Xr as 1
+omits these symbols by default,
+so this is normally unnecessary.
+.It Fl d
+Define
+.Sq common
+symbols even if the output file is relocatable;
+see the discussion under the
+.Fl r
+flag.
+.It Fl e Ar symbol
+Set the entry address in the output file to
+.Ar symbol .
+If the output file is executable,
+execution will begin at the named address.
+Without
+.Fl e ,
+the executable file format determines the default
+entry address.
+.It Fl l Ns Ar c
+Search directories for an archive named
+.Pa lib Ns Ar c Ns Pa \&.a
+containing relocatable object files,
+and link in archive members which
+resolve currently undefined symbols.
+Check under the
+.Fl L
+flag for a description of directory searching.
+If the library archive has a table of contents of its symbols
+.Pq Xr ranlib 1 ,
+.Nm ld
+will select relocatable objects from the archive
+using this index;
+otherwise, the object files are searched in order
+from the beginning of the archive.
+More than one
+.Fl l
+flag may be provided.
+The ordering of
+.Fl l
+arguments is significant;
+they are treated exactly like library archives
+provided as pathname arguments.
+Note that
+.Nm ld
+will not link in
+an object file from the archive
+if the only outstanding
+.Sq undefined
+symbol it satisfies is a common symbol.
+This helps prevent text or data symbols in the library
+from linking against similarly-named but unrelated common symbols
+in a user program.
+.It Fl n
+Create an
+.Dv NMAGIC
+format shared executable binary.
+.It Fl o Ar file
+Write output to the named
+.Ar file
+instead of the default
+.Pa a.out .
+.It Fl q
+Create a
+.Dv QMAGIC
+format demand loaded executable binary.
+This is the default output format unless the
+.Fl r
+flag is used.
+.It Fl r
+Generate a relocatable output file,
+suitable for further link editing.
+.Nm Ld
+does attempt to resolve undefined symbols,
+although common symbols are not converted into bss symbols
+unless the
+.Fl d
+flag is used.
+.It Fl s
+Strip all symbols from the output file.
+This overrides other strip options.
+.It Fl t
+Trace the operation of
+.Nm ld
+as it runs.
+The trace output is sent to
+.Va stderr .
+.It Fl u Ar symbol
+Treat the given
+.Ar symbol
+as undefined.
+This feature is normally used
+to force the extraction of certain files from a library.
+.It Fl x
+Strip all local symbols.
+.It Fl y Ns Ar symbol
+Trace the given
+.Ar symbol
+during linking.
+Trace output is sent to
+.Va stderr .
+.It Fl z
+Create a
+.Dv ZMAGIC
+format demand loaded executable binary.
+.It Ar files ...
+Link each relocatable object file or library archive in order.
+.Nm Ld
+will edit each relocatable file into the output file,
+and will select some or none of the relocatable files
+in each archive.
+.El
+.Pp
+If some symbols are still unresolved at the end of linking
+and the output file is not relocatable,
+.Nm ld
+will generate a link error.
+If there is more than one definition for a symbol,
+.Nm ld
+will also generate a link error.
+If line number symbols are present in the failing object file,
+.Nm ld
+will print the line number as well as the source file
+in the error message.
+After a link error, the resulting incomplete binary file
+will not have execute permission.
+.Pp
+Link editing is an essential but somewhat arcane practice.
+See
+.Xr a.out 5
+for more complete details about relocatable and executable
+binary files.
+.Sh FILES
+.Bl -tag -width /usr/local/lib -compact
+.It Pa a.out
+default output file
+.It Pa *.o
+conventional suffix for object files
+.It Pa *.a
+conventional suffix for archive files
+.It Pa /usr/lib
+default search directory for libraries
+.It Pa /usr/local/lib
+secondary default search directory
+.El
+.Sh EXAMPLES
+.Bd -literal -compact
+$ ld -o cat /usr/lib/crt0.o cat.o -lc
+.Ed
+.Sh DIAGNOSTICS
+.Bd -literal -compact
+Definition of symbol %s (multiply defined)
+More undefined \e"%s\e" refs follow
+Undefined symbol \e"%s\e" referenced
+More undefined symbol %s refs follow
+Undefined symbol %s referenced from %s segment
+%s: Symbol %s indirected to itself.
+.Ed
+.Sh SEE ALSO
+.Xr a.out 5 ,
+.Xr ar 1 ,
+.Xr as 1 ,
+.Xr cc 1 ,
+.Xr cpp 1 ,
+.Xr gdb 1 ,
+.Xr ranlib 1 ,
+.Xr stab 5 ,
+.Xr strip 1
+.Sh AUTHORS
+The GNU link editor is a product of the Free Software Foundation.
+.Sh BUGS
+Flags can't be bundled.
+.Pp
+Because of the sequential nature of link
+editing, it is possible to get link errors for an undefined symbol
+even though a relocatable object in a given library archive would resolve it.
+This situation will occur if the object in the archive isn't needed
+in order to resolve any undefined symbols from
+earlier steps in linking,
+even though a later step requires it.
+.Pp
+.Nm Ld
+makes a good faith effort to translate encoded symbols
+for C++ methods into readable text in error messages,
+but this doesn't always succeed.
+.Pp
+The version of
+.Nm ld
+distributed with this system is antique.

@@ -1,0 +1,8 @@
+      repeat word
+      do list
+      done word is expanded  and  treated  as  an  arithmetic
+	   expression,  which  must  evaluate  to a number n.
+	   list is then executed n times.
+
+      repeat word sublist
+	   This is a short form of repeat.

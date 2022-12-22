@@ -1,0 +1,23 @@
+F CTCP.C;1                          	ctcp.c
+F C_BSD.C;1                         	c_bsd.c
+F C_CONF.C;1                        	c_conf.c
+F C_DEBUG.C;1                       	c_debug.c
+F C_MSG.C;1                         	c_msg.c
+F C_NUMERI.C;1                      	c_numeric.c
+F C_VERSIO.C;1                      	c_version.c
+F EDIT.C;1                          	edit.c
+D GROT                              	grot
+F HELP.C;1                          	help.c
+F HELP.H;1                          	help.h
+F IGNORE.C;1                        	ignore.c
+F IRC.1;1                           	irc.1
+F IRC.C;1                           	irc.c
+F IRC.H;1                           	irc.h
+F IRCD.CON;1                        	ircd.conf
+F IRCD.MOT;1                        	ircd.motd
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/irc/irc
+F SCREEN.C;1                        	screen.c
+F STR.C;1                           	str.c
+F SWEAR.C;1                         	swear.c
+F TAGS.;1                           	tags

@@ -1,0 +1,7 @@
+F DEMO.;1                           	DEMO
+F DEVICES.I38;1                     	devices.i386
+F FILES.I38;1                       	files.i386
+F FILES_I3.OBJ;1                    	files.i386.obj
+F GENERIC.;1                        	GENERIC
+F GENERIC.USJ;1                     	GENERIC.USJP
+F MAKEFILE.I38;1                    	Makefile.i386

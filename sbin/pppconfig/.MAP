@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/sbin/pppconfig
+F PPPCONFI.8;1                      	pppconfig.8
+F PPPCONFI.C;1                      	pppconfig.c
+F TAGS.;1                           	tags

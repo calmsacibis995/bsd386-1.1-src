@@ -1,0 +1,4 @@
+exiterr	rcsmerge.c	/^exiterr()$/
+libId	../merge/merger.c	/^libId(mergerId, "$Id: merger.c,v 1.1.1.1 1993\/12/
+mainProg	rcsmerge.c	/^mainProg(rcsmergeId, "rcsmerge", "$Id: rcsmerge.c,/
+merge	../merge/merger.c	/^merge(tostdout, label, argv)$/

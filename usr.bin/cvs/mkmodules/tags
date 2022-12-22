@@ -1,0 +1,57 @@
+Fopen	../src/subr.c	/^Fopen (name, mode)$/
+Lock_Cleanup	mkmodules.c	/^Lock_Cleanup ()$/
+Mmkmodules	mkmodules.c	/^main (argc, argv)$/
+Popen	../src/subr.c	/^Popen (cmd, mode)$/
+VA_START	../src/subr.c	/^#define VA_START(args, lastarg) va_start(args, las/
+addnode	../src/hash.c	/^addnode (list, p)$/
+checkout_file	mkmodules.c	/^checkout_file (file, temp)$/
+copy_file	../src/subr.c	/^copy_file (from, to)$/
+dellist	../src/hash.c	/^dellist (listp)$/
+delnode	../src/hash.c	/^delnode (p)$/
+findnode	../src/hash.c	/^findnode (list, key)$/
+free_names	../src/subr.c	/^free_names (pargc, argv)$/
+freenode	../src/hash.c	/^freenode (p)$/
+freenode_mem	../src/hash.c	/^freenode_mem (p)$/
+get_date	../src/subr.c	/^get_date (date, now)$/
+getcaller	../src/subr.c	/^getcaller ()$/
+getlist	../src/hash.c	/^getlist ()$/
+getnode	../src/hash.c	/^getnode ()$/
+hashp	../src/hash.c	/^hashp (key)$/
+isdir	../src/subr.c	/^isdir (file)$/
+isfile	../src/subr.c	/^isfile (file)$/
+islink	../src/subr.c	/^islink (file)$/
+isreadable	../src/subr.c	/^isreadable (file)$/
+iswritable	../src/subr.c	/^iswritable (file)$/
+line2argv	../src/subr.c	/^line2argv (pargc, argv, line)$/
+link_file	../src/subr.c	/^link_file (from, to)$/
+make_directories	../src/subr.c	/^make_directories (name)$/
+make_directory	../src/subr.c	/^make_directory (name)$/
+make_tempfile	mkmodules.c	/^make_tempfile (temp)$/
+mkmodules_usage	mkmodules.c	/^mkmodules_usage ()$/
+mydbm_close	../src/myndbm.c	/^mydbm_close (db)$/
+mydbm_fetch	../src/myndbm.c	/^mydbm_fetch (db, key)$/
+mydbm_firstkey	../src/myndbm.c	/^mydbm_firstkey (db)$/
+mydbm_load_file	../src/myndbm.c	/^mydbm_load_file (fp, list)$/
+mydbm_nextkey	../src/myndbm.c	/^mydbm_nextkey (db)$/
+mydbm_open	../src/myndbm.c	/^mydbm_open (file, flags, mode)$/
+numdots	../src/subr.c	/^numdots (s)$/
+open_file	../src/subr.c	/^open_file (name, mode)$/
+rename_dbmfile	mkmodules.c	/^rename_dbmfile (temp)$/
+rename_file	../src/subr.c	/^rename_file (from, to)$/
+rename_rcsfile	mkmodules.c	/^rename_rcsfile (temp, real)$/
+run_add_arg	../src/subr.c	/^run_add_arg (s)$/
+run_arg	../src/subr.c	/^run_arg (s)$/
+run_args	../src/subr.c	/^run_args (fmt, va_alist)$/
+run_exec	../src/subr.c	/^run_exec (stin, stout, sterr, flags)$/
+run_init_prog	../src/subr.c	/^run_init_prog ()$/
+run_print	../src/subr.c	/^run_print (fp)$/
+run_setup	../src/subr.c	/^run_setup (fmt, va_alist)$/
+sortlist	../src/hash.c	/^sortlist (list, comp)$/
+unlink_file	../src/subr.c	/^unlink_file (f)$/
+walklist	../src/hash.c	/^walklist (list, proc)$/
+write_dbmfile	mkmodules.c	/^write_dbmfile (temp)$/
+xchmod	../src/subr.c	/^xchmod (fname, writable)$/
+xcmp	../src/subr.c	/^xcmp (file1, file2)$/
+xmalloc	../src/subr.c	/^xmalloc (bytes)$/
+xrealloc	../src/subr.c	/^xrealloc (ptr, bytes)$/
+xstrdup	../src/subr.c	/^xstrdup (str)$/

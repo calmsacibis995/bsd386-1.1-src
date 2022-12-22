@@ -1,0 +1,4 @@
+KREAD	dmesg.c	/^#define	KREAD(addr, var) \\$/
+Mdmesg	dmesg.c	/^main(argc, argv)$/
+err	dmesg.c	/^err(fmt, va_alist)$/
+usage	dmesg.c	/^usage()$/

@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.TMP;1                    	Makefile.tmpl
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/xntp/xntpres
+F README.;1                         	README
+F XNTPRES.C;1                       	xntpres.c

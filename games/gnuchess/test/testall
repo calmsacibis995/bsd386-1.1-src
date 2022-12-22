@@ -1,0 +1,131 @@
+0 0
+get
+../test/test1
+! correct move d4d5
+white
+post
+depth
+10
+go
+get
+../test/test2
+!correct move b5b6 Peasent 8 plys Cray Blitz 14 plys
+white
+post
+depth
+10
+go
+get
+../test/test3
+!correct move g3g4 at 13 plys +500
+white
+post
+depth
+14
+go
+get
+../test/test4
+!correct c4c5 cray 11 plys
+white
+post
+depth
+11
+go
+get
+../test/test5
+!correct h6h5 mate in 19
+white
+post
+depth
+15
+go
+get
+../test/test6
+! correct e3e4 cray at 21 plys
+white
+post
+depth
+15
+go
+get
+../test/test7
+! correct d4d5 Cray Blitz at 19 plys
+white
+post
+depth
+10
+go
+get
+../test/test8
+!correct b3b4 Cray Blitz at 18 plys
+white
+post
+depth
+18
+go
+get
+../test/test9
+! correct a1b1 Cray Blitz at 18 plys
+white
+post
+depth
+18
+go
+get
+../test/test10
+! correct f3f4 Cray Blitz at 17 plys
+white
+post
+depth
+17
+go
+get
+../test/test11
+! correct c5d5  easy
+white
+post
+depth
+10
+go
+get
+../test/test12
+! correct e5e4 Cray Blitz at 23 plys
+white
+post
+depth
+23
+go
+get
+../test/test13
+! correct e3e4 Cray Blitz at 13 plys
+white
+post
+depth
+13
+go
+get
+../test/test14
+!correct e2f2 Cray Blitz at 18 plys
+white
+post
+depth
+18
+go
+get
+../test/test15
+! correct e5f4 Cray Blitz at 17 plys
+white
+post
+depth
+17
+go
+get
+../test/test16
+! correct d5d6 Cray Blitz at 15 plys
+white
+post
+depth
+15
+go
+quit
+

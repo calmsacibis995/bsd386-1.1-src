@@ -1,0 +1,95 @@
+System: patch version 2.0
+Patch #: 9
+Priority: LOW
+Subject: Reversed new-style context diff can cause double free().
+From: lwall@sdcrdcf.UUCP
+
+Description:
+	A new-style context diff that is reversed (-R) and that contains
+	a hunk with an assumed old or new half is not freed properly.
+	When there is a hunk-half assumed, the lines are duplicated
+	internally by copying the pointers of the actual lines from the
+	other half.  A pair of variables then tell the freeing routine
+	not to free that range of fake lines since they will be freed when
+	the other half hunk is freed.
+
+	The problem is that the routine that swaps halves of the hunk didn't
+	update the variables to point to where the fake lines were moved to.
+
+Fix:	From rn, say "| patch -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	{allegra,burdvax,cbosgd,ihnp4,sdcsvax}!sdcrdcf!lwall
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in bang notation, and LIST
+	is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+
+Index: patchlevel.h
+Prereq: 8
+1c1
+< #define PATCHLEVEL 8
+---
+> #define PATCHLEVEL 9
+ 
+Index: pch.c
+Prereq: 2.0.1.5
+*** pch.c.old	Thu Jun  4 16:20:28 1987
+*** pch.c	Thu Jun  4 16:20:43 1987
+***************
+*** 1,6 ****
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch9,v 1.2 1992/01/04 19:03:44 kolstad Exp $
+   *
+   * $Log: patch9,v $
+# Revision 1.2  1992/01/04  19:03:44  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.5  87/01/30  22:47:42  lwall
+   * Improved responses to mangled patches.
+   * 
+--- 1,9 ----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch9,v 1.2 1992/01/04 19:03:44 kolstad Exp $
+   *
+   * $Log: patch9,v $
+# Revision 1.2  1992/01/04  19:03:44  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.6  87/06/04  16:18:13  lwall
++  * pch_swap didn't swap p_bfake and p_efake.
++  * 
+   * Revision 2.0.1.5  87/01/30  22:47:42  lwall
+   * Improved responses to mangled patches.
+   * 
+***************
+*** 900,905 ****
+--- 903,915 ----
+      if (tp_char[i] == '\n') {		/* account for possible blank line */
+  	blankline = TRUE;
+  	i++;
++     }
++     if (p_efake >= 0) {			/* fix non-freeable ptr range */
++ 	n = p_end - i + 1;
++ 	if (p_efake > i)
++ 	    n = -n;
++ 	p_efake += n;
++ 	p_bfake += n;
+      }
+      for (n=0; i <= p_end; i++,n++) {
+  	p_line[n] = tp_line[i];

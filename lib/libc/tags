@@ -1,0 +1,919 @@
+ADDCMD	./gen/setmode.c	/^#define	ADDCMD(a, b, c, d) \\$/
+ADJUST	./gen/fts.c	/^#define	ADJUST(p) {							\\$/
+AHEAD	./regex/regcomp.c	/^#define	AHEAD(pos)		dofwd(p, pos, HERE()-(pos))$/
+ASSERT	./stdlib/malloc.c	/^#define	ASSERT(p)   if (!(p)) botch("p")$/
+ASSIGN	./regex/regexec.c	/^#define	ASSIGN(d, s)	((d) = (s))$/
+ASTERN	./regex/regcomp.c	/^#define	ASTERN(sop, pos)	EMIT(sop, HERE()-pos)$/
+Aerror	./net/res_send.c	/^#define Aerror(file, string, error, address) \/*em/
+BACK	./regex/regexec.c	/^#define	BACK(dst, src, n)	((dst) |= ((unsigned)(sr/
+BUF_INSERT	./db/hash/hash_buf.c	/^#define BUF_INSERT(B, P) { \\$/
+BUF_REMOVE	./db/hash/hash_buf.c	/^#define BUF_REMOVE(B) { \\$/
+CHAR	./gen/glob.c	/^#define	CHAR(c)		((Char)((c)&M_ASCII))$/
+CHDIR	./gen/fts.c	/^#define	CHDIR(sp, path)	(!ISSET(FTS_NOCHDIR) && ch/
+CLEAR	./regex/regexec.c	/^#define	CLEAR(v)	((v) = 0)$/
+COMBINE	./quad/qdivrem.c	/^#define	COMBINE(a, b) (((u_long)(a) << HALF_BITS) /
+CONVTCK	./gen/clock.c	/^#define	CONVTCK(r)	(r.tv_sec * CLK_TCK + r.tv_usec/
+COPY	./stdio/fvwrite.c	/^#define	COPY(n)	  (void) bcopy((void *)p, (void *)/
+CRUNCH	./gen/crypt.c	/^#define	CRUNCH(p0, p1, q0, q1)	\\$/
+DCL_BLOCK	./gen/crypt.c	/^#define	DCL_BLOCK(d,d0,d1)		long d0, d1$/
+DIRSIZ	./gen/scandir.c	/^#define DIRSIZ(dp) \\$/
+DOXOR	./gen/crypt.c	/^#define	DOXOR(x,y,i)	x^=SPTAB(SPE[0][i],B.b[i]); y/
+DROP	./regex/regcomp.c	/^#define	DROP(n)	(p->slen -= (n))$/
+Dprint	./net/res_send.c	/^#define Dprint(cond, args) \/*empty*\/$/
+DprintQ	./net/res_send.c	/^#define DprintQ(cond, args, query) \/*empty*\/$/
+EAT	./regex/regcomp.c	/^#define	EAT(c)	((SEE(c)) ? (NEXT(), 1) : 0)$/
+EATTWO	./regex/regcomp.c	/^#define	EATTWO(a, b)	((SEETWO(a, b)) ? (NEXT2(), 1/
+EMIT	./regex/regcomp.c	/^#define	EMIT(sop, sopnd)	doemit(p, sop, (size_t)(s/
+EQ	./regex/regexec.c	/^#define	EQ(a, b)	((a) == (b))$/
+EXPAND	./gen/getpwent.c	/^#define	EXPAND(e)	e = t; while (*t++ = *p++);$/
+FAIL	./gen/v8regexp/v8regexp.c	/^#define	FAIL(m)	{ regerror(m); return(NULL); }$/
+FCHDIR	./gen/fts.c	/^#define	FCHDIR(sp, fd)	(!ISSET(FTS_NOCHDIR) && fch/
+FLUSH	./stdio/vfprintf.c	/^#define	FLUSH() { \\$/
+FWD	./regex/regexec.c	/^#define	FWD(dst, src, n)	((dst) |= ((unsigned)(src/
+Field	./net/ns_addr.c	/^Field(buf, out, len)$/
+GETIOV	./stdio/fvwrite.c	/^#define GETIOV(extra_work) \\$/
+GETNEXT	./regex/regcomp.c	/^#define	GETNEXT()	(*p->next++)$/
+HEAP	./stdlib/heapsort.c	/^#define	HEAP(initval) { \\$/
+HERE	./regex/regcomp.c	/^#define	HERE()		(p->slen)$/
+INC	./regex/regexec.c	/^#define	INC(o)	((o) <<= 1)$/
+INIT	./regex/regexec.c	/^#define	INIT(o, n)	((o) = (unsigned)1 << (n))$/
+INSERT	./regex/regcomp.c	/^#define	INSERT(sop, pos)	doinsert(p, sop, HERE()-(/
+INT_STRLEN_MAXIMUM	./gen/ctime.c	/^#define INT_STRLEN_MAXIMUM(type) \\$/
+ISDOT	./gen/fts.c	/^#define	ISDOT(a)	(a[0] == '.' && (!a[1] || a[1] ==/
+ISLAST	./gen/nlist.c	/^#define	ISLAST(p)	(p->n_un.n_name == 0 || p->n_un./
+ISMULT	./gen/v8regexp/v8regexp.c	/^#define	ISMULT(c)	((c) == '*' || (c) == '+' || (c)/
+ISSET	./gen/fts.c	/^#define	ISSET(opt)	(sp->fts_options & opt)$/
+ISSETBACK	./regex/regexec.c	/^#define	ISSETBACK(v, n)	((v) & ((unsigned)here >> /
+ISSTATEIN	./regex/regexec.c	/^#define	ISSTATEIN(v, o)	((v) & (o))$/
+LOAD	./gen/crypt.c	/^#define	LOAD(d,d0,d1,bl)		d0 = (bl).b32.i0, d1 = (/
+LOADREG	./gen/crypt.c	/^#define	LOADREG(d,d0,d1,s,s0,s1)	d0 = s0, d1 = s1$/
+LOCHASH	./gen/telldir.c	/^#define	LOCHASH(i)	((i)&(NDIRHASH-1))$/
+LRU_INSERT	./db/hash/hash_buf.c	/^#define LRU_INSERT(B)	BUF_INSERT((B), LRU)$/
+MATCH	./net/res_init.c	/^#define	MATCH(line, name) \\$/
+META	./gen/glob.c	/^#define	META(c)		((Char)((c)|M_QUOTE))$/
+MIN	./stdio/fvwrite.c	/^#define	MIN(a, b) ((a) < (b) ? (a) : (b))$/
+MOD	./db/hash/hash.c	/^#define MOD(x, y)		((x) & ((y) - 1))$/
+MORE	./regex/regcomp.c	/^#define	MORE()	(p->next < p->end)$/
+MORE2	./regex/regcomp.c	/^#define	MORE2()	(p->next+1 < p->end)$/
+MRU_INSERT	./db/hash/hash_buf.c	/^#define MRU_INSERT(B)	BUF_INSERT((B), &hashp->bufh/
+MUSTEAT	./regex/regcomp.c	/^#define	MUSTEAT(c, e)	(REQUIRE(MORE() && GETNEXT()/
+MUSTNOTSEE	./regex/regcomp.c	/^#define	MUSTNOTSEE(c, e)	(REQUIRE(!MORE() || PEEK(/
+MUSTSEE	./regex/regcomp.c	/^#define	MUSTSEE(c, e)	(REQUIRE(MORE() && PEEK() ==/
+NAPPEND	./gen/fts.c	/^#define	NAPPEND(p)							\\$/
+NEXT	./gen/v8regexp/v8regexp.c	/^#define	NEXT(p)	(((*((p)+1)&0377)<<8) + (*((p)+2)&/
+NEXT2	./regex/regcomp.c	/^#define	NEXT2()	(p->next += 2)$/
+NEXTn	./regex/regcomp.c	/^#define	NEXTn(n)	(p->next += (n))$/
+OP	./gen/v8regexp/v8regexp.c	/^#define	OP(p)	(*(p))$/
+OPERAND	./gen/v8regexp/v8regexp.c	/^#define	OPERAND(p)	((p) + 3)$/
+OR	./gen/crypt.c	/^#define	OR(d,d0,d1,bl)			d0 |= (bl).b32.i0, d1 |= /
+P	./gen/ctime.c	/^#define P(s)		s$/
+PAD	./stdio/vfprintf.c	/^#define	PAD(howmany, with) { \\$/
+PAGE_INIT	./db/hash/hash_page.c	/^#define	PAGE_INIT(P) { \\$/
+PEEK	./regex/regcomp.c	/^#define	PEEK()	(*p->next)$/
+PEEK2	./regex/regcomp.c	/^#define	PEEK2()	(*(p->next+1))$/
+PERM3264	./gen/crypt.c	/^#define	PERM3264(d,d0,d1,cpp,p)				\\$/
+PERM6464	./gen/crypt.c	/^#define	PERM6464(d,d0,d1,cpp,p)				\\$/
+PLURALIZE	./net/res_debug.c	/^#define	PLURALIZE(x)	x, (x == 1) ? "" : "s"$/
+PRINT	./stdio/vfprintf.c	/^#define	PRINT(ptr, len) { \\$/
+Perror	./net/res_send.c	/^#define Perror(file, string, error) \/*empty*\/$/
+REQUIRE	./regex/regcomp.c	/^#define	REQUIRE(co, e)	((co) || SETERROR(e))$/
+RETURN_ERROR	./db/hash/hash.c	/^#define RETURN_ERROR(ERR, LOC)	{ save_errno = ERR;/
+SARG	./stdio/vfprintf.c	/^#define	SARG() \\$/
+SEE	./regex/regcomp.c	/^#define	SEE(c)	(MORE() && PEEK() == (c))$/
+SEETWO	./regex/regcomp.c	/^#define	SEETWO(a, b)	(MORE() && MORE2() && PEEK() /
+SET	./gen/fts.c	/^#define	SET(opt)	(sp->fts_options |= opt)$/
+SET0	./regex/regexec.c	/^#define	SET0(v, n)	((v) &= ~(1 << (n)))$/
+SET1	./regex/regexec.c	/^#define	SET1(v, n)	((v) |= 1 << (n))$/
+SETERROR	./regex/regcomp.c	/^#define	SETERROR(e)	seterr(p, (e))$/
+SETUP	./regex/regexec.c	/^#define	SETUP(v)	((v) = 0)$/
+SORT	./stdlib/qsort.c	/^#define	SORT(bot, n) { \\$/
+SPTAB	./gen/crypt.c	/^#define	SPTAB(t, i)	(*(long *)((unsigned char *)t /
+STATESETUP	./regex/regexec.c	/^#define	STATESETUP(m, n)	\/* nothing *\/$/
+STATETEARDOWN	./regex/regexec.c	/^#define	STATETEARDOWN(m)	\/* nothing *\/$/
+STORE	./gen/crypt.c	/^#define	STORE(s,s0,s1,bl)		(bl).b32.i0 = s0, (bl)./
+SWAP	./stdlib/heapsort.c	/^#define	SWAP(a, b) { \\$/
+THERE	./regex/regcomp.c	/^#define	THERE()		(p->slen - 1)$/
+TO_SIX_BIT	./gen/crypt.c	/^#define	TO_SIX_BIT(rslt, src) {				\\$/
+UARG	./stdio/vfprintf.c	/^#define	UARG() \\$/
+UC	./net/inet_ntoa.c	/^#define	UC(b)	(((int)b)&0xff)$/
+UCHARAT	./gen/v8regexp/v8regexp.c	/^#define	UCHARAT(p)	((int)*(unsigned char *)(p))$/
+X	./db/btree/bt_debug.c	/^#define	X(flag, name) \\$/
+ZERO	./gen/crypt.c	/^#define	ZERO(d,d0,d1)			d0 = 0, d1 = 0$/
+_EUC_init	./locale/euc.c	/^_EUC_init(rl)$/
+_EUC_sgetrune	./locale/euc.c	/^_EUC_sgetrune(string, n, result)$/
+_EUC_sputrune	./locale/euc.c	/^_EUC_sputrune(c, string, n, result)$/
+_Read_RuneMagi	./locale/rune.c	/^_Read_RuneMagi(fp)$/
+_UTF2_init	./locale/utf2.c	/^_UTF2_init(rl)$/
+_UTF2_sgetrune	./locale/utf2.c	/^_UTF2_sgetrune(string, n, result)$/
+_UTF2_sputrune	./locale/utf2.c	/^_UTF2_sputrune(c, string, n, result)$/
+___runetype	./locale/rune.c	/^___runetype(c)$/
+___tolower	./locale/rune.c	/^___tolower(c)$/
+___toupper	./locale/rune.c	/^___toupper(c)$/
+__add_ovflpage	./db/hash/hash_page.c	/^__add_ovflpage(hashp, bufp)$/
+__adddi3	./quad/adddi3.c	/^__adddi3(a, b)$/
+__addel	./db/hash/hash_page.c	/^__addel(hashp, bufp, key, val)$/
+__anddi3	./quad/anddi3.c	/^__anddi3(a, b)$/
+__ashldi3	./quad/ashldi3.c	/^__ashldi3(a, shift)$/
+__ashrdi3	./quad/ashrdi3.c	/^__ashrdi3(a, shift)$/
+__assert	./gen/assert.c	/^__assert(e, f, l)$/
+__big_delete	./db/hash/hash_bigkey.c	/^__big_delete(hashp, bufp)$/
+__big_insert	./db/hash/hash_bigkey.c	/^__big_insert(hashp, bufp, key, val)$/
+__big_keydata	./db/hash/hash_bigkey.c	/^__big_keydata(hashp, bufp, key, val, set)$/
+__big_return	./db/hash/hash_bigkey.c	/^__big_return(hashp, bufp, ndx, val, set_current)$/
+__big_split	./db/hash/hash_bigkey.c	/^__big_split(hashp, op, np, big_keyp, addr, obucket/
+__bt_close	./db/btree/bt_close.c	/^__bt_close(dbp)$/
+__bt_cmp	./db/btree/bt_utils.c	/^__bt_cmp(t, k1, e)$/
+__bt_crsrdel	./db/btree/bt_seq.c	/^__bt_crsrdel(t, c)$/
+__bt_defcmp	./db/btree/bt_utils.c	/^__bt_defcmp(a, b)$/
+__bt_defpfx	./db/btree/bt_utils.c	/^__bt_defpfx(a, b)$/
+__bt_delete	./db/btree/bt_delete.c	/^__bt_delete(dbp, key, flags)$/
+__bt_dleaf	./db/btree/bt_delete.c	/^__bt_dleaf(t, h, index)$/
+__bt_dmpage	./db/btree/bt_debug.c	/^__bt_dmpage(h)$/
+__bt_dnpage	./db/btree/bt_debug.c	/^__bt_dnpage(dbp, pgno)$/
+__bt_dpage	./db/btree/bt_debug.c	/^__bt_dpage(h)$/
+__bt_dump	./db/btree/bt_debug.c	/^__bt_dump(dbp)$/
+__bt_fd	./db/btree/bt_open.c	/^__bt_fd(dbp)$/
+__bt_first	./db/btree/bt_get.c	/^__bt_first(t, key, exactp)$/
+__bt_free	./db/btree/bt_page.c	/^__bt_free(t, h)$/
+__bt_get	./db/btree/bt_get.c	/^__bt_get(dbp, key, data, flags)$/
+__bt_new	./db/btree/bt_page.c	/^__bt_new(t, npg)$/
+__bt_open	./db/btree/bt_open.c	/^__bt_open(fname, flags, mode, openinfo, dflags)$/
+__bt_pgin	./db/btree/bt_conv.c	/^__bt_pgin(t, pg, pp)$/
+__bt_pgout	./db/btree/bt_conv.c	/^__bt_pgout(t, pg, pp)$/
+__bt_push	./db/btree/bt_stack.c	/^__bt_push(t, pgno, index)$/
+__bt_put	./db/btree/bt_put.c	/^__bt_put(dbp, key, data, flags)$/
+__bt_ret	./db/btree/bt_utils.c	/^__bt_ret(t, e, key, data)$/
+__bt_search	./db/btree/bt_search.c	/^__bt_search(t, key, exactp)$/
+__bt_seq	./db/btree/bt_seq.c	/^__bt_seq(dbp, key, data, flags)$/
+__bt_split	./db/btree/bt_split.c	/^__bt_split(t, sp, key, data, flags, ilen, skip)$/
+__bt_stat	./db/btree/bt_debug.c	/^__bt_stat(dbp)$/
+__bt_sync	./db/btree/bt_close.c	/^__bt_sync(dbp, flags)$/
+__buf_free	./db/hash/hash_buf.c	/^__buf_free(hashp, do_free, to_disk)$/
+__buf_init	./db/hash/hash_buf.c	/^__buf_init(hashp, nbytes)$/
+__call_hash	./db/hash/hash.c	/^__call_hash(hashp, k, len)$/
+__cmpdi2	./quad/cmpdi2.c	/^__cmpdi2(a, b)$/
+__dberr	./db/db/db.c	/^__dberr()$/
+__dbpanic	./db/db/db.c	/^__dbpanic(dbp)$/
+__delpair	./db/hash/hash_page.c	/^__delpair(hashp, bufp, ndx)$/
+__divdi3	./quad/divdi3.c	/^__divdi3(a, b)$/
+__dn_skipname	./net/res_comp.c	/^__dn_skipname(comp_dn, eom)$/
+__expand_table	./db/hash/hash.c	/^__expand_table(hashp)$/
+__fdnlist	./gen/nlist.c	/^__fdnlist(fd, list)$/
+__find_bigpair	./db/hash/hash_bigkey.c	/^__find_bigpair(hashp, bufp, ndx, key, size)$/
+__find_last_page	./db/hash/hash_bigkey.c	/^__find_last_page(hashp, bpp)$/
+__fixdfdi	./quad/fixdfdi.c	/^__fixdfdi(x)$/
+__fixsfdi	./quad/fixsfdi.c	/^__fixsfdi(float x)$/
+__fixunsdfdi	./quad/fixunsdfdi.c	/^__fixunsdfdi(x)$/
+__fixunssfdi	./quad/fixunssfdi.c	/^__fixunssfdi(float f)$/
+__floatdidf	./quad/floatdidf.c	/^__floatdidf(x)$/
+__floatdisf	./quad/floatdisf.c	/^__floatdisf(x)$/
+__floatunsdidf	./quad/floatunsdidf.c	/^__floatunsdidf(x)$/
+__fp_query	./net/res_debug.c	/^__fp_query(msg,file)$/
+__fp_resstat	./net/res_debug.c	/^__fp_resstat(statp, file)$/
+__free_ovflpage	./db/hash/hash_page.c	/^__free_ovflpage(hashp, obufp)$/
+__get_buf	./db/hash/hash_buf.c	/^__get_buf(hashp, addr, prev_bp, newpage)$/
+__get_page	./db/hash/hash_page.c	/^__get_page(hashp, p, bucket, is_bucket, is_disk, i/
+__hash_open	./db/hash/hash.c	/^__hash_open(file, flags, mode, info, dflags)$/
+__hashpw	./gen/getpwent.c	/^__hashpw(key)$/
+__hostalias	./net/res_query.c	/^__hostalias(name)$/
+__init_bitmap	./db/hash/hash_page.c	/^__init_bitmap(hashp, pnum, nbits, ndx)$/
+__initdb	./gen/getpwent.c	/^__initdb()$/
+__iordi3	./quad/iordi3.c	/^__iordi3(a, b)$/
+__isctype	./locale/rune.c	/^__isctype(_BSD_RUNE_T_ c, unsigned long f)$/
+__istype	./locale/rune.c	/^__istype(c, f)$/
+__lmulq	./quad/muldi3.c	/^__lmulq(u_long u, u_long v)$/
+__log2	./db/hash/hash_log2.c	/^__log2(num)$/
+__lshldi3	./quad/lshldi3.c	/^__lshldi3(a, shift)$/
+__lshrdi3	./quad/lshrdi3.c	/^__lshrdi3(a, shift)$/
+__moddi3	./quad/moddi3.c	/^__moddi3(a, b)$/
+__mpoolerr	./db/mpool/mpool.c	/^__mpoolerr(fmt, va_alist)$/
+__muldi3	./quad/muldi3.c	/^__muldi3(a, b)$/
+__negdi2	./quad/negdi2.c	/^__negdi2(a)$/
+__one_cmpldi2	./quad/notdi2.c	/^__one_cmpldi2(a)$/
+__ovfl_delete	./db/btree/bt_overflow.c	/^__ovfl_delete(t, p)$/
+__ovfl_get	./db/btree/bt_overflow.c	/^__ovfl_get(t, p, ssz, buf, bufsz)$/
+__ovfl_put	./db/btree/bt_overflow.c	/^__ovfl_put(t, dbt, pg)$/
+__p_class	./net/res_debug.c	/^__p_class(class)$/
+__p_query	./net/res_debug.c	/^__p_query(msg)$/
+__p_time	./net/res_debug.c	/^__p_time(value)$/
+__p_type	./net/res_debug.c	/^__p_type(type)$/
+__put_page	./db/hash/hash_page.c	/^__put_page(hashp, p, bucket, is_bucket, is_bitmap)/
+__putlong	./net/res_comp.c	/^__putlong(l, msgp)$/
+__putshort	./net/res_comp.c	/^__putshort(s, msgp)$/
+__qdivrem	./quad/qdivrem.c	/^__qdivrem(uq, vq, arq)$/
+__rec_close	./db/recno/rec_close.c	/^__rec_close(dbp)$/
+__rec_delete	./db/recno/rec_delete.c	/^__rec_delete(dbp, key, flags)$/
+__rec_dleaf	./db/recno/rec_delete.c	/^__rec_dleaf(t, h, index)$/
+__rec_fd	./db/recno/rec_open.c	/^__rec_fd(dbp)$/
+__rec_fmap	./db/recno/rec_get.c	/^__rec_fmap(t, top)$/
+__rec_fpipe	./db/recno/rec_get.c	/^__rec_fpipe(t, top)$/
+__rec_get	./db/recno/rec_get.c	/^__rec_get(dbp, key, data, flags)$/
+__rec_iput	./db/recno/rec_put.c	/^__rec_iput(t, nrec, data, flags)$/
+__rec_open	./db/recno/rec_open.c	/^__rec_open(fname, flags, mode, openinfo, dflags)$/
+__rec_put	./db/recno/rec_put.c	/^__rec_put(dbp, key, data, flags)$/
+__rec_ret	./db/recno/rec_utils.c	/^__rec_ret(t, e, nrec, key, data)$/
+__rec_search	./db/recno/rec_search.c	/^__rec_search(t, recno, op)$/
+__rec_seq	./db/recno/rec_seq.c	/^__rec_seq(dbp, key, data, flags)$/
+__rec_sync	./db/recno/rec_close.c	/^__rec_sync(dbp, flags)$/
+__rec_vmap	./db/recno/rec_get.c	/^__rec_vmap(t, top)$/
+__rec_vpipe	./db/recno/rec_get.c	/^__rec_vpipe(t, top)$/
+__reclaim_buf	./db/hash/hash_buf.c	/^__reclaim_buf(hashp, bp)$/
+__sbprintf	./stdio/vfprintf.c	/^__sbprintf(fp, fmt, ap)$/
+__sccl	./stdio/vfscanf.c	/^__sccl(tab, fmt)$/
+__sclose	./stdio/stdio.c	/^__sclose(cookie)$/
+__sflags	./stdio/flags.c	/^__sflags(mode, optr)$/
+__sflush	./stdio/fflush.c	/^__sflush(fp)$/
+__sfp	./stdio/findfp.c	/^__sfp()$/
+__sfvwrite	./stdio/fvwrite.c	/^__sfvwrite(fp, uio)$/
+__sinit	./stdio/findfp.c	/^__sinit()$/
+__slbexpand	./stdio/fgetln.c	/^__slbexpand(fp, newsize)$/
+__smakebuf	./stdio/makebuf.c	/^__smakebuf(fp)$/
+__split_page	./db/hash/hash_page.c	/^__split_page(hashp, obucket, nbucket)$/
+__sprint	./stdio/vfprintf.c	/^__sprint(fp, uio)$/
+__sread	./stdio/stdio.c	/^__sread(cookie, buf, n)$/
+__srefill	./stdio/refill.c	/^__srefill(fp)$/
+__srget	./stdio/rget.c	/^__srget(fp)$/
+__sseek	./stdio/stdio.c	/^__sseek(cookie, offset, whence)$/
+__subdi3	./quad/subdi3.c	/^__subdi3(a, b)$/
+__submore	./stdio/ungetc.c	/^__submore(fp)$/
+__svfscanf	./stdio/vfscanf.c	/^__svfscanf(fp, fmt0, ap)$/
+__swbuf	./stdio/wbuf.c	/^__swbuf(c, fp)$/
+__swhatbuf	./stdio/makebuf.c	/^__swhatbuf(fp, bufsize, couldbetty)$/
+__swrite	./stdio/stdio.c	/^__swrite(cookie, buf, n)$/
+__swsetup	./stdio/wsetup.c	/^__swsetup(fp)$/
+__ucmpdi2	./quad/ucmpdi2.c	/^__ucmpdi2(a, b)$/
+__udivdi3	./quad/udivdi3.c	/^__udivdi3(a, b)$/
+__ultoa	./stdio/vfprintf.c	/^__ultoa(val, endp, base, octzero, xdigs)$/
+__umoddi3	./quad/umoddi3.c	/^__umoddi3(a, b)$/
+__uqtoa	./stdio/vfprintf.c	/^__uqtoa(val, endp, base, octzero, xdigs)$/
+__xordi3	./quad/xordi3.c	/^__xordi3(a, b)$/
+_add	./string/strftime.c	/^_add(str, pt, ptlim)$/
+_brk ./i386/sys/brk.s /^ENTRY(_brk)$/
+_checkhost	./net/rcmd.c	/^_checkhost(rhost, lhost, len)$/
+_cleanup	./stdio/findfp.c	/^_cleanup()$/
+_conv	./string/strftime.c	/^_conv(n, format, pt, ptlim)$/
+_endhtent	./net/gethostnamadr.c	/^_endhtent()$/
+_endnetent	./net/getnetent.c	/^_endnetent()$/
+_euc_set	./locale/euc.c	/^_euc_set(c)$/
+_findenv	./stdlib/getenv.c	/^_findenv(name, offset)$/
+_fmt	./string/strftime.c	/^_fmt(format, t, pt, ptlim)$/
+_fwalk	./stdio/fwalk.c	/^_fwalk(function)$/
+_gethtbyaddr	./net/gethostnamadr.c	/^_gethtbyaddr(addr, len, type)$/
+_gethtbyname	./net/gethostnamadr.c	/^_gethtbyname(name)$/
+_gethtent	./net/gethostnamadr.c	/^_gethtent()$/
+_getlong	./net/res_comp.c	/^_getlong(msgp)$/
+_getnetbyaddr	./net/getnetbyaddr.c	/^_getnetbyaddr(net, type)$/
+_getnetbyname	./net/getnetbyname.c	/^_getnetbyname(name)$/
+_getshort	./net/res_comp.c	/^_getshort(msgp)$/
+_gettemp	./stdio/mktemp.c	/^_gettemp(path, doopen)$/
+_longjmp ./i386/gen/_setjmp.s /^ENTRY(_longjmp)$/
+_none_init	./locale/runenone.c	/^_none_init(rl)$/
+_none_sgetrune	./locale/runenone.c	/^_none_sgetrune(string, n, result)$/
+_none_sputrune	./locale/runenone.c	/^_none_sputrune(c, string, n, result)$/
+_res_close	./net/res_send.c	/^_res_close()$/
+_secs	./string/strftime.c	/^_secs(t, pt, ptlim)$/
+_seekdir	./gen/telldir.c	/^_seekdir(dirp, loc)$/
+_sethtent	./net/gethostnamadr.c	/^_sethtent(f)$/
+_setjmp ./i386/gen/_setjmp.s /^ENTRY(_setjmp)$/
+_setnetent	./net/getnetent.c	/^_setnetent(f)$/
+_tztab	./gen/timezone.c	/^_tztab(zone,dst)$/
+_validuser	./net/rcmd.c	/^_validuser(hostf, rhost, luser, ruser, baselen)$/
+abort	./stdlib/abort.c	/^abort()$/
+abs ./i386/stdlib/abs.s /^ENTRY(abs)$/
+addcmd	./gen/setmode.c	/^addcmd(set, op, who, oparg, mask)$/
+alarm	./gen/alarm.c	/^alarm(secs)$/
+alloc_segs	./db/hash/hash.c	/^alloc_segs(hashp, nsegs)$/
+alloca ./i386/gen/alloca.s /^ENTRY(alloca)$/
+allocset	./regex/regcomp.c	/^allocset(p)$/
+alphasort	./gen/scandir.c	/^alphasort(d1, d2)$/
+asctime	./gen/ctime.c	/^asctime(timeptr)$/
+atexit	./stdlib/atexit.c	/^atexit(fn)$/
+atof	./stdlib/atof.c	/^atof(ascii)$/
+atoi	./stdlib/atoi.c	/^atoi(str)$/
+atol	./stdlib/atol.c	/^atol(str)$/
+bcmp ./i386/string/bcmp.s /^ENTRY(bcmp)$/
+bcopy ./i386/string/bcopy.s /^ENTRY(bcopy)$/
+botch	./stdlib/malloc.c	/^botch(s)$/
+bothcases	./regex/regcomp.c	/^bothcases(p, ch)$/
+brk ./i386/sys/brk.s /^ENTRY(brk)$/
+bsearch	./stdlib/bsearch.c	/^bsearch(key, base0, nmemb, size, compar)$/
+bt_bdelete	./db/btree/bt_delete.c	/^bt_bdelete(t, key)$/
+bt_broot	./db/btree/bt_split.c	/^bt_broot(t, h, l, r)$/
+bt_fast	./db/btree/bt_put.c	/^bt_fast(t, key, data, exactp)$/
+bt_meta	./db/btree/bt_close.c	/^bt_meta(t)$/
+bt_page	./db/btree/bt_split.c	/^bt_page(t, h, lp, rp, skip, ilen)$/
+bt_preserve	./db/btree/bt_split.c	/^bt_preserve(t, pg)$/
+bt_psplit	./db/btree/bt_split.c	/^bt_psplit(t, h, l, r, pskip, ilen)$/
+bt_root	./db/btree/bt_split.c	/^bt_root(t, h, lp, rp, skip, ilen)$/
+bt_rroot	./db/btree/bt_split.c	/^bt_rroot(t, h, l, r)$/
+bt_seqadv	./db/btree/bt_seq.c	/^bt_seqadv(t, e, flags)$/
+bt_seqset	./db/btree/bt_seq.c	/^bt_seqset(t, ep, key, flags)$/
+bt_snext	./db/btree/bt_search.c	/^bt_snext(t, h, key, exactp)$/
+bt_sprev	./db/btree/bt_search.c	/^bt_sprev(t, h, key, exactp)$/
+buildargv	./gen/exec.c	/^buildargv(ap, arg, envpp)$/
+byteorder	./db/btree/bt_open.c	/^byteorder()$/
+bzero ./i386/string/bzero.s /^ENTRY(bzero)$/
+calloc	./stdlib/calloc.c	/^calloc(num, size)$/
+categorize	./regex/regcomp.c	/^categorize(p, g)$/
+cdbget	./gen/getcap.c	/^cdbget(capdbp, bp, name)$/
+cfgetispeed	./gen/termios.c	/^cfgetispeed(t)$/
+cfgetospeed	./gen/termios.c	/^cfgetospeed(t)$/
+cfmakeraw	./gen/termios.c	/^cfmakeraw(t)$/
+cfsetispeed	./gen/termios.c	/^cfsetispeed(t, speed)$/
+cfsetospeed	./gen/termios.c	/^cfsetospeed(t, speed)$/
+cfsetspeed	./gen/termios.c	/^cfsetspeed(t, speed)$/
+cgetcap	./gen/getcap.c	/^cgetcap(buf, cap, type)$/
+cgetclose	./gen/getcap.c	/^cgetclose()$/
+cgetent	./gen/getcap.c	/^cgetent(buf, db_array, name)$/
+cgetfirst	./gen/getcap.c	/^cgetfirst(buf, db_array)$/
+cgetmatch	./gen/getcap.c	/^cgetmatch(buf, name)$/
+cgetnext	./gen/getcap.c	/^cgetnext(bp, db_array)$/
+cgetnum	./gen/getcap.c	/^cgetnum(buf, cap, num)$/
+cgetset	./gen/getcap.c	/^cgetset(ent)$/
+cgetstr	./gen/getcap.c	/^cgetstr(buf, cap, str)$/
+cgetustr	./gen/getcap.c	/^cgetustr(buf, cap, str)$/
+clearerr	./stdio/clrerr.c	/^clearerr(fp)$/
+clock	./gen/clock.c	/^clock()$/
+closedir	./gen/closedir.c	/^closedir(dirp)$/
+closelog	./gen/syslog.c	/^closelog()$/
+collect_data	./db/hash/hash_bigkey.c	/^collect_data(hashp, bufp, len, set)$/
+collect_key	./db/hash/hash_bigkey.c	/^collect_key(hashp, bufp, len, val, set)$/
+compare	./gen/glob.c	/^compare(p, q)$/
+compress_mode	./gen/setmode.c	/^compress_mode(set)$/
+creat	./compat-43/creat.c	/^creat(path, mode)$/
+crypt	./gen/crypt.c	/^crypt(key, setting)$/
+ctermid	./gen/ctermid.c	/^ctermid(s)$/
+ctime	./gen/ctime.c	/^ctime(timep)$/
+currentlocale	./locale/setlocale.c	/^currentlocale()$/
+cvt	./stdio/vfprintf.c	/^cvt(value, ndigits, flags, sign, decpt, ch, length/
+cvtbase	./net/ns_addr.c	/^cvtbase(oldbase,newbase,input,inlen,result,reslen)/
+dbm_clearerr	./db/hash/ndbm.c	/^dbm_clearerr(db)$/
+dbm_close	./db/hash/ndbm.c	/^dbm_close(db)$/
+dbm_delete	./db/hash/ndbm.c	/^dbm_delete(db, key)$/
+dbm_dirfno	./db/hash/ndbm.c	/^dbm_dirfno(db)$/
+dbm_error	./db/hash/ndbm.c	/^dbm_error(db)$/
+dbm_fetch	./db/hash/ndbm.c	/^dbm_fetch(db, key)$/
+dbm_firstkey	./db/hash/ndbm.c	/^dbm_firstkey(db)$/
+dbm_nextkey	./db/hash/ndbm.c	/^dbm_nextkey(db)$/
+dbm_open	./db/hash/ndbm.c	/^dbm_open(file, flags, mode)$/
+dbm_store	./db/hash/ndbm.c	/^dbm_store(db, key, content, flags)$/
+dbopen	./db/db/db.c	/^dbopen(fname, flags, mode, type, openinfo)$/
+dcharhash	./db/hash/hash_func.c	/^#define dcharhash(h, c)	((h) = 0x63c63cd9*(h) + 0x/
+ddecode	./gen/disklabel.c	/^ddecode(str, area)$/
+deproto	./net/res_debug.c	/^deproto(protonum)$/
+des_cipher	./gen/crypt.c	/^des_cipher(in, out, salt, num_iter)$/
+des_setkey	./gen/crypt.c	/^des_setkey(key)$/
+detzcode	./gen/ctime.c	/^detzcode(codep)$/
+dewks	./net/res_debug.c	/^dewks(wks)$/
+dgetent	./gen/disklabel.c	/^dgetent(bp, name)$/
+dgetflag	./gen/disklabel.c	/^dgetflag(id)$/
+dgetnum	./gen/disklabel.c	/^dgetnum(id)$/
+dgetstr	./gen/disklabel.c	/^dgetstr(id, area)$/
+difftime	./gen/difftime.c	/^difftime(time1, time0)$/
+div	./stdlib/div.c	/^div(num, denom)$/
+dn_comp	./net/res_comp.c	/^dn_comp(exp_dn, comp_dn, length, dnptrs, lastdnptr/
+dn_expand	./net/res_comp.c	/^dn_expand(msg, eomorig, comp_dn, exp_dn, length)$/
+dn_find	./net/res_comp.c	/^dn_find(exp_dn, msg, dnptrs, lastdnptr)$/
+dnamatch	./gen/disklabel.c	/^dnamatch(np)$/
+do_rrset	./net/res_debug.c	/^do_rrset(msg, cp, cnt, pflag, file, hs)$/
+doemit	./regex/regcomp.c	/^doemit(p, op, opnd)$/
+dofwd	./regex/regcomp.c	/^dofwd(p, pos, value)$/
+doinsert	./regex/regcomp.c	/^doinsert(p, op, opnd, pos)$/
+dskip	./gen/disklabel.c	/^dskip(bp)$/
+dumpmode	./gen/setmode.c	/^dumpmode(set)$/
+dupl	./regex/regcomp.c	/^dupl(p, start, finish)$/
+encrypt	./gen/crypt.c	/^encrypt(block, flag)$/
+endfsent	./gen/fstab.c	/^endfsent()$/
+endgrent	./gen/getgrent.c	/^endgrent()$/
+endhostent	./net/sethostent.c	/^endhostent()$/
+endnetent	./net/getnetent.c	/^endnetent()$/
+endprotoent	./net/getprotoent.c	/^endprotoent()$/
+endpwent	./gen/getpwent.c	/^endpwent()$/
+endservent	./net/getservent.c	/^endservent()$/
+endttyent	./gen/getttyent.c	/^endttyent()$/
+endusershell	./gen/getusershell.c	/^endusershell()$/
+enlarge	./regex/regcomp.c	/^enlarge(p, size)$/
+eofread	./stdio/sscanf.c	/^eofread(cookie, buf, len)$/
+err	./gen/err.c	/^err(eval, fmt, va_alist)$/
+error	./gen/disklabel.c	/^error(err)$/
+errx	./gen/err.c	/^errx(eval, fmt, va_alist)$/
+execl	./gen/exec.c	/^execl(name, arg, va_alist)$/
+execle	./gen/exec.c	/^execle(name, arg, va_alist)$/
+execlp	./gen/exec.c	/^execlp(name, arg, va_alist)$/
+exect ./i386/sys/exect.s /^ENTRY(exect)$/
+execv	./gen/exec.c	/^execv(name, argv)$/
+execvp	./gen/exec.c	/^execvp(name, argv)$/
+exit	./stdlib/exit.c	/^exit(status)$/
+exponent	./stdio/vfprintf.c	/^exponent(p0, exp, fmtch)$/
+f_prealloc	./stdio/findfp.c	/^f_prealloc()$/
+fabs ./i386/gen/fabs.s /^ENTRY(fabs)$/
+fclose	./stdio/fclose.c	/^fclose(fp)$/
+fdopen	./stdio/fdopen.c	/^fdopen(fd, mode)$/
+feof	./stdio/feof.c	/^feof(fp)$/
+ferror	./stdio/ferror.c	/^ferror(fp)$/
+fetch_bitmap	./db/hash/hash_page.c	/^fetch_bitmap(hashp, ndx)$/
+fflush	./stdio/fflush.c	/^fflush(fp)$/
+ffs	./string/ffs.c	/^ffs(mask)$/
+fgetc	./stdio/fgetc.c	/^fgetc(fp)$/
+fgetln	./stdio/fgetln.c	/^fgetln(fp, lenp)$/
+fgetpos	./stdio/fgetpos.c	/^fgetpos(fp, pos)$/
+fgetrune	./locale/frune.c	/^fgetrune(fp)$/
+fgets	./stdio/fgets.c	/^fgets(buf, n, fp)$/
+fileno	./stdio/fileno.c	/^fileno(fp)$/
+findbucket	./stdlib/malloc.c	/^findbucket(freep, srchlen)$/
+findmust	./regex/regcomp.c	/^findmust(p, g)$/
+first_free	./db/hash/hash_page.c	/^first_free(map)$/
+firstch	./regex/regcomp.c	/^firstch(p, cs)$/
+flush_meta	./db/hash/hash.c	/^flush_meta(hashp)$/
+fnmatch	./gen/fnmatch.c	/^fnmatch(pattern, string, flags)$/
+fopen	./stdio/fopen.c	/^fopen(file, mode)$/
+fork ./i386/sys/fork.s /^SYSCALL(fork)$/
+fpathconf	./gen/pathconf.c	/^fpathconf(int fd, int name)$/
+fprintf	./stdio/fprintf.c	/^fprintf(fp, fmt, va_alist)$/
+fpurge	./stdio/fpurge.c	/^fpurge(fp)$/
+fputc	./stdio/fputc.c	/^fputc(c, fp)$/
+fputrune	./locale/frune.c	/^fputrune(r, fp)$/
+fputs	./stdio/fputs.c	/^fputs(s, fp)$/
+fread	./stdio/fread.c	/^fread(buf, size, count, fp)$/
+free	./stdlib/malloc.c	/^free(cp)$/
+freeset	./regex/regcomp.c	/^freeset(p, cs)$/
+freezeset	./regex/regcomp.c	/^freezeset(p, cs)$/
+freopen	./stdio/freopen.c	/^freopen(file, mode, fp)$/
+frexp	./i386/gen/frexp.c	/^frexp(value, eptr)$/
+fscanf	./stdio/fscanf.c	/^fscanf(FILE *fp, char const *fmt, ...) {$/
+fseek	./stdio/fseek.c	/^fseek(fp, offset, whence)$/
+fsetpos	./stdio/fsetpos.c	/^fsetpos(iop, pos)$/
+fstabscan	./gen/fstab.c	/^fstabscan()$/
+ftell	./stdio/ftell.c	/^ftell(fp)$/
+fts_alloc	./gen/fts.c	/^fts_alloc(sp, name, namelen)$/
+fts_build	./gen/fts.c	/^fts_build(sp, type)$/
+fts_children	./gen/fts.c	/^fts_children(sp, instr)$/
+fts_close	./gen/fts.c	/^fts_close(sp)$/
+fts_lfree	./gen/fts.c	/^fts_lfree(head)$/
+fts_load	./gen/fts.c	/^fts_load(sp, p)$/
+fts_maxarglen	./gen/fts.c	/^fts_maxarglen(argv)$/
+fts_open	./gen/fts.c	/^fts_open(argv, options, compar)$/
+fts_padjust	./gen/fts.c	/^fts_padjust(sp, addr)$/
+fts_palloc	./gen/fts.c	/^fts_palloc(sp, more)$/
+fts_read	./gen/fts.c	/^fts_read(sp)$/
+fts_set	./gen/fts.c	/^fts_set(sp, p, instr)$/
+fts_sort	./gen/fts.c	/^fts_sort(sp, head, nitems)$/
+fts_stat	./gen/fts.c	/^fts_stat(sp, p, follow)$/
+fungetrune	./locale/frune.c	/^fungetrune(r, fp)$/
+funopen	./stdio/funopen.c	/^funopen(cookie, readfn, writefn, seekfn, closefn)$/
+fwrite	./stdio/fwrite.c	/^fwrite(buf, size, count, fp)$/
+g_Ctoc	./gen/glob.c	/^g_Ctoc(str, buf)$/
+g_lstat	./gen/glob.c	/^g_lstat(fn, sb, pglob)$/
+g_opendir	./gen/glob.c	/^g_opendir(str, pglob)$/
+g_stat	./gen/glob.c	/^g_stat(fn, sb, pglob)$/
+g_strcat	./gen/glob.c	/^g_strcat(dst, src)$/
+g_strchr	./gen/glob.c	/^g_strchr(str, ch)$/
+getanswer	./net/gethostnamadr.c	/^getanswer(answer, anslen, iquery)$/
+getc	./stdio/getc.c	/^getc(fp)$/
+getchar	./stdio/getchar.c	/^getchar()$/
+getcwd	./gen/getcwd.c	/^getcwd(pt, size)$/
+getdiskbyname	./gen/disklabel.c	/^getdiskbyname(name)$/
+getent	./gen/getcap.c	/^getent(cap, len, db_array, fd, name, depth, nfield/
+getenv	./stdlib/getenv.c	/^getenv(name)$/
+getfsent	./gen/fstab.c	/^getfsent()$/
+getfsfile	./gen/fstab.c	/^getfsfile(name)$/
+getfsspec	./gen/fstab.c	/^getfsspec(name)$/
+getgrent	./gen/getgrent.c	/^getgrent()$/
+getgrgid	./gen/getgrent.c	/^getgrgid(gid)$/
+getgrnam	./gen/getgrent.c	/^getgrnam(name)$/
+gethostbyaddr	./net/gethostnamadr.c	/^gethostbyaddr(addr, len, type)$/
+gethostbyname	./net/gethostnamadr.c	/^gethostbyname(name)$/
+getlogin	./gen/getlogin.c	/^getlogin()$/
+getmntinfo	./gen/getmntinfo.c	/^getmntinfo(mntbufp, flags)$/
+getmode	./gen/setmode.c	/^getmode(bbox, omode)$/
+getnetanswer	./net/getnetnamadr.c	/^getnetanswer(answer, anslen, net_i)$/
+getnetbyaddr	./net/getnetnamadr.c	/^getnetbyaddr(net, net_type)$/
+getnetbyname	./net/getnetnamadr.c	/^getnetbyname(net)$/
+getnetent	./net/getnetent.c	/^getnetent()$/
+getnum	./gen/ctime.c	/^getnum(strp, nump, min, max)$/
+getnumdflt	./gen/disklabel.c	/^#define getnumdflt(field, dname, dflt) \\$/
+getoffset	./gen/ctime.c	/^getoffset(strp, offsetp)$/
+getopt	./stdlib/getopt.c	/^getopt(nargc, nargv, ostr)$/
+getpass	./gen/getpass.c	/^getpass(prompt)$/
+getprotobyname	./net/getprotoname.c	/^getprotobyname(name)$/
+getprotobynumber	./net/getproto.c	/^getprotobynumber(proto)$/
+getprotoent	./net/getprotoent.c	/^getprotoent()$/
+getpwent	./gen/getpwent.c	/^getpwent()$/
+getpwnam	./gen/getpwent.c	/^getpwnam(name)$/
+getpwuid	./gen/getpwent.c	/^getpwuid(uid)$/
+getrule	./gen/ctime.c	/^getrule(strp, rulep)$/
+gets	./stdio/gets.c	/^gets(buf)$/
+getsecs	./gen/ctime.c	/^getsecs(strp, secsp)$/
+getservbyname	./net/getservbyname.c	/^getservbyname(name, proto)$/
+getservbyport	./net/getservbyport.c	/^getservbyport(port, proto)$/
+getservent	./net/getservent.c	/^getservent()$/
+getsubopt	./stdlib/getsubopt.c	/^getsubopt(optionp, tokens, valuep)$/
+getttyent	./gen/getttyent.c	/^getttyent()$/
+getttynam	./gen/getttyent.c	/^getttynam(tty)$/
+gettype	./gen/disklabel.c	/^gettype(t, names)$/
+getusershell	./gen/getusershell.c	/^getusershell()$/
+getw	./stdio/getw.c	/^getw(fp)$/
+getwd	./compat-43/getwd.c	/^getwd(buf)$/
+getzname	./gen/ctime.c	/^getzname(strp)$/
+glob	./gen/glob.c	/^glob(pattern, flags, errfunc, pglob)$/
+glob0	./gen/glob.c	/^glob0(pattern, pglob)$/
+glob1	./gen/glob.c	/^glob1(pattern, pglob)$/
+glob2	./gen/glob.c	/^glob2(pathbuf, pathend, pattern, pglob)$/
+glob3	./gen/glob.c	/^glob3(pathbuf, pathend, pattern, restpattern, pglo/
+globexp1	./gen/glob.c	/^static int globexp1(pattern, pglob)$/
+globexp2	./gen/glob.c	/^static int globexp2(ptr, pattern, pglob, rv)$/
+globextend	./gen/glob.c	/^globextend(path, pglob)$/
+globfree	./gen/glob.c	/^globfree(pglob)$/
+globtilde	./gen/glob.c	/^globtilde(pattern, patbuf, pglob)$/
+gmtime	./gen/ctime.c	/^gmtime(timep)$/
+gmtload	./gen/ctime.c	/^gmtload(sp)$/
+gmtsub	./gen/ctime.c	/^gmtsub(timep, offset, tmp)$/
+grscan	./gen/getgrent.c	/^grscan(search, gid, name)$/
+hash2	./db/hash/hash_func.c	/^hash2(key, len)$/
+hash3	./db/hash/hash_func.c	/^hash3(key, len)$/
+hash4	./db/hash/hash_func.c	/^hash4(key, len)$/
+hash_access	./db/hash/hash.c	/^hash_access(hashp, action, key, val)$/
+hash_close	./db/hash/hash.c	/^hash_close(dbp)$/
+hash_delete	./db/hash/hash.c	/^hash_delete(dbp, key, flag)$/
+hash_fd	./db/hash/hash.c	/^hash_fd(dbp)$/
+hash_get	./db/hash/hash.c	/^hash_get(dbp, key, data, flag)$/
+hash_put	./db/hash/hash.c	/^hash_put(dbp, key, data, flag)$/
+hash_realloc	./db/hash/hash.c	/^hash_realloc(p_ptr, oldsize, newsize)$/
+hash_seq	./db/hash/hash.c	/^hash_seq(dbp, key, data, flag)$/
+hash_sync	./db/hash/hash.c	/^hash_sync(dbp, flags)$/
+hcreate	./db/hash/hsearch.c	/^hcreate(nel)$/
+hdestroy	./db/hash/hash.c	/^hdestroy(hashp)$/
+heapsort	./stdlib/heapsort.c	/^heapsort(bot, nmemb, size, compar)$/
+herror	./net/herror.c	/^herror(s)$/
+hsearch	./db/hash/hsearch.c	/^hsearch(item, action)$/
+hstrerror	./net/herror.c	/^hstrerror(err)$/
+htonl ./i386/net/htonl.s /^ENTRY(htonl)$/
+htons ./i386/net/htons.s /^ENTRY(htons)$/
+index ./i386/string/index.s /^ENTRY(index)$/
+inet_addr	./net/inet_addr.c	/^inet_addr(cp)$/
+inet_aton	./net/inet_addr.c	/^inet_aton(cp, addr)$/
+inet_lnaof	./net/inet_lnaof.c	/^inet_lnaof(in)$/
+inet_makeaddr	./net/inet_makeaddr.c	/^inet_makeaddr(net, host)$/
+inet_netof	./net/inet_netof.c	/^inet_netof(in)$/
+inet_network	./net/inet_network.c	/^inet_network(cp)$/
+inet_ntoa	./net/inet_ntoa.c	/^inet_ntoa(in)$/
+init_des	./gen/crypt.c	/^init_des()$/
+init_hash	./db/hash/hash.c	/^init_hash(hashp, file, info)$/
+init_htab	./db/hash/hash.c	/^init_htab(hashp, nelem)$/
+init_perm	./gen/crypt.c	/^init_perm(perm, p, chars_in, chars_out)$/
+initgroups	./gen/initgroups.c	/^initgroups(uname, agroup)$/
+initshells	./gen/getusershell.c	/^initshells()$/
+initstate	./stdlib/random.c	/^initstate(seed, arg_state, n)$/
+insertion_sort	./stdlib/qsort.c	/^insertion_sort(bot, nmemb, size, compar)$/
+int	./db/hash/hash_func.c	/^int (*__default_hash) __P((u_char *, int)) = hash4/
+is_digit	./stdio/vfprintf.c	/^#define is_digit(c)	((unsigned)to_digit(c) <= 9)$/
+isalnum	./locale/isctype.c	/^isalnum(c)$/
+isalpha	./locale/isctype.c	/^isalpha(c)$/
+isascii	./locale/isctype.c	/^isascii(c)$/
+isatty	./gen/isatty.c	/^isatty(fd)$/
+isblank	./locale/isctype.c	/^isblank(c)$/
+iscntrl	./locale/isctype.c	/^iscntrl(c)$/
+isdigit	./locale/isctype.c	/^isdigit(c)$/
+isgraph	./locale/isctype.c	/^isgraph(c)$/
+isinf	./i386/gen/isinf.c	/^isinf(d)$/
+isinsets	./regex/regcomp.c	/^isinsets(g, c)$/
+islower	./locale/isctype.c	/^islower(c)$/
+ismeta	./gen/glob.c	/^#define	ismeta(c)	(((c)&M_QUOTE) != 0)$/
+isnan	./i386/gen/isinf.c	/^isnan(d)$/
+iso_addr	./net/iso_addr.c	/^iso_addr(addr)$/
+iso_ntoa	./net/iso_addr.c	/^iso_ntoa(isoa)$/
+isoctal	./gen/unvis.c	/^#define	isoctal(c)	(((u_char)(c)) >= '0' && ((u_ch/
+isprint	./locale/isctype.c	/^isprint(c)$/
+ispunct	./locale/isctype.c	/^ispunct(c)$/
+isspace	./locale/isctype.c	/^isspace(c)$/
+isupper	./locale/isctype.c	/^isupper(c)$/
+isxdigit	./locale/isctype.c	/^isxdigit(c)$/
+killpg	./compat-43/killpg.c	/^killpg(pgid, sig)$/
+labs	./stdlib/labs.c	/^labs(j)$/
+ldexp ./i386/gen/ldexp.s /^ENTRY(ldexp)$/
+ldiv	./stdlib/ldiv.c	/^ldiv(num, denom)$/
+lflush	./stdio/refill.c	/^lflush(fp)$/
+link_addr	./net/linkaddr.c	/^link_addr(addr, sdl)$/
+link_ntoa	./net/linkaddr.c	/^link_ntoa(sdl)$/
+loadlocale	./locale/setlocale.c	/^loadlocale(category)$/
+localeconv	./locale/localeconv.c	/^localeconv()$/
+localsub	./gen/ctime.c	/^localsub(timep, offset, tmp)$/
+localtime	./gen/ctime.c	/^localtime(timep)$/
+longjmp ./i386/gen/setjmp.s /^ENTRY(longjmp)$/
+longjmperror	./gen/setjmperr.c	/^longjmperror()$/
+malloc	./stdlib/malloc.c	/^malloc(nbytes)$/
+match	./gen/glob.c	/^match(name, pat, patend)$/
+mblen	./locale/multibyte.c	/^mblen(s, n)$/
+mbmb	./locale/mbrune.c	/^mbmb(string, pattern)$/
+mbrrune	./locale/mbrune.c	/^mbrrune(string, c)$/
+mbrune	./locale/mbrune.c	/^mbrune(string, c)$/
+mbstowcs	./locale/multibyte.c	/^mbstowcs(pwcs, s, n)$/
+mbtowc	./locale/multibyte.c	/^mbtowc(pwc, s, n)$/
+mcadd	./regex/regcomp.c	/^mcadd(p, cs, cp)$/
+mccase	./regex/regcomp.c	/^mccase(p, cs)$/
+mcfind	./regex/regcomp.c	/^mcfind(cs, cp)$/
+mcin	./regex/regcomp.c	/^mcin(cs, cp)$/
+mcinvert	./regex/regcomp.c	/^mcinvert(p, cs)$/
+mcsub	./regex/regcomp.c	/^mcsub(cs, cp)$/
+memccpy	./string/memccpy.c	/^memccpy(t, f, c, n)$/
+memchr ./i386/string/memchr.s /^ENTRY(memchr)$/
+memcmp ./i386/string/memcmp.s /^ENTRY(memcmp)$/
+memcpy ./i386/string/memcpy.s /^ENTRY(memcpy)$/
+memmove ./i386/string/memmove.s /^ENTRY(memmove)$/
+memset ./i386/string/memset.s /^ENTRY(memset)$/
+mkstemp	./stdio/mktemp.c	/^mkstemp(path)$/
+mktemp	./stdio/mktemp.c	/^mktemp(path)$/
+mktime	./gen/ctime.c	/^mktime(tmp)$/
+morecore	./stdlib/malloc.c	/^morecore(bucket)$/
+moreglue	./stdio/findfp.c	/^moreglue(n)$/
+mpool_bkt	./db/mpool/mpool.c	/^mpool_bkt(mp)$/
+mpool_close	./db/mpool/mpool.c	/^mpool_close(mp)$/
+mpool_filter	./db/mpool/mpool.c	/^mpool_filter(mp, pgin, pgout, pgcookie)$/
+mpool_get	./db/mpool/mpool.c	/^mpool_get(mp, pgno, flags)$/
+mpool_look	./db/mpool/mpool.c	/^mpool_look(mp, pgno)$/
+mpool_new	./db/mpool/mpool.c	/^mpool_new(mp, pgnoaddr)$/
+mpool_open	./db/mpool/mpool.c	/^mpool_open(key, fd, pagesize, maxcache)$/
+mpool_put	./db/mpool/mpool.c	/^mpool_put(mp, page, flags)$/
+mpool_stat	./db/mpool/mpool.c	/^mpool_stat(mp)$/
+mpool_sync	./db/mpool/mpool.c	/^mpool_sync(mp)$/
+mpool_write	./db/mpool/mpool.c	/^mpool_write(mp, b)$/
+mstats	./stdlib/malloc.c	/^mstats(s)$/
+mswap	./db/btree/bt_conv.c	/^mswap(pg)$/
+nch	./regex/regcomp.c	/^nch(p, cs)$/
+net_mask	./net/res_init.c	/^net_mask(in)		\/* XXX - should really use system's/
+newbuf	./db/hash/hash_buf.c	/^newbuf(hashp, addr, prev_bp)$/
+nfcmp	./gen/getcap.c	/^nfcmp(nf, rec)$/
+nice	./gen/nice.c	/^nice(incr)$/
+nlist	./gen/nlist.c	/^nlist(name, list)$/
+nonnewline	./regex/regcomp.c	/^nonnewline(p)$/
+normalize	./gen/ctime.c	/^normalize(tensptr, unitsptr, base)$/
+nroot	./db/btree/bt_open.c	/^nroot(t)$/
+ns_addr	./net/ns_addr.c	/^ns_addr(name)$/
+ns_ntoa	./net/ns_ntoa.c	/^ns_ntoa(addr)$/
+ntohl ./i386/net/ntohl.s /^ENTRY(ntohl)$/
+ntohs ./i386/net/ntohs.s /^ENTRY(ntohs)$/
+oldttyname	./gen/ttyname.c	/^oldttyname(fd, sb)$/
+open_temp	./db/hash/hash_page.c	/^open_temp(hashp)$/
+opendir	./gen/opendir.c	/^opendir(name)$/
+openlog	./gen/syslog.c	/^openlog(ident, logstat, logfac)$/
+ordinary	./regex/regcomp.c	/^ordinary(p, ch)$/
+othercase	./regex/regcomp.c	/^othercase(ch)$/
+overflow_page	./db/hash/hash_page.c	/^overflow_page(hashp)$/
+p_b_cclass	./regex/regcomp.c	/^p_b_cclass(p, cs)$/
+p_b_coll_elem	./regex/regcomp.c	/^p_b_coll_elem(p, endc)$/
+p_b_eclass	./regex/regcomp.c	/^p_b_eclass(p, cs)$/
+p_b_symbol	./regex/regcomp.c	/^p_b_symbol(p)$/
+p_b_term	./regex/regcomp.c	/^p_b_term(p, cs)$/
+p_bracket	./regex/regcomp.c	/^p_bracket(p)$/
+p_bre	./regex/regcomp.c	/^p_bre(p, end1, end2)$/
+p_cdname	./net/res_debug.c	/^p_cdname(cp, msg, file)$/
+p_count	./regex/regcomp.c	/^p_count(p)$/
+p_ere	./regex/regcomp.c	/^p_ere(p, stop)$/
+p_ere_exp	./regex/regcomp.c	/^p_ere_exp(p)$/
+p_fqname	./net/res_debug.c	/^p_fqname(cp, msg, file)$/
+p_option	./net/res_debug.c	/^p_option(option)$/
+p_rr	./net/res_debug.c	/^p_rr(cp, msg, file)$/
+p_simp_re	./regex/regcomp.c	/^p_simp_re(p, starordinary)$/
+p_str	./regex/regcomp.c	/^p_str(p)$/
+pathconf	./gen/pathconf.c	/^pathconf(const char *path, int name)$/
+pause	./gen/pause.c	/^pause()$/
+pclose	./gen/popen.c	/^pclose(iop)$/
+permute	./gen/crypt.c	/^permute(cp, out, p, chars_in)$/
+perror	./stdio/perror.c	/^perror(s)$/
+pipe ./i386/sys/pipe.s /^SYSCALL(pipe)$/
+pluscount	./regex/regcomp.c	/^pluscount(p, g)$/
+popen	./gen/popen.c	/^popen(program, type)$/
+print_chain	./db/hash/hash_page.c	/^print_chain(addr)$/
+printf	./stdio/printf.c	/^printf(fmt, va_alist)$/
+prtab	./gen/crypt.c	/^prtab(s, t, num_rows)$/
+psignal	./gen/psignal.c	/^psignal(sig, s)$/
+ptrace ./i386/sys/ptrace.s /^ENTRY(ptrace)$/
+putc	./stdio/putc.c	/^putc(c, fp)$/
+putchar	./stdio/putchar.c	/^putchar(c)$/
+putenv	./stdlib/putenv.c	/^putenv(str)$/
+putpair	./db/hash/hash_page.c	/^putpair(p, key, val)$/
+puts	./stdio/puts.c	/^puts(s)$/
+putw	./stdio/putw.c	/^putw(w, fp)$/
+qcomp	./net/gethostnamadr.c	/^qcomp(v1, v2)$/
+qprintf	./gen/glob.c	/^qprintf(str, s)$/
+qsort	./stdlib/qsort.c	/^qsort(bot, nmemb, size, compar)$/
+quick_sort	./stdlib/qsort.c	/^quick_sort(bot, nmemb, size, compar)$/
+radixsort	./stdlib/radixsort.c	/^radixsort(l1, nmemb, tab, endbyte)$/
+raise	./gen/raise.c	/^raise(s)$/
+rand	./stdlib/rand.c	/^rand()$/
+random	./stdlib/random.c	/^random()$/
+rangematch	./gen/fnmatch.c	/^rangematch(pattern, test)$/
+rcmd	./net/rcmd.c	/^rcmd(ahost, rport, locuser, remuser, cmd, fd2p)$/
+readdir	./gen/readdir.c	/^readdir(dirp)$/
+realloc	./stdlib/malloc.c	/^realloc(cp, nbytes)$/
+reboot ./i386/sys/reboot.s /^SYSCALL(reboot)$/
+rec_rdelete	./db/recno/rec_delete.c	/^rec_rdelete(t, nrec)$/
+rec_total	./db/btree/bt_split.c	/^rec_total(h)$/
+recv	./net/recv.c	/^recv(s, buf, len, flags)$/
+reg	./gen/v8regexp/v8regexp.c	/^reg(paren, flagp)$/
+regatoi	./regex/regerror.c	/^regatoi(preg, localbuf)$/
+regatom	./gen/v8regexp/v8regexp.c	/^regatom(flagp)$/
+regbranch	./gen/v8regexp/v8regexp.c	/^regbranch(flagp)$/
+regc	./gen/v8regexp/v8regexp.c	/^regc(b)$/
+regcomp	./gen/v8regexp/v8regexp.c	/^regcomp(exp)$/
+regdump	./gen/v8regexp/v8regexp.c	/^regdump(r)$/
+regerror	./gen/v8regexp/v8regerror.c	/^regerror(s)$/
+regexec	./gen/v8regexp/v8regexp.c	/^regexec(prog, string)$/
+regfree	./regex/regfree.c	/^regfree(preg)$/
+reginsert	./gen/v8regexp/v8regexp.c	/^reginsert(op, opnd)$/
+regmatch	./gen/v8regexp/v8regexp.c	/^regmatch(prog)$/
+regnext	./gen/v8regexp/v8regexp.c	/^regnext(p)$/
+regnode	./gen/v8regexp/v8regexp.c	/^regnode(op)$/
+regoptail	./gen/v8regexp/v8regexp.c	/^regoptail(p, val)$/
+regpiece	./gen/v8regexp/v8regexp.c	/^regpiece(flagp)$/
+regprop	./gen/v8regexp/v8regexp.c	/^regprop(op)$/
+regrepeat	./gen/v8regexp/v8regexp.c	/^regrepeat(p)$/
+regsub	./gen/v8regexp/v8regsub.c	/^regsub(prog, source, dest)$/
+regtail	./gen/v8regexp/v8regexp.c	/^regtail(p, val)$/
+regtry	./gen/v8regexp/v8regexp.c	/^regtry(prog, string)$/
+remove	./stdio/remove.c	/^remove(file)$/
+repeat	./regex/regcomp.c	/^repeat(p, start, from, to)$/
+res_init	./net/res_init.c	/^res_init()$/
+res_mkquery	./net/res_mkquery.c	/^res_mkquery(op, dname, class, type, data, datalen,/
+res_query	./net/res_query.c	/^res_query(name, class, type, answer, anslen)$/
+res_querydomain	./net/res_query.c	/^res_querydomain(name, domain, class, type, answer,/
+res_search	./net/res_query.c	/^res_search(name, class, type, answer, anslen)$/
+res_send	./net/res_send.c	/^res_send(buf, buflen, ans, anssiz)$/
+res_send_setqhook	./net/res_send.c	/^res_send_setqhook(hook)$/
+res_send_setrhook	./net/res_send.c	/^res_send_setrhook(hook)$/
+res_setoptions	./net/res_init.c	/^res_setoptions(options, source)$/
+rewind	./stdio/rewind.c	/^rewind(fp)$/
+rewinddir	./gen/rewinddir.c	/^rewinddir(dirp)$/
+rindex ./i386/string/rindex.s /^ENTRY(rindex)$/
+rresvport	./net/rcmd.c	/^rresvport(alport)$/
+ruserok	./net/rcmd.c	/^ruserok(rhost, superuser, ruser, luser)$/
+s2u	./gen/uname.c	/^#define	s2u(sm, um) \\$/
+samesets	./regex/regcomp.c	/^samesets(g, c1, c2)$/
+sbrk ./i386/sys/sbrk.s /^ENTRY(sbrk)$/
+scandir	./gen/scandir.c	/^scandir(dirname, namelist, select, dcomp)$/
+scanf	./stdio/scanf.c	/^scanf(fmt, va_alist)$/
+scmp	./gen/getttyent.c	/^#define	scmp(e)	!strncmp(p, e, sizeof(e) - 1) && i/
+seekdir	./gen/seekdir.c	/^seekdir(dirp, loc)$/
+send	./net/send.c	/^send(s, msg, len, flags)$/
+setbuf	./stdio/setbuf.c	/^setbuf(fp, buf)$/
+setbuffer	./stdio/setbuffer.c	/^setbuffer(fp, buf, size)$/
+setenv	./stdlib/setenv.c	/^setenv(name, value, rewrite)$/
+seterr	./regex/regcomp.c	/^seterr(p, e)$/
+setfsent	./gen/fstab.c	/^setfsent()$/
+setgrent	./gen/getgrent.c	/^setgrent()$/
+setgroupent	./gen/getgrent.c	/^setgroupent(stayopen)$/
+sethostent	./net/sethostent.c	/^sethostent(stayopen)$/
+setinvalidrune	./locale/rune.c	/^setinvalidrune(ir)$/
+setjmp ./i386/gen/setjmp.s /^ENTRY(setjmp)$/
+setkey	./gen/crypt.c	/^setkey(key)$/
+setlinebuf	./stdio/setbuffer.c	/^setlinebuf(fp)$/
+setlocale	./locale/setlocale.c	/^setlocale(category, locale)$/
+setlogin ./i386/sys/setlogin.s /^SYSCALL(setlogin)$/
+setlogmask	./gen/syslog.c	/^setlogmask(pmask)$/
+setmode	./gen/setmode.c	/^setmode(p)$/
+setnetent	./net/getnetent.c	/^setnetent(stayopen)$/
+setpassent	./gen/getpwent.c	/^setpassent(stayopen)$/
+setpgrp	./compat-43/setpgrp.c	/^setpgrp(pid, pgid)$/
+setprotoent	./net/getprotoent.c	/^setprotoent(f)$/
+setpwent	./gen/getpwent.c	/^setpwent()$/
+setrgid	./gen/setrgid.c	/^setrgid(rgid)$/
+setruid	./gen/setruid.c	/^setruid(ruid)$/
+setrunelocale	./locale/rune.c	/^setrunelocale(encoding)$/
+setservent	./net/getservent.c	/^setservent(f)$/
+setstate	./stdlib/random.c	/^setstate(arg_state)$/
+setttyent	./gen/getttyent.c	/^setttyent()$/
+settzname	./gen/ctime.c	/^settzname()$/
+setusershell	./gen/getusershell.c	/^setusershell()$/
+setvbuf	./stdio/setvbuf.c	/^setvbuf(fp, buf, mode, size)$/
+setvec	./gen/sleep.c	/^#define	setvec(vec, a) \\$/
+shellsort	./stdlib/radixsort.c	/^shellsort(p, indx, nmemb, tr)$/
+shl	./quad/qdivrem.c	/^shl(register digit *p, register int len, register /
+sigaddset	./gen/sigsetops.c	/^sigaddset(set, signo)$/
+sigblock	./compat-43/sigcompat.c	/^sigblock(mask)$/
+sigdelset	./gen/sigsetops.c	/^sigdelset(set, signo)$/
+sigemptyset	./gen/sigsetops.c	/^sigemptyset(set)$/
+sigfillset	./gen/sigsetops.c	/^sigfillset(set)$/
+siginterrupt	./gen/siginterrupt.c	/^siginterrupt(sig, flag)$/
+sigismember	./gen/sigsetops.c	/^sigismember(set, signo)$/
+siglongjmp ./i386/gen/sigsetjmp.s /^ENTRY(siglongjmp)$/
+signal	./gen/signal.c	/^signal(s, a)$/
+sigpause	./compat-43/sigcompat.c	/^sigpause(mask)$/
+sigpending ./i386/sys/sigpending.s /^SYSCALL(sigpending)$/
+sigprocmask ./i386/sys/sigprocmask.s /^ENTRY(sigprocmask)$/
+sigreturn ./i386/sys/sigreturn.s /^SYSCALL(sigreturn)$/
+sigsetjmp ./i386/gen/sigsetjmp.s /^ENTRY(sigsetjmp)$/
+sigsetmask	./compat-43/sigcompat.c	/^sigsetmask(mask)$/
+sigsuspend ./i386/sys/sigsuspend.s /^ENTRY(sigsuspend)$/
+sigvec	./compat-43/sigcompat.c	/^sigvec(signo, sv, osv)$/
+skip	./gen/getttyent.c	/^skip(p)$/
+sleep	./gen/sleep.c	/^sleep(seconds)$/
+sleephandler	./gen/sleep.c	/^sleephandler()$/
+snprintf	./stdio/snprintf.c	/^snprintf(str, n, fmt, va_alist)$/
+spectHex	./net/ns_ntoa.c	/^spectHex(p0)$/
+sprintf	./stdio/sprintf.c	/^sprintf(str, fmt, va_alist)$/
+squeeze_key	./db/hash/hash_page.c	/^squeeze_key(sp, key, val)$/
+srand	./stdlib/rand.c	/^srand(seed)$/
+srandom	./stdlib/random.c	/^srandom(x)$/
+sscanf	./stdio/sscanf.c	/^sscanf(str, fmt, va_alist)$/
+start_gr	./gen/getgrent.c	/^start_gr()$/
+std	./stdio/findfp.c	/^#define	std(flags, file) \\$/
+strcasecmp	./string/strcasecmp.c	/^strcasecmp(s1, s2)$/
+strcat ./i386/string/strcat.s /^ENTRY(strcat)$/
+strchr ./i386/string/strchr.s /^ENTRY(strchr)$/
+strcmp ./i386/string/strcmp.s /^ENTRY(strcmp)$/
+strcoll	./string/strcoll.c	/^strcoll(s1, s2)$/
+strcpy ./i386/string/strcpy.s /^ENTRY(strcpy)$/
+strcspn	./gen/v8regexp/v8regexp.c	/^strcspn(s1, s2)$/
+strdup	./string/strdup.c	/^strdup(str)$/
+strerror	./stdio/strerror.c	/^strerror(num)$/
+strftime	./string/strftime.c	/^strftime(s, maxsize, format, t)$/
+stripsnug	./regex/regcomp.c	/^stripsnug(p, g)$/
+strlen ./i386/string/strlen.s /^ENTRY(strlen)$/
+strmode	./string/strmode.c	/^strmode(mode, p)$/
+strncasecmp	./string/strcasecmp.c	/^strncasecmp(s1, s2, n)$/
+strncat ./i386/string/strncat.s /^ENTRY(strncat)$/
+strncmp ./i386/string/strncmp.s /^ENTRY(strncmp)$/
+strncpy ./i386/string/strncpy.s /^ENTRY(strncpy)$/
+strpbrk	./string/strpbrk.c	/^strpbrk(s1, s2)$/
+strrchr ./i386/string/strrchr.s /^ENTRY(strrchr)$/
+strsep	./string/strsep.c	/^strsep(stringp, delim)$/
+strspn	./string/strspn.c	/^strspn(s1, s2)$/
+strstr	./string/strstr.c	/^strstr(s, find)$/
+strtok	./string/strtok.c	/^strtok(s, delim)$/
+strtol	./stdlib/strtol.c	/^strtol(nptr, endptr, base)$/
+strtoq	./stdlib/strtoq.c	/^strtoq(nptr, endptr, base)$/
+strtoul	./stdlib/strtoul.c	/^strtoul(nptr, endptr, base)$/
+strtouq	./stdlib/strtouq.c	/^strtouq(nptr, endptr, base)$/
+strunvis	./gen/unvis.c	/^strunvis(dst, src)$/
+strvis	./gen/vis.c	/^strvis(dst, src, flag)$/
+strvisx	./gen/vis.c	/^strvisx(dst, src, len, flag)$/
+strxfrm	./string/strxfrm.c	/^strxfrm(dst, src, n)$/
+swab	./string/swab.c	/^swab(from, to, len)$/
+swap_header	./db/hash/hash.c	/^swap_header(hashp)$/
+swap_header_copy	./db/hash/hash.c	/^swap_header_copy(srcp, destp)$/
+syscall ./i386/sys/syscall.s /^ENTRY(syscall)$/
+sysconf	./gen/pathconf.c	/^sysconf(int name)$/
+syslog	./gen/syslog.c	/^syslog(pri, fmt, va_alist)$/
+system	./stdlib/system.c	/^system(command)$/
+tcdrain	./gen/termios.c	/^tcdrain(fd)$/
+tcflow	./gen/termios.c	/^tcflow(fd, action)$/
+tcflush	./gen/termios.c	/^tcflush(fd, which)$/
+tcgetattr	./gen/termios.c	/^tcgetattr(fd, t)$/
+tcgetpgrp	./gen/termios.c	/^tcgetpgrp(fd)$/
+tcsendbreak	./gen/termios.c	/^tcsendbreak(fd, len)$/
+tcsetattr	./gen/termios.c	/^tcsetattr(fd, opt, t)$/
+tcsetpgrp	./gen/termios.c	/^tcsetpgrp(fd, pgrp)$/
+telldir	./gen/telldir.c	/^telldir(dirp)$/
+tempnam	./stdio/tempnam.c	/^tempnam(dir, pfx)$/
+time	./gen/time.c	/^time(t)$/
+time1	./gen/ctime.c	/^time1(tmp, funcp, offset)$/
+time2	./gen/ctime.c	/^time2(tmp, funcp, offset, okayp)$/
+times	./gen/times.c	/^times(tp)$/
+timesub	./gen/ctime.c	/^timesub(timep, offset, sp, tmp)$/
+timezone	./gen/timezone.c	/^timezone(zone, dst)$/
+tmcomp	./gen/ctime.c	/^tmcomp(atmp, btmp)$/
+tmp	./db/btree/bt_open.c	/^tmp()$/
+tmpfile	./stdio/tmpfile.c	/^tmpfile()$/
+tmpnam	./stdio/tmpnam.c	/^tmpnam(s)$/
+to_char	./stdio/vfprintf.c	/^#define	to_char(n)	((n) + '0')$/
+to_digit	./stdio/vfprintf.c	/^#define	to_digit(c)	((c) - '0')$/
+toascii	./locale/isctype.c	/^toascii(c)$/
+tolower	./locale/isctype.c	/^tolower(c)$/
+toupper	./locale/isctype.c	/^toupper(c)$/
+transtime	./gen/ctime.c	/^transtime(janfirst, year, rulep, offset)$/
+ttyname	./gen/ttyname.c	/^ttyname(fd)$/
+ttyslot	./gen/ttyslot.c	/^ttyslot()$/
+tzload	./gen/ctime.c	/^tzload(name, sp)$/
+tzparse	./gen/ctime.c	/^tzparse(name, sp, lastditch)$/
+tzset	./gen/ctime.c	/^tzset()$/
+tzsetwall	./gen/ctime.c	/^tzsetwall()$/
+ualarm	./gen/ualarm.c	/^ualarm(usecs, reload)$/
+ugly_split	./db/hash/hash_page.c	/^ugly_split(hashp, obucket, old_bufp, new_bufp, cop/
+uname	./gen/uname.c	/^uname(u)$/
+ungetc	./stdio/ungetc.c	/^ungetc(c, fp)$/
+unsetenv	./stdlib/setenv.c	/^unsetenv(name)$/
+unvis	./gen/unvis.c	/^unvis(cp, c, astate, flag)$/
+usleep	./gen/usleep.c	/^usleep(useconds)$/
+utime	./gen/utime.c	/^utime(path, times)$/
+valloc	./gen/valloc.c	/^valloc(i)$/
+value	./gen/getttyent.c	/^value(p)$/
+vcmp	./gen/getttyent.c	/^#define	vcmp(e)	!strncmp(p, e, sizeof(e) - 1) && p/
+verr	./gen/err.c	/^verr(eval, fmt, ap)$/
+verrx	./gen/err.c	/^verrx(eval, fmt, ap)$/
+vfprintf	./stdio/vfprintf.c	/^vfprintf(fp, fmt0, ap)$/
+vis	./gen/vis.c	/^vis(dst, c, flag, nextc)$/
+vprintf	./stdio/vprintf.c	/^vprintf(fmt, ap)$/
+vscanf	./stdio/vscanf.c	/^vscanf(fmt, ap)$/
+vsnprintf	./stdio/vsnprintf.c	/^vsnprintf(str, n, fmt, ap)$/
+vsprintf	./stdio/vsprintf.c	/^vsprintf(str, fmt, ap)$/
+vsscanf	./stdio/vsscanf.c	/^vsscanf(str, fmt, ap)$/
+vsyslog	./gen/syslog.c	/^vsyslog(pri, fmt, ap)$/
+vwarn	./gen/err.c	/^vwarn(fmt, ap)$/
+vwarnx	./gen/err.c	/^vwarnx(fmt, ap)$/
+wait	./gen/wait.c	/^wait(istat)$/
+wait3	./gen/wait3.c	/^wait3(istat, options, rup)$/
+waitpid	./gen/waitpid.c	/^waitpid(pid, istat, options)$/
+warn	./gen/err.c	/^warn(fmt, va_alist)$/
+warnx	./gen/err.c	/^warnx(fmt, va_alist)$/
+wcstombs	./locale/multibyte.c	/^wcstombs(s, pwcs, n)$/
+wctomb	./locale/multibyte.c	/^wctomb(s, wchar)$/

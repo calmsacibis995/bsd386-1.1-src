@@ -1,0 +1,45 @@
+*** /tmp/,RCSt1003037	Tue Jan 28 18:37:29 1992
+--- if_loop.c	Wed Aug 21 17:40:45 1991
+***************
+*** 46,51 ****
+--- 46,58 ----
+  #include "../netns/ns_if.h"
+  #endif
+  
++ #include "bpfilter.h"
++ #if NBPFILTER > 0
++ #include <sys/time.h>
++ #include <net/bpf.h>
++ static caddr_t lo_bpf;
++ #endif
++ 
+  #define	LOMTU	(1024+512)
+  
+  struct	ifnet loif;
+***************
+*** 61,66 ****
+--- 68,76 ----
+  	ifp->if_ioctl = loioctl;
+  	ifp->if_output = looutput;
+  	if_attach(ifp);
++ #if NBPFILTER > 0
++         bpfattach(&lo_bpf, ifp, DLT_NULL, sizeof(u_int));
++ #endif
+  }
+  
+  looutput(ifp, m0, dst)
+***************
+*** 89,94 ****
+--- 99,110 ----
+  		m->m_next = m0;
+  		m0 = m;
+  	}
++ #if NBPFILTER > 0
++ 	if (lo_bpf) {
++ 		*(mtod(m0, u_int *)) = dst->sa_family;
++ 		bpf_mtap(lo_bpf, m0);
++ 	}
++ #endif
+  	*(mtod(m0, struct ifnet **)) = ifp;
+  	s = splimp();
+  	ifp->if_opackets++;

@@ -1,0 +1,1 @@
+Tcl_AppInit	tclAppInit.c	/^Tcl_AppInit(interp)$/

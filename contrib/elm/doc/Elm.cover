@@ -1,0 +1,90 @@
+.\" @(#)Id: Elm.cover,v 5.4 1993/05/08 19:58:20 syd Exp 
+.\"
+.\"  Cover sheet for the ELM mail system...
+.\"  format with 
+.\"	troff tmac.n Elm.cover > Coversheet.fmtd'
+.\"
+.\"  Elm is now in the public trust. Bug reports, comments, suggestions, flames
+.\"  etc. should go to:
+.\"	Syd Weinstein		elm@DSI.COM (dsinc!elm)
+.\"
+.\"  (C) Copyright 1986,1987 Dave Taylor
+.\"  (C) Copyright 1988-1992 Usenet Community Trust
+.\"
+.\"  $Log: Elm.cover,v $
+# Revision 1.2  1994/01/14  00:51:00  cp
+# 2.4.23
+#
+.\" Revision 5.4  1993/05/08  19:58:20  syd
+.\" use new quote macros
+.\" From: Syd
+.\"
+.\" Revision 5.3  1992/12/24  23:48:05  syd
+.\" make Nroff not use co symbol, just the word
+.\" From: Syd via request from Tim Pierce
+.\"
+.\" Revision 5.2  1992/10/24  14:13:39  syd
+.\" Add notice file
+.\"
+.\" Revision 5.1  1992/10/03  20:51:50  syd
+.\" Initial checkin as of 2.4 Release at PL0
+.\"
+.\" 
+.\"  
+.po 1i
+.ds h0
+.ds h1
+.ds h2
+.ds f0
+.ds f1
+.ds f2
+.nr Hy 1
+.nr Pt 1
+.nr Pi 8
+.lg 0
+.nf
+.na
+.rs
+.za
+.sv |2.0i
+.ce 99
+.ps 28
+\fBThe \s30Elm\s28 Mail System\fR
+.sp 2
+.ps 18
+.ss 16
+.vs 20
+\fIA Replacement Mailer for All Unix Systems\fR
+.sp 3
+\fBUSENET VERSION\fR
+.sp
+(2.4 Release System)
+.ps 14
+.vs 16
+.sp
+Syd Weinstein, Elm Coordinator
+Datacomp Systems, Inc.
+3837 Byron Road
+Huntingdon Valley, PA 19006-2320
+.sp
+email: elm\s-1@\s+1DSI.COM  or  dsinc\s-1!\s+1elm
+.sp 5
+.ps 10
+.ss 10
+.vs 12
+Derived from
+\*QThe Elm Mail System, Version 2.0\*U
+by
+Dave Taylor
+Intuitive Systems
+Mountain View, California
+email: taylor\s11@\s10intuitive.com \ or \ limbo!taylor
+
+\s18\f3\*(ct\f1\s12 Copyright 1986,1987 by Dave Taylor
+\s18\f3\*(ct\f1\s12 Copyright 1988-1992 by The USENET Community Trust
+.sp
+.fi
+NOTICE: You may, without additional permission from the authors, distribute 
+copies of the Elm Documentation, with or without additions developed by 
+you or by others at no charge or at a charge that covers the cost of
+reproducing the copies, provided that the Elm copyright notice is retained.

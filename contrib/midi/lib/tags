@@ -1,0 +1,30 @@
+board2smf	mfileutil.c	/^board2smf(board_event, board_length, smf_event, sm/
+double2tempo	mfileutil.c	/^double2tempo(d)$/
+fix2var	mfileutil.c	/^fix2var(val, ptr)$/
+flush_event	mplayutil.c	/^flush_event(r_track)$/
+free_track	mfileutil.c	/^free_track(track)$/
+get_board_event	mfileutil.c	/^get_board_event(events_data, events_size, event_da/
+get_range	range.c	/^get_range(str, range)$/
+get_smf_event	mfileutil.c	/^get_smf_event(track, event, event_type)$/
+load_tracks	mfileutil.c	/^load_tracks(mfile, hchunk, tracks_ptr, spec_tracks/
+mread	mfileutil.c	/^mread(dev, buf, size)$/
+mwrite	mfileutil.c	/^mwrite(dev, buf, size)$/
+open_midi_devices	mplayutil.c	/^open_midi_devices(hchunk, spec_tracks, num, devs, /
+play_tracks	mplayutil.c	/^play_tracks(tracks, devs, num, t_scalar, repeat)$/
+process_play_event	mplayutil.c	/^process_play_event(track_num, p_track, p_dev, trac/
+process_record_event	mplayutil.c	/^process_record_event(dev, r_track)$/
+put_smf_event	mfileutil.c	/^put_smf_event(track, event, event_size)$/
+read_header_chunk	mfileutil.c	/^read_header_chunk(mfile, hchunk)$/
+read_track_chunk	mfileutil.c	/^read_track_chunk(mfile, tracks)$/
+record_tracks	mplayutil.c	/^record_tracks(p_tracks, p_devs, p_num, r_track, r_/
+reset_track	mfileutil.c	/^reset_track(track)$/
+rewind_track	mfileutil.c	/^rewind_track(track)$/
+send_event	mplayutil.c	/^SEND_VAL send_event(dev, event, event_size, event_/
+set_midi_verbose	mplayutil.c	/^set_midi_verbose(v)$/
+skip_track_chunk	mfileutil.c	/^skip_track_chunk(mfile)$/
+smf2board	mfileutil.c	/^smf2board(track_num, smf_event, smf_size, board_ev/
+split_type_zero	mfileutil.c	/^split_type_zero(tracks)$/
+stop_recording	mplayutil.c	/^stop_recording()$/
+var2fix	mfileutil.c	/^var2fix(var, delta)$/
+write_header_chunk	mfileutil.c	/^write_header_chunk(mfile, hchunk)$/
+write_track_chunk	mfileutil.c	/^write_track_chunk(mfile, tchunk)$/

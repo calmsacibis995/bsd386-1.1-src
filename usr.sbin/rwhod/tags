@@ -1,0 +1,9 @@
+Mrwhod	rwhod.c	/^main(argc, argv)$/
+configure	rwhod.c	/^configure(s)$/
+getkmem	rwhod.c	/^getkmem(sig)$/
+interval	rwhod.c	/^interval(time, updown)$/
+max	rwhod.c	/^#define max(a, b) (a > b ? a : b)$/
+onalrm	rwhod.c	/^onalrm(sig)$/
+prsend	rwhod.c	/^prsend(s, buf, cc0, flags, to, tolen)$/
+size	rwhod.c	/^#define size(p)	max((p).sa_len, sizeof(p))$/
+verify	rwhod.c	/^verify(name)$/

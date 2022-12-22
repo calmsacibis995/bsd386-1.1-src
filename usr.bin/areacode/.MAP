@@ -1,0 +1,4 @@
+F AREACODE.1;1                      	areacode.1
+F AREACODE.SH;1                     	areacode.sh
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/areacode

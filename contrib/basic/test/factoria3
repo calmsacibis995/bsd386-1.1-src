@@ -1,0 +1,14 @@
+  100	for x = 1 to 20
+  110	gosub 1000
+  120	print x, 'factorial = ', y
+  125	next x
+  130	stop
+ 1000	if x > 1 then goto 1100
+ 1010	y = 1
+ 1020	return
+ 1100	x = x-1
+ 1110	gosub 1000
+ 1120	x = x+1
+ 1130	y = y*x
+ 1140	return
+ 1150	end

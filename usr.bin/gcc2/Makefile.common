@@ -1,0 +1,74 @@
+#	BSDI $Id: Makefile.common,v 1.2 1993/12/16 20:39:05 torek Exp $
+#
+# Common machine-dependent compiler (cc1/cc1plus/cc1obj) files.
+# To be included after "Makefile.symlinks".
+
+# Augment CFLAGS for locating everything, and tell make where to look.
+CFLAGS+=-I. -I${.CURDIR} -I${CFG} -I${.CURDIR}/../common
+.PATH: ${.CURDIR}/../common
+
+# Override default rule to rename y.tab.h files.
+.y.c:
+	${YACC} ${YFLAGS} ${.ALLSRC}
+	mv y.tab.c ${.TARGET}
+	mv y.tab.h ${.TARGET:S/.c$/.h/}
+
+# Instructions.  These machine-dependent files are automatically generated.
+# Note that the .h files must be listed first in the .depend line below.
+CINSN=	insn-attrtab.c insn-emit.c insn-extract.c insn-opinit.c \
+	insn-output.c insn-peep.c insn-recog.c
+HINSN=	insn-config.h insn-attr.h insn-flags.h insn-codes.h
+INSN=	${HINSN} ${CINSN}
+
+# These are the programs that generate them.  (The .h => .c substitute
+# fails silently for the C files, which is fine.)
+INSNGEN=${INSN:S/^insn-/gen/g:S/.h$/.c/g}
+
+# Each individual file depends on its own generator; all depend on "md",
+# and all of them link with obstack.o and rtl.o.
+${INSN}: ${.TARGET:S/^insn-/gen/:R}.o md obstack.o rtl.o
+	${CC} ${CFLAGS} ${.ALLSRC:M*.o} -o gen
+	./gen md > ${.TARGET}
+	rm -f gen
+
+# But genattrtab (makes insn-attrtab.c) links with two more RTL files.
+insn-attrtab.c: rtlanal.o print-rtl.o
+
+# Machine-dependent headers for the C bytecode interpreter.  These are
+# also automatically generated, but in a different manner than the
+# insn-*.[ch] files.
+BC=	bc-arity.h bc-opcode.h bc-opname.h
+
+# The programs that generate them, and the rules for making them.
+# (Unlike the insn generators, the .o files here are not part of the
+# compiler proper, so they must be added to the .depend line below.)
+BCGEN=	${BC:S/^bc-/bi-/g:S/.h$/.c/g}
+BCOBJ=	bi-parser.o bi-lexer.o bi-reverse.o
+
+${BC}: ${.TARGET:S/^bc-/bi-/:R}.o bytecode.def ${BCOBJ}
+	${CC} ${CFLAGS} ${.ALLSRC:M*.o} -o gen
+	./gen < ${.CURDIR}/../common/bytecode.def > ${.TARGET}
+	rm -f gen
+
+# C `source' files common to cc1, cc1plus, and cc1obj (including the
+# various automatically-generated C files listed above, though they are
+# not really sources, at least not in the revision control sense).
+SRCS+=	${CINSN} aux-output.c bc-emit.c bc-optab.c caller-save.c \
+	c-common.c calls.c combine.c convert.c cse.c dbxout.c dwarfout.c \
+	emit-rtl.c explow.c expmed.c expr.c final.c flow.c fold-const.c \
+	function.c getpwd.c global.c integrate.c jump.c local-alloc.c \
+	loop.c obstack.c optabs.c print-rtl.c print-tree.c real.c recog.c \
+	reg-stack.c regclass.c reload.c reload1.c reorg.c rtl.c rtlanal.c \
+	sched.c sdbout.c stmt.c stor-layout.c stupid.c toplev.c tree.c \
+	unroll.c varasm.c version.c xcoffout.c
+
+# `mkdep' needs to scan and/or have these (in addition to the files
+# listed in ${SRCS}, that is).
+.depend: ${SYMLINKS} ${INSN} ${INSNGEN} ${BC} ${BCGEN} ${BCOBJ:S/.o$/.c/g}
+
+# bi-parser.h is built from bi-parser.y via the .y.c rule
+bi-parser.h: bi-parser.c
+
+# Be sure to clean up on demand.
+CLEANFILES+=${SYMLINKS} ${INSN} ${INSNGEN:S/.c$/.o/g} ${BC} \
+	${BCGEN:S/.c$/.o/g} ${BCOBJ} bi-parser.c bi-parser.h gen

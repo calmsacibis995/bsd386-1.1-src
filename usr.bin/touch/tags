@@ -1,0 +1,15 @@
+ATOI2	touch.c	/^#define	ATOI2(ar)	((ar)[0] - '0') * 10 + ((ar)[1] /
+Mtouch	touch.c	/^main(argc, argv)$/
+err	err.c	/^err(eval, fmt, va_alist)$/
+errx	err.c	/^errx(eval, fmt, va_alist)$/
+rw	touch.c	/^rw(fname, sbp, force)$/
+stime_arg1	touch.c	/^stime_arg1(arg, tvp)$/
+stime_arg2	touch.c	/^stime_arg2(arg, year, tvp)$/
+stime_file	touch.c	/^stime_file(fname, tvp)$/
+usage	touch.c	/^usage()$/
+verr	err.c	/^verr(eval, fmt, ap)$/
+verrx	err.c	/^verrx(eval, fmt, ap)$/
+vwarn	err.c	/^vwarn(fmt, ap)$/
+vwarnx	err.c	/^vwarnx(fmt, ap)$/
+warn	err.c	/^warn(fmt, va_alist)$/
+warnx	err.c	/^warnx(fmt, va_alist)$/

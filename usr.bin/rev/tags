@@ -1,0 +1,3 @@
+Mrev	rev.c	/^main(argc, argv)$/
+usage	rev.c	/^usage()$/
+warn	rev.c	/^warn(fmt, va_alist)$/

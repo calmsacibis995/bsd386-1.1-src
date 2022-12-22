@@ -1,0 +1,5 @@
+Mmaddinst	maddinst.c	/^main(argc, argv)$/
+change_insts	maddinst.c	/^change_insts(tracks, spec_tracks, insts, num_insts/
+read_inst_data	maddinst.c	/^read_inst_data(file, insts)$/
+usage	maddinst.c	/^usage(program)$/
+write_new_tracks	maddinst.c	/^write_new_tracks(hchunk, tracks)$/

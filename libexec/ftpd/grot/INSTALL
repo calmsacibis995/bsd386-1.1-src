@@ -1,0 +1,112 @@
+INSTALLATION INSTRUCTIONS
+
+0.  READ THE NOTES FILE!
+
+1.  edit src/pathnames.h to conform to your needs.  
+
+    _PATH_FTPUSERS  "/etc/ftpusers"
+        The file that lists users that can never ftp in.  Usually contains
+        root and all usernames not connected to a real person (eg. bin, sync,
+        nobody, etc.)
+    _PATH_FTPACCESS "/usr/local/etc/ftpaccess"
+        The configuration file for the server.
+    _PATH_FTPHOSTS  "/etc/ftphosts"
+        The individual user access configuration file.
+**  _PATH_EXECPATH  "/bin/ftp-exec"
+        The directory that contains additional binaries for use with the
+        SITE EXEC command.
+    _PATH_PIDNAMES  "/usr/local/daemon/ftpd/ftp.pids-%s"
+        The filename template for pid files.  The %s gets automagically 
+        replaced by the proper classname.  There will be as many pid files
+        as there are classes in your ftpaccess.
+    _PATH_CVT       "/usr/local/etc/ftpconversions"
+        The file that contains the conversion (file -> file.Z, etc) 
+        configuration.  See ftpconversions.5 for a description of the format.
+    _PATH_XFERLOG   "/usr/adm/xferlog"
+        The file where all logging information is placed.
+    _PATH_PRIVATE   "/etc/ftpgroups"
+        The group password file for use with the SITE GROUP and SITE GPASS
+        commands.  See ftpaccess.5 for a description of the format.
+    _PATH_UTMP      "/etc/utmp"
+        Where your utmp file lives.
+    _PATH_WTMP      "/usr/adm/wtmp"
+        Where your wtmp file lives.
+    _PATH_LASTLOG   "/usr/adm/lastlog"
+        Where your lastlog file lives.
+    _PATH_BSHELL    "/bin/sh"
+        Where bourne shell lives
+    _PATH_DEVNULL   "/dev/null"
+        What /dev/null is.  I can't imagine that this could ever be different.
+
+**  This path is relative to ~ftp.  To add the same functionality for real
+    users, create a symbolic link from ~ftp/_PATH_EXEC to /_PATH_EXEC.
+
+2a. build xxx
+
+    where xxx is one of:
+        gen : generic make (copy this when porting to a new system)
+        aix : IBM AIX
+        bsd : BSDI bsd/386
+        dgx : Data General Unix
+        dyn : Dynix
+        hpx : HP-UX
+		isc : ISC
+        lnx : Linux (tested on 0.99p8)
+        nx2 : NeXTstep 2.x
+        nx3 : NeXTstep 3.x
+        osf : OSF/1
+        ptx : ???
+        sgi : SGI Irix 4.0.5a
+        sny : Sony NewsOS
+        sol : SunOS 5.x / Solaris 2.x
+        s41 : SunOS 4.1.x (requires acc or gcc 2.3.3 or better)
+                          (if you must use gcc 1.4.2, mail me for a patch)
+        ult : Ultrix 4.x
+
+    If cc complains about strunames, typenames, modenames, ... being undefined
+    you need to install support/ftp.h as /usr/include/arpa/ftp.h (always make
+    a backup of the old ftp.h just in case!) and do the build again.  The new
+    ftp.h should be a compatible superset of your existing ftp.h, so you
+    shouldn't have problems with this replacement.
+
+    If you are using gcc...  Make sure that you the include files have been
+    properly "fixed" according to the gcc 2.3.3 INSTALL instructions.  If
+    the server crashes before printing the banner message (during a vprintf)
+    this is most probably the cause.
+
+    Some machines may not have a definition of pid_t; so if your compiler
+    complains about this you should add to src/config.h
+
+            typedef int pid_t;
+
+2b. If your system is not defined above...
+        cp src/config/config.gen src/config/config.xxx
+        cp src/makefiles/Makefile.gen src/makefiles/Makefile.xxx
+        cp support/makefiles/Makefile.gen support/makefiles/Makefile.xxx
+
+    Edit the three files appropriately.  Go back to step 2a.
+
+3.  build install
+
+4.  edit /etc/inetd.conf to point to the new ftpd
+
+5.  on BSD-ish systems: kill -1 `ps t"?" | grep inetd`
+    on SGI systems: /etc/killall -HUP inetd
+
+6.  for the server to support creation of .tar.Z files of directories, you
+    need GNU tar installed [remember to put a copy in the anonymous ftp
+    hierarchy].  If you need a copy, it is available from
+    wuarchive.wustl.edu [128.252.135.4] in /gnu.
+
+7.  copy /wherever/compress to ~ftp/bin/compress.
+
+8.  copy the ftpconversions, ftpusers, and ftpgroups files to the 
+    locations specifed in pathnames.h.  There are examples of these
+    files in the doc/examples directory.
+
+9.  create the directory for the SITE EXEC programs, as specified in 
+    pathnames.h.  Put any executables that you want anonymous users to 
+    be able to run in this directory.  Be careful what you put here.
+
+10. run bin/ckconfig to make sure that all the support files are
+    properly installed.

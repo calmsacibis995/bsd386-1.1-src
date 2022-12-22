@@ -1,0 +1,6 @@
+Mchflags	chflags.c	/^main(argc, argv)$/
+err	chflags.c	/^err(fmt, va_alist)$/
+error	chflags.c	/^error(name)$/
+getflags	chflags.c	/^getflags(fset, oflags)$/
+setflags	chflags.c	/^setflags(cp)$/
+usage	chflags.c	/^usage()$/

@@ -1,0 +1,304 @@
+@subsection AT&T Syntax versus Intel Syntax
+
+In order to maintain compatibility with the output of @code{GCC},
+@code{as} supports AT&T System V/386 assembler syntax.  This is quite
+different from Intel syntax.  We mention these differences because
+almost all 80386 documents used only Intel syntax.  Noteable differences
+between the two syntaxes are:
+@itemize @bullet
+@item
+AT&T immediate operands are preceded by @samp{$}; Intel immediate
+operands are undelimited (Intel @samp{push 4} is AT&T @samp{pushl $4}).
+AT&T register operands are preceded by @samp{%}; Intel register operands
+are undelimited.  AT&T absolute (as opposed to PC relative) jump/call
+operands are prefixed by @samp{*}; they are undelimited in Intel syntax.
+
+@item
+AT&T and Intel syntax use the opposite order for source and destination
+operands.  Intel @samp{add eax, 4} is @samp{addl $4, %eax}.  The
+@samp{source, dest} convention is maintained for compatibility with
+previous Un*x assemblers.
+
+@item
+In AT&T syntax the size of memory operands is determined from the last
+character of the opcode name.  Opcode suffixes of @samp{b}, @samp{w},
+and @samp{l} specify byte (8-bit), word (16-bit), and long (32-bit)
+memory references.  Intel syntax accomplishes this by prefixes memory
+operands (@emph{not} the opcodes themselves) with @samp{byte ptr},
+@samp{word ptr}, and @samp{dword ptr}.  Thus, Intel @samp{mov al, byte
+ptr @var{foo}} is @samp{movb @var{foo}, %al} in AT&T syntax.
+
+@item
+Immediate form long jumps and calls are
+@samp{lcall/ljmp $@var{segment}, $@var{offset}} in AT&T syntax; the
+Intel syntax is
+@samp{call/jmp far @var{segment}:@var{offset}}.  Also, the far return
+instruction 
+is @samp{lret $@var{stack-adjust}} in AT&T syntax; Intel syntax is
+@samp{ret far @var{stack-adjust}}.
+
+@item
+The AT&T assembler does not provide support for multiple segment
+programs.  Un*x style systems expect all programs to be single segments.
+@end itemize
+
+@subsection Opcode Naming
+
+Opcode names are suffixed with one character modifiers which specify the
+size of operands.  The letters @samp{b}, @samp{w}, and @samp{l} specify
+byte, word, and long operands.  If no suffix is specified by an
+instruction and it contains no memory operands then @code{as} tries to
+fill in the missing suffix based on the destination register operand
+(the last one by convention).  Thus, @samp{mov %ax, %bx} is equivalent
+to @samp{movw %ax, %bx}; also, @samp{mov $1, %bx} is equivalent to
+@samp{movw $1, %bx}.  Note that this is incompatible with the AT&T Un*x
+assembler which assumes that a missing opcode suffix implies long
+operand size.  (This incompatibility does not affect compiler output
+since compilers always explicitly specify the opcode suffix.)
+
+Almost all opcodes have the same names in AT&T and Intel format.  There
+are a few exceptions.  The sign extend and zero extend instructions need
+two sizes to specify them.  They need a size to sign/zero extend
+@emph{from} and a size to zero extend @emph{to}.  This is accomplished
+by using two opcode suffixes in AT&T syntax.  Base names for sign extend
+and zero extend are @samp{movs@dots{}} and @samp{movz@dots{}} in AT&T
+syntax (@samp{movsx} and @samp{movzx} in Intel syntax).  The opcode
+suffixes are tacked on to this base name, the @emph{from} suffix before
+the @emph{to} suffix.  Thus, @samp{movsbl %al, %edx} is AT&T syntax for
+``move sign extend @emph{from} %al @emph{to} %edx.''  Possible suffixes,
+thus, are @samp{bl} (from byte to long), @samp{bw} (from byte to word),
+and @samp{wl} (from word to long).
+
+The Intel syntax conversion instructions
+@itemize @bullet
+@item
+@samp{cbw} --- sign-extend byte in @samp{%al} to word in @samp{%ax},
+@item
+@samp{cwde} --- sign-extend word in @samp{%ax} to long in @samp{%eax},
+@item
+@samp{cwd} --- sign-extend word in @samp{%ax} to long in @samp{%dx:%ax},
+@item
+@samp{cdq} --- sign-extend dword in @samp{%eax} to quad in @samp{%edx:%eax},
+@end itemize
+are called @samp{cbtw}, @samp{cwtl}, @samp{cwtd}, and @samp{cltd} in
+AT&T naming.  @code{as} accepts either naming for these instructions.
+
+Far call/jump instructions are @samp{lcall} and @samp{ljmp} in
+AT&T syntax, but are @samp{call far} and @samp{jump far} in Intel
+convention.  
+
+@subsection Register Naming
+
+Register operands are always prefixes with @samp{%}.  The 80386 registers
+consist of
+@itemize @bullet
+@item
+the 8 32-bit registers @samp{%eax} (the accumulator), @samp{%ebx},
+@samp{%ecx}, @samp{%edx}, @samp{%edi}, @samp{%esi}, @samp{%ebp} (the
+frame pointer), and @samp{%esp} (the stack pointer).
+
+@item
+the 8 16-bit low-ends of these: @samp{%ax}, @samp{%bx}, @samp{%cx},
+@samp{%dx}, @samp{%di}, @samp{%si}, @samp{%bp}, and @samp{%sp}.
+
+@item
+the 8 8-bit registers: @samp{%ah}, @samp{%al}, @samp{%bh},
+@samp{%bl}, @samp{%ch}, @samp{%cl}, @samp{%dh}, and @samp{%dl} (These
+are the high-bytes and low-bytes of @samp{%ax}, @samp{%bx},
+@samp{%cx}, and @samp{%dx})
+
+@item
+the 6 segment registers @samp{%cs} (code segment), @samp{%ds}
+(data segment), @samp{%ss} (stack segment), @samp{%es}, @samp{%fs},
+and @samp{%gs}.
+
+@item
+the 3 processor control registers @samp{%cr0}, @samp{%cr2}, and
+@samp{%cr3}.
+
+@item
+the 6 debug registers @samp{%db0}, @samp{%db1}, @samp{%db2},
+@samp{%db3}, @samp{%db6}, and @samp{%db7}.
+
+@item
+the 2 test registers @samp{%tr6} and @samp{%tr7}.
+
+@item
+the 8 floating point register stack @samp{%st} or equivalently
+@samp{%st(0)}, @samp{%st(1)}, @samp{%st(2)}, @samp{%st(3)},
+@samp{%st(4)}, @samp{%st(5)}, @samp{%st(6)}, and @samp{%st(7)}.
+@end itemize
+
+@subsection Opcode Prefixes
+
+Opcode prefixes are used to modify the following opcode.  They are used
+to repeat string instructions, to provide segment overrides, to perform
+bus lock operations, and to give operand and address size (16-bit
+operands are specified in an instruction by prefixing what would
+normally be 32-bit operands with a ``operand size'' opcode prefix).
+Opcode prefixes are usually given as single-line instructions with no
+operands, and must directly precede the instruction they act upon.  For
+example, the @samp{scas} (scan string) instruction is repeated with:
+@example
+	repne
+	scas
+@end example
+
+Here is a list of opcode prefixes:
+@itemize @bullet
+@item
+Segment override prefixes @samp{cs}, @samp{ds}, @samp{ss}, @samp{es},
+@samp{fs}, @samp{gs}.  These are automatically added by specifying
+using the @var{segment}:@var{memory-operand} form for memory references.
+
+@item
+Operand/Address size prefixes @samp{data16} and @samp{addr16}
+change 32-bit operands/addresses into 16-bit operands/addresses.  Note
+that 16-bit addressing modes (i.e. 8086 and 80286 addressing modes)
+are not supported (yet).
+
+@item
+The bus lock prefix @samp{lock} inhibits interrupts during
+execution of the instruction it precedes.  (This is only valid with
+certain instructions; see a 80386 manual for details).
+
+@item
+The wait for coprocessor prefix @samp{wait} waits for the
+coprocessor to complete the current instruction.  This should never be
+needed for the 80386/80387 combination.
+
+@item
+The @samp{rep}, @samp{repe}, and @samp{repne} prefixes are added
+to string instructions to make them repeat @samp{%ecx} times.
+@end itemize
+
+@subsection Memory References
+
+An Intel syntax indirect memory reference of the form
+@center @var{segment}:[@var{base} + @var{index}*@var{scale} + @var{disp}]
+is translated into the AT&T syntax
+@center @var{segment}:@var{disp}(@var{base}, @var{index}, @var{scale})
+where @var{base} and @var{index} are the optional 32-bit base and
+index registers, @var{disp} is the optional displacement, and
+@var{scale}, taking the values 1, 2, 4, and 8, multiplies @var{index}
+to calculate the address of the operand.  If no @var{scale} is
+specified, @var{scale} is taken to be 1.  @var{segment} specifies the
+optional segment register for the memory operand, and may override the
+default segment register (see a 80386 manual for segment register
+defaults). Note that segment overrides in AT&T syntax @emph{must} have
+be preceded by a @samp{%}.  If you specify a segment override which
+coincides with the default segment register, @code{as} will @emph{not}
+output any segment register override prefixes to assemble the given
+instruction.  Thus, segment overrides can be specified to emphasize which
+segment register is used for a given memory operand.
+
+Here are some examples of Intel and AT&T style memory references:
+@table @asis
+
+@item AT&T: @samp{-4(%ebp)}, Intel:  @samp{[ebp - 4]}
+@var{base} is @samp{%ebp}; @var{disp} is @samp{-4}. @var{segment} is
+missing, and the default segment is used (@samp{%ss} for addressing with
+@samp{%ebp} as the base register).  @var{index}, @var{scale} are both missing.
+
+@item AT&T: @samp{foo(,%eax,4)}, Intel: @samp{[foo + eax*4]}
+@var{index} is @samp{%eax} (scaled by a @var{scale} 4); @var{disp} is
+@samp{foo}.  All other fields are missing.  The segment register here
+defaults to @samp{%ds}.
+
+@item AT&T: @samp{foo(,1)}; Intel @samp{[foo]}
+This uses the value pointed to by @samp{foo} as a memory operand.
+Note that @var{base} and @var{index} are both missing, but there is only
+@emph{one} @samp{,}.  This is a syntactic exception.
+
+@item AT&T: @samp{%gs:foo}; Intel @samp{gs:foo}
+This selects the contents of the variable @samp{foo} with segment
+register @var{segment} being @samp{%gs}.
+	
+@end table
+
+Absolute (as opposed to PC relative) call and jump operands must be
+prefixed with @samp{*}.  If no @samp{*} is specified, @code{as} will
+always choose PC relative addressing for jump/call labels.  
+
+Any instruction that has a memory operand @emph{must} specify its size (byte,
+word, or long) with an opcode suffix (@samp{b}, @samp{w}, or @samp{l},
+respectively).
+
+@subsection Handling of Jump Instructions
+
+Jump instructions are always optimized to use the smallest possible
+displacements.  This is accomplished by using byte (8-bit) displacement
+jumps whenever the target is sufficiently close.  If a byte displacement
+is insufficient a long (32-bit) displacement is used.  We do not support
+word (16-bit) displacement jumps (i.e. prefixing the jump instruction
+with the @samp{addr16} opcode prefix), since the 80386 insists upon masking
+@samp{%eip} to 16 bits after the word displacement is added.
+
+Note that the @samp{jcxz}, @samp{jecxz}, @samp{loop}, @samp{loopz},
+@samp{loope}, @samp{loopnz} and @samp{loopne} instructions only come in
+byte displacements, so that it is possible that use of these
+instructions (@code{GCC} does not use them) will cause the assembler to
+print an error message (and generate incorrect code).  The AT&T 80386
+assembler tries to get around this problem by expanding @samp{jcxz foo} to
+@example
+         jcxz cx_zero
+         jmp cx_nonzero
+cx_zero: jmp foo
+cx_nonzero:
+@end example
+
+@subsection Floating Point
+
+All 80387 floating point types except packed BCD are supported.
+(BCD support may be added without much difficulty).
+These data types are 16-, 32-, and 64- bit integers, and single (32-bit), double
+(64-bit), and extended (80-bit) precision floating point.
+Each supported type has an opcode suffix and a constructor associated
+with it.  Opcode suffixes specify operand's data types.  Constructors
+build these data types into memory.
+@itemize @bullet
+@item
+Floating point constructors are @samp{.float} or @samp{.single},
+@samp{.double}, and @samp{.tfloat} for 32-, 64-, and 80-bit formats.
+These correspond to opcode suffixes @samp{s}, @samp{l}, and @samp{t}.
+@samp{t} stands for temporary real, and that the 80387 only supports
+this format via the @samp{fldt} (load temporary real to stack top) and
+@samp{fstpt} (store temporary real and pop stack) instructions.
+
+@item
+Integer constructors are @samp{.word}, @samp{.long} or @samp{.int}, and
+@samp{.quad} for the 16-, 32-, and 64-bit integer formats.  The corresponding
+opcode suffixes are @samp{s} (single), @samp{l} (long), and @samp{q}
+(quad).  As with the temporary real format the 64-bit @samp{q} format is
+only present in the @samp{fildq} (load quad integer to stack top) and
+@samp{fistpq} (store quad integer and pop stack) instructions.
+@end itemize
+
+Register to register operations do not require opcode suffixes,
+so that @samp{fst %st, %st(1)} is equivalent to @samp{fstl %st, %st(1)}.
+
+Since the 80387 automatically synchronizes with the 80386 @samp{fwait}
+instructions are almost never needed (this is not the case for the
+80286/80287 and 8086/8087 combinations).  Therefore, @code{as} supresses
+the @samp{fwait} instruction whenever it is implicitly selected by one
+of the @samp{fn@dots{}} instructions.  For example, @samp{fsave} and
+@samp{fnsave} are treated identically.  In general, all the @samp{fn@dots{}}
+instructions are made equivalent to @samp{f@dots{}} instructions.  If
+@samp{fwait} is desired it must be explicitly coded.
+
+@subsection Notes
+
+There is some trickery concerning the @samp{mul} and @samp{imul}
+instructions that deserves mention.  The 16-, 32-, and 64-bit expanding
+multiplies (base opcode @samp{0xf6}; extension 4 for @samp{mul} and 5
+for @samp{imul}) can be output only in the one operand form.  Thus,
+@samp{imul %ebx, %eax} does @emph{not} select the expanding multiply;
+the expanding multiply would clobber the @samp{%edx} register, and this
+would confuse @code{GCC} output.  Use @samp{imul %ebx} to get the
+64-bit product in @samp{%edx:%eax}.
+
+We have added a two operand form of @samp{imul} when the first operand
+is an immediate mode expression and the second operand is a register.
+This is just a shorthand, so that, multiplying @samp{%eax} by 69, for
+example, can be done with @samp{imul $69, %eax} rather than @samp{imul
+$69, %eax, %eax}.

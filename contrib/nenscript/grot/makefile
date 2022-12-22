@@ -1,0 +1,57 @@
+#
+# Makefile 
+#
+# $Id: makefile,v 1.1.1.1 1993/02/10 18:05:37 sanders Exp $
+#
+
+OBJ		= .o
+
+PROG		=	nenscript
+MAN		=	$(PROG).1
+SOURCES		=	main.c postscri.c print.c fontwidt.c font_lis.c
+OBJECTS		=	$(SOURCES:.c=.o)
+
+INSTALLDIR	=	/usr/local
+BININSTALLDIR	=	$(INSTALLDIR)/bin
+MANINSTALLDIR	=	$(INSTALLDIR)/man/man1
+
+LOCALINSTALLDIR		=	$(HOME)/bin
+LOCALMANINSTALLDIR	=	$(HOME)/man/man1
+
+#
+# uncomment macro below for debug version
+#
+#DEBUG	= -g
+
+#
+# US_DATE selects date of form MMM DD YY, else date is DD MMM YY
+#
+#CFLAGS	=	-DUS_DATE -DUS_PAPER $(DEBUG)
+CFLAGS	=	-DA4_PAPER $(DEBUG)
+LFLAGS	=	
+
+CHMOD	=	chmod
+CP	=	cp
+RM	=	rm
+INSTALL	=	install
+
+all debug:	$(PROG)
+
+$(PROG): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) 
+
+main.$(OBJ):	main.c
+
+install: $(PROG)
+	$(INSTALL) -s -m 555 $(PROG) $(INSTALLDIR)
+
+install.man: $(MAN)
+	$(INSTALL) -m 444 $(MAN) $(MANINSTALLDIR)
+
+install.local:	$(PROG) $(MAN)
+	$(INSTALL) -s -m 555 $(PROG) $(LOCALINSTALLDIR)
+	$(INSTALL) -m 444 $(MAN) $(LOCALMANINSTALLDIR)
+
+clean:
+	rm -f *.o *.obj *.exe $(PROG)
+

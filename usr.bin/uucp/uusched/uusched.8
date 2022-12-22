@@ -1,0 +1,92 @@
+.\"
+.V= $Id: uusched.8,v 1.2 1994/01/31 01:27:13 donn Exp $
+.\"
+.ds S1 UUSCHED
+.ds S2 \fIUusched\fP
+.ds S3 \fIuusched\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uusched
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uusched \- find systems with waiting messages and start uucico
+.SH SYNOPSIS
+.B uusched
+.RI [\- flags ]
+.SH DESCRIPTION
+\*(S2
+searches the spool directories for systems with waiting messages
+and starts a copy of
+.IR uucico (8)
+for each system in turn.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-t\fP\fIturnaround\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-i
+Ignore time-to-call restrictions when selecting available systems.
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.BI \-T \fR[\fPlevel\fR]\fP
+Turns on routine tracing at
+.I level
+[default: 1].
+If tracing is not compiled in,
+this flag will have no effect.
+.TP
+.BI \-x debug
+Turn on debugging at level
+.IR debug .
+.SH FILES
+All these file names are configurable in the file
+.if t \f(CW/etc/uucp/CONFIG\fP.
+.if n `/etc/uucp/CONFIG'.
+See
+.IR uuparams (5)
+for details.
+.PP
+.if t .PD 0
+.if n .ds tw 4
+.if t .ds tw \w'\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/TM.\fIpid\fP.\fInum\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all \*(S5 programs.
+.TP
+\f(CWPARAMSDIR/L.sys\fP
+Host connection specifications.
+.TP
+\f(CWPARAMSDIR/Maxuuscheds\fP
+File containing \s-1ASCII\s0 number
+to control maximum simultaneous invokations of \*(S3.
+.TP
+\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/C.*\fP
+Message transfer commands.
+.TP
+\f(CWLOGDIR/errors\fP
+\s-1UUCP\s0 internal error log.
+.TP
+\f(CWLOGDIR/uusched/\fP\fIsystem\fP
+\*(S2 system activity log per site.
+.TP
+\f(CWLOGDIR/status/\fP\fIsystem\fP
+System status files.
+.TP
+\f(CWLOCKDIR/LCK..UUSCHED.\fP\fIn\fP
+Lock file per \*(S3 instantiation.
+.if t .PD
+.SH SEE ALSO
+.BR L.sys (5),
+.BR uuparams (5),
+.BR uucico (8).

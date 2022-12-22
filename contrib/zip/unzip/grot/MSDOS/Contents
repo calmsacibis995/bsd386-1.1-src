@@ -1,0 +1,41 @@
+Contents of the MSDOS sub-archive for UnZip 5.0 and later:
+
+  Contents          this file
+  Borland.fix       patches to fix Borland executables for grokking Unix EOLs
+  makefile          makefile for Turbo C and old Microsoft C
+  makefile.bcc      makefile for Borland C++
+  makefile.qc       makefile for Quick C and nmake
+  tcc/unzip.prj     Turbo C project file for UnZip
+  tcc/unzip.tc      Turbo C configuration file for UnZip (binary)
+  tcc/unzip_cr.prj  Turbo C project file for UnZip + decryption (need crypt.c)
+  tcc/unzip_cr.tc   Turbo C configuration file for UnZip + decryption (binary)
+  tcc/zi_make.bat   batch file to make ZipInfo with Turbo C
+  tcc/zipinfo.prj   Turbo C project file for ZipInfo
+  tcc/zipinfo.tc    Turbo C configuration file for ZipInfo (binary)
+  bcc/tcconfig.tc   BC++ general configuration file (binary)
+  bcc/unzip.prj     BC++ project file for UnZip (binary)
+  bcc/unzip_cr.prj  BC++ project file for UnZip/decryption (binary; need crypt)
+  bcc/zipinfo.prj   BC++ project file for ZipInfo (binary)
+
+Note:  despite the similarity in names to the corresponding Turbo C files,
+the Borland C++ files apparently are NOT compatible with the older compilers
+(although they seem to be compatible with Turbo C++).  So the old TC project
+files are also included.  FOR BOTH COMPILERS, you must indicate "rebuild" for
+unzip or zipinfo (whichever you do second), because the two misc.obj's are not
+compatible with each other.  This is not a problem if you use the makefile(s),
+in which case zipinfo's is called misc_.obj, but (1) the project files are
+much faster on older machines, and (2) the Turbo C makefile doesn't seem to 
+work properly yet.  As always, if anyone manages to make it go, please send
+us your fixes.
+
+Note also:  for MSC 6.0 or later, use the msc_dos and zi_dos targets in the
+main Unix Makefile--with NMAKE, not MAKE.  The msc_dos target has been re-
+written to use a response file in order to get around the DOS 128-character 
+command-line limit, but the nmake command itself may have trouble.  Give it 
+a try, however.
+
+One last note:  the binary patches in Borland.fix are NOT required; they may
+be useful if you regularly deal with Unix sources, but casual users should
+probably make use of an external utility like Rahul Dhesi's FLIP to convert 
+between Unix and DOS/OS2 end-of-line characters.  If you know how to patch
+binary executables, you should be able to figure out how to use these patches.

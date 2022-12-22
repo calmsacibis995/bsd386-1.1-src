@@ -1,0 +1,16 @@
+F MAKEFILE.GZ;1                     	Makefile.gz
+D MMDFII                            	mmdfII
+F POPAKA_C.GZ;1                     	popaka.c.gz
+F POPAUTH0.GZ;1                     	popauth.c.gz
+F POPAUTH1.GZ;1                     	popauth.h.gz
+F POPBB_TX.GZ;1                     	popbb.txt.gz
+F POPD_C.GZ;1                       	popd.c.gz
+F POPSER_C.GZ;1                     	popser.c.gz
+F POPWRD_C.GZ;1                     	popwrd.c.gz
+F POP_MORE.GZ;1                     	pop-more.txt.gz
+F POP_TXT.GZ;1                      	pop.txt.gz
+F RFC1081_.GZ;1                     	rfc1081.txt.gz
+F RFC1082_.GZ;1                     	rfc1082.txt.gz
+F SYSLOG_C.GZ;1                     	syslog.c.gz
+F SYSLOG_H.GZ;1                     	syslog.h.gz
+F _CVSIGNO.GZ;1                     	.cvsignore.gz

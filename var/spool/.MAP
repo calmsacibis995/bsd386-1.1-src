@@ -1,0 +1,8 @@
+D FTP                               	ftp
+D LPD                               	lpd
+D MQUEUE                            	mqueue
+D NEWS                              	news
+D OUTPUT                            	output
+D SECRETMA                          	secretmail
+D UUCP                              	uucp
+D UUCPPUBL                          	uucppublic

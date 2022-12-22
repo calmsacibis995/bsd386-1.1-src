@@ -1,0 +1,95 @@
+Mte_main	te_main.c	/^main(argc, argv)$/
+backc	te_utils.c	/^int backc(arg)$/
+block_inter	te_chario.c	/^block_inter(func)$/
+build_string	te_srch.c	/^int build_string(buff)$/
+cleanup	te_main.c	/^cleanup()$/
+crlf	te_chario.c	/^crlf()$/
+delete1	te_subs.c	/^delete1(nchars)$/
+dly_free_blist	te_utils.c	/^dly_free_blist(p)$/
+do_ctlp	te_subs.c	/^do_ctlp()$/
+do_e	te_exec2.c	/^do_e()$/
+do_en	te_exec2.c	/^int do_en()$/
+do_en_next	te_exec2.c	/^do_en_next()$/
+do_eq	te_exec2.c	/^int do_eq()$/
+do_eq1	te_exec2.c	/^int do_eq1(shell)$/
+do_f	te_exec2.c	/^do_f()$/
+do_fb	te_srch.c	/^int do_fb()				\/* returns search result *\/$/
+do_glob	te_exec2.c	/^int do_glob(buff)$/
+do_nsearch	te_srch.c	/^do_nsearch(arg)$/
+do_o	te_subs.c	/^do_o()$/
+do_search	te_srch.c	/^int do_search(count)$/
+do_window	te_window.c	/^do_window(ref_flag)$/
+end_search	te_srch.c	/^int end_search(result)$/
+exec_cmds1	te_exec1.c	/^exec_cmds1()$/
+exec_cmdstr	te_exec0.c	/^exec_cmdstr()$/
+find_endcond	te_exec2.c	/^char find_endcond(arg)$/
+find_enditer	te_exec2.c	/^find_enditer()$/
+find_lasteol	te_rdcmd.c	/^int find_lasteol()$/
+free_blist	te_utils.c	/^free_blist(p)$/
+free_dlist	te_utils.c	/^free_dlist(p)$/
+fwdc	te_utils.c	/^int fwdc(arg)$/
+fwdcx	te_utils.c	/^fwdcx(arg)$/
+get_bcell	te_utils.c	/^struct buffcell *get_bcell()$/
+get_dcell	te_utils.c	/^struct qp *get_dcell()$/
+get_term_par	te_main.c	/^get_term_par()$/
+get_value	te_subs.c	/^int get_value(d)		\/* get a value, default is argu/
+getcmdc	te_utils.c	/^char getcmdc(trace)$/
+getcmdc0	te_utils.c	/^char getcmdc0(trace)$/
+getqspec	te_subs.c	/^int getqspec(fors, c)	\/* fors ("file or search") /
+gettty	te_chario.c	/^char gettty()$/
+gettty_nowait	te_chario.c	/^int gettty_nowait()$/
+hup_handler	te_chario.c	/^hup_handler()$/
+insert1	te_subs.c	/^insert1()$/
+insert2	te_subs.c	/^insert2(count)				\/* count is the number of chars/
+int_handler	te_chario.c	/^int_handler()$/
+kill_output	te_exec2.c	/^kill_output(outptr)$/
+line_args	te_subs.c	/^int line_args(d, p)$/
+lines	te_subs.c	/^int lines(arg)$/
+make_buffer	te_utils.c	/^make_buffer(p)$/
+movenchars	te_subs.c	/^movenchars(from, to, n)$/
+moveuntil	te_subs.c	/^moveuntil(from, to, c, n, max, trace)$/
+panic	te_exec2.c	/^panic()$/
+peekcmdc	te_utils.c	/^int peekcmdc(arg)$/
+pop_iteration	te_exec2.c	/^pop_iteration(arg)$/
+print_string	te_main.c	/^print_string(arg)$/
+putchar_d	te_window.c	/^putchar_d(c)$/
+qio_char	te_chario.c	/^qio_char(c)$/
+read_cmdstr	te_rdcmd.c	/^int read_cmdstr()$/
+read_file	te_exec2.c	/^int read_file(buff, nchars, endsw)$/
+read_filename	te_exec2.c	/^int read_filename(flag, func)$/
+read_startup	te_main.c	/^read_startup()$/
+read_stream	te_exec2.c	/^int read_stream(file, ff_found, buff, nchars, ends/
+reset_ctlo	te_chario.c	/^reset_ctlo()$/
+retype_cmdstr	te_rdcmd.c	/^retype_cmdstr(c)$/
+save_args	te_main.c	/^save_args(argc, argv, q)$/
+scroll_dly	te_window.c	/^scroll_dly()$/
+set_pointer	te_utils.c	/^set_pointer(pos, ptr)	\/* first arg is position, 2/
+set_term_par	te_window.c	/^set_term_par(lines, cols)$/
+set_var	te_exec2.c	/^set_var(arg)$/
+setup_search	te_srch.c	/^int setup_search()$/
+setup_tty	te_chario.c	/^setup_tty(arg)$/
+skipto	te_subs.c	/^char skipto(arg)$/
+srch_cmp	te_srch.c	/^int srch_cmp()$/
+stp_handler	te_chario.c	/^stp_handler()$/
+type_char	te_chario.c	/^type_char(c)$/
+vt	te_window.c	/^vt(func)$/
+vtm	te_window.c	/^vtm(arg)$/
+w_ebol	te_window.c	/^w_ebol()$/
+w_init	te_window.c	/^w_init()$/
+w_lines	te_window.c	/^int w_lines(n, ps, pd)$/
+w_makecurs	te_window.c	/^w_makecurs(wc, crflag)$/
+w_move	te_window.c	/^w_move(y, x)$/
+w_overflow	te_window.c	/^int w_overflow(wd)$/
+w_rmcurs	te_window.c	/^w_rmcurs()$/
+w_scroll	te_window.c	/^w_scroll(count)$/
+w_setptr	te_window.c	/^int w_setptr(loc, pp)$/
+w_type	te_window.c	/^w_type(c, m)$/
+window	te_window.c	/^window(arg)$/
+window0	te_window.c	/^window0(num)$/
+window1	te_window.c	/^window1()$/
+window1_abs	te_window.c	/^window1_abs()$/
+window1_after	te_window.c	/^window1_after()$/
+window1_inc	te_window.c	/^window1_inc(wd)$/
+window2	te_window.c	/^window2(arg)$/
+write_file	te_exec2.c	/^write_file(buff, nchars, ffsw)$/
+write_stream	te_exec2.c	/^write_stream(file, buff, nchars, crlf_sw)$/

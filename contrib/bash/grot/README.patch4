@@ -1,0 +1,60 @@
+This patch (bash-1.13.cwru.patch.4) fixes the following problems:
+
+1.  The readline vi-mode `c' command was moving point one character too
+    far to the right after applying the motion command.
+    [lib/readline/vi_mode.c]
+
+2.  A redundant check was removed when checking for mail, and the
+    conditions for announcing `new mail' were fixed. [mailcheck.c]
+
+3.  A memory leak was fixed in bashline.c:test_for_directory().
+    [bashline.c]
+
+4.  A stack of pending redirections was implemented so that the shell
+    can deal with multiple redirections on a single line. [parse.y,
+    shell.c]
+
+5.  Memory leaks were fixed and dead code removed from subst.c.  The
+    leaks did not affect normal operation, only when substitution
+    errors occurred was memory leaked. [subst.c]
+
+6.  The NeXT machine has a number of non-standard include directories
+    which need to be checked. [support/mksysdefs]
+
+7.  AFS makes `stat' not work; `access' must be used instead.  Hurray
+    for non-unix file systems. [test.c]
+
+8.  Asynchronous subshells (`( xxx ) &') are not interactive shells any
+    longer and must be marked as such.  This keeps the job table from
+    growing without bound when a loop is run inside of one. [execute_cmd.c]
+
+9.  Bash needs to catch SIGINT only if the shell is *currently* interactive,
+    not if it was started interactively. [trap.c]
+
+10. Readline's vi mode should map `\' to self-insert in insertion mode.
+    [lib/readline/vi_keymap.c]
+
+11. Workaround for non-job-control systems waiting for jobs inappropriately
+    or reporting incorrect exit statuses. [nojobs.s, execute_cmd.c]
+
+12. The code that runs user-specified subshells (`( xxx )') needs to
+    catch a possible `return' if invoked inside a function and treat it
+    like an exit. [execute_cmd.c]
+
+13. There is now a better test for the standard input being a socket for
+    BSD systems. [shell.c]
+
+14. Some systems do not allow memory obtained via alloca() to be passed
+    to other functions. [lib/readline/bind.c]
+
+15. Fixed a bug that could cause $! to be set to a bad value.
+    [builtins/fg_bg.def]
+
+16. Readline now no longer adds an extra space before yanking an arg from
+    a previous command. [lib/readline/readline.c]
+
+17. Fixes were made to some machine descriptions (SunOS 5.x, Linux, AIX/PS2,
+    drs6000), and a description of options available for SYSDEP_CFLAGS was
+    added to machines.h. [machines.h]
+
+To apply, cd to the bash source directory and type `patch -p0 < patch-file'.

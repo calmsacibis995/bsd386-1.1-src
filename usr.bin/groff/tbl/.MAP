@@ -1,0 +1,8 @@
+D GROT                              	grot
+F MAIN.CC;1                         	main.cc
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/groff/tbl
+F TABLE.CC;1                        	table.cc
+F TABLE.H;1                         	table.h
+F TAGS.;1                           	tags
+F TBL.MAN;1                         	tbl.man

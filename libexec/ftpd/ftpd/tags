@@ -1,0 +1,97 @@
+Gcat	glob.c	/^Gcat(s1, s2)$/
+Gmatch	glob.c	/^Gmatch(s, p)$/
+Mftpd	ftpd.c	/^main(int argc, char **argv, char **envp)$/
+UC	ftpd.c	/^#define UC(b) (((int) b) & 0xff)$/
+acl_autogroup	access.c	/^acl_autogroup(struct passwd *pw)$/
+acl_countusers	access.c	/^acl_countusers(char *class)$/
+acl_deny	access.c	/^acl_deny(char *msgpathbuf)$/
+acl_getclass	access.c	/^acl_getclass(char *classbuf)$/
+acl_getlimit	access.c	/^acl_getlimit(char *class, char *msgpathbuf)$/
+acl_guestgroup	access.c	/^acl_guestgroup(struct passwd *pw)$/
+acl_setfunctions	access.c	/^acl_setfunctions(void)$/
+acollect	glob.c	/^acollect(as)$/
+addpath	glob.c	/^addpath(c)$/
+alias	ftpcmd.c	/^alias (s)$/
+amatch	glob.c	/^amatch(s, p)$/
+any	glob.c	/^any(c, s)$/
+authenticate	authenticate.c	/^authenticate()$/
+blkcpy	glob.c	/^blkcpy(oav, bv)$/
+blkfree	glob.c	/^blkfree(av0)$/
+blklen	glob.c	/^blklen(av)$/
+cdpath	ftpcmd.c	/^cdpath ()$/
+check_newer	extensions.c	/^check_newer(char *path, struct stat *st, int flag)/
+checkuser	ftpd.c	/^checkuser(char *name)$/
+collect	glob.c	/^collect(as)$/
+conv	conversions.c	/^conv(char *str)$/
+conv_init	conversions.c	/^conv_init(void)$/
+copy	ftpcmd.c	/^copy(s)$/
+copyblk	glob.c	/^copyblk(v)$/
+cwd_beenhere	extensions.c	/^cwd_beenhere(int dircode)$/
+deny_badasciixfer	extensions.c	/^deny_badasciixfer(int msgcode, char *filepath)$/
+digit	glob.c	/^digit(c)$/
+end_login	ftpd.c	/^end_login(void)$/
+endhacc	hostacc.c	/^static  int     endhacc()$/
+eq	glob.c	/^#define	eq(a,b)		(strcmp(a, b)==0)$/
+execbrc	glob.c	/^execbrc(p, s)$/
+expand	glob.c	/^expand(as)$/
+expand_id	extensions.c	/^expand_id(void)$/
+fatal	hostacc.c	/^static  void    fatal(pcMsg)$/
+fn_check	extensions.c	/^fn_check(char *name)$/
+ftpd_pclose	popen.c	/^ftpd_pclose(FILE * iop)$/
+ftpd_popen	popen.c	/^ftpd_popen(char *program, char *type, int closestd/
+ftpglob	glob.c	/^ftpglob(v)$/
+getSize	extensions.c	/^int getSize(s)$/
+getaclentry	acl.c	/^getaclentry(char *keyword, struct aclmember **next/
+gethacc	hostacc.c	/^static  hacc_t  *gethacc()$/
+gethdir	glob.c	/^gethdir(home)$/
+getline	ftpcmd.c	/^getline(s, n, iop)$/
+ginit	glob.c	/^ginit(agargv)$/
+help	ftpcmd.c	/^help(ctab, s)$/
+hostmatch	access.c	/^hostmatch(char *addr)$/
+is_shutdown	extensions.c	/^is_shutdown(int quiet)$/
+isdir	glob.c	/^#define	isdir(d)	((d.st_mode & S_IFMT) == S_IFDIR)/
+letter	glob.c	/^letter(c)$/
+logwtmp	logwtmp.c	/^logwtmp(char *line, char *name, char *host)$/
+lookup	ftpcmd.c	/^lookup(p, cmd)$/
+lostconn	ftpd.c	/^lostconn(int sig)$/
+match	glob.c	/^match(s, p)$/
+matchdir	glob.c	/^matchdir(pattern)$/
+msg_massage	extensions.c	/^msg_massage(char *inbuf, char *outbuf)$/
+newer	extensions.c	/^newer(char *date, char *path, int showlots)$/
+parseacl	acl.c	/^parseacl(void)$/
+parseconv	conversions.c	/^parseconv(void)$/
+parsepriv	private.c	/^parsepriv(void)$/
+parsetime	access.c	/^parsetime(char *whattime)$/
+pass	ftpd.c	/^pass(char *passwd)$/
+path_compare	extensions.c	/^path_compare(char *p1, char *p2)$/
+priv_getent	private.c	/^priv_getent(char *group)$/
+priv_gpass	private.c	/^priv_gpass(char *gpass)$/
+priv_group	private.c	/^priv_group(char *group)$/
+priv_setup	private.c	/^priv_setup(char *path)$/
+randomsig	ftpd.c	/^randomsig(int sig)$/
+readacl	acl.c	/^readacl(char *aclpath)$/
+readconv	conversions.c	/^readconv(char *convpath)$/
+realpath	realpath.c	/^realpath(char *pathname, char *result)$/
+rhost_ok	hostacc.c	/^int     rhost_ok(pcRuser, pcRhost, pcRaddr)$/
+rscan	glob.c	/^rscan(t, f)$/
+sethacc	hostacc.c	/^static  int     sethacc()$/
+sgetpwnam	ftpd.c	/^sgetpwnam(char *name)$/
+sgetsave	ftpd.c	/^sgetsave(char *s)$/
+show_banner	extensions.c	/^show_banner(int msgcode)$/
+show_message	extensions.c	/^show_message(int msgcode, int mode)$/
+show_readme	extensions.c	/^show_readme(int code, int mode)$/
+site_exec	ftpcmd.c	/^site_exec(cmd)$/
+sizecmd	ftpcmd.c	/^sizecmd(filename)$/
+sort	glob.c	/^sort()$/
+strend	glob.c	/^strend(cp)$/
+strnsav	hostacc.c	/^static  char    *strnsav(pcStr,iLen)$/
+strspl	glob.c	/^strspl(cp, dp)$/
+tglob	glob.c	/^tglob(c)$/
+toolong	ftpcmd.c	/^toolong()$/
+type_match	extensions.c	/^type_match(char *typelist)$/
+upper	ftpcmd.c	/^upper(s)$/
+user	ftpd.c	/^user(char *name)$/
+validate_eaddr	ftpd.c	/^validate_eaddr(char *eaddr)$/
+validtime	access.c	/^validtime(char *ptr)$/
+yylex	ftpcmd.c	/^yylex()$/
+yyparse	ftpcmd.c	/^yyparse()$/

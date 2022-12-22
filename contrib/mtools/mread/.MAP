@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MREAD.1;1                         	mread.1
+F MREAD.C;1                         	mread.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/mtools/mread
+F TAGS.;1                           	tags

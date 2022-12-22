@@ -1,0 +1,168 @@
+.TH CAT 5
+.BY Zoology
+.DA 4 April 1981
+.SH NAME
+cat \- C/A/T phototypesetter code
+.SH DESCRIPTION
+The Graphic Systems C/A/T phototypesetter is driven by sending it a
+sequence of one-byte codes
+which specify characters, fonts, sizes, and other control information.
+.PP
+The C/A/T's basic unit of length is 1/432 of an inch (about 6 units to a
+typesetter's ``point'').
+The quantum of horizontal motion is one unit.
+The quantum of vertical motion is three units (1/144 of an inch, 1/2 point).
+.PP
+The top two bits of the code classify it as one of three major
+types:
+an \fIescape\fR code (top bit 1),
+a \fIflash\fR code (top bits 00),
+or a control code (top bits 01).
+A code of all zeros is ignored;  a code of all ones is illegal.
+.PP
+A flash code specifies flashing one of 63 characters, as given by the
+remaining six bits.
+Since this is not enough to specify all possible characters, or even
+all characters in a single font \(em there are 108 per font \(em
+various control codes (described later) select a font and either
+the Lower or Upper half of the font.
+The Lower half is the first 63 characters of the font;  the Upper
+half is the remaining 45.
+A flash code of 46 or higher in the Upper half is illegal.
+.PP
+An escape code specifies horizontal motion.
+The size of the motion, in horizontal quanta, is the one's-complement
+of the low seven bits of the code.
+The direction of the motion is set by control codes.
+Hitting the right or left margin limit switch is illegal and will
+cause the machine to stop.
+The machine starts out, after initialization, hard against the left
+margin limit switch;  an initial escape of 16 units \fImust\fR
+be given before starting work, and the position after this motion
+should be the limit of all future leftward motions.
+From this point, the distance to the right margin limit switch
+is about 7.5 inches.
+.PP
+A code with the top three bits 011 is a \fIlead\fR code,
+specifying vertical motion.
+The remaining five bits are the one's-complement of the size of
+the motion, in vertical quanta.
+The direction of motion is set by control codes.
+The amount of vertical motion is, in principle, limited only by
+running off the paper in the upward direction and by the limited
+capacity of the output cartridge in the downward direction.
+.PP
+A code with the top four bits 0101 is a size-change code, which
+specifies movement of the lens turret and the doubler lens to
+change point size.
+These codes are as follows:
+.PP
+.RS
+.nf
+.ta 2c
+Size	Code
+
+6	0101\|1000
+7	0101\|0000
+8	0101\|0001
+9	0101\|0111
+10	0101\|0010
+11	0101\|0011
+12	0101\|0100
+14	0101\|0101
+16	0101\|1001
+18	0101\|0110
+20	0101\|1010
+22	0101\|1011
+24	0101\|1100
+28	0101\|1101
+36	0101\|1110
+.DT
+.fi
+.RE
+.PP
+Size changes involving the doubler lens alter the horizontal position.
+Changes from single to double sizes should be followed by a forward
+escape of 55 quanta;  changes from double to single sizes should be
+followed by a reverse escape of 55 quanta.
+The single sizes are 6, 7, 8, 9, 10, 11, 12, 14, and 18;
+the double sizes are 16, 20, 22, 24, 28, and 36.
+.PP
+The control codes with the top four bits 0100 specify miscellaneous
+control codes, not all of which have valid meanings.
+They are:
+.PP
+.RS
+.ta 6c
+.nf
+initialize	0100\|0000
+stop	0100\|1001
+upper rail	0100\|0010
+lower rail	0100\|0001
+upper mag	0100\|0011
+lower mag	0100\|0100
+tilt up	0100\|1110
+tilt down	0100\|1111
+upper font half	0100\|0110
+lower font half	0100\|0101
+escape forward	0100\|0111
+escape backward	0100\|1000
+lead forward	0100\|1010
+lead backward	0100\|1100
+software cut	0100\|1011
+.fi
+.DT
+.RE
+.PP
+The \fIinitialize\fR code causes leftward motion to the left margin limit
+switch,
+and sets the following modes:
+escape forward, lead forward, lower font half,
+lower rail, lower mag, tilt down.
+Note that the left margin limit switch does not define a precise
+position, and hence reinitializing the machine
+will destroy precise left-margin alignment.
+.PP
+The \fIstop\fR code stops the machine, which must be manually
+restarted (normally after changing output cartridges);
+this code should be used only at the end of a run.
+.PP
+Fonts are selected by the combination of \fIrail\fR, \fImag\fR, and \fItilt\fR.
+The tilt codes do not exist on the 4-font C/A/T;  this is the only user-visible
+difference between the 4-font and 8-font machines.
+The correspondence between rail/mag/tilt and font number is as follows:
+.PP
+.RS
+.nf
+.ta 2c 4c 6c 8c
+rail	mag	tilt	4font	8font
+
+lower	lower	up	1	1
+lower	lower	down	1	2
+upper	lower	up	2	3
+upper	lower	down	2	4
+lower	upper	up	3	5
+lower	upper	down	3	6
+upper	upper	up	4	7
+upper	upper	down	4	8
+.DT
+.fi
+.RE
+.PP
+The \fIsoftware cut\fR code should not be issued to the hardware, but
+is used by some spooling software to indicate places where it is
+legal for the spooler to break output between pages.
+This code should be followed by an \fIinitialize\fR code.
+.PP
+A complete C/A/T file should begin with an \fIinitialize\fR code followed
+by an \fIescape\fR-16 code,
+and should end with 14 inches of trailer and a \fIstop\fR code.
+.SH HISTORY
+The \fIsoftware cut\fR code is a local invention.
+This manual page written at U of T by Henry Spencer.
+.SH BUGS
+The documentation and the hardware disagree on the initial tilt setting;
+the above describes the hardware.
+.PP
+While the hardware is obsolete, this man page is provided to 
+document the format for historical and/or compatibility purposes.

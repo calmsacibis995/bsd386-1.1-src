@@ -1,0 +1,25 @@
+MODE	drck_scan.c	/^#define MODE(c) ((verbose)?putchar(c), fflush(stdo/
+Mdiskdefect	diskdefect.c	/^main(argc, argv)$/
+Perrmsg	errlib.c	/^Perrmsg(char *fmt,...)$/
+Perror	errlib.c	/^Perror(char *fmt,...)$/
+Psetname	errlib.c	/^Psetname(const char *name)$/
+Pwarn	errlib.c	/^Pwarn(char *fmt,...)$/
+REPL	diskdefect.c	/^#define REPL(x) (dp->d_secperunit - (1 + dp->d_nse/
+XWRITE	drck_scan.c	/^XWRITE(int d, const char *buf, size_t nbytes)$/
+__Pmsg	errlib.c	/^__Pmsg(char *fmt,...)$/
+badcmp	diskdefect.c	/^badcmp(b1, b2)$/
+badsn	diskdefect.c	/^badsn(bt)$/
+blkcopy	diskdefect.c	/^blkcopy(f, s1, s2)$/
+blkzero	diskdefect.c	/^blkzero(f, sn)$/
+bynum	diskdefect.c	/^bynum(a, b)$/
+check_size	drck_scan.c	/^check_size(dp)$/
+checkbad	diskdefect.c	/^checkbad(bp)$/
+drck_scan	drck_scan.c	/^drck_scan(diskf, dp, verbose, wflag, maxbad, newsc/
+findbad	diskdefect.c	/^findbad(f, bad, notify)$/
+getbad	diskdefect.c	/^getbad(f, bad)$/
+initbad	diskdefect.c	/^initbad(bp, csn)$/
+mark_bad	drck_scan.c	/^mark_bad(bad, dp, verbose, maxbad, newscan)$/
+safe_to_write	drck_scan.c	/^safe_to_write(dp, pos, size)$/
+scanby_sector	drck_scan.c	/^scanby_sector(diskf, dp, verbose, wflag, maxbad, n/
+toomanyp	diskdefect.c	/^toomanyp(c)$/
+usage	diskdefect.c	/^usage()$/

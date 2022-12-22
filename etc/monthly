@@ -1,0 +1,35 @@
+#!/bin/sh -
+#
+#	BSDI	$Id: monthly,v 1.3 1993/03/03 22:18:28 sanders Exp $
+#	from @(#)monthly	5.5 (Berkeley) 6/17/91
+#
+
+host=`hostname -s`
+echo "Subject: $host monthly run output"
+
+#
+# rotate /path/file 9 8 7 6 5 4 3 2 1 0
+#
+rotate() {
+	file="$1"; shift
+	rm -f "$file.$1"
+	for i in "$@"; do
+		[ "$i" = "0" ] && j="" || j=".`expr $i - 1`"
+		[ -f "$file$j" ] && mv -f "$file$j" "$file.$i"
+	done
+	cp /dev/null "$file"; chmod 644 "$file"
+}
+
+# echo ""; echo "Doing login accounting:"
+# ac -p | sort -nr +1
+
+echo ""; echo -n "Rotating log files:"
+for i in kerberos.log lpd-errs wtmp; do
+	echo -n " $i"
+	rotate /var/log/$i 5 4 3 2 1 0
+done
+echo ""
+
+[ -f /etc/monthly.local ] && sh /etc/monthly.local
+
+exit 0

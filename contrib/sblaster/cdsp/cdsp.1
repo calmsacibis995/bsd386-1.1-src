@@ -1,0 +1,64 @@
+.TH cdsp 1 "12 June 1992"
+.IX cdsp
+.SH NAME
+.PP
+cdsp \- command-line control program for SB Pro DSP.
+
+.SH SYNOPSIS
+.PP
+\f3cdsp\f1
+[\f3-help \f1]
+[\f3-quiet \f1]
+[\f3-reset \f1]
+[\f3-speed \f2DSP speed\f1]
+[\f3-show \f1]
+[\f3-stereo \f1]
+[\f3-mono \f1]
+[\f3-channels \f21|2\f1]
+
+.SH DESCRIPTION
+.PP
+\fIcdsp\fP reads and sets parameters for Sound Blaster Pro 
+DSP sampling and playback functions.
+
+.SH OPTIONS
+.PP
+All options may be abbreviated to anything unique.
+.TP
+.B -help
+Display some help on command options.
+.TP
+.B -quiet
+Print nothing other than error messages.
+.TP
+.B -reset
+Send a \f3reset\f1 command to the DSP chip.  Note that this does not
+change the current DSP speed setting.
+.TP
+.B -speed \f2newspeed\f1
+Change the playback and sampling rate to the speed closest to \f2newspeed\f1
+Hertz.  Since the SB Pro has a rather granular speed range, the speed you
+actually got will be printed to stdout.  (See \f2-quiet\f1)
+.TP
+.B -show
+Show the current DSP speed setting.  This is the default if no options
+are given.
+.TP
+.B -stereo -mono
+Set the DSP to either stereo (two channel) or mono (one channel) mode.
+This currently does not effect recording, which is always in mono.
+As soon as someone tells me how to record in stereo, this option
+will reflect that.
+.TP
+.B -channels \f21|2\f1
+Explicitly sets the number of channels to one or two.
+.SH BUGS
+There is currently no way to show the current stereo/mono setting.
+.PP
+This program will eventually set the different compression levels for
+the SB Pro.  There is already complete support in the driver itself,
+so this is not a big deal.  The problem is that I don't know how to
+make compressed data, so I can't test it.  If you know the ADPCM
+algorithm used by the SB, please let me know.
+.SH AUTHOR
+Steve Haehnichen <shaehnic@ucsd.edu>

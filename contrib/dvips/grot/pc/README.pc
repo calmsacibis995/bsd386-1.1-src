@@ -1,0 +1,91 @@
+Some notes on installing dvips 5.5 on MS-DOS
+by Russell Lang  <rjl@monu1.cc.monash.edu.au>  23rd March 1992.
+
+These notes are not by Tomas Rokicki.  
+Tomas Rokicki does not use MS-DOS ( smart person :-) and so will be 
+unable to answer questions about MS-DOS problems.
+
+This set of MSDOS files for dvips contains:
+README.pc     This file.
+makefile.tc   Makefile for Borland C++.
+makefile.gcc  Makefile for ndmake and djgpp.
+config.ps     config.ps modified for MSDOS
+maketexp.bat  Batch file to make tex pk files.
+
+If you have the Unix tar file, the steps involved in making 
+dvips on a PC are:
+-  On Unix, in the dvips directory, give the following commands:
+      make texc.lpro
+      nroff -man dvips.1 > pc/dvips.doc
+      nroff -man afm2tfm.1 > pc/afm2tfm.doc
+-  Copy dvips/* and dvips/pc/* directories to the PC.
+-  copy PStfms/*.tfm to C:\EMTEX\TFM on the PC 
+   (then optionally delete pst*.tfm, rpst*.tfm, pop*.tfm rpop*.tfm,
+    pad*.tfm rpad*.tfm)
+-  copy PSvfs/*.vf to C:\TEXFONTS\VF on the PC
+   (then optionally delete pst*.vf, pop*.vf, pad*.vf)
+-  edit dvipsmac.tex and replace the line
+      \generictrue
+   with
+      %\generictrue
+
+For Borland C++:
+-  edit paths and directories in pc/makefile.tc and pc/config.ps.
+-  'make -fpc/makefile.tc'
+-  if that works, try 'make -fpc/makefile.tc install'.
+-  change to another directory (to avoid using the Unix config.ps)
+   and then try to run dvips!
+
+For djgpp:
+-  edit paths and directories in pc/makefile.gcc and pc/config.ps.
+-  'ndmake -f pc/makefile.gcc'
+-  if that works, try 'ndmake -f pc/makefile.gcc install'.
+-  change to another directory (to avoid using the Unix config.ps)
+   and then try to run dvips386!
+-  This version of dvips has not been tested thoroughly.
+   Since DJ's GCC port to DOS is used, see the djgpp documentation
+   for details of the DOS extender.  Be careful of interrupt clashes
+   with djgpp.
+
+If you have MS-DOS ZIP files, they will contain a compiled version of dvips.  
+
+To install this in the emTeX directories on drive C:, use 
+        pkunzip -d -o dvips* c:\
+
+The MSDOS version of dvips differs from the description in
+dvips.1 in the following ways:
+- path separators are ';' not ':'
+- directory separators are '\' not '/'
+- The user's initialization file is "dvips.ini" not ".dvipsrc".
+- pipes to printers not supported.  Output must go to a file.
+- MakeTeXPk is a batch file.  Since MSDOS has insufficient memory
+  to run both dvips and Metafont at the same time, this batch file
+  will typically write out a set of commands for running Metafont
+  later.  The maketexp.bat supplied writes out an mfjob file for emTeX.
+- limited emTeX specials.  The following ones are supported:
+  \special{em:message xxx}
+  \special{em:point n}
+  \special{em:line a[h|v|p],b[h|v|p] [,width]}
+  \special{em:linewidth width}
+  \special{em:moveto}
+  \special{em:lineto}
+  The \special{em:graph xxx} is not supported.  The line cut parameters
+  [h|v|p] of the \special{em:line ...} command are ignored.  Lines are
+  ended with a rounded cap.
+  A maximum of 1613 different point numbers are permitted on each page.
+
+See the config.ps file for other changes.
+
+If you want to use a different directory arrangement, modify the
+paths in config.ps.  If you want to store config.ps or psfonts.map
+in a different place, either recompile dvips or use the environment
+variable TEXCONFIG.
+
+The program dvips can use emTeX font libraries created with the 
+fontlib /2 option.  PXL fonts within font libraries will be ignored.
+
+Borland C++ gives a large number of 'possible incorrect assignment'
+warnings.  
+
+If you run out of memory running dvips, try using the `-Z0 -a' or
+just the `-a' command line options.

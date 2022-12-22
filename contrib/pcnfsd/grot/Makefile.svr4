@@ -1,0 +1,88 @@
+# RE_SID: @(%)/tmp_mnt/vol/dosnfs/shades_SCCS/unix/pcnfsd/v2/src/SCCS/s.Makefile.svr4 1.1 93/01/29 17:51:15 SMI
+#
+#       @(#)Makefile.svr4	1.1     1/29/93
+#
+# Makefile for rpc.pcnfsd for Solaris 2.X or similar
+#
+
+
+all: svr4/rpc.pcnfsd svr4/clnt.pcnfsd
+
+SVR_OBJS=  \
+	svr4/pcnfsd_svc.o \
+	svr4/pcnfsd_xdr.o \
+	svr4/pcnfsd_v1.o \
+	svr4/pcnfsd_v2.o \
+	svr4/pcnfsd_misc.o \
+	svr4/pcnfsd_cache.o \
+	svr4/pcnfsd_print.o
+
+SVR_SRCS=  \
+	pcnfsd_svc.c \
+	pcnfsd_xdr.c \
+	pcnfsd_v1.c \
+	pcnfsd_v2.c \
+	pcnfsd_misc.c \
+	pcnfsd_cache.c \
+	pcnfsd_print.c
+
+TST_OBJS= \
+	svr4/pcnfsd_clnt.o \
+	svr4/pcnfsd_test.o \
+	svr4/pcnfsd_xdr.o
+
+TST_SRCS= \
+	pcnfsd_clnt.c \
+	pcnfsd_test.c \
+	pcnfsd_xdr.c
+
+HDRS= pcnfsd.h common.h
+
+LINTFLAGS= -hbax
+# uncomment as appropriate for debugging
+CFLAGS = -DOSVER_SOLARIS2X
+#CFLAGS = -g -DDEBUG -DOSVER_SUNOS41
+LIBS= -lrpcsvc -lsocket -lnsl
+LFLAGS = -L/usr/lib -Xt
+
+svr4/rpc.pcnfsd: $(SVR_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(SVR_OBJS) $(LIBS)
+
+svr4/pcnfsd_svc.o: $(HDRS) pcnfsd_svc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_svc.c
+
+svr4/pcnfsd_xdr.o: $(HDRS) pcnfsd_xdr.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_xdr.c
+
+svr4/pcnfsd_v1.o: $(HDRS) pcnfsd_v1.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v1.c
+
+svr4/pcnfsd_v2.o: $(HDRS) pcnfsd_v2.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v2.c
+
+svr4/pcnfsd_misc.o: $(HDRS) pcnfsd_misc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_misc.c
+
+svr4/pcnfsd_cache.o: $(HDRS) pcnfsd_cache.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_cache.c
+
+svr4/pcnfsd_print.o: $(HDRS) pcnfsd_print.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_print.c
+
+
+svr4/clnt.pcnfsd: $(TST_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(TST_OBJS) $(LIBS)
+
+svr4/pcnfsd_clnt.o: $(HDRS) pcnfsd_clnt.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_clnt.c
+
+svr4/pcnfsd_test.o: $(HDRS) pcnfsd_test.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_test.c
+
+
+lint: $(SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(SVR_SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(TST_SRCS)
+
+clean:
+	rm -rf svr4

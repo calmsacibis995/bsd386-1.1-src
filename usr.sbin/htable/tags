@@ -1,0 +1,50 @@
+Mhtable	htable.c	/^main(argc, argv)$/
+UC	htable.c	/^#define	UC(b)	(((int)(b))&0xff)$/
+YY_FATAL_ERROR	scan.c	/^#define YY_FATAL_ERROR(msg) yy_fatal_error( msg )$/
+YY_INPUT	scan.c	/^#define YY_INPUT(buf,result,max_size) \\$/
+YY_PROTO	scan.c	/^#define YY_PROTO(proto) proto$/
+YY_SC_TO_UI	scan.c	/^#define YY_SC_TO_UI(c) ((unsigned int) (unsigned c/
+YY_STATE_EOF	scan.c	/^#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + st/
+addlocal	htable.c	/^addlocal(arg, nets)$/
+connectedto	htable.c	/^connectedto(net)$/
+copycomments	htable.c	/^copycomments(in, out, ccount)$/
+copygateways	htable.c	/^copygateways(filename)$/
+copylocal	htable.c	/^copylocal(f, filename)$/
+do_entry	htable.c	/^do_entry(keyword, addrlist, namelist, cputype, ops/
+dogateways	htable.c	/^dogateways()$/
+freeaddrs	htable.c	/^freeaddrs(list)$/
+freenames	htable.c	/^freenames(list)$/
+gatewayto	htable.c	/^gatewayto(net)$/
+gethostaddr	htable.c	/^gethostaddr(name, addr)$/
+getnetaddr	htable.c	/^getnetaddr(name, addr)$/
+local	htable.c	/^local(net)$/
+lower	htable.c	/^lower(str)$/
+newname	htable.c	/^newname(str)$/
+printgateway	htable.c	/^printgateway(net, name, metric)$/
+putaddr	htable.c	/^putaddr(f, v)$/
+putnet	htable.c	/^putnet(f, v)$/
+savegateway	htable.c	/^savegateway(namelist, net, addr, metric)$/
+unput	scan.c	/^#define unput(c) yyunput( c, yytext_ptr )$/
+usage	htable.c	/^usage()$/
+yy_create_buffer	scan.c	/^YY_BUFFER_STATE yy_create_buffer( file, size )$/
+yy_delete_buffer	scan.c	/^void yy_delete_buffer( b )$/
+yy_fatal_error	scan.c	/^static void yy_fatal_error( msg )$/
+yy_flex_alloc	scan.c	/^static void *yy_flex_alloc( size )$/
+yy_flex_free	scan.c	/^static void yy_flex_free( ptr )$/
+yy_flex_realloc	scan.c	/^static void *yy_flex_realloc( ptr, size )$/
+yy_flex_strcpy	scan.c	/^static void yy_flex_strcpy( s1, s2 )$/
+yy_get_next_buffer	scan.c	/^static int yy_get_next_buffer()$/
+yy_get_previous_state	scan.c	/^static yy_state_type yy_get_previous_state()$/
+yy_init_buffer	scan.c	/^void yy_init_buffer( b, file )$/
+yy_pop_state	scan.c	/^static void yy_pop_state()$/
+yy_push_state	scan.c	/^static void yy_push_state( new_state )$/
+yy_switch_to_buffer	scan.c	/^void yy_switch_to_buffer( new_buffer )$/
+yy_top_state	scan.c	/^static int yy_top_state()$/
+yy_try_NUL_trans	scan.c	/^static yy_state_type yy_try_NUL_trans( yy_current_/
+yyerror	parse.c	/^yyerror(msg)$/
+yyless	scan.c	/^#define yyless(n) \\$/
+yymore	scan.c	/^#define yymore() yymore_used_but_not_detected$/
+yyparse	parse.c	/^yyparse()$/
+yyrestart	scan.c	/^void yyrestart( input_file )$/
+yyterminate	scan.c	/^#define yyterminate() return YY_NULL$/
+yyunput	scan.c	/^static void yyunput( c, yy_bp )$/

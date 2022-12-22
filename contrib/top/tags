@@ -1,0 +1,89 @@
+EP	machine.c	/^#define EP(pp, field) ((pp)->kp_eproc . field)$/
+ERR	getopt.c	/^#define ERR(s, c)	if(opterr){\\$/
+ERROR	commands.c	/^#define ERROR(p, e) if (errcnt >= ERRMAX) \\$/
+FD_SET	top.c	/^#define FD_SET(f, x)   (*(x) = f)$/
+FD_ZERO	top.c	/^#define FD_ZERO(x)     (*(x) = 0)$/
+Mtop	top.c	/^main(argc, argv)$/
+PP	machine.c	/^#define PP(pp, field) ((pp)->kp_proc . field)$/
+PROCSIZE	machine.c	/^#define PROCSIZE(pp) (VP((pp), vm_tsize) \\$/
+Smask	top.c	/^#define Smask(s)	(1 << ((s) - 1))$/
+VP	machine.c	/^#define VP(pp, field) ((pp)->kp_eproc.e_vm . field/
+argparse	utils.c	/^char **argparse(line, cntp)$/
+atoiwi	utils.c	/^int atoiwi(str)$/
+check_nlist	machine.c	/^int check_nlist(nlst)$/
+clear	screen.c	/^clear()$/
+clear_eol	screen.c	/^clear_eol(len)$/
+clear_message	display.c	/^clear_message()$/
+digits	utils.c	/^int digits(val)$/
+display_header	display.c	/^display_header(t)$/
+display_init	display.c	/^int display_init(statics)$/
+end_screen	screen.c	/^end_screen()$/
+enter_user	username.c	/^int enter_user(uid, name, wecare)$/
+err_compar	commands.c	/^err_compar(p1, p2)$/
+err_string	commands.c	/^char *err_string()$/
+errmsg	utils.c	/^char *errmsg(errnum)$/
+error_count	commands.c	/^error_count()$/
+format_header	machine.c	/^char *format_header(uname_field)$/
+format_next_process	machine.c	/^char *format_next_process(handle, get_userid)$/
+get_process_info	machine.c	/^caddr_t get_process_info(si, sel, compare)$/
+get_system_info	machine.c	/^get_system_info(si)$/
+get_user	username.c	/^int get_user(uid)$/
+getkval	machine.c	/^getkval(offset, ptr, size, refstr)$/
+getopt	getopt.c	/^getopt(argc, argv, opts)$/
+go_home	screen.c	/^go_home()$/
+hashit	username.c	/^#define    hashit(i)	((i) % Table_size)$/
+i_cpustates	display.c	/^i_cpustates(states)$/
+i_header	display.c	/^i_header(text)$/
+i_loadave	display.c	/^i_loadave(mpid, avenrun)$/
+i_memory	display.c	/^i_memory(stats)$/
+i_message	display.c	/^i_message()$/
+i_process	display.c	/^i_process(line, thisline)$/
+i_procstates	display.c	/^i_procstates(total, brkdn)$/
+i_timeofday	display.c	/^i_timeofday(tod)$/
+init_hash	username.c	/^init_hash()$/
+init_screen	screen.c	/^init_screen()$/
+init_termcap	screen.c	/^init_termcap()$/
+is_empty_hash	username.c	/^#define    is_empty_hash(x)	(hash_table[x].name[0]/
+itoa	utils.c	/^char *itoa(val)$/
+itoa7	utils.c	/^char *itoa7(val)$/
+kill_procs	commands.c	/^char *kill_procs(str)$/
+leave	top.c	/^sigret_t leave()	\/* exit under normal conditions /
+line_update	display.c	/^static void line_update(old, new, start, line)$/
+machine_init	machine.c	/^machine_init(statics)$/
+new_message	display.c	/^new_message(type, msgfmt, a1, a2, a3)$/
+next_field	commands.c	/^char *next_field(str)$/
+onalrm	top.c	/^sigret_t onalrm()	\/* SIGALRM handler *\/$/
+pagetok	machine.c	/^#define pagetok(size) ((size) << pageshift)$/
+percentages	utils.c	/^long percentages(cnt, out, new, old, diffs)$/
+printable	display.c	/^char *printable(str)$/
+proc_compare	machine.c	/^proc_compare(pp1, pp2)$/
+proc_owner	machine.c	/^int proc_owner(pid)$/
+putstdout	screen.c	/^putstdout(ch)$/
+quit	top.c	/^void quit(status)		\/* exit under duress *\/$/
+readline	display.c	/^readline(buffer, size, numeric)$/
+reinit_screen	screen.c	/^reinit_screen()$/
+renice_procs	commands.c	/^char *renice_procs(str)$/
+reset_display	top.c	/^reset_display()$/
+scanint	commands.c	/^scanint(str, intp)$/
+show_errors	commands.c	/^show_errors()$/
+show_help	commands.c	/^show_help()$/
+standout	screen.c	/^standout(msg)$/
+str_addarg	commands.c	/^str_addarg(str, len, arg, first)$/
+str_adderr	commands.c	/^str_adderr(str, len, err)$/
+strecpy	utils.c	/^char *strecpy(to, from)$/
+string_count	display.c	/^static int string_count(pp)$/
+summary_format	display.c	/^static void summary_format(str, numbers, names)$/
+tstop	top.c	/^sigret_t tstop()	\/* SIGTSTP handler *\/$/
+u_cpustates	display.c	/^u_cpustates(states)$/
+u_endscreen	display.c	/^u_endscreen(hi)$/
+u_header	display.c	/^u_header(text)$/
+u_loadave	display.c	/^u_loadave(mpid, avenrun)$/
+u_memory	display.c	/^u_memory(stats)$/
+u_message	display.c	/^u_message()$/
+u_process	display.c	/^u_process(line, newline)$/
+u_procstates	display.c	/^u_procstates(total, brkdn)$/
+userid	username.c	/^int userid(username)$/
+username	username.c	/^char *username(uid)$/
+version_string	version.c	/^char *version_string()$/
+weighted_cpu	machine.c	/^#define weighted_cpu(pct, pp) (PP((pp), p_time) ==/
+z_cpustates	display.c	/^z_cpustates()$/

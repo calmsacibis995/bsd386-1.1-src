@@ -1,0 +1,17 @@
+F AP_KEYSY.GZ;1                     	ap_keysym.h.gz
+D BITMAPS                           	bitmaps
+F DECKEYSY.GZ;1                     	DECkeysym.h.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F KEYSYMDE.GZ;1                     	keysymdef.h.gz
+F KEYSYM_H.GZ;1                     	keysym.h.gz
+F SUNKEYSY.GZ;1                     	Sunkeysym.h.gz
+F XATOM_H.GZ;1                      	Xatom.h.gz
+F XFUNCPRO.GZ;1                     	Xfuncproto.h.gz
+F XFUNCS_H.GZ;1                     	Xfuncs.h.gz
+F XMD_H.GZ;1                        	Xmd.h.gz
+F XOSDEFS_.GZ;1                     	Xosdefs.h.gz
+F XOS_H.GZ;1                        	Xos.h.gz
+F XPROTOST.GZ;1                     	Xprotostr.h.gz
+F XPROTO_H.GZ;1                     	Xproto.h.gz
+F XWDFILE_.GZ;1                     	XWDFile.h.gz
+F X_H.GZ;1                          	X.h.gz

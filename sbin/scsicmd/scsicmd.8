@@ -1,0 +1,362 @@
+.\" Copyright (c) 1992 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\" 	$Id: scsicmd.8,v 1.3 1994/01/03 00:21:52 polk Exp $
+.\"
+.Dd April 6, 1992
+.Os BSD/386
+.Dt SCSICMD 8
+.Sh NAME
+.Nm scsicmd
+.Nd SCSI disk labeller and diagnostic
+.Sh SYNOPSIS
+.Nm scsicmd
+.Op Fl f Ar device
+.Fl l
+.Nm scsicmd
+.Fl a Ar asc/ascq
+.Nm scsicmd
+.Op Fl f Ar device
+.Fl c Ar command
+.Op Fl P Ar parameter=value,\|.\|.\|.
+.Op Fl d
+.Op Fl p Ar parameter,\|.\|.\|.
+.Op Fl v Ar parameter,\|.\|.\|.
+.Op Fl x
+.\"
+.Sh DESCRIPTION
+The first form of the
+.Nm scsicmd
+command is used to generate a default disk label for a SCSI disk,
+sending requests to the drive to determine its geometry.
+The second form provides a convenient translation service
+for ASC and ASCQ codes produced by the SCSI driver.
+The last form is used to run SCSI commands
+on a specified device as a diagnostic.
+With the second form, options may be repeated
+and their order is significant.
+The options are as follows:
+.Bl -tag -width Ds
+.\"
+.It Fl f
+Open the named
+.Ar device
+file for SCSI operations.
+When repeated, the current device is closed
+and the new one is opened.
+If the environment variable
+.Ev SCSI
+is set, the program performs an implicit
+.Fl f Ar $SCSI
+when it starts up.
+.\"
+.It Fl l
+Probe a SCSI disk for its geometry parameters
+and send an ASCII version of a disk label to the standard output.
+.Nm Scsicmd
+is generally very conservative in its assumptions,
+especially when dealing with cylinder and sector/track counts.
+Commentary on the progress of probing
+appears on the standard error.
+If
+.Nm scsicmd
+can't elucidate particular drive parameters, it will prompt for them.
+.\"
+.It Fl a
+For a given ASC or ASC/ASCQ code,
+print an English translation from the SCSI-2 standard.
+The ASC should be a number in C notation (decimal, octal or hex);
+if an ASCQ is provided, it should be appended to the ASC after a slash.
+.\"
+.It Fl c
+Set the current SCSI
+.Ar command .
+Parameter lists which follow are
+interpreted in the context of this command.
+The special command
+.Ar all
+lists all of the available commands
+(in parentheses following their descriptions);
+it does not set the command context.
+The
+.Fl c
+flag may be repeated to change the command context.
+.\"
+.It Fl P
+Set
+.Ar parameters
+to
+.Ar values .
+Parameters are named fields in SCSI data structures.
+A
+.Ar parameter=value
+pair sets a field in a SCSI data structure
+to the specified value, given in decimal, hex or octal
+using C notation.
+Values wider than a byte are translated to big-endian byte order.
+High bits are truncated to make values fit.
+If the
+.Ar =value
+is omitted, a value of 1 is assumed.
+Multiple parameter/value pairs may be entered
+separated by commas.
+Certain fields are specified in the SCSI standard
+as containing strings rather than numbers;
+the value for such a parameter is treated as a string.
+.\"
+.It Fl d
+Print numeric parameters in decimal (the default).
+.\"
+.It Fl p
+Execute a command and print the resulting parameters
+using the comma-separated parameter list.
+The special parameter
+.Ar all
+prints all of the named fields associated with the current command.
+The special parameter
+.Ar none
+inhibits printing; this is useful for commands
+which don't return any data.
+A parameter which matches the name of a buffer page (see below)
+will cause parameters in that page to be printed.
+If no
+.Fl p
+or
+.Fl v
+flag is given,
+.Nm scsicmd
+performs an implicit
+.Fl p Ar none
+after processing all its arguments.
+.\"
+.It Fl v
+Verify fields without executing a command.
+This is useful for getting lists of parameter or buffer page names.
+The special parameter
+.Ar all
+prints all of the named fields associated with the current command.
+The special parameter
+.Ar pages
+prints just the names of the individual buffer pages.
+A parameter which matches the name of a buffer page
+will cause parameters in that page to be printed.
+.\"
+.It Fl x
+Print numeric fields in hexadecimal.
+This flag may be alternated with
+.Fl d
+to change printing format dynamically.
+.\"
+.El
+.\"
+.Pp
+When
+.Nm scsicmd
+is used as a diagnostic,
+its arguments are treated as a small interpreted language.
+A
+.Fl c
+flag sets the context, then subsequent
+.Fl P
+and
+.Fl p
+flags set and obtain values, respectively.
+More than one
+.Fl c
+flag may be used so that more than one
+SCSI command can be issued with a single invocation of
+.Nm scsicmd .
+Arguments are processed sequentially from left to right.
+.Pp
+Each command is associated with one or more named buffer pages.
+Buffer pages contain the bits which
+are sent to and retrieved from the SCSI device.
+The SCSI CDB is always the first buffer page and always has the name
+.Em cdb .
+Other pages are specific to the command.
+Some pages have a variable length that
+depends on an internal field returned from the device;
+.Nm scsicmd
+will not print fields which are outside the page length.
+.Pp
+Each buffer page contains a number of named fields.
+.Nm Scsicmd
+inserts and extracts values from these fields
+and provides names and descriptions.
+Most fields contain numbers;
+these are printed in decimal or hex.
+Some fields contain strings, which are stripped of trailing blanks
+and otherwise printed literally.
+Some numeric fields are translated into English phrases for clarity;
+for example, sense keys are looked up in a table
+so that a value of
+.Dq 5
+is printed as
+.Dq "illegal request" .
+Field names and page names are generally constructed
+by using either the abbreviation chosen by the SCSI standard
+or an acronym built from the first letters
+of a multi-word description in the standard.
+Internally,
+.Nm scsicmd
+represents pages and parameters as
+large tables of offsets, sizes and names.
+To add support for new commands,
+it is necessary to install a new table
+and sometimes add some code for printing fields specially.
+.Pp
+.Nm Scsicmd
+handles one pair of SCSI commands specially.
+The
+.Em "mode sense
+.Em ( msen )
+and
+.Em "mode select
+.Em ( msel )
+commands share buffer pages,
+to make it easy to get a page,
+modify it, and write it back out.
+.Pp
+The underlying mechanism used by
+.Nm scsicmd
+is a set of SCSI driver
+.Xr ioctl 2
+calls.
+The program places the driver in
+.Dq "format mode" ,
+submits a command descriptor block using
+.Fn ioctl ,
+performs a
+.Xr read 2
+or
+.Xr write 2
+to execute the command and transfer any data,
+then terminates format mode.
+.\"
+.Sh ENVIRONMENT
+.Bl -tag -width Fl
+.It Ev SCSI
+The default device filename.
+It may be overridden with
+.Fl f .
+.El
+.\"
+.Sh EXAMPLES
+How to label a SCSI disk:
+.Bd -literal -offset Ds
+# scsicmd -f /dev/rsd0c -l > /etc/label.sd0
+Scanning for logical cylinder sizes...
+Zone 1: 1626 cylinders, 427 sectors per cylinder
+Total number of logical cylinders found in scan (1626)
+differs from reported drive parameters (1629+3);
+assuming 1626+6 cylinders for disk label.
+# disklabel -R -r sd0 /etc/label.sd0 \e
+    /usr/bootstraps/ahaboot /usr/bootstraps/bootaha
+.Ed
+.Pp
+How to translate ASC/ASCQ codes:
+.Bd -literal -offset Ds
+# scsicmd -a 0x11/0xc
+unrecovered read error, recommend rewrite the data
+.Pp
+How to read the disk format device page:
+.Bd -literal -offset Ds
+# scsicmd -f /dev/rsd0c -c msen -P pcode=3 -p dfdp
+parameters saveable (ps):                                     1
+mode page code (mpcode):                                      3
+mode page length (mpl):                                      22
+tracks per zone (tpz):                                        8
+alternate sectors per zone (aspz):                            5
+alternate tracks per zone (atpz):                             0
+alternate tracks per logical unit (atplu):                   24
+sectors per track (spt):                                     54
+data bytes per physical sector (dbpps):                     512
+interleave (il):                                              1
+track skew factor (tsf):                                      0
+cylinder skew factor (csf):                                  16
+soft sectoring enable control (ssec):                         0
+hard sectoring enable control (hsec):                         1
+removable media (rmb):                                        0
+surfaces instead of cylinders (surf):                         0
+.Ed
+.\"
+.Sh DIAGNOSTICS
+Among its many messages about consistency of arguments and so on,
+.Nm scsicmd
+will print
+.Dq "can't enable SCSI command mode
+when it isn't run as root,
+and will print a message beginning
+.Dq "scsi status:
+if a command fails for some reason.
+.\"
+.Sh SEE ALSO
+.Xr sd 4 ,
+.Xr st 4 ,
+.Xr disklabel 8
+.\"
+.Sh STANDARDS
+American National Standard X3.131-1986,
+Small Computer System Interface (SCSI-1)
+.Pp
+American National Standard X3.131-1991 (SCSI-2)
+.\"
+.Sh HISTORY
+Inspired by the
+.Nm scsiinfo
+program by Van Jacobson of Lawrence Berkeley Laboratories.
+.\"
+.Sh AUTHORS
+Donn Seeley, BSDI
+.\"
+.Sh BUGS
+A live, busy disk can run into trouble if
+.Nm scsicmd
+is executed on it.
+Try to run
+.Nm scsicmd
+only when the system is single-user or quiescent.
+.Pp
+Currently there is no way to select a target independently
+from a device.
+This means that it is impossible to access unconfigured targets.
+.Pp
+If you want to use the diagnostic mode,
+you generally must start with a copy of the SCSI standard.
+The meanings of the various fields are
+described only in that document.
+.Pp
+Tape devices in diagnostic mode don't always do what you expect.
+You must have a tape loaded when you run
+.Nm scsicmd ,
+and the driver can execute a couple of
+.Em "mode sense
+and/or
+.Em "mode select
+commands before turning over control to
+.Nm scsicmd .
+.Pp
+Command and parameter abbreviations are ugly.
+The rules are inconsistent because of the need to
+reduce ambiguity.
+It was felt that acronyms were less awkward
+than using minimal string abbreviations
+of multi-word field names.
+.Pp
+There is no way to access host adapter commands,
+hence it isn't possible to alter the DMA burst rate
+and other host adapter parameters.
+.Pp
+The parameter tables are compiled in,
+rather than read in from a file.
+.Pp
+The driver permits only a certain small subset
+of all the SCSI commands.
+.Pp
+String values in
+.Fl P
+can't contain commas.
+.Pp
+.Fl p Ar none
+is kinda clumsy.

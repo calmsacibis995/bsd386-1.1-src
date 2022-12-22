@@ -1,0 +1,3 @@
+     readonly [ name[=value] ] ...
+          The given names are marked readonly; these names cannot
+          be changed by subsequent assignment.

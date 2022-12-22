@@ -1,0 +1,17 @@
+F ACU.C;1                           	acu.c
+F ACUTAB.C;1                        	acutab.c
+F CLOCAL.C;1                        	clocal.c
+F HUNT.C;1                          	hunt.c
+F IFCONFIG.C;1                      	ifconfig.c
+F LOG.C;1                           	log.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/ppp
+F PATHNAME.H;1                      	pathnames.h
+F PPP.8;1                           	ppp.8
+F PPP.C;1                           	ppp.c
+F PPP.H;1                           	ppp.h
+F PPP_SYS.5;1                       	ppp.sys.5
+F READSYS.C;1                       	readsys.c
+F SYS.;1                            	SYS
+F TAGS.;1                           	tags
+F TERMCAP.C;1                       	termcap.c

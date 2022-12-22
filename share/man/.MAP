@@ -1,0 +1,11 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEWHAT.;1                       	makewhatis
+F MAKEWHAT.PER;1                    	makewhatis.perl
+F MAKEWHAT.SED;1                    	makewhatis.sed
+D MAN0                              	man0
+D MAN1                              	man1
+D MAN3                              	man3
+D MAN4                              	man4
+D MAN5                              	man5
+D MAN7                              	man7
+D MAN8                              	man8

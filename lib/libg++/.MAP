@@ -1,0 +1,7 @@
+F CPP2.;1                           	cpp2
+D D                                 	D
+D GENCLASS                          	genclass
+D G___INCL                          	g++-include
+D LIBG__                            	libg++
+F MAKEFILE.;1                       	Makefile
+F MKDEP2.;1                         	mkdep2

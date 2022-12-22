@@ -1,0 +1,31 @@
+Mfile	file.c	/^main(argc, argv)$/
+STREQ	ascmagic.c	/^#define	STREQ(a, b)	(*(a) == *(b) && strcmp((a), (/
+SZOF	print.c	/^#define SZOF(a)	(sizeof(a) \/ sizeof(a[0]))$/
+apprentice	apprentice.c	/^apprentice(fn, check)$/
+ascmagic	ascmagic.c	/^ascmagic(buf, nbytes)$/
+ckfprintf	print.c	/^ckfprintf(va_alist)$/
+ckfputs	print.c	/^ckfputs(str, fil) 	$/
+error	print.c	/^error(va_alist)$/
+from_oct	is_tar.c	/^from_oct(digs, where)$/
+fsmagic	fsmagic.c	/^fsmagic(fn, sb)$/
+getstr	apprentice.c	/^getstr(s, p, plen, slen)$/
+getvalue	apprentice.c	/^getvalue(m, p)$/
+hextoint	apprentice.c	/^hextoint(c)$/
+is_tar	is_tar.c	/^is_tar(buf, nbytes)$/
+isodigit	is_tar.c	/^#define	isodigit(c)	( ((c) >= '0') && ((c) <= '7')/
+magwarn	print.c	/^magwarn(va_alist)$/
+match	softmagic.c	/^match(s, nbytes)$/
+mcheck	softmagic.c	/^mcheck(p, m)$/
+mconvert	softmagic.c	/^mconvert(p, m)$/
+mdebug	softmagic.c	/^mdebug(offset, str, len)$/
+mdump	print.c	/^mdump(m)$/
+mget	softmagic.c	/^mget(p, s, m, nbytes)$/
+mprint	softmagic.c	/^mprint(p, m)$/
+parse	apprentice.c	/^parse(l, ndx, check)$/
+process	file.c	/^process(inname, wid)$/
+showstr	apprentice.c	/^showstr(fp, s, len)$/
+softmagic	softmagic.c	/^softmagic(buf, nbytes)$/
+tryit	file.c	/^tryit(buf, nb, zflag)$/
+uncompress	compress.c	/^uncompress(method, old, newch, n)$/
+unwrap	file.c	/^unwrap(fn)$/
+zmagic	compress.c	/^zmagic(buf, nbytes)$/

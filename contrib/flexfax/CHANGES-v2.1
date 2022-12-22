@@ -1,0 +1,217 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/CHANGES-v2.1,v 1.1.1.1 1994/01/14 23:09:25 torek Exp $
+
+FlexFAX Software "Release" 2.1.0
+
+FlexFAX, Version 2.1.0 (changes since 2.0 beta)
+-----------------------------------------------
+
+o the configure script has been extensively reworked; it now is capable of
+  reconfiguring the majority of the builtin pathnames and parameters that
+  must be specified at compile time
+o the configure script now checks what version of C++ is installed on
+  an SGI system and sets up the -v2 flag (to get the 2.1 compiler under
+  C++ 3.0) as necessary
+o a new file MODEMS contains the current wisdom about modems that have
+  been tried with this software
+
+Changes in the port tree:
+    o the sun4 directory has been renamed sun since both sun3 and sun4
+      machines are handled
+    o support for BSDi Gamma 4 is now included
+    o support for 386bsd 0.1 is now included
+    o support for SVR4 on a 386/486 is now included
+    o support for Solaris 2.x is now included
+    o a new generic directory has been added for "default" portability
+      stuff
+
+Changes to faxd:
+    o there is a new driver for modems that support the Class 1 programming
+      interface (EIA/TIA-578, November 1990)
+    o all modem-specific command sequences are now specified by configuration
+      parameters in the server's configuration file; see ModemConfig.h and
+      config(4F) for details
+    o the fax modem driver class hierarchy has been reorganized to move
+      more common functionality into the base class and to make all the
+      modem drivers more alike
+    o there are two new tracing controls: for HDLC frames, and for binary
+      I/O (e.g. for Class 1 modems)
+    o the use of the "@" symbol in dialing has been parameterized (use the
+      ModemDialCmd configuration parameter) and a workaround for the ZyXEL's
+      failure to properly implement this is provided (check out the parameter
+      NoCarrierRetrys in config(4F))
+    o the expected bit order of sent and received facsimile data can now
+      be configured independently through the ModemSendFillOrder and
+      ModemRecvFillOrder configuration parameters
+    o all the modem drivers now correctly renegotiate session parameters
+      as required on page boundaries; doing so, however, requires that the
+      modem be capable of doing this (certain Class 2 modems are not)
+    o the send logic in the modem drivers will not retry the sending of
+      a single page more than 3 times (this insures any bugs in the server
+      or modem will not cause repeated transmissions)
+    o all the modem drivers handle negative acknowledgements with or
+      without retraining; unacceptable received page data is overwritten
+      with retransmitted data
+    o the logic used for doing modem resets is very different and, hopefully,
+      more robust
+    o the modem initialization strategy will now make use of the ATI4
+      query to deduce the set of possible DCE-DTE baud rates (if this
+      command is not supported, the driver falls back on the usual
+      strategy)
+    o it is now possible to supply a "modem type hint" that is used when
+      faxd tries to figure out what kind of modem it's working with
+    o different send+receive DTE-DCE baud rates are now supported; this
+      is important for some modems that lock the receive rate no matter
+      what the current rate is
+    o the accounting file format has been changed to include more information
+      (signalling rate, protocol, reason for failure) and to make it easier
+      to parse with awk (all fields are now tab-separated)
+    o the TSI qualification mechanism has been extended: pattern files
+      are now specified in the configuration file so it's possible, for
+      example, to have different modems use different pattern files
+    o the server does a better job of dealing with non-USA page sizes
+      (hopefully it supports ISO A4, B4, and any other page size that
+      can be specified within T.30)
+    o many configuration parameters have been removed and/or replaced
+      by the new configuration scheme; in particular, UseToneDialing and
+      DialPrefix
+    o the server now rereads the configuration file if it has changed
+      before each time that it configures a modem; this makes it possible,
+      for example, to edit the config file and have it noticed the next
+      time a send is done
+    o POSIX and BSD-style signals are now automatically used if available
+    o support for interfacing directly with system getty programs is now
+      used in place of the builtin getty emulation
+    o support for BSD-style and SVR4-style uucp lock files has been added
+    o a bug that resulted in the tty device mode and ownership being
+      left set wrong after a System V getty process was invoked has been
+      fixed
+    o a bug that caused faxd to leave the tty device mode and ownership
+      set wrong when it exited has been fixed
+    o various uucp lock file-related configuration parameters have been
+      moved from util/config.h to the defs file
+    o unsent files are now returned to the sender by mail along with a
+      copy of the trace log
+
+    o a bug was fixed in the Everex driver that caused the "+" character
+      in the CIG to be incorrectly translated
+    o some "corner cases" in the Group 3 protocol have been corrected
+      in the Everex modem driver
+    o the Everex modem driver has an improved training algorithm
+    o some code in the Everex driver that caused some versions of gcc to
+      dump core has been mangled into an acceptable format
+
+    o the Class 2 driver now works with both XON/XOFF and RTS/CTS flow
+      control schemes
+    o the Class 2 driver receive code now correctly counts the number
+      of lines in a received page
+    o the Class 2 driver now correctly sets recvDataTrigger to DC2 for
+      Rockwell RC32ACL model modems
+    o the tracing of HDLC frames in the Class 2 driver is now controlled by
+      the HDLC frame tracing flag (instead of the protocol tracing flag)
+    o a problem where the ZyXEL modem drops DCD too quickly has been
+      worked around in the Class 2 driver (at least best as can be done)
+    o more tracing messages have been added to the Class 2 driver
+
+Changes in the etc directory:
+    o a new faxaddmodem shell script does modem setup and configuration
+    o there are new prototype configuration files for the Supra v.32bis,
+      ZyXEL 1496E, Everex 24/96D, Telebit WorldBlazer, Digicom Scout+,
+      Multi-Tech 1432BAI, and Abaton 24/96 modems
+    o the skeletal configuration file (config.skel) is all different
+      because of its use by the faxaddmodem shell script
+    o Class 1 and Class 2-specific skeletal configuration files are used
+      instead of config.skel when feasible
+    o the faxsetup shell script is no longer used--it's functionality
+      has been incorporated into the faxaddmodem script
+
+Changes to faxd.recv:
+    o the etc/hosts file is now treated as a set of regular expression
+      patterns that are matched against the incoming host and user id
+    o a new checkPerm command was added to the protocol so that clients
+      can check send permission before sending data
+    o a new kill command was added to the protocol so that clients can
+      remove jobs and force unsent data to be returned to the sender
+      (this is the mechanism by which jobs that time out are dealt with)
+    o a bug was fixed whereby certain error messages were not returned
+      to the client before the server prematurely terminated
+
+Changes to sendfax:
+    o the type of input files is now deduced through a set of file type
+      identification rules; similarly the procedure for converting a file
+      to PostScript or TIFF is specified in this file
+    o the -A, -B, -L, and -W options have been added for specifying alternate
+      page dimensions
+    o the -r option has been added for use with faxcover
+    o the -v option has changed; one -v causes sendfax to trace local work;
+      a second -v option causes the protocol exchanges with faxd.recv to
+      be printed on the terminal
+    o sendfax is now more careful to do as much work as possible before
+      calling the remote server; in particular cover pages are now generated
+      before sending anything and sendfax will abort if a requested cover
+      page can not be generated
+    o a -f option was added so that suitably privileged users can override
+      the normal sender's identity (especially useful in building a mail
+      to fax gateway)
+
+Changes to faxcover:
+    o the system-wide prototype cover page file is now in the directory
+      /usr/local/lib/fax (or similar)
+    o a -r option was added for setting the "Re:" field in a cover page
+      (through the /regarding symbol)
+    o the cover page comments field is now broken up by faxcover.ps into
+      multiple lines
+    o the current date and time is now available for cover pages as
+      /todays-date
+    o the prototype cover page file is redesigned (thanks to Dave Ratcliffe
+      at SGI and to Brent Townshend for the PostScript code to wrap lines);
+      if you don't work for SGI you'll want to at least change/remove the
+      SGI logo
+
+Changes to faxmail:
+    o this program was totally rewritten; it now uses font metrics to
+      do page layout
+    o information is now included on how to build a simple email to fax
+      gateway using faxmail, sendfax, and sendmail.
+
+Changes to fax2ps:
+    o the code and code pair tables are now dynamically grown as needed
+    o a bug was fixed in the setup of the temp file used when reading
+      input from stdin
+    o the T.4 decoding code is now more robust in the face of corrupted
+      data
+
+Changes in the utility code:
+    o overlapped memory copies that were being done with memcpy are now
+      correctly done with memmove (ANSI C)
+    o the dit2fax and text2fax shell scripts are no longer needed because
+      of the new type rule support used by sendfax
+    o a new awk script, xferdest.awk, has been added; it process an
+      accounting file and prints a summary of fax jobs collected according
+      to destination phone number
+    o a bug in the FaxClient class that caused client programs such as
+      sendfax to prematurely terminate when getting an EPIPE has been fixed
+    o the library-specific fxAssert macro now uses its own _fxassert
+      function instead of the usual function _assert
+
+Changes to lptops:
+    o lptops is now installed in /usr/local/lib/fax to avoid conflicts
+      with other versions that may be installed on the system
+
+Changes in the doc directory:
+    o class1.txt is a new document from the Supra BBS that describes the
+      Class 1 command interface implemented for Rockwell chips
+    o class2.txt is a new document from the Supra BBS that describes the
+      Class 2 command interface implemented for Rockwell chips
+    o hayes.txt is a new document from the Hayes BBS that includes
+      interesting tidbits about certain commonly found AT commands
+    o Michael Shiels' Class 2 modem scoreboard has been updated
+    o suprainfo is a new file that contains info on contact Supra
+    o zyxel is a file that has info about ZyXEL modem firmware that used
+      to be in the toplevel README file
+    o modems-faq is a new document that answers many questions about modems
+
+Changes to the manual pages:
+    o on SGI systems preformatted manual pages are installed instead of
+      nroff/troff sources
+    o the log(4F) man page now has information on messages that may appear
+      in the log files (THIS PAGE IS CURRENTLY INCOMPLETE)

@@ -1,0 +1,17 @@
+F DOC_COMM.;1                       	doc-common
+F DOC_DITR.;1                       	doc-ditroff
+F DOC_NROF.;1                       	doc-nroff
+F DOC_SYMS.;1                       	doc-syms
+F FIXMACRO.SED;1                    	fixmacros.sed
+F MAKEFILE.SUB;1                    	Makefile.sub
+F MAN_LOCA.;1                       	man.local
+F MAN_ULTR.;1                       	man.ultrix
+F ME.MAN;1                          	me.man
+F MM_DIFF.;1                        	mm.diff
+F STRIP.SED;1                       	strip.sed
+F TMAC.AN;1                         	tmac.an
+F TMAC.AND;1                        	tmac.andoc
+F TMAC.DOC;1                        	tmac.doc
+F TMAC.E;1                          	tmac.e
+F TMAC.PSF;1                        	tmac.psfig
+F TODO.;1                           	TODO

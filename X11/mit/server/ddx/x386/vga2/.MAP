@@ -1,0 +1,6 @@
+F CONFIGVG.GZ;1                     	configvga2.sh.gz
+D DRIVERS                           	drivers
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MFB                               	mfb
+D MFB_BANK                          	mfb.banked
+D VGA                               	vga

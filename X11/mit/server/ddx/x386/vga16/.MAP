@@ -1,0 +1,8 @@
+F BUGS.GZ;1                         	BUGS.gz
+F CONFVGA1.GZ;1                     	confvga16.sh.gz
+D DRIVERS                           	drivers
+D IBM                               	ibm
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D MFB                               	mfb
+D MI                                	mi
+D VGA                               	vga

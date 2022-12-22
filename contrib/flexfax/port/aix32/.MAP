@@ -1,0 +1,8 @@
+F DEFS.GCC;1                        	defs.gcc
+D GCC_RELA                          	gcc-related
+F INSTALL.SH;1                      	install.sh
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.FLE;1                    	Makefile.flexfax
+F README.;1                         	README
+F STRCASEC.C;1                      	strcasecmp.c
+F VSYSLOG.C;1                       	vsyslog.c

@@ -1,0 +1,17 @@
+F CHANGES.GZ;1                      	CHANGES.gz
+D CONF                              	conf
+D CONFIG                            	config
+D DIST                              	dist
+D DOC                               	doc
+F FAQ.GZ;1                          	FAQ.gz
+D H                                 	h
+F MAKEFILE.GZ;1                     	Makefile.gz
+D MISCELLA                          	miscellany
+D MTS                               	mts
+D PAPERS                            	papers
+F PATCHLEV.GZ;1                     	Patchlevel.gz
+F READ_ME.GZ;1                      	READ-ME.gz
+D SBR                               	sbr
+D SUPPORT                           	support
+D UIP                               	uip
+D ZOTNET                            	zotnet

@@ -1,0 +1,6 @@
+Mfdformat	fdformat.c	/^main(argc, argv)$/
+dkcksum	../../sbin/disklabel/dkcksum.c	/^dkcksum(lp)$/
+format	fdformat.c	/^format(f, dp)$/
+genfid	fdformat.c	/^genfid(fid, dp, cyl, h)$/
+sorry	fdformat.c	/^sorry(char *fmt, ...) $/
+usage	fdformat.c	/^usage()$/

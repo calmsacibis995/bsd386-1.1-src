@@ -1,0 +1,209 @@
+/*
+ *  Make EXEC for dvips for VM/CMS.
+ *  by J. Hafner, HAFNER@ALMADEN or hafner@almaden.ibm.com
+ *  2/24/92.
+ *  Some additional customizations done based on comments from Michel
+ *  Goossens (goossens@cernvm) and Alessio Gugliemli (gugliemli@ipisnsib).
+*/
+
+/*
+ * First access all the necessary disks and libraries.
+ * YOU WILL NEED TO CUSTOMIZE THIS FOR YOUR SITE, PARTICULARLY THE 'GIME'
+ * LINES TO ACCESS THE C/370 PROGRAMS.
+ * (Commented commands are optional (I think).
+ */
+'EXEC GIME PRODUCT 387'
+'GLOBAL TXTLIB IBMLIB EDCBASE'
+'GLOBAL LOADLIB EDCLINK'
+/* 'SET CMSTYPE HT' */
+'FILEDEF EDC DISK EDCLINK LOADLIB *(PERM'
+/* 'NUCXDROP EDCXV'
+   'NUCXDROP EDCX24' */
+'NUCXLOAD EDCXV EDCXV EDC(SYSTEM'
+'NUCXLOAD EDCX24 EDCX24 EDC(SYSTEM'
+/* 'SET CMSTYPE RT' */
+
+
+
+/*
+ * If you want EMTEX specials, define the following.
+ * EMTEX = "DEF(EMTEX)"
+ */
+EMTEX = " "
+
+/*
+ * for SYSV (and friends (like C/370) which use <string.h> instead of
+ * <strings.h>) define the c-compiler flag
+ */
+SYS = "DEF(SYSV)"
+
+/*
+ * the default paper format, if other than letter. Not sure about syntax.
+ * DEFPFMT = 'DEF(DEFPFMT=\"a4\")'
+*/
+DEFPFMT = ' '
+
+/*
+ * Next we build up the PATHS, these are all null of course, but
+ * they are needed in 5.472 since paths.h doesn't predefine them
+ * anymore
+*/
+TFMPATH = 'TFMPATH=\" \" '
+PKPATH = 'PKPATH=\" \" '
+VFPATH = 'VFPATH=\" \" '
+FIGPATH = 'FIGPATH=\" \" '
+HEADERPATH = 'HEADERPATH=\" \" '
+CONFIGPATH = 'CONFIGPATH=\" \" '
+PATHS = "DEF("TFMPATH", "PKPATH", "VFPATH", "FIGPATH", "HEADERPATH", "CONFIGPATH")"
+
+/* Add a default configuration file */
+CONFIGFILE = 'DEF(CONFIGFILE=\"CONFIG.PS\")'
+
+/*
+ * add DEBUG to turn on debugging capability
+ * add TPIC for tpic support
+ * You must use VMCMS for this operating system.
+ * if the default resolution is not 300 dpi,
+ * add DEFRES=400 or whatever is required.
+*/
+DEFS = "DEF(VMCMS, TPIC, DEBUG, DEFRES=300)"
+
+/*
+ * For C/370, this suppresses the warnings with RC>=4,
+ * can also include OPT for optimizing the code or LONGNAME if you have
+ * version 2.1 or later.
+ */
+OPT = "FLAG(W)"
+
+CFLAGS = DEFS OPT SYS EMTEX DEFPFMT PATHS CONFIGFILE
+
+SRC = "dospecial.c dviinput.c fontdef.c loadfont.c dvips.c tfmload.c" ,
+    "download.c prescan.c scanpage.c skippage.c output.c scalewidth.c",
+    "dosection.c dopage.c resident.c search.c unpack.c drawPS.c",
+    "header.c makefont.c repack.c virtualfont.c dpicheck.c finclude.c",
+    "flib.c color.c papersiz.c pprescan.c bbox.c"
+
+OBJ = "dospecial.text dviinput.text fontdef.text loadfont.text",
+    "dvips.text tfmload.text download.text prescan.text scanpage.text",
+    "skippage.text output.text scalewidth.text dosection.text",
+    "dopage.text resident.text search.text unpack.text drawPS.text",
+    "header.text makefont.text repack.text virtualfont.text",
+    "dpicheck.text finclude.text flib.text color.text papersiz.text",
+    "pprescan.text bbox.text"
+
+CMODOBJ = "dospecial  dviinput  fontdef  loadfont",
+    "tfmload  download  prescan  scanpage",
+    "skippage  output  scalewidth  dosection",
+    "dopage  resident  search  unpack  drawPS",
+    "header  makefont  repack  virtualfont",
+    "dpicheck  finclude  flib  color  papersiz  pprescan  bbox"
+
+/*
+ * now that all the flags are set, we invoke the compiler on every
+ * .c file and then do the final linking for the DVIPS.MODULE
+ */
+
+say "CC dospecial ("CFLAGS
+    "CC dospecial ("CFLAGS
+say "CC dviinput ("CFLAGS
+    "CC dviinput ("CFLAGS
+say "CC fontdef ("CFLAGS
+    "CC fontdef ("CFLAGS
+say "CC loadfont ("CFLAGS
+    "CC loadfont ("CFLAGS
+say "CC dvips ("CFLAGS
+    "CC dvips ("CFLAGS
+say "CC tfmload ("CFLAGS
+    "CC tfmload ("CFLAGS
+say "CC download ("CFLAGS
+    "CC download ("CFLAGS
+say "CC prescan ("CFLAGS
+    "CC prescan ("CFLAGS
+say "CC scanpage ("CFLAGS
+    "CC scanpage ("CFLAGS
+say "CC skippage ("CFLAGS
+    "CC skippage ("CFLAGS
+say "CC output ("CFLAGS
+    "CC output ("CFLAGS
+say "CC scalewidth ("CFLAGS
+    "CC scalewidth ("CFLAGS
+say "CC dosection ("CFLAGS
+    "CC dosection ("CFLAGS
+say "CC dopage ("CFLAGS
+    "CC dopage ("CFLAGS
+say "CC resident ("CFLAGS
+    "CC resident ("CFLAGS
+say "CC search ("CFLAGS
+    "CC search ("CFLAGS
+say "CC unpack ("CFLAGS
+    "CC unpack ("CFLAGS
+say "CC drawPS ("CFLAGS
+    "CC drawPS ("CFLAGS
+say "CC header ("CFLAGS
+    "CC header ("CFLAGS
+say "CC makefont ("CFLAGS
+    "CC makefont ("CFLAGS
+say "CC repack ("CFLAGS
+    "CC repack ("CFLAGS
+say "CC virtualfont ("CFLAGS
+    "CC virtualfont ("CFLAGS
+say "CC dpicheck ("CFLAGS
+    "CC dpicheck ("CFLAGS
+say "CC finclude ("CFLAGS
+    "CC finclude ("CFLAGS
+say "CC flib ("CFLAGS
+    "CC flib ("CFLAGS
+say "CC color ("CFLAGS
+    "CC color ("CFLAGS
+say "CC papersiz ("CFLAGS
+    "CC papersiz ("CFLAGS
+say "CC pprescan ("CFLAGS
+    "CC pprescan ("CFLAGS
+say "CC bbox ("CFLAGS
+    "CC bbox ("CFLAGS
+
+/* Link Time, assuming the compiling worked OK */
+say "CMOD dvips "CMODOBJ
+    "CMOD dvips "CMODOBJ
+
+/* Time to build the header files */
+say "CC squeeze ("CFLAGS
+    "CC squeeze ("CFLAGS
+
+say "CMOD squeeze"
+    "CMOD squeeze"
+
+say "SQUEEZE tex.lpro tex.pro"
+    "SQUEEZE tex.lpro tex.pro"
+
+say "EXEC TEXC tex.lpro texc.lpro"
+    "EXEC TEXC tex lpro texc lpro"
+
+say "SQUEEZE texc.lpro texc.pro"
+    "SQUEEZE texc.lpro texc.pro"
+
+say "SQUEEZE texps.lpro texps.pro"
+    "SQUEEZE texps.lpro texps.pro"
+
+say "SQUEEZE special.lpro special.pro"
+    "SQUEEZE special.lpro special.pro"
+
+say "SQUEEZE finclude.lpro finclude.pro"
+    "SQUEEZE finclude.lpro finclude.pro"
+
+say "SQUEEZE color.lpro color.pro"
+    "SQUEEZE color.lpro color.pro"
+
+/* Time to build the AFM2TFM program */
+say "CC afm2tfm ("CFLAGS
+    "CC afm2tfm ("CFLAGS
+say "CMOD afm2tfm"
+    "CMOD afm2tfm"
+
+
+say "If you didn't get any compiler errors, then"
+say "I've completed creating all the necessary files and modules." ;
+say "You should check that the EXEC's supplied with the package run" ;
+say "correctly on your machine." ;
+
+exit

@@ -1,0 +1,14 @@
+F CONFIG_H.GZ;1                     	config.h.gz
+F DEBUGGE0.GZ;1                     	debugger.c.gz
+F DEBUGGE1.GZ;1                     	debugger.h.gz
+F INTERPR0.GZ;1                     	interpret.c.gz
+F INTERPR1.GZ;1                     	interpret.h.gz
+F IPP_C.GZ;1                        	ipp.c.gz
+F LOOPER_H.GZ;1                     	looper.h.gz
+F LOOPER_L.GZ;1                     	looper.lex.gz
+F LOOPER_Y.GZ;1                     	looper.yacc.gz
+F MAKEFILE.GZ;1                     	Makefile.gz
+F NEWTVARA.GZ;1                     	NewTvararg.h.gz
+F NEWT_MAN.GZ;1                     	newt.man.gz
+F VAR_C.GZ;1                        	var.c.gz
+F VAR_H.GZ;1                        	var.h.gz

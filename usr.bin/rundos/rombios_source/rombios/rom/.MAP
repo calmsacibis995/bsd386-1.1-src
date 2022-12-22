@@ -1,0 +1,12 @@
+F BAR.ASM;1                         	bar.asm
+F BAR15.ASM;1                       	bar15.asm
+F BAR15S.ASM;1                      	bar15s.asm
+F BARBT.ASM;1                       	barbt.asm
+F BARBY40.ASM;1                     	barby40.asm
+F BARBYC.C;1                        	barbyc.c
+F BARBYTL.ASM;1                     	barbytl.asm
+F BARBYZ.ASM;1                      	barbyz.asm
+F BARBY_MK.C;1                      	barby_mk.c
+F BARBY_MK.EXE;1                    	barby_mk.exe
+F COMAREA.H;1                       	comarea.h
+F MAKEFILE.;1                       	makefile

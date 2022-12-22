@@ -1,0 +1,323 @@
+.\"	BSDI	$Id: shs.1,v 1.1.1.1 1994/01/13 22:42:33 polk Exp $
+.\" @(#)shs.1	6.1 1/10/94 22:52:34
+.\"
+.\" This man page was written by:
+.\"
+.\"	 Landon Curt Noll  (chongo@toad.com)	chongo <was here> /\../\
+.\"
+.\" This man page has been placed in the public domain.  Please do not 
+.\" copyright this man page.
+.\"
+.\" LANDON CURT NOLL DISCLAIMS ALL WARRANTIES WITH  REGARD  TO
+.\" THIS  SOFTWARE,  INCLUDING  ALL IMPLIED WARRANTIES OF MER-
+.\" CHANTABILITY AND FITNESS.  IN NO EVENT SHALL  LANDON  CURT
+.\" NOLL  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
+.\" DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM  LOSS  OF
+.\" USE,  DATA  OR  PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+.\" NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR  IN
+.\" CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.\" See shsdrvr.c for version and modification history.
+.\"
+.TH SHS 1  LOCAL
+.SH NAME
+shs \- NIST proposed Secure Hash Standard
+.SH SYNOPSIS
+.BR shs \ [
+.BR \-cdhiqtx \ ][
+.BR \-p prefix\ ][
+.BR \-P prfile\ ][
+.BR \-s str\ ]
+file\ ...
+.SH DESCRIPTION
+The
+.B shs
+utility implements the Secure Hash Algorithm (\fISHA\fP).
+It produces 160-bit Secure Hash Digests of files, strings or data 
+read on stdin.
+If no
+.B file
+is given, and
+no string is to be digested (\fB\-s\fP)
+then stdin will be digested.
+By default, a digests are printed as 40 hex characters without a leading 
+.IR 0x .
+.PP
+On January 31, 1992, NIST published in the Federal Register a proposed
+Secure Hash Standard (\fISHS\fP) which is based on 
+.IR SHA .
+The 
+.I SHS
+is designed to work with the proposed Digital Signature Standard (\fIDSS\fP).
+The Secure Hash Algorithm (\fISHA\fP) 
+specified in this standard is
+necessary to ensure the security of the Digital Signature Standard. 
+When a message of length < 2^64 bits is input, the 
+.I SHA 
+produces a 160-bit representation of the message called the message digest. 
+The message digest is used during generation of a signature for the message.  
+The
+.I SHA 
+is designed to have the following properties: it is
+computationally infeasible to recover a message corresponding to a
+given message digest, or to find two different messages which
+produce the same message digest.
+.PP
+If a 
+.B str 
+(string) argument is given, then the digest for 
+.BR str ,
+followed by a space, followed by
+.B str 
+enclosed double quotes is written to stdout.
+Any
+.B file
+arguments are ignored.
+.PP
+If one or more
+.B file
+if given, a separate digest if produced for each file.
+By default, 
+.B file 
+digests are followed by a space and the filename.
+.PP
+If no 
+.B str
+or
+.B file
+arguments are given, then a digest of stdin is written to stdout.
+.PP
+.TP
+.B \-c
+Print C style hex digests with a leading \fI0x\fP.
+.TP
+.B \-d
+Compute dual digests.
+.sp
+Data is divided into two streams and digested separately.
+Each successive octet is assigned an index starting with 0.
+The even stream consists of octets with even indices.
+The odd stream consists of octets with odd indices.
+The even stream digest, followed by a space, followed by
+the odd stream digest is written to stdout.
+.TP
+.B \-h
+Print a help and usage message.
+.TP
+.B \-i
+Compute inode digests of files.
+.sp
+Prepend the filename and various inode information to the file data 
+being digested.
+The inode information prepended includes information
+such as the device (\fIst_dev\fP), 
+inode number (\fIst_ino\fP), 
+mode (\fIst_mode\fP), 
+link count (\fIst_nlink\fP), 
+uid (\fIst_uid\fP), 
+gid (\fIst_gid\fP), 
+size (\fIst_size\fP),
+modification time (\fIst_mtime\fP) and
+change time (\fIst_ctime\fP).
+The prepended data is padded with zeros to make it a multiple of 64
+bytes long.
+Both a
+.BR stat (2)
+and a
+.BR lstat (2)
+information are both used.
+.sp
+The \fB\-i\fP flag allows one to include various inode information in
+the digest.  
+This option is useful in detecting file tampering.
+For example, the following will produce different digests:
+.sp
+.in +0.5i
+.nf
+shs \-i /tmp/chongo
+cp /tmp/chongo /tmp/was_here
+\^... misc funny business ...
+cp /tmp/was_here /tmp/chongo
+shs \-i /tmp/chongo
+.fi
+.in -0.5i
+.sp
+Note that a \fB\-i\fP digest is portable to other systems.
+This is because inode information will likely change as the
+contents of a file are copied from machine to machine.
+.sp
+To mark a \fB\-i\fP digest as a special value, \fI.0\fP is 
+prepended onto the digest output.
+.sp
+One may only compute inode digests of files.
+Use of
+.B \-i
+disables reading from stdin.
+The
+.B \-i
+flag is not compatible with
+.BR \-s .
+.TP
+.BI \-p prefix
+.TP
+.BI \-P prfile
+Insert a prefix into the data to be digested.
+.sp
+By using \fB\-p\fP\fIprefix\fP, one may prepend any set of data with a
+string.  
+The digest produced is equivalent to digest that is
+produced with the string pretended to the data.  
+Thus the following two commands produce the same digest:
+.sp
+.in +0.5i
+.nf
+shs \-p curds \-s whey
+shs \-s curdswhey
+.fi
+.in -0.5i
+.sp
+By use of the \fB\-P\fP\fIprfile\fP interface, one may prepend using
+up to the 32k of a file.  
+This interface allows one to prepend using binary data.  
+The following produces the same digest:
+.sp
+.in +0.5i
+.nf
+shs \-P /usr/bin/awk /bin/ls
+dd if=/usr/bin/awk of=/tmp/foo bs=32k count=1
+cat /tmp/foo /bin/ls > /tmp/ls
+shs /tmp/ls
+.fi
+.in -0.5i
+.sp
+Knowledge of the original prepend data is only kept in
+the digest.  
+Thus one may use the prepend string as a ``salt'' making it intractable 
+for someone else to reproduce the digest of a file without knowledge 
+of the prepend data.
+.sp
+For sightly faster performance, use prepend data that is
+a multiple of 64 bytes long.  
+The easy way to do this is to use \fB-P\fP on a file that is at least 32k
+bytes in length.
+.sp
+This feature works in conjunction all modes of operation except
+the \fB\-t\fP and \fB\-x\fP modes.
+.TP
+.B \-q
+Output only digests.
+The filename or string will not be written to stdout.
+.TP
+.BR \-s str
+Digest \fIstr\fP as if it were a string.
+.sp
+The trailing NUL byte is not digested.
+No files are digested.
+The \fIstr\fP is written to stdout enclosed in double quotes.
+.TP
+.BR \-t
+Time the user cpu seconds needed to digest several megabytes of data.
+The number of megabytes,
+followed by the digest produced,
+followed by the number of user cpu seconds
+followed by the number of characters per user second is written to stdout.
+.sp
+On some systems with certain virtual memory characteristics,
+you may need to run the performance test several times, ignoring the
+first result.
+The default amount of data tested is 16 megabytes.
+On some systems, this amount may differ.
+One may change the number of megabytes processed by changing the value of
+TEST_MEG in the file shsdrvr.c and recompiling.
+.TP
+.BR \-v
+Print the version.
+.TP
+.BR \-x
+Perform an extended standard SHS test suite.
+.sp
+The test suite will first look in the current directory for
+.IR file1 .
+If it is not found, it will look in
+.IR /usr/contrib/lib/shs .
+It is assumes that 
+.I file2 
+is in the same location as 
+.sp
+The standard test suite been extended.  
+The initial string now says:
+.sp
+.in +0.5i
+.nf
+shs test suite results
+.fi
+.in -0.5i
+.sp
+instead of:
+.sp
+.in +0.5i
+.nf
+SHA test suite results
+.fi
+.in -0.5i
+.sp
+to reflect the utility name instead of the algorithm implemented.
+This also helps distinguish this version from much older 
+versions which did not have the 
+.B -v 
+flag.
+Also the original test file
+.I foo
+which contained the string  "\fIabc\fP" (with no newline) was renamed 
+.IR file1 .
+.SH "SEE ALSO"
+.BR md5 (1),
+.BR stat (2),
+.BR lstat (2)
+.SH FILES
+.nf
+\^./file1			default test file location
+\^./file2			default test file location
+/usr/contrib/lib/shs/file1	alternate test file location
+/usr/contrib/lib/shs/file2	alternate test file location
+.fi
+.SH AUTHOR
+.nf
+Much of this code was written, re-written or modified by:
+
+    Landon Curt Noll	(chongo@toad.com)  /\\../\\
+
+This code is based on code by Peter C. Gutmann.  Much thanks goes 
+to Peter C. Gutman (pgut1@cs.aukuni.ac.nz) , Shawn A. Clifford
+(sac@eng.ufl.edu), Pat Myrto (pat@rwing.uucp), Colin Plumb
+(colin@nyx10.cs.du.edu), Rich Schroeppel (rcs@cs.arizona.edu)
+and others who wrote and/or worked on the original code.
+.fi
+.SH NOTICE
+LANDON CURT NOLL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. 
+IN NO EVENT SHALL LANDON CURT NOLL BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+.SH BUGS
+The command:
+.sp
+.in +0.5i
+.nf
+shs -s '/\\"O/\\'
+.fi
+.in -0.5i
+.sp
+writes to stdout, the following line:
+.sp
+.in +0.5i
+.nf
+013d51217d98b6f2cfa4e7ea13bad8f9bc506f23 "/\\"O/\\"
+.fi
+.in -0.5i
+.sp
+The string written in double quotes by
+.B \-s
+may not be a valid string according to C or shell syntax.

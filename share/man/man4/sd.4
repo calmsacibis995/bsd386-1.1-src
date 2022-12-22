@@ -1,0 +1,65 @@
+.\" Copyright (c) 1992,1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: sd.4,v 1.2 1993/03/23 22:56:12 polk Exp $
+.Dd March 23, 1993
+.Dt SD 4
+.Os
+.Sh NAME
+.Nm sd
+.Nd machine-independent SCSI disk driver
+.Sh SYNOPSIS
+.Cd "options SCSI"
+.Cd "disk sd0 at tg?"
+.Sh DESCRIPTION
+The
+.Nm sd
+driver for disks on the Small Computer System Interface
+(ANSI X3.131-1992) bus is a machine-independent generic device
+which employs machine-dependent drivers for individual host adapters
+to read and write data blocks.
+The
+.Nm sd
+driver takes care of queuing requests and sorting them
+by cylinder address on each logical unit;
+generating the correct read and write SCSI Command Descriptor Blocks,
+along with inquiry, test unit ready and other common operations;
+reading and writing disk labels;
+classifying SCSI errors and gathering extended error information;
+and probing for logical units on SCSI targets
+and identifying their type.
+The driver also supports an interface for raw SCSI commands;
+see
+.Xr scsicmd 8 .
+.Sh FILES
+.Bl -tag -width /dev/sd[0-6][a-h] -compact
+.It Pa /dev/sd[0-6][a-h]
+SCSI disk devices
+.Sh "SEE ALSO
+.Xr scsicmd 8 ,
+.Xr st 4
+.Sh HISTORY
+This driver was written by Chris Torek for SPARC BSD, and
+was contributed by his employer,
+the Lawrence Berkeley Laboratories.
+.Sh BUGS
+Errors returned by the driver consist of
+a sense key and possible additional sense information.
+The sense key is printed in English but
+the myriad ASC and ASCQ values must be
+decoded using the
+.Fl a
+option of
+.Xr scsicmd .
+.Pp
+Standalone boot blocks and 14-sector bootstraps
+are necessarily dependent on the host adapter.
+There are no
+.Pa sdboot
+or
+.Pa bootsd
+files; these are instead named after individual host adapters.
+.Pp
+All zone recorded disks are treated as having a uniform geometry.
+This means that rotational optimizations may be correct only
+on some subset of the disk cylinders, if any.

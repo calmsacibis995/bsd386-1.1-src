@@ -1,0 +1,14 @@
+Mtexi2roff	texi2roff.c	/^main(argc, argv)$/
+PUSH	translate.c	/^#define PUSH(tptr)							\\$/
+doitem	items.c	/^doitem(s, tag)$/
+eatwhitespace	translate.c	/^eatwhitespace(s)$/
+errormsg	translate.c	/^errormsg( message, other)$/
+gettoken	translate.c	/^gettoken(s, token)$/
+initialize	table.c	/^initialize(macropkg, showInfo, makeindex)$/
+interpret	translate.c	/^interpret(token, outstring)$/
+itemize	items.c	/^char * itemize(s, token)$/
+lookup	table.c	/^lookup(token)$/
+patchtable	table.c	/^patchtable()$/
+process	texi2roff.c	/^process(fp, filename)$/
+strpbrk_like	translate.c	/^strpbrk_like(str, set)$/
+translate	translate.c	/^translate(in, inname)$/

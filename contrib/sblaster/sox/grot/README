@@ -1,0 +1,94 @@
+
+
+		ST: Sound Tools
+
+
+
+ST translates sound samples between different file formats,
+and performs various sound effects.
+
+This release understands "raw" files in various binary formats,
+Sound Blaster .VOC files, IRCAM SoundFile files, SUN Sparcstation 
+.au files, mutant DEC .au files, Amiga/SGI AIFF files, 
+Macintosh HCOM files, Sounder files, and Soundtool (DOS) files.
+
+The sound effects include changing the sample rate, adding echo 
+delay lines, applying low- and band-pass filtering, and the 
+infamous Fender Vibro effect.
+
+History:
+This is the fifth release of the Sound Tools.
+
+This release includes handles for .WAV files,
+a device handler for the Unix driver for the Sound Blaster,
+and clean-ups in the DOS port.
+
+Caveats:
+The annoying .AU problems should be cleaned up.
+The .SND problem is still not fully resolved.
+SOX is really only useable day-to-day if you
+hide the wacky options with one-line shell scripts.
+
+Channel averaging doesn't work.  The software architecure
+of stereo & quad is bogus.
+
+Installing:
+The Makefile needs one option set: -DSYSV if you're on a
+System V machine, or -DBSD if you're on a BSD-ish machine.
+See the INSTALL file for more detailed instructions.
+
+After compiling, run 'tests.sh'.  It should print nothing.  This
+indicates that the program mostly works.  By reading the tests
+you may see how to make a sound sample file which you can play.
+'monkey.au' and 'monkey.voc' are a short lo-fi monkey screech
+in two supported file formats, to help you ensure Sound Tools works.
+
+SOX uses file suffices to determine the nature of a sound sample file.
+If it finds the suffix in its list, it uses the appropriate read
+or write handler to deal with that file.  You may override the suffix
+by giving a different type via the '-t type' argument.  See the manual
+page for more information.  The 'tests.sh' script illustrates various
+sox usages.
+
+I hope to inspire the creation of a common base of sound processing
+tools for computer multimedia work, similar to the PBM toolkit for 
+image manipulation.
+
+The files I wrote are copyright Lance Norskog, and may be used for
+any purpose.   The U-Law translation and echo delay line code 
+come from Jef Poskanzer's SST package.  The .AU, .AIFF, 
+.HCOM formats, and numerous bug fixes were contributed by 
+Guido Van Rossum.  The 8SVX, Sounder, Soundtool (another name
+clash!) and many DOS fixes were contributed by Bill Neisius.
+The .WAV and SB driver handlers were contributed by Rick Richardson.
+
+Sound Tools may be used for any purpose.  Source
+distributions must include the copyright notices.  Binary
+distributions must include acknowledgements to the creators.
+
+Note: There will be absolutely no more hardware driver
+handlers in SOX.  Playing & recording sound samples is
+not SOX's job; translation and sound effects is it.
+
+When you have minor changes to contribute, it's OK to post
+them; if you have a major release, please send it to me.
+I'd like to coordinate the releases and do a peer review.
+Please document your changes.  I don't posess every kind
+of computer currently sold, and we are now beyond the phase
+where I can understand and test all source fixes.
+
+Coming soon: full Amiga support!
+
+Enjoy!
+
+	Creator & Maintainer:
+		Lance Norskog		thinman@netcom.com
+
+	Contributors:
+		Guido Van Rossum	guido@cwi.nl
+		Jef Poskanzer		jef@well.sf.ca.us
+		Bill Neisius		bill%solaria@hac2arpa.hac.com 
+		Rick Richardson		rick@digibd.com
+
+
+		(your name could be here, too)

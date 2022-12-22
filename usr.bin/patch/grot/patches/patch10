@@ -1,0 +1,1676 @@
+From bbn.com!bbn!mit-eddie!bloom-beacon!tut.cis.ohio-state.edu!mailrus!ames!elroy!devvax!lwall Sat Jun  4 20:08:28 EDT 1988
+Article 1009 of comp.sources.bugs:
+Path: bbn.com!bbn!mit-eddie!bloom-beacon!tut.cis.ohio-state.edu!mailrus!ames!elroy!devvax!lwall
+>From: lwall@devvax.JPL.NASA.GOV (Larry Wall)
+Newsgroups: comp.sources.bugs
+Subject: patch 2.0 patch #10
+Summary: This is an official patch for patch 2.0.  Please apply it.
+Message-ID: <2168@devvax.JPL.NASA.GOV>
+Date: 3 Jun 88 23:49:50 GMT
+Organization: Jet Propulsion Laboratory
+Lines: 1629
+
+System: patch version 2.0
+Patch #: 10
+Priority: MEDIUM
+Subject: new Configure for better portability
+Subject: installation script needs to remove old cat files on some systems
+Subject: systems without flexfilenames now use ~ or # as extension
+Subject: -B lets you specify a backup prefix instead of a suffix
+Subject: some machines don't like backslash-newline in double quotes
+Subject: a Prereq: wouldn't match first thing on a line
+Subject: an malloc() is now supplied
+Subject: exit code wasn't set properly
+Subject: signals could get permanently ignored
+Subject: the argument to -D is now checked for sanity
+Subject: fixed some typos in the manual page
+Subject: can now extract patches from shar files with leading X
+Subject: handles some gnu diff ideosyncracies
+Subject: double swap of first hunk could cause core dump
+
+Description:
+    Subject: new Configure for better portability.
+
+	Now based on the latest version of metaconfig, which knows everything
+	I know about Unix portability.
+
+    Subject: installation script needs to remove old cat files on some
+	systems.
+
+	Some systems have a stupid man command that doesn't compare dates
+	between the man version and the cat version, so the cat version
+	has to be removed at installation time.
+
+    Subject: systems without flexfilenames now use ~ or # as extension.
+
+	Systems that are restricted to 14 character filenames now will not
+	find files disappearing because they resolve to the same name.
+
+    Subject: -B lets you specify a backup prefix instead of a suffix.
+
+	This also helps the 14 character filename problem.  It also lets
+	you put backup files into a subdirectory.
+
+    Subject: some machines don't like backslash-newline in double quotes.
+
+	What can I say?
+
+    Subject: a Prereq: wouldn't match first thing on a line.
+
+	Now it does.
+
+    Subject: an malloc() is now supplied.
+
+	No particular reason, except that the new Configure made it easy.
+
+    Subject: exit code wasn't set properly.
+
+	Now you can use patch in a shell loop and stop if something goes
+	wrong.
+
+    Subject: signals could get permanently ignored.
+
+	It now remembers better what the original signals handlers were.
+
+    Subject: the argument to -D is now checked for sanity.
+
+	If you confused -d and -D, you could make your program unparseable
+	by the C preprocessor.
+
+    Subject: can now extract patches from shar files with leading X.
+
+	An X is treated like a space or tab on the front of a patch now.
+	There must be a consistent number of them for the duration of
+	the diff, however.
+
+    Subject: handles some gnu diff ideosyncracies.
+
+	Gnu diff says 0,0 instead of 0.
+
+    Subject: double swap of first hunk could cause core dump.
+
+	If an initial hunk didn't match, was swapped to try -R, then
+	swapped back and applied with a fuzz factor, there could be
+	a duplicate free().
+
+Fix:	You need to both this patch and the next one.
+
+	From rn, say "| patch -p -N -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch -p -N <thisarticle".
+	If you don't have the patch program, apply the following by hand,
+	or get patch (version 2.0, latest patchlevel).
+
+	After applying:
+		DO NOT RECOMPILE
+		Apply patch 11, which is a shar, not a normal patch.
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	lwall@jpl-devvax.jpl.nasa.gov
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in Internet notation, and
+	LIST is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+
+	You can also get the patches via anonymous FTP from
+	jpl-devvax.jpl.nasa.gov (128.149.8.43).
+
+Index: patchlevel.h
+Prereq: 9
+1c1
+< #define PATCHLEVEL 9
+---
+> #define PATCHLEVEL 10
+ 
+Index: Makefile.SH
+Prereq: 2.0
+*** Makefile.SH.old	Fri Jun  3 15:26:55 1988
+--- Makefile.SH	Fri Jun  3 15:26:56 1988
+***************
+*** 3,11 ****
+  esac
+  echo "Extracting Makefile (with variable substitutions)"
+  cat >Makefile <<!GROK!THIS!
+! # $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+  #
+  # $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
+  # Revision 2.0  86/09/17  15:36:15  lwall
+  # Baseline for netwide release.
+  # 
+--- 3,14 ----
+  esac
+  echo "Extracting Makefile (with variable substitutions)"
+  cat >Makefile <<!GROK!THIS!
+! # $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+  #
+  # $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++ # Revision 2.0.1.1  88/06/03  15:00:48  lwall
++ # patch10: upgraded to match some new metaconfig stuff
++ # 
+  # Revision 2.0  86/09/17  15:36:15  lwall
+  # Baseline for netwide release.
+  # 
+***************
+*** 20,27 ****
+  bin = $bin
+  mansrc = $mansrc
+  manext = $manext
+! CFLAGS = $iandd -O
+! LDFLAGS = $iandd
+  
+  !GROK!THIS!
+  cat >>Makefile <<'!NO!SUBS!'
+--- 23,32 ----
+  bin = $bin
+  mansrc = $mansrc
+  manext = $manext
+! CFLAGS = $ccflags -O
+! LDFLAGS = $ldflags
+! SMALL = $small
+! LARGE = $large $split
+  
+  !GROK!THIS!
+  cat >>Makefile <<'!NO!SUBS!'
+***************
+*** 43,49 ****
+  SHELL = /bin/sh
+  
+  .c.o:
+! 	$(CC) -c $(CFLAGS) $*.c
+  
+  all: $(public) $(private) $(util)
+  	touch all
+--- 48,54 ----
+  SHELL = /bin/sh
+  
+  .c.o:
+! 	$(CC) -c $(CFLAGS) $(LARGE) $*.c
+  
+  all: $(public) $(private) $(util)
+  	touch all
+***************
+*** 59,64 ****
+--- 64,70 ----
+  	cd $(bin); chmod 755 $(public)
+  	- if test `pwd` != $(mansrc); then \
+  for page in $(manpages); do \
++ rm -f $(mansrc)/../cat$(manext)/`basename $$page .man`.$(manext); \
+  cp $$page $(mansrc)/`basename $$page .man`.$(manext); \
+  done; \
+  fi
+ 
+Index: common.h
+Prereq: 2.0
+*** common.h.old	Fri Jun  3 15:27:03 1988
+--- common.h	Fri Jun  3 15:27:04 1988
+***************
+*** 1,6 ****
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:36:39  lwall
+   * Baseline for netwide release.
+   * 
+--- 1,9 ----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.1  88/06/03  15:01:56  lwall
++  * patch10: support for shorter extensions.
++  * 
+   * Revision 2.0  86/09/17  15:36:39  lwall
+   * Baseline for netwide release.
+   * 
+***************
+*** 42,53 ****
+  #define INITHUNKMAX 125			/* initial dynamic allocation size */
+  #define MAXLINELEN 1024
+  #define BUFFERSIZE 1024
+- #define ORIGEXT ".orig"
+  #define SCCSPREFIX "s."
+  #define GET "get -e %s"
+  #define RCSSUFFIX ",v"
+  #define CHECKOUT "co -l %s"
+  
+  /* handy definitions */
+  
+  #define Null(t) ((t)0)
+--- 45,63 ----
+  #define INITHUNKMAX 125			/* initial dynamic allocation size */
+  #define MAXLINELEN 1024
+  #define BUFFERSIZE 1024
+  #define SCCSPREFIX "s."
+  #define GET "get -e %s"
+  #define RCSSUFFIX ",v"
+  #define CHECKOUT "co -l %s"
+  
++ #ifdef FLEXFILENAMES
++ #define ORIGEXT ".orig"
++ #define REJEXT ".rej"
++ #else
++ #define ORIGEXT "~"
++ #define REJEXT "#"
++ #endif
++ 
+  /* handy definitions */
+  
+  #define Null(t) ((t)0)
+***************
+*** 95,100 ****
+--- 105,111 ----
+  EXT char rejname[128];
+  
+  EXT char *origext INIT(Nullch);
++ EXT char *origprae INIT(Nullch);
+  
+  EXT char TMPOUTNAME[] INIT("/tmp/patchoXXXXXX");
+  EXT char TMPINNAME[] INIT("/tmp/patchiXXXXXX");	/* might want /usr/tmp here */
+***************
+*** 134,140 ****
+  char *realloc();
+  char *strcpy();
+  char *strcat();
+- char *sprintf();		/* usually */
+  long atol();
+  long lseek();
+  char *mktemp();
+--- 145,155 ----
+  char *realloc();
+  char *strcpy();
+  char *strcat();
+  long atol();
+  long lseek();
+  char *mktemp();
++ #ifdef CHARSPRINTF
++ char *sprintf();
++ #else
++ int *sprintf();
++ #endif
+ 
+Index: config.h.SH
+*** config.h.SH.old	Fri Jun  3 15:27:12 1988
+--- config.h.SH	Fri Jun  3 15:27:14 1988
+***************
+*** 0 ****
+--- 1,136 ----
++ case $CONFIG in
++ '')
++     if test ! -f config.sh; then
++ 	ln ../config.sh . || \
++ 	ln ../../config.sh . || \
++ 	ln ../../../config.sh . || \
++ 	(echo "Can't find config.sh."; exit 1)
++ 	echo "Using config.sh from above..."
++     fi
++     . ./config.sh
++     ;;
++ esac
++ echo "Extracting config.h (with variable substitutions)"
++ cat <<!GROK!THIS! >config.h
++ /* config.h
++  * This file was produced by running the config.h.SH script, which
++  * gets its values from config.sh, which is generally produced by
++  * running Configure.
++  *
++  * Feel free to modify any of this as the need arises.  Note, however,
++  * that running config.h.SH again will wipe out any changes you've made.
++  * For a more permanent change edit config.sh and rerun config.h.SH.
++  */
++ 
++ 
++ /* EUNICE:
++  *	This symbol, if defined, indicates that the program is being compiled
++  *	under the EUNICE package under VMS.  The program will need to handle
++  *	things like files that don't go away the first time you unlink them,
++  *	due to version numbering.  It will also need to compensate for lack
++  *	of a respectable link() command.
++  */
++ /* VMS:
++  *	This symbol, if defined, indicates that the program is running under
++  *	VMS.  It is currently only set in conjunction with the EUNICE symbol.
++  */
++ #$d_eunice	EUNICE		/**/
++ #$d_eunice	VMS		/**/
++ 
++ /* CPPSTDIN:
++  *	This symbol contains the first part of the string which will invoke
++  *	the C preprocessor on the standard input and produce to standard
++  *	output.	 Typical value of "cc -E" or "/lib/cpp".
++  */
++ /* CPPMINUS:
++  *	This symbol contains the second part of the string which will invoke
++  *	the C preprocessor on the standard input and produce to standard
++  *	output.  This symbol will have the value "-" if CPPSTDIN needs a minus
++  *	to specify standard input, otherwise the value is "".
++  */
++ #define CPPSTDIN "$cppstdin"
++ #define CPPMINUS "$cppminus"
++ 
++ /* CHARSPRINTF:
++  *	This symbol is defined if this system declares "char *sprintf()" in
++  *	stdio.h.  The trend seems to be to declare it as "int sprintf()".  It
++  *	is up to the package author to declare sprintf correctly based on the
++  *	symbol.
++  */
++ #$d_charsprf	CHARSPRINTF 	/**/
++ 
++ /* FLEXFILENAMES:
++  *	This symbol, if defined, indicates that the system supports filenames
++  *	longer than 14 characters.
++  */
++ #$d_flexfnam	FLEXFILENAMES		/**/
++ 
++ /* index:
++  *	This preprocessor symbol is defined, along with rindex, if the system
++  *	uses the strchr and strrchr routines instead.
++  */
++ /* rindex:
++  *	This preprocessor symbol is defined, along with index, if the system
++  *	uses the strchr and strrchr routines instead.
++  */
++ #$d_index	index strchr	/* cultural */
++ #$d_index	rindex strrchr	/*  differences? */
++ 
++ /* VOIDSIG:
++  *	This symbol is defined if this system declares "void (*signal())()" in
++  *	signal.h.  The old way was to declare it as "int (*signal())()".  It
++  *	is up to the package author to declare things correctly based on the
++  *	symbol.
++  */
++ #$d_voidsig	VOIDSIG 	/**/
++ 
++ /* Reg1:
++  *	This symbol, along with Reg2, Reg3, etc. is either the word "register"
++  *	or null, depending on whether the C compiler pays attention to this
++  *	many register declarations.  The intent is that you don't have to
++  *	order your register declarations in the order of importance, so you
++  *	can freely declare register variables in sub-blocks of code and as
++  *	function parameters.  Do not use Reg<n> more than once per routine.
++  */
++ 
++ #define Reg1 $reg1		/**/
++ #define Reg2 $reg2		/**/
++ #define Reg3 $reg3		/**/
++ #define Reg4 $reg4		/**/
++ #define Reg5 $reg5		/**/
++ #define Reg6 $reg6		/**/
++ #define Reg7 $reg7		/**/
++ #define Reg8 $reg8		/**/
++ #define Reg9 $reg9		/**/
++ #define Reg10 $reg10		/**/
++ #define Reg11 $reg11		/**/
++ #define Reg12 $reg12		/**/
++ #define Reg13 $reg13		/**/
++ #define Reg14 $reg14		/**/
++ #define Reg15 $reg15		/**/
++ #define Reg16 $reg16		/**/
++ 
++ /* VOIDFLAGS:
++  *	This symbol indicates how much support of the void type is given by this
++  *	compiler.  What various bits mean:
++  *
++  *	    1 = supports declaration of void
++  *	    2 = supports arrays of pointers to functions returning void
++  *	    4 = supports comparisons between pointers to void functions and
++  *		    addresses of void functions
++  *
++  *	The package designer should define VOIDUSED to indicate the requirements
++  *	of the package.  This can be done either by #defining VOIDUSED before
++  *	including config.h, or by defining defvoidused in Myinit.U.  If the
++  *	level of void support necessary is not present, defines void to int.
++  */
++ #ifndef VOIDUSED
++ #define VOIDUSED $defvoidused
++ #endif
++ #define VOIDFLAGS $voidflags
++ #if (VOIDFLAGS & VOIDUSED) != VOIDUSED
++ #$define void int		/* is void to be avoided? */
++ #$define M_VOID		/* Xenix strikes again */
++ #endif
++ 
++ !GROK!THIS!
+ 
+Index: inp.c
+Prereq: 2.0
+*** inp.c.old	Fri Jun  3 15:27:20 1988
+--- inp.c	Fri Jun  3 15:27:21 1988
+***************
+*** 1,6 ****
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0  86/09/17  15:37:02  lwall
+   * Baseline for netwide release.
+   * 
+--- 1,9 ----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.1  88/06/03  15:06:13  lwall
++  * patch10: made a little smarter about sccs files
++  * 
+   * Revision 2.0  86/09/17  15:37:02  lwall
+   * Baseline for netwide release.
+   * 
+***************
+*** 94,102 ****
+  		fatal2("Can't check out %s.\n", filename);
+  	}
+  	else {
+! 	    Sprintf(buf, "SCCS/%s%s", SCCSPREFIX, filename);
+! 	    if (stat(buf, &filestat) >= 0 || stat(buf+5, &filestat) >= 0) {
+! 		Sprintf(buf, GET, filename);
+  		if (verbose)
+  		    say2("Can't find %s--attempting to get it from SCCS.\n",
+  			filename);
+--- 97,106 ----
+  		fatal2("Can't check out %s.\n", filename);
+  	}
+  	else {
+! 	    Sprintf(buf+20, "SCCS/%s%s", SCCSPREFIX, filename);
+! 	    if (stat(s=buf+20, &filestat) >= 0 ||
+! 	      stat(s=buf+25, &filestat) >= 0) {
+! 		Sprintf(buf, GET, s);
+  		if (verbose)
+  		    say2("Can't find %s--attempting to get it from SCCS.\n",
+  			filename);
+***************
+*** 171,183 ****
+  	if (!rev_in_string(i_womp)) {
+  	    if (force) {
+  		if (verbose)
+! 		    say2("\
+! Warning: this file doesn't appear to be the %s version--patching anyway.\n",
+  			revision);
+  	    }
+  	    else {
+! 		ask2("\
+! This file doesn't appear to be the %s version--patch anyway? [n] ",
+  		    revision);
+  	    if (*buf != 'y')
+  		fatal1("Aborted.\n");
+--- 175,187 ----
+  	if (!rev_in_string(i_womp)) {
+  	    if (force) {
+  		if (verbose)
+! 		    say2(
+! "Warning: this file doesn't appear to be the %s version--patching anyway.\n",
+  			revision);
+  	    }
+  	    else {
+! 		ask2(
+! "This file doesn't appear to be the %s version--patch anyway? [n] ",
+  		    revision);
+  	    if (*buf != 'y')
+  		fatal1("Aborted.\n");
+***************
+*** 216,228 ****
+  	if (!found_revision) {
+  	    if (force) {
+  		if (verbose)
+! 		    say2("\
+! Warning: this file doesn't appear to be the %s version--patching anyway.\n",
+  			revision);
+  	    }
+  	    else {
+! 		ask2("\
+! This file doesn't appear to be the %s version--patch anyway? [n] ",
+  		    revision);
+  		if (*buf != 'y')
+  		    fatal1("Aborted.\n");
+--- 220,232 ----
+  	if (!found_revision) {
+  	    if (force) {
+  		if (verbose)
+! 		    say2(
+! "Warning: this file doesn't appear to be the %s version--patching anyway.\n",
+  			revision);
+  	    }
+  	    else {
+! 		ask2(
+! "This file doesn't appear to be the %s version--patch anyway? [n] ",
+  		    revision);
+  		if (*buf != 'y')
+  		    fatal1("Aborted.\n");
+***************
+*** 302,307 ****
+--- 306,313 ----
+      if (revision == Nullch)
+  	return TRUE;
+      patlen = strlen(revision);
++     if (strnEQ(string,revision,patlen) && isspace(s[patlen]))
++ 	return TRUE;
+      for (s = string; *s; s++) {
+  	if (isspace(*s) && strnEQ(s+1, revision, patlen) && 
+  		isspace(s[patlen+1] )) {
+ 
+Index: malloc.c
+*** malloc.c.old	Fri Jun  3 15:27:28 1988
+--- malloc.c	Fri Jun  3 15:27:30 1988
+***************
+*** 0 ****
+--- 1,467 ----
++ /*
++  * @(#)nmalloc.c 1 (Caltech) 2/21/82
++  *
++  *	U of M Modified: 20 Jun 1983 ACT: strange hacks for Emacs
++  *
++  *	Nov 1983, Mike@BRL, Added support for 4.1C/4.2 BSD.
++  *
++  * This is a very fast storage allocator.  It allocates blocks of a small 
++  * number of different sizes, and keeps free lists of each size.  Blocks
++  * that don't exactly fit are passed up to the next larger size.  In this 
++  * implementation, the available sizes are (2^n)-4 (or -16) bytes long.
++  * This is designed for use in a program that uses vast quantities of
++  * memory, but bombs when it runs out.  To make it a little better, it
++  * warns the user when he starts to get near the end.
++  *
++  * June 84, ACT: modified rcheck code to check the range given to malloc,
++  * rather than the range determined by the 2-power used.
++  *
++  * Jan 85, RMS: calls malloc_warning to issue warning on nearly full.
++  * No longer Emacs-specific; can serve as all-purpose malloc for GNU.
++  * You should call malloc_init to reinitialize after loading dumped Emacs.
++  * Call malloc_stats to get info on memory stats if MSTATS turned on.
++  * realloc knows how to return same block given, just changing its size,
++  * if the power of 2 is correct.
++  */
++ 
++ /*
++  * nextf[i] is the pointer to the next free block of size 2^(i+3).  The
++  * smallest allocatable block is 8 bytes.  The overhead information will
++  * go in the first int of the block, and the returned pointer will point
++  * to the second.
++  *
++ #ifdef MSTATS
++  * nmalloc[i] is the difference between the number of mallocs and frees
++  * for a given block size.
++ #endif /* MSTATS */
++  */
++ 
++ #define ISALLOC ((char) 0xf7)	/* magic byte that implies allocation */
++ #define ISFREE ((char) 0x54)	/* magic byte that implies free block */
++ 				/* this is for error checking only */
++ 
++ extern char etext;
++ 
++ /* end of the program; can be changed by calling init_malloc */
++ static char *endofpure = &etext;
++ 
++ #ifdef MSTATS
++ static int nmalloc[30];
++ static int nmal, nfre;
++ #endif /* MSTATS */
++ 
++ /* If range checking is not turned on, all we have is a flag indicating
++    whether memory is allocated, an index in nextf[], and a size field; to
++    realloc() memory we copy either size bytes or 1<<(index+3) bytes depending
++    on whether the former can hold the exact size (given the value of
++    'index').  If range checking is on, we always need to know how much space
++    is allocated, so the 'size' field is never used. */
++ 
++ struct mhead {
++ 	char     mh_alloc;	/* ISALLOC or ISFREE */
++ 	char     mh_index;	/* index in nextf[] */
++ /* Remainder are valid only when block is allocated */
++ 	unsigned short mh_size;	/* size, if < 0x10000 */
++ #ifdef rcheck
++ 	unsigned mh_nbytes;	/* number of bytes allocated */
++ 	int      mh_magic4;	/* should be == MAGIC4 */
++ #endif /* rcheck */
++ 	};
++ 
++ /* Access free-list pointer of a block.
++   It is stored at block + 4.
++   This is not a field in the mhead structure
++   because we want sizeof (struct mhead)
++   to describe the overhead for when the block is in use,
++   and we do not want the free-list pointer to count in that.  */
++ 
++ #define CHAIN(a) \
++   (*(struct mhead **) (sizeof (char *) + (char *) (a)))
++ 
++ #ifdef rcheck
++ 
++ /* To implement range checking, we write magic values in at the beginning and
++    end of each allocated block, and make sure they are undisturbed whenever a
++    free or a realloc occurs. */
++ /* Written in each of the 4 bytes following the block's real space */
++ #define MAGIC1 0x55
++ /* Written in the 4 bytes before the block's real space */
++ #define MAGIC4 0x55555555
++ #define ASSERT(p) if (!(p)) botch("p"); else
++ static
++ botch(s)
++ 	char *s;
++ {
++ 
++ 	printf("assertion botched: %s\n", s);
++ 	abort();
++ }
++ #define EXTRA  4		/* 4 bytes extra for MAGIC1s */
++ #else
++ #define ASSERT(p)
++ #define EXTRA  0
++ #endif /* rcheck */
++ 
++ /* nextf[i] is free list of blocks of size 2**(i + 3)  */
++ 
++ static struct mhead *nextf[30];
++ 
++ #ifdef	M_WARN
++ /* Number of bytes of writable memory we can expect to be able to get */
++ static int  lim_data;
++ /* Level number of warnings already issued.
++   0 -- no warnings issued.
++   1 -- 75% warning already issued.
++   2 -- 85% warning already issued.
++ */
++ static int  warnlevel;
++ #endif /* M_WARN */
++ 
++ /* nonzero once initial bunch of free blocks made */
++ static int gotpool;
++ 
++ /* Cause reinitialization based on job parameters;
++   also declare where the end of pure storage is. */
++ malloc_init (end)
++     char *end; {
++ 	endofpure = end;
++ #ifdef	M_WARN
++ 	lim_data = 0;
++ 	warnlevel = 0;
++ #endif /* M_WARN */
++ 	}
++ 
++ static
++ morecore (nu)			/* ask system for more memory */
++     register int nu; {		/* size index to get more of  */
++ 	char   *sbrk ();
++ 	register char  *cp;
++ 	register int    nblks;
++ 	register int    siz;
++ 
++ #ifdef	M_WARN
++ #ifndef BSD42
++ #ifdef USG
++ 	extern long ulimit ();
++ 	if (lim_data == 0)		/* find out how much we can get */
++ 	    lim_data = ulimit (3, 0) - TEXT_START;
++ #else	/*HMS: was endif */
++ 	if (lim_data == 0)		/* find out how much we can get */
++ 	    lim_data = vlimit (LIM_DATA, -1);
++ #endif /* USG */	/HMS:* was not here */
++ #else
++ 	if (lim_data == 0) {
++ 		struct rlimit   XXrlimit;
++ 
++ 		getrlimit (RLIMIT_DATA, &XXrlimit);
++ 		lim_data = XXrlimit.rlim_cur;}	/* soft limit */
++ #endif /* BSD42 */
++ #endif /* M_WARN */
++ 
++ 	/* On initial startup, get two blocks of each size up to 1k bytes */
++ 	if (!gotpool)
++ 	    getpool (), getpool (), gotpool = 1;
++ 
++ 	/* Find current end of memory and issue warning if getting near max */
++ 
++ 	cp = sbrk (0);
++ 	siz = cp - endofpure;
++ #ifdef	M_WARN
++ 	switch (warnlevel) {
++ 	    case 0: 
++ 		if (siz > (lim_data / 4) * 3) {
++ 			warnlevel++;
++ 			malloc_warning ("Warning: past 75% of memory limit");}
++ 		break;
++ 	    case 1: 
++ 		if (siz > (lim_data / 20) * 17) {
++ 			warnlevel++;
++ 			malloc_warning ("Warning: past 85% of memory limit");}
++ 		break;
++ 	    case 2: 
++ 		if (siz > (lim_data / 20) * 19) {
++ 			warnlevel++;
++ 			malloc_warning ("Warning: past 95% of memory limit");}
++ 		break;}
++ #endif /* M_WARN */
++ 
++ 	if ((int) cp & 0x3ff)	/* land on 1K boundaries */
++ 	    sbrk (1024 - ((int) cp & 0x3ff));
++ 
++ 	/* Take at least 2k, and figure out how many blocks of the desired size we're about to get */
++ 	nblks = 1;
++ 	if ((siz = nu) < 8)
++ 	    nblks = 1 << ((siz = 8) - nu);
++ 
++ 	if ((cp = sbrk (1 << (siz + 3))) == (char *) -1)
++ 	    return;			/* no more room! */
++ 	if ((int) cp & 7) {		/* shouldn't happen, but just in case */
++ 		cp = (char *) (((int) cp + 8) & ~7);
++ 		nblks--;}
++ 
++ 	/* save new header and link the nblks blocks together */
++ 	nextf[nu] = (struct mhead *) cp;
++ 	siz = 1 << (nu + 3);
++ 	while (1) {
++ 		((struct mhead *) cp) -> mh_alloc = ISFREE;
++ 		((struct mhead *) cp) -> mh_index = nu;
++ 		if (--nblks <= 0) break;
++ 		CHAIN ((struct mhead *) cp) = (struct mhead *) (cp + siz);
++ 		cp += siz;}
++ /*	CHAIN ((struct mhead *) cp) = 0;	/* since sbrk() returns cleared core, this is already set */
++ 	}
++ 
++ static
++ getpool () {
++ 	register int nu;
++ 	register char *cp = sbrk (0);
++ 
++ 	if ((int) cp & 0x3ff)	/* land on 1K boundaries */
++ 	    sbrk (1024 - ((int) cp & 0x3ff));
++ 
++ 	/* Get 2k of storage */
++ 
++ 	cp = sbrk (04000);
++ 	if (cp == (char *) -1)
++ 	    return;
++ 
++ 	/* Divide it into an initial 8-word block
++ 	plus one block of size 2**nu for nu = 3 ... 10.  */
++ 
++ 	CHAIN (cp) = nextf[0];
++ 	nextf[0] = (struct mhead *) cp;
++ 	((struct mhead *) cp) -> mh_alloc = ISFREE;
++ 	((struct mhead *) cp) -> mh_index = 0;
++ 	cp += 8;
++ 
++ 	for (nu = 0; nu < 7; nu++) {
++ 		CHAIN (cp) = nextf[nu];
++ 		nextf[nu] = (struct mhead *) cp;
++ 		((struct mhead *) cp) -> mh_alloc = ISFREE;
++ 		((struct mhead *) cp) -> mh_index = nu;
++ 		cp += 8 << nu;}}
++ 
++ char *
++ malloc (n)		/* get a block */
++     unsigned n; {
++ 	register struct  mhead *p;
++ 	register unsigned int  nbytes;
++ 	register int    nunits = 0;
++ 
++ 	/* Figure out how many bytes are required, rounding up to the nearest
++ 	multiple of 4, then figure out which nextf[] area to use */
++ 	nbytes = (n + sizeof *p + EXTRA + 3) & ~3;
++ 		{
++ 		register unsigned int   shiftr = (nbytes - 1) >> 2;
++ 
++ 		while (shiftr >>= 1)
++ 		    nunits++;
++ 		}
++ 
++ 	/* If there are no blocks of the appropriate size, go get some */
++ 	/* COULD SPLIT UP A LARGER BLOCK HERE ... ACT */
++ 	if (nextf[nunits] == 0)
++ 	    morecore (nunits);
++ 
++ 	/* Get one block off the list, and set the new list head */
++ 	if ((p = nextf[nunits]) == 0)
++ 	    return 0;
++ 	nextf[nunits] = CHAIN (p);
++ 
++ 	/* Check for free block clobbered */
++ 	/* If not for this check, we would gobble a clobbered free chain ptr */
++ 	/* and bomb out on the NEXT allocate of this size block */
++ 	if (p -> mh_alloc != ISFREE || p -> mh_index != nunits)
++ #ifdef rcheck
++ 	    botch ("block on free list clobbered");
++ #else
++ 	    abort ();
++ #endif /* rcheck */
++ 
++ 	/* Fill in the info, and if range checking, set up the magic numbers */
++ 	p -> mh_alloc = ISALLOC;
++ #ifdef rcheck
++ 	p -> mh_nbytes = n;
++ 	p -> mh_magic4 = MAGIC4;
++ 		{
++ 		register char  *m = (char *) (p + 1) + n;
++ 
++ 		*m++ = MAGIC1, *m++ = MAGIC1, *m++ = MAGIC1, *m = MAGIC1;
++ 		}
++ #else
++ 	p -> mh_size = n;
++ #endif /* rcheck */
++ #ifdef MSTATS
++ 	nmalloc[nunits]++;
++ 	nmal++;
++ #endif /* MSTATS */
++ 	return (char *) (p + 1);}
++ 
++ free (mem)
++     char *mem; {
++ 	register struct mhead *p;
++ 		{
++ 		register char *ap = mem;
++ 
++ 		ASSERT (ap != 0);
++ 		p = (struct mhead *) ap - 1;
++ 		ASSERT (p -> mh_alloc == ISALLOC);
++ #ifdef rcheck
++ 		ASSERT (p -> mh_magic4 == MAGIC4);
++ 		ap += p -> mh_nbytes;
++ 		ASSERT (*ap++ == MAGIC1); ASSERT (*ap++ == MAGIC1);
++ 		ASSERT (*ap++ == MAGIC1); ASSERT (*ap   == MAGIC1);
++ #endif /* rcheck */
++ 		}
++ 		{
++ 		register int nunits = p -> mh_index;
++ 
++ 		ASSERT (nunits <= 29);
++ 		p -> mh_alloc = ISFREE;
++ 		CHAIN (p) = nextf[nunits];
++ 		nextf[nunits] = p;
++ #ifdef MSTATS
++ 		nmalloc[nunits]--;
++ 		nfre++;
++ #endif /* MSTATS */
++ 		}
++ 	}
++ 
++ char *
++ realloc (mem, n)
++     char *mem;
++     register unsigned n; {
++ 	register struct mhead *p;
++ 	register unsigned int tocopy;
++ 	register int nbytes;
++ 	register int nunits;
++ 
++ 	if ((p = (struct mhead *) mem) == 0)
++ 	    return malloc (n);
++ 	p--;
++ 	nunits = p -> mh_index;
++ 	ASSERT (p -> mh_alloc == ISALLOC);
++ #ifdef rcheck
++ 	ASSERT (p -> mh_magic4 == MAGIC4);
++ 		{
++ 		register char *m = mem + (tocopy = p -> mh_nbytes);
++ 		ASSERT (*m++ == MAGIC1); ASSERT (*m++ == MAGIC1);
++ 		ASSERT (*m++ == MAGIC1); ASSERT (*m   == MAGIC1);
++ 		}
++ #else
++ 	if (p -> mh_index >= 13)
++ 	    tocopy = (1 << (p -> mh_index + 3)) - sizeof *p;
++ 	else
++ 	    tocopy = p -> mh_size;
++ #endif /* rcheck */
++ 
++ 	/* See if desired size rounds to same power of 2 as actual size. */
++ 	nbytes = (n + sizeof *p + EXTRA + 7) & ~7;
++ 
++ 	/* If ok, use the same block, just marking its size as changed.  */
++ 	if (nbytes > (4 << nunits) && nbytes <= (8 << nunits)) {
++ #ifdef rcheck
++ 		register char *m = mem + tocopy;
++ 		*m++ = 0;  *m++ = 0;  *m++ = 0;  *m++ = 0;
++ 		p-> mh_nbytes = n;
++ 		m = mem + n;
++ 		*m++ = MAGIC1;  *m++ = MAGIC1;  *m++ = MAGIC1;  *m++ = MAGIC1;
++ #else
++ 		p -> mh_size = n;
++ #endif /* rcheck */
++ 		return mem;}
++ 
++ 	if (n < tocopy)
++ 	    tocopy = n;
++ 		{
++ 		register char *new;
++ 		void bcopy();	/*HMS: here? */
++ 
++ 		if ((new = malloc (n)) == 0)
++ 		    return 0;
++ 		bcopy (mem, new, tocopy);
++ 		free (mem);
++ 		return new;
++ 		}
++ 	}
++ 
++ #ifdef MSTATS
++ /* Return statistics describing allocation of blocks of size 2**n. */
++ 
++ struct mstats_value {
++ 	int blocksize;
++ 	int nfree;
++ 	int nused;
++ 	};
++ 
++ struct mstats_value
++ malloc_stats (size)
++     int size; {
++ 	struct mstats_value v;
++ 	register int i;
++ 	register struct mhead *p;
++ 
++ 	v.nfree = 0;
++ 
++ 	if (size < 0 || size >= 30) {
++ 		v.blocksize = 0;
++ 		v.nused = 0;
++ 		return v;}
++ 
++ 	v.blocksize = 1 << (size + 3);
++ 	v.nused = nmalloc[size];
++ 
++ 	for (p = nextf[size]; p; p = CHAIN (p))
++ 	    v.nfree++;
++ 
++ 	return v;}
++ #endif
++ 
++ /* how much space is available? */
++ 
++ unsigned freespace() {
++   	register int i, j;
++   	register struct mhead *p;
++   	register unsigned space = 0;
++ 	int local;	/* address only is used */
++ 
++ 	space = (char *)&local - sbrk(0);	/* stack space */
++ 
++   	for (i = 0; i < 30; i++) {
++   		for (j = 0, p = nextf[i]; p; p = CHAIN (p), j++) ;
++   		space += j * (1 << (i + 3));}
++ 
++ 	return(space);}
++ 
++ /* How big is this cell? */
++ 
++ unsigned mc_size(cp)
++     char *cp;{
++ 	register struct mhead *p;
++ 
++ 	if ((p = (struct mhead *) cp) == 0) {
++ 		/*HMS? */
++ 		}
++ 	p--;
++ #ifdef rcheck
++ 	return p -> mh_nbytes;
++ #else
++ 	return (1 << (p -> mh_index + 3)) - sizeof *p;
++ /**/
++ /*	if (p -> mh_index >= 13)
++ /*	    return (1 << (p -> mh_index + 3)) - sizeof *p;
++ /*	else
++ /*	    return p -> mh_size;
++ /**/
++ #endif /* rcheck */
++ 	}
++ 
++ /*HMS: Really should use memcpy, if available... */
++ 
++ void bcopy(source, dest, len)
++     register char *source, *dest;
++     register len; {
++ 	register i;
++ 	
++ 	for (i = 0; i < len; i++)
++ 	    *dest++ = *source++;}
+ 
+Index: patch.c
+Prereq: 2.0.1.4
+*** patch.c.old	Fri Jun  3 15:27:40 1988
+--- patch.c	Fri Jun  3 15:27:44 1988
+***************
+*** 1,5 ****
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+--- 1,5 ----
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+***************
+*** 9,14 ****
+--- 9,18 ----
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.5  88/06/03  15:09:37  lwall
++  * patch10: exit code improved.
++  * patch10: better support for non-flexfilenames.
++  * 
+   * Revision 2.0.1.4  87/02/16  14:00:04  lwall
+   * Short replacement caused spurious "Out of sync" message.
+   * 
+***************
+*** 117,122 ****
+--- 121,127 ----
+      LINENUM mymaxfuzz;
+      int hunk = 0;
+      int failed = 0;
++     int failtotal = 0;
+      int i;
+  
+      setbuf(stderr, serrbuf);
+***************
+*** 133,139 ****
+      get_some_switches();
+      
+      /* make sure we clean up /tmp in case of disaster */
+!     set_signals();
+  
+      for (
+  	open_patch_file(filearg[1]);
+--- 138,144 ----
+      get_some_switches();
+      
+      /* make sure we clean up /tmp in case of disaster */
+!     set_signals(0);
+  
+      for (
+  	open_patch_file(filearg[1]);
+***************
+*** 181,188 ****
+  						/* dwim for reversed patch? */
+  			if (!pch_swap()) {
+  			    if (fuzz == Nulline)
+! 				say1("\
+! Not enough memory to try swapped hunk!  Assuming unswapped.\n");
+  			    continue;
+  			}
+  			reverse = !reverse;
+--- 186,193 ----
+  						/* dwim for reversed patch? */
+  			if (!pch_swap()) {
+  			    if (fuzz == Nulline)
+! 				say1(
+! "Not enough memory to try swapped hunk!  Assuming unswapped.\n");
+  			    continue;
+  			}
+  			reverse = !reverse;
+***************
+*** 196,208 ****
+  			    if (!pch_swap())         /* put it back to normal */
+  				fatal1("Lost hunk on alloc error!\n");
+  			    reverse = !reverse;
+! 			    say1("\
+! Ignoring previously applied (or reversed) patch.\n");
+  			    skip_rest_of_patch = TRUE;
+  			}
+  			else {
+! 			    ask3("\
+! %seversed (or previously applied) patch detected!  %s -R? [y] ",
+  				reverse ? "R" : "Unr",
+  				reverse ? "Assume" : "Ignore");
+  			    if (*buf == 'n') {
+--- 201,213 ----
+  			    if (!pch_swap())         /* put it back to normal */
+  				fatal1("Lost hunk on alloc error!\n");
+  			    reverse = !reverse;
+! 			    say1(
+! "Ignoring previously applied (or reversed) patch.\n");
+  			    skip_rest_of_patch = TRUE;
+  			}
+  			else {
+! 			    ask3(
+! "%seversed (or previously applied) patch detected!  %s -R? [y] ",
+  				reverse ? "R" : "Unr",
+  				reverse ? "Assume" : "Ignore");
+  			    if (*buf == 'n') {
+***************
+*** 278,286 ****
+  	Fclose(rejfp);
+  	rejfp = Nullfp;
+  	if (failed) {
+  	    if (!*rejname) {
+  		Strcpy(rejname, outname);
+! 		Strcat(rejname, ".rej");
+  	    }
+  	    if (skip_rest_of_patch) {
+  		say4("%d out of %d hunks ignored--saving rejects to %s\n",
+--- 283,304 ----
+  	Fclose(rejfp);
+  	rejfp = Nullfp;
+  	if (failed) {
++ 	    failtotal += failed;
+  	    if (!*rejname) {
+  		Strcpy(rejname, outname);
+! #ifndef FLEXFILENAMES
+! 		{
+! 		    char *s = rindex(rejname,'/');
+! 
+! 		    if (!s)
+! 			s = rejname;
+! 		    if (strlen(s) > 13)
+! 			if (s[12] == '.')	/* try to preserve difference */
+! 			    s[12] = s[13];	/* between .h, .c, .y, etc. */
+! 			s[13] = '\0';
+! 		}
+! #endif
+! 		Strcat(rejname, REJEXT);
+  	    }
+  	    if (skip_rest_of_patch) {
+  		say4("%d out of %d hunks ignored--saving rejects to %s\n",
+***************
+*** 293,301 ****
+  	    if (move_file(TMPREJNAME, rejname) < 0)
+  		trejkeep = TRUE;
+  	}
+! 	set_signals();
+      }
+!     my_exit(0);
+  }
+  
+  /* Prepare to find the next patch to do in the patch file. */
+--- 311,319 ----
+  	    if (move_file(TMPREJNAME, rejname) < 0)
+  		trejkeep = TRUE;
+  	}
+! 	set_signals(1);
+      }
+!     my_exit(failtotal);
+  }
+  
+  /* Prepare to find the next patch to do in the patch file. */
+***************
+*** 366,371 ****
+--- 384,393 ----
+  		origext = savestr(Argv[1]);
+  		Argc--,Argv++;
+  		break;
++ 	    case 'B':
++ 		origprae = savestr(Argv[1]);
++ 		Argc--,Argv++;
++ 		break;
+  	    case 'c':
+  		diff_type = CONTEXT_DIFF;
+  		break;
+***************
+*** 383,388 ****
+--- 405,412 ----
+  		    Argc--,Argv++;
+  		    s = Argv[0];
+  		}
++ 		if (!isalpha(*s))
++ 		    fatal1("Argument to -D not an identifier.\n");
+  		Sprintf(if_defined, "#ifdef %s\n", s);
+  		Sprintf(not_defined, "#ifndef %s\n", s);
+  		Sprintf(end_defined, "#endif /* %s */\n", s);
+ 
+Index: patch.man
+Prereq: 2.0
+*** patch.man.old	Fri Jun  3 15:27:54 1988
+--- patch.man	Fri Jun  3 15:27:55 1988
+***************
+*** 1,6 ****
+! ''' $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+  ''' 
+  ''' $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
+  ''' Revision 2.0  86/09/17  15:39:09  lwall
+  ''' Baseline for netwide release.
+  ''' 
+--- 1,10 ----
+! .rn '' }`
+! ''' $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+  ''' 
+  ''' $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++ ''' Revision 2.0.1.1  88/06/03  15:12:51  lwall
++ ''' patch10: -B switch was contributed.
++ ''' 
+  ''' Revision 2.0  86/09/17  15:39:09  lwall
+  ''' Baseline for netwide release.
+  ''' 
+***************
+*** 80,86 ****
+  version.
+  By default, the patched version is put in place of the original, with
+  the original file backed up to the same name with the
+! extension \*(L".orig\*(R", or as specified by the
+  .B -b
+  switch.
+  You may also specify where you want the output to go with a
+--- 84,90 ----
+  version.
+  By default, the patched version is put in place of the original, with
+  the original file backed up to the same name with the
+! extension \*(L".orig\*(R" or \*(L"~\*(R" , or as specified by the
+  .B -b
+  switch.
+  You may also specify where you want the output to go with a
+***************
+*** 137,143 ****
+  .I patch
+  cannot find a place to install that hunk of the patch, it will put the
+  hunk out to a reject file, which normally is the name of the output file
+! plus \*(L".rej\*(R".
+  (Note that the rejected hunk will come out in context diff form whether the
+  input patch was a context diff or a normal diff.
+  If the input was a normal diff, many of the contexts will simply be null.)
+--- 141,147 ----
+  .I patch
+  cannot find a place to install that hunk of the patch, it will put the
+  hunk out to a reject file, which normally is the name of the output file
+! plus \*(L".rej\*(R" or \*(L"#\*(R" .
+  (Note that the rejected hunk will come out in context diff form whether the
+  input patch was a context diff or a normal diff.
+  If the input was a normal diff, many of the contexts will simply be null.)
+***************
+*** 211,218 ****
+  .TP 5
+  .B \-b
+  causes the next argument to be interpreted as the backup extension, to be
+! used in place of \*(L".orig\*(R".
+  .TP 5
+  .B \-c
+  forces
+  .I patch
+--- 215,228 ----
+  .TP 5
+  .B \-b
+  causes the next argument to be interpreted as the backup extension, to be
+! used in place of \*(L".orig\*(R" or \*(L"~\*(R".
+  .TP 5
++ .B \-B
++ causes the next argument to be interpreted as a prefix to the backup file
++ name. If this argument is specified any argument from -b will be ignored.
++ This argument is an extension to Larry Wall's patch v2.0.1.4, patchlevel 8,
++ made by M. Greim (greim@sbsvax.uucp).
++ .TP 5
+  .B \-c
+  forces
+  .I patch
+***************
+*** 250,256 ****
+  .TP 5
+  .B \-F<number>
+  sets the maximum fuzz factor.
+! This switch only applied to context diffs, and causes
+  .I patch
+  to ignore up to that many lines in looking for places to install a hunk.
+  Note that a larger fuzz factor increases the odds of a faulty patch.
+--- 260,266 ----
+  .TP 5
+  .B \-F<number>
+  sets the maximum fuzz factor.
+! This switch only applies to context diffs, and causes
+  .I patch
+  to ignore up to that many lines in looking for places to install a hunk.
+  Note that a larger fuzz factor increases the odds of a faulty patch.
+***************
+*** 285,291 ****
+  which controls how pathnames found in the patch file are treated, in case
+  the you keep your files in a different directory than the person who sent
+  out the patch.
+! The strip count specifies how many backslashes are to be stripped from
+  the front of the pathname.
+  (Any intervening directory names also go away.)
+  For example, supposing the filename in the patch file was
+--- 295,301 ----
+  which controls how pathnames found in the patch file are treated, in case
+  the you keep your files in a different directory than the person who sent
+  out the patch.
+! The strip count specifies how many slashes are to be stripped from
+  the front of the pathname.
+  (Any intervening directory names also go away.)
+  For example, supposing the filename in the patch file was
+***************
+*** 413,418 ****
+--- 423,433 ----
+  .I patch
+  is attempting to intuit whether there is a patch in that text and, if so,
+  what kind of patch it is.
++ .PP
++ .I Patch
++ will exit with a non-zero status if any reject files were created.
++ When applying a set of patches in a loop it behooves you to check this
++ exit status so you don't apply a later patch to a partially patched file.
+  .SH CAVEATS
+  .I Patch
+  cannot tell if the line numbers are off in an ed script, and can only detect
+***************
+*** 444,446 ****
+--- 459,462 ----
+  .I patch
+  will think it is a reversed patch, and offer to un-apply the patch.
+  This could be construed as a feature.
++ .rn }` ''
+ 
+Index: pch.c
+Prereq: 2.0.1.6
+*** pch.c.old	Fri Jun  3 15:28:08 1988
+--- pch.c	Fri Jun  3 15:28:12 1988
+***************
+*** 1,6 ****
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.6  87/06/04  16:18:13  lwall
+   * pch_swap didn't swap p_bfake and p_efake.
+   * 
+--- 1,10 ----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch10,v 1.2 1992/01/04 19:03:18 kolstad Exp $
+   *
+   * $Log: patch10,v $
+# Revision 1.2  1992/01/04  19:03:18  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.7  88/06/03  15:13:28  lwall
++  * patch10: Can now find patches in shar scripts.
++  * patch10: Hunks that swapped and then swapped back could core dump.
++  * 
+   * Revision 2.0.1.6  87/06/04  16:18:13  lwall
+   * pch_swap didn't swap p_bfake and p_efake.
+   * 
+***************
+*** 243,249 ****
+  		goto scan_exit;
+  	    }
+  	}
+! 	for (s = buf; *s == ' ' || *s == '\t'; s++) {
+  	    if (*s == '\t')
+  		indent += 8 - (indent % 8);
+  	    else
+--- 247,253 ----
+  		goto scan_exit;
+  	    }
+  	}
+! 	for (s = buf; *s == ' ' || *s == '\t' || *s == 'X'; s++) {
+  	    if (*s == '\t')
+  		indent += 8 - (indent % 8);
+  	    else
+***************
+*** 466,472 ****
+--- 470,480 ----
+  	    p_end++;
+  	    assert(p_end < hunkmax);
+  	    p_char[p_end] = *buf;
++ #ifdef zilog
++ 	    p_line[(short)p_end] = Nullch;
++ #else
+  	    p_line[p_end] = Nullch;
++ #endif
+  	    switch (*buf) {
+  	    case '*':
+  		if (strnEQ(buf, "********", 8)) {
+***************
+*** 494,499 ****
+--- 502,509 ----
+  		for (s=buf; *s && !isdigit(*s); s++) ;
+  		if (!*s)
+  		    goto malformed;
++ 		if (strnEQ(s,"0,0",3))
++ 		    strcpy(s,s+2);
+  		p_first = (LINENUM) atol(s);
+  		while (isdigit(*s)) s++;
+  		if (*s == ',') {
+***************
+*** 586,591 ****
+--- 596,603 ----
+  	    case '+':  case '!':
+  		repl_could_be_missing = FALSE;
+  	      change_line:
++ 		if (buf[1] == '\n' && canonicalize)
++ 		    strcpy(buf+1," \n");
+  		if (!isspace(buf[1]) && buf[1] != '>' && buf[1] != '<' &&
+  		  repl_beginning && repl_could_be_missing) {
+  		    repl_missing = TRUE;
+***************
+*** 674,682 ****
+  	if (diff_type == CONTEXT_DIFF &&
+  	  (fillcnt || (p_first > 1 && ptrn_copiable > 2*p_context)) ) {
+  	    if (verbose)
+! 		say1("\
+! (Fascinating--this is really a new-style context diff but without the telltale\n\
+! extra asterisks on the *** line that usually indicate the new style...)\n");
+  	    diff_type = NEW_CONTEXT_DIFF;
+  	}
+  	
+--- 686,695 ----
+  	if (diff_type == CONTEXT_DIFF &&
+  	  (fillcnt || (p_first > 1 && ptrn_copiable > 2*p_context)) ) {
+  	    if (verbose)
+! 		say4("%s\n%s\n%s\n",
+! "(Fascinating--this is really a new-style context diff but without",
+! "the telltale extra asterisks on the *** line that usually indicate",
+! "the new style...)");
+  	    diff_type = NEW_CONTEXT_DIFF;
+  	}
+  	
+***************
+*** 844,850 ****
+      Reg2 int indent = 0;
+  
+      if (p_indent && ret != Nullch) {
+! 	for (s=buf; indent < p_indent && (*s == ' ' || *s == '\t'); s++) {
+  	    if (*s == '\t')
+  		indent += 8 - (indent % 7);
+  	    else
+--- 857,864 ----
+      Reg2 int indent = 0;
+  
+      if (p_indent && ret != Nullch) {
+! 	for (s=buf;
+! 	  indent < p_indent && (*s == ' ' || *s == '\t' || *s == 'X'); s++) {
+  	    if (*s == '\t')
+  		indent += 8 - (indent % 7);
+  	    else
+***************
+*** 905,913 ****
+  	i++;
+      }
+      if (p_efake >= 0) {			/* fix non-freeable ptr range */
+! 	n = p_end - i + 1;
+! 	if (p_efake > i)
+! 	    n = -n;
+  	p_efake += n;
+  	p_bfake += n;
+      }
+--- 919,928 ----
+  	i++;
+      }
+      if (p_efake >= 0) {			/* fix non-freeable ptr range */
+! 	if (p_efake <= i)
+! 	    n = p_end - i + 1;
+! 	else
+! 	    n = -i;
+  	p_efake += n;
+  	p_bfake += n;
+      }
+***************
+*** 1104,1108 ****
+      }
+      else
+  	chmod(outname, filemode);
+!     set_signals();
+  }
+--- 1119,1123 ----
+      }
+      else
+  	chmod(outname, filemode);
+!     set_signals(1);
+  }
+ 
+Index: util.c
+*** util.c.old	Fri Jun  3 15:28:23 1988
+--- util.c	Fri Jun  3 15:28:24 1988
+***************
+*** 31,38 ****
+  	return 0;
+      }
+  
+!     Strcpy(bakname, to);
+!     Strcat(bakname, origext?origext:ORIGEXT);
+      if (stat(to, &filestat) >= 0) {	/* output file exists */
+  	dev_t to_device = filestat.st_dev;
+  	ino_t to_inode  = filestat.st_ino;
+--- 31,43 ----
+  	return 0;
+      }
+  
+! 	if (origprae) {
+! 		Strcpy (bakname, origprae);
+!     	Strcat(bakname, to);
+! 	} else {
+!    		Strcpy(bakname, to);
+!     	Strcat(bakname, origext?origext:ORIGEXT);
+! 	}
+      if (stat(to, &filestat) >= 0) {	/* output file exists */
+  	dev_t to_device = filestat.st_dev;
+  	ino_t to_inode  = filestat.st_ino;
+***************
+*** 155,161 ****
+  void
+  say(pat,arg1,arg2,arg3)
+  char *pat;
+! int arg1,arg2,arg3;
+  {
+      fprintf(stderr, pat, arg1, arg2, arg3);
+      Fflush(stderr);
+--- 160,166 ----
+  void
+  say(pat,arg1,arg2,arg3)
+  char *pat;
+! long arg1,arg2,arg3;
+  {
+      fprintf(stderr, pat, arg1, arg2, arg3);
+      Fflush(stderr);
+***************
+*** 166,172 ****
+  void				/* very void */
+  fatal(pat,arg1,arg2,arg3)
+  char *pat;
+! int arg1,arg2,arg3;
+  {
+      void my_exit();
+  
+--- 171,177 ----
+  void				/* very void */
+  fatal(pat,arg1,arg2,arg3)
+  char *pat;
+! long arg1,arg2,arg3;
+  {
+      void my_exit();
+  
+***************
+*** 179,185 ****
+  void
+  ask(pat,arg1,arg2,arg3)
+  char *pat;
+! int arg1,arg2,arg3;
+  {
+      int ttyfd;
+      int r;
+--- 184,190 ----
+  void
+  ask(pat,arg1,arg2,arg3)
+  char *pat;
+! long arg1,arg2,arg3;
+  {
+      int ttyfd;
+      int r;
+***************
+*** 218,237 ****
+      if (!tty2)
+  	say1(buf);
+  }
+! #endif lint
+  
+  /* How to handle certain events when not in a critical region. */
+  
+  void
+! set_signals()
+  {
+      void my_exit();
+- 
+  #ifndef lint
+!     if (signal(SIGHUP, SIG_IGN) != SIG_IGN)
+! 	Signal(SIGHUP, my_exit);
+!     if (signal(SIGINT, SIG_IGN) != SIG_IGN)
+! 	Signal(SIGINT, my_exit);
+  #endif
+  }
+  
+--- 223,254 ----
+      if (!tty2)
+  	say1(buf);
+  }
+! #endif /* lint */
+  
+  /* How to handle certain events when not in a critical region. */
+  
+  void
+! set_signals(reset)
+! int reset;
+  {
+      void my_exit();
+  #ifndef lint
+! #ifdef VOIDSIG
+!     static void (*hupval)(),(*intval)();
+! #else
+!     static int (*hupval)(),(*intval)();
+! #endif
+! 
+!     if (!reset) {
+! 	hupval = signal(SIGHUP, SIG_IGN);
+! 	if (hupval != SIG_IGN)
+! 	    hupval = my_exit;
+! 	intval = signal(SIGINT, SIG_IGN);
+! 	if (intval != SIG_IGN)
+! 	    intval = my_exit;
+!     }
+!     Signal(SIGHUP, hupval);
+!     Signal(SIGINT, intval);
+  #endif
+  }
+  
+
+

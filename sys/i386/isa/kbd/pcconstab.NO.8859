@@ -1,0 +1,317 @@
+/*
+ * Copyright (c) 1992, 1993 Berkeley Software Design, Inc. All rights reserved.
+ * The Berkeley Software Design Inc. software License Agreement specifies
+ * the terms and conditions for redistribution.
+ *
+ *	$Id: pcconstab.NO.8859,v 1.2 1994/01/28 04:53:31 karels Exp $
+ */
+
+/*-
+ * Copyright (c) 1992 Dirk Husemann, University of Erlangen-Nurnberg,
+ * Germany. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by the University of
+ *	Erlangen-Nuremberg, Germany.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE UNIVERSITY ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+/*
+ *	Norwegian keyboard mapping tables
+ *	Robert Andersson, Gallagher & Robertson A/S, robert@gar.no
+ *	May 16 1993
+ *
+ *	Notes:
+ *	These tables output 8bit characters using the ISO 8859-1 standard.
+ *	It as assumed that an 8859-1 font has been loaded using vgafont(1).
+ *
+ *	Todo:
+ *	Add compose key support so we can input all the funnies that
+ *	aren't built up like accent+character.
+ *	pccons.c must be enhanced before this can be done.
+ */
+
+#define	M_CIRCUMFLEX	1
+#define	M_TREMA		2
+#define	M_ACUTE		3
+#define	M_GRAVE		4
+#define	M_TILDE		5
+
+int maxaccent = M_TILDE;
+
+struct key accenttab[] = {
+#define	ACCENT_E	0
+/* 12 */ KALPHA('e',	'E',	005,	005,	'e',	'E',	005,	005),
+/* 12 */ KALPHA(0xea,	0xca,	005,	005,	0xea,	0xca,	005,	005),
+/* 12 */ KALPHA(0xeb,	0xcb,	005,	005,	0xeb,	0xcb,	005,	005),
+/* 12 */ KALPHA(0xe9,	0xc9,	005,	005,	0xe9,	0xc9,	005,	005),
+/* 12 */ KALPHA(0xe8,	0xc8,	005,	005,	0xe8,	0xc8,	005,	005),
+/* 12 */ KALPHA('e',	'E',	005,	005,	'e',	'E',	005,	005),
+
+#define	ACCENT_Y	6
+/* 15 */ KALPHA('y',	'Y',	031,	031,	'y',	'Y',	031,	031),
+/* 15 */ KALPHA('y',	'Y',	031,	031,	'y',	'Y',	031,	031),
+/* 15 */ KALPHA(0xff,	'Y',	031,	031,	0xff,	'Y',	031,	031),
+/* 15 */ KALPHA(0xfd,	0xdd,	031,	031,	0xfd,	0xdd,	031,	031),
+/* 15 */ KALPHA('y',	'Y',	031,	031,	'y',	'Y',	031,	031),
+/* 15 */ KALPHA('y',	'Y',	031,	031,	'y',	'Y',	031,	031),
+
+#define	ACCENT_U	12
+/* 16 */ KALPHA('u',	'U',	025,	025,	'u',	'U',	025,	025),
+/* 16 */ KALPHA(0xfb,	0xdb,	025,	025,	0xfb,	0xdb,	025,	025),
+/* 16 */ KALPHA(0xfc,	0xdc,	025,	025,	0xfc,	0xdc,	025,	025),
+/* 16 */ KALPHA(0xfa,	0xda,	025,	025,	0xfa,	0xda,	025,	025),
+/* 16 */ KALPHA(0xf9,	0xd9,	025,	025,	0xf9,	0xd9,	025,	025),
+/* 16 */ KALPHA('u',	'U',	025,	025,	'u',	'U',	025,	025),
+
+#define	ACCENT_I	18
+/* 17 */ KALPHA('i',	'I',	011,	011,	'i',	'I',	011,	011),
+/* 17 */ KALPHA(0xee,	0xce,	011,	011,	0xee,	0xce,	011,	011),
+/* 17 */ KALPHA(0xef,	0xcf,	011,	011,	0xef,	0xcf,	011,	011),
+/* 17 */ KALPHA(0xed,	0xcd,	011,	011,	0xed,	0xcd,	011,	011),
+/* 17 */ KALPHA(0xec,	0xcc,	011,	011,	0xec,	0xcc,	011,	011),
+/* 17 */ KALPHA('i',	'I',	011,	011,	'i',	'I',	011,	011),
+
+#define	ACCENT_O	24
+/* 18 */ KALPHA('o',	'O',	017,	017,	'o',	'O',	017,	017),
+/* 18 */ KALPHA(0xf4,	0xd4,	017,	017,	0xf4,	0xd4,	017,	017),
+/* 18 */ KALPHA(0xf6,	0xd6,	017,	017,	0xf6,	0xd6,	017,	017),
+/* 18 */ KALPHA(0xf3,	0xd3,	017,	017,	0xf3,	0xd3,	017,	017),
+/* 18 */ KALPHA(0xf2,	0xd2,	017,	017,	0xf2,	0xd2,	017,	017),
+/* 18 */ KALPHA(0xf5,	0xd5,	017,	017,	0xf5,	0xd5,	017,	017),
+
+#define	ACCENT_A	30
+/* 1e */ KALPHA('a',	'A',	001,	001,	'a',	'A',	001,	001),
+/* 1e */ KALPHA(0xe2,	0xc2,	001,	001,	0xe2,	0xc2,	001,	001),
+/* 1e */ KALPHA(0xe4,	0xc4,	001,	001,	0xe4,	0xc4,	001,	001),
+/* 1e */ KALPHA(0xe1,	0xc1,	001,	001,	0xe1,	0xc1,	001,	001),
+/* 1e */ KALPHA(0xe0,	0xc0,	001,	001,	0xe0,	0xc0,	001,	001),
+/* 1e */ KALPHA(0xe3,	0xc3,	001,	001,	0xe3,	0xc3,	001,	001),
+
+#define	ACCENT_N	36
+/* 31 */ KALPHA('n',	'N',	016,	016,	'n',	'N',	016,	016),
+/* 31 */ KALPHA('n',	'N',	016,	016,	'n',	'N',	016,	016),
+/* 31 */ KALPHA('n',	'N',	016,	016,	'n',	'N',	016,	016),
+/* 31 */ KALPHA('n',	'N',	016,	016,	'n',	'N',	016,	016),
+/* 31 */ KALPHA('n',	'N',	016,	016,	'n',	'N',	016,	016),
+/* 31 */ KALPHA(0xf1,	0xd1,	016,	016,	0xf1,	0xd1,	016,	016),
+
+#define	ACCENT_SPACE	42
+/* 39 */ KCHAR(' ',	' ',	000,	000,	' ',	' ',	000,	000),
+/* 39 */ KCONST('^'),
+/* 39 */ KCONST(0xa8),
+/* 39 */ KCONST(0xb4),
+/* 39 */ KCONST('`'),
+/* 39 */ KCONST('~'),
+};
+
+struct key pcconstab[] = {
+/* 00 */ KNULL,
+/* 01 */ KCONST(033),
+/* 02 */ KCHAR('1',	'!',	'1',	'!',	'1',	'!',	'1',	'!'),
+/* 03 */ KCHAR('2',	'"',	000,	000,	'@',	'@',	000,	000),
+/* 04 */ KCHAR('3',	'#',	'3',	'#',	0xa3,	0xa3,	0xa3,	0xa3),
+/* 05 */ KCHAR('4',	0xa4,	'4',	0xa4,	'$',	'$',	'$',	'$'),
+/* 06 */ KCHAR('5',	'%',	'5',	'%',	'5'	,'%',	'5',	'%'),
+/* 07 */ KCHAR('6',	'&',	'6',	'&',	'6',	'&',	'6',	'&'),
+/* 08 */ KCHAR('7',	'/',	'7',	'/',	'{',	'{',	'{',	'{'),
+/* 09 */ KCHAR('8',	'(',	033,	033,	'[',	'[',	033,	033),
+/* 0a */ KCHAR('9',	')',	035,	035,	']',	']',	035,	035),
+/* 0b */ KCHAR('0',	'=',	'0',	'=',	'}',	'}',	'}',	'}'),
+/* 0c */ KCHAR('+',	'?',	'+',	'+',	'+',	'?',	'+',	'?'),
+/* 0d */ KACCENT('\\',	M_GRAVE,	034,	034,	M_ACUTE,	M_ACUTE,	034,	034),
+/* 0e */ KCHAR(010,	010,	0177,	0177,	010,	010,	0177,	0177),
+/* 0f */ KCHAR('\t',	'\t',	'\t',	'\t',	'\t',	'\t',	'\t',	'\t'),
+/* 10 */ KALPHA('q',	'Q',	021,	021,	'q',	'Q',	021,	021),
+/* 11 */ KALPHA('w',	'W',	027,	027,	'w',	'W',	027,	027),
+/* 12 */ KACCENTED(ACCENT_E),
+/* 13 */ KALPHA('r',	'R',	022,	022,	'r',	'R',	022,	022),
+/* 14 */ KALPHA('t',	'T',	024,	024,	't',	'T',	024,	024),
+/* 15 */ KACCENTED(ACCENT_Y),
+/* 16 */ KACCENTED(ACCENT_U),
+/* 17 */ KACCENTED(ACCENT_I),
+/* 18 */ KACCENTED(ACCENT_O),
+/* 19 */ KALPHA('p',	'P',	020,	020,	'p',	'P',	020,	020),
+/* 1a */ KALPHA(0xe5,	0xc5,	0xe5,	0xc5,	0xe5,	0xc5,	0xe5,	0xc5),
+/* 1b */ KACCENT(M_TREMA,	M_CIRCUMFLEX,	036,	036,	M_TILDE,	M_TILDE,	036,	036),
+/* 1c */ KCHAR('\r',	'\r',	'\n',	'\n',	'\r',	'\r',	'\n',	'\n'),
+/* 1d */ KCTL,
+/* 1e */ KACCENTED(ACCENT_A),
+/* 1f */ KALPHA('s',	'S',	023,	023,	's',	'S',	023,	023),
+/* 20 */ KALPHA('d',	'D',	004,	004,	'd',	'D',	004,	004),
+/* 21 */ KALPHA('f',	'F',	006,	006,	'f',	'F',	006,	006),
+/* 22 */ KALPHA('g',	'G',	007,	007,	'g',	'G',	007,	007),
+/* 23 */ KALPHA('h',	'H',	010,	010,	'h',	'H',	010,	010),
+/* 24 */ KALPHA('j',	'J',	012,	012,	'j',	'J',	012,	012),
+/* 25 */ KALPHA('k',	'K',	013,	013,	'k',	'K',	013,	013),
+/* 26 */ KALPHA('l',	'L',	014,	014,	'l',	'L',	014,	014),
+/* 27 */ KALPHA(0xf8,	0xd8,	0xf8,	0xd8,	0xf8,	0xd8,	0xf8,	0xd8),
+/* 28 */ KALPHA(0xe6,	0xc6,	0xe6,	0xc6,	0xe6,	0xc6,	0xe6,	0xc6),
+/* 29 */ KCHAR('|',	0xa7,	'|',	0xa7,	'|',	0xa7,	'|',	0xa7),
+/* 2a */ KSHF,
+/* 2b */ KCHAR('\'',	'*',	'\'',	'*',	'\'',	'*',	'\'',	'*'),
+/* 2c */ KALPHA('z',	'Z',	032,	032,	'z',	'Z',	032,	032),
+/* 2d */ KALPHA('x',	'X',	030,	030,	'x',	'X',	030,	030),
+/* 2e */ KALPHA('c',	'C',	003,	003,	'c',	'C',	003,	003),
+/* 2f */ KALPHA('v',	'V',	026,	026,	'v',	'V',	026,	026),
+/* 30 */ KALPHA('b',	'B',	002,	002,	'b',	'B',	002,	002),
+/* 31 */ KACCENTED(ACCENT_N),
+/* 32 */ KALPHA('m',	'M',	015,	015,	'm',	'M',	015,	015),
+/* 33 */ KCHAR(',',	';',	',',	';',	',',	';',	',',	';'),
+/* 34 */ KCHAR('.',	':',	'.',	':',	'.',	':',	'.',	':'),
+/* 35 */ KCHAR('-',	'_',	037,	037,	'-',	'_',	037,	037),
+/* 36 */ KRSHF,
+/* 37 */ KNUMPAD('*', '\033', '[', '*'),
+/* 38 */ KALT,
+/* 39 */ KACCENTED(ACCENT_SPACE),
+#ifndef CAPSLOCK_CONTROL
+/* 3a */ KCAPSLOCK,
+#else
+/* 3a */ KCTL,
+#endif
+/* 3b */ KSFUNC('M', 'Y', 'k', 'w', 'M', 'Y', 'k', 'w'),
+/* 3c */ KSFUNC('N', 'Z', 'l', 'x', 'N', 'Z', 'l', 'x'),
+/* 3d */ KSFUNC('O', 'a', 'm', 'y', 'O', 'a', 'm', 'y'),
+/* 3e */ KSFUNC('P', 'b', 'n', 'z', 'P', 'b', 'n', 'z'),
+/* 3f */ KSFUNC('Q', 'c', 'o', '@', 'Q', 'c', 'o', '@'),
+/* 40 */ KSFUNC('R', 'd', 'p', '[', 'R', 'd', 'p', '['),
+/* 41 */ KSFUNC('S', 'e', 'q', '\\', 'S', 'e', 'q', '\\'),
+/* 42 */ KSFUNC('T', 'f', 'r', ']', 'T', 'f', 'r', ']'),
+/* 43 */ KSFUNC('U', 'g', 's', '^', 'U', 'g', 's', '^'),
+/* 44 */ KSFUNC('V', 'h', 't', '_', 'V', 'h', 't', '_'),
+/* 45 */ KNUM,
+/* 46 */ KSCROLL,
+/* 47 */ KNUMPAD('7', '\033', '[', 'H' ),
+/* 48 */ KNUMPAD('8', '\033', '[', 'A'),
+/* 49 */ KNUMPAD('9', '\033', '[', 'I'),
+/* 4a */ KNUMPAD('-', '\033', '[', '-'),
+/* 4b */ KNUMPAD('4', '\033', '[', 'D'),
+/* 4c */ KNUMPAD('5', '\033', '[', 'E'),
+/* 4d */ KNUMPAD('6', '\033', '[', 'C'),
+/* 4e */ KNUMPAD('+', '\033', '[', '+'),
+/* 4f */ KNUMPAD('1', '\033', '[', 'F'),
+/* 50 */ KNUMPAD('2', '\033', '[', 'B'),
+/* 51 */ KNUMPAD('3', '\033', '[', 'G'),
+/* 52 */ KNUMPAD('0', '\033', '[', 'L'),
+/* 53 */ KNUMPAD('.', '\033', '[', '.'),
+/* 54 */ KNULL,
+/* 55 */ KNULL,
+/* 56 */ KCHAR('<',	'>',	'<',	'>',	'<',	'>',	'<',	'>'),
+/* 57 */ KSFUNC('W', 'i', 'u', '`', 'W', 'i', 'u', '`'),
+/* 58 */ KSFUNC('X', 'j', 'v', '{', 'X', 'j', 'v', '{'),
+/* 59 */ KNULL,
+/* what are the rest of these, compaq extensions? ??? */
+/* 5a */ KCHAR(0, 	0,	033,	033,	0,	0,	033,	033),
+/* 5b */ KCHAR(0,	0,	'7',	'7',	0,	0,	'7',	'7'),
+/* 5c */ KCHAR(0,	0,	'4',	'4',	0,	0,	'4',	'4'),
+/* 5d */ KCHAR(0,	0,	'1',	'1',	0,	0,	'1',	'1'),
+/* 5e */ KNULL,
+/* 5f */ KCHAR(0,	0,	NUM,	NUM,	0,	0,	NUM,	NUM),
+/* 60 */ KFUNC("\033[A"),
+/* 61 */ KFUNC("\033[D"),
+/* 62 */ KFUNC("\033[B"),
+/* 63 */ KFUNC("\033[C"),
+/* 64 */ KFUNC("\033[H"),
+/* 65 */ KFUNC("\033[I"),
+/* 66 */ KFUNC("\033[F"),
+/* 67 */ KFUNC("\033[G"),
+/* 68 */ KFUNC("\033[L"),
+/* 69 */ KFUNC("\033[."),
+/* 6a */ KCHAR(0,	0,	'*',	'*',	0,	0,	'*',	'*'),
+/* 6b */ KCHAR(0,	0,	'-',	'-',	0,	0,	'-',	'-'),
+/* 6c */ KCHAR(0,	0,	'+',	'+',	0,	0,	'+',	'+'),
+};
+
+int pcconstabsize = sizeof(pcconstab) / sizeof(pcconstab[0]);
+
+int pcextstart = 0x1c;
+int pcextend = 0x54;
+
+struct key pcexttab[] = {
+/* 1c */ KCHAR('\r',	'\r',	'\r',	'\r',	'\r',	'\r',	'\r',	'\r'),
+/* 1d */ KRCTL,
+/* 1e */ KNULL,
+/* 1f */ KNULL,
+/* 20 */ KNULL,
+/* 21 */ KNULL,
+/* 22 */ KNULL,
+/* 23 */ KNULL,
+/* 24 */ KNULL,
+/* 25 */ KNULL,
+/* 26 */ KNULL,
+/* 27 */ KNULL,
+/* 28 */ KNULL,
+/* 29 */ KNULL,
+/* 2a */ KNULL,		/* simulated left shift */
+/* 2b */ KNULL,
+/* 2c */ KNULL,
+/* 2d */ KNULL,
+/* 2e */ KNULL,
+/* 2f */ KNULL,
+/* 30 */ KNULL,
+/* 31 */ KNULL,
+/* 32 */ KNULL,
+/* 33 */ KNULL,
+/* 34 */ KNULL,
+/* 35 */ KCHAR('/',	'/',	'/',	'/',	'/',	'/',	'/',	'/'),
+/* 36 */ KNULL,		/* simulated right shift */
+/* 37 */ KNULL,		/* print scrn */
+/* 38 */ KRALT,
+/* 39 */ KNULL,
+/* 3a */ KNULL,
+/* 3b */ KNULL,
+/* 3c */ KNULL,
+/* 3d */ KNULL,
+/* 3e */ KNULL,
+/* 3f */ KNULL,
+/* 40 */ KNULL,
+/* 41 */ KNULL,
+/* 42 */ KNULL,
+/* 43 */ KNULL,
+/* 44 */ KNULL,
+/* 45 */ KNUM,
+/* 46 */ KNULL,			/* break (control-pause) */
+/* 47 */ KFUNC("\033[H"),	/* edit-pad home */
+/* 48 */ KFUNC("\033[A"),	/* cursor-pad up arrow */
+/* 49 */ KFUNC("\033[I"),	/* edit-pad page up */
+/* 4a */ KNULL,
+/* 4b */ KFUNC("\033[D"),	/* cursor-pad left arrow */
+/* 4c */ KNULL,
+/* 4d */ KFUNC("\033[C"),	/* cursor-pad right arrow */
+/* 4e */ KNULL,
+/* 4f */ KFUNC("\033[F"),	/* edit-pad end */
+/* 50 */ KFUNC("\033[B"),	/* cursor-pad down arrow */
+/* 51 */ KFUNC("\033[G"),	/* edit-pad page down */
+/* 52 */ KFUNC("\033[L"),	/* edit-pad insert */
+/* 53 */ KCONST(0177),		/* edit-pad delete (or "\033[."?) */
+};
+
+/* Alternate key mapping: unused */
+struct key pcaltconstab[] = {
+/* 00 */ KNULL,
+};
+
+int pcaltconstabsize = sizeof(pcaltconstab) / sizeof(pcaltconstab[0]);

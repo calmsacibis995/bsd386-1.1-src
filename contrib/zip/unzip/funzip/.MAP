@@ -1,0 +1,5 @@
+F FUNZIP.1;1                        	funzip.1
+F FUNZIP.C;1                        	funzip.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/zip/unzip/funzip
+F TAGS.;1                           	tags

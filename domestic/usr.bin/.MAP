@@ -1,0 +1,9 @@
+D BDES                              	bdes
+D LOGIN                             	login
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+D PASSWD                            	passwd
+D RLOGIN                            	rlogin
+D RSH                               	rsh
+D SU                                	su
+D TELNET                            	telnet

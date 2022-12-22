@@ -1,0 +1,14 @@
+F S_ALIASE.M;1                      	s_aliases.m
+F S_ANSWER.M;1                      	s_answer.m
+F S_AREPDA.M;1                      	s_arepdaem.m
+F S_AUTORE.M;1                      	s_autoreply.m
+F S_ELM.M;1                         	s_elm.m
+F S_ELMALI.M;1                      	s_elmalias.m
+F S_ELMRC.M;1                       	s_elmrc.m
+F S_ERROR.M;1                       	s_error.m
+F S_FASTMA.M;1                      	s_fastmail.m
+F S_FILTER.M;1                      	s_filter.m
+F S_FROM.M;1                        	s_from.m
+F S_NEWALI.M;1                      	s_newalias.m
+F S_NEWMAI.M;1                      	s_newmail.m
+F S_READMS.M;1                      	s_readmsg.m

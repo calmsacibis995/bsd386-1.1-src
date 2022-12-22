@@ -1,0 +1,2 @@
+mapread	map.c	/^char *mapread(fd, nbytes)$/
+unmap	map.c	/^int unmap(p, len)$/

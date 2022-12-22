@@ -1,0 +1,69 @@
+The boot floppies are built using an inherently manual process.  This file
+is meant to give you a basic description.
+
+The floppy must be formatted e.g.:
+	# fdformat fd0 floppy
+
+Then labelled:
+	# disklabel -r -w fd0 floppy Boot1 \
+		/usr/bootstraps/fdboot /usr/bootstraps/bootfd
+
+Then newfs'ed:
+	# newfs -b 4096 -f 512 -c 80 -i 3072 /dev/rfd0a
+
+	(these options set the block/frag size to 4k/512, make a 
+	 single cylinder group with all the tracks, and reduce the 
+	 number of inodes (slightly) from 1/4k of data to 1/3k of data space)
+
+You can then mount the floppy and start copying stuff to it.
+
+The binaries used on the boot floppies are built in subdirectories 
+of this directory.  The makefiles here assume /usr/src is the full source
+tree, so you'll have to either have it, or point /usr/src to /usr/src on 
+the CDROM.  `make install' in this directory copies the binaries to 
+the `bin' subdirectory and strips them.  The following lists of files
+(suitable for source-ing by a bourne style shell) give lists of what
+files can be compressed and which must be left uncompressed.
+
+# CFILES are files which we copy from the bin directory and compress
+CFILES="dd diskdefect disklabel disksetup fsck ftp
+	ifconfig installsw ls mkdir mknod mount mt pax ping pwd
+	restore route rsh scsicmd slattach sync test umount vi"
+
+# EFILES are files we copy from the bin directory and don't compress
+EFILES="chmod gzip init ln mount_iso9660 newfs rm sh stty tail"
+
+# BOGUS files are binaries we create but don't use
+BOGUS="cat compress cp mv tar"
+
+# SCRIPTS are files we copy from the scripts directory
+SCRIPTS="uncompress setup.boot1 setup.boot2 cat cp mv"
+
+# BFILES are files that belong in /bin
+BFILES="cat chmod cp dd ftp gzip ln ls mkdir mt mv pax pwd rm
+	rsh sh stty sync tail test vi uncompress"
+
+# SFILES are files that belong in /sbin
+SFILES="diskdefect disklabel disksetup fsck ifconfig init installsw
+	mknod mount mount_iso9660 newfs ping restore route
+	scsicmd setup slattach umount"
+SLINKS="newfs mount_mfs"
+
+The MAKEDEV script in /dev on the distribution includes a target
+called `floppydev' which creates a suitable /dev for the floppy.
+
+The minimal bootable floppy must contain:
+
+	/dev
+	/bsd
+	/boot
+	/bin/sh
+	/sbin/init
+
+You probably also want to include a /.profile and stty as well.  Other 
+programs are optional depending on what you want the floppy for.
+
+The /boot on the floppy is usually /stand/flboot rather than /boot.  The
+only difference is that flboot will prompt with the `change floppies' 
+prompt before executing the loaded kernel if it's booting from a floppy
+device.

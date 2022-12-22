@@ -1,0 +1,5 @@
+F MAKEFILE.;1                       	Makefile
+F MKFIFO.1;1                        	mkfifo.1
+F MKFIFO.C;1                        	mkfifo.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/mkfifo
+F TAGS.;1                           	tags

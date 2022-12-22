@@ -1,0 +1,26 @@
+This patch (bash-1.13.cwru.patch.2) fixes the following problems:
+
+1. When the shell is compiled without job control, failure to find a command
+   will cause free to be called twice, which causes the GNU malloc to abort.
+   [execute_cmd.c]
+
+2. Fixes to funtion printing, so that nested functions print correctly.
+   [print_cmd.c]
+
+3. Changes to include bashansi.h rather than including string.h and stdlib.h
+   separately, with the accompanying cpp conditionals.
+   [shell.c]
+
+4. Changes to the startup file code so that setting POSIXLY_CORRECT in
+   .profile or /etc/profile causes $ENV to be run rather than the rest
+   of the bash startup files.
+   [shell.c]
+
+5. Changes so the result of strchr is not cast to an int, which is a
+   different size on machines like the alpha.
+   [lib/readline/readline.c]
+
+6. Shell syntax errors now cause $? to be set to 2, as sh and ksh set it.
+   [parse.y]
+
+To apply, cd to the bash source directory and type `patch -p0 < patch-file'.

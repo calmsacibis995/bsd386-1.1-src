@@ -1,0 +1,115 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: rn.4,v 1.1 1993/03/08 16:21:27 polk Exp $
+.\"
+.Dd March 1, 1993
+.Dt RN 4 i386
+.Os
+.Sh NAME
+.Nm rn
+.Nd
+.Tn SDL Communications
+RISCom/N1 high-speed synchronous interface
+.Sh SYNOPSIS
+.Cd "device rn0 at isa? port 0x220 iomem 0xe0000 iosiz 65536"
+.Sh DESCRIPTION
+The
+.Nm rn
+interface provides a point-to-point bit-synchronous serial connection
+with speeds up to 4 Mb/s using HDLC frame format.
+It uses a switch-selectable block of 8 I/O ports in the range
+0x200 through 0x3f0.
+The block must be aligned on a 16 port boundary.
+The jumper-selectable interrupt level is
+detected at autoconfiguration time or alternatively can be
+specified in the system configuration file.
+Supported IRQs are: 2(9), 3, 4, 5, 10, 11, 12 and 15.
+The RISCom/N1 board requires a 16, 32 or 64 Kb I/O memory window
+aligned at a 16 KB boundary (the base address and size should be
+specified in the system configuration file).
+The RISCom/N1 board should be installed in a 16-bit slot.
+.Pp
+Currently the
+.Nm rn
+interface supports synchronous Point-to-Point Protocol (PPP)
+and Cisco
+.Tn HDLC
+encapsulation.
+The link-level protocol is selected by the
+.Dv IFF_LINK0
+flag with an
+.Dv SIOCSIFFLAGS
+.Xr ioctl 2
+(see
+.Xr ifconfig 8 ) .
+To select PPP set the
+.Dv IFF_LINK0
+interface flag; clearing it selects Cisco
+.Tn HDLC
+encapsulation.
+.Pp
+To include PPP and Cisco
+.Tn HDLC
+code, the kernel configuration file should specify
+.Li "options PPP"
+and/or
+.Li "options CISCO_HDLC"
+respectively.
+.Sh DIAGNOSTICS
+The following diagnostics may be printed during autoconfiguration:
+.Bl -diag
+.It rn%d: illegal base address %x
+.br
+Invalid port specification in kernel config file.
+.It rn%d: illegal memory window size %d
+.br
+Invalid I/O memory window size in kernel config file.
+.It rn%d: non-aligned memory window (at %x)
+.br
+Invalid I/O memory base address in kernel config file.
+.It rn%d: can't alloc memory
+.br
+The probe routine cannot allocate temporary memory.
+Should never happen.
+.It rn%d: illegal IRQ %d
+.br
+Invalid IRQ specification in kernel config file.
+.It rn%d: init failed
+.br
+Initialization sequence failed \- hardware problem.
+.It rn%d: memory test failed
+.br
+Error in on-board memory; this is a hardware problem.
+.It rn%d: no response
+.br
+Network controller not responding; this is a hardware
+problem.
+.It rn%d: lost intr
+.br
+Lost interrupt. This is a warning.
+.It rn%d: invalid status %x
+.br
+Invalid status code received from network controller;
+most likely cause is incorrect ISA bus timing.
+.It rn%d: tx queue botched (0x%x)
+.br
+Buffer list corrupted due to data error in I/O memory;
+most likely cause is incorrect ISA bus timing.
+.It rn%d: status table overflow
+.br
+Network controller indicates status table owerflow;
+the problem may be caused by dribble on interface
+control leads.
+.It rn%d: cannot set modes
+.br
+Loading link parameters in the network controller
+failed.
+This is a hardware problem.
+.El
+.Sh SEE ALSO
+.Xr intro 4 ,
+.Xr inet 4 ,
+.Xr ppp 4 ,
+.Xr cisco_hdlc 4 ,
+.Xr ifconfig 8

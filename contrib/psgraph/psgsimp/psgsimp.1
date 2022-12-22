@@ -1,0 +1,76 @@
+.TH PSGSIMP 1.0 "12 March 1992" DECWRL
+.SH NAME
+psgsimp \- simplify an input file for psgraph
+.SH SYNOPSIS
+.B psgsimp 
+.I threshold-pcnt
+.SH DESCRIPTION
+.I Psgsimp
+is a filter that reads a
+.I psgraph
+input file from the standard input, and writes a simplified version
+of the file to the standard output.  The program takes exactly one
+argument,
+.IR threshold-pcnt ,
+which specifies the amount of simplification.
+.PP
+The intent of
+.I psgsimp
+is to remove excessive detail from an automatically-generated
+input file before plotting it with
+.IR psgraph .
+This can significantly reduce the amount of time it takes to print
+the resulting PostScript file, without much affecting the final output.
+.PP
+The meaning of
+.I threshold-pct
+is that
+.I psgsimp
+should suppress
+any point which differs from its predecessor by less than
+this value in both the X and Y directions.  For example, if
+.I threshold-pct
+is 1.0, then any change of less than one per cent is suppressed.
+Lables, markers, and the end points of lines are always plotted; only the
+intermediate points are ever suppressed.
+.PP
+The time reduction can be quite dramatic; for example, one graph that
+contains 37,000 points took over 16 minutes to plot on an LPS-20.
+Using a simplification threshold of 1.0, which eliminates details too
+small to be seen on the final plot,
+.I psgsimp
+reduced the size of the input file to about 6,000 points.  The resulting
+PostScript file took about two minutes to print, and was indistinguishable
+from the unsimplified version.
+.PP
+Note that you may have to experiment somewhat with different
+values for
+.IR threshold-pct ,
+since some graphs will suffer more from simplification than others.
+.PP
+The output file contains all the removed input points as comments;
+this allows you to add back any points you want if you think the result
+will look better.  To remove these comments (and perhaps reclaim some 
+disk space) use ``grep -v "##"''.
+.SH EXAMPLES
+You can use the program in a pipeline, e.g.:
+.nf
+.RS
+graph-generator | psgsimp 1.0 | psgraph -P | lpr \-h
+.RE
+.fi
+or you can use it to generate an intermediate file, without comments:
+.nf
+.RS
+graph-generator >figure-1.plot
+psgsimp 1.0 <figure-1.plot | grep -v "##" >figure-1.simp
+psgraph -P figure-1.simp >figure-1.psf
+lpr \-h figure-1.psf
+.RE
+.fi
+.SH "SEE ALSO"
+psgraph(1)
+.SH AUTHOR
+Jeffrey Mogul, DECWRL
+
+

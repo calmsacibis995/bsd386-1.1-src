@@ -1,0 +1,9 @@
+F CFG_PAPE.TEX;1                    	cfg-paper.texi
+D CONFIG                            	config
+F CONFIG.STA;1                      	config.status
+F CONFIG.SUB;1                      	config.sub
+F CONFIGUR.;1                       	configure
+F CONFIGUR.IN;1                     	configure.in
+F CONFIGUR.MAN;1                    	configure.man
+F T.NEW;1                           	t.new
+F T_MODS.;1                         	t.mods

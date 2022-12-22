@@ -1,0 +1,101 @@
+DUMPBITS	inflate.c	/^#define DUMPBITS(n) {b>>=(n);k-=(n);}$/
+FLUSH_BLOCK	deflate.c	/^#define FLUSH_BLOCK(eof) \\$/
+GLOBAL	match.S	/^	GLOBAL	(_match_init)$/
+INSERT_STRING	deflate.c	/^#define INSERT_STRING(s, match_head) \\$/
+MAX	trees.c	/^#define MAX(a,b) (a >= b ? a : b)$/
+MAXCODE	unlzw.c	/^#define MAXCODE(n)	(1L << (n))$/
+MIN	unpack.c	/^#define MIN(a,b) ((a) <= (b) ? (a) : (b))$/
+Mgetopt	getopt.c	/^main (argc, argv)$/
+Mgzip	gzip.c	/^int main (argc, argv)$/
+NEEDBITS	inflate.c	/^#define NEEDBITS(n) {while(k<(n)){b|=((ulg)NEXTBYT/
+RETSIGTYPE	gzip.c	/^typedef RETSIGTYPE (*sig_type) OF((int));$/
+UPDATE_HASH	deflate.c	/^#define UPDATE_HASH(h,c) (h = (((h)<<H_SHIFT) ^ (c/
+_getopt_internal	getopt.c	/^_getopt_internal (argc, argv, optstring, longopts,/
+add_envopt	util.c	/^char *add_envopt(argcp, argvp, env)$/
+basename	util.c	/^char *basename(fname)$/
+bi_reverse	bits.c	/^unsigned bi_reverse(code, len)$/
+bi_windup	bits.c	/^void bi_windup()$/
+build_bl_tree	trees.c	/^local int build_bl_tree()$/
+build_tree	trees.c	/^local void build_tree(desc)$/
+check_match	deflate.c	/^local void check_match(start, match, length)$/
+check_zipfile	unzip.c	/^int check_zipfile(in)$/
+clear_bitbuf	unpack.c	/^#define clear_bitbuf() (valid = 0, bitbuf = 0)$/
+clear_bufs	util.c	/^void clear_bufs()$/
+copy	util.c	/^int copy(in, out)$/
+copy_block	bits.c	/^void copy_block(buf, len, header)$/
+create_outfile	gzip.c	/^local int create_outfile()$/
+ct_init	trees.c	/^void ct_init(attr, methodp)$/
+d_code	trees.c	/^#define d_code(dist) \\$/
+decode	unlzh.c	/^local unsigned decode(count, buffer)$/
+decode_c	unlzh.c	/^local unsigned decode_c()$/
+decode_p	unlzh.c	/^local unsigned decode_p()$/
+decode_start	unlzh.c	/^local void decode_start()$/
+deflate	deflate.c	/^ulg deflate()$/
+deflate_fast	deflate.c	/^local ulg deflate_fast()$/
+display_ratio	util.c	/^void display_ratio(num, den, file)$/
+error	util.c	/^void error(m)$/
+exchange	getopt.c	/^exchange (argv)$/
+file_read	zip.c	/^int file_read(buf, size)$/
+fill_inbuf	util.c	/^int fill_inbuf(eof_ok)$/
+fill_window	deflate.c	/^local void fill_window()$/
+fillbuf	unlzh.c	/^local void fillbuf(n)  \/* Shift bitbuf n bits lef/
+flush_block	trees.c	/^ulg flush_block(buf, stored_len, eof)$/
+flush_outbuf	util.c	/^void flush_outbuf()$/
+flush_output	inflate.c	/^#define flush_output(w) (wp=(w),flush_window())$/
+flush_window	util.c	/^void flush_window()$/
+gen_bitlen	trees.c	/^local void gen_bitlen(desc)$/
+gen_codes	trees.c	/^local void gen_codes (tree, max_code)$/
+getbits	unlzh.c	/^local unsigned getbits(n)$/
+getopt	getopt.c	/^getopt (argc, argv, optstring)$/
+getopt_long	getopt.c	/^getopt_long (argc, argv, options, long_options, op/
+help	gzip.c	/^local void help()$/
+huf_decode_start	unlzh.c	/^local void huf_decode_start()$/
+huft_build	inflate.c	/^int huft_build(b, n, s, d, e, t, m)$/
+huft_free	inflate.c	/^int huft_free(t)$/
+inflate	inflate.c	/^int inflate()$/
+inflate_block	inflate.c	/^int inflate_block(e)$/
+inflate_codes	inflate.c	/^int inflate_codes(tl, td, bl, bd)$/
+inflate_dynamic	inflate.c	/^int inflate_dynamic()$/
+inflate_fixed	inflate.c	/^int inflate_fixed()$/
+inflate_stored	inflate.c	/^int inflate_stored()$/
+init_block	trees.c	/^local void init_block()$/
+init_getbits	unlzh.c	/^local void init_getbits()$/
+int	bits.c	/^int (*read_buf) OF((char *buf, unsigned size));$/
+license	gzip.c	/^local void license()$/
+lm_init	deflate.c	/^void lm_init (pack_level, flags)$/
+longest_match	deflate.c	/^int longest_match(cur_match)$/
+look_bits	unpack.c	/^#define look_bits(code,bits,mask) \\$/
+lzw	lzw.c	/^int lzw(in, out)$/
+make_simple_name	util.c	/^void make_simple_name(name)$/
+make_table	unlzh.c	/^local void make_table(nchar, bitlen, tablebits, ta/
+my_index	getopt.c	/^my_index (str, chr)$/
+my_strlen	getopt.c	/^my_strlen (str)$/
+pqdownheap	trees.c	/^local void pqdownheap(tree, k)$/
+pqremove	trees.c	/^#define pqremove(tree, top) \\$/
+read_c_len	unlzh.c	/^local void read_c_len()$/
+read_error	util.c	/^void read_error()$/
+read_pt_len	unlzh.c	/^local void read_pt_len(nn, nbit, i_special)$/
+read_tree	unpack.c	/^local void read_tree()$/
+scan_tree	trees.c	/^local void scan_tree (tree, max_code)$/
+send_all_trees	trees.c	/^local void send_all_trees(lcodes, dcodes, blcodes)/
+send_bits	bits.c	/^void send_bits(value, length)$/
+send_tree	trees.c	/^local void send_tree (tree, max_code)$/
+skip_bits	unpack.c	/^#define skip_bits(bits)  (valid -= (bits))$/
+smaller	trees.c	/^#define smaller(tree, n, m) \\$/
+strcspn	util.c	/^int strcspn(s, reject)$/
+strlwr	util.c	/^char *strlwr(s)$/
+strspn	util.c	/^int strspn(s, accept)$/
+tab_suffixof	unlzw.c	/^#define tab_suffixof(i) tab_suffix[i]$/
+treat_file	gzip.c	/^local void treat_file(iname)$/
+treat_stdin	gzip.c	/^local void treat_stdin()$/
+unlzh	unlzh.c	/^int unlzh(in, out)$/
+unlzw	unlzw.c	/^int unlzw(in, out) $/
+unpack	unpack.c	/^int unpack(in, out)$/
+unzip	unzip.c	/^int unzip(in, out)$/
+updcrc	util.c	/^ulg updcrc(s, n)$/
+version	gzip.c	/^local void version()$/
+warn	util.c	/^void warn(a, b)$/
+write_buf	util.c	/^void write_buf(fd, buf, cnt)$/
+write_error	util.c	/^void write_error()$/
+xmalloc	util.c	/^voidp xmalloc (size)$/
+zip	zip.c	/^int zip(in, out)$/

@@ -1,0 +1,6 @@
+F DEFINES.;1                        	defines
+F FILES.;1                          	files
+F FILES.OBJ;1                       	files.obj
+F NEWVERS.SH;1                      	newvers.sh
+F NFSSWAPV.C;1                      	nfsswapvmunix.c
+F PARAM.C;1                         	param.c

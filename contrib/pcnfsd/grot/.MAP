@@ -1,0 +1,9 @@
+F MAKEFILE.403;1                    	Makefile.sunos.403c
+F MAKEFILE.4X;1                     	Makefile.ultrix.4x
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.BSD;1                    	Makefile.bsd
+F MAKEFILE.SUN;1                    	Makefile.sunos
+F MAKEFILE.SVR;1                    	Makefile.svr4
+F PCNFSD.X;1                        	pcnfsd.x
+F PCNFSD_C.C;1                      	pcnfsd_clnt.c
+F PCNFSD_T.C;1                      	pcnfsd_test.c

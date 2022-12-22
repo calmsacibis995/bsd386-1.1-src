@@ -1,0 +1,70 @@
+This is the beginnings of a port to VM/CMS. The documentation is not yet
+complete, but the program works.
+
+Here are some of the features of the port and VM/CMS package:
+1) the MakeTeXPK program is not included and the -M option of dvips is
+   not yet supported.  This may be added in the future.
+   The M configuration file option is therefore meaningless.
+2) The port of afm2tfm is also included.  There is a front end EXEC that
+   sets up the necessary run-time environment.  This port is primarily due
+   to Alessio Gugliemli and Marco Prevedelli of Pisa.  The syntax for the
+   EXEC is the same as described in the DVIPS manual and the manpage is
+   available as AFM2TFM.DOC.
+3) The Makefile is replaced by a CMS REXX exec which does the compilation
+   and linking for C/370 (see below).
+4) There is another REXX exec to call the resulting DVIPS MODULE.  This
+   should set up the necessary libraries for the module without having
+   to link to the disk with the C/370 system.  (This has not been extensively
+   tested.  See 1) above for more comments about font access.)
+5) the .dvipsrc file referred to in the manuals has the new name DVIPS.PROFILE
+   on VM/CMS.
+6) Limited color support has been added.  See the manual DVIPS.TEX or the
+   comments in the files COLOR.STY and BLACK.STY for some more information.
+7) Online documentation is available by invoking DVIPS with no
+   arguments or filename.  You can also browse the file dvips.doc for
+   some additional comments (this was converted from the Unix manpage
+   via, on Unix, "nroff -man dvips.1 | col -b > vmcms/dvips.doc"
+   and so some comments may not be appropriate for VM/CMS.)
+8) Since there are no pipes on VM/CMS, the option -f is meaningless.
+   Also, the output is always written to a file, with the same filename
+   as the dvi file and filetype "PS".   You can always override this with
+   the -o option.
+9) Since there are no PATHs in VM/CMS, the H, P, S and T configuration file
+   options are meaningless.  The DVIPS.EXEC file should make sure that all
+   the necessary disks are linked (we have all .tfm, .pro, config. and other
+   files on our main TeX disk, with the EXECs and MODULES -- only our fonts
+   (the pk files) are on separate disks.)
+10)One way to have VM/CMS access the correct set of fonts for a given -P
+   option is to:
+     a) have each set of device-specific fonts on its own VM minidisk.
+     b) modify the DVIPS.EXEC file so that -P flag options are
+        interpreted by the EXEC to access that device's font disk.
+     c) at the same time, this EXEC should make sure that no other
+        font disks are linked earlier in the search order.
+
+
+To compile the programs, run the program MKDVIPS.EXEC program.  Be
+sure you edit this file first to make sure that your C/370 programs
+disks and libraries are all correctly link.  See the comments at the
+beginning of that file for more information.  When complete, all the
+necessary modules and files should be built, on your primary
+write-accessed disk.  You may need to move them to their destination
+manually.
+
+NOTE: This port was not done by Tom Rokicki and he has no responsibility
+for it.  You can direct questions to the name and address below.
+
+Some of this port was provided courtesy of Alessio Gugliemli
+(gugliemli@ipisnsib.bitnet) and Marco Prevedelli
+(prevedelli@ipisnsva.bitnet) with help from via Michel Goossens
+(goossens@cernvm.bitnet).
+
+
+Last Revised, 2/24/92.
+
+Jim Hafner
+IBM Research Division
+Almaden Research Center K53/802
+650 Harry Road
+San Jose, CA 95120-6099
+hafner@almaden.ibm.com

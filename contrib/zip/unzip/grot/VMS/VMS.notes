@@ -1,0 +1,309 @@
+                     VMS Notes for UnZip 5.0
+                           24 May 1992
+
+
+The various VMS tweaks to UnZip 5.0 and ZipInfo 0.97 were tested on a 
+VAX 8600 running VMS 5.2 (and, later, VMS 5.4) and VAX C 3.0.  Older 
+versions were also tested on a VAX 11/785.
+
+To build UnZip (and its trusty sidekick, ZipInfo), just run one of the 
+included command files MAKE_UNZIP_VAXC.COM or MAKE_UNZIP_GCC.COM, either
+decryption or non-decryption versions, depending on whether you have the
+separate crypt.c module and whether you use VAX C or GNU C (for example, 
+"@make_unzip_vaxc").  By default, this creates shareable-image executables,
+which are smaller and (supposedly) load faster than the normal type.  They 
+also (supposedly) will be better able to take advantage of any bug fixes 
+or new capabilities that DEC might introduce, since the library code isn't 
+built into the executable.  The shared executable is about a quarter the 
+size of the ordinary type in the case of UnZip.
+
+[Btw, the VMS make utility "MMS" is not compatible enough with Unix make 
+to use the same makefile.  Antonio Querubin, Jr., sent along an MMS makefile,
+subsequently modified by Igor Mandrichenko.  Read the comments at the top 
+of DESCRIP.MMS for more info.  An alternate Unix-like makefile designed for 
+use with Todd Aven's MAKE/VMS is included, as well.  Comments on where to
+get MAKE/VMS are at the bottom of VMS Contents.]
+
+UnZip is written to return the standard PK-type return codes (or error
+codes, or exit codes, or whatever you want to call them).  Unfortunately,
+VMS insists on interpreting the codes in its own lovable way, and this
+results in endearing commentary such as "access violation, error mask =
+0005, PC = 00003afc" (or something like that) when you run UnZip with no
+arguments.  To avoid this I've added a special VMS_return() function which
+either ignores the error codes (and exits with normal status) or interprets
+them, prints a semi-informative message (enclosed in square [] brackets), 
+and then exits with a normal error status.  I personally can't stand the 
+latter behavior, so by default the error codes are simply ignored.  Tastes
+vary, however, and some people may actually like semi-informative messages.
+If you happen to be one of those people, you may enable the messages by 
+recompiling misc.c with RETURN_CODES defined.  (This adds a block or two
+to the executable size, though.)  The syntax is as follows:
+	cc /def=(RETURN_CODES) misc
+
+To use UnZip in the normal way, define a symbol "unzip" as follows:
+	unzip :== "$diskname:[directory]unzip.exe"
+(substitute for "diskname" and "directory" as appropriate, and DON'T FORGET
+THE `$'!  It won't work if you omit that.)  In general it's wise to stick 
+such assignments in your LOGIN.COM file and THEN forget about them.  It is 
+no longer necessary to worry about the record type of the zipfile...er, 
+well, most of the time, anyway (see the Kermit section below).
+
+Having done all this you are ready to roll.  Use the unzip command in
+the usual way; as with the Unix, OS/2 and MS-DOS versions, this one uses 
+'-' as a switch character.  If nothing much happens when you do a directory
+listing, for example, you're probably trying to specify a filename which
+has uppercase letters in it...VMS thoughtfully converts everything on the
+command line to lowercase, so even if you type:
+	unzip -v zipfile Makefile
+what you get is:
+	unzip -v zipfile makefile
+which, in my example here, doesn't match the contents of the zipfile.
+This is relatively easy to circumvent by enclosing the filespec(s) in 
+quotes:
+	unzip -tq unzip401 "Makefile" "VMS*" *.c *.h
+[This example also demonstrates the use of wildcards, which act like Unix
+wildcards, not VMS ones.   In other words, "VMS*" matches files VMSNOTES,
+VMS_MAKE.COM, and VMSSHARE.OPT, whereas the normal VMS behavior would be
+to match only the first file (since the others have extensions--ordinarily,
+you would be required to specify "VMS*.*").]
+
+Note that created files get whatever default permissions you've set, but 
+created directories additionally inherit the (possibly more restrictive) 
+permissions of the parent directory.  And, of course, things probably won't 
+work too well if you don't have permission to write to whatever directory 
+into which you're trying to extract things.  (That made sense; read it 
+again if you don't believe me.)
+
+ZipInfo, by the way, is an amusing little utility which tells you all sorts
+of amazingly useless information about zipfiles.  Occasionally it's useful
+to debug a problem with a corrupted zipfile (for example, we used it to 
+find a bug in PAK-created zipfiles, versions 2.5 and earlier).  Feel free
+to blow it away if you don't need it.  It's about 30 blocks on my system,
+and I find I actually prefer its listing format to that of UnZip now (hardly
+surprising, since I wrote it :-) ).  I also find it useful to use "ii" 
+rather than "zipinfo" as the symbol for zipinfo, since it's easier to type 
+than either "zipinfo" or "unzip -v", and it echoes the common Unix alias 
+"ll" for the similar style of directory listings.  Oh, and the reason it's 
+still got a beta version number is that I haven't finished it yet--it would 
+be better with an automatic paging function, for example.  Oh well.
+
+RANDOM OTHER NOTES:  (1) Igor Mandrichenko (leader of our fearless Russian 
+contingent) rewrote major portions of the VMS file-handling code, with
+the result that UnZip is much smarter now about VMS file formats.  For
+full VMS compatibility (file attributes, ownership info, etc.), be sure
+to use the -X option of Zip 1.6 and later.  There are also some notes
+at the end of this file from Hugh Schmidt and Mike Freeman which give 
+hints on how to save VMS attributes using Zip 1.0 and UnZip 4.1.  Most of
+the information is still valid, but the -X option is much easier if you
+don't have to transfer the zipfiles to a Unix or PC system.  (2) Zip 1.0 
+cannot handle any zipfile that isn't in stream-LF format, so you may need 
+to use Rahul Dhesi's BILF utility which is included with UnZip.  It will
+also be necessary for certain other special occasions, like when you've 
+forgotten to set the correct Kermit parameters while uploading a zipfile 
+(see Hugh Schmidt's note below for comments about Kermit, too).
+
+Greg Roelofs
+
+====================
+
+From INFO-ZIP Digest (Wed, 6 Nov 1991), Volume 91, Issue 290
+
+                VMS attributes and PKZIP compatibility
+                  VMS attributes restored! (2 msgs)
+
+------------------------------
+
+Date: Tue, 5 Nov 91 15:31 CDT
+From: Hugh Schmidt <HUGH@macc.wisc.edu>
+Subject: VMS attributes and PKZIP compatibility
+Message-ID: <21110515313938@vms.macc.wisc.edu>
+
+           ******************************************************
+(1)        *** Retaining VMS attributes - a proposed strategy ***
+           ******************************************************
+
+This is a proposed strategy for recovering VMS file attributes after
+zip/unzip:
+
+a) capture VMS file attributes: VMS ANALYZE/RMS/FDL/OUTPUT=fdlfile vmsfile.ext
+b) compress files on VMS......: ZIP zipfile vmsfile.ext, fdlfile.fdl
+c) uncompress files on VMS....: UNZIP zipfile vmsfile.ext, fdlfile.fdl
+d) recover VMS file attributes: CONVERT/FDL=fdlfile.fdl vmsfile.ext vmsfile.ext
+
+The wrinkle is that UNZIP creates files which are unreadable by CONVERT
+despite a concerted effort to accomodate VMS file management system:
+
+file_io.c, line 178: ...creat(filename,0, "rat=cr", "rfm=streamlf")
+
+These files are unCONVERTABLE because they appear to VMS to contain
+records with 512+ bytes.  Poring over VMS manuals (Programming V-6A, VAX
+C RTL Reference Manual) doesn't readily suggest better alternatives.
+Experimentation with "rat=fix", etc. may help suppress the spurious
+block-end delimeters.
+
+          ****************************************************
+(2)       *** VMS ZIP and PKZIP compatibility using KERMIT ***
+          ****************************************************
+
+Many use Procomm's kermit to transfer zipped files between PC and VMS
+VAX.  The following VMS kermit settings make VMS-ZIP compatible with
+PKZIP:
+
+                                             VMS kermit      Procomm kermit
+                                           ---------------   --------------
+Uploading PKZIPped file to be UNZIPped:    set fi ty fixed    set fi ty bi
+Downloading ZIPped file to be PKUNZIPped:  set fi ty block    set fi ty bi
+
+"Block I/O lets you bypass the VMS RMS record-processing capabilities
+entirely", (Guide to VMS file applications, Section 8.5).  The kermit
+guys must have known this!
+
+         ************************************************
+(3)      *** Making ZIP files compatible with VMS RMS ***
+         ************************************************
+
+It looks like a crummy patch, but to make VMS RMS happy, I inserted the
+following near line 570 in the putend() section of zipfile.c:
+
+#ifdef VMS
+ fprintf(f,"\n")
+#endif
+
+It's probably of no consequence, but it satisfies VMS ANALYZE.
+
+------------------------------
+
+Date: Tue, 5 Nov 91 19:40 CDT
+From: Hugh Schmidt <HUGH@macc.wisc.edu>
+Subject: VMS attributes restored!
+Message-ID: <21110519403912@vms.macc.wisc.edu>
+
+           ************************************************************
+           ***   Aha!  It works!  VMS attributes can be restored! *****
+           ***                                                      ***
+           *** Change FAB$C_STMLF to FAB$C_FIX in file_io.c         ***
+           *** ANALYZE => .FDL | CONVERT => original VMS attributes ***
+           ************************************************************
+
+(1) Change line 147 in file_io.c and dropping lines 148-149:
+
+    fileblk.fab$b_rfm = FAB$C_STMLF;    /* stream-LF record format */
+    fileblk.fab$b_rat = FAB$M_CR;       /* carriage-return carriage ctrl */
+    /*                      ^^^^ *NOT* V_CR!!!     */
+
+=>
+
+    fileblk.fab$b_rfm = FAB$C_FIX;    /* fixed record format */
+
+(2) Use VMS ANALYZE to store the VMS attributes for the original file
+    into a file descripion language file.  Save the .FDL file with the
+    original file.
+
+(3) Apply the original attributes to the UNZIPped file using VMS CREATE
+    and the description file (test.fdl).
+
+In the following example, the original attributes of a SPSSX system
+format file were restored.  Later, SPSSX successfully read the UNZIPped/
+CONVERTed file.
+
+!******** Procedure (or method for you ai'ers)
+!********
+!******** Create an .FDL file using ANALYZE
+
+$ analyze/rms/fdl/out=test test.spssxsav;1
+
+!******** ZIP the file and its description file
+
+$ zip test test.spssxsav;1 test.fdl;1
+adding test.spssxsav (imploded 62%)
+adding test.fdl (imploded 90%)
+
+!******** When the ZIPPED file is needed, UNZIP it and its description file
+
+$ unzip test
+  Exploding: test.spssxsav
+  Exploding: test.fdl
+
+!******** To restore the original attributes, apply the description file to
+!********  the UNZIPped file using VMS CONVERT
+
+$ convert/fdl=test  test.spssxsav;2 test.spssxsav;3
+
+! ******* The following show that the VMS attributes are restored.
+
+$ analyze/rms/check test.spssxsav;1
+
+	File Spec: PROJDISK5:[322042.CORE]TEST.SPSSXSAV;1
+	File Organization: sequential
+	Record Format: fixed
+	Record Attributes:
+	Maximum Record Size: 4
+	Longest Record: 4
+
+The analysis uncovered NO errors.
+
+$ analyze/rms/check test.spssxsav;2
+	File Spec: PROJDISK5:[322042.CORE]TEST.SPSSXSAV;2
+	File Organization: sequential
+	Record Format: undefined
+	Record Attributes:
+	Maximum Record Size: 0
+	Longest Record: 512
+The analysis uncovered NO errors.
+
+$ analyze/rms/check test.spssxsav;3
+	File Spec: PROJDISK5:[322042.CORE]TEST.SPSSXSAV;3
+	File Organization: sequential
+	Record Format: fixed
+	Record Attributes:
+	Maximum Record Size: 4
+	Longest Record: 4
+
+Thank you all for your help and comments.  It was very reasurring to
+know that I was on the right track.  This is a humble contribution
+compared to the great efforts of others in the ZIP project.
+
+------------------------------
+
+Date: Wed, 6 Nov 91 12:49:33 EST
+From: Mike Freeman <freeman@watsun.cc.columbia.edu>
+Subject: Re: VMS attributes restored!
+Message-ID: <CMM.0.90.0.689449773.freeman@watsun.cc.columbia.edu>
+
+Hello, all.
+
+HUGH@macc.wisc.edu has come up with a commendable method for saving/
+restoring record attributes in Vax/VMS files when ZIPping/UNZIPping.
+There are a couple of potential problems in his specific implementation,
+however:
+
+(a) It would be better to leave the output file(s) in STREAM_LF format
+    and use Joe Meadows' FILE utility to put them in fixed-record
+    format if CONVERT has trouble reading them.
+
+    Outputting a text file as fixed-record format could be a pain, and
+    one would have to use FILE anyway.
+
+    (Incidentally, I ZIPped up a text file, UNZIPped it and used Hugh's
+    method to restore the attributes.  CONVERT had no trouble with the
+    STREAM_LF format -- it's only a problem with binary files and, as I
+    say, Joe Meadows' FILE will fix this.)
+
+(b) Even if ANALYZE/RMS complains, I do not think one ought to put the
+    "\n" in as Hugh advocates.  This contradicts the ZIP philosophy of
+    byte-for-byte storage/retrieval.
+
+    As Mr. Roelofs has said, there is nothing wrong with the ZIP file;
+    it's just that ANALYZE/RMS expects STREAM_LF files to end in an
+    <LF>.
+
+Anyway, I was able to use Hugh's method without modifying ZIP 1.0.  We
+really ought to get the word out about FILE, though -- it's very handy.
+
+Mike Freeman, K7UIJ     |       Internet: freeman@watsun.cc.columbia.edu
+301 N.E. 107th Street   |       GEnie: M.FREEMAN11
+VancouvEr, WA 98685 USA |       Confidence is the feeling you have
+Telephone (206)574-8221 |       before you understand the situation.
+
+------------------------------
+

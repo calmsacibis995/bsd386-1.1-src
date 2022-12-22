@@ -1,0 +1,14 @@
+# Target:  SPARC running bsd using a.out.
+#
+# This is the backend for reading sparc bsd core files.  We cannot
+# put sparcbsd.o in BFD_BACKENDS (in Makefile.in) because it will currently
+# only compile on bsd systems (yes, this violates the bfd design goals)
+#
+TDEPFILES = sparcbsd.o
+# define dummy-all so the real all rule works
+dummy-all: all
+INCHACK=/usr/src/4bsd/inc-hack
+sparcbsd.o: sparcbsd.c
+	${CC} -c -I${INCHACK} ${CFLAGS} $<
+TDEFINES = -DSELECT_ARCHITECTURES=bfd_sparc_arch -DMINIMIZE=1
+TDEFAULTS = -DDEFAULT_VECTOR=sparcbsd_big_vec 

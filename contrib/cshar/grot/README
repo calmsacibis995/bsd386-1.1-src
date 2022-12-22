@@ -1,0 +1,66 @@
+This set of tools is designed to make it easier to ship sources around.  I
+wrote them because I do a lot of that as moderator of comp.sources.unix,
+and nothing else did the job for me.  This set isn't perfect, but's very
+close.  Included are a program to find source files, a program to
+partition them into reasonable sizes, a program to make shell archives out
+of them, a program to strip mail, news, and notes headers from archives
+before feeding them to a shell, and a program that simulates enough
+/bin/sh syntax so that non-Unix systems can unpack them.
+
+The sources in this distribution are being released into the public
+domain; do what you want, but let your conscience be your guide.  If you
+somehow enhance this package, please send it on to me so that others can
+benefit.
+
+I'll try to answer any questions or problems that come up -- send me
+electronic mail.
+
+To install, edit the Makefile and config.h as necessary then run make;
+doing make install will put the manpages and executables where you told
+it to.  I don't think "make lint" will be totally reasonable except on
+a BSD-derived system, but you can try.  If you write config.h files for
+other systems, send them to me.
+
+If you aren't running on Unix, then you will have to write replacements
+for the functions in the lxxxx.c files; everything else should be OK.  If
+you find something in another file that you had to change, please let me
+know.  If you don't have a Unix-like make available, you will have to
+write a command script or otherwise work out something with your compiler,
+linker, etc.
+
+I believe this works under MSDOS.  If you have diffs, send them to me.
+Owen at Oxford Trading Partners, oxtrap!osm, ported an earlier version to
+MSDOS; I hope I didn't break anything when I merged his changes into what
+I've got now.  Same for Amiga and other PC's.  I might do a VMS port.  The
+dir.msdos shar (which I haven't touched) seems to be solid; I don't know
+about the dir.amiga code.
+
+I freely stole ideas from a number of people who have been good enough to
+put their stuff out on Usenet.  Particular thanks to Gary Perlman and
+Larry Wall for giving me something nice to reverse-engineer, and Michael
+Mauldin for unshar.  People who sent significant comments and fixes from
+earlier versions include Bob Desinger, Darryl Ohahato, Jamie Watson, Joel
+Shprentz, Ken Yap, Matt Landau, Paul Vixie, Shane McCarron, Tim Pointing,
+Tom Beattie, Vital Dobroey, and Don Libes.  Thanks to all of them,
+particularly Paul for an amazing number of comments on earlier versions.
+
+On a philosophical note, I've tried to make this all as general as
+possible for shipping sources around.  I'm not interested in binaries, so
+things like automatically running uuencode don't interest me a great
+deal.  I haven't come up with a good portable way to split files into
+pieces if they're too large, and doubt I ever will.  There are too many
+installation parameters, but I'm not particularly worried about that:  Once
+you get things working, consider it incentive to avoid future changes.
+It would be nice if I could use Larry's meta-Config, but that only works
+on Unix (and Eunice).  Send me your config.h file so that others can benefit.
+
+Enjoy!
+	Rich $alz
+	BBN Laboratories, Inc.
+	10 Moulton Street
+	Cambridge, MA  02238
+	rsalz@bbn.com
+	rsalz@uunet.uu.net
+
+My, my, my, aren't we anal:
+	$Header: /bsdi/MASTER/BSDI_OS/contrib/cshar/grot/README,v 1.1.1.1 1993/02/23 17:59:59 polk Exp $

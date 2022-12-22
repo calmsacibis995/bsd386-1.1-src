@@ -1,0 +1,7 @@
+F DEPEND.;1                         	depend
+F MAKEFILE.DEP;1                    	Makefile.dep
+F MAKEFILE.SUB;1                    	Makefile.sub
+F MAKE_DOS.;1                       	make-dos-dist
+F PIC.CC;1                          	pic.cc
+F PIC_TAB.H;1                       	pic.tab.h
+F TODO.;1                           	TODO

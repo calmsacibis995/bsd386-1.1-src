@@ -1,0 +1,12 @@
+F C_AUX_IN.C;1                      	c-aux-info.c
+F C_CONVER.C;1                      	c-convert.c
+F C_DECL.C;1                        	c-decl.c
+F C_ITERAT.C;1                      	c-iterate.c
+F C_LANG.C;1                        	c-lang.c
+F C_LEX.C;1                         	c-lex.c
+F C_PARSE.GPE;1                     	c-parse.gperf
+F C_PARSE.Y;1                       	c-parse.y
+F C_PRAGMA.C;1                      	c-pragma.c
+F C_TYPECK.C;1                      	c-typeck.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/gcc2/cc1

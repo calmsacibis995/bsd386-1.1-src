@@ -1,0 +1,346 @@
+.\"
+.V= $Id: uucico.8,v 1.2 1994/01/31 01:26:56 donn Exp $
+.\"
+.ds S1 UUCICO
+.ds S2 \fIUucico\fP
+.ds S3 \fIuucico\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uucico
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uucico \- transfer files queued by uucp or uux
+.SH SYNOPSIS
+.B uucico
+.RI [\- flags ]
+.SH DESCRIPTION
+\*(S2
+performs the actual work involved in transferring files between
+systems.
+.IR uucp (1)
+and
+.IR uux (1)
+merely queue requests for data transfer which
+\*(S3
+processes.
+.PP
+If
+\*(S3
+receives a
+.B SIGFPE
+(see
+.IR kill (1)),
+it will toggle the debugging on or off.
+.PP
+For each system that has transfer requests queued,
+\*(S3
+calls the system, logs in, and executes the transfers. The file
+.IR L.sys (5)
+is consulted for information about how to log in, while
+.IR L-devices (5)
+specifies available lines and modems for calling.
+.PP
+For remote systems to dial in, an entry in the
+.IR passwd (5)
+file must be created, with a login ``shell'' of
+.IR uucico .
+For example:
+.PP
+.RS 4
+.if t .ft CW
+.nf
+nuucp:<password>:6:1::/var/spool/uucppublic:/usr/libexec/uucico
+.fi
+.if t .ft
+.RE
+.PP
+The \s-1UID\s0 for \s-1UUCP\s0 remote logins is not critical, so long as it differs from
+the \s-1UUCP\s0 Administrative login.
+The latter owns the \s-1UUCP\s0 files, and assigning
+this \s-1UID\s0 to a remote login would be an extreme security hazard.
+.PP
+\*(S2 changes its name to give details of its state.
+The state shows the remote nodename,
+the current role (\s-1MST/SLV\s0),
+the direction of transfer (\s-1SND/RCV\s0),
+the number of messages transferred,
+and the overall throughput in bytes/second.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-t\fP\fIturnaround\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-c
+Check for messages to be sent: if none don't call.
+.TP
+.BI \-d spooldir
+Use
+.I spooldir
+as the spool directory.
+The default is
+.if t \f(CW/var/spool/uucp\fP.
+.if n `/var/spool/uucp'.
+This should be either
+.SM SPOOLDIR,
+or one of the directories named in
+.SM SPOOLALTDIRS
+(see
+.IR uuparams (5)).
+.TP
+.BI \-g grade
+Only send jobs of grade
+.I grade
+or higher this transfer.
+The grade of a job is specified when the job is queued by
+.I uucp
+or
+.IR uux .
+.TP
+.BI \-k
+Arrange to keep any debugging output in a time-stamped audit file in
+\s-1LOGDIR\s0/audit/\fIsite.yymmddhhss\fP
+.TP
+.BI \-L
+Only call ``local'' sites. A site is considered local if
+the device-type field in
+.I L.sys
+is one of \s-1LOCAL\s0, \s-1DIR\s0 or \s-1TCP\s0.
+.TP
+.BI \-m mynode
+Change the name of the local host to
+.IR mynode .
+This is better done system-wide via the
+.SM NODENAME
+parameter
+(see
+.IR uuparams (5)).
+.TP
+.BI \-p grade
+(Same as \fB\-g\fP.)
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.BI \-r role
+.I role
+is either 1 or 0; it indicates whether
+\*(S3
+is to start up in
+master or slave role, respectively. 1 is used when running
+\*(S3
+by hand or from
+.IR cron (8).
+0 is used when another system calls the local system.
+Slave role is the default.
+.TP
+.BI \-R
+Reverse roles.  When used with the
+.BI \-r1
+option, this tells the remote system to begin sending its
+jobs first, instead of waiting for the local machine to finish.
+.TP
+.BI \-s system
+Call
+.IR system .
+If
+.B \-s
+is specified, a call will be made even if there is
+no work for that system (but see \fB\-c\fP above).
+This is useful for polling.
+One of either \fB\-s\s0 or \fB\-S\s0 (below)
+.I must
+be specified.
+.TP
+.BI \-S system
+Same as \fB\-s\fP,
+but any time-to-call restrictions are ignored when
+\*(S3
+is in
+.I master
+role.
+NB: if
+.I system
+starts with a `\fB/\fP',
+then it is assumed to be a spool directory pathname,
+and is interpreted as for \fB\-d\fP above.
+.TP
+.BI \-x debug
+Turn on debugging at level
+.IR debug .
+Level 5 is a good start when trying to find out why a call
+failed. Level 9 is very detailed. Level 99 is absurdly verbose.
+If
+.I role
+is 1 (master), output is normally written to the standard message
+output
+.IR stderr .
+If
+.I stderr
+is unavailable, and the directory exists, output is written to
+.if t \f(CWLOGDIR/audit/\fP\fIsystem\fP.
+.if n LOGDIR/audit/\fIsystem\fP.
+When
+.I role
+is 0 (slave), debugging output is always written to the
+.I audit
+file.
+.TP
+.BI \-T \fR[\fPlevel\fR]\fP
+Turns on routine tracing at
+.I level
+[default: 1].
+If tracing is not compiled in,
+this flag will have no effect.
+.TP
+.BI \-t [turnaround]
+Use
+.I turnaround
+as the line turnaround time (in minutes) instead of the default [30].
+If
+.I turnaround
+is missing or 0, line turnaround will be disabled.
+After
+\*(S3
+has been running in slave role for
+.I turnaround
+minutes,
+it will attempt to run in master role by negotiating with the remote machine.
+When running in master mode with more than one 
+\s-1SPOOLDIR\s0,
+\*(S3 will return to the first directory at least every
+.I turnaround
+minutes.
+In earlier versions of
+.IR uucico ,
+a transfer of many large files in one direction would hold up mail
+going in the other direction.
+With the turnaround code working,
+the message flow will be more bidirectional in the short term.
+This option only works with newer
+.IR uucico 's
+and is ignored by older ones.
+.SH FILES
+All these file names are configurable in the file
+.if t \f(CW/etc/uucp/CONFIG\fP.
+.if n `/etc/uucp/CONFIG'.
+See
+.IR uuparams (5)
+for details.
+.PP
+.if t .PD 0
+.if n .ds tw 4
+.if t .ds tw \w'\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/T\fP\fITimeUsecPidN\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all \*(S5 programs.
+.TP
+\f(CWPARAMSDIR/\fP
+\s-1UUCP\s0 internal files
+[/etc/uucp].
+.TP
+\f(CWPARAMSDIR/L-devices\fP
+Local device descriptions.
+.TP
+\f(CWPARAMSDIR/L-dialcodes\fP
+Phone numbers and prefixes.
+.TP
+\f(CWPARAMSDIR/L.aliases\fP
+Hostname aliases.
+.TP
+\f(CWPARAMSDIR/L.cmds\fP
+Remote command permissions list.
+.TP
+\f(CWPARAMSDIR/L.sys\fP
+Host connection specifications.
+.TP
+\f(CWPARAMSDIR/USERFILE\fP
+Remote directory tree permissions list.
+.TP
+\f(CWPROGDIR/\fP
+\s-1UUCP\s0 internal utilities
+[/usr/libexec].
+.TP
+\f(CWSPOOLALTDIRS\fP
+Alternate spool directories for obtaining messages to transmit
+[/var/spool/nuucp].
+.TP
+\f(CWSPOOLDIR\fP
+Spool directory
+[/var/spool/uucp].
+.TP
+\f(CWSPOOLDIR/.Corrupt/\fP
+Place for corrupted `C.' and `D.' files.
+.TP
+\f(CWSPOOLDIR/\fP\fIsystem\fP
+Directories for each system containing message data and control files.
+.TP
+\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/.active\fP
+File created while uucico is active in this directory,
+containing CPU name and process ID in \s-1ASCII\s0.
+.TP
+\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/T\fP\fITimeUsecPidN\fP
+Master mode receive message temporary file.
+.TP
+\f(CWSPOOLDIR/\fP\fIsystem\fP\f(CW/t\fP\fITimeUsecPidN\fP
+Slave mode receive message temporary file.
+.TP
+\f(CWPUBDIR\fP
+Public access directory
+[/var/spool/uucppublic].
+.TP
+\f(CWLOGDIR\fP
+Directory for \fIuucp\fP-related log files
+[/var/log/uucp].
+.TP
+\f(CWLOGDIR/audit/\fP\fIsystem\fP
+Debugging audit trails.
+.TP
+\f(CWLOGDIR/errors\fP
+\s-1UUCP\s0 internal error log.
+.TP
+\f(CWLOGDIR/uucico/\fP\fIsystem\fP
+\*(S2 system activity log per site.
+.TP
+\f(CWLOGDIR/xferstats/\fP\fIsystem\fP
+File transfer statistics log per site.
+.TP
+\f(CWLOGDIR/status/\fP\fIsystem\fP
+System status files.
+.TP
+\f(CWLOCKDIR\fP
+Directory for lock files
+[/var/run].
+.TP
+\f(CWLOCKDIR/LCK..*\fP
+Device lock files.
+.if t .PD
+.SH SEE ALSO
+.BR uucp (1),
+.BR uuq (1),
+.BR uux (1),
+.BR L-devices (5),
+.BR L-dialcodes (5),
+.BR L.aliases (5),
+.BR L.cmds (5),
+.BR L.sys (5),
+.BR uuparams (5),
+.BR uuclean (8),
+.BR uupoll (8),
+.BR uusched (8),
+.BR uusnap (8),
+.BR uuxqt (8).
+.PP
+D. A. Nowitz and M. E. Lesk,
+.I "A Dial-Up Network of UNIX Systems"
+.PP
+D. A. Nowitz,
+.I "Installation and Operation of UUCP"

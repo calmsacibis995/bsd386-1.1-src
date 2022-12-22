@@ -1,0 +1,113 @@
+.\"	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/man/faxrm.1,v 1.1.1.1 1994/01/14 23:10:11 torek Exp $
+.\"
+.\" FlexFAX Facsimile Software
+.\"
+.\" Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+.\" Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+.\" 
+.\" Permission to use, copy, modify, distribute, and sell this software and 
+.\" its documentation for any purpose is hereby granted without fee, provided
+.\" that (i) the above copyright notices and this permission notice appear in
+.\" all copies of the software and related documentation, and (ii) the names of
+.\" Sam Leffler and Silicon Graphics may not be used in any advertising or
+.\" publicity relating to the software without the specific, prior written
+.\" permission of Sam Leffler and Silicon Graphics.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+.\" EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+.\" WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+.\" 
+.\" IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+.\" ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+.\" OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+.\" WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+.\" LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+.\" OF THIS SOFTWARE.
+.\"
+.TH FAXRM 1 "January 15, 1993"
+.SH NAME
+faxrm \- remove a facsimile job queued for transmission
+.SH SYNOPSIS
+.B faxrm
+[
+.B \-h
+.I hostname
+]
+.IR jobid ...
+.SH DESCRIPTION
+.I Faxrm
+removes one or more facsimile jobs that
+are queued for transmission.
+If a job that is to be removed is being processed by a server,
+it is first aborted.
+.PP
+A 
+.I jobid
+is the number printed by
+.IR sendfax (1)
+when a job is queued for transmission.
+This number can also be obtained from
+.IR faxstat (1).
+.PP
+Users can only remove jobs that they
+have queued;
+except the
+.I fax
+user who can remove any job.
+.PP
+By default,
+.I faxrm
+contacts the facsimile server on the host specified
+in the
+.B FAXSERVER
+environment variable.
+This can be overridden with the
+.B \-h
+option.
+.SH DIAGNOSTICS
+.B "Job %s removed." 
+A confirmation that the operation was completed successfully.
+.PP
+.B "Job %s not removed: it was not queued."
+The specified job was not found in the server's queue.
+.PP
+.B "Job %s not removed: open failed; check SYSLOG."
+.I or
+.B "Job %s not removed: unlink failed; check SYSLOG."
+The server was unable to do some necessary operation on the 
+remote host and so could not remove the job.
+More information about what went wrong can be found in the
+.IR syslogd (1M)
+log file on the server's machine.
+.PP
+.B "Document for job %s not removed: unlink failed; check SYSLOG."
+The job description file was removed, but one or
+more of the associated document files was not.
+More information can be found in the log file on the server's machine.
+.PP
+.B "Job %s not removed: could not establish server process owner."
+A request was made by the ``fax'' user to remove
+a job that it did submit.
+This request was not accepted because
+the server was unable to deduce the identity under which
+it was executing.  That is, there was no password file
+entry for the server's effective user id.
+This (usually) indicates that the entry in the file
+.I ${USRETC}/inetd.conf
+on the remove machine is setup wrong; see
+.IR faxd.recv (1M)
+for more information.
+.PP
+.B "Job %s not removed: you neither own it nor are the fax user."
+A request was made to remove a job that the user does not own
+(and the user is not the ``fax'' user).
+.SH BUGS
+.I Faxrm
+must be run on the same host on which the job was
+submitted.
+.SH "SEE ALSO"
+.IR flexfax (1),
+.IR sendfax (1),
+.IR faxalter (1),
+.IR faxstat (1),
+.IR faxd.recv (1M)

@@ -1,0 +1,265 @@
+#!/bin/sh
+# Generated automatically by configure.
+# Run this file to recreate the current configuration.
+# This directory was configured as follows,
+# on host hilltop.BSDI.COM:
+#
+# ./configure 
+
+for arg
+do
+  case "$arg" in
+    -recheck | --recheck | --rechec | --reche | --rech | --rec | --re | --r)
+    echo running ${CONFIG_SHELL-/bin/sh} ./configure 
+    exec ${CONFIG_SHELL-/bin/sh} ./configure  ;;
+    *) echo "Usage: config.status --recheck" 2>&1; exit 1 ;;
+  esac
+done
+
+trap 'rm -fr Makefile build.sh glob/Makefile config.h conftest*; exit 1' 1 3 15
+CFLAGS='-g'
+LDFLAGS='-g'
+CC='gcc'
+INSTALL='/usr/bin/install -c'
+INSTALL_PROGRAM='$(INSTALL)'
+INSTALL_DATA='$(INSTALL) -m 644'
+RANLIB='ranlib'
+CPP='gcc -E'
+LIBOBJS=''
+ALLOCA=''
+NEED_SETGID='false'
+KMEM_GROUP=''
+REMOTE='stub'
+LIBS=' -lutil -lkvm'
+srcdir='.'
+prefix=''
+exec_prefix=''
+prsub=''
+extrasub=''
+
+top_srcdir=$srcdir
+
+CONFIG_FILES=${CONFIG_FILES-"Makefile build.sh glob/Makefile"}
+for file in .. ${CONFIG_FILES}; do if test "x$file" != x..; then
+  srcdir=$top_srcdir
+  # Remove last slash and all that follows it.  Not all systems have dirname.
+  dir=`echo $file|sed 's%/[^/][^/]*$%%'`
+  if test "$dir" != "$file"; then
+    test "$top_srcdir" != . && srcdir=$top_srcdir/$dir
+    test ! -d "$dir" && mkdir "$dir"
+  fi
+  echo creating "$file"
+  rm -f "$file"
+  comment_str="Generated automatically from `echo $file|sed 's|.*/||'`.in by configure."
+  case "$file" in
+    *.c | *.h | *.C | *.cc | *.m )  echo "/* $comment_str */" > "$file" ;;
+    * )          echo "# $comment_str"     > "$file" ;;
+  esac
+  sed -e "
+$prsub
+$extrasub
+s%@CFLAGS@%$CFLAGS%g
+s%@LDFLAGS@%$LDFLAGS%g
+s%@CC@%$CC%g
+s%@INSTALL@%$INSTALL%g
+s%@INSTALL_PROGRAM@%$INSTALL_PROGRAM%g
+s%@INSTALL_DATA@%$INSTALL_DATA%g
+s%@RANLIB@%$RANLIB%g
+s%@CPP@%$CPP%g
+s%@LIBOBJS@%$LIBOBJS%g
+s%@ALLOCA@%$ALLOCA%g
+s%@NEED_SETGID@%$NEED_SETGID%g
+s%@KMEM_GROUP@%$KMEM_GROUP%g
+s%@REMOTE@%$REMOTE%g
+s%@LIBS@%$LIBS%g
+s%@srcdir@%$srcdir%g
+s%@DEFS@%-DHAVE_CONFIG_H%" $top_srcdir/${file}.in >> $file
+fi; done
+
+CONFIG_HEADERS=${CONFIG_HEADERS-"config.h"}
+for file in .. ${CONFIG_HEADERS}; do if test "x$file" != x..; then
+echo creating $file
+
+# These sed commands are put into SEDDEFS when defining a macro.
+# They are broken into pieces to make the sed script easier to manage.
+# They are passed to sed as "A NAME B NAME C VALUE D", where NAME
+# is the cpp macro being defined and VALUE is the value it is being given.
+# Each defining turns into a single global substitution command.
+# Hopefully no one uses "!" as a variable value.
+# Other candidates for the sed separators, like , and @, do get used.
+#
+# SEDd sets the value in "#define NAME VALUE" lines.
+SEDdA='s!^\([ 	]*\)#\([ 	]*define[ 	][ 	]*\)'
+SEDdB='\([ 	][ 	]*\)[^ 	]*!\1#\2'
+SEDdC='\3'
+SEDdD='!g'
+# SEDu turns "#undef NAME" with trailing blanks into "#define NAME VALUE".
+SEDuA='s!^\([ 	]*\)#\([ 	]*\)undef\([ 	][ 	]*\)'
+SEDuB='\([ 	]\)!\1#\2define\3'
+SEDuC=' '
+SEDuD='\4!g'
+# SEDe turns "#undef NAME" without trailing blanks into "#define NAME VALUE".
+SEDeA='s!^\([ 	]*\)#\([ 	]*\)undef\([ 	][ 	]*\)'
+SEDeB='$!\1#\2define\3'
+SEDeC=' '
+SEDeD='!g'
+rm -f conftest.sed
+cat >> conftest.sed <<CONFEOF
+${SEDdA}STDC_HEADERS${SEDdB}STDC_HEADERS${SEDdC}1${SEDdD}
+${SEDuA}STDC_HEADERS${SEDuB}STDC_HEADERS${SEDuC}1${SEDuD}
+${SEDeA}STDC_HEADERS${SEDeB}STDC_HEADERS${SEDeC}1${SEDeD}
+${SEDdA}DIRENT${SEDdB}DIRENT${SEDdC}1${SEDdD}
+${SEDuA}DIRENT${SEDuB}DIRENT${SEDuC}1${SEDuD}
+${SEDeA}DIRENT${SEDeB}DIRENT${SEDeC}1${SEDeD}
+${SEDdA}GETGROUPS_T${SEDdB}GETGROUPS_T${SEDdC}gid_t${SEDdD}
+${SEDuA}GETGROUPS_T${SEDuB}GETGROUPS_T${SEDuC}gid_t${SEDuD}
+${SEDeA}GETGROUPS_T${SEDeB}GETGROUPS_T${SEDeC}gid_t${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}RETSIGTYPE${SEDdB}RETSIGTYPE${SEDdC}void${SEDdD}
+${SEDuA}RETSIGTYPE${SEDuB}RETSIGTYPE${SEDuC}void${SEDuD}
+${SEDeA}RETSIGTYPE${SEDeB}RETSIGTYPE${SEDeC}void${SEDeD}
+${SEDdA}HAVE_UNISTD_H${SEDdB}HAVE_UNISTD_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_UNISTD_H${SEDuB}HAVE_UNISTD_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_UNISTD_H${SEDeB}HAVE_UNISTD_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_LIMITS_H${SEDdB}HAVE_LIMITS_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_LIMITS_H${SEDuB}HAVE_LIMITS_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_LIMITS_H${SEDeB}HAVE_LIMITS_H${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_SYS_PARAM_H${SEDdB}HAVE_SYS_PARAM_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SYS_PARAM_H${SEDuB}HAVE_SYS_PARAM_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SYS_PARAM_H${SEDeB}HAVE_SYS_PARAM_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_FCNTL_H${SEDdB}HAVE_FCNTL_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_FCNTL_H${SEDuB}HAVE_FCNTL_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_FCNTL_H${SEDeB}HAVE_FCNTL_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_STRING_H${SEDdB}HAVE_STRING_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_STRING_H${SEDuB}HAVE_STRING_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_STRING_H${SEDeB}HAVE_STRING_H${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_MEMORY_H${SEDdB}HAVE_MEMORY_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_MEMORY_H${SEDuB}HAVE_MEMORY_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_MEMORY_H${SEDeB}HAVE_MEMORY_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_SYS_TIMEB_H${SEDdB}HAVE_SYS_TIMEB_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SYS_TIMEB_H${SEDuB}HAVE_SYS_TIMEB_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SYS_TIMEB_H${SEDeB}HAVE_SYS_TIMEB_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_GETDTABLESIZE${SEDdB}HAVE_GETDTABLESIZE${SEDdC}1${SEDdD}
+${SEDuA}HAVE_GETDTABLESIZE${SEDuB}HAVE_GETDTABLESIZE${SEDuC}1${SEDuD}
+${SEDeA}HAVE_GETDTABLESIZE${SEDeB}HAVE_GETDTABLESIZE${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_SYS_SIGLIST${SEDdB}HAVE_SYS_SIGLIST${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SYS_SIGLIST${SEDuB}HAVE_SYS_SIGLIST${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SYS_SIGLIST${SEDeB}HAVE_SYS_SIGLIST${SEDeC}1${SEDeD}
+${SEDdA}HAVE_PSIGNAL${SEDdB}HAVE_PSIGNAL${SEDdC}1${SEDdD}
+${SEDuA}HAVE_PSIGNAL${SEDuB}HAVE_PSIGNAL${SEDuC}1${SEDuD}
+${SEDeA}HAVE_PSIGNAL${SEDeB}HAVE_PSIGNAL${SEDeC}1${SEDeD}
+${SEDdA}HAVE_DUP2${SEDdB}HAVE_DUP2${SEDdC}1${SEDdD}
+${SEDuA}HAVE_DUP2${SEDuB}HAVE_DUP2${SEDuC}1${SEDuD}
+${SEDeA}HAVE_DUP2${SEDeB}HAVE_DUP2${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_GETCWD${SEDdB}HAVE_GETCWD${SEDdC}1${SEDdD}
+${SEDuA}HAVE_GETCWD${SEDuB}HAVE_GETCWD${SEDuC}1${SEDuD}
+${SEDeA}HAVE_GETCWD${SEDeB}HAVE_GETCWD${SEDeC}1${SEDeD}
+${SEDdA}HAVE_SIGSETMASK${SEDdB}HAVE_SIGSETMASK${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SIGSETMASK${SEDuB}HAVE_SIGSETMASK${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SIGSETMASK${SEDeB}HAVE_SIGSETMASK${SEDeC}1${SEDeD}
+${SEDdA}HAVE_GETGROUPS${SEDdB}HAVE_GETGROUPS${SEDdC}1${SEDdD}
+${SEDuA}HAVE_GETGROUPS${SEDuB}HAVE_GETGROUPS${SEDuC}1${SEDuD}
+${SEDeA}HAVE_GETGROUPS${SEDeB}HAVE_GETGROUPS${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_SETLINEBUF${SEDdB}HAVE_SETLINEBUF${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SETLINEBUF${SEDuB}HAVE_SETLINEBUF${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SETLINEBUF${SEDeB}HAVE_SETLINEBUF${SEDeC}1${SEDeD}
+${SEDdA}HAVE_SETREUID${SEDdB}HAVE_SETREUID${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SETREUID${SEDuB}HAVE_SETREUID${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SETREUID${SEDeB}HAVE_SETREUID${SEDeC}1${SEDeD}
+${SEDdA}HAVE_SETREGID${SEDdB}HAVE_SETREGID${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SETREGID${SEDuB}HAVE_SETREGID${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SETREGID${SEDeB}HAVE_SETREGID${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_STRERROR${SEDdB}HAVE_STRERROR${SEDdC}1${SEDdD}
+${SEDuA}HAVE_STRERROR${SEDuB}HAVE_STRERROR${SEDuC}1${SEDuD}
+${SEDeA}HAVE_STRERROR${SEDeB}HAVE_STRERROR${SEDeC}1${SEDeD}
+${SEDdA}HAVE_ALLOCA${SEDdB}HAVE_ALLOCA${SEDdC}1${SEDdD}
+${SEDuA}HAVE_ALLOCA${SEDuB}HAVE_ALLOCA${SEDuC}1${SEDuD}
+${SEDeA}HAVE_ALLOCA${SEDeB}HAVE_ALLOCA${SEDeC}1${SEDeD}
+${SEDdA}HAVE_GETLOADAVG${SEDdB}HAVE_GETLOADAVG${SEDdC}1${SEDdD}
+${SEDuA}HAVE_GETLOADAVG${SEDuB}HAVE_GETLOADAVG${SEDuC}1${SEDuD}
+${SEDeA}HAVE_GETLOADAVG${SEDeB}HAVE_GETLOADAVG${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_STRCOLL${SEDdB}HAVE_STRCOLL${SEDdC}1${SEDdD}
+${SEDuA}HAVE_STRCOLL${SEDuB}HAVE_STRCOLL${SEDuC}1${SEDuD}
+${SEDeA}HAVE_STRCOLL${SEDeB}HAVE_STRCOLL${SEDeC}1${SEDeD}
+${SEDdA}HAVE_SYS_WAIT_H${SEDdB}HAVE_SYS_WAIT_H${SEDdC}1${SEDdD}
+${SEDuA}HAVE_SYS_WAIT_H${SEDuB}HAVE_SYS_WAIT_H${SEDuC}1${SEDuD}
+${SEDeA}HAVE_SYS_WAIT_H${SEDeB}HAVE_SYS_WAIT_H${SEDeC}1${SEDeD}
+${SEDdA}HAVE_WAITPID${SEDdB}HAVE_WAITPID${SEDdC}1${SEDdD}
+${SEDuA}HAVE_WAITPID${SEDuB}HAVE_WAITPID${SEDuC}1${SEDuD}
+${SEDeA}HAVE_WAITPID${SEDeB}HAVE_WAITPID${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}HAVE_WAIT3${SEDdB}HAVE_WAIT3${SEDdC}1${SEDdD}
+${SEDuA}HAVE_WAIT3${SEDuB}HAVE_WAIT3${SEDuC}1${SEDuD}
+${SEDeA}HAVE_WAIT3${SEDeB}HAVE_WAIT3${SEDeC}1${SEDeD}
+${SEDdA}HAVE_UNION_WAIT${SEDdB}HAVE_UNION_WAIT${SEDdC}1${SEDdD}
+${SEDuA}HAVE_UNION_WAIT${SEDuB}HAVE_UNION_WAIT${SEDuC}1${SEDuD}
+${SEDeA}HAVE_UNION_WAIT${SEDeB}HAVE_UNION_WAIT${SEDeC}1${SEDeD}
+${SEDdA}SYS_SIGLIST_DECLARED${SEDdB}SYS_SIGLIST_DECLARED${SEDdC}1${SEDdD}
+${SEDuA}SYS_SIGLIST_DECLARED${SEDuB}SYS_SIGLIST_DECLARED${SEDuC}1${SEDuD}
+${SEDeA}SYS_SIGLIST_DECLARED${SEDeB}SYS_SIGLIST_DECLARED${SEDeC}1${SEDeD}
+CONFEOF
+cat >> conftest.sed <<CONFEOF
+${SEDdA}SCCS_GET${SEDdB}SCCS_GET${SEDdC}"get"${SEDdD}
+${SEDuA}SCCS_GET${SEDuB}SCCS_GET${SEDuC}"get"${SEDuD}
+${SEDeA}SCCS_GET${SEDeB}SCCS_GET${SEDeC}"get"${SEDeD}
+
+CONFEOF
+# This sed command replaces #undef's with comments.  This is necessary, for
+# example, in the case of _POSIX_SOURCE, which is predefined and required
+# on some systems where configure will not decide to define it in
+# config.h.
+cat >> conftest.sed <<\CONFEOF
+s,^[ 	]*#[ 	]*undef[ 	][ 	]*[a-zA-Z_][a-zA-Z_0-9]*,/* & */,
+CONFEOF
+rm -f conftest.h
+# Break up the sed commands because old seds have small limits.
+maxsedlines=20
+cp $top_srcdir/$file.in conftest.h1
+while :
+do
+  lines=`grep -c . conftest.sed`
+  if test -z "$lines" || test "$lines" -eq 0; then break; fi
+  rm -f conftest.s1 conftest.s2 conftest.h2
+  sed ${maxsedlines}q conftest.sed > conftest.s1 # Like head -20.
+  sed 1,${maxsedlines}d conftest.sed > conftest.s2 # Like tail +21.
+  sed -f conftest.s1 < conftest.h1 > conftest.h2
+  rm -f conftest.s1 conftest.h1 conftest.sed
+  mv conftest.h2 conftest.h1
+  mv conftest.s2 conftest.sed
+done
+rm -f conftest.sed conftest.h
+echo "/* $file.  Generated automatically by configure.  */" > conftest.h
+cat conftest.h1 >> conftest.h
+rm -f conftest.h1
+if cmp -s $file conftest.h 2>/dev/null; then
+  # The file exists and we would not be changing it.
+  echo "$file is unchanged"
+  rm -f conftest.h
+else
+  rm -f $file
+  mv conftest.h $file
+fi
+fi; done
+
+
+
+# Makefile uses this timestamp file to know when to remake Makefile,
+# build.sh, and glob/Makefile.
+touch stamp-config
+exit 0

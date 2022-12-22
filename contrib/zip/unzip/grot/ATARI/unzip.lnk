@@ -1,0 +1,13 @@
+e:\tc\lib\mystart.o
+unzip.o
+file_io.o
+mapname.o
+match.o
+misc.o
+unimplod.o
+unreduce.o
+unshrink.o
+e:\tc\lib\tcstdlib.lib
+e:\tc\lib\tcextlib.lib
+e:\tc\lib\tctoslib.lib
+e:\tc\lib\tcstdlib.lib

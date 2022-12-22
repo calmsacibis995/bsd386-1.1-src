@@ -1,0 +1,7 @@
+F ISO9660.H;1                       	iso9660.h
+F ISO96600.C;1                      	iso9660_lookup.c
+F ISO96601.C;1                      	iso9660_node.c
+F ISO96602.C;1                      	iso9660_util.c
+F ISO96603.C;1                      	iso9660_vfsops.c
+F ISO96604.C;1                      	iso9660_vnops.c
+F ISO9660_.H;1                      	iso9660_node.h

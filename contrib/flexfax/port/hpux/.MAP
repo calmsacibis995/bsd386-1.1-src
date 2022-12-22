@@ -1,0 +1,13 @@
+F DEFS.CC;1                         	defs.cc
+F DEFS.GCC;1                        	defs.gcc
+F FLOCK.C;1                         	flock.c
+F FLOCK.H;1                         	flock.h
+F INSTALL.SH;1                      	install.sh
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.FLE;1                    	Makefile.flexfax
+F PATHS.H;1                         	paths.h
+F RANDOM.C;1                        	random.c
+F README.;1                         	README
+F SETEGID.C;1                       	setegid.c
+F SETEUID.C;1                       	seteuid.c
+F VSYSLOG.C;1                       	vsyslog.c

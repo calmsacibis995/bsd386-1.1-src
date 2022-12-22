@@ -1,0 +1,8 @@
+F DEFS.;1                           	defs
+F GCC_PATC.;1                       	GCC-PATCH
+F INSTALL.SH;1                      	install.sh
+F MAKEFILE.FLE;1                    	Makefile.flexfax
+F PATHS.H;1                         	paths.h
+F README.;1                         	README
+F TERMIOS.H;1                       	termios.h
+D ZSUNDEV                           	zsundev

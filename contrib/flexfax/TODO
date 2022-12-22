@@ -1,0 +1,28 @@
+H expand status codes returned from dial interface so that +FHNG codes
+  are handled better (currently treated as NOANSWER)
+H rewrite queue management
+H change server status to indicate PostScript conversion operations
+H do copy quality checking on receives
+H abort recv
+H calculate filled region of each page and transmit only the imaged
+  area if the receiver is capable
+H support for new T.30 routing stuff
+M fix race condition between remove and dial failure
+M timeout PS invocations
+M recover from discovered capabilities mismatches by disconnecting
+  and re-imaging
+M polled transmission of documents (can already poll to receive)
+M generate cover pages for continued transmissions
+M redo client-server protocol along the lines of ftp et. al.
+M complete api for integration with applications
+  (perhaps should wait new client-server protocol)
+M time-of-day restrictions on dialing
+M support "!regex" to reject explicit TSI
+M rewrite the class 1 driver to use a state machine (fixes shutdown problems)
+L tag lines (page i of n)
+L faxmove program, analogous to lpmove
+
+H = high priority
+B = outright bug
+M = medium priority
+L = low priority

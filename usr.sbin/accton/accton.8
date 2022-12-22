@@ -1,0 +1,31 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	@(#) BSDI $Id: accton.8,v 1.1 1993/02/10 18:25:36 sanders Exp $
+.\"
+.Dd January 25, 1993
+.Dt ACCTON 8
+.Os
+.Sh NAME
+.Nm accton
+.Nd enable/disable system accounting
+.Sh SYNOPSIS
+.Nm accton
+.Op Ar file
+.Sh DESCRIPTION
+With no argument,
+.Nm accton
+will disable system accounting.  If the argument is an existing pathname,
+record collection is enabled and for every process initiated which terminates
+under normal conditions an accounting record is appended to
+.Ar file .
+.Sh SEE ALSO
+.Xr acct 2 ,
+.Xr acct 5 ,
+.Xr sa 8
+.Sh HISTORY
+A
+.Nm accton
+command appeared in Version 7 AT&T UNIX.

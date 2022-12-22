@@ -1,0 +1,51 @@
+GET_ADDR	mapper.c	/^#define GET_ADDR(a) (a = ((u_long)*p++ << 24), a +/
+Mmapper	mapper.c	/^main(argc, argv)$/
+accept_group_report	mapper.c	/^void accept_group_report(src, dst, group)$/
+accept_igmp	../common/igmp.c	/^void accept_igmp(recvlen)$/
+accept_neighbor_request	mapper.c	/^void accept_neighbor_request(src, dst)$/
+accept_neighbor_request2	mapper.c	/^void accept_neighbor_request2(src, dst)$/
+accept_neighbors	mapper.c	/^void accept_neighbors(src, dst, p, datalen, level)/
+accept_neighbors2	mapper.c	/^void accept_neighbors2(src, dst, p, datalen)$/
+accept_probe	mapper.c	/^void accept_probe(src, dst)$/
+accept_report	mapper.c	/^void accept_report(src, dst, p, datalen)$/
+ask	mapper.c	/^void ask(dst)$/
+ask2	mapper.c	/^void ask2(dst)$/
+check_vif_state	mapper.c	/^void check_vif_state()$/
+elide_aliases	mapper.c	/^void elide_aliases(node)$/
+find_interface	mapper.c	/^Interface *find_interface(addr, node)$/
+find_neighbor	mapper.c	/^Neighbor *find_neighbor(addr, node)$/
+find_node	mapper.c	/^Node *find_node(addr, ptr)$/
+get_number	mapper.c	/^int get_number(var, deflt, pargv, pargc)$/
+graph_edges	mapper.c	/^void graph_edges(node)$/
+graph_map	mapper.c	/^void graph_map()$/
+graph_name	mapper.c	/^char *graph_name(addr, buf)$/
+host_addr	mapper.c	/^u_long host_addr(name)$/
+inet_cksum	../common/inet.c	/^int inet_cksum(addr, len)$/
+inet_fmt	../common/inet.c	/^char *inet_fmt(addr, s)$/
+inet_fmts	../common/inet.c	/^char *inet_fmts(addr, mask, s)$/
+inet_name	mapper.c	/^char *inet_name(addr)$/
+inet_parse	../common/inet.c	/^u_long inet_parse(s)$/
+inet_valid_host	../common/inet.c	/^int inet_valid_host(naddr)$/
+inet_valid_subnet	../common/inet.c	/^int inet_valid_subnet(nsubnet, nmask)$/
+init_igmp	../common/igmp.c	/^void init_igmp()$/
+k_add_group	../common/kern.c	/^void k_add_group(vifi, group)$/
+k_add_route	../common/kern.c	/^void k_add_route(r)$/
+k_add_vif	../common/kern.c	/^void k_add_vif(vifi, v)$/
+k_del_group	../common/kern.c	/^void k_del_group(vifi, group)$/
+k_del_route	../common/kern.c	/^void k_del_route(r)$/
+k_del_vif	../common/kern.c	/^void k_del_vif(vifi)$/
+k_hdr_include	../common/kern.c	/^void k_hdr_include(bool)$/
+k_init_dvmrp	../common/kern.c	/^void k_init_dvmrp()$/
+k_join	../common/kern.c	/^void k_join(grp, ifa)$/
+k_leave	../common/kern.c	/^void k_leave(grp, ifa)$/
+k_set_if	../common/kern.c	/^void k_set_if(ifa)$/
+k_set_loop	../common/kern.c	/^void k_set_loop(l)$/
+k_set_rcvbuf	../common/kern.c	/^void k_set_rcvbuf(bufsize)$/
+k_set_ttl	../common/kern.c	/^void k_set_ttl(t)$/
+k_stop_dvmrp	../common/kern.c	/^void k_stop_dvmrp()$/
+k_update_route	../common/kern.c	/^void k_update_route(r)$/
+log	mapper.c	/^void log(severity, syserr, format, a, b, c, d, e)$/
+packet_kind	../common/igmp.c	/^static char *packet_kind(type, code)$/
+print_map	mapper.c	/^void print_map(node)$/
+retry_requests	mapper.c	/^int retry_requests(node)$/
+send_igmp	../common/igmp.c	/^void send_igmp(src, dst, type, code, group, datale/

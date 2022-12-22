@@ -1,0 +1,10 @@
+#	BSDI $Id: phones,v 1.2 1993/12/17 00:18:36 sanders Exp $
+#
+#	@(#)phones	5.2 (Berkeley) 6/30/90
+#
+# phones -- remote host phone number data base
+# see tip(1), phones(5), remote(5)
+#
+#system phone
+remote	1234567890
+dial9	9=1234567890

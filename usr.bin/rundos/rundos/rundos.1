@@ -1,0 +1,384 @@
+.TH rundos 1
+.SH NAME
+rundos \- MS-DOS compatibility system
+.SH SYNOPSIS
+.B rundos
+[
+.B \-v
+]
+.SH DESCRIPTION
+.I rundos
+starts the MS-DOS compatibility system.  It can only be started from console
+and it will take over the display and the keyboard.
+If the \fB\-v\fP flag is set, \fIrundos\fR won't save (and restore before exit)
+current state of a video controller.  This can be useful when you need to reset
+the video controller (e.g., when you need to restore fonts after an error).
+.PP
+\fIrundos\fR emulates an IBM PC AT-286 with following hardware devices:
+.nf
+.in +0.5i
+
+640KB RAM
+Up to 2 floppy drives (5.25" or 3.5")
+Up to 2 hard disks
+Keyboard
+VGA video adapter
+Mouse (serial mouse)
+Up to 2 printers
+
+.in
+.fi
+The number and types of floppy drives, hard disks,
+printers, and mice are described in a configuration file.  The format
+of the configuration file is described below.
+.PP
+MS-DOS 3.3 and higher and almost any DOS application will 
+run under the \fIrundos\fP system.  You cannot run ``Windows'' or 
+any other protected mode application under \fIrundos\fP.
+.PP
+[\fBNote\fR: MS-DOS is a registered trade mark of Microsoft Corp. and 
+is not included with BSD/386.]
+.PP
+The behavior of MS-DOS and DOS applications under \fIrundos\fP is the same
+as under ``native'' MS-DOS except for the implementation constraints
+listed below and the behavior of the CTRL-ALT-DEL key sequence.
+The key combination CTRL-ALT-DEL doesn't
+reboot the system as it does under DOS, but rather exits the
+\fIrundos\fP system or calls up the \fIrundos\fP menu.
+If the ``white'' delete key is used, the menu is displayed; if the 
+``grey'' delete key is used, \fIrundos\fP exits immediately.
+.PP
+The speed of DOS applications using direct access to device ports will be
+slower that under ``native'' MS-DOS due to the emulation of IN and OUT 
+instructions when accessing those devices.  In general, the speed of CPU
+intensive applications should be close to the speed of the underlying
+hardware.
+.PP
+The \fIrundos\fP menu (CTRL-ALT-WhiteDelete) has the following entries 
+(use the keys listed after the menu entry to select that choice):
+.TP
+\fBContinue\fR \- `RETURN' or `ESC'
+Continue \fIrundos\fR execution.
+.TP
+\fBSuspend\fR \- `S'
+Suspend \fIrundos\fR (like CTRL-Z in the shell).
+.TP
+\fBFlush print buffer\fR \- `P'
+Start an \fIlpr\fR command to print buffered parallel port information.
+.TP
+\fBTimer mode\fR \- `T' then `0' or `1'
+Set timer mode; mode 0 is the default.  In the default mode, timer
+interrupts are not stored and processed individually (so some timer
+interrupts may be lost).  When mode 1 is set, timer interrupts are
+stored and processed when possible (as long as memory is available).  
+Timer mode 1 is useful for some DOS applications using music and/or
+animation, but it should be used with caution as it may cause stack
+overflows or other problems with some applications.
+.TP
+\fBRestart\fR \- `R'
+Restart \fIrundos\fR \- the equivalent of CTRL-ALT-DEL to ``native'' DOS.
+.TP
+\fBQuit\fR \- `Q'
+Exit from \fIrundos\fR.
+.TP
+\fBMusic on/off\fR \- `M' 
+Enable/disable sound.  Sound is initially enabled.
+.SH CONFIGURATION
+.I rundos
+looks for a configuration file called ``.rundosrc'' in the current
+directory and in the user's home directory.  If neither is found,
+it will also look for a file called ``rundos.conf'' in the /etc directory.
+The first configuration file found will be used; any others will be
+ignored.
+.PP
+The files consist of lines with the following syntax:
+.PP
+\fBcommand\ \fIarg \.\.\.\fR
+.PP
+Blank lines and comments starting with the `#' character are ignored.
+.PP
+\fIrundos\fR recognizes the following commands:
+.in +0.5i
+.TP
+\fBassign\fI\ dos_device\ filename\fR\ [\fItype\fR]
+Assign an emulated DOS device to the named file (or device).
+.TP
+\fBlogfile\fI\ filename\fR
+Re-direct console and debug output to the file `\fIfilename\fR'.
+.TP
+\fBnokernemul\fR
+Don't emulate instructions in the \fIrundos\fP kernel.
+.in
+.PP
+The main purpose of the configuration file is the assignment of devices.
+You can assign the following DOS devices:
+.nf
+.in +0.5i
+
+\(bu\ flop\fIN\fR
+\(bu\ hard\fIN\fR
+\(bu\ lpt\fIN\fR
+\(bu\ mouse
+
+.in
+.fi
+.PP
+\fIN\fP is the logical number of the device (e.g., flop1 for the first
+logical floppy drive \- A:).  \fIrundos\fP supports up to two of 
+each of the the flop, hard, and lpt devices.
+.PP
+\fIflop\fR is used to define a floppy disk.  The flop1 device corresponds
+to the A: drive under DOS; flop2 corresponds to the B: device.  It can
+be assigned to either a regular file or to the specific device node
+corresponding to a physical floppy drive (e.g., /dev/rfd0c).  Note that
+there are several logical nodes that refer to the same physical floppy drive;
+the difference being that part of the minor device number specifies (hard
+codes) the density of the floppy diskette to be inserted.
+The type argument specifies the physical capacity of the drive (i.e.,
+360, 720, 1200, or 1440).
+.nf
+
+    Nodename         Drive    Major  Minor    Form     Drive     Media
+                             Number  Number  Factor   Density   Density
+
+/dev/rfd0              A:       9       2    3.5''    1.44MB    1.44MB
+/dev/rfd0c             A:       9       2    3.5''    1.44MB    1.44MB
+/dev/rfd0_1200_5.25    A:       9      66    5.25''   1.2 MB    1.2 MB
+/dev/rfd0_1440_3.5     A:       9     130    3.5''    1.44MB    1.44MB
+/dev/rfd0_360_5.25     A:       9     194    5.25''   1.2 MB     360KB
+/dev/rfd0_720_3.5      A:       9     226    3.5''    1.44MB     720KB
+/dev/rfd0_720_5.25     A:       9     162    5.25''   1.2 MB     720KB
+
+/dev/rfd1              B:       9      10    5.25''   1.44MB    1.44MB
+/dev/rfd1c             B:       9      10    5.25''   1.44MB    1.44MB
+/dev/rfd1_1200_5.25    B:       9      74    5.25''   1.2 MB    1.2 MB
+/dev/rfd1_1440_3.5     B:       9     138    3.5''    1.44MB    1.44MB
+/dev/rfd1_360_5.25     B:       9     202    5.25''   1.2 MB     360KB
+/dev/rfd1_720_3.5      B:       9     234    3.5''    1.44MB     720KB
+/dev/rfd1_720_5.25     B:       9     170    5.25''   1.2 MB     720KB
+.fi
+.PP
+\fIhard\fR is used to define a hard disk. Hard disks can only refer to 
+regular files in this release.  The last argument is the type of 
+hard disk to emulate; types correspond to the usual DOS hard disk types:
+.nf
+
+Type	Size (Mb)	Cylinders	Heads	Sectors
+
+01	10		306		4	17
+02	20		615		4	17
+03	30		615		6	17
+04	62		940		8	17
+05	46		940		6	17
+06	20		615		4	17
+07	30		462		8	17
+08	30		733		5	17
+09	112		900		15	17
+10	20		820		3	17
+11	35		855		5	17
+12	49		855		7	17
+13	20		306		8	17
+14	42		735		7	17
+15	not used
+16	20		612		4	17
+17	40		977		5	17
+18	56		977		7	17
+19	59		1024		7	17
+20	30		733		5	17
+21	42		733		7	17
+22	30		733		5	17
+23	10		306		4	17
+24	53		925		7	17
+25	69		925		9	17
+26	43		754		7	17
+27	68		754		11	17
+28	40		699		7	17
+29	68		823		10	17
+30	53		918		7	17
+31	93		1024		11	17
+32	127		1024		15	17
+33	42		1024		5	17
+34	10		612		2	17
+35	76		1024		9	17
+36	68		1024		8	17
+37	40		615		8	17
+38	24		987		3	17
+39	57		987		7	17
+40	40		820		6	17
+41	40		977		5	17	
+42	40		981		5	17
+43	48		830		7	17
+44	68		830		10	17
+45	114		917		15	17
+46	152		1224		15	17
+47	reserved
+.fi
+.PP
+\fIlpt\fR is used to define a logical DOS printer.  Printers
+can be assigned to regular files, or to a special buffer which is 
+flushed to the \fIlpr\fR command directly.  To assign a printer to 
+a file, the file name is specified and output is placed in the 
+file as it is written to the port from within DOS.  If the special
+keyword ``spool'' is used in place of the file name, data 
+output to the port is buffered until flushed by selecting the 
+appropriate entry from the \fIrundos\fP menu.  If you exit \fIrundos\fP
+without flushing the buffer, the output will be lost.
+.PP
+\fImouse\fR assigns type for the DOS mouse.  The filename argument should 
+be the character device corresponding to the port the mouse is really
+plugged into (e.g., /dev/com0).  The type field should be one of the 
+following:
+.nf
+.in +0.5i
+
+Microsoft
+Logitech
+MouseSystems
+MMSeries
+
+.in
+.fi
+You will need to install the mouse driver under DOS as well.  The
+\fIrundos\fP system emulates the mouse as if it were connected to
+the DOS port COM1, so you should configure the mouse driver under
+DOS to look at COM1 regardless of what port the mouse is physically
+attached to.
+.PP
+\fIrundos\fR catches all console output (because console output can interact
+with DOS application video output and disrupt the system).  If there isn't
+a ``logfile'' command in the configuration file, that output will be lost.
+If a logfile is specified, console output is written to the file while 
+\fIrundos\fP is active.
+.PP
+The ``nokernemul'' command is used only for debugging purposes.  When 
+this mode is on, the speed of emulation is slower and instruction 
+emulation debugging information is written into the logfile.  The default
+for this mode is ``off''.
+.SH INITIALIZATION
+.PP
+The \fIrundos\fR command loads the executable ``kernel'' file
+(/usr/libexec/dos.kernel) which is built with a special memory layout and
+cannot be executed directly.  All required emulation is done by this
+\fIrundos\fP ``kernel.''
+.PP
+When the kernel starts, it finds and reads the configuration file, and 
+then loads the images of the first physical memory page from file
+``/var/run/dos.firstpage'' and the pseudo BIOS from the file
+``/usr/libdata/dos.rombios.''
+.PP
+After a bit more internal initialization, the kernel implements
+the standard BIOS boot procedure by trying to load the boot sector
+first from the ``flop1'' device (A:).  If it fails to find a valid
+boot sector on drive A:, it attempts to load one from the ``hard1''
+device (C:).  If neither A: or C: contains a valid boot sector, it
+will complain about no ROM BASIC (just like a real machine) and
+exit.  If it is successful in finding a valid boot sector, it
+executes the loaded code and the normal DOS boot process proceeds.
+.SH INSTALLATION
+.PP
+The \fIdosfirstpage\fP program reads the stored contents of the first
+page of physical memory from high video memory and stores it in the file
+/var/run/dos.firstpage.  The boot blocks copy the data from 
+the first physical page to high video memory before the boot
+process modifies the data.  \fIdosfirstpage\fP should be run 
+from /etc/rc and is included in the default version of that file.
+.PP
+Execute the following steps to configure \fIrundos\fP and install DOS:
+.sp
+.nr QQ \w'\(bu 'u
+.in +\n(QQu
+.ti -\n(QQu
+\(bu Create a configuration file
+.br
+Typically, either each user will create a personal configuration
+in their home directory, or there will be a single system configuration
+shared by all users of the system.  The configuration file should
+contain at least a definition for the primary floppy drive (usually
+directed at /dev/rfd0c) and the primary hard drive.
+.br
+.nf
+
+	assign flop1 /dev/rfd0c 1440
+	assign flop2 /dev/rfd1_360_5.25 1200
+	assign hard1 <my_home_dir>/dos/drive_c 1
+
+.fi
+.br
+In this case, the flop1 (A:) drive will access the real fd0 device 
+(3.5'' form factor, 1.44MB drive, 1.44MB diskette); the flop2 (B:)
+drive will access the real fd1 device (5.25'' form factor, 1.2MB
+drive, 360KB diskette); and the hard drive will be
+stored in the BSD file ``drive_c'' and emulate a ``type 1'' disk
+(about 10MB of space).  You should intially create the hard drive
+file as an empty file (e.g., ``touch\ <my_home_dir>/dos/drive_c'').
+.sp
+.ti -\n(QQu
+\(bu Boot MS-DOS
+.br
+Boot MS-DOS from floppy by placing the floppy in the fd0 drive
+and running \fIrundos\fP.  You can then use fdisk and format to 
+set up the C: drive from under DOS.
+.in
+.PP
+We also recommend placing the command:
+.br
+.ti +0.5i
+STACK=20,256
+.br
+in the MS-DOS configuration file ``CONFIG.SYS.'' If this results
+in the DOS error ``Internal stack overflow'', replace this command with:
+.br
+.ti +0.5i
+STACK=0,0
+.SH "EXTENDED MEMORY"
+.PP
+\fIrundos\fR supports 4 megabytes of extended memory with the 
+``xms.sys'' driver.  The ``xms.sys'' driver is available
+in the file \fI/usr/dos/xms.sys\fP.  To make the extended memory 
+available, copy the driver to your hard disk and place a line like:
+.br
+.ti +0.5i
+DEVICE=XMS.SYS
+.br
+in your ``CONFIG.SYS'' file.
+.SH "IMPLEMENTATION RESTRICTIONS"
+\fIrundos\fR cannot execute DOS applications which:
+.TP
+o Use protected 80286 or 80386 mode (e.g., ``Windows'')
+.TP
+o Directly access device ports (except VGA,
+keyboard, interrupt controller, parallel ports, timer, and CMOS ports:
+these ports are emulated).
+[Note: if a DOS program tries to read or write from/to any non-emulated 
+port, the operation is ignored and the result is unpredictable.  In
+particular, it is not possible to use COMx for I/O, and/or the parallel
+port for input (e.g. a printer handshake).]
+.TP
+o Use complex sound.  Any such programs will execute
+slowly and may require you to enable alternate timer interrupt processing.
+.PP
+Some DOS programs (e.g. Microsoft flight simulator) don't work if the 
+first 64KB of RAM is free.  They will work if started with the help 
+of the LDPACK utility (supplied in the /usr/dos directory) or if started
+from programs like ``Norton Commander'' (e.g., ``ldpack\ dos_program'' to 
+execute a program called ``dos_program'').  A typical error message
+when you encounter this problem is ``packed file corrupt.''
+.SH FILES
+.nf
+ rundos			Program to initiate the compatibility system
+ /usr/libexec/dos.kernel	The emulator itself
+ ./.rundosrc,
+ $HOME/.rundosrc,
+ /etc/rundos.conf	Configuration files
+ /usr/libdata/dos.rombios	Pseudo BIOS
+ /var/run/dos.firstpage	Image of the first page of memory
+ dosfirstpage		Program for saving image of the
+			first page of memory into 
+			/var/run/dos.firstpage
+.fi
+.SH BUGS
+Unable to auto-sense densities of inserted floppy disks.
+.PP
+2.88MB floppy disks are not yet supported.
+.PP
+\fIrundos\fP cannot run under X.

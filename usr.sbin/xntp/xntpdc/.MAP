@@ -1,0 +1,8 @@
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.TMP;1                    	Makefile.tmpl
+F NTPDC.C;1                         	ntpdc.c
+F NTPDC.H;1                         	ntpdc.h
+F NTPDC_OP.C;1                      	ntpdc_ops.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.sbin/xntp/xntpdc
+F README.;1                         	README
+F XNTPDC.8;1                        	xntpdc.8

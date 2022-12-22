@@ -1,0 +1,10 @@
+ADJ_STRING	iostat.c	/^#define	ADJ_STRING(info, field)	{ \\$/
+Miostat	iostat.c	/^main(argc, argv)$/
+X	iostat.c	/^#define X(fld) \\$/
+cpustats	iostat.c	/^cpustats()$/
+dkstats	iostat.c	/^dkstats()$/
+err	iostat.c	/^err(fmt, va_alist)$/
+getcpustats	iostat.c	/^getcpustats(struct _disk *dp)$/
+getttystats	iostat.c	/^getttystats(struct _disk *dp)$/
+phdr	iostat.c	/^phdr(notused)$/
+usage	iostat.c	/^usage()$/

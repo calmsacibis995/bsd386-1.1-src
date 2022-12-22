@@ -1,0 +1,12 @@
+F ARGS.3;1                          	Args.3
+F ARGS.C;1                          	Args.c
+F ARGSUSAG.C;1                      	ArgsUsage.c
+F DOARGS.C;1                        	DoArgs.c
+F LIBC.H;1                          	libc.h
+F MAKEFILE.;1                       	Makefile
+F MALLOC.C;1                        	Malloc.c
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/uucp/args
+F SYSEXITS.H;1                      	sysexits.h
+F TAGS.;1                           	tags
+F TESTARGS.C;1                      	testArgs.c
+F TRACE.H;1                         	trace.h

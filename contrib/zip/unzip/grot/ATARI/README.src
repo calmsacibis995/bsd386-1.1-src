@@ -1,0 +1,81 @@
+UNZIP 4.1 source code for the Atari ST
+======================================
+
+The source code for UNZIP 4.1 (or later) is available through
+anonymous ftp from:
+
+	simtel20.army.mil	misc/unix/unzip41.*
+or	wuarchive.wustl.edu	mirrors/misc/unix/unzip41.*
+
+I have compiled unzip.prg with TURBO C 2.0 for the ATARI ST, probably
+the best C compiler available for the Atari ST.
+
+My modifications to unzip:
+
+1) ATARIST.PAT
+	- an alignment problem in the data (unzip.c)
+
+	- set '\' as the path character for the Atari ST (mapname.c)
+
+	- additions to unzip.h so that Turbo C for the Atari ST is  happy.
+	  I think I didn't break anythig else, at least the Sun's version
+	  compiles just as before.
+	  I commented massively in unzip.h because the configuration
+          is not well thought out.  The last time I generated the ST
+          version I threw out all the mess, the result of which was that
+          my version wasn't distributed.  I hope that will fit in better
+          this time.  If anybody cares about the comments, just clean up
+          the code (together with comments).
+
+2) OPTIMIZE.PAT
+	This patch is general and not related to the Atari ST.
+	It speeds up the processing by as much as 30% by
+	eliminating many function calls, optimizing some
+	macros and using a ULONG bitbuffer.  The claimed
+	performance gain is on a Sun, using unzip -t some-file.
+	I didn't measure the speed on the Atari ST.
+
+3) SYMLINK.PAT
+	This applies to unix systems only.  Unzip does extract
+	symbolic links correctly now.
+
+4) UNIXBLAN.PAT
+	On Unix systems, file names may contain blanks.
+	If they do, why not allow them to be restored exactly?
+	For all other systems still change the blanks to '_'.
+
+Due to historic reasons the order these patches were applied is
+ 3 - 4 - 1 - 2.  However they do not overlap and can therefore be
+applied independently.
+
+I am providing UNZIP.PRG for the Atari ST as UNZIP41.ARC
+for those who don't have any unzipper yet.
+
+Special features:
+=================
+
+ Unzip.prg uses a special version of the startup file which is capable
+ of recognizing extended parameters a la Beckemeyer/Mark Williams shell,
+ using the "ARGV=" Environment variable.
+
+ Although the Turbo C compiler is quite good, the libs are buggy!
+ Therefore I cannot garantee that any unzip.prg compiled with Turbo C
+ will ever run successfully. Mine seems to be ok., but I have fixed
+ various problems for my lib. Especially the stat() was making trouble.
+
+However, if someone wants to compile it the same way I did,
+there are essentially 3 ways:
+- using a shell, and the command line compiler TCC,
+  as indicated by the script 'MAKEIT',
+
+- using some sort of make and 'MAKEFILE.ST'
+  This and the previous case both require also 'TLINK.OPT'
+
+- using the interactive version 'TC' of Turbo C and
+  the supplied 'UNZIP.PRJ'.
+
+Please read the note above about problems which might arise
+when you recompile unzip on your Atari.
+
+					martin@atlantic.cs.unb.ca
+

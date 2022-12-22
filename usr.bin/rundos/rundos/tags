@@ -1,0 +1,2 @@
+Mrundos	rundos.c	/^void main(int argc, char **argv, char **environ)$/
+load_kernel	rundos.c	/^int load_kernel(void)$/

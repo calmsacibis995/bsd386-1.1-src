@@ -1,0 +1,246 @@
+AddEntryNode	entries.c	/^AddEntryNode (list, name, version, timestamp, opti/
+Checkin	checkin.c	/^Checkin (type, file, repository, rcs, rev, tag, op/
+Classify_File	classify.c	/^Classify_File (file, tag, date, options, force_tag/
+Create_Admin	create_adm.c	/^Create_Admin (dir, repository, tag, date)$/
+Entries_delproc	entries.c	/^Entries_delproc (node)$/
+Find_Dirs	find_names.c	/^Find_Dirs (repository, which)$/
+Find_Names	find_names.c	/^Find_Names (repository, which, aflag, optentries)$/
+Fopen	subr.c	/^Fopen (name, mode)$/
+Lock_Cleanup	lock.c	/^Lock_Cleanup ()$/
+Make_Date	main.c	/^Make_Date (rawdate)$/
+Mmain	main.c	/^main (argc, argv)$/
+NEXT_BAR	history.c	/^#define NEXT_BAR(here) do { while (isspace(*line))/
+Name_Repository	repos.c	/^Name_Repository (dir, update_dir)$/
+No_Difference	no_diff.c	/^No_Difference (file, vers, entries)$/
+ParseEntries	entries.c	/^ParseEntries (aflag)$/
+ParseTag	entries.c	/^ParseTag (tagp, datep)$/
+Parse_Info	parseinfo.c	/^Parse_Info (infofile, repository, callproc, all)$/
+Popen	subr.c	/^Popen (cmd, mode)$/
+RCS_check_kflag	rcs.c	/^RCS_check_kflag (arg)$/
+RCS_check_tag	rcs.c	/^RCS_check_tag (tag)$/
+RCS_datecmp	rcs.c	/^RCS_datecmp (date1, date2)$/
+RCS_getbranch	rcs.c	/^RCS_getbranch (rcs, tag, force_tag_match)$/
+RCS_getdate	rcs.c	/^RCS_getdate (rcs, date, force_tag_match)$/
+RCS_getdatebranch	rcs.c	/^RCS_getdatebranch (rcs, date, branch)$/
+RCS_getrevtime	rcs.c	/^RCS_getrevtime (rcs, rev, date, fudge)$/
+RCS_gettag	rcs.c	/^RCS_gettag (rcs, tag, force_tag_match)$/
+RCS_getversion	rcs.c	/^RCS_getversion (rcs, tag, date, force_tag_match)$/
+RCS_head	rcs.c	/^RCS_head (rcs)$/
+RCS_isbranch	rcs.c	/^RCS_isbranch (file, rev, srcfiles)$/
+RCS_magicrev	rcs.c	/^RCS_magicrev (rcs, rev)$/
+RCS_parse	rcs.c	/^RCS_parse (file, repos)$/
+RCS_parsefiles	rcs.c	/^RCS_parsefiles (files, xrepos)$/
+RCS_parsercsfile	rcs.c	/^RCS_parsercsfile (rcsfile)$/
+RCS_whatbranch	rcs.c	/^RCS_whatbranch (file, rev, srcfiles)$/
+Reader_Lock	lock.c	/^Reader_Lock (xrepository)$/
+Register	entries.c	/^Register (list, fname, vn, ts, options, tag, date)/
+Scratch_Entry	entries.c	/^Scratch_Entry (list, fname)$/
+Short_Repository	repos.c	/^Short_Repository (repository)$/
+Update_Logfile	logmsg.c	/^Update_Logfile (repository, xmessage, xrevision, x/
+VA_START	subr.c	/^#define VA_START(args, lastarg) va_start(args, las/
+Version_TS	vers_ts.c	/^Version_TS (repository, options, tag, date, user, /
+WriteTag	entries.c	/^WriteTag (dir, tag, date)$/
+Writer_Lock	lock.c	/^Writer_Lock (list)$/
+accept_hrec	history.c	/^accept_hrec (lr, hr)$/
+add	add.c	/^add (argc, argv)$/
+add_directory	add.c	/^add_directory (repository, dir)$/
+add_entries_proc	find_names.c	/^add_entries_proc (node)$/
+add_log	import.c	/^add_log (ch, fname)$/
+add_rcs_file	import.c	/^add_rcs_file (message, rcs, user, vtag, targc, tar/
+add_rev	import.c	/^add_rev (message, rcs, vfile, vers)$/
+add_tags	import.c	/^add_tags (rcs, vfile, vtag, targc, targv)$/
+addlist	recurse.c	/^addlist (listp, key)$/
+addnode	hash.c	/^addnode (list, p)$/
+admin	admin.c	/^admin (argc, argv)$/
+admin_dirproc	admin.c	/^admin_dirproc (dir, repos, update_dir)$/
+admin_fileproc	admin.c	/^admin_fileproc (file, update_dir, repository, entr/
+build_dirs_and_chdir	checkout.c	/^build_dirs_and_chdir (dir, prepath, realdir, stick/
+build_entry	add.c	/^build_entry (repository, user, options, message, e/
+cat_module	modules.c	/^cat_module (status)$/
+check_direntproc	commit.c	/^check_direntproc (dir, repos, update_dir)$/
+check_entries	entries.c	/^check_entries (dir)$/
+check_fileproc	commit.c	/^check_fileproc (file, update_dir, repository, entr/
+check_filesdoneproc	commit.c	/^check_filesdoneproc (err, repos, update_dir)$/
+checkaddfile	commit.c	/^checkaddfile (file, repository, tag)$/
+checkmagic_proc	rcs.c	/^checkmagic_proc (p)$/
+checkout	checkout.c	/^checkout (argc, argv)$/
+checkout_file	update.c	/^checkout_file (file, repository, entries, srcfiles/
+checkout_proc	checkout.c	/^checkout_proc (pargc, argv, where, mwhere, mfile, /
+ci_delproc	commit.c	/^ci_delproc (p)$/
+close_module	modules.c	/^close_module (db)$/
+commit	commit.c	/^commit (argc, argv)$/
+commit_direntproc	commit.c	/^commit_direntproc (dir, repos, update_dir)$/
+commit_dirleaveproc	commit.c	/^commit_dirleaveproc (dir, err, update_dir)$/
+commit_fileproc	commit.c	/^commit_fileproc (file, update_dir, repository, ent/
+commit_filesdoneproc	commit.c	/^commit_filesdoneproc (err, repository, update_dir)/
+copy_file	subr.c	/^copy_file (from, to)$/
+cvslog	log.c	/^cvslog (argc, argv)$/
+cvsremove	remove.c	/^cvsremove (argc, argv)$/
+date_and_time	history.c	/^date_and_time (date_str)$/
+dellist	hash.c	/^dellist (listp)$/
+delnode	hash.c	/^delnode (p)$/
+diff	diff.c	/^diff (argc, argv)$/
+diff_dirleaveproc	diff.c	/^diff_dirleaveproc (dir, err, update_dir)$/
+diff_dirproc	diff.c	/^diff_dirproc (dir, pos_repos, update_dir)$/
+diff_file_nodiff	diff.c	/^diff_file_nodiff (file, repository, entries, srcfi/
+diff_fileproc	diff.c	/^diff_fileproc (file, update_dir, repository, entri/
+diff_mark_errors	diff.c	/^diff_mark_errors (err)$/
+do_branches	rcs.c	/^do_branches (list, val)$/
+do_dir_proc	recurse.c	/^do_dir_proc (p)$/
+do_editor	logmsg.c	/^do_editor (dir, message, repository, changes)$/
+do_file_proc	recurse.c	/^do_file_proc (p)$/
+do_module	modules.c	/^do_module (db, mname, m_type, msg, callback_proc, /
+do_recursion	recurse.c	/^do_recursion (xfileproc, xfilesdoneproc, xdirentpr/
+do_symbols	rcs.c	/^do_symbols (list, val)$/
+do_update	update.c	/^do_update (argc, argv, xoptions, xtag, xdate, xfor/
+editinfo_proc	logmsg.c	/^editinfo_proc(repository, editor)$/
+expand_at_signs	import.c	/^expand_at_signs (buf, size, fp)$/
+expand_modules	history.c	/^expand_modules ()$/
+fill_hrec	history.c	/^fill_hrec (line, hr)$/
+finaladd	commit.c	/^finaladd (file, rev, tag, options, repository, ent/
+find_dirs	find_names.c	/^find_dirs (dir, list, checkadm)$/
+find_rcs	find_names.c	/^find_rcs (dir, list)$/
+find_type	logmsg.c	/^find_type (p)$/
+findmaxrev	commit.c	/^findmaxrev (p)$/
+findnode	hash.c	/^findnode (list, key)$/
+findslash	checkout.c	/^findslash (start, p)$/
+fix_rcs_modes	commit.c	/^fix_rcs_modes (rcs, user)$/
+fixaddfile	commit.c	/^fixaddfile (file, repository)$/
+fixbranch	commit.c	/^fixbranch (file, repository, branch)$/
+fmt_proc	logmsg.c	/^fmt_proc (p)$/
+free_names	subr.c	/^free_names (pargc, argv)$/
+freenode	hash.c	/^freenode (p)$/
+freenode_mem	hash.c	/^freenode_mem (p)$/
+freercsnode	rcs.c	/^freercsnode (rnodep)$/
+freesdt	entries.c	/^freesdt (p)$/
+freevers_ts	vers_ts.c	/^freevers_ts (versp)$/
+fsortcmp	commit.c	/^fsortcmp (p, q)$/
+get_comment	import.c	/^get_comment (user)$/
+get_date	subr.c	/^get_date (date, now)$/
+getcaller	subr.c	/^getcaller ()$/
+getlist	hash.c	/^getlist ()$/
+getnode	hash.c	/^getnode ()$/
+getrcskey	rcs.c	/^getrcskey (fp, keyp, valp)$/
+hashp	hash.c	/^hashp (key)$/
+history	history.c	/^history (argc, argv)$/
+history_write	history.c	/^history_write (type, update_dir, revs, name, repos/
+ign_add	ignore.c	/^ign_add (ign, hold)$/
+ign_add_file	ignore.c	/^ign_add_file (file, hold)$/
+ign_name	ignore.c	/^ign_name (name)$/
+ign_setup	ignore.c	/^ign_setup ()$/
+ignore_files	update.c	/^ignore_files (ilist, update_dir)$/
+import	import.c	/^import (argc, argv)$/
+import_descend	import.c	/^import_descend (message, vtag, targc, targv)$/
+import_descend_dir	import.c	/^import_descend_dir (message, dir, vtag, targc, tar/
+isdir	subr.c	/^isdir (file)$/
+isemptydir	update.c	/^isemptydir (dir)$/
+isfile	subr.c	/^isfile (file)$/
+islink	subr.c	/^islink (file)$/
+isreadable	subr.c	/^isreadable (file)$/
+iswritable	subr.c	/^iswritable (file)$/
+join_file	update.c	/^join_file (file, srcfiles, vers, update_dir)$/
+line2argv	subr.c	/^line2argv (pargc, argv, line)$/
+link_file	subr.c	/^link_file (from, to)$/
+locate_rcs	commit.c	/^locate_rcs (file, repository, rcs)$/
+lock_RCS	commit.c	/^lock_RCS (user, rcs, rev, repository)$/
+lock_filesdoneproc	commit.c	/^lock_filesdoneproc (err, repository, update_dir)$/
+lock_wait	lock.c	/^lock_wait (repos)$/
+lockrcsfile	commit.c	/^lockrcsfile (file, repository, rev)$/
+log_dirproc	log.c	/^log_dirproc (dir, repository, update_dir)$/
+log_fileproc	log.c	/^log_fileproc (file, update_dir, repository, entrie/
+logfile_write	logmsg.c	/^logfile_write (repository, filter, title, message,/
+main_cleanup	main.c	/^main_cleanup ()$/
+make_directories	subr.c	/^make_directories (name)$/
+make_directory	subr.c	/^make_directory (name)$/
+masterlist_delproc	commit.c	/^masterlist_delproc (p)$/
+merge_file	update.c	/^merge_file (file, repository, entries, vers, updat/
+mydbm_close	myndbm.c	/^mydbm_close (db)$/
+mydbm_fetch	myndbm.c	/^mydbm_fetch (db, key)$/
+mydbm_firstkey	myndbm.c	/^mydbm_firstkey (db)$/
+mydbm_load_file	myndbm.c	/^mydbm_load_file (fp, list)$/
+mydbm_nextkey	myndbm.c	/^mydbm_nextkey (db)$/
+mydbm_open	myndbm.c	/^mydbm_open (file, flags, mode)$/
+null_delproc	rcs.c	/^null_delproc (p)$/
+numdots	subr.c	/^numdots (s)$/
+open_file	subr.c	/^open_file (name, mode)$/
+open_module	modules.c	/^open_module ()$/
+parse_rcs_proc	rcs.c	/^parse_rcs_proc (file)$/
+patch	patch.c	/^patch (argc, argv)$/
+patch_cleanup	patch.c	/^patch_cleanup ()$/
+patch_dirproc	patch.c	/^patch_dirproc (dir, repos, update_dir)$/
+patch_fileproc	patch.c	/^patch_fileproc (file, update_dir, repository, entr/
+patch_proc	patch.c	/^patch_proc (pargc, argv, xwhere, mwhere, mfile, sh/
+precommit_list_proc	commit.c	/^precommit_list_proc (p)$/
+precommit_proc	commit.c	/^precommit_proc (repository, filter)$/
+process_import_file	import.c	/^process_import_file (message, vfile, vtag, targc, /
+rcsinfo_proc	logmsg.c	/^rcsinfo_proc (repository, template)$/
+rcsnode_delproc	rcs.c	/^rcsnode_delproc (p)$/
+rcsvers_delproc	rcs.c	/^rcsvers_delproc (p)$/
+read_hrecs	history.c	/^read_hrecs (fname)$/
+readers_exist	lock.c	/^readers_exist (repository)$/
+release	release.c	/^release (argc, argv)$/
+release_delete	release.c	/^release_delete (dir)$/
+remove_dirproc	remove.c	/^remove_dirproc (dir, repos, update_dir)$/
+remove_file	commit.c	/^remove_file (file, repository, tag, entries)$/
+remove_fileproc	remove.c	/^remove_fileproc (file, update_dir, repository, ent/
+rename_file	subr.c	/^rename_file (from, to)$/
+report_hrecs	history.c	/^report_hrecs ()$/
+rtag	rtag.c	/^rtag (argc, argv)$/
+rtag_delete	rtag.c	/^rtag_delete (rcsfile)$/
+rtag_dirproc	rtag.c	/^rtag_dirproc (dir, repos, update_dir)$/
+rtag_fileproc	rtag.c	/^rtag_fileproc (file, update_dir, repository, entri/
+rtag_proc	rtag.c	/^rtag_proc (pargc, argv, xwhere, mwhere, mfile, sho/
+run_add_arg	subr.c	/^run_add_arg (s)$/
+run_arg	subr.c	/^run_arg (s)$/
+run_args	subr.c	/^run_args (fmt, va_alist)$/
+run_exec	subr.c	/^run_exec (stin, stout, sterr, flags)$/
+run_init_prog	subr.c	/^run_init_prog ()$/
+run_print	subr.c	/^run_print (fp)$/
+run_setup	subr.c	/^run_setup (fmt, va_alist)$/
+save_d	modules.c	/^save_d (k, ks, d, ds)$/
+save_file	history.c	/^save_file (dir, name, module)$/
+save_module	history.c	/^save_module (module)$/
+save_user	history.c	/^save_user (name)$/
+scratch_file	update.c	/^scratch_file (file, repository, entries, update_di/
+select_hrec	history.c	/^select_hrec (hr)$/
+set_lock	lock.c	/^set_lock (lockdir, will_wait, repository)$/
+set_lockers_name	lock.c	/^set_lockers_name (statp)$/
+set_writelock_proc	lock.c	/^set_writelock_proc (p)$/
+setup_tmpfile	logmsg.c	/^setup_tmpfile (xfp, xprefix, changes)$/
+sort_order	history.c	/^sort_order (l, r)$/
+sortlist	hash.c	/^sortlist (list, comp)$/
+start_recursion	recurse.c	/^start_recursion (fileproc, filesdoneproc, direntpr/
+status	status.c	/^status (argc, argv)$/
+status_dirproc	status.c	/^status_dirproc (dir, repos, update_dir)$/
+status_fileproc	status.c	/^status_fileproc (file, update_dir, repository, ent/
+sticky_ck	classify.c	/^sticky_ck (file, aflag, vers, entries)$/
+tag	tag.c	/^tag (argc, argv)$/
+tag_dirproc	tag.c	/^tag_dirproc (dir, repos, update_dir)$/
+tag_fileproc	tag.c	/^tag_fileproc (file, update_dir, repository, entrie/
+tag_list_proc	status.c	/^tag_list_proc (p)$/
+time_stamp	vers_ts.c	/^time_stamp (file)$/
+title_proc	logmsg.c	/^title_proc (p)$/
+unlink_file	subr.c	/^unlink_file (f)$/
+unlock	lock.c	/^unlock (repository)$/
+unlock_proc	lock.c	/^unlock_proc (p)$/
+unlockrcs	commit.c	/^unlockrcs (file, repository)$/
+update	update.c	/^update (argc, argv)$/
+update_delproc	commit.c	/^update_delproc (p)$/
+update_dirent_proc	update.c	/^update_dirent_proc (dir, repository, update_dir)$/
+update_dirleave_proc	update.c	/^update_dirleave_proc (dir, err, update_dir)$/
+update_file_proc	update.c	/^update_file_proc (file, update_dir, repository, en/
+update_filesdone_proc	update.c	/^update_filesdone_proc (err, repository, update_dir/
+update_logfile_proc	logmsg.c	/^update_logfile_proc (repository, filter)$/
+update_rcs_file	import.c	/^update_rcs_file (message, vfile, vtag, targc, targ/
+usage	main.c	/^usage (cpp)$/
+walklist	hash.c	/^walklist (list, proc)$/
+within	history.c	/^within (find, string)$/
+write_ent_proc	entries.c	/^write_ent_proc (node)$/
+write_entries	entries.c	/^write_entries (list)$/
+write_letter	update.c	/^write_letter (file, letter, update_dir)$/
+write_lock	lock.c	/^write_lock (repository)$/
+xchmod	subr.c	/^xchmod (fname, writable)$/
+xcmp	subr.c	/^xcmp (file1, file2)$/
+xmalloc	subr.c	/^xmalloc (bytes)$/
+xrealloc	subr.c	/^xrealloc (ptr, bytes)$/
+xstrdup	subr.c	/^xstrdup (str)$/

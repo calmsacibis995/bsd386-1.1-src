@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo -n "Creating MFS filesystem..."
+mount_mfs "$@" /dev/rfd0c /var/tmp
+echo "Done."
+
+echo -n "Copying files into place..."
+mkdir /var/tmp/etc
+cat /etc/hosts.real > /var/tmp/etc/hosts
+cat /etc/disktab.real > /var/tmp/etc/disktab
+cat /etc/fstab.real > /var/tmp/etc/fstab
+echo "Done."
+
+echo

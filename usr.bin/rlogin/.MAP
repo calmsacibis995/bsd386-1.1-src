@@ -1,0 +1,8 @@
+F DES_RW.C;1                        	des_rw.c
+F KCMD.C;1                          	kcmd.c
+F KRCMD.C;1                         	krcmd.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/rlogin
+F RLOGIN.1;1                        	rlogin.1
+F RLOGIN.C;1                        	rlogin.c
+F TAGS.;1                           	tags

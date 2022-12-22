@@ -1,0 +1,77 @@
+Testing zsunbuf
+---------------
+
+(You probably don't need to do this unless you are deeply suspicious
+or have changed the module.)
+
+If you look in /usr/include/sundev/zsreg.h, you find
+
+struct zsaline {
+        int     za_flags;               /* random flags */
+        dev_t   za_dev;                 /* major/minor for this device */
+	...
+
+and
+
+#define ZAS_WOPEN       0x00000001      /* waiting for open to complete */
+#define ZAS_ISOPEN      0x00000002      /* open is complete */
+#define ZAS_OUT         0x00000004      /* line being used for dialout */
+#define ZAS_CARR_ON     0x00000008      /* carrier on last time we looked */
+#define ZAS_STOPPED     0x00000010      /* output is stopped */
+#define ZAS_DELAY       0x00000020      /* waiting for delay to finish */
+#define ZAS_BREAK       0x00000040      /* waiting for break to finish */
+#define ZAS_BUSY        0x00000080      /* waiting for transmission to finish */
+#define ZAS_DRAINING    0x00000100      /*
+                                         * waiting for output to drain
+                                         * from chip
+                                         */
+#define ZAS_SERVICEIMM  0x00000200      /*
+                                         * queue soft interrupt as soon as
+                                         * receiver interrupt occurs
+                                         */
+#define ZAS_SOFTC_ATTN  0x00000400      /* check soft carrier state in close */
+#define ZAS_PAUSED      0x00000800      /* MCP: dma interrupted and pending */
+#define ZAS_LNEXT       0x00001000      /* MCP: next input char is quoted */
+
+zsunbuf is trying to turn on the ZAS_SERVICEIMM bit in za_flags,
+and you can check that it is doing this with adb.
+
+As root, run "adb -k /vmunix /dev/mem" and look at za_flags and za_dev to make
+sure you are not lost.
+
+For ttya, *zsaline/X will show za_flags and *zsaline+4/x will give the
+major/minor device numbers - usually c00 or c80 (for the dial-out device).
+
+For ttyb use *zsaline+150/X and *zsaline+154/x (this is for 4.1.3,
+I haven't checked the size of the zsaline structure under earlier
+releases) and expect c01 or c81.
+
+In another window, "make zsunbuftest" and run it with the device name as
+argument (you will probably have to do this as root or uucp).  After each
+message, inspect za_flags with adb and then hit return in the zsunbuftest
+window to continue.  You should see
+
+# ./zsunbuftest /dev/ttya	# adb -k /vmunix/dev/mem
+device not yet open
+				*zsaline+4/x
+				0xfce014ec:     c00
+
+ 				*zsaline/X
+				0xfce014e8:     0
+device now open
+				*zsaline/X
+				0xfce014e8:     a
+zsunbuf now pushed
+				*zsaline/X
+				0xfce014e8:     20a
+
+				if the 0x200 bit is not set, zsunbuf is broken
+zsunbuf now popped
+				*zsaline/X
+				0xfce014e8:     a
+device now closed
+				*zsaline/X
+				0xfce014e8:     0
+#
+
+tkr 21apr93

@@ -1,0 +1,2 @@
+Melvrec	elvrec.c	/^main(argc, argv)$/
+recover	elvrec.c	/^void recover(basename, outname)$/

@@ -1,0 +1,10 @@
+echo this is a file named a > a
+echo this is a file named b > b
+
+echo expect an error message
+../../sun4/bash ./dollar-star.sh a b
+
+echo expect two lines of output
+../../sun4/bash ./dollar-at.sh a b
+
+rm -f a b

@@ -1,0 +1,16 @@
+F CLOCK.AWK;1                       	clock.awk
+F CLOCK.SH;1                        	clock.sh
+F DUPE.AWK;1                        	dupe.awk
+F ENSEMBLE.AWK;1                    	ensemble.awk
+F ETF.AWK;1                         	etf.awk
+F ITF.AWK;1                         	itf.awk
+F LOOP.AWK;1                        	loop.awk
+F LOOP.SH;1                         	loop.sh
+F PEER.AWK;1                        	peer.awk
+F PEER.SH;1                         	peer.sh
+F PSUMMARY.AWK;1                    	psummary.awk
+F README.;1                         	README
+F README.STA;1                      	README.stats
+F README.TIM;1                      	README.timecodes
+F SUMMARY.SH;1                      	summary.sh
+F TDATA.AWK;1                       	tdata.awk

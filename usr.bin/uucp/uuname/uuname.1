@@ -1,0 +1,94 @@
+.\"
+.V= $Id: uuname.1,v 1.2 1994/01/31 01:27:08 donn Exp $
+.\"
+.ds S1 UUNAME
+.ds S2 \fIUuname\fP
+.ds S3 \fIuuname\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uuname
+.TH \*(S1 8 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uuname \- show \*(S5 system names
+.SH SYNOPSIS
+.B uuname
+.RI [\- flags ]
+.RI [ match ]
+.SH DESCRIPTION
+\*(S2 lists the \*(S5 names of known systems.
+If a
+.I match
+argument is given,
+output is restricted to names which match it (simple character compare).
+No match results in no output, and an error exit status of
+.SM EX_NOHOST.
+.SH OPTIONS
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-P\fP\fIparams\fPX'u
+.if \n(.lu<6i .ds tw 4
+.TP "\*(tw"
+.BI \-a
+Include known system name aliases in output.
+.TP
+.BI \-c
+Show system names known to
+.IR cu (1)
+(which may be different).
+.TP
+.BI \-l
+Show local \*(S5 system name.
+.TP
+.BI \-m
+The
+.I match
+argument is assumed to be exact.
+With the \fB\-a\fP flag,
+\*(S3 will match any alias,
+and print the real name.
+.TP
+.BI \-P params
+Alters the pathname for the
+.SM UUCP
+parameters file
+.br
+[default:
+.if t \f(CW/etc/uucp/CONFIG\fP\c
+.if n `/etc/uucp/CONFIG'\c
+].
+.TP
+.BI \-s
+Sort output.
+.SH EXAMPLES
+Print all nodes that contain the character sequence `\fBuu\fP':
+.PP
+.RS 2
+.ft CW
+\*(S6 uu
+.ft
+.RE
+.PP
+Show all names including aliases in lexicographic order:
+.PP
+.RS 2
+.ft CW
+\*(S6 -as
+.ft
+.RE
+.SH FILES
+.PD 0
+.TP \w'\f(CW/var/spool/uucppublic\fPX'u
+\f(CW/etc/uucp/CONFIG\fP
+Current parameters for all network programs (see
+.IR uuparams (5)).
+.TP
+\f(CWPARAMSDIR/L.aliases\fP
+System name aliases.
+.TP
+\f(CWPARAMSDIR/L.sys\fP
+System name data-base.
+.PD
+.SH SEE ALSO
+.BR uucp (1),
+.BR uux (1),
+.BR uuparams (5).

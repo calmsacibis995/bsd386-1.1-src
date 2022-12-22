@@ -1,0 +1,66 @@
+.\"	BSDI $Id: installsw.8,v 1.4 1993/03/02 17:23:51 polk Exp $
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.Dd February 18, 1993
+.Dt INSTALLSW 8
+.Os BSDI 4
+.Sh NAME
+.Nm installsw
+.Nd copy packages to disk from installation media
+.Sh SYNOPSIS
+.Nm installsw
+.Op -l remote_user
+.Op -t
+.Op -p
+.Sh DESCRIPTION
+.Nm Installsw
+is the means by which packages are copied from floppy disk, tape, or
+CDROM to a filesystem.  It is an interactive program and has no batch
+counterpart.
+.Pp
+.Nm Installsw
+asks a few questions about the environment and then moves to a
+full-screen interactive display of available packages.  The
+user selects packages he wishes to install.  When finished,
+the `Q' key instructs
+.Nm installsw
+to proceed with package installation.
+.Pp
+All questions asked by
+.Nm installsw
+are shown as a question, a default (between square brackets), and then a
+colon.  Replies are entered on the same line as the question.  If the user
+types a return (with no other data entered), the default is used.
+.Pp
+If the installation is to use a remote media, the current user (usually 
+root) must have remote access.  If you wish
+.Nm installsw
+to perform remote actions with an alternate user ID, specify the appropriate
+name with the `-l' option.
+.Pp
+Before the first question is asked,
+.Nm installsw
+checks to ensure that the screen is correctly sized \- this causes some
+terminals (e.g., xterm) to blink briefly.
+.Pp
+The 
+.Nm -p
+option forces 
+.Nm installsw
+to use 
+.Nm pax
+to extract the archives.  The 
+.Nm -t
+options forces it to use 
+.Nm tar
+instead.
+.Pp
+.Nm Installsw
+reports its actions in voluminous detail.
+.Sh HISTORY
+The 
+.I installsw
+command first appeared in BSD/386 release 0.9.3.

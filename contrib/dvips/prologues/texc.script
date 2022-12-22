@@ -1,0 +1,13 @@
+#! /bin/sh
+# A shell script to convert tex.lpro to texc.lpro
+#
+# To use it, say
+#       texc.script tex.lpro texc.lpro
+#
+ex $1 <<exscriptend > /dev/null 2>&1
+/% begin code for uncompressed fonts only/d
+.,/% end code for uncompressed fonts only/d
+.,/% end of code for unpacking compressed fonts/s/% //
+w $2
+q
+exscriptend

@@ -1,0 +1,12 @@
+D CF                                	cf
+D DOMAIN                            	domain
+D FEATURE                           	feature
+D HACK                              	hack
+D M4                                	m4
+D MAILER                            	mailer
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.INC;1                    	Makefile.inc
+D OSTYPE                            	ostype
+F README.;1                         	README
+D SH                                	sh
+D SITECONF                          	siteconfig

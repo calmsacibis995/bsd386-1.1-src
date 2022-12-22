@@ -1,0 +1,55 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.usr-courier,v 1.1.1.1 1994/01/14 23:09:39 torek Exp $
+#
+# Configuration for using the Class 1 command interface with
+# a USR Courier v.32bis modem.  The following firmware is know
+# to work:
+#		Rev	Date
+# Supervisor	4.1	05/21/92
+# DSP		11	05/08/92
+#
+# XON/XOFF flow control is used.
+#
+# CONFIG: CLASS1: 1444: Manufacturer=USRobotics Model=Courier
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules	# dial string handling
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1		# log server-related operations
+SessionTracing:		11		# log server-related operations
+RecvFileMode:		0600		# recvd facsimile are not public
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+#QualifyTSI:		etc/tsi		# accept facsimile from anyone
+SpeakerVolume:		off		# machine's are already too loud
+RingsBeforeAnswer:	1		# answer on first ring
+#
+# Modem-related stuff: should reflect modem command interface
+# and hardware connection/cabling (e.g. flow control).
+#
+ModemType:		Class1		# use this to supply a hint
+ModemRate:		19200		# max rate for DCE-DTE communication
+#GettyArgs:		"-h %l dx_%s"	# requires modem to auto-detect fax/data
+ModemSetupDTRCmd:	S13=1&D2	# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+ModemFlowControl:	xonxoff		# XON/XOFF flow control assumed
+ModemFlowControlCmd:	&H2		# set desired flow control method
+ModemResultCodesCmd:	X4		# enable result codes
+#
+ModemMfrQueryCmd:	!USR
+ModemModelQueryCmd:	!Courier
+ModemRevQueryCmd:	I0
+#
+# We normally append the "@" symbol to the dial string so that
+# the modem will wait 5 seconds before attempting to connect
+# and return result codes that distinguish between no carrier
+# and no answer.  This makes it possible to avoid problems with
+# repeatedly dialing a number that doesn't have a fax machine
+# (kudos to Stuart Lynne for this trick.)
+#
+# NB: If you need to prefix phone numbers to get through a PBX,
+#     put it in the ModemDialCmd; e.g. "DT9%s@".
+#
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence

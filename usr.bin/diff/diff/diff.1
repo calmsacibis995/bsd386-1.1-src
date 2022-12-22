@@ -1,0 +1,252 @@
+.\"
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: diff.1,v 1.1.1.1 1993/12/21 04:22:23 polk Exp $
+.\" 
+.Dd February 28, 1993
+.Dt DIFF 1
+.Os
+.Sh NAME
+.Nm diff
+.Nd show differences between two text files
+.Sh SYNOPSIS
+.Nm diff
+.Op Fl cefhn
+.Op Fl bitw
+.Ar old_file
+.Ar new_file
+.Nm diff
+.Op Fl D Ar string
+.Op Fl biw
+.Ar old_file
+.Ar new_file
+.Nm diff
+.Op Fl l
+.Op Fl r
+.Op Fl s
+.Op Fl cefhn
+.Op Fl bitw
+.Ar old_directory
+.Ar new_directory
+.Sh DESCRIPTION
+The
+.Nm diff
+command is a differential file comparator.  It compares pairs
+of text files and outputs the differences between them.
+If one of the arguments is a directory and the other is a file
+.Nm diff
+will look for a file of the same name as the file in the
+specified directory (e.g., diff x.c /tmp will compare ./x.c and /tmp/x.c).
+.Pp
+If both arguments are directories the regular diff is run on all common
+files.  In addition, binary files which differ, common subdirectories,
+and files which appear in only one directory are listed.
+The
+.Fl r
+option can be used to recursively compare all the subdirectories.
+.Pp
+There are five basic output formats: normal, context, ed script,
+forward ed script, and RCS-style.  For the following examples
+assume we have two files, an old file called
+.Pa old
+that contains:
+.Bd -literal -offset indent
+this line will change
+this line will stay the same
+this line will be deleted
+this line will stay the same
+.Ed
+.Pp
+and a a new file called
+.Pa new
+that contains:
+.Bd -literal -offset indent
+this line has changed
+this line will stay the same
+this line will stay the same
+this line was added
+.Ed
+.Pp
+Each of the output format options is detailed below:
+.Pp
+.Bl -tag -width "forward ed"
+.It Li "normal"
+The normal format contains lines like:
+.Bd -literal -offset indent
+n1 a n3,n4
+n1,n2 d n3
+n1,n2 c n3,n4
+.Ed
+.Pp
+Followed by the text in each file that changed.  Lines from the
+first file are flagged with less-than and lines from the second
+file are flagged with greater-than.  For example, a diff of the
+two sample files will produce:
+.Bd -literal -offset indent
+1c1
+< this line will change
+---
+> this line has changed
+3d2
+< this line will be deleted
+4a4
+> this line was added
+.Ed
+.Pp
+This resembles
+.Xr ed 1
+commands to covert the first file into the second file.  The numbers
+after the command letters refer to the second file.  If a pair of
+numbers are the same they are abbreviated to to a single number (like
+in the example above instead of 4a4,4 you just get 4a4).
+.It Li "context"
+The context format produces a
+listing of differences with 3 lines of context on
+either side of the changes.  Output begins with identification of
+the files involved and their modification dates, then each change is
+separated by a short line of asterisks.  The lines removed from
+the first file are marked with `- '; those added to the second file are
+marked `+ '. Lines which are changed from one file to the other
+are marked in both files with `! '.  For our example:
+.Bd -literal -offset indent
+*** old_file	Mon Mar  1 14:59:43 1993
+--- new_file	Mon Mar  1 15:00:19 1993
+***************
+*** 1,4 ****
+! this line will change
+  this line will stay the same
+- this line will be deleted
+  this line will stay the same
+--- 1,4 ----
+! this line has changed
+  this line will stay the same
+  this line will stay the same
++ this line was added
+.Ed
+.Pp
+This is the recommended output format for distributing source diffs
+for use with the
+.Xr patch 1
+program.
+.It Li "ed script"
+Uses
+.Xr ed 1
+commands to convert the first file into the second one.  For our example:
+.Bd -literal -offset indent
+4a
+this line was added
+.
+3d
+1c
+this line has changed
+.
+.Ed
+.It Li "forward ed"
+Uses ed style commands but in the RCS-style order.  For our example:
+.Bd -literal -offset indent
+c1
+this line has changed
+.
+d3
+a4
+this line was added
+.
+.Ed
+.It Li "RCS-style"
+Outputs RCS-style forward diffs.  For our example:
+.Bd -literal -offset indent
+d1 1
+a1 1
+this line has changed
+d3 1
+a4 1
+this line was added
+.Ed
+.El
+.Pp
+Exit status is 0 for no differences, 1 for some differences, 2
+for trouble.
+.Pp
+Choose zero or one of the following options:
+.Bl -tag -width Ds
+.It Fl c
+Output context format diffs.
+.It Fl e
+Output ed script format diffs.
+When comparing directories the output is a
+.Xr sh 1
+script for converting the files common in the two directories from
+the first directory to the second directory.
+.It Fl f
+Output forward ed script format diffs.  This output cannot be used with
+.Xr ed 1 .
+.It Fl n
+Output RCS-style format diffs.
+.It Fl h
+Chunk input for faster processing.  This works best when changes
+are short and separated.  Will work on files of unlimited length.
+.El
+.Pp
+The following options are available:
+.Pp
+.Bl -tag -width Ds
+.It Fl b
+Ignore differences in trailing whitespace.
+.It Fl i
+Ignore differences in case.
+.It Fl t
+Expand tabs in output.  Not available with the second form.
+.It Fl w
+Ignore all differences in whitespace.
+.El
+.Pp
+Options for the second form of
+.Nm diff
+are as follows:
+.Pp
+.Bl -tag -width Ds
+.It Fl D Ar string
+Merge the pair of files using the C preprocessor #ifdef.  Compilation
+without defining
+.Ar string
+will yield
+.Ar old_file ,
+while defining
+.Ar string
+will yield
+.Ar new_file .
+.El
+.Pp
+Options available when comparing directories are:
+.Pp
+.Bl -tag -width Ds
+.It Fl l
+Each diff is piped through
+.Xr pr 1
+to paginate it, other differences are summarized at the end.
+.It Fl r
+Recursively diff common subdirectories.
+.It Fl s
+Print a message if the files are the same, by default they are
+not mentioned.
+.El
+.Sh SEE ALSO
+.Xr cmp 1 ,
+.Xr comm 1 ,
+.Xr ed 1 ,
+.Xr patch 1 ,
+.Xr pr 1 ,
+.Xr sh 1
+.Sh BUGS
+The output from the
+.Fl e
+and
+.Fl f
+options is naive about creating lines consisting of a single period.
+.Pp
+The
+.Fl D
+option ignores existing preprocessor controls in the source files, and
+can generate overlapping #ifdef's.

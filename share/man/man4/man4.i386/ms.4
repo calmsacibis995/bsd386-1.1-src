@@ -1,0 +1,257 @@
+'\" -*- mode: nroff -*-
+.\"	BSDI $Id: ms.4,v 1.4 1993/03/23 05:10:11 polk Exp $
+'\"  Id: ms.4,v 1.3.0.1 1993/03/22 19:24:29 dlu Rel
+.Dd 3 Mar 1993
+.Os BSD 4
+.Dt MS 4 i386
+.Sh NAME
+.Nm ms
+\(en driver for Maxpeed serial controllers
+.Sh SYNOPSIS
+.Cd "device ms0 at isa? tty iomem 0xd4000 iosiz 8192"
+.Sh DESCRIPTION
+.Pp
+The driver supports both the SS-4Plus and the SS-8/2 family of
+intelligent serial controllers.  Each card in the SS-8/2 family
+supports 4, 8 or 16 ports.  The 16 port card appears to the driver as
+two 8 port controllers.  The 4 port card is a depopulated 8 port card.
+.Pp
+Each controller uses an 8k block of memory in
+.ie n "the hole."
+.el .Dq "the hole."
+The
+SS-16/2 requires its memory to be aligned on a 16k boundary.  The
+other boards must be aligned on an 8k boundary.  The starting memory address
+is selected by a dip switch on the board and may range from
+0xC0000 to 0xEC000.
+No interrupts or i/o port addresses are used.
+The driver is configured to support up to eight controllers.
+.Pp
+The SS-8/2 family uses a six wire RJ-11 style interface consisting of
+two grounds, TD, RD, and two control signals.  By default the control
+signals are DTR and DCD.  If hardware flow control is enabled the
+control signals become RTS and CTS.  A port may
+.ie n "borrow"
+.el .Dq borrow
+the
+control signals from another port on the same board.  When configured
+this way the control signals of the donor port are used as DTR and
+DCD.  The control signals of the recipient are used as RTS and CTS.
+The donor port can still be attached to any device willing to talk to
+a port that is two wires short.
+.Pp
+The SS-4Plus uses an 8 or 10 wire RJ-45 style interface that adds RTS,
+CTS, DSR and RI to the signals available on the SS-8/2.  When used
+with 8 wire cables RI is lost.  The tenth wire is unused.
+.Pp
+The SS-8/2 family supports data rates from 1200 to 38,400 bps.  The
+SS-4Plus supports speeds from 300 to 115,200 bps (with 28,800 thrown
+in for good measure).
+.Pp
+Flow control, both XON/XOFF and RTS/CTS, is done in hardware.  When
+doing XON/XOFF flow control the start and stop characters set by
+.Nm stty
+are honored.
+.Sh HARDWARE CONFIGURATION
+The only hardware configuration required is to set the base address of
+the board's dual port memory using the dip switch on the board.  The
+trick is to acquire a little-endian mindset while pondering which
+bits to set on the switch.
+.Pp
+.Ss DIP SWITCH SETTINGS
+The dip switch sets the high eight bits of the base memory address,
+the lower 12 bits are zeros.
+Switch 1 is bit 13, switch 8 is bit 20.
+Off is 1, on is 0.
+For example, to set the base memory address to 0xD4000,
+set switches 3, 5, 7, and 8 off. (0xD4000 = 1101 0100 0000 0000 0000)
+.Ss CONNECTOR PIN OUTS
+When looking at the connector panel of the Maxpeed board, imagine the
+connector-tab notch to be up.  Then pin 1 is on the left.  Port 0 is
+at the top of the board (away from the bus-slot).
+.Pp
+On the SS-8/2
+.Em et al.
+the signals are (from left to right) control-in
+(DCD or CTS), TD, SG, PG, RD and control-out (DTR or RTS).
+.Pp
+On the SS-4Plus the signals are (again from left to right)
+RI, CTS, DCD, TD, SG, DSR, RD, DTR and RTS.  The last pin on the right
+is not connected.
+.Pp
+The 16 port boards use a pair of ribbon cables to connect to external
+.ie n "harmonica"
+.el .Dq harmonica
+connectors.  The header for the second controller is the one closer to
+the short edge of the board.  Pin 1 is near the top of the board.
+.Ss SIGNAL SHARING
+On signal-shared ports, the donor port's control signals become the
+recipient's modem control (DTR and DCD) signals.
+The recipient's control signals are used for the flow control signals
+(RTS and CTS).
+The 
+.Li MSIOSTEAL
+ioctl must be called to enable signal sharing.
+.Sh IOCTLS
+Unless specified otherwise the argument to the Maxpeed specific ioctls
+is a pointer to an int.  When issuing an ioctl that targets the driver
+or a controller, any port (or any port on the target controller) can be
+opened for the file descriptor argument.
+.Bl -tag -width "MSIODEFAULT"
+.It Dv MSIONPORTS
+Gets the number of ports on the controller.
+.It Dv MSIOGFLAGS
+Gets the configuration flags for the controller.
+.It Dv MSIOSFLAGS
+Sets the configuration flags for the controller.  All of the
+flags are set at once so, for example, adding a bit to the flags
+requires getting the old flags, or'ing in the new bit(s) and then
+setting the flags.
+.It Dv MSIOGFREQ
+Gets the polling frequency of the driver.
+.It Dv MSIOSFREQ
+Sets the polling frequency of the driver.
+.It Dv MSIOGLOWAT
+Gets the output low water mark of the driver.
+.It Dv MSIOSLOWAT
+Sets the output low water mark of the driver.
+.It Dv MSIODONOR
+Returns the port number (0 through 7) that is donating modem control
+signals.  The argument is the number of the port you're interested in.
+On return the argument is the number of the port which is donating
+modem control signals.  If the number is unchanged then the port is
+not borrowing signals.
+.It Dv MSIORXQSZ
+Returns the size of the per channel receive queues on
+the controller.
+.It Dv MSIOTXQSZ
+Returns the size of the per channel transmit queues on
+the controller.
+.It Dv MSIOSIG
+Returns the id signature from the controller's ROM.  The argument is a
+pointer to a buffer of at least MSMAXSIG (from
+.Pa msioctl.h )
+characters.
+.It Dv MSIODEFAULT
+Resets the polling frequency, output low water mark and configuration
+flags to the default values compiled into the driver.  Returns any
+borrowed signals on the controller to their owner.  Any
+argument is ignored.
+.It Dv MSIOSTEAL
+.ie n "Borrows"
+.el .Dq Borrows
+the modem control signals from one port and assigns them
+to another.  Both ports must be on the same controller.  The recipient
+port is the port specified by the file descriptor argument, the donor
+is the port number on the controller (ie; the low three bits of the
+minor number of the device) and is passed as the int argument.
+.It Dv MSIOSDIAG
+Sets the level of diagnostic output produced by the driver.  Version
+1.3 of the driver only supports 0 for no output and non-0 to enable all
+of the messages.  The diagnostic messages report what are thought to
+be very rare or impossible conditions, so leaving them enabled
+shouldn't be a problem.
+.El
+.Sh FILES
+.Bl -tag -width "/dev/dial[h-o][0-7]"
+.It Pa /dev/tty[h-k][0-7]
+.El
+.Sh DIAGNOSTICS
+.Pp
+The normal set of messages compiled into the driver is listed below
+along with brief explanations.
+.Bl -diag -offset indent 
+.It ms%d: not attached
+The probe routine found a configuration error.  The rest of the
+message is a description of the problem.
+.It ms%d: rx queue overflow
+A receive queue on the board overflowed.  Presumably due to a lack of
+flow control on the port.  Perhaps worth looking into but not serious.
+.It ms%d: uart overrun
+The on-board processor didn't service the uart in time.
+.It ms%d: %d signals were borrowed by %d
+Output when an
+MSIOSTEAL
+ioctl is issued and the donor's control signals were already taken by
+another port.  The ioctl succeeds but somebody may be surprised by the
+new state of the control signals.
+.It ms%d: %d was borrowing signals from %d
+Likewise when the recipient was already borrowing signals from another
+port.
+.It ms%d: invalid pointer
+An onboard queue pointer never became valid.  If diagnostic messages
+are enabled a 
+.ie n "spin"
+.el .Dq spin
+message and the queue information below will be
+printed.
+.It "ms%d: status (%x %x %x %x) and pointer (%x %x %x %x) didn't match"
+One of those things that should never happen but that's nice to know
+about as you start tearing your hair out trying to figure out what is
+wrong.  This is either a hardware failure or an error in the driver.
+.El
+.Pp
+The messages that follow are included in the driver if it is compiled
+with
+.Dv MSDIAG
+defined.  These messages represent
+.ie n "can't happen"
+.el .Dq "can't happen"
+or very rare
+events.  Most refer to the integrity of data structures shared by the
+host and the on board processor.  The messages are enabled by default,
+but can be turned off with
+.Xr msconfig 8 .
+.Bl -diag -offset indent
+.It ms%d: waiting on pointer for (%x %x %x %x)
+The driver found a packet in the status queue without an accompanying
+pointer.  Not serious unless it happens often (I haven't seen it on
+either a 50 MHz 486 or a 40 MHz 386).
+.It ms%d: partial status packet in queue
+.ie n "Can't happen"
+.el .Dq "Can't happen"
+unless something is seriously wrong with the controller or driver.
+.It ms%d: (5 %x %x %x) with null pointer
+.It ms%d: no pointer for (5 %x %x %x)
+Will happen with pre-D7 ROMs when data errors are encountered see
+.Xr msconfig 8
+to enable a work around.  Unless the driver is working around this
+problem the packet will be discarded in hopes that everything will
+work out.  This is optimistic.
+.It ms%d: unknown status packet (%x %x %x %x)
+.It ms%d: unexpected status pointer (%x %x %x %x)
+.ie n "Can't happen"
+.el .Dq "Can't happen"
+but for now keep any eye out.  If it happens it's a serious problem.
+The driver attempts to get back in sync with the board by discarding
+the unknown or unexpected packet.
+.It ms%d: port %d no status pointer, faking it
+The D5 and D6 didn't generate pointers if the driver is configured to
+expect this (see
+.Xr msconfig 8 ) ,
+then one of these messages will be output the first time a missing
+pointer is encountered.
+.It ms%d: %s queue spin = %d
+The driver had to wait for the board to finish updating a pointer to
+the named queue.
+.It "ms%d: beg = %x  end = %x  head = %x  tail = %x  chars = %d"
+The queue definition pointers of the queue in question.  Printed if
+an invalid queue pointer is detected.
+.El
+.Sh SEE ALSO
+.Xr MAKEDEV 8 ,
+.Xr msconfig 8 ,
+.Xr tty 4
+.Sh AUTHOR
+Doug Urner (dlu@tfm.com)
+.Sh BUGS
+.Pp
+ROMs prior to the D7 revision assert DTR when a port is enabled.  This
+means that there will be a glitch on the DTR line of a port that is
+borrowing DTR and DCD when the port donating the signals is opened.
+The glitch will only be seen if the donee had DTR down when the donor
+was opened.
+.Pp
+On the SS-4Plus the driver supplied with the 1.0 release of BSD/386
+does not support IXANY when combined with both XON/XOFF and RTS/CTS
+(ie both software and hardware) flow control.

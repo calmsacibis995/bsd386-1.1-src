@@ -1,0 +1,34 @@
+#! /bin/sh
+#
+# rename gzip files for BSDI tree
+#
+#	BSDI $Id: MAP,v 1.1 1994/01/04 23:56:31 polk Exp $
+
+mkdir grot
+
+mv COPYING grot
+mv ChangeLog grot
+mv INSTALL grot
+mv Makefile grot
+mv Makefile.in grot
+mv NEWS grot
+mv README grot
+mv THANKS grot
+mv TODO grot
+mv algorithm.doc grot
+mv amiga grot
+mv atari grot
+mv config.status grot
+mv configure grot
+mv configure.in grot
+mv gpl.texinfo grot
+mv gzip.doc grot
+mv gzip.info grot
+mv gzip.texi grot
+mv msdos grot
+mv nt grot
+mv os2 grot
+mv primos grot
+mv sample grot
+mv texinfo.tex grot
+mv vms grot

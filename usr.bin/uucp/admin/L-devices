@@ -1,0 +1,52 @@
+# The format of the L-devices file is:
+# Caller Line Useful Class Dialer
+#
+# See the L-devices (5) man page for more info
+#
+# Sample entries for T2500 (to PEP, to generic)
+#ACU ttyD0 outonly FAST hayestone "" A\dA\dA\dT OK ATS50=255X3S111=30 OK
+#ACU ttyD0 outonly 19200 hayestone "" A\dA\dA\dT OK ATX3S97=1S106=1 OK
+#
+# Sample entries for WorldBlazer (to PEP, to T3000, to generic)
+#ACU ttyD0 outonly 38400 hayestone "" A\dA\dA\dT OK ATS50=255S111=30S190=1S191=6 OK
+#ACU ttyD0 outonly 38400 hayestone "" A\dA\dA\dT OK ATS50=7S111=30S180=3S190=1 OK
+#ACU ttyD0 outonly 38400 hayestone "" A\dA\dA\dT OK ATS50=7S111=0S180=2S190=1 OK
+#
+#example of dial in/out using old-style "acucntrl" (note, though, that in
+#BSDI's BSD/386 the bidirectional logic is built into "getty" and you do not
+#need to do anything special in L-devices).
+#ACU ttydH inout 19200 hayestone "" A\dA\dA\dT OK ATX3S7=60 OK
+#
+# sample of telebit T2500/below using the aggressive driver
+#ACU tty00 unused 19200 hayesvtone "" ATs7=90s58=2s50=255s110=1s111=30s61=0 OK~5
+#ACU tty00 unused  9600 hayesvtone "" ATs7=90s58=2s50=255s110=1s111=30s61=0 OK~5
+#ACU tty00 unused  2400 hayesvtone "" ATs7=90s58=2s50=3s61=0 OK~5
+#ACU tty00 unused  1200 hayesvtone "" ATs7=90s58=2s50=2s61=0 OK~5
+# worldblazers can use something similar; the hayesvtone driver will work fine
+# for this or any hayes-like modem.  if you learn some ATsMumble... magick for
+# these devices and get something working, please let support@bsdi.com know so
+# that we can update these examples.
+#
+# Here are two BOCAmodem/14.4K modems on a Riscom/8:
+#ACU ttya1 unused 38400 hayesvtone "" ATM0 OK ""
+#ACU ttya1 unused 19200 hayesvtone "" ATM0 OK ""
+#ACU ttya1 unused  9600 hayesvtone "" ATM0 OK ""
+#ACU ttya1 unused  2400 hayesvtone "" ATM0 OK ""
+#ACU ttya1 unused  1200 hayesvtone "" ATM0 OK ""
+#ACU ttya2 unused 38400 hayesvtone "" ATM0 OK ""
+#ACU ttya2 unused 19200 hayesvtone "" ATM0 OK ""
+#ACU ttya2 unused  9600 hayesvtone "" ATM0 OK ""
+#ACU ttya2 unused  2400 hayesvtone "" ATM0 OK ""
+#ACU ttya2 unused  1200 hayesvtone "" ATM0 OK ""
+#
+# direct connections at various baud rates
+#DIR tty00 unused   9600 none "" P_CLOCAL_ON
+#DIR tty00 unused  19200 none "" P_CLOCAL_ON
+#DIR tty00 unused  38400 none "" P_CLOCAL_ON
+#DIR tty00 unused  57600 none "" P_CLOCAL_ON
+#DIR tty00 unused m57600 none
+#DIR tty00 unused  76800 none "" P_CLOCAL_ON
+#DIR tty00 unused  96000 none "" P_CLOCAL_ON
+#DIR tty00 unused 115200 none "" P_CLOCAL_ON
+#DIR tty00 unused m115200 none
+#DIR tty00 unused hf115200 none "" P_CLOCAL_ON "" P_HWFLOW_ON

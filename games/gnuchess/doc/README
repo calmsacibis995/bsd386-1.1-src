@@ -1,0 +1,20 @@
+WHAT IS GAZEBO(c)?
+
+Gazebo(c) is a computer chess program for Microsoft Windows(TM) 3.0,
+3.1, and Windows NT. Gazebo(c) is written entirely in object-oriented 
+Microsoft Visual C++ Professional(TM).
+
+Gazebo(c) uses the null-move and history heuristics in implementing an
+iterative depth-first alpha-beta search with full quiescence and
+combined terminal-node and ply-1 evaluation tables. Depth-limited and
+time-limited search are featured.
+
+Gazebo(c) is a tightly-coded, efficient algorithm, which avoids
+the "bloated" approach of other chess programs, yet still offers
+beautiful color graphics, an attractive icon, integrated mouse
+handling, and super-fast startup.
+
+Gazebo(c) is priced at $25 and is sold by The MSM Company, 25682 
+Cresta Loma, Laguna Niguel, Ca. 92677, 714-347-8107. Gazebo(c) is
+copyright (c) 1994 The MSM Co.
+

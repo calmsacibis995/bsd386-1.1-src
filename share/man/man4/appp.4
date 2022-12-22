@@ -1,0 +1,140 @@
+.\" Copyright (c) 1993 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: appp.4,v 1.1 1993/03/08 16:21:17 polk Exp $
+.\"
+.Dd March 1, 1993
+.Dt APPP 4
+.Os
+.Sh NAME
+.Nm appp
+.Nd asynchronous HDLC encapsulation for the Point-to-Point Protocol
+.Sh SYNOPSIS
+.Fd #include <sys/types.h>
+.Fd #include <sys/ioctl.h>
+.Fd #include <net/if.h>
+.Fd #include <net/pppioctl.h>
+.Fd #include <termios.h>
+
+.Cd options PPP
+.Cd pseudo-device appp Ar count
+.Sh DESCRIPTION
+The asynchronous HDLC encapsulation is used to transmit
+Point-to-Point Protocol (PPP) packets over asynchronous
+serial lines.
+.Pp
+The kernel configuration option
+.Dv PPP
+must be included, and the number of asynchronous PPP
+interfaces should be provided using the
+.Nm appp
+pseudo-device specification.
+.Pp
+The asynchronous PPP interface names are composed from the
+prefix
+.Dq ppp
+and a decimal interface number; for example
+.Dq ppp4 .
+.Pp
+Any serial line can be attached to an asynchronous PPP
+interface; it is possible to use the line as usual tty
+line (e.g., for dialing phone number) and then switch it to the
+packet mode by changing the line discipline to
+.Dv PPPDISC
+with
+.Xr ioctl 2 \&'s
+.Dv TIOCSETD
+request
+(see also
+.Xr tty 4 ) .
+.Sh "ASYNCHRONOUS PPP LINE DISCIPLINE"
+Switching to the asynchronous line discipline does not
+change the data transmission speed on the serial interface
+but always changes character format to 8 bits, no parity
+as required by PPP specifications.
+The flow control modes remain the same (i.e. it is possible
+to use software flow control (XON/XOFF) in packet mode
+providing that the start and stop characters are declared unsafe
+in the async control character map (see
+.Xr ppp 4 )).
+.Pp
+To attach the line to a specific interface, a program can
+use the
+.Dv PPPIOCSUNIT
+.Xr ioctl
+request on the line's file descriptor.
+The argument to this
+.Xr ioctl
+request is a pointer to an integer variable which should
+be initialized with the number of the interface the
+line should be attached to.
+As a special case the value may be set to -1 and
+the first interface with no attached lines will be
+selected (and its number will be written to the variable).
+.Pp
+To get the number of an attached interface, the
+.Dv PPPIOCGUNIT
+.Xr ioctl
+request can be used.
+Its argument is a pointer to an integer
+variable to which the interface number will be written.
+.Pp
+Because the line file descriptor should be kept open
+during the session, the PPP line discipline provides
+a way to wait until termination of the session.
+The
+.Xr ioctl
+request
+.Dv PPPIOCWEOS
+(with no arguments) will wait until the session was
+terminated administratively, by an idle timer, by a request
+from the remote side or by loss of carrier.
+After the
+.Dv PPPIOCWEOS
+.Xr ioctl
+returns, the program may take any actions necessary to
+terminate the physical connection.
+Usually this entails
+restoring the default tty line discipline and
+closing the file descriptor in order to turn the
+DTR signal off to force disconnection.
+.Pp
+An asynchronous PPP interface can be kept
+administratively up even if no line was attached.
+The PPP link control protocol (LCP) will treat it as
+though there is no carrier on the line.
+Symmetrically, the physical disconnection or
+detaching of the line by changing the line discipline
+will be treated by LCP as lost carrier but
+will not configure the interface down.
+.Pp
+Configuring the interface down will start graceful
+termination of the link which will result in the interruption
+of the wait on
+.Dv PPPIOCWEOS
+after both sides have agreed to drop the link.
+However,
+.Bd -literal -offset indent
+ifconfig ppp0 down up
+.Ed
+.Pp
+will
+.Em not
+terminate the link but will cause
+PPP options to be renegotiated instead.
+.Sh SEE ALSO
+.Xr ioctl 2 ,
+.Xr socket 2 ,
+.Xr intro 4 ,
+.Xr tty 4 ,
+.Xr ppp 4 ,
+.Xr ifconfig 8 ,
+.Xr pppconfig 8 ,
+.Xr pppattach 8 ,
+.Xr ppp 8
+.br
+.Pp
+W. Simpson,
+The Point-to-Point Protocol (PPP) for the Transmission of
+Multi-protocol Datagrams over Point-to-Point Links, RFC\ 1331,
+May 1992.

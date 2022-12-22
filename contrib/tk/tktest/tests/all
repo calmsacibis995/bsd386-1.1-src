@@ -1,0 +1,10 @@
+# This file contains a top-level script to run all of the Tcl
+# tests.  Execute it by invoking "source all" when running tclTest
+# in this directory.
+#
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/tk/tktest/tests/all,v 1.1.1.1 1994/01/03 23:15:47 polk Exp $ (Berkeley)
+
+foreach i [lsort [glob *.test]] {
+    puts stdout $i
+    source $i
+}

@@ -1,0 +1,7 @@
+D DOC                               	doc
+D GROT                              	grot
+D LIBRARY                           	library
+D LIBTCL                            	libtcl
+F MAKEFILE.;1                       	Makefile
+D TCLSH                             	tclsh
+D TCLTEST                           	tcltest

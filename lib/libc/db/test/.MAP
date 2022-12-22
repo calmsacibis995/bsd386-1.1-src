@@ -1,0 +1,6 @@
+D BTREE_TE                          	btree.tests
+F DBTEST.C;1                        	dbtest.c
+D HASH_TES                          	hash.tests
+F MAKEFILE.;1                       	Makefile
+F README.;1                         	README
+F RUN_TEST.;1                       	run.test

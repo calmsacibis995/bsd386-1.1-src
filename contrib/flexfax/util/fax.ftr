@@ -1,0 +1,248 @@
+#	$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/util/fax.ftr,v 1.1.1.1 1994/01/14 23:10:51 torek Exp $
+#
+# FlexFAX Facsimile Software
+#
+# Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+# Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+# 
+# Permission to use, copy, modify, distribute, and sell this software and 
+# its documentation for any purpose is hereby granted without fee, provided
+# that (i) the above copyright notices and this permission notice appear in
+# all copies of the software and related documentation, and (ii) the names of
+# Sam Leffler and Silicon Graphics may not be used in any advertising or
+# publicity relating to the software without the specific, prior written
+# permission of Sam Leffler and Silicon Graphics.
+# 
+# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+# 
+# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+# OF THIS SOFTWARE.
+#
+TYPE FAXImageFile
+    MATCH       (short(0) == 0x4d4d) || (short(0) == 0x4949);
+#    MATCH      (short(0) == 0x4d4d && short(1) == 0x002a) ||
+#                                       Motorola byte-ordered image
+#               (short(0) == 0x4949 && short(1) == 0x2a00);
+#                                       Intel byte-ordered image
+    LEGEND      TIFF facsimile document
+    CMD OPEN    for i in $LEADER $REST; do /usr/local/bin/faxview -s $i; done
+    CMD ALTOPEN for i in $LEADER $REST; do /usr/local/bin/faxview $i; done
+    ICON        {
+#       Icon Shadow
+		color(shadowcolor);
+		bgnpolygon();
+			vertex(32.50, 0.00);
+			vertex(22.50, 5.00);
+			vertex(68.50, 28.00);
+			vertex(77.50, 23.00);
+		endpolygon();
+
+#       Icon
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(27.50, 13.00);
+			vertex(27.50, 78.00);
+			vertex(72.50, 100.00);
+			vertex(72.50, 35.00);
+		endoutlinepolygon(outlinecolor);
+
+#       Solid Poly 
+		color(-136);
+		bgnoutlinepolygon();
+			vertex(34.50, 33.50);
+			vertex(34.50, 69.50);
+			vertex(39.50, 66.00);
+			vertex(39.50, 63.00);
+			vertex(39.50, 60.00);
+			vertex(40.00, 57.00);
+			vertex(40.50, 55.00);
+			vertex(41.50, 52.05);
+			vertex(43.50, 50.00);
+			vertex(45.00, 47.70);
+			vertex(46.50, 45.00);
+			vertex(52.50, 42.00);
+		endoutlinepolygon(0);
+
+#       Line 1 Drop Over Poly
+		color(12);
+		bgnline();
+			vertex(35.00, 33.50);
+			vertex(65.50, 49.00);
+		endline();
+
+#       Line 2
+		color(-136);
+		bgnline();
+			vertex(35.00, 69.50);
+			vertex(40.50, 72.00);
+		endline();
+
+#       Line 3
+		color(0);
+		bgnline();
+			vertex(35.00, 73.00);
+			vertex(65.50, 88.25);
+		endline();
+
+#       Line 4
+		color(14);
+		bgnline();
+			vertex(55.50, 77.00);
+			vertex(65.50, 82.00);
+		endline();
+
+#       Line 5
+		color(0);
+		bgnline();
+			vertex(55.50, 75.00);
+			vertex(61.50, 78.00);
+		endline();
+
+#       Line 6
+		bgnline();
+			vertex(61.50, 77.00);
+			vertex(65.50, 79.00);
+		endline();
+
+#       Line 7
+		color(12);
+		bgnline();
+			vertex(56.50, 73.00);
+			vertex(60.50, 75.00);
+		endline();
+
+#       Line 8
+		color(-136);
+		bgnline();
+			vertex(55.50, 71.00);
+			vertex(60.50, 73.50);
+		endline();
+
+#       Line 9
+		color(14);
+		bgnline();
+			vertex(63.50, 74.50);
+			vertex(65.50, 75.50);
+		endline();
+
+#       Line 10
+		color(12);
+		bgnline();
+			vertex(56.50, 70.00);
+			vertex(62.50, 73.00);
+		endline();
+
+#       Line 11
+		color(-136);
+		bgnline();
+			vertex(63.50, 59.50);
+			vertex(65.50, 60.50);
+		endline();
+
+#       Line 12
+		bgnline();
+			vertex(62.50, 55.50);
+			vertex(65.50, 57.00);
+		endline();
+
+#       Line 13
+		bgnline();
+			vertex(61.50, 52.00);
+			vertex(65.50, 54.00);
+		endline();
+
+#       Line 14
+		bgnline();
+			vertex(60.50, 48.60);
+			vertex(65.50, 51.10);
+		endline();
+
+#       Line 15
+		color(0);
+		bgnline();
+			vertex(43.50, 71.00);
+			vertex(48.50, 73.50);
+		endline();
+
+#       Line 16
+		bgnline();
+			vertex(41.50, 69.00);
+			vertex(49.50, 73.00);
+		endline();
+
+#       Line 17
+		color(-136);
+		bgnline();
+			vertex(44.50, 67.00);
+			vertex(49.50, 69.50);
+		endline();
+
+#       Line 18
+		bgnline();
+			vertex(43.50, 64.00);
+			vertex(51.00, 67.75);
+		endline();
+
+#       Line 19
+		color(12);
+		bgnline();
+			vertex(47.50, 65.00);
+			vertex(49.50, 66.00);
+		endline();
+
+#       Line 20
+		color(8);
+		bgnline();
+			vertex(51.50, 61.00);
+			vertex(53.50, 62.00);
+		endline();
+
+#       Line 21
+		bgnline();
+			vertex(51.50, 60.00);
+			vertex(53.50, 61.00);
+		endline();
+
+#       Line 22
+		bgnline();
+			vertex(55.50, 62.00);
+			vertex(57.50, 63.00);
+		endline();
+
+#       Line 23
+		color(-136);
+		bgnline();
+			vertex(51.50, 54.50);
+			vertex(52.50, 55.00);
+		endline();
+
+#       Line 24
+		bgnline();
+			vertex(55.00, 56.25);
+			vertex(59.50, 58.50);
+		endline();
+
+#       Line 25
+		bgnline();
+			vertex(50.50, 52.50);
+			vertex(59.50, 57.00);
+		endline();
+
+#       Line 26
+		bgnline();
+			vertex(51.50, 52.50);
+			vertex(59.50, 56.50);
+		endline();
+
+#       Line 27
+		bgnline();
+			vertex(52.50, 51.50);
+			vertex(59.50, 55.00);
+		endline();
+    }

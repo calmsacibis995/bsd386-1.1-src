@@ -1,0 +1,103 @@
+.\" Copyright (c) 1992, 1994 Berkeley Software Design, Inc.
+.\" All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"
+.\"	BSDI $Id: ioport.8,v 1.2 1994/01/06 16:34:54 torek Exp $
+.\"
+.Dd January 5, 1994
+.Os
+.Dt IOPORT 8
+.Sh NAME
+.Nm ioport
+.Nd "enable, disable, or display user level access to I/O ports"
+.Sh SYNOPSIS
+.Nm
+.Fl a Op Ar iobase Op Ar count
+.br
+.Nm
+.Fl d Op Ar iobase Op Ar count
+.br
+.Nm
+.Fl e Op Ar iobase Op Ar count
+.br
+.Nm
+.Op Fl v
+.Fl m Ar iobase Ar count
+.br
+.Nm
+.Op Fl v
+.Fl u Ar iobase Ar count
+.Sh DESCRIPTION
+The
+.Nm
+program displays or modifies the I/O port protection map.
+This map can allow or disallow
+user level programs access to specific I/O port address ranges.
+It is primarily useful in allowing the DOS compatibility 
+system to access devices like the game port (joystick).  
+.Pp
+The three display modes,
+specified with the
+.Fl a ,
+.Fl d ,
+and
+.Fl e
+flags, are essentially identical;
+they show enabled and/or disabled ports as a range.
+For instance, the output might look like this:
+.Bd -literal -offset indent
+0x0000 - 0x03af : Disabled
+0x03b0 - 0x03e7 : Enabled
+0x03e8 - 0xffff : Disabled
+.Ed
+.Pp
+In this case, all I/O ports except those in the middle range
+are inaccessible to user code.
+With the
+.Fl a
+flag, all ports are displayed;
+the
+.Fl d
+and
+.Fl e
+flags show only disabled or enabled ports, respectively.
+If no
+.Ar iobase
+is given, scanning starts from port 0;
+if no
+.Ar count
+is given, scanning continues to the end of the valid range (0xffff).
+.Pp
+The map and unmap modes,
+specified with the
+.Fl m
+(map) and
+.Fl u
+(unmap) flags, require the
+.Ar iobase
+and
+.Ar count
+arguments, and enable
+.Pq Fl m
+or disable
+.Pq Fl u
+user level access to those ports.
+If the
+.Fl v
+argument is supplied, 
+.Nm
+will print a message stating the action it is about to perform.
+.Pp
+In all cases,
+.Ar iobase
+and
+.Ar count
+can be specified in decimal, hexadecimal, or octal.
+.Sh HISTORY
+The 
+.Nm
+command first appeared in BSD/386 and is currently under development.  It 
+may not be present in future releases.
+The display modes are modelled on code supplied by Jeff Kellem
+.Aq composer@Beyond.Dreams.ORG .

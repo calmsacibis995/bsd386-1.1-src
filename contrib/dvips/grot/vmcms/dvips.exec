@@ -1,0 +1,56 @@
+/* DVIPS EXEC
+ * Written by J. Hafner, HAFNER@ALMADEN or hafner@ibm.com.
+ * This is a minimal exec, in REXX, to call DVIPS with the
+ * appropriate libraries linked.  It assumes
+ *   -- your font disks are linked
+ *   -- your syntax is Unix-like
+ * You are welcome to modify this exec in any way you choose.
+ */
+Address 'COMMAND';
+parse source . . execfn execft execfm .
+Trace 'ON'
+
+Parse Arg Args
+If Args = '' then signal Help;
+If Args = '?' then signal Help;
+
+'MAKEBUF';
+
+/* get current status of library settings */
+
+'QUERY TXTLIB (STACK'
+if queued() ^= 1 then signal Bug
+pull Mode Eq_sign Txtlibs
+if Txtlibs = 'NONE' then Txtlibs = ''
+
+'QUERY LOADLIB (STACK'
+pull Mode Eq_sign Loadlibs
+if Loadlibs = 'NONE' then Loadlibs = ''
+
+'DROPBUF';
+
+/* Establish environment for dvips */
+
+'GLOBAL TXTLIB IBMLIB EDCBASE'
+'GLOBAL LOADLIB EDCLINK'
+
+/* Now call the real thing */
+
+'DVIPS' Args
+
+/* Restore old libraries */
+
+'GLOBAL TXTLIB' Txtlibs
+'GLOBAL LOADLIB' Loadlibs
+
+Exit rc;
+
+Help:
+/* dvips now has on-line help if called with no filename */
+  'DVIPS'
+  Exit 100;
+
+Bug:
+/* something went wrong */
+  say 'DVIPS: something failed in setting up the library environments.'
+  Exit 100;

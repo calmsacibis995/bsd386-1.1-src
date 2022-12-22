@@ -1,0 +1,267 @@
+$Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/MODEMS,v 1.1.1.1 1994/01/14 23:09:26 torek Exp $
+
+Modem Bugs and Gotchas
+----------------------
+
+    Copyright (c) 1990, 1991, 1992, 1993 Sam Leffler
+    Copyright (c) 1991, 1992, 1993 Silicon Graphics, Inc.
+
+    Permission to use, copy, modify, distribute, and sell this software and 
+    its documentation for any purpose is hereby granted without fee, provided
+    that (i) the above copyright notices and this permission notice appear in
+    all copies of the software and related documentation, and (ii) the names of
+    Sam Leffler and Silicon Graphics may not be used in any advertising or
+    publicity relating to the software without the specific, prior written
+    permission of Sam Leffler and Silicon Graphics.
+
+    THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+    EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+    WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+    IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+    ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+    OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+    WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+    LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+    OF THIS SOFTWARE.
+
+This file contains information about modem bugs and gotchas that have
+been gleaned from experiences making the FlexFAX code work with the
+modems.  These problems are based either on my experiences or on
+experiences of others that have worked with the software.  One should
+always checked the version of the firmware listed.  Note also that if a
+modem is not listed here then I have NOT tried it.  This list should be
+sorted in alphabetical order.
+
+Class 1 Modems
+--------------
+
+AT&T Paradyne		DataPort 14.4		122
+
+o received HDLC frames do NOT include the FCS bytes (fixed in rev 133).
+o carrier is sometimes dropped w/o notice during receive (rev 133)
+o the command "ATH+FCLASS=0;A" does not do the right thing because the
+  command parser does not parse the ";A"
+
+Digicom			Scout+			2A19/2931
+
+o +FMFR?, +FMDL?, and +FREV? all return "3" in some versions of firmware
+o S17=2 can be used to force 1300 Hz CNG tones to be sent (the
+  register is not documented)
+o RTS/CTS is not honored while sending page data; software flow
+  control must be used (*F2).  This is fixed in rev 3507/3506 firmware
+  by adding a register S24 that can be used to control flow control
+  in facsimile mode: 0 means use XON/XOFF, 1 means use RTS/CTS, and
+  2 means use whatever is specified by *F.  Note however that S24
+  is not permanent; it is reset after each disconnect.  On power on
+  S24 is 0.  S24 is unchanged by &F.
+o receiving at 4800 baud v.27 does not work correctly; received
+  data is garbage		[fixed in firmware revision 3225/3310]
+o commands must not be sent to the modem too fast, no more than
+  every 50ms (or more) depending on what the modem is doing
+o the modem gets confused by receivers that assert a data
+  carrier before sending CED; a +FCERROR result is returned before
+  usually returning "NO CARRIER"; this can sometimes be overcome
+  by sending 1300 Hz CNG tones instead of the normal 1100 Hz tones
+
+Hayes			Optima 2400+Fax96	TR00-J260-001 XXX
+
+o receiving is unreliable; I was never able to get the receipt
+  of TCF to work correctly in the short time that I had the modem
+  (no data was delivered after establishing carrier before timeout)
+o see also below under Class 2
+
+Nuvo			Voyager 96424PFX	AF-C2500-E0
+
+o RTS/CTS is not honored; use software flow control
+o factory configuration of &C1 causes problems; do "AT&C0&W" to set
+  DCD handling before running the server
+o beware of battery drain
+
+Supra			SupraFAX v.32bis	V1.200-H TR14-Jxxx-001
+
+o the +FAE command that can be used to enable auto-detect of calls from
+  data modems is only accepted in Class 0 (data mode); I've never been
+  able to get it to work correctly (when setup the modem is either unable
+  to establish carrier, or the modem locks up after notifying the host)
+o RTS/CTS is not honored while sending/receiving page data; use &K4 for
+  software (XON/XOFF) flow control
+o see also below under Class 2
+
+Twincom			144/DF			V1.270 TR14-Jxxx-001
+
+o RTS/CTS is not honored while sending/receiving page data; use &K4 for
+  software (XON/XOFF) flow control
+o see also below under Class 2
+
+USRobotics		 Sportster		Supervisor 4.1 (04/22/93)
+						DSP 10 (03/23/93)
+
+o timing problems have been observed with older firmware revisions;
+  if you have problems, be sure to verify the firmware revision
+o when sending DCD is raised when carrier is first received, but it is
+  then dropped from the first HDLC receive until the point where the
+  initial training is sent (from that point on DCD is asserted); this
+  can be a problem because there is no way to override this behaviour
+  which means that the host must be capable of ignoring DCD for sending
+  to function correctly
+o in testing the modem locked up during transmission to a Multi-Tech 1432BA
+  modem and failed to respond to the host dropping DTR
+
+Class 2 Modems
+--------------
+
+Everex			EverFax 24/96D		911027
+
+o zero-padding in the EOL codes of received facsimile data is often
+  not zero when the Phase B+D bit ordering is set to "direct"; a
+  workaround is to use +FBOR=2 and do bit reversal in the host
+
+Hayes			Optima 2400+Fax96	TR00-J260-001 XXX
+
+o many commands (e.g. ATZ) generate annoying clicks & pops from
+  the speaker
+o using '@' in the dialing string causes the modem to return
+  "NO ANSWER" when calling many modems
+o the modem does not do a good job of holding reliable high speed
+  carrier--when sending and receiving, data is frequently corrupted
+  at both 9600 and 7200 baud (the phone line did not appear
+  to be the reason as other modems worked fine in back-to-back
+  testing)
+
+Multi-Tech		MT1432BA		0307
+
+o there are problems communicating with Sharp model 6200 fax machines;
+  this is reportedly fixed in rev 0309 firmware
+o the EC (error correction) subparameter reported in +FDIS: result
+  strings can contain invalid values (2)
+
+Practical Peripherals	PM14400FXMT		2.17
+
+o defaulted subparameters in +FDIS and +FDCC commands are wrongly
+  treated as zero
+o +FDIS commands to set session parameters after establishing a
+  connection with a remote machine are accepted but ignored; this
+  makes it impossible to select/change data format (1D vs 2D encoding)
+  and vertical resolution (98lpi vs 196lpi); since it is not in general
+  feasible to set all session parameters before dialing the telephone,
+  this problem makes it possible only to support the minimum set of
+  Group 3 capabilities (1D data, 98 lpi)
+
+Supra			SupraFAX v.32bis	V1.200-H TR14-Jxxx-001
+
+o changing DCD handling can cause the modem to drop DSR; if done
+  during initialization this can cause the fax server to get confused;
+  be sure that the setting loaded from NVRAM on reset agrees with
+  the value specified in the config file (&C1 by default); one
+  possible way of doing this is to specify &F2 for the ModemResetCmds
+  parameter
+o the line counts in the +FPTS result code during a reception are
+  total nonsense; the only way to deduce the number of lines in a
+  received page of data is to parse the data on the host
+o facsimile reception is locked at 19200 baud
+o adaptive answer is not reliable
+o the training algorithm can loop forever; client software must
+  timeout +FDR requests
+o RTS/CTS is not honored while sending/receiving page data; use &K4 for
+  software (XON/XOFF) flow control
+
+[Firmware rev V1.80-02 TR14-Jxxx-001 is a significant improvement over
+ previous firmware; it is highly recommended that you upgrade your modem
+ if you do not have firmware at or near that rev level.]
+
+Telebit			T3000A			Version LA7.02
+
+o when HDLC frame tracing is enabled, the modem sometimes does not
+  send the +FCON status message to the host
+o when carrier is dropped during the training phase that follows a
+  +FDT command, the modem sometimes violates the Class 2 spec by
+  returning "NO CARRIER" and not a +FHNG status string
+
+Twincom			144/DF			V1.270 TR14-Jxxx-001
+
+o changing DCD handling can cause the modem to drop DSR; if done
+  during initialization this can cause the fax server to get confused;
+  be sure that the setting loaded from NVRAM on reset agrees with
+  the value specified in the config file (&C1 by default);
+o instead of the normal &D3 setup string for RC144AC-based modems,
+  &D2 should be used (note that this configuration must be done
+  manually as faxaddmodem is incapable of distinguishing between
+  RC144AC-based modems)
+o the line counts in the +FPTS result code during a reception are
+  total nonsense; the only way to deduce the number of lines in a
+  received page of data is to parse the data on the host
+o the modem has frequently been observed to just lockup during message
+  receive (i.e. +FDR); it dropped DCD to the host but did not return
+  <DLE><ETX> and/or a +FHNG code
+o in testing the modem locked up during transmission to a Multi-Tech 1432BA
+  modem and failed to respond to the host dropping DTR
+
+Ucom A/S		Traveller 96		SSX996/1.32, 120691,SSC
+
+o remote TSI strings are returned without matching quote marks;
+  as a result the current software truncates the TSI strings to be null
+o AT+FCLASS=2 causes the host-modem interface to be locked at 19.2KB
+  irrespective of the modem configuration and baud rate in use prior
+  to the command
+
+Zero One Networking	ZyXEL 1496E		U1496E  V 5.02 M
+
+o +FMDL? and +FREV? return the same string, the concatentation of
+  the modem model and the firmware revision.
+o some prom revisions do not include a trailing "OK" in response to
+  +FDCC=?
+o DC2 must be sent to the modem to trigger the transfer of Phase C
+  data from the modem to the host after a +FDR command; this reflects
+  revision 2388-B of the Class 2 spec and is different from the DC1
+  required by 2388-A (and accepted by most modems)
++ the modem advertises that it supports the 2DMR data format, but it
+  does not; this "advertisement" is both in its result string for a
+  +FDCC=? query and in the DIS/DCS sent to clients
++ sending 2DMR data to the modem can cause it to lock up leaving CTS
+  low to the host; some versions of firmware also send an infinite
+  stream of trash to the remote side when this condition occurs
+o in some prom revisions the result string from a +FDCC=? query does
+  not conform to any syntax listed in either 2388-B or 2388-A;
+  furthermore, it requires a context sensitive parser!
++ +FDIS commands to set session parameters after establishing a
+  connection with a remote machine are accepted but ignored; this
+  makes it impossible to select/change data format (1D vs 2D encoding)
+  and vertical resolution (98lpi vs 196lpi); since it is not in general
+  feasible to set all session parameters before dialing the telephone,
+  this problem makes it possible only to support the minimum set of
+  Group 3 capabilities (1D data, 98 lpi)
+o sending non-Class 2 commands to the modem after establishing a
+  connection often causes the modem to drop carrier; for example,
+  ATM0 before a +FDR command will do this;
+o the line counts in the +FPTS result code during a reception are
+  total nonsense; the only way to deduce the number of lines in a
+  received page of data is to parse the data on the host
+o in later versions (5.05 for example) the syntax of the +FPTS:
+  result code violates 2388-A and/or 2388-B
+o there is no way to abort a session (i.e. the +FK command is not
+  recognized)
++ when sending, the modem appears to immediately drop DCD when it
+  loses carrier; this usually occurs after a final +FPTS is sent
+  to the host, but before the requisite OK and and/or +FHNG strings;
+  this action appears to be independent of whether or not DCD is
+  configured to follow carrier (i.e. &C0 or &C1)
++ when receiving with a negotiated 14400 signalling rate, the +FDCS:
+  status string indicates a 9600 baud signalling rate (br=3)
++ the reception of multiple documents appears to cause the modem to
+  hangup (i.e. an EOM post page message causes the modem to hangup)
++ the modem sometimes sends received data to the host with the
+  wrong bit order
+o the scheme used to do adaptive-answer asserts a data carrier before
+  falling back to a fax carrier;  this can confuse a few fax modems and
+  make it impossible to receive facsimile without disabling adaptive
+  answer (+FAA=0)
+o AT+FLID? returns OK but not the current value of the local identifier.
+
++ = This problem is known to be corrected in firmware revision 6.01.
+
+Other Modems
+------------
+Abaton			Interfax 24/96
+
+o nothing of interest

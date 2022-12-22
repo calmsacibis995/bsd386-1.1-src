@@ -1,0 +1,9 @@
+F ANSWERS_.GZ;1                     	answers.txt.gz
+F BUGTALK_.GZ;1                     	bugtalk.txt.gz
+F COLOR_TB.GZ;1                     	color.tbl.ms.gz
+F FAQ_CENS.GZ;1                     	FAQ.censored.gz
+F FMETRICS.GZ;1                     	fmetrics.txt.gz
+D HELLOWOR                          	HelloWorld
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F RESOURCE.GZ;1                     	resources.txt.gz
+D VISUALS                           	visuals

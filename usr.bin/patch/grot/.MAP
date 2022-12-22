@@ -1,0 +1,11 @@
+F CONFIG.H;1                        	config.H
+F CONFIG.SH;1                       	config.sh
+F CONFIGUR.;1                       	Configure
+F CONFIG_H.SH;1                     	config.h.SH
+F FILEXP.;1                         	filexp
+F MAKEFILE.SH;1                     	Makefile.SH
+F MALLOC.C;1                        	malloc.c
+F MANIFEST.;1                       	MANIFEST
+F MYREAD.;1                         	myread
+D PATCHES                           	patches
+D UU                                	UU

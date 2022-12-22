@@ -1,0 +1,7 @@
+
+-- tabs were put back into the Makefiles for aix.
+
+-- acl_join() did not open the pid file is pidfd was invalid.
+
+-- acl_join() did not unlock the pid file if user was already in there.
+

@@ -1,0 +1,156 @@
+.\"	BSDI:	$Id: wt.4,v 1.6 1994/01/14 07:19:26 donn Exp $
+.\"
+.\" Copyright (c) 1992,1994 Berkeley Software Design, Inc.
+.\" All rights reserved.
+.\"
+.\"
+.Dd January 14, 1994
+.Dt WT 4 i386
+.Os BSD 4
+.Sh NAME
+.Nm wt
+.Nd
+Wangtek
+.Tn QIC-02 / QIC-36
+streamer tape interface
+.Sh SYNOPSIS
+.Cd "device wt0 at isa? port 0x300 bio irq 5 drq 1 vector wtintr"
+.Sh DESCRIPTION
+The Wangtek
+.Tn QIC-02 / QIC-36
+transport combination provides a subset of the standard tape drive
+interface as described in
+.Xr mtio 4 .
+The driver supports QIC150 (150MB), QIC120 and QIC24 cartidges tapes.
+.Pp
+The device does not allow positioning the tape on specific blocks within files;
+opening the tape device will guarantee that the tape is at the beginning of
+a file (or at the beginning of unrecorded media).
+On open, the tape will be rewound (if the cartridge was
+changed) or positioned after the file mark of the last file read/written
+(if non-rewinding mode was used).
+The
+.Xr mtio 4
+operations
+.Dv MTFSR ,
+.Dv MTBSR ,
+.Dv MTCACHE
+and
+.Dv MTNOCACHE
+are not supported (the first two will generate an error condition).
+.Pp
+The modes of tape's operation (rewinding/non-rewinding and density
+selection) are encoded
+in the minor device number as following (for the tape drive 0):
+.Bd -literal -offset indent
+003	unit select
+  0	unit zero
+  1	unit one
+
+004	no rewind
+
+030	density select
+ 0	QIC150
+ 1	QIC120
+ 2	QIC24
+.Ed
+.Sh DIAGNOSTICS
+.Bl -diag
+.It wt0: write protected
+An attempt was made to write on the tape drive
+when the write protection switch was in "safe" position;
+this message is written on the terminal of
+the user who tried to access the tape.
+.Pp
+.It wt0: no tape inserted
+An attempt was made to access the tape while there was no
+tape cartridge inserted into the drive;
+this message is written on the terminal of the user
+who tried to access the tape.
+.Pp
+.It wt0: illegal command
+.It wt0: drive not online
+.It wt0: read status failed
+A hardware failure of undefined nature occured;
+this "cannot happen" on properly operated device.
+Sometimes these messages can be generated if the user tried
+to remove or handle tape cartridge while an operation was in progress.
+These messages will be written on the terminal of the user
+who tried to read or write the tape.
+.Pp
+.It wt0: unrecoverable data error
+An unrecoverable data error occured while reading or writing
+the tape; usually it means that the tape is bad or that the user
+is trying to read unrecorded tape.
+The drive tries to recover from data errors; if this message appears
+it is useless to retry reading or writing any further. 
+This message is written on the terminal of the user
+who tried to access the tape.
+.Pp
+.It wt0: no data detected
+An attempt was made to read past recorded data or the tape is bad;
+this error is fatal and it's useless to retry reading.
+This message is written on the terminal of the user
+who tried to read the tape.
+.Pp
+.It wt0: block not located
+An unrecoverable error occured while reading
+the tape; usually it means that the tape was not recorded properly
+or is bad; this error is fatal.
+This message is written on the terminal of the user
+who tried to read the tape.
+.Pp
+.It wt0: end of recorded media
+An attempt was made to read past recorded data or read or write
+past the end of tape; this error is fatal.
+This message is written on the terminal of the user
+who tried to read the tape.
+.Pp
+.It wt0: hit end of tape
+End of tape was reached during reading or writing tape with
+continuation mode disabled. This error is fatal and the operation
+cannot be continued; the tape should be rewound first.
+This message is written on the terminal of the user
+who was writing the tape.
+.Pp
+.It wt0: bad DRQ number %d (hardware supports only 1-3)
+There is an error in the system configuration; the system administrator
+should correct the configuration and recompile the kernel. This message
+is written on console during bootstrapping the system.
+.Pp
+.It wt0: strategy
+A user tried to access the tape through block device interface;
+the system administrator should remove the special files in order to
+prevent printing this message in future. This message is written on console.
+.Pp
+.It wt0: extra interrupt
+.It wt0: bogus interrupt
+These messages can appear spontaneously; usually as a result of minor
+faults in device hardware or bus interface. Ignore these messages if
+they aren't frequent; frequently occurence of these messages is a sign
+of a hardware fault or hardware configuration problems like assigning the
+same IRQ to the multiple devices. These message are written on console.
+.El
+.Sh FILES
+.Bl -tag -width /dev/nrwt[0-1]_q150 -compact
+.It Pa /dev/rwt[0-1]_q150
+auto rewind on close QIC150
+.It Pa /dev/rwt[0-1]_q120
+auto rewind on close QIC120
+.It Pa /dev/rwt[0-1]_q24
+auto rewind on close QIC24
+.It Pa /dev/nrwt[0-1]_q150
+no rewind on close QIC150
+.It Pa /dev/nrwt[0-1]_q120
+no rewind on close QIC120
+.It Pa /dev/nrwt[0-1]_q24
+no rewind on close QIC24
+.It Pa /dev/rwt[0-1]
+alias for /dev/rwt[0-1]_q150
+.It Pa /dev/nrwt[0-1]
+alias for /dev/nrwt[0-1]_q150
+.It Pa /dev/rwt[4-5]
+alias for /dev/nrwt[0-1]_q150
+.El
+.Sh BUGS
+The 125MB tape format is not supported.

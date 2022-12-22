@@ -1,0 +1,10 @@
+D C                                 	C
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D ISO8859                           	iso8859
+D JA_JP_EU                          	ja_JP.EUC
+D JA_JP_JI                          	ja_JP.JIS
+D JA_JP_SJ                          	ja_JP.SJIS
+D KO                                	ko
+F LOCALE_A.GZ;1                     	locale.alias.gz
+D ZH                                	zh
+D ZH_TW                             	zh_TW

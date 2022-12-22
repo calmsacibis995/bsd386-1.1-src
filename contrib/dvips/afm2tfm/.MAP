@@ -1,0 +1,5 @@
+F AFM2TFM.1;1                       	afm2tfm.1
+F AFM2TFM.C;1                       	afm2tfm.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/contrib/dvips/afm2tfm
+F TAGS.;1                           	tags

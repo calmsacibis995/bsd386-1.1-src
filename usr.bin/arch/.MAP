@@ -1,0 +1,5 @@
+F ARCH.1;1                          	arch.1
+F ARCH.C;1                          	arch.c
+F MAKEFILE.;1                       	Makefile
+L OBJ.;1                            	obj	/usr/cdrom_obj/usr.bin/arch
+F TAGS.;1                           	tags

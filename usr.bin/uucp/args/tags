@@ -1,0 +1,9 @@
+ArgsUsage	ArgsUsage.c	/^ArgsUsage(usage)$/
+DoArgs	DoArgs.c	/^DoArgs(argc, argv, args)$/
+EvalArgs	Args.c	/^EvalArgs(argc, argv, usage, usagerr)$/
+argerror	DoArgs.c	/^argerror(s)$/
+argusage	Args.c	/^argusage(buf, up, argn, argp)$/
+getInt1	DoArgs.c	/^getInt1(val, arg, str)$/
+getName	DoArgs.c	/^getName(val, arg, str)$/
+process_arg	Args.c	/^process_arg(up, val, argc, argv)$/
+usagerror	DoArgs.c	/^usagerror(s)$/

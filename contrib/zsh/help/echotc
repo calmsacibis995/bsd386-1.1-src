@@ -1,0 +1,3 @@
+     echotc cap [ arg ... ]
+          Output the termcap string corresponding to the capabil-
+          ity cap, with optional arguments.

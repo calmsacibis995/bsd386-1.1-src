@@ -1,0 +1,174 @@
+.\"
+.V= $Id: uuto.1,v 1.2 1994/01/31 01:25:40 donn Exp $
+.\"
+.ds S1 UUTO
+.ds S2 \fIUuto\fP
+.ds S3 \fIuuto\fP
+.ds S4 UUCP
+.ds S5 \s-1UUCP\s0
+.ds S6 uuto
+.TH \*(S1 1 "\*(V)" "\*(S4"
+.nh
+.SH NAME
+uuto, uupick \- system-to-system file copy
+.SH SYNOPSIS
+.B uuto
+.RB [\- mp ]
+.IR file
+.B .\|.\|.
+.I destination
+.LP
+.B uupick
+.RB [\- s
+.I system\c
+]
+.SH DESCRIPTION
+.SS uuto
+.LP
+.B uuto
+uses
+.BR uucp (1)
+to send
+.I files
+to
+.IR destination .
+.I File
+is a path name on your machine,
+which may also be a directory name.
+.I Destination
+has the form:
+.IP
+.IB system-name ! username
+.LP
+where
+.I system-name
+is taken from a list of system names that
+.B uucp
+knows about (see
+.BR uucp (1)).
+.I Username
+is the login name of someone on the specified system.
+.LP
+The files (or sub-trees if directories are specified)
+are sent to the public
+.SM UUCP
+directory on the remote machine
+.IR system-name .
+Normally, this directory is
+.BR /var/spool/uucppublic .
+Specifically the files are sent to
+.IP
+.BI "\s-1PUBDIR\s0/receive/" username / mysystem / file
+.LP
+where
+.SM PUBDIR
+is the public
+.SM UUCP
+directory on
+.IR system-name ,
+.I mysystem
+is the system from which the files are sent, and
+.I file
+is the file being sent.
+.LP
+The destined recipient
+.RI ( username )
+is notified by
+.BR mail (1)
+of the arrival of files.
+.SS uupick
+.LP
+.B uupick
+accepts or rejects the files transmitted to the user by
+.BR uuto .
+Specifically,
+.B uupick
+searches the public
+.SM UUCP
+directory on the local machine
+for files sent to the user.
+For each entry (file or directory) found,
+the following message is printed on the standard output:
+.IP
+\fBfrom\fP \fIsystem\fP\fB:\fP [\fBfile\fP \fIfile-name\fP]|[\fBdir\fP \fIdirname\fP]\fB\|?\fP
+.LP
+.B uupick
+then reads a line from the standard input to determine the
+disposition of the file:
+.RS 2
+.if n .ds tw 4
+.if t .ds tw \w'\s-1<NEWLINE>\s0X'u
+.TP "\*(tw"
+.SM <NEWLINE>
+Go on to next entry.
+.TP
+.B d
+Delete the entry.
+.TP
+.BR m " [\fIdir\fP]"
+Move the entry to named directory
+.IR dir .
+If
+.I dir
+is not specified as a complete path name (in which
+.SM $HOME
+is legitimate),
+a destination relative to the current directory is assumed. 
+If no destination is given,
+the default is the current directory.
+.TP
+.BR a " [\fIdir\fP]"
+Same as
+.B m
+except moving all the files sent from
+.IR system .
+.TP
+.B p
+Print the content of the file.
+.TP
+.B q
+Stop.
+.TP
+.SM <CTRL-D>
+Same as
+.BR q .
+.TP
+.BI ! command
+Escape to the shell to do
+.IR command .
+.TP
+.B *
+Print a command summary.
+.RE
+.SH OPTIONS
+.SS uuto
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-s\fP \fIsystem\fPX'u
+.TP "\*(tw"
+.B \-m
+Send mail to the sender when the copy is complete.
+.TP
+.B \-p
+Copy the source file into the spool directory before transmission.
+.SS uupick
+.if n .ds tw 4
+.if t .ds tw \w'\fB\-s\fP \fIsystem\fPX'u
+.TP "\*(tw"
+.BI \-s " system"
+Search the public
+.SM UUCP
+directory on the local machine
+for files sent from
+.I system
+only.
+.SH FILES
+.PD 0
+.TP \w'\fB/var/spool/uucppublic\fPXX'u
+.B /var/spool/uucppublic
+Public
+.SM UUCP
+directory.
+.PD
+.SH SEE ALSO
+.BR mail (1),
+.BR uucp (1),

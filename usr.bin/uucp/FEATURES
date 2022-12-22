@@ -1,0 +1,58 @@
+This version of uucp is backward compatible with the 4.2BSD version.
+It has several new features:
+
+    CONFIG
+    	Most parameters to operations are run-time configurable
+    	in the file named "/etc/uucp/CONFIG". See uuparams(5)
+    	for more details.
+
+    SPOOLALTDIRS
+    	This parameter specifies extra spooling directories for
+    	uucp programs (the default is SPOOLDIR "/var/spool/uucp").
+    	The programs that search for something to do look in all
+    	these directories in turn. In particular, uucico will find
+    	work files there, though it will return to SPOOLDIR at
+    	least every "turntime" seconds ("-t" parameter, default
+    	DEFAULT_CICO_TURN).
+
+    ".active"
+    	This file is created by uucico in the directory it is
+    	currently operating from, and contains an ASCII representation
+    	of the PID and machine name.
+
+    "ps" listing
+    	uucico changes its name to give details of state. The state
+    	shows the remote nodename, the role (MST/SLV), the direction
+    	of transfer (SND/RCV), the number of messages transferred,
+    	and the overall throughput in bytes/sec.
+
+    "uusched"
+    	This is a new program that scans the L.sys file for nodes to be
+    	polled. It checks that the selected node has jobs to send,
+    	or hasn't been called for a while, and starts a uucico for
+    	that node, waiting for it to finish. See uusched(8) for details. 
+
+    "L.sys"
+    	Site entries can now have protocol, packet size, and debugging
+    	turned on at call time. There is also an optional entry for sites
+    	that call in - SLAVE - that can be used to specify message grades
+    	and other parameters based on login times.
+
+    Variable sized packet support
+    	Most older versions of uucico request 64-byte packets,
+    	and cannot handle receiving variable-sized packets.
+    	If a remote uucico requests a packet size other than 64,
+    	or a packet size other than 64 is set by L.sys parameters
+    	for a site, then variable-sized packets are used which
+    	will result in more efficient use of the bandwidth.
+
+    'G' protocol
+    	Support for this protocol is included, but needs to be tested.
+    	It assumes (after an initial test) that 'G' can't handle size
+    	negotiation, or variable packet sizes, just fixed-size packets
+    	in the range 32-4096 bytes.
+
+    Time-stamped audit logs
+    	When one needs to trace through multiple uucico sessions,
+    	time-stamped audit log files can be created so that they
+    	are not overwritten by successive connections.

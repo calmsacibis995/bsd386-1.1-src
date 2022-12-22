@@ -1,0 +1,127 @@
+Mpcnfsd_svc	pcnfsd_svc.c	/^main()$/
+ToUpper	pcnfsd_misc.c	/^static int ToUpper(c)$/
+_msgout	pcnfsd_svc.c	/^_msgout(msg)$/
+add_cache_entry	pcnfsd_cache.c	/^add_cache_entry(p)$/
+add_printer_alias	pcnfsd_print.c	/^add_printer_alias(printer, alias_for, command)$/
+build_alt_pr_list	pcnfsd_print.c	/^build_alt_pr_list()$/
+build_pr_list	pcnfsd_print.c	/^build_pr_list()$/
+build_pr_queue	pcnfsd_print.c	/^build_pr_queue(pn, user, just_mine, p_qlen, p_qsho/
+build_uid_ranges	pcnfsd_misc.c	/^build_uid_ranges(s)$/
+check_cache	pcnfsd_cache.c	/^check_cache(name, pw, p_uid, p_gid)$/
+closedown	pcnfsd_svc.c	/^closedown()$/
+config_from_file	pcnfsd_misc.c	/^config_from_file()$/
+expand_alias	pcnfsd_print.c	/^expand_alias(printer, file, user, host)$/
+fillin_extra_groups	pcnfsd_v2.c	/^fillin_extra_groups(uname, main_gid, len, extra_gi/
+find_entry	pcnfsd_v2.c	/^find_entry(key, map)$/
+free_mapreq_results	pcnfsd_v2.c	/^free_mapreq_results(p)$/
+free_pr_list_item	pcnfsd_print.c	/^free_pr_list_item(curr)$/
+free_pr_queue_item	pcnfsd_print.c	/^free_pr_queue_item(curr)$/
+get_password	pcnfsd_misc.c	/^get_password(usrnam, msgpp)$/
+get_pr_status	pcnfsd_print.c	/^get_pr_status(pn, avail, printing, qlen, needs_ope/
+getcallername	pcnfsd_svc.c	/^getcallername()$/
+grab	pcnfsd_misc.c	/^void *grab(n)$/
+list_virtual_printers	pcnfsd_print.c	/^pr_list list_virtual_printers()$/
+map_printer_name	pcnfsd_print.c	/^map_printer_name(printer)$/
+mapfont	pcnfsd_misc.c	/^mapfont(f, i, b)$/
+mon_printers	pcnfsd_print.c	/^mon_printers()$/
+msg_out	pcnfsd_svc.c	/^ void msg_out(msg) char *msg; {_msgout(msg);}$/
+my_strdup	pcnfsd_misc.c	/^my_strdup(s)$/
+myhandler	pcnfsd_misc.c	/^static	void myhandler()$/
+mystrcasecmp	pcnfsd_misc.c	/^int mystrcasecmp(s1, s2)$/
+mystrncasecmp	pcnfsd_misc.c	/^int mystrncasecmp(s1, s2, n)$/
+pcnfsd2_alert_2	pcnfsd_v2.c	/^v2_alert_results *pcnfsd2_alert_2(arg)$/
+pcnfsd2_auth_2	pcnfsd_v2.c	/^v2_auth_results *pcnfsd2_auth_2(arg)$/
+pcnfsd2_info_2	pcnfsd_v2.c	/^v2_info_results *pcnfsd2_info_2(arg)$/
+pcnfsd2_mapid_2	pcnfsd_v2.c	/^v2_mapid_results *pcnfsd2_mapid_2(arg)$/
+pcnfsd2_null_2	pcnfsd_v2.c	/^void *pcnfsd2_null_2(arg)$/
+pcnfsd2_pr_admin_2	pcnfsd_v2.c	/^v2_pr_admin_results *pcnfsd2_pr_admin_2(arg)$/
+pcnfsd2_pr_cancel_2	pcnfsd_v2.c	/^v2_pr_cancel_results *pcnfsd2_pr_cancel_2(arg)$/
+pcnfsd2_pr_hold_2	pcnfsd_v2.c	/^v2_pr_hold_results *pcnfsd2_pr_hold_2(arg)$/
+pcnfsd2_pr_init_2	pcnfsd_v2.c	/^v2_pr_init_results *pcnfsd2_pr_init_2(arg)$/
+pcnfsd2_pr_list_2	pcnfsd_v2.c	/^v2_pr_list_results *pcnfsd2_pr_list_2(arg)$/
+pcnfsd2_pr_queue_2	pcnfsd_v2.c	/^v2_pr_queue_results *pcnfsd2_pr_queue_2(arg)$/
+pcnfsd2_pr_release_2	pcnfsd_v2.c	/^v2_pr_release_results *pcnfsd2_pr_release_2(arg)$/
+pcnfsd2_pr_requeue_2	pcnfsd_v2.c	/^v2_pr_requeue_results *pcnfsd2_pr_requeue_2(arg)$/
+pcnfsd2_pr_start_2	pcnfsd_v2.c	/^v2_pr_start_results *pcnfsd2_pr_start_2(arg)$/
+pcnfsd2_pr_status_2	pcnfsd_v2.c	/^v2_pr_status_results *pcnfsd2_pr_status_2(arg)$/
+pcnfsd_auth_1	pcnfsd_v1.c	/^auth_results *pcnfsd_auth_1(arg)$/
+pcnfsd_null_1	pcnfsd_v1.c	/^void *pcnfsd_null_1(arg)$/
+pcnfsd_pr_init_1	pcnfsd_v1.c	/^pr_init_results *pcnfsd_pr_init_1(pi_arg)$/
+pcnfsd_pr_start_1	pcnfsd_v1.c	/^pr_start_results *pcnfsd_pr_start_1(ps_arg)$/
+pcnfsdprog_1	pcnfsd_svc.c	/^pcnfsdprog_1(rqstp, transp)$/
+pcnfsdprog_2	pcnfsd_svc.c	/^pcnfsdprog_2(rqstp, transp)$/
+pr_cancel	pcnfsd_print.c	/^pcrstat pr_cancel(pr, user, id)$/
+pr_init	pcnfsd_print.c	/^pr_init(sys, pr, sp)$/
+pr_start2	pcnfsd_print.c	/^pr_start2(system, pr, user, fname, opts, id)$/
+run_ps630	pcnfsd_misc.c	/^run_ps630(f, opts)$/
+scramble	pcnfsd_misc.c	/^scramble(s1, s2)$/
+start_watchdog	pcnfsd_misc.c	/^void start_watchdog(n)$/
+stop_watchdog	pcnfsd_misc.c	/^void stop_watchdog()$/
+strembedded	pcnfsd_misc.c	/^int strembedded(s1, s2)$/
+strstr	pcnfsd_print.c	/^char *strstr(target, pattern)$/
+su_pclose	pcnfsd_misc.c	/^su_pclose(ptr)$/
+su_popen	pcnfsd_misc.c	/^su_popen(user, cmd, maxtime)$/
+substitute	pcnfsd_print.c	/^substitute(string, token, data)$/
+suspicious	pcnfsd_misc.c	/^int suspicious (s)$/
+val_uid	pcnfsd_misc.c	/^val_uid(u)$/
+valid_pr	pcnfsd_print.c	/^valid_pr(pr)$/
+wlogin	pcnfsd_misc.c	/^wlogin(name)$/
+xdr_alrstat	pcnfsd_xdr.c	/^xdr_alrstat(xdrs, objp)$/
+xdr_arstat	pcnfsd_xdr.c	/^xdr_arstat(xdrs, objp)$/
+xdr_auth_args	pcnfsd_xdr.c	/^xdr_auth_args(xdrs, objp)$/
+xdr_auth_results	pcnfsd_xdr.c	/^xdr_auth_results(xdrs, objp)$/
+xdr_client	pcnfsd_xdr.c	/^xdr_client(xdrs, objp)$/
+xdr_comment	pcnfsd_xdr.c	/^xdr_comment(xdrs, objp)$/
+xdr_homedir	pcnfsd_xdr.c	/^xdr_homedir(xdrs, objp)$/
+xdr_ident	pcnfsd_xdr.c	/^xdr_ident(xdrs, objp)$/
+xdr_mapreq	pcnfsd_xdr.c	/^xdr_mapreq(xdrs, objp)$/
+xdr_mapreq_arg	pcnfsd_xdr.c	/^xdr_mapreq_arg(xdrs, objp)$/
+xdr_mapreq_arg_item	pcnfsd_xdr.c	/^xdr_mapreq_arg_item(xdrs, objp)$/
+xdr_mapreq_res	pcnfsd_xdr.c	/^xdr_mapreq_res(xdrs, objp)$/
+xdr_mapreq_res_item	pcnfsd_xdr.c	/^xdr_mapreq_res_item(xdrs, objp)$/
+xdr_maprstat	pcnfsd_xdr.c	/^xdr_maprstat(xdrs, objp)$/
+xdr_message	pcnfsd_xdr.c	/^xdr_message(xdrs, objp)$/
+xdr_options	pcnfsd_xdr.c	/^xdr_options(xdrs, objp)$/
+xdr_password	pcnfsd_xdr.c	/^xdr_password(xdrs, objp)$/
+xdr_pcrstat	pcnfsd_xdr.c	/^xdr_pcrstat(xdrs, objp)$/
+xdr_pirstat	pcnfsd_xdr.c	/^xdr_pirstat(xdrs, objp)$/
+xdr_pr_init_args	pcnfsd_xdr.c	/^xdr_pr_init_args(xdrs, objp)$/
+xdr_pr_init_results	pcnfsd_xdr.c	/^xdr_pr_init_results(xdrs, objp)$/
+xdr_pr_list	pcnfsd_xdr.c	/^xdr_pr_list(xdrs, objp)$/
+xdr_pr_list_item	pcnfsd_xdr.c	/^xdr_pr_list_item(xdrs, objp)$/
+xdr_pr_queue	pcnfsd_xdr.c	/^xdr_pr_queue(xdrs, objp)$/
+xdr_pr_queue_item	pcnfsd_xdr.c	/^xdr_pr_queue_item(xdrs, objp)$/
+xdr_pr_start_args	pcnfsd_xdr.c	/^xdr_pr_start_args(xdrs, objp)$/
+xdr_pr_start_results	pcnfsd_xdr.c	/^xdr_pr_start_results(xdrs, objp)$/
+xdr_printername	pcnfsd_xdr.c	/^xdr_printername(xdrs, objp)$/
+xdr_printjobid	pcnfsd_xdr.c	/^xdr_printjobid(xdrs, objp)$/
+xdr_psrstat	pcnfsd_xdr.c	/^xdr_psrstat(xdrs, objp)$/
+xdr_spoolname	pcnfsd_xdr.c	/^xdr_spoolname(xdrs, objp)$/
+xdr_username	pcnfsd_xdr.c	/^xdr_username(xdrs, objp)$/
+xdr_v2_alert_args	pcnfsd_xdr.c	/^xdr_v2_alert_args(xdrs, objp)$/
+xdr_v2_alert_results	pcnfsd_xdr.c	/^xdr_v2_alert_results(xdrs, objp)$/
+xdr_v2_auth_args	pcnfsd_xdr.c	/^xdr_v2_auth_args(xdrs, objp)$/
+xdr_v2_auth_results	pcnfsd_xdr.c	/^xdr_v2_auth_results(xdrs, objp)$/
+xdr_v2_info_args	pcnfsd_xdr.c	/^xdr_v2_info_args(xdrs, objp)$/
+xdr_v2_info_results	pcnfsd_xdr.c	/^xdr_v2_info_results(xdrs, objp)$/
+xdr_v2_mapid_args	pcnfsd_xdr.c	/^xdr_v2_mapid_args(xdrs, objp)$/
+xdr_v2_mapid_results	pcnfsd_xdr.c	/^xdr_v2_mapid_results(xdrs, objp)$/
+xdr_v2_pr_admin_args	pcnfsd_xdr.c	/^xdr_v2_pr_admin_args(xdrs, objp)$/
+xdr_v2_pr_admin_results	pcnfsd_xdr.c	/^xdr_v2_pr_admin_results(xdrs, objp)$/
+xdr_v2_pr_cancel_args	pcnfsd_xdr.c	/^xdr_v2_pr_cancel_args(xdrs, objp)$/
+xdr_v2_pr_cancel_results	pcnfsd_xdr.c	/^xdr_v2_pr_cancel_results(xdrs, objp)$/
+xdr_v2_pr_hold_args	pcnfsd_xdr.c	/^xdr_v2_pr_hold_args(xdrs, objp)$/
+xdr_v2_pr_hold_results	pcnfsd_xdr.c	/^xdr_v2_pr_hold_results(xdrs, objp)$/
+xdr_v2_pr_init_args	pcnfsd_xdr.c	/^xdr_v2_pr_init_args(xdrs, objp)$/
+xdr_v2_pr_init_results	pcnfsd_xdr.c	/^xdr_v2_pr_init_results(xdrs, objp)$/
+xdr_v2_pr_list_results	pcnfsd_xdr.c	/^xdr_v2_pr_list_results(xdrs, objp)$/
+xdr_v2_pr_queue_args	pcnfsd_xdr.c	/^xdr_v2_pr_queue_args(xdrs, objp)$/
+xdr_v2_pr_queue_results	pcnfsd_xdr.c	/^xdr_v2_pr_queue_results(xdrs, objp)$/
+xdr_v2_pr_release_args	pcnfsd_xdr.c	/^xdr_v2_pr_release_args(xdrs, objp)$/
+xdr_v2_pr_release_results	pcnfsd_xdr.c	/^xdr_v2_pr_release_results(xdrs, objp)$/
+xdr_v2_pr_requeue_args	pcnfsd_xdr.c	/^xdr_v2_pr_requeue_args(xdrs, objp)$/
+xdr_v2_pr_requeue_results	pcnfsd_xdr.c	/^xdr_v2_pr_requeue_results(xdrs, objp)$/
+xdr_v2_pr_start_args	pcnfsd_xdr.c	/^xdr_v2_pr_start_args(xdrs, objp)$/
+xdr_v2_pr_start_results	pcnfsd_xdr.c	/^xdr_v2_pr_start_results(xdrs, objp)$/
+xdr_v2_pr_status_args	pcnfsd_xdr.c	/^xdr_v2_pr_status_args(xdrs, objp)$/
+xdr_v2_pr_status_results	pcnfsd_xdr.c	/^xdr_v2_pr_status_results(xdrs, objp)$/

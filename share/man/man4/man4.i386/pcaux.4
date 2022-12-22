@@ -1,0 +1,23 @@
+.\" Copyright (c) 1994 Berkeley Software Design, Inc. All rights reserved.
+.\" The Berkeley Software Design Inc. software License Agreement specifies
+.\" the terms and conditions for redistribution.
+.\"	BSDI $Id: pcaux.4,v 1.1 1994/01/31 08:41:41 donn Exp $
+.Dd January 30, 1994
+.Dt PCAUX 4 i386
+.Os
+.Sh NAME
+.Nm pcaux
+.Nd PS/2 mouse driver
+.Sh SYNOPSIS
+.Cd "device pcaux0 at isa? port port 0x60 irq 12"
+.Sh DESCRIPTION
+The
+.Nm
+driver supports a PS/2 mouse interface via the keyboard controller
+auxiliary port.
+It is configured only if the keyboard controller supports the
+command to enable the auxiliary device.
+.Sh FILES
+.Pa /dev/pcaux0
+.Sh SEE ALSO
+.Xr pccons 4

@@ -1,0 +1,17 @@
+#! /bin/sh
+#
+#	BSDI $Id: :parsefix,v 1.1 1994/01/12 00:47:31 torek Exp $
+#
+# Fix yacc-generated parser for bash so that calling yyparse()
+# recursively works.
+#
+ed - $1 << EOF
+/^int yychar/ka
+/^YYSTYPE yyval/kb
+/^short yyss/kc
+/^YYSTYPE yyvs/kd
+/register int yym,/-1ke
+'a,'bm'e
+'c,'dm'e
+w
+EOF

@@ -1,0 +1,12 @@
+*** /tmp/,RCSt1a10657	Tue Mar 31 08:02:33 1992
+--- if_levar.h	Tue Mar 31 08:01:56 1992
+***************
+*** 114,119 ****
+--- 114,120 ----
+  	int	es_defer;		/* Deferred transmission counter */
+  	int	es_outcpy;		/* Output copy operations */
+  	int	es_incpy;		/* Input copy operations */
++ 	caddr_t es_bpf;			/* hook to bpf */
+  };
+  
+  /*

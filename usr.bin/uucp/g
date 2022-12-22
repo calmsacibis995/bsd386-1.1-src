@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# This script is handy for seaching through the source code for patterns
+# like variables of defines.
+
+case $# in
+1)	;;
+*)	echo "Usage: $0 pattern"
+	echo "       [will search for <pattern> in source]"
+	exit 1;;
+esac
+
+# If you want to use an absolute search path, define DIR accordingly.
+# DIR=/usr/local/src/uucp/
+DIR=
+
+case $0 in
+*l)	flag=-l ;;
+*)
+	echo "egrep $flag '"$1"' ${DIR}Makefile ${DIR}*/Makefile ${DIR}man/*.* ${DIR}*/*.h ${DIR}*/*.c"
+	flag=-n ;;
+esac
+
+egrep $flag "$1" ${DIR}Makefile ${DIR}*/Makefile ${DIR}man/*.* ${DIR}*/*.h ${DIR}*/*.c |
+	sed 's/\(:[0-9][0-9]*:\)	*/\1	/g'

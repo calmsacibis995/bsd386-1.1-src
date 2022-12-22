@@ -1,0 +1,706 @@
+This is Info file dvips.info, produced by Makeinfo-1.47 from the input
+file dvips.texi.
+
+START-INFO-DIR-ENTRY
+* DVIps: (dvips.info).	 DVI to PostScript translator
+END-INFO-DIR-ENTRY
+
+
+File: dvips.info,  Node: Bells and Whistles,  Next: MS-DOS,  Prev: Environment Variables,  Up: Top
+
+Other Bells And Whistles
+************************
+
+   For special effects, if any of the macros `bop-hook', `eop-hook',
+`start-hook', or `end-hook' are defined in the PostScript `userdict',
+they will be executed at the beginning of a page, end of a page, start
+of the document, and end of a document, respectively.
+
+   When these macros are executed, the default PostScript coordinate
+system and origin is in effect.  Such macros can be defined in headers
+added by the `-h' option or the `header=' special, and might be useful
+for writing, for instance, DRAFT across the entire page, or, with the
+aid of a shell script, dating the document.  These macros are executed
+outside of the save/restore context of the individual pages, so it is
+possible for them to accumulate information, but if a document must be
+divided into sections because of memory constraints, such added
+information will be lost across section breaks.
+
+   The single argument to `bop-hook' is the sequence number of the page
+in the file; the first page gets zero, the second one, etc.  The
+procedure must leave this number on the stack.  None of the other hooks
+are (currently) given parameters, although this may change in the
+future.
+
+   As an example of what can be done, the following special will write
+a light DRAFT across each page in the document:
+
+     \special{!userdict begin /bop-hook{gsave 200 30 translate
+     65 rotate /Times-Roman findfont 216 scalefont setfont
+     0 0 moveto 0.7 setgray (DRAFT) show grestore}def end}
+
+   Note that using `bop-hook' or `eop-hook' in any way that preserves
+information across pages will break compliance with the Adobe document
+structuring conventions, so if you use any such tricks, it is
+recommended that you also use the `-N' option to turn off structured
+comments.
+
+   Several of the above tricks can be used nicely together, and it is
+not necessary that a `printer configuration file' be used only to set
+printer defaults.  For instance, a `-P' file can be set up to print the
+date on each page; the particular configuration file will execute a
+command to put the date into a header file, which is then included with
+a `h' line in the configuration file.  Note that multiple `-P' options
+can be used.
+
+
+File: dvips.info,  Node: MS-DOS,  Next: Installation,  Prev: Bells and Whistles,  Up: Top
+
+MS-DOS
+******
+
+   The MS-DOS version of dvips differs from UNIX in the following ways.
+
+   * Path separators are `;' not `:'.
+
+   * Directory separators are `\' not `/'.
+
+   * The user's initialization file is `dvips.ini' not `.dvipsrc'.
+
+   * Pipes to printers are not supported.  Output must go to a file.
+
+   * `MakeTeXPk' is a batch file.  Since MS-DOS has insufficient memory
+     to run both dvips and METAFONT at the same time, this batch file
+     will typically write out a set of commands for running METAFONT
+     later.  The `maketexp.bat' supplied writes out an `mfjob' file for
+     emTeX.
+
+   * Limited emTeX specials.  The following ones are supported:
+          \special{em:message xxx}
+          \special{em:point n}
+          \special{em:line a[h|v|p],b[h|v|p] [,width]}
+          \special{em:linewidth width}
+          \special{em:moveto}
+          \special{em:lineto} end
+
+   * The `\special{{}em:graph xxx{}} ' is not supported.  The line cut
+     parameters `[h|v|p]' of the `\special{{}em:line ...{}}' command
+     are ignored.  Lines are ended with a rounded cap.  A maximum of
+     1613 different point numbers are permitted on each page.
+
+   The program dvips can use emTeX font libraries created with the
+emTeX `fontlib /2' option.  If a `pxl' font is found within a font
+library, dvips will complain, and then ignore the `pxl' font.
+
+   The font library names and directory names can be specified with
+this configuration file option.
+
+
+File: dvips.info,  Node: Installation,  Next: Problems,  Prev: MS-DOS,  Up: Top
+
+Installation
+************
+
+   If dvips has not already been installed on your system, the following
+steps are all that is needed.
+
+   First update the `Makefile'--in particular, the paths.  Everything
+concerning dvips can be adjusted in the `Makefile'.  Make sure you set
+key parameters such as the default resolution, and make sure that the
+path given for packed pixel files is correct.
+
+   Next, check the file name definitions in `MakeTeXPK'.  If you don't
+have METAFONT installed, you cannot use `MakeTeXPK' to automatically
+generate the fonts; you can, however, modify it to generate `pk' fonts
+from `gf' fonts if you don't have a full set of `pk' fonts but do have
+a set of `gf' fonts.  If you don't have that, you should probably not
+install `MakeTeXPK' at all; this will disable automatic font generation.
+
+   Now, check the configuration parameters in `config.ps'.  You should
+also update the default resolution here.  This file is the system-wide
+configuration file that will be automatically installed. If you are
+unsure how much memory your PostScript printer has, print the following
+file:
+
+     %! Hey, we're PostScript
+     /Times-Roman findfont 30 scalefont setfont 144 432 moveto
+     vmstatus exch sub 40 string cvs show pop showpage
+
+Note that the number returned by this file is the total memory free; it
+is often a good idea to tell dvips that the printer has somewhat less
+memory.  This is because many programs download permanent macros that
+can reduce the memory in the printer.  In general, a memory size of
+about `300000' is plenty, since dvips can automatically split a
+document if required.  It is unfortunate that PostScript printers with
+much less virtual memory still exist.  Some systems or printers can
+dynamically increase the memory available to a PostScript interpreter;
+for these systems, a value of one million works well.
+
+   Next, run `make'.  Everything should compile smoothly.  You may need
+to adjust the compiler options in the `Makefile' if something goes
+amiss.
+
+   Once everything is compiled, run `make install'.  After this is done,
+you may want to create a configuration file for each PostScript printer
+at your site.
+
+   If the font caching is considered a security hole, make the `cache'
+directory be something like `/tmp/pks', and `cron' a job to move the
+good `pk' files into the real directory.  Or simply disable this
+feature by not installing `MakeTeXPK'.
+
+   Don't forget to install the new `vf' files and `tfm' files. Note
+that the `tfm' files distributed with earlier (pre-5.471) versions of
+dvips, and all versions of other PostScript drivers, are different.
+
+
+File: dvips.info,  Node: Problems,  Next: Color,  Prev: Installation,  Up: Top
+
+Diagnosing Problems
+*******************
+
+   You've gone through all the trouble of installing dvips, carefully
+read all the instructions in this manual, and still can't get something
+to work.  This is all too common, and is usually caused by some broken
+PostScript application out there.  The following sections provide some
+helpful hints if you find yourself in such a situation.
+
+   In all cases, you should attempt to find the smallest file that
+causes the problem.  This will not only make debugging easier, it will
+also reduce the number of possible interactions among different parts
+of the system.
+
+* Menu:
+
+* Debug Options::               Debug Options
+* No Output::                   No Output At All
+* Small or Inverted::           Output Too Small or Inverted
+* Printer Errors::              Error Messages From Printer
+* 400 DPI::                     400 DPI Is Used Instead Of 300 DPI
+* Long Documents Fail::         Long Documents Fail To Print
+* Including Graphics Fails::    Including Graphics Fails
+* Unable to Find Fonts::        Unable to  Find Font Files
+* Unable to Generate Fonts::    Unable to Generate Fonts
+
+
+File: dvips.info,  Node: Debug Options,  Next: No Output,  Up: Problems
+
+Debug Options
+=============
+
+   The `-d' flag to dvips is very useful for helping to track down
+certain errors.  The parameter to this flag is an integer that tells
+what errors are currently being tracked.  To track a certain class of
+debug messages, simply provide the appropriate number given below; if
+you wish to track multiple classes, sum the numbers of the classes you
+wish to track.  The classes are:
+
+1
+     specials
+
+2
+     paths
+
+4
+     fonts
+
+8
+     pages
+
+16
+     headers
+
+32
+     font compression
+
+64
+     files
+
+128
+     memory
+
+
+File: dvips.info,  Node: No Output,  Next: Small or Inverted,  Prev: Debug Options,  Up: Problems
+
+No Output At All
+================
+
+   If you are not getting any output at all, even from the simplest
+one-character file (for instance, `\ \bye'), then something is very
+wrong.  Practically any file sent to a PostScript laser printer should
+generate some output, at the very least a page detailing what error
+occurred, if any.  Talk to your system administrator about downloading a
+PostScript error handler.  (Adobe distributes a good one called
+`ehandler.ps'.)
+
+   It is possible, especially if you are using non-Adobe PostScript,
+that your PostScript interpreter is broken.  Even then it should
+generate an error message.  I've tried to work around as many bugs as
+possible in common non-Adobe PostScript interpreters, but I'm sure I've
+missed a few.
+
+   If dvips gives any strange error messages, or compilation on your
+machine generated a lot of warnings, perhaps the dvips program itself is
+broken.  Carefully check the types in `structures.h' and the
+declarations in the `Makefile', and try using the debug options to
+determine where the error occurred.
+
+   It is possible your spooler is broken and is misinterpreting the
+structured comments.  Try the `-N' flag to turn off structured comments
+and see what happens.
+
+
+File: dvips.info,  Node: Small or Inverted,  Next: Printer Errors,  Prev: No Output,  Up: Problems
+
+Output Too Small or Inverted
+============================
+
+   If some documents come out inverted or too small, your spooler is not
+supplying an end of job indicator at the end of each file.  (This
+happens a lot on small machines that don't have spoolers.)  You can
+force dvips to do this with the `-F' flag, but note that this generates
+files with a binary character (control-D) in them.  You can also try
+using the `-s' flag to enclose the entire job in a save/restore pair.
+
+
+File: dvips.info,  Node: Printer Errors,  Next: 400 DPI,  Prev: Small or Inverted,  Up: Problems
+
+Error Messages From Printer
+===========================
+
+   If your printer returns error messages, the error message gives very
+good information on what might be going wrong.  One of the most common
+error messages is `bop undefined'.  This is caused by old versions of
+Transcript and other spoolers that do not properly parse the setup
+section of the PostScript.  To fix this, turn off structured comments
+with the `-N' option, but make sure you get your spooling software
+updated.
+
+   Another error message is `VM exhausted'.  (Some printers indicate
+this error by locking up; others quietly reset.)  This is caused by
+telling dvips that the printer has more memory than it actually does,
+and then printing a complicated document.  To fix this, try lowering the
+parameter to `m' in the configuration file; use the debug option to
+make sure you adjust the correct file.
+
+   Other errors may indicate that the graphics you are trying to include
+don't nest properly in other PostScript documents, or any of a number of
+other possibilities.  Try the output on a QMS PS-810 or other Adobe
+PostScript printer; it might be a problem with the printer itself.
+
+
+File: dvips.info,  Node: 400 DPI,  Next: Long Documents Fail,  Prev: Printer Errors,  Up: Problems
+
+400 DPI Is Used Instead Of 300 DPI
+==================================
+
+   This common error is caused by not editing the `config.ps' file to
+reflect the correct resolution for your site.  You can use the debug
+flags (`-d64') to see what files are actually being read.
+
+
+File: dvips.info,  Node: Long Documents Fail,  Next: Including Graphics Fails,  Prev: 400 DPI,  Up: Problems
+
+Long Documents Fail To Print
+============================
+
+   This is usually caused by incorrectly specifying the amount of memory
+the printer has in `config.ps'; see the description above.
+
+
+File: dvips.info,  Node: Including Graphics Fails,  Next: Unable to Find Fonts,  Prev: Long Documents Fail,  Up: Problems
+
+Including Graphics Fails
+========================
+
+   The reasons why graphics inclusions fail are too numerous to mention.
+The most common problem is an incorrect bounding box; read the section
+on bounding boxes and check your PostScript file.  Complain very loudly
+to whoever wrote the software that generated the file if the bounding
+box is indeed incorrect.
+
+   Another possible problem is that the figure you are trying to include
+does not nest properly; there are certain rules PostScript applications
+should follow when generating files to be included.  The dvips program
+includes work-arounds for such errors in Adobe Illustrator and other
+programs, but there are certainly applications that haven't been tested.
+
+   One possible thing to try is the `-K' flag, to strip the comments
+from an included figure.  This might be necessary if the PostScript
+spooling software does not read the structuring comments correctly.  Use
+of this flag will break graphics from some applications, though, since
+some applications read the PostScript file from the input stream looking
+for a particular comment.
+
+   Any application which generates graphics output containing raw binary
+(not hex) will probably fail with dvips.
+
+
+File: dvips.info,  Node: Unable to Find Fonts,  Next: Unable to Generate Fonts,  Prev: Including Graphics Fails,  Up: Problems
+
+Unable to  Find Font Files
+==========================
+
+   If dvips complains that it cannot find certain font files, it is
+possible that the paths haven't been set up correctly for your system.
+Use the debug flags to determine precisely what fonts are being looked
+for and make sure these match where the fonts are located on your
+system.
+
+
+File: dvips.info,  Node: Unable to Generate Fonts,  Prev: Unable to Find Fonts,  Up: Problems
+
+Unable to Generate Fonts
+========================
+
+   This happens a lot if either `MakeTeXPK' hasn't been properly edited
+and installed, or if the local installation of METAFONT isn't correct. 
+If `MakeTeXPK' isn't properly edited or isn't installed, an error such
+as `MakeTeXPK not found' will be printed on the console.  The fix is to
+talk to the person who installed dvips and have them fix this.
+
+   If METAFONT isn't found when `MakeTeXPK' is running, make sure it is
+installed on your system.  The person who installed TeX should be able
+to install METAFONT easily.
+
+   If METAFONT runs but generates fonts that are too large (and prints
+out the name of each character as well as just a character number), then
+your METAFONT base file probably hasn't been made properly.  To make a
+proper `plain.base', assuming the local mode definitions are contained
+in `local.mf' (on the NeXT, `next.mf'; on the Amiga, `amiga.mf'), type
+the following command (assuming `csh' under UNIX):
+     % inimf "plain; input local; dump"
+
+Now, copy the `plain.base' file from the current directory to where the
+base files are stored on your system.
+
+   Note that a preloaded `cmbase.base' should never be used when
+creating fonts, and a program such as `cmmf' should never exist on the
+system.  The macros defined in `cmbase' will break fonts that do not
+use `cmbase'; such fonts include the LaTeX fonts.  Loading the `cmbase'
+macros when they are needed is done automatically and takes less than a
+second--an insignificant fraction of the total run time of METAFONT for
+a font, especially when the possibility of generating incorrect fonts
+is taken into account.  If you create the LaTeX font `circle10', for
+instance, with the `cmbase' macros loaded, the characters will have
+incorrect widths.
+
+
+File: dvips.info,  Node: Color,  Prev: Problems,  Up: Top
+
+Using Color with dvips
+**********************
+
+   This new feature of dvips is somewhat experimental so your
+experiences and comments are welcome.  Initially added by Jim Hafner,
+IBM Research, `hafner@almaden.ibm.com', the color support has gone
+through many changes by Tomas Rokicki.  Besides the changes to the
+source code itself, there are additional TeX macro files:
+`colordvi.tex' and `blackdvi.tex'.  There are also `.sty' versions of
+these files that can be used with LaTeX and other similar macro
+packages.  This feature adds one-pass multi-color printing of TeX
+documents on any color PostScript device.
+
+   In this section we describe the use of color from the document
+preparer's point of view and then add some simple instructions on
+installation for the system administrator.
+
+* Menu:
+
+* The Macro Files::             The Macro Files
+* User Definable Colors::       User Definable Colors
+* Color Subtleties::            Subtleties in Using Color
+* Ted Turner::                  Printing in Black/White, after Colorizing
+* Color Configuration ::        Configuring dvips for Color Devices
+* Color Support Details::       Color Support Details
+
+
+File: dvips.info,  Node: The Macro Files,  Next: User Definable Colors,  Up: Color
+
+The Macro Files
+===============
+
+   All the color macro commands are defined in `colordvi.tex' (or
+`colordvi.sty').  To access these macros simply add to the top of your
+TeX file the command
+
+     \input colordvi
+
+or, if your document uses style files like LaTeX, add the `colordvi'
+style option as in
+
+     \documentstyle[12pt,colordvi]{article}
+
+   There are basically two kinds of color macros, ones for local color
+changes to, say, a few words or even one symbol and one for global color
+changes.  Note that all the color names use a mixed case scheme.  There
+are 68 predefined colors, with names taken primarily from the Crayola
+crayon box of 64 colors, and one pair of macros for the user to set his
+own color pattern.  More on this extra feature later. You can browse the
+file `colordvi.tex' for a list of the predefined colors.  The comments
+in this file also show a rough correspondence between the crayon names
+and PANTONEs.
+
+   A local color command is in the form
+
+     \ColorName{this will print in color}
+
+Here `ColorName' is the name of a predefined color. As this example
+shows, this type of command takes one argument which is the text that is
+to print in the selected color.  This can be used for nested color
+changes since it restores the original color state when it completes.
+For example, suppose you were writing in green and want to switch
+temporarily to red, then blue, back to red and restore green.  Here is
+one way that you can do this:
+
+     This text is green but here we are \Red{switching to red,
+     \Blue{nesting blue}, recovering the red} and back to
+     original green.
+
+In principle there is no limit to the nesting level, but it is not
+advisable to nest too deep lest you loose track of the color history.
+
+   The global color command has the form
+
+     \textColorName
+
+This macro takes no arguments and immediately changes the default color
+from that point on to the specified color. This of course can be
+overriden globally by another such command or locally by local color
+commands. For example, expanding on the example above, we might have
+
+     \textGreen
+     This text is green but here we are \Red{switching to red,
+     \Blue{nesting blue}, recovering the red} and back to
+     original green.
+     \textCyan
+     The text from here on will be cyan unless
+     \Yellow{locally changed to yellow}. Now we are back to cyan.
+
+   The color commands will even work in math mode and across math mode
+boundaries.  This means that if you have a color before going into math
+mode, the mathematics will be set in that color as well.  More
+importantly however, in alignment environments like `\halign',
+`tabular' or `eqnarray', local color commands cannot extend beyond the
+alignment characters.
+
+   Because local color commands respect only some environment and
+deliminator changes besides their own, care must be taken in setting
+their scope.  It is best not to have then stretch too far.
+
+   At the present time there are no macros for color environments in
+LaTeX which might have a larger range.  This is primarily to keep the
+TeX and LaTeX use compatible.
+
+
+File: dvips.info,  Node: User Definable Colors,  Next: Color Subtleties,  Prev: The Macro Files,  Up: Color
+
+User Definable Colors
+=====================
+
+   There are two ways for the user to specify colors not already
+defined. For local changes, there is the command `\Color' which takes
+two arguments.  The first argument is a quadruple of numbers between
+zero and one and specifies the intensity of cyan, magenta, yellow and
+black (CMYK) in that order.  The second argument is the text that
+should appear in the given color.  For example, suppose you want the
+words "this color is pretty" to appear in a color which is 50% cyan,
+85% magenta, 40% yellow and 20% black.  You would use the command
+
+     \Color{.5 .85 .4 .2}{this color is pretty}
+
+   For global color changes, there is a command `\textColor' which
+takes one argument, the CMYK quadruple of relative color intensities.
+For example, if you want the default color to be as above, then the
+command
+
+     \textColor{.5 .85 .4 .2}
+     The text from now on will be this pretty color
+
+will do the trick.
+
+   Making a global color change in the midst of a nested local colors is
+highly discouraged.  Consequently, dvips will give you warning message
+and do its best to recover by discarding the current color history.
+
+
+File: dvips.info,  Node: Color Subtleties,  Next: Ted Turner,  Prev: User Definable Colors,  Up: Color
+
+Subtleties in Using Color
+=========================
+
+   These color macros are defined by use of specialized `\special'
+keywords.  As such, they are put in the `.dvi' file only as explicit
+message strings to the driver.  The (unpleasant) result is that certain
+unprotected regions of the text can have unwanted color side effects. 
+For example, if a color region is split by TeX across a page boundary,
+then the footers of the current page (e.g., the page number) and the
+headers of the next page can inherit that color.  To avoid this effect
+globally, users should make sure that these special regions of the text
+are defined with their own local color commands. For example in TeX, to
+protect the header and footer, use
+
+     \headline{\Black{My Header}}
+     \footline{\Black{\hss\tenrm\folio\hss}}
+
+   This warning also applies to figures and other insertions, so be
+careful!
+
+   Of course, in LaTeX, this is much more difficult to do because of the
+complexity of the macros that control these regions.  This is
+unfortunate, but is somehow inevitable because TeX and LaTeX were not
+written with color in mind.
+
+   Even when writing your own macros, much care must be taken.  The
+color macros that `colorize' a portion of the text work by prefixing
+the text with a special command to turn the color on and postfixing it
+with a different special command to restore the original color.  It is
+often useful to insure that TeX is in horizontal mode before the first
+special command is issued; this can be done by prefixing the color
+command with `\leavevmode'.
+
+
+File: dvips.info,  Node: Ted Turner,  Next: Color Configuration,  Prev: Color Subtleties,  Up: Color
+
+Printing in Black/White, after Colorizing
+=========================================
+
+   If you have a TeX or LaTeX document written with color macros and you
+want to print it in black and white there are two options.  On all
+(good) PostScript devices, printing a color file will print in
+corresponding grey-levels.  This is useful since in this way you can get
+a rough idea of where the colors are changing without using expensive
+color printing devices.  The second option is to replace the call to
+input `colordvi.tex' with `blackdvi.tex' (and similarly for the `.sty'
+files).  So in the above example, replacing the word `colordvi' with
+`blackdvi' suffices.  This file defines the color macros as no-ops, and
+so will produce normal black/white printing. By this simple mechanism,
+the user can switch to all black/white printing without having to
+ferret out the color commands.  Also, some device drivers, particularly
+non-PostScript ones like screen previewers, will simply ignore the
+color commands and so print in normal black/white.  Hopefully, in the
+future screen previewers for color displays will be compatible with
+some form of color support.
+
+
+File: dvips.info,  Node: Color Configuration,  Next: Color Support Details,  Prev: Ted Turner,  Up: Color
+
+Configuring dvips for Color Devices
+===================================
+
+   To configure dvips for a particular color device you need to fine
+tune the color parameters to match your devices color rendition.  To do
+this, you will need a PANTONE chart for your device.  The header file
+`color.lpro' shows a (rough) correspondence between the Crayola crayon
+names and the PANTONE numbers and also defines default CMYK values for
+each of the colors.  Note that these colors must be defined in CMYK
+terms and not RGB as dvips outputs PostScript color commands in CMYK. 
+This header file also defines (if they are not known to the
+interpreter) the PostScript commands `setcmykcolor' and
+`currentcmykcolor' in terms of a RGB equivalent so if your device only
+understands RGB, there should be no problem.
+
+   The parameters set in this file were determined by comparing the
+PANTONE chart of a Tektronics PHASER printer with the actual Crayola
+Crayons. Because these were defined for a particular device, the actual
+color rendition on your device may be very different.  There are two
+ways to adjust this.  One is to use the PANTONE chart for your device
+to rewrite `color.lpro' prior to compilation and installation.  A better
+alternative, which supports multiple devices, is to add a header file
+option in the configuration file for each device that defines, in
+`userdict', the color parameters for those colors that need redefining.
+
+   For example, if you need to change the parameters defining
+`Goldenrod' (approximately PANTONE 109) for your device `mycolordev',
+do the following.  In the PANTONE chart for your device, find the CMYK
+values for PANTONE 109.  Let's say they are `{\ 0 0.10 0.75 0.03 }'.
+Then create a header file named `mycolordev.pro' with the commands
+
+     userdict begin
+     /Goldenrod { 0 0.10 0.75 0.03 setcmykcolor} bind def
+
+Finally, in `config.mycolordev' add the line
+
+     h mycolordev.pro
+
+This will then define `Goldenrod' in your device's CMYK values in
+`userdict' which is checked before defining it in `TeXdict' by
+`color.pro'.
+
+   This mechanism, together with additions to `colordvi.tex' and
+`blackdvi.tex' (and the `.sty' files), can also be used to predefine
+other colors for your users.
+
+
+File: dvips.info,  Node: Color Support Details,  Prev: Color Configuration,  Up: Color
+
+Color Support Details
+=====================
+
+   To support color, dvips recognizes a certain set of specials.  These
+specials all start with the keyword `color' or the keyword `background'.
+
+   We will describe `background' first, since it is the simplest.  The
+`background' keyword must be followed by a color specification. That
+color specification is used as a fill color for the background. The
+last `background' special on a page is the one that gets issued, and it
+gets issued at the very beginning of the page, before any text or
+specials are sent.  (This is possible because the prescan phase of
+dvips notices all of the color specials so that the appropriate
+information can be written out during the second phase.)
+
+   Ahh, but what is a color specification?  It is one of three things.
+First, it might be a PostScript procedure as defined in a PostScript
+header file.  The `color.pro' file defines 64 of these, including
+`Maroon'.  This PostScript procedure must set the current color to be
+some value; in this case, `Maroon' is defined as `0 0.87 0.68 0.32
+setcmykcolor'.
+
+   The second possibility is the name of a color model (initially, one
+of `rgb', `hsb', `cmyk', or `gray') followed by the appropriate number
+of parameters.  When dvips encounters such a macro, it sends out the
+parameters first, followed by the string created by prefixing
+`TeXcolor' to the color model.  Thus, the color specification `rgb 0.3
+0.4 0.5' would generate the PostScript code `0.3 0.4 0.5 TeXrgbcolor'. 
+Note that the case of zero arguments is disallowed, as that is handled
+by the single keyword case above (where no changes to the name are made
+before it is sent to the PostScript file.)
+
+   The third and final type of color specification is a double quote
+followed by any sequence of PostScript.  The double quote is stripped
+from the output.  For instance, the color specification `"AggiePattern
+setpattern' will set the `color' to the Aggie logo pattern (assuming
+such exists.)
+
+   So those are the three types of color specifications.  The same type
+of specifications are used by both the `background' special and the
+`color' special.  The `color' special itself has three forms. The first
+is just `color' followed by a color specification.  In this case, the
+current global color is set to that color; the color stack must be
+empty when such a command is executed.
+
+   The second form is `color push' followed by a color specification.
+This saves the current color on the color stack and sets the color to be
+that given by the color specification.  This is the most common way to
+set a color.
+
+   The final version of the `color' special is just `color pop', with
+no color specification; this says to pop the color last pushed on the
+color stack from the color stack and set the current color to be that
+color.
+
+   The `dvips' program correctly handles these color specials across
+pages, even when the pages are repeated or reversed.
+
+   These color specials can be used for things such as patterns or
+screens as well as simple colors.  However, note that in the
+PostScript, only one `color specification' can be active at a time. 
+For instance, at the beginning of a page, only the bottommost entry on
+the color stack is sent; also, when a color is `popped', all that is
+done is that the color specification from the previous stack entry is
+sent.  No `gsave' or `grestore' is used.  This means that you cannot
+easily mix usage of the `color' specials for screens and colors, just
+one or the other. This may be addressed in the future by adding support
+for different `categories' of color-like state.
+
+

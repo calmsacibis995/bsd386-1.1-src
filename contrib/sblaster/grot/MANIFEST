@@ -1,0 +1,50 @@
+Here is a brief synopsis of the applications included with the BSD
+Sound Blaster Pro device driver, version 1.4 (June 12, 1992).
+
+xmix/xmix
+    An X Windows interface to the SB Pro mixer, using faders and such.
+
+cdsp
+    A program to set/read the DSP speed and stereo settings.
+
+chew
+    A simple program for converting between signed to unsigned byte
+    formats.  (csound uses and produces signed byte files; the SB wants
+    unsigned bytes.
+
+filt
+    A skeleton MIDI filter to read incoming MIDI data, possibly
+    modifies the bytes, and then sends them out the MIDI-OUT port.
+
+float
+    A program to convert between unsigned bytes and floating point binary
+    streams.  Floats are used by several phase vocoders and such.
+
+mixer
+    A command-line interface to the mixer.  Similar to the bundled DOS
+    program SBP-SET.
+
+notes
+    Generates random notes in the FM channels.  Not very useful, but it's
+    great for testing the driver, and it shows what a wide range of sounds
+    can come from those simple FM synth chips.
+
+playmidi
+    Reads a standard MIDI type 1 or type 0 file and sends the data out the
+    MIDI port.  Mostly useful for playing .mid files to an external MIDI
+    synthesizer.
+
+record
+    Simplifies recording direct to disk.  You tell it how long, what
+    speed, and what file to record into.
+
+midi2fm
+    Experimental program to play incoming MIDI notes on the FM synth
+    chips.  (Note that I play a horn, so polyphonics are probably not
+    supported properly.)
+        
+revox
+    Reverses binary sound files of any length.  
+
+midithru
+    Pass MIDI bytes from MIDI-IN to MIDI-OUT.  Handy when you need it.

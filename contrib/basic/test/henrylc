@@ -1,0 +1,135 @@
+
+ready
+
+ 10 read b
+ 20 print "bank statement"
+ 30 print "starting balance ";b
+ 40 read x
+ 50 if x=0 then 500
+ 60 if x>0 then 200
+ 70 rem -- it is a check
+100   print "check ";-x
+110   let b=b+x-.10
+120   if b>=0 then 40
+130   rem ***overdraft***
+140     print "***overdraft***"
+150     let b=b-5
+160     goto 40
+200   print "deposit ";x
+210   let b=b+x
+220   goto 40
+500 print "new balance ";b
+510 data 278.15
+520 data -55.11,-104.14,35,-211.63,787.93,-78.52
+530 data 0
+999 end
+
+ready
+
+  10 rem dealing bridge hands
+  20 rem written by         henry d. shapiro
+  30 rem                    cs 150  sec 007
+  40 rem                    10/26/81
+  50
+  60 rem variable dictionary
+  70 rem   d(52) - holds the deck of cards
+  80 rem   n(13) - holds north hand
+  90 rem   e(13) - holds east hand
+ 100 rem   s(13) - holds south hand
+ 110 rem   w(13) - holds west hand
+ 120 rem   c     - number of cards left in deck that are undealt
+ 130 rem   i     - which card we are dealing now (first, second,..,thirt
+eenth)
+ 140 rem   j     - 1,2,3,4 for north, east, south, and west
+ 150 rem   k     - location within deck of card we are dealing (tricky!!
+)
+ 160 rem   x     - a card (1 through 52)
+ 170 rem   y     - the suit (spade=4, heart=3, diamond=2, club=1)
+ 180 rem   z     - value of card (1 through 13)
+ 190
+ 200 rem cards are numbered 1 through 52.  aces are 1, 14, 27, 40, twos
+are
+ 210 rem 2, 15, 28, 41, ... , kings are 13, 26, 39, 52.
+ 220 rem spades are 40-52, hearts are 27-39, diamonds are 14-26, and clu
+bs
+ 230 rem are 1-13.
+ 240
+ 250 dim d(52),n(13),e(13),s(13),w(13)
+ 260
+ 270 rem set up deck initially (sorted!)
+ 280 for c=1 to 52
+ 290   let d(c)=c
+ 300 next c
+ 310
+ 320 let i=1   rem get ready to deal card 1
+ 330 let j=1   rem to player north
+ 340 for c=52 to 1 step -1
+ 350   let k=int(c*rnd)+1   rem randomly selected slot
+ 360   goto 370,400,430,460 on j
+ 370   let n(i)=d(k)
+ 380   let j=2
+ 390   goto 510
+ 400   let e(i)=d(k)
+ 410   let j=3
+ 420   goto 510
+ 430   let s(i)=d(k)
+ 440   let j=4
+ 450   goto 510
+ 460   let w(i)=d(k)
+ 470   let j=1
+ 480   let i=i+1    rem and get ready to deal the next card to each play
+er
+ 490
+ 500   rem fill in the hole created by dealing card k
+ 510   let d(k)=d(c)
+ 520 next c
+ 530
+ 540 rem hands are dealt
+ 550 rem print them (more or less) neatly
+ 560 for j=1 to 4
+ 570   goto 580,600,620,640 on j
+ 580   print "north:  ";
+ 590   goto 650
+ 600   print "east:   ";
+ 610   goto 650
+ 620   print "south:  ";
+ 630   goto 650
+ 640   print "west:   ";
+ 650   for i=1 to 13
+ 660     goto 670,690,710,730 on j
+ 670     let x=n(i)
+ 680     goto 740
+ 690     let x=e(i)
+ 700     goto 740
+ 710     let x=s(i)
+ 720     goto 740
+ 730     let x=w(i)
+ 740     let y=int((x-1)/13)+1  rem spade=4, heart=3, diamond=2, club=1
+ 750     let z=x-13*(y-1)       rem value of card
+ 760     goto 770,790,810,830 on y
+ 770     print "   c ";
+ 780     goto 840
+ 790     print "   d ";
+ 800     goto 840
+ 810     print "   h ";
+ 820     goto 840
+ 830     print "   s ";
+ 840     goto 850,870,870,870,870,870,870,870,870,900,930,950,970 on z
+ 850     print "a";
+ 860     goto 980
+ 870     print using 880,z
+ 880     form pic(#)
+ 890     goto 980
+ 900     print using 910,z
+ 910     form pic(##)
+ 920     goto 980
+ 930     print "j";
+ 940     goto 980
+ 950     print "q";
+ 960     goto 980
+ 970     print "k";
+ 980   next i
+ 990   rem force the carriage return at the end of the hand
+1000   print
+1010 next j
+1020 end

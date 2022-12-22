@@ -1,0 +1,1 @@
+#define NPE 3

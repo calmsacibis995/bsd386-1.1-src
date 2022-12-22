@@ -1,0 +1,5 @@
+F CHANGELO.;1                       	ChangeLog
+F CHANGES.;1                        	Changes
+F MAKEFILE.;1                       	Makefile
+F MAKEFILE.BSD;1                    	Makefile.bsdi
+F MAKEFILE.SUN;1                    	Makefile.sunos

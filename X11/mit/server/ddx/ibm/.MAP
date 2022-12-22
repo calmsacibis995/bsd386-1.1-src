@@ -1,0 +1,6 @@
+D AIX                               	AIX
+D COMMON                            	common
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+D PGC                               	pgc
+F README.GZ;1                       	README.gz
+D SKYWAY                            	skyway

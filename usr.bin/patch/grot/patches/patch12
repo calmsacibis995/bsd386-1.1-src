@@ -1,0 +1,302 @@
+System: patch version 2.0
+Patch #: 12
+Priority: LOW
+Subject: some faulty declarations
+
+Description:
+	Certain systems were producing compilation errors and warnings due
+	to some faulty declarations.
+
+Fix:	From rn, say "| patch -p -N -d DIR", where DIR is your patch source
+	directory.  Outside of rn, say "cd DIR; patch -p -N <thisarticle".
+
+	After patching:
+		Configure -d
+		make
+		make install
+
+	If patch indicates that patchlevel is the wrong version, you may need
+	to apply one or more previous patches, or the patch may already
+	have been applied.  See the patchlevel.h file to find out what has or
+	has not been applied.  In any event, don't continue with the patch.
+
+	If you are missing previous patches they can be obtained from me:
+
+	Larry Wall
+	lwall@jpl-devvax.jpl.nasa.gov
+
+	If you send a mail message of the following form it will greatly speed
+	processing:
+
+	Subject: Command
+	@SH mailpatch PATH patch 2.0 LIST
+		   ^ note the c
+
+	where PATH is a return path FROM ME TO YOU in Internet notation, and
+	LIST is the number of one or more patches you need, separated by spaces,
+	commas, and/or hyphens.  Saying 35- says everything from 35 to the end.
+
+	You can also get the patches via anonymous FTP from
+	jpl-devvax.jpl.nasa.gov (128.149.8.43).
+
+Index: patchlevel.h
+Prereq: 11
+1c1
+< #define PATCHLEVEL 11
+---
+> #define PATCHLEVEL 12
+
+Index: MANIFEST
+12a13
+> config.h.SH              3 Produces config.h.
+
+Index: Makefile.SH
+Prereq: 2.0.1.1
+*** Makefile.SH.old	Wed Jun 22 21:18:32 1988
+--- Makefile.SH	Wed Jun 22 21:18:32 1988
+***************
+*** 3,11 ****
+  esac
+  echo "Extracting Makefile (with variable substitutions)"
+  cat >Makefile <<!GROK!THIS!
+! # $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+  #
+  # $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
+  # Revision 2.0.1.1  88/06/03  15:00:48  lwall
+  # patch10: upgraded to match some new metaconfig stuff
+  # 
+--- 3,14 ----
+  esac
+  echo "Extracting Makefile (with variable substitutions)"
+  cat >Makefile <<!GROK!THIS!
+! # $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+  #
+  # $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
++ # Revision 2.0.1.2  88/06/22  20:43:40  lwall
++ # patch12: config.h now depends on config.h.SH
++ # 
+  # Revision 2.0.1.1  88/06/03  15:00:48  lwall
+  # patch10: upgraded to match some new metaconfig stuff
+  # 
+***************
+*** 55,60 ****
+--- 58,66 ----
+  
+  patch: $(obj)
+  	$(CC) $(LDFLAGS) $(obj) $(libs) -o patch
++ 
++ config.h: config.h.SH
++ 	sh config.h.SH
+  
+  # won't work with csh
+  install: patch
+
+Index: README
+*** README.old	Wed Jun 22 21:18:35 1988
+--- README	Wed Jun 22 21:18:36 1988
+***************
+*** 1,6 ****
+  			Patch Kit, Version 2.0
+  
+! 		    Copyright (c) 1986, Larry Wall
+  
+  You may copy the patch kit in whole or in part as long as you don't try to
+  make money off it, or pretend that you wrote it.
+--- 1,6 ----
+  			Patch Kit, Version 2.0
+  
+! 		    Copyright (c) 1988, Larry Wall
+  
+  You may copy the patch kit in whole or in part as long as you don't try to
+  make money off it, or pretend that you wrote it.
+***************
+*** 46,54 ****
+  5)  Read the manual entry before running patch.
+  
+  6)  IMPORTANT!  Help save the world!  Communicate any problems and
+!     suggested patches to me, lwall@sdcrdcf.UUCP (Larry Wall), so we can
+!     keep the world in sync.  If you have a problem, there's someone else
+!     out there who either has had or will have the same problem.
+  
+      If possible, send in patches such that the patch program will apply them.
+      Context diffs are the best, then normal diffs.  Don't send ed scripts--
+--- 46,54 ----
+  5)  Read the manual entry before running patch.
+  
+  6)  IMPORTANT!  Help save the world!  Communicate any problems and
+!     suggested patches to me, lwall@jpl-devvax.Jpl.Nasa.Gov (Larry Wall),
+!     so we can keep the world in sync.  If you have a problem, there's
+!     someone else out there who either has had or will have the same problem.
+  
+      If possible, send in patches such that the patch program will apply them.
+      Context diffs are the best, then normal diffs.  Don't send ed scripts--
+
+Index: common.h
+Prereq: 2.0.1.1
+*** common.h.old	Wed Jun 22 21:18:39 1988
+--- common.h	Wed Jun 22 21:18:40 1988
+***************
+*** 1,6 ****
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+   *
+   * $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
+   * Revision 2.0.1.1  88/06/03  15:01:56  lwall
+   * patch10: support for shorter extensions.
+   * 
+--- 1,9 ----
+! /* $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+   *
+   * $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.2  88/06/22  20:44:53  lwall
++  * patch12: sprintf was declared wrong
++  * 
+   * Revision 2.0.1.1  88/06/03  15:01:56  lwall
+   * patch10: support for shorter extensions.
+   * 
+***************
+*** 151,155 ****
+  #ifdef CHARSPRINTF
+  char *sprintf();
+  #else
+! int *sprintf();
+  #endif
+--- 154,158 ----
+  #ifdef CHARSPRINTF
+  char *sprintf();
+  #else
+! int sprintf();
+  #endif
+
+Index: patch.c
+Prereq: 2.0.1.5
+*** patch.c.old	Wed Jun 22 21:18:46 1988
+--- patch.c	Wed Jun 22 21:18:49 1988
+***************
+*** 1,5 ****
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+--- 1,5 ----
+  char rcsid[] =
+! 	"$Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $";
+  
+  /* patch - a program to apply diffs to original files
+   *
+***************
+*** 9,14 ****
+--- 9,17 ----
+   * money off of it, or pretend that you wrote it.
+   *
+   * $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
++  * Revision 2.0.1.6  88/06/22  20:46:39  lwall
++  * patch12: rindex() wasn't declared
++  * 
+   * Revision 2.0.1.5  88/06/03  15:09:37  lwall
+   * patch10: exit code improved.
+   * patch10: better support for non-flexfilenames.
+***************
+*** 288,293 ****
+--- 291,297 ----
+  		Strcpy(rejname, outname);
+  #ifndef FLEXFILENAMES
+  		{
++ 		    char *rindex();
+  		    char *s = rindex(rejname,'/');
+  
+  		    if (!s)
+
+Index: patch.man
+Prereq: 2.0.1.1
+*** patch.man.old	Wed Jun 22 21:18:56 1988
+--- patch.man	Wed Jun 22 21:18:57 1988
+***************
+*** 1,7 ****
+  .rn '' }`
+! ''' $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+  ''' 
+  ''' $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
+  ''' Revision 2.0.1.1  88/06/03  15:12:51  lwall
+  ''' patch10: -B switch was contributed.
+  ''' 
+--- 1,10 ----
+  .rn '' }`
+! ''' $Header: /bsdi/MASTER/BSDI_OS/usr.bin/patch/grot/patches/patch12,v 1.2 1992/01/04 19:03:26 kolstad Exp $
+  ''' 
+  ''' $Log: patch12,v $
+# Revision 1.2  1992/01/04  19:03:26  kolstad
+# Finish up initial import of BSDI0.2
+#
++ ''' Revision 2.0.1.2  88/06/22  20:47:18  lwall
++ ''' patch12: now avoids Bell System Logo
++ ''' 
+  ''' Revision 2.0.1.1  88/06/03  15:12:51  lwall
+  ''' patch10: -B switch was contributed.
+  ''' 
+***************
+*** 47,56 ****
+  '''     Bell System Logo is used as a dummy character.
+  '''
+  .ie n \{\
+! .tr \(bs-\*(Tr
+! .ds -- \(bs-
+! .if (\n(.H=4u)&(1m=24u) .ds -- \(bs\h'-12u'\(bs\h'-12u'-\" diablo 10 pitch
+! .if (\n(.H=4u)&(1m=20u) .ds -- \(bs\h'-12u'\(bs\h'-8u'-\" diablo 12 pitch
+  .ds L" ""
+  .ds R" ""
+  .ds L' '
+--- 50,59 ----
+  '''     Bell System Logo is used as a dummy character.
+  '''
+  .ie n \{\
+! .tr \(*W-\*(Tr
+! .ds -- \(*W-
+! .if (\n(.H=4u)&(1m=24u) .ds -- \(*W\h'-12u'\(*W\h'-12u'-\" diablo 10 pitch
+! .if (\n(.H=4u)&(1m=20u) .ds -- \(*W\h'-12u'\(*W\h'-8u'-\" diablo 12 pitch
+  .ds L" ""
+  .ds R" ""
+  .ds L' '
+
+Index: util.c
+*** util.c.old	Wed Jun 22 21:19:01 1988
+--- util.c	Wed Jun 22 21:19:03 1988
+***************
+*** 242,251 ****
+--- 242,259 ----
+      if (!reset) {
+  	hupval = signal(SIGHUP, SIG_IGN);
+  	if (hupval != SIG_IGN)
++ #ifdef VOIDSIG
+  	    hupval = my_exit;
++ #else
++ 	    hupval = (int(*)())my_exit;
++ #endif
+  	intval = signal(SIGINT, SIG_IGN);
+  	if (intval != SIG_IGN)
++ #ifdef VOIDSIG
+  	    intval = my_exit;
++ #else
++ 	    intval = (int(*)())my_exit;
++ #endif
+      }
+      Signal(SIGHUP, hupval);
+      Signal(SIGINT, intval);

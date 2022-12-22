@@ -1,0 +1,6 @@
+F CAT.;1                            	cat
+F CP.;1                             	cp
+F MV.;1                             	mv
+F SETUP0.BOO;1                      	setup.boot1
+F SETUP1.BOO;1                      	setup.boot2
+F UNCOMPRE.;1                       	uncompress

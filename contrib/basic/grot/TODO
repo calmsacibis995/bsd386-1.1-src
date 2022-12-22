@@ -1,0 +1,2 @@
+Not use PC anywhere, but rather PCP->l_no
+Fix integer arithmetic to use truncation rather than (double)(int) casting

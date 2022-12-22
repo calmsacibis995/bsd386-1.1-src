@@ -1,0 +1,11 @@
+Mg++	g++.c	/^main (argc, argv)$/
+choose_temp_base	g++.c	/^choose_temp_base ()$/
+choose_temp_base_try	g++.c	/^choose_temp_base_try (try, base)$/
+concat	g++.c	/^concat (s1, s2, s3)$/
+error	g++.c	/^error (va_alist)$/
+fancy_abort	g++.c	/^fancy_abort ()$/
+fatal	g++.c	/^fatal (va_alist)$/
+perror_exec	g++.c	/^perror_exec (name)$/
+pfatal_with_name	g++.c	/^pfatal_with_name (name)$/
+run_dos	g++.c	/^run_dos (program, argv)$/
+xmalloc	g++.c	/^xmalloc (size)$/

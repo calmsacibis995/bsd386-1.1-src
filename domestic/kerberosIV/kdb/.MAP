@@ -1,0 +1,6 @@
+F KRB_CACH.C;1                      	krb_cache.c
+F KRB_DBM.C;1                       	krb_dbm.c
+F KRB_KDB_.C;1                      	krb_kdb_utils.c
+F KRB_LIB.C;1                       	krb_lib.c
+F MAKEFILE.;1                       	Makefile
+F PRINT_PR.C;1                      	print_princ.c

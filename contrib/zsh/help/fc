@@ -1,0 +1,30 @@
+     fc [ -e ename ] [ -nlrdD ] [ old=new ... ] [ first [ last ] ]
+     fc -ARW [ filename ]
+          Select a range of commands from first to last from  the
+          history  list.   The  arguments  first  and last may be
+          specified as a number  or  as  a  string.   A  negative
+          number  is  used  as  an  offset to the current history
+          event number.  A string specifies the most recent event
+          beginning  with  the  given  string.  All substitutions
+          old=new, if any, are then performed  on  the  commands.
+          If  the  -l  flag  is given, the resulting commands are
+          listed on standard output.  Otherwise the  editor  pro-
+          gram  ename  is invoked on a file containing these his-
+          tory events.  If ename is not given, the value  of  the
+          parameter  FCEDIT  is used.  If ename is "-", no editor
+          is invoked.   When  editing  is  complete,  the  edited
+          command(s)  is  executed. If first is not specified, it
+          will be set to -1 (the most recent event), or to -16 if
+          the  -l  flag  is  given.  If last is not specified, it
+          will be set to first, or to -1 if the -l flag is given.
+          The  flag -r reverses the order of the commands and the
+          flag -n suppresses command numbers when listing.   Also
+          when  listing,  -d  prints datestamps for each command,
+          and -D prints real execution times.
+
+          fc -R reads the history from  the  given  file,  fc  -W
+          writes  the  history  out  to the given file, and fc -A
+          appends the history out to the given file.
+     history [ -nr ] [ first [ last ] ]
+          Same as fc -l.
+     r    Equivalent to fc -e -.

@@ -1,0 +1,222 @@
+
+[  I have not tried this at all.  --r$  ]
+
+Return-Path: mwm@violet.Berkeley.EDU
+Received: from violet.berkeley.edu (violet.berkeley.edu.ARPA) by PINEAPPLE.BBN.COM (4.12/4.7)  id AA28194; Tue, 14 Jul 87 00:52:17 edt
+Received: from localhost.ARPA
+	by violet.berkeley.edu (5.54 (CFC 4.22.3)/1.16.15)
+	id AA16462; Mon, 13 Jul 87 21:54:26 PDT
+Message-Id: <8707140454.AA16462@violet.berkeley.edu>
+To: Richard Salz <rsalz@pineapple.bbn.com>
+Subject: Re: Amiga version of the dir library... 
+Ultrix: Just say No!
+In-Reply-To: Your message of Wed, 08 Jul 87 21:19:51 -0400
+Date: Mon, 13 Jul 87 21:54:25 PDT
+From: Mike (My watch has windows) Meyer <mwm@violet.Berkeley.EDU>
+
+Here's what I did. This is built to reflect the 4BSD manual pages, not
+the SysV/dpANS manual pages.
+
+I now know how to get the telldir/seekdir pair to work correctly with
+multiple tell()s, but don't have much motivation to do so. If someone
+out there does it, or is interested in doing it, I'd be interested in
+the results or willing to help.
+
+Final note: as with many micros, there's more than one C compiler.
+This was written for the Lattice compiler, and uses features known
+not to exist in other Amiga compilers. Fixing it should be trivial.
+
+Oh, yeah - sorry for the delay in getting these two you.
+
+	<mike
+
+#! /bin/sh
+# This is a shell archive, meaning:
+# 1. Remove everything above the #! /bin/sh line.
+# 2. Save the resulting text in a file.
+# 3. Execute the file with /bin/sh (not csh) to create:
+#	dir.h
+#	ndir.c
+# By:	Mike (My watch has windows) Meyer (Missionaria Phonibalonica)
+export PATH; PATH=/bin:/usr/bin:$PATH
+echo shar: "extracting 'dir.h'" '(1708 characters)'
+if test -f 'dir.h'
+then
+	echo shar: "will not over-write existing file 'dir.h'"
+else
+sed 's/^X//' << \SHAR_EOF > 'dir.h'
+X#ifndef DIR_H
+X#define DIR_H
+X
+X#ifndef	EXEC_TYPES_H
+X#include "exec/types.h"
+X#endif
+X
+X#ifndef	LIBRARIES_DOS_H
+X#include "libraries/dos.h"
+X#endif
+X
+X#ifndef	LIBRARIES_DOSEXTENS_H
+X#include "libraries/dosextens.h"
+X#endif
+X/*
+X * MAXNAMELEN is the maximum length a file name can be. The direct structure
+X * is lifted form 4BSD, and has not been changed so that code which uses
+X * it will be compatable with 4BSD code. d_ino and d_reclen are unused,
+X * and will probably be set to some non-zero value.
+X */
+X#define	MAXNAMLEN	31		/* AmigaDOS file max length */
+X
+Xstruct	direct {
+X	ULONG	d_ino ;			/* unused - there for compatability */
+X	USHORT	d_reclen ;		/* ditto */
+X	USHORT	d_namlen ;		/* length of string in d_name */
+X	char	d_name[MAXNAMLEN + 1] ;	/* name must be no longer than this */
+X};
+X/*
+X * The DIRSIZ macro gives the minimum record length which will hold
+X * the directory entry.  This requires the amount of space in struct direct
+X * without the d_name field, plus enough space for the name with a terminating
+X * null byte (dp->d_namlen+1), rounded up to a 4 byte boundary.
+X */
+X
+X#undef DIRSIZ
+X#define DIRSIZ(dp) \
+X    ((sizeof(struct direct) - (MAXNAMLEN+1)) + (((dp) -> d_namlen+1 + 3) &~ 3))
+X/*
+X * The DIR structure holds the things that AmigaDOS needs to know about
+X * a file to keep track of where it is and what it's doing.
+X */
+X
+Xtypedef struct {
+X	struct FileInfoBlock	d_info ,	/* Default info block */
+X				d_seek ;	/* Info block for seeks */
+X	struct FileLock		*d_lock ;	/* Lock on directory */
+X	} DIR ;
+X	
+Xextern	DIR *opendir(char *) ;
+Xextern	struct direct *readdir(DIR *) ;
+Xextern	long telldir(DIR *) ;
+Xextern	void seekdir(DIR *, long) ;
+Xextern	void rewinddir(DIR *) ;
+Xextern	void closedir(DIR *) ;
+X#endif	DIR_H
+SHAR_EOF
+if test 1708 -ne "`wc -c < 'dir.h'`"
+then
+	echo shar: "error transmitting 'dir.h'" '(should have been 1708 characters)'
+fi
+fi
+echo shar: "extracting 'ndir.c'" '(2486 characters)'
+if test -f 'ndir.c'
+then
+	echo shar: "will not over-write existing file 'ndir.c'"
+else
+sed 's/^X//' << \SHAR_EOF > 'ndir.c'
+X/*
+X * ndir - routines to simulate the 4BSD new directory code for AmigaDOS.
+X */
+X#include <dir.h>
+X
+XDIR *
+Xopendir(dirname) char *dirname; {
+X	register DIR	*my_dir, *AllocMem(int, int) ;
+X	struct FileLock	*Lock(char *, int), *CurrentDir(struct FileLock *) ;
+X
+X	if ((my_dir = AllocMem(sizeof(DIR), 0)) == NULL) return NULL ;
+X
+X
+X	if (((my_dir -> d_lock = Lock(dirname, ACCESS_READ)) == NULL)
+X	/* If we can't examine it */
+X	||  !Examine(my_dir -> d_lock, &(my_dir -> d_info))
+X	/* Or it's not a directory */
+X	||  (my_dir -> d_info . fib_DirEntryType < 0)) {
+X		FreeMem(my_dir, sizeof(DIR)) ;
+X		return NULL ;
+X		}
+X	return my_dir ;
+X	}
+X
+Xstruct direct *
+Xreaddir(my_dir) DIR *my_dir; {
+X	static struct direct	result ;
+X
+X	if (!ExNext(my_dir -> d_lock, &(my_dir -> d_info))) return NULL ;
+X
+X	result . d_reclen = result . d_ino = 1 ;	/* Not NULL! */
+X	(void) strcpy(result . d_name, my_dir -> d_info . fib_FileName) ;
+X	result . d_namlen = strlen(result . d_name) ;
+X	return &result ;
+X	}
+X
+Xvoid
+Xclosedir(my_dir) DIR *my_dir; {
+X
+X	UnLock(my_dir -> d_lock) ;
+X	FreeMem(my_dir, sizeof(DIR)) ;
+X	}
+X/*
+X * telldir and seekdir don't work quite right. The problem is that you have
+X * to save more than a long's worth of stuff to indicate position, and it's
+X * socially unacceptable to alloc stuff that you don't free later under
+X * AmigaDOS. So we fake it - you get one level of seek, and dat's all.
+X * As of now, these things are untested.
+X */
+X#define DIR_SEEK_RETURN		((long) 1)	/* Not 0! */
+Xlong
+Xtelldir(my_dir) DIR *my_dir; {
+X
+X	my_dir -> d_seek = my_dir -> d_info ;
+X	return (long) DIR_SEEK_RETURN ;
+X	}
+X
+Xvoid
+Xseekdir(my_dir, where) DIR *my_dir; long where; {
+X
+X	if (where == DIR_SEEK_RETURN)
+X		my_dir -> d_info = my_dir -> d_seek ;
+X	else	/* Makes the next readdir fail */
+X		setmem((char *) my_dir, sizeof(DIR), 0) ;
+X	}
+X
+Xvoid
+Xrewinddir(my_dir) DIR *my_dir; {
+X
+X	if (!Examine(my_dir -> d_lock, &(my_dir -> d_info)))
+X		setmem((char *) my_dir, sizeof(DIR), 0) ;
+X	}
+X#ifdef	TEST
+X/*
+X * Simple code to list the files in the argument directory,
+X *	lifted straight from the man page.
+X */
+X#include <stdio.h>
+Xvoid
+Xmain(argc, argv) int argc; char **argv; {
+X	register DIR		*dirp ;
+X	register struct direct	*dp ;
+X	register char		*name ;
+X
+X	if (argc < 2) name = "" ;
+X	else name = argv[1] ;
+X
+X	if ((dirp = opendir(name)) == NULL) {
+X		fprintf(stderr, "Bogus! Can't opendir %s\n", name) ;
+X		exit(1) ;
+X		}
+X
+X	for (dp = readdir(dirp); dp != NULL; dp = readdir(dirp))
+X		printf("%s ", dp -> d_name) ;
+X	closedir(dirp);
+X	putchar('\n') ;
+X	}
+X#endif	TEST
+X
+SHAR_EOF
+if test 2486 -ne "`wc -c < 'ndir.c'`"
+then
+	echo shar: "error transmitting 'ndir.c'" '(should have been 2486 characters)'
+fi
+fi
+exit 0
+#	End of shell archive

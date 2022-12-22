@@ -1,0 +1,41 @@
+# $Header: /bsdi/MASTER/BSDI_OS/contrib/flexfax/etc/config.mt-1432,v 1.1.1.1 1994/01/14 23:09:38 torek Exp $
+#
+# Configuration for a Multi-Tech MT1432 and MT224BA modems
+# w/ firmware revision 0307 I or newer (0109A for MT1432BG).
+# Note that MT1432 modems come in several varieties:
+#
+# MT1432BA	uses Rockwell data pump
+# MT1432BA/A	uses AT&T data pump
+# MT1432BG	MT1432BA tweaked for German FCC
+# MT1432MK	(for UK?)
+#
+# The modem has been tried with both XON/XOFF and RTS/CTS flow
+# control; this configuration is for XON/XOFF.
+#
+# CONFIG: CLASS2: Multi-Tech*
+#
+CountryCode:		1		# USA
+LongDistancePrefix:	1
+InternationalPrefix:	011
+AreaCode:		415
+DialStringRules:	etc/dialrules
+FAXNumber:		+1.415.965.7824
+ServerTracing:		1
+SessionTracing:		11
+RecvFileMode:		0600
+LogFileMode:		0600		# private log files
+DeviceMode:		0600		# device is accessible only to uucp/fax
+SpeakerVolume:		off
+RingsBeforeAnswer:	1		# answer on first ring
+#
+ModemType:		Class2		# use class 2 interface
+ModemRate:		38400		# max rate for DCE-DTE communication
+ModemFlowControl:	xonxoff		# XON/XOFF flow control assumed
+ModemFlowControlCmd:	&E5		# software flow control
+ModemSetupDTRCmd:	&D3		# setup so DTR drop resets modem
+ModemSetupDCDCmd:	&C1		# setup so DCD reflects carrier (or not)
+ModemSetupAACmd:	+FAA=1		# enable adaptive-answer in class 2
+#GettyArgs:		"-h %l dx_%s"	# requires modem to auto-detect fax/data
+ModemDialCmd:		DT%s@		# T for tone dialing, @ for silence
+#
+Class2RecvDataTrigger:	"\022"		# character sent to modem to start recv

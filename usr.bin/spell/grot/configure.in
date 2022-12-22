@@ -1,0 +1,78 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(ispell.c)
+AC_PROG_CC
+AC_GCC_TRADITIONAL
+AC_PROG_INSTALL
+
+AC_USG
+if test "z$USG" = "z" ; then
+   echo checking for BSD
+   ( test -f /vmunix || test -f /sdmach || test -f /../../mach ) && AC_DEFINE(BSD)
+fi
+
+CHARSET="c-generic.c"
+AC_PROGRAM_CHECK(i386_host_p, i386, t, nil)
+if test "${i386_host_p}" = "t" && i386 > /dev/null 2>&1; then
+   CHARSET="c-ibmpc.c"
+fi
+
+# Systems that have -ltermlib should use that before -ltermcap (e.g. SVR4)
+found_termlib=''
+for termlib in termlib termcap terminfo curses ; do
+   AC_HAVE_LIBRARY(${termlib}, [LIBS="${LIBS} -l${termlib}"])
+   case " ${LIBS} " in
+      *" -l${termlib} "* ) found_termlib=t; break ;;
+   esac
+done
+if test ".${found_termlib}" = "." ; then 
+   AC_DEFINE(NO_TERMCAP)
+fi
+
+AC_HAVE_LIBRARY(-lBSD, [LIBS="${LIBS} -lBSD"])
+AC_HAVE_LIBRARY(-lc, [LIBS="${LIBS} -lc"])
+
+# Needed by Solaris 2.x to resolve references in libucb.  (and maybe other
+# SVR4 systems need this too?)
+AC_HAVE_LIBRARY(-lelf, [LIBS="${LIBS} -lelf"])
+
+# Needed for SVR4
+my_LIBS_save="${LIBS}"
+LIBS="${LIBS} -L/usr/ucblib"
+AC_HAVE_LIBRARY(-lucb, [LIBS="${LIBS} -lucb"], [LIBS="${my_LIBS_save}"])
+case " ${LIBS} " in
+   *' -lucb '* ) 
+      echo "*** Note: You may need to set LD_LIBRARY_PATH or LD_PATH to" 1>&2
+      echo "*** contain /usr/ucblib for the ispell executables to work." 1>&2
+      echo "*** (don't blame us, this is SVR4 lossage)" 1>&2
+     ;;
+esac   
+
+AC_RETSIGTYPE
+AC_CONST
+AC_INLINE
+AC_ALLOCA
+
+AC_HAVE_HEADERS(malloc.h termios.h termio.h string.h strings.h)
+
+AC_COMPILE_CHECK([checking for broken TIOCGWINSZ],[
+#include <sys/ioctl.h>
+#ifdef HAVE_TERMIOS_H
+#include <termios.h>
+#else /* ! HAVE_TERMIOS_H */
+#ifdef HAVE_TERMIO_H
+#include <termio.h>
+#else /* ! HAVE_TERMIO_H */
+#include <sgtty.h>
+#endif
+#endif
+],[
+#ifdef TIOCGWINSZ
+struct winsize	wsize;
+#endif /* TIOCGWINSZ */
+],
+[:],
+[AC_DEFINE(BROKEN_TIOCGWINSZ)]
+)
+
+AC_SUBST(CHARSET)
+AC_OUTPUT(Makefile)

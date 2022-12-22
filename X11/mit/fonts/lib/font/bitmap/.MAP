@@ -1,0 +1,16 @@
+F BDFINT_H.GZ;1                     	bdfint.h.gz
+F BDFREAD_.GZ;1                     	bdfread.c.gz
+F BDFUTILS.GZ;1                     	bdfutils.c.gz
+F BITMAPFI.GZ;1                     	bitmapfile.c.gz
+F BITMAPFU.GZ;1                     	bitmapfuncs.c.gz
+F BITMAPUT.GZ;1                     	bitmaputils.c.gz
+F BITMAP_C.GZ;1                     	bitmap.c.gz
+F BITSCALE.GZ;1                     	bitscale.c.gz
+F FONTINK_.GZ;1                     	fontink.c.gz
+F FSFUNCS_.GZ;1                     	fsfuncs.c.gz
+F IMAKEFIL.GZ;1                     	Imakefile.gz
+F PCFREAD_.GZ;1                     	pcfread.c.gz
+F PCFWRITE.GZ;1                     	pcfwrite.c.gz
+F PCF_H.GZ;1                        	pcf.h.gz
+F SNFREAD_.GZ;1                     	snfread.c.gz
+F SNFSTR_H.GZ;1                     	snfstr.h.gz

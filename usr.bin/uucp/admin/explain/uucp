@@ -1,0 +1,10 @@
+
+	-C	Copy files to spool.
+	-c	Don't copy files [default].
+	-d	Create directories as needed [default].
+	-f	Don't create directories.
+	-j	Print job ID on stdout.
+	-m	Don't send mail on completion.
+	-r	Don't start uucico immediately.
+	-?	Explain arguments.
+	-#	Show version.

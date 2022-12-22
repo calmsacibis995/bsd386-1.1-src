@@ -1,0 +1,13 @@
+addassoclst	ci.c	/^addassoclst(flag, sp)$/
+addbranch	ci.c	/^addbranch(branchpoint,num)$/
+addelta	ci.c	/^addelta()$/
+addsyms	ci.c	/^addsyms(num)$/
+cleanup	ci.c	/^cleanup()$/
+exiterr	ci.c	/^exiterr()$/
+fixwork	ci.c	/^  fixwork(newworkmode, mtime)$/
+getcurdate	ci.c	/^getcurdate()$/
+getlogmsg	ci.c	/^getlogmsg()$/
+incnum	ci.c	/^incnum(onum,nnum)$/
+mainProg	ci.c	/^mainProg(ciId, "ci", "$Id: ci.c,v 1.1.1.1 1993\/12/
+removelock	ci.c	/^removelock(delta)$/
+xpandfile	ci.c	/^xpandfile(unexfile, dir, delta, exfilename)$/

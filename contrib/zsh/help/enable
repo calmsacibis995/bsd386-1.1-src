@@ -1,0 +1,3 @@
+     enable arg ...
+          Enable the specified builtin commands, presumably  dis-
+          abled earlier with disable.
